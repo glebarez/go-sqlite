@@ -9,6 +9,24 @@
 // Package sqlite is an in-process implementation of a self-contained,
 // serverless, zero-configuration, transactional SQL database engine. (Work In Progress)
 //
+// Connecting to a database
+//
+// To access a Sqlite database do something like
+//
+//	import (
+//		"database/sql"
+//
+//		_ "github.com/cznic/sqlite"
+//	)
+//
+//	...
+//
+//
+//	db, err := sql.Open("sqlite", dsnURI)
+//
+//	...
+//
+//
 // Do not use in production
 //
 // This is an experimental, pre-alpha, technology preview package. Performance
