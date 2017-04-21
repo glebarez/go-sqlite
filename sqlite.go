@@ -31,7 +31,7 @@
 //
 // This is an experimental, pre-alpha, technology preview package. Performance
 // is not (yet) a priority. When this virtual machine approach, hopefully,
-// reaches a reasonable levels of completeness and correctness, the plan is to
+// reaches a reasonable level of completeness and correctness, the plan is to
 // eventually mechanically translate the IR form, produced by
 // http://github.com/cznic/ccir, to Go. Unreadable Go, presumably.
 //
