@@ -7,15 +7,20 @@ package sqlite
 import (
 	"bytes"
 	"database/sql"
+	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/cznic/virtual"
 )
 
 func caller(s string, va ...interface{}) {
@@ -56,7 +61,15 @@ func init() {
 
 // ============================================================================
 
-func tempDB(t *testing.T) (string, *sql.DB) {
+var (
+	// -tags virtual.profile
+	profileFunctions    = flag.Bool("profile_functions", false, "")
+	profileInstructions = flag.Bool("profile_instructions", false, "")
+	profileLines        = flag.Bool("profile_lines", false, "")
+	profileRate         = flag.Int("profile_rate", 1000, "")
+)
+
+func tempDB(t testing.TB) (string, *sql.DB) {
 	dir, err := ioutil.TempDir("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
@@ -73,6 +86,7 @@ func tempDB(t *testing.T) (string, *sql.DB) {
 
 func TestScalar(t *testing.T) {
 	dir, db := tempDB(t)
+
 	defer func() {
 		db.Close()
 		os.RemoveAll(dir)
@@ -140,6 +154,7 @@ func TestScalar(t *testing.T) {
 
 func TestBlob(t *testing.T) {
 	dir, db := tempDB(t)
+
 	defer func() {
 		db.Close()
 		os.RemoveAll(dir)
@@ -187,4 +202,245 @@ func TestBlob(t *testing.T) {
 	if g, e := a[1].b, b2; !bytes.Equal(g, e) {
 		t.Fatal(g, e)
 	}
+}
+
+func profile(t testing.TB, d time.Duration, w io.Writer, format string, arg ...interface{}) {
+	rate := vm.ProfileRate
+	if rate == 0 {
+		rate = 1
+	}
+	if len(vm.ProfileFunctions) != 0 {
+		fmt.Fprintf(w, format, arg...)
+		type u struct {
+			virtual.PCInfo
+			n int
+		}
+		var s int64
+		var a []u
+		var wi int
+		for k, v := range vm.ProfileFunctions {
+			a = append(a, u{k, v})
+			s += int64(v)
+			if n := len(k.Name.String()); n > wi {
+				wi = n
+			}
+		}
+		sort.Slice(a, func(i, j int) bool {
+			if a[i].n < a[j].n {
+				return true
+			}
+
+			if a[i].n > a[j].n {
+				return false
+			}
+
+			return a[i].Name < a[j].Name
+		})
+		fmt.Fprintf(w, "---- Profile functions, %.3f MIPS\n", float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d))
+		var c int64
+		for i := len(a) - 1; i >= 0; i-- {
+			c += int64(a[i].n)
+			fmt.Fprintf(
+				w,
+				"%*v\t%10v%10.2f%%%10.2f%%\n",
+				-wi, a[i].Name, a[i].n,
+				100*float64(a[i].n)/float64(s),
+				100*float64(c)/float64(s),
+			)
+		}
+	}
+	if len(vm.ProfileLines) != 0 {
+		fmt.Fprintf(w, format, arg...)
+		type u struct {
+			virtual.PCInfo
+			n int
+		}
+		var s int64
+		var a []u
+		for k, v := range vm.ProfileLines {
+			a = append(a, u{k, v})
+			s += int64(v)
+		}
+		sort.Slice(a, func(i, j int) bool {
+			if a[i].n < a[j].n {
+				return true
+			}
+
+			if a[i].n > a[j].n {
+				return false
+			}
+
+			if a[i].Name < a[j].Name {
+				return true
+			}
+
+			if a[i].Name > a[j].Name {
+				return false
+			}
+
+			return a[i].Line < a[j].Line
+		})
+		fmt.Fprintf(w, "---- Profile lines, %.3f MIPS\n", float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d))
+		var c int64
+		for i := len(a) - 1; i >= 0; i-- {
+			c += int64(a[i].n)
+			fmt.Fprintf(
+				w,
+				"%v:%v:\t%10v%10.2f%%%10.2f%%\n",
+				a[i].Name, a[i].Line, a[i].n,
+				100*float64(a[i].n)/float64(s),
+				100*float64(c)/float64(s),
+			)
+		}
+	}
+	if len(vm.ProfileInstructions) != 0 {
+		fmt.Fprintf(w, format, arg...)
+		type u struct {
+			virtual.Opcode
+			n int
+		}
+		var s int64
+		var a []u
+		var wi int
+		for k, v := range vm.ProfileInstructions {
+			a = append(a, u{k, v})
+			s += int64(v)
+			if n := len(k.String()); n > wi {
+				wi = n
+			}
+		}
+		sort.Slice(a, func(i, j int) bool {
+			if a[i].n < a[j].n {
+				return true
+			}
+
+			if a[i].n > a[j].n {
+				return false
+			}
+
+			return a[i].Opcode < a[j].Opcode
+		})
+		fmt.Fprintf(w, "---- Profile instructions, %.3f MIPS\n", float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d))
+		var c int64
+		for i := len(a) - 1; i >= 0; i-- {
+			c += int64(a[i].n)
+			fmt.Fprintf(
+				w,
+				"%*s%10v%10.2f%%\t%10.2f%%\n",
+				-wi, a[i].Opcode, a[i].n,
+				100*float64(a[i].n)/float64(s),
+				100*float64(c)/float64(s),
+			)
+		}
+	}
+}
+
+func BenchmarkInsertMemory(b *testing.B) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	defer func() {
+		db.Close()
+	}()
+
+	if _, err := db.Exec(`
+	create table t(i int);
+	begin;
+	`); err != nil {
+		b.Fatal(err)
+	}
+
+	s, err := db.Prepare("insert into t values(?)")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	if *profileFunctions {
+		vm.ProfileFunctions = map[virtual.PCInfo]int{}
+	}
+	if *profileLines {
+		vm.ProfileLines = map[virtual.PCInfo]int{}
+	}
+	if *profileInstructions {
+		vm.ProfileInstructions = map[virtual.Opcode]int{}
+	}
+	vm.ProfileRate = int(*profileRate)
+	t0 := time.Now()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		if _, err := s.Exec(int64(i)); err != nil {
+			b.Fatal(err)
+		}
+	}
+	b.StopTimer()
+	d := time.Since(t0)
+	if _, err := db.Exec(`commit;`); err != nil {
+		b.Fatal(err)
+	}
+
+	profile(b, d, os.Stderr, "==== BenchmarkInsertMemory b.N %v\n", b.N)
+}
+
+func BenchmarkNextMemory(b *testing.B) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	defer func() {
+		db.Close()
+	}()
+
+	if _, err := db.Exec(`
+	create table t(i int);
+	begin;
+	`); err != nil {
+		b.Fatal(err)
+	}
+
+	s, err := db.Prepare("insert into t values(?)")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	defer s.Close()
+
+	for i := 0; i < b.N; i++ {
+		if _, err := s.Exec(int64(i)); err != nil {
+			b.Fatal(err)
+		}
+	}
+	if _, err := db.Exec("commit"); err != nil {
+		b.Fatal(err)
+	}
+
+	r, err := db.Query("select * from t")
+	if err != nil {
+
+	}
+
+	defer r.Close()
+
+	if *profileFunctions {
+		vm.ProfileFunctions = map[virtual.PCInfo]int{}
+	}
+	if *profileLines {
+		vm.ProfileLines = map[virtual.PCInfo]int{}
+	}
+	if *profileInstructions {
+		vm.ProfileInstructions = map[virtual.Opcode]int{}
+	}
+	vm.ProfileRate = int(*profileRate)
+	t0 := time.Now()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		if !r.Next() {
+			b.Fatal(err)
+		}
+	}
+	b.StopTimer()
+	d := time.Since(t0)
+	profile(b, d, os.Stderr, "==== BenchmarkNextMemory b.N %v\n", b.N)
 }
