@@ -62,11 +62,13 @@ func init() {
 // ============================================================================
 
 var (
-	// -tags virtual.profile
+	// Add "-tags virtual.profile" to the command.
+	profileAll          = flag.Bool("profile", false, "")
 	profileFunctions    = flag.Bool("profile_functions", false, "")
 	profileInstructions = flag.Bool("profile_instructions", false, "")
 	profileLines        = flag.Bool("profile_lines", false, "")
 	profileRate         = flag.Int("profile_rate", 1000, "")
+	recsPerSec          = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 )
 
 func tempDB(t testing.TB) (string, *sql.DB) {
@@ -209,6 +211,9 @@ func profile(t testing.TB, d time.Duration, w io.Writer, format string, arg ...i
 	if rate == 0 {
 		rate = 1
 	}
+	if len(vm.ProfileFunctions)+len(vm.ProfileLines)+len(vm.ProfileInstructions) != 0 {
+		fmt.Fprintf(w, "# %v\n", os.Args[1:])
+	}
 	if len(vm.ProfileFunctions) != 0 {
 		fmt.Fprintf(w, format, arg...)
 		type u struct {
@@ -236,7 +241,10 @@ func profile(t testing.TB, d time.Duration, w io.Writer, format string, arg ...i
 
 			return a[i].Name < a[j].Name
 		})
-		fmt.Fprintf(w, "---- Profile functions, %.3f MIPS\n", float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d))
+		fmt.Fprintf(w, "---- Profile functions, %v samples in %v, %.3f MIPS, %v/sample\n", s, d, float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d), time.Duration(float64(d)/float64(s)))
+		if x, ok := t.(*testing.B); ok {
+			fmt.Fprintf(w, "\t%v samples/1 [samples/b.N]\n", s/int64(x.N))
+		}
 		var c int64
 		for i := len(a) - 1; i >= 0; i-- {
 			c += int64(a[i].n)
@@ -280,7 +288,10 @@ func profile(t testing.TB, d time.Duration, w io.Writer, format string, arg ...i
 
 			return a[i].Line < a[j].Line
 		})
-		fmt.Fprintf(w, "---- Profile lines, %.3f MIPS\n", float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d))
+		fmt.Fprintf(w, "---- Profile lines, %v samples in %v, %.3f MIPS, %v/sample\n", s, d, float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d), time.Duration(float64(d)/float64(s)))
+		if x, ok := t.(*testing.B); ok {
+			fmt.Fprintf(w, "\t%v samples/1 [samples/b.N]\n", s/int64(x.N))
+		}
 		var c int64
 		for i := len(a) - 1; i >= 0; i-- {
 			c += int64(a[i].n)
@@ -320,7 +331,10 @@ func profile(t testing.TB, d time.Duration, w io.Writer, format string, arg ...i
 
 			return a[i].Opcode < a[j].Opcode
 		})
-		fmt.Fprintf(w, "---- Profile instructions, %.3f MIPS\n", float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d))
+		fmt.Fprintf(w, "---- Profile instructions, %v samples in %v, %.3f MIPS, %v/sample\n", s, d, float64(s)/1e6*float64(rate)*float64(time.Second)/float64(d), time.Duration(float64(d)/float64(s)))
+		if x, ok := t.(*testing.B); ok {
+			fmt.Fprintf(w, "\t%v samples/1 [samples/b.N]\n", s/int64(x.N))
+		}
 		var c int64
 		for i := len(a) - 1; i >= 0; i-- {
 			c += int64(a[i].n)
@@ -357,13 +371,13 @@ func BenchmarkInsertMemory(b *testing.B) {
 		b.Fatal(err)
 	}
 
-	if *profileFunctions {
+	if *profileAll || *profileFunctions {
 		vm.ProfileFunctions = map[virtual.PCInfo]int{}
 	}
-	if *profileLines {
+	if *profileAll || *profileLines {
 		vm.ProfileLines = map[virtual.PCInfo]int{}
 	}
-	if *profileInstructions {
+	if *profileAll || *profileInstructions {
 		vm.ProfileInstructions = map[virtual.Opcode]int{}
 	}
 	vm.ProfileRate = int(*profileRate)
@@ -375,6 +389,9 @@ func BenchmarkInsertMemory(b *testing.B) {
 		}
 	}
 	b.StopTimer()
+	if *recsPerSec {
+		b.SetBytes(1e6)
+	}
 	d := time.Since(t0)
 	if _, err := db.Exec(`commit;`); err != nil {
 		b.Fatal(err)
@@ -423,13 +440,13 @@ func BenchmarkNextMemory(b *testing.B) {
 
 	defer r.Close()
 
-	if *profileFunctions {
+	if *profileAll || *profileFunctions {
 		vm.ProfileFunctions = map[virtual.PCInfo]int{}
 	}
-	if *profileLines {
+	if *profileAll || *profileLines {
 		vm.ProfileLines = map[virtual.PCInfo]int{}
 	}
-	if *profileInstructions {
+	if *profileAll || *profileInstructions {
 		vm.ProfileInstructions = map[virtual.Opcode]int{}
 	}
 	vm.ProfileRate = int(*profileRate)
@@ -441,6 +458,9 @@ func BenchmarkNextMemory(b *testing.B) {
 		}
 	}
 	b.StopTimer()
+	if *recsPerSec {
+		b.SetBytes(1e6)
+	}
 	d := time.Since(t0)
 	profile(b, d, os.Stderr, "==== BenchmarkNextMemory b.N %v\n", b.N)
 }
