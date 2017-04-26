@@ -23,6 +23,8 @@ import (
 	"sort"
 	"strings"
 
+	"log"
+
 	"github.com/cznic/cc"
 	"github.com/cznic/ccir"
 	"github.com/cznic/internal/buffer"
@@ -30,7 +32,6 @@ import (
 	"github.com/cznic/strutil"
 	"github.com/cznic/virtual"
 	"github.com/cznic/xc"
-	"log"
 )
 
 var (
@@ -139,6 +140,7 @@ func build(predef string, tus [][]string, opts ...cc.Opt) ([]*cc.TranslationUnit
 				cc.AllowCompatibleTypedefRedefinitions(),
 				cc.EnableImplicitFuncDef(),
 				cc.EnableNonConstStaticInitExpressions(),
+				cc.EnableWideBitFieldTypes(),
 				cc.ErrLimit(*errLimit),
 				cc.SysIncludePaths([]string{ccir.LibcIncludePath}),
 			}, opts...)...,
