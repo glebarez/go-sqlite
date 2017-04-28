@@ -235,7 +235,7 @@ func (r *result) lastInsertRowID() (v int64, _ error) {
 	_, err := r.FFI1(
 		lastInsertRowID,
 		virtual.Int64Result{&v},
-		virtual.Ptr(r.db()),
+		virtual.Ptr(r.pdb()),
 	)
 	return v, err
 }
@@ -246,7 +246,7 @@ func (r *result) changes() (int, error) {
 	_, err := r.FFI1(
 		changes,
 		virtual.Int32Result{&v},
-		virtual.Ptr(r.db()),
+		virtual.Ptr(r.pdb()),
 	)
 	return int(v), err
 }
@@ -275,11 +275,11 @@ type rows struct {
 	columns []string
 	rc0     int
 	pstmt   uintptr
-	step    bool
+	doStep  bool
 }
 
 func (r *rows) String() string {
-	return fmt.Sprintf("&%T@%p{stmt: %p, columns: %v, rc0: %v, pstmt: %#x, step: %v}", *r, r, r.stmt, r.columns, r.rc0, r.pstmt, r.step)
+	return fmt.Sprintf("&%T@%p{stmt: %p, columns: %v, rc0: %v, pstmt: %#x, doStep: %v}", *r, r, r.stmt, r.columns, r.rc0, r.pstmt, r.doStep)
 }
 
 func newRows(s *stmt, pstmt uintptr, rc0 int) (*rows, error) {
@@ -337,13 +337,13 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 		}()
 	}
 	rc := r.rc0
-	if r.step {
-		if rc, err = r.stmt.step(r.pstmt); err != nil {
+	if r.doStep {
+		if rc, err = r.step(r.pstmt); err != nil {
 			return err
 		}
 	}
 
-	r.step = true
+	r.doStep = true
 
 	switch rc {
 	case bin.XSQLITE_ROW:
@@ -511,34 +511,34 @@ func (r *rows) columnName(n int) (string, error) {
 type stmt struct {
 	*conn
 	allocs []uintptr
-	pquery uintptr
-	pstmt  uintptr
+	psql   uintptr
+	ppstmt uintptr
 	pzTail uintptr
 }
 
 func (s *stmt) String() string {
-	return fmt.Sprintf("&%T@%p{conn: %p, alloc %v, pquery: %#x, pstmt: %#x, pzTail: %#x}", *s, s, s.conn, s.allocs, s.pquery, s.pstmt, s.pzTail)
+	return fmt.Sprintf("&%T@%p{conn: %p, alloc %v, psql: %#x, ppstmt: %#x, pzTail: %#x}", *s, s, s.conn, s.allocs, s.psql, s.ppstmt, s.pzTail)
 }
 
-func newStmt(c *conn, query string) (*stmt, error) {
+func newStmt(c *conn, sql string) (*stmt, error) {
 	s := &stmt{conn: c}
-	pquery, err := s.cString(query)
+	psql, err := s.cString(sql)
 	if err != nil {
 		return nil, err
 	}
 
-	s.pquery = pquery
-	pstmt, err := s.malloc(ptrSize)
+	s.psql = psql
+	ppstmt, err := s.malloc(ptrSize)
 	if err != nil {
-		s.free(pquery)
+		s.free(psql)
 		return nil, err
 	}
 
-	s.pstmt = pstmt
+	s.ppstmt = ppstmt
 	pzTail, err := s.malloc(ptrSize)
 	if err != nil {
-		s.free(pquery)
-		s.free(pstmt)
+		s.free(psql)
+		s.free(ppstmt)
 		return nil, err
 	}
 
@@ -555,15 +555,15 @@ func (s *stmt) Close() (err error) {
 			tracer(s, "Close(): %v", err)
 		}()
 	}
-	if s.pquery != 0 {
-		err = s.free(s.pquery)
-		s.pquery = 0
+	if s.psql != 0 {
+		err = s.free(s.psql)
+		s.psql = 0
 	}
-	if s.pstmt != 0 {
-		if err2 := s.free(s.pstmt); err2 != nil && err == nil {
+	if s.ppstmt != 0 {
+		if err2 := s.free(s.ppstmt); err2 != nil && err == nil {
 			err = err2
 		}
-		s.pstmt = 0
+		s.ppstmt = 0
 	}
 	if s.pzTail != 0 {
 		if err2 := s.free(s.pzTail); err2 != nil && err == nil {
@@ -608,42 +608,42 @@ func (s *stmt) Exec(args []driver.Value) (r driver.Result, err error) {
 			tracer(s, "Exec(%v): (%v, %v)", args, r, err)
 		}(args)
 	}
-	for psql := s.pquery; readI8(psql) != 0; psql = readPtr(s.pzTail) {
+	for psql := s.psql; readI8(psql) != 0; psql = readPtr(s.pzTail) {
 		if err := s.prepareV2(psql); err != nil {
 			return nil, err
 		}
 
-		stmt := readPtr(s.pstmt)
-		if stmt == 0 {
+		pstmt := readPtr(s.ppstmt)
+		if pstmt == 0 {
 			continue
 		}
 
-		n, err := s.bindParameterCount(stmt)
+		n, err := s.bindParameterCount(pstmt)
 		if err != nil {
 			return nil, err
 		}
 
 		if n != 0 {
-			if err = s.bind(stmt, n, args); err != nil {
+			if err = s.bind(pstmt, n, args); err != nil {
 				return nil, err
 			}
 
 			args = args[n:]
 		}
-		rc, err := s.step(stmt)
+		rc, err := s.step(pstmt)
 		if err != nil {
-			s.finalize(stmt)
+			s.finalize(pstmt)
 			return nil, err
 		}
 
 		switch rc & 0xff {
 		case bin.XSQLITE_DONE, bin.XSQLITE_ROW:
-			if err := s.finalize(stmt); err != nil {
+			if err := s.finalize(pstmt); err != nil {
 				return nil, err
 			}
 		default:
 			err = s.errstr(int32(rc))
-			s.finalize(stmt)
+			s.finalize(pstmt)
 			return nil, err
 		}
 	}
@@ -662,45 +662,45 @@ func (s *stmt) Query(args []driver.Value) (r driver.Rows, err error) {
 	}
 	var rowStmt uintptr
 	var rc0 int
-	for psql := s.pquery; readI8(psql) != 0; psql = readPtr(s.pzTail) {
+	for psql := s.psql; readI8(psql) != 0; psql = readPtr(s.pzTail) {
 		if err := s.prepareV2(psql); err != nil {
 			return nil, err
 		}
 
-		stmt := readPtr(s.pstmt)
-		if stmt == 0 {
+		pstmt := readPtr(s.ppstmt)
+		if pstmt == 0 {
 			continue
 		}
 
-		n, err := s.bindParameterCount(stmt)
+		n, err := s.bindParameterCount(pstmt)
 		if err != nil {
 			return nil, err
 		}
 
 		if n != 0 {
-			if err = s.bind(stmt, n, args); err != nil {
+			if err = s.bind(pstmt, n, args); err != nil {
 				return nil, err
 			}
 
 			args = args[n:]
 		}
-		rc, err := s.step(stmt)
+		rc, err := s.step(pstmt)
 		if err != nil {
-			s.finalize(stmt)
+			s.finalize(pstmt)
 			return nil, err
 		}
 
 		switch rc {
 		case bin.XSQLITE_ROW:
 			if rowStmt != 0 {
-				if err := s.finalize(stmt); err != nil {
+				if err := s.finalize(pstmt); err != nil {
 					return nil, err
 				}
 
 				return nil, fmt.Errorf("query contains multiple select statements")
 			}
 
-			rowStmt = stmt
+			rowStmt = pstmt
 			rc0 = rc
 		case bin.XSQLITE_DONE:
 			if rowStmt == 0 {
@@ -708,7 +708,7 @@ func (s *stmt) Query(args []driver.Value) (r driver.Rows, err error) {
 			}
 		default:
 			err = s.errstr(int32(rc))
-			s.finalize(stmt)
+			s.finalize(pstmt)
 			return nil, err
 		}
 	}
@@ -716,12 +716,12 @@ func (s *stmt) Query(args []driver.Value) (r driver.Rows, err error) {
 }
 
 // int sqlite3_bind_double(sqlite3_stmt*, int, double);
-func (s *stmt) bindDouble(stmt uintptr, idx1 int, value float64) (err error) {
+func (s *stmt) bindDouble(pstmt uintptr, idx1 int, value float64) (err error) {
 	var rc int32
 	if _, err = s.FFI1(
 		bindDouble,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt), virtual.Int32(int32(idx1)), virtual.Float64(value),
+		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Float64(value),
 	); err != nil {
 		return err
 	}
@@ -734,12 +734,12 @@ func (s *stmt) bindDouble(stmt uintptr, idx1 int, value float64) (err error) {
 }
 
 // int sqlite3_bind_int(sqlite3_stmt*, int, int);
-func (s *stmt) bindInt(stmt uintptr, idx1, value int) (err error) {
+func (s *stmt) bindInt(pstmt uintptr, idx1, value int) (err error) {
 	var rc int32
 	if _, err = s.FFI1(
 		bindInt,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt), virtual.Int32(int32(idx1)), virtual.Int32(int32(value)),
+		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Int32(int32(value)),
 	); err != nil {
 		return err
 	}
@@ -752,12 +752,12 @@ func (s *stmt) bindInt(stmt uintptr, idx1, value int) (err error) {
 }
 
 // int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
-func (s *stmt) bindInt64(stmt uintptr, idx1 int, value int64) (err error) {
+func (s *stmt) bindInt64(pstmt uintptr, idx1 int, value int64) (err error) {
 	var rc int32
 	if _, err = s.FFI1(
 		bindInt64,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt), virtual.Int32(int32(idx1)), virtual.Int64(value),
+		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Int64(value),
 	); err != nil {
 		return err
 	}
@@ -770,7 +770,7 @@ func (s *stmt) bindInt64(stmt uintptr, idx1 int, value int64) (err error) {
 }
 
 // int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
-func (s *stmt) bindBlob(stmt uintptr, idx1 int, value []byte) (err error) {
+func (s *stmt) bindBlob(pstmt uintptr, idx1 int, value []byte) (err error) {
 	p, err := s.malloc(len(value))
 	if err != nil {
 		return err
@@ -782,7 +782,7 @@ func (s *stmt) bindBlob(stmt uintptr, idx1 int, value []byte) (err error) {
 	if _, err = s.FFI1(
 		bindBlob,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt), virtual.Int32(int32(idx1)), virtual.Ptr(p), virtual.Int32(int32(len(value))), null,
+		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Ptr(p), virtual.Int32(int32(len(value))), null,
 	); err != nil {
 		return err
 	}
@@ -795,7 +795,7 @@ func (s *stmt) bindBlob(stmt uintptr, idx1 int, value []byte) (err error) {
 }
 
 // int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
-func (s *stmt) bindText(stmt uintptr, idx1 int, value string) (err error) {
+func (s *stmt) bindText(pstmt uintptr, idx1 int, value string) (err error) {
 	p, err := s.cString(value)
 	if err != nil {
 		return err
@@ -806,7 +806,7 @@ func (s *stmt) bindText(stmt uintptr, idx1 int, value string) (err error) {
 	if _, err = s.FFI1(
 		bindText,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt), virtual.Int32(int32(idx1)), virtual.Ptr(p), virtual.Int32(int32(len(value))), null,
+		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Ptr(p), virtual.Int32(int32(len(value))), null,
 	); err != nil {
 		return err
 	}
@@ -818,7 +818,7 @@ func (s *stmt) bindText(stmt uintptr, idx1 int, value string) (err error) {
 	return nil
 }
 
-func (s *stmt) bind(stmt uintptr, n int, args []driver.Value) error {
+func (s *stmt) bind(pstmt uintptr, n int, args []driver.Value) error {
 	if len(args) < n {
 		return fmt.Errorf("missing arguments: got %v, expected %v", len(args), n)
 	}
@@ -826,11 +826,11 @@ func (s *stmt) bind(stmt uintptr, n int, args []driver.Value) error {
 	for i, v := range args[:n] {
 		switch x := v.(type) {
 		case int64:
-			if err := s.bindInt64(stmt, i+1, x); err != nil {
+			if err := s.bindInt64(pstmt, i+1, x); err != nil {
 				return err
 			}
 		case float64:
-			if err := s.bindDouble(stmt, i+1, x); err != nil {
+			if err := s.bindDouble(pstmt, i+1, x); err != nil {
 				return err
 			}
 		case bool:
@@ -838,19 +838,19 @@ func (s *stmt) bind(stmt uintptr, n int, args []driver.Value) error {
 			if x {
 				v = 1
 			}
-			if err := s.bindInt(stmt, i+1, v); err != nil {
+			if err := s.bindInt(pstmt, i+1, v); err != nil {
 				return err
 			}
 		case []byte:
-			if err := s.bindBlob(stmt, i+1, x); err != nil {
+			if err := s.bindBlob(pstmt, i+1, x); err != nil {
 				return err
 			}
 		case string:
-			if err := s.bindText(stmt, i+1, x); err != nil {
+			if err := s.bindText(pstmt, i+1, x); err != nil {
 				return err
 			}
 		case time.Time:
-			if err := s.bindText(stmt, i+1, x.String()); err != nil {
+			if err := s.bindText(pstmt, i+1, x.String()); err != nil {
 				return err
 			}
 		default:
@@ -861,23 +861,23 @@ func (s *stmt) bind(stmt uintptr, n int, args []driver.Value) error {
 }
 
 // int sqlite3_bind_parameter_count(sqlite3_stmt*);
-func (s *stmt) bindParameterCount(stmt uintptr) (_ int, err error) {
+func (s *stmt) bindParameterCount(pstmt uintptr) (_ int, err error) {
 	var r int32
 	_, err = s.FFI1(
 		bindParameterCount,
 		virtual.Int32Result{&r},
-		virtual.Ptr(stmt),
+		virtual.Ptr(pstmt),
 	)
 	return int(r), err
 }
 
 // int sqlite3_finalize(sqlite3_stmt *pStmt);
-func (s *stmt) finalize(stmt uintptr) error {
+func (s *stmt) finalize(pstmt uintptr) error {
 	var rc int32
 	if _, err := s.FFI1(
 		finalize,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt),
+		virtual.Ptr(pstmt),
 	); err != nil {
 		return err
 	}
@@ -890,12 +890,12 @@ func (s *stmt) finalize(stmt uintptr) error {
 }
 
 // int sqlite3_step(sqlite3_stmt*);
-func (s *stmt) step(stmt uintptr) (int, error) {
+func (s *stmt) step(pstmt uintptr) (int, error) {
 	var rc int32
 	_, err := s.FFI1(
 		step,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(stmt),
+		virtual.Ptr(pstmt),
 	)
 	return int(rc), err
 }
@@ -912,7 +912,7 @@ func (s *stmt) prepareV2(zSql uintptr) error {
 	if _, err := s.FFI1(
 		prepareV2,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(s.db()), virtual.Ptr(zSql), virtual.Int32(-1), virtual.Ptr(s.pstmt), virtual.Ptr(s.pzTail),
+		virtual.Ptr(s.pdb()), virtual.Ptr(zSql), virtual.Int32(-1), virtual.Ptr(s.ppstmt), virtual.Ptr(s.pzTail),
 	); err != nil {
 		return err
 	}
@@ -966,19 +966,19 @@ func (t *tx) Rollback() (err error) {
 //   void *,                                    /* 1st argument to callback */
 //   char **errmsg                              /* Error msg written here */
 // );
-func (t *tx) exec(stmt string) (err error) {
-	sql, err := t.cString(stmt)
+func (t *tx) exec(sql string) (err error) {
+	psql, err := t.cString(sql)
 	if err != nil {
 		return err
 	}
 
-	defer t.free(sql)
+	defer t.free(psql)
 
 	var rc int32
 	if _, err = t.FFI1(
 		exec,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(t.db()), virtual.Ptr(sql), null, null, null,
+		virtual.Ptr(t.pdb()), virtual.Ptr(psql), null, null, null,
 	); err != nil {
 		return err
 	}
@@ -993,11 +993,11 @@ func (t *tx) exec(stmt string) (err error) {
 type conn struct {
 	*sqlite
 	*virtual.Thread
-	pdb uintptr
+	ppdb uintptr
 }
 
 func (c *conn) String() string {
-	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, pdb: %#x}", *c, c, c.sqlite, c.Thread, c.pdb)
+	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, ppdb: %#x}", *c, c, c.sqlite, c.Thread, c.ppdb)
 }
 
 func newConn(s *sqlite, name string) (_ *conn, err error) {
@@ -1142,7 +1142,7 @@ func (c *conn) Query(query string, args []driver.Value) (r driver.Rows, err erro
 	return s.Query(args)
 }
 
-func (c *conn) db() uintptr { return readPtr(c.pdb) }
+func (c *conn) pdb() uintptr { return readPtr(c.ppdb) }
 
 // int sqlite3_extended_result_codes(sqlite3*, int onoff);
 func (c *conn) extendedResultCodes(on bool) (err error) {
@@ -1153,7 +1153,7 @@ func (c *conn) extendedResultCodes(on bool) (err error) {
 	if _, err = c.FFI1(
 		extendedResultCodes,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(c.db()), virtual.Int32(v),
+		virtual.Ptr(c.pdb()), virtual.Int32(v),
 	); err != nil {
 		return err
 	}
@@ -1199,17 +1199,17 @@ func (c *conn) openV2(name string, flags int32) error {
 
 	defer c.free(filename)
 
-	pdb, err := c.malloc(ptrSize)
+	ppdb, err := c.malloc(ptrSize)
 	if err != nil {
 		return err
 	}
 
-	c.pdb = pdb
+	c.ppdb = ppdb
 	var rc int32
 	if _, err = c.FFI1(
 		openV2,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(filename), virtual.Ptr(pdb), virtual.Int32(flags), null,
+		virtual.Ptr(filename), virtual.Ptr(ppdb), virtual.Int32(flags), null,
 	); err != nil {
 		return err
 	}
@@ -1236,7 +1236,7 @@ func (c *conn) errstr(rc int32) (err error) {
 	if _, err = c.FFI1(
 		errmsg,
 		virtual.PtrResult{&p},
-		virtual.Ptr(c.db()),
+		virtual.Ptr(c.pdb()),
 	); err != nil {
 		return err
 	}
@@ -1255,7 +1255,7 @@ func (c *conn) closeV2() (err error) {
 	if _, err = c.FFI1(
 		closeV2,
 		virtual.Int32Result{&rc},
-		virtual.Ptr(c.db()),
+		virtual.Ptr(c.pdb()),
 	); err != nil {
 		return err
 	}
@@ -1264,8 +1264,8 @@ func (c *conn) closeV2() (err error) {
 		return c.errstr(rc)
 	}
 
-	err = c.free(c.pdb)
-	c.pdb = 0
+	err = c.free(c.ppdb)
+	c.ppdb = 0
 	return err
 }
 
@@ -1292,7 +1292,7 @@ func (c *conn) close() (err error) {
 		c.Unlock()
 	}()
 
-	if c.pdb != 0 {
+	if c.ppdb != 0 {
 		err = c.closeV2()
 	}
 	return err
