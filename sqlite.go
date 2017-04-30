@@ -70,7 +70,7 @@ import (
 
 var (
 	_ driver.Conn    = (*conn)(nil)
-	_ driver.Driver  = (*sqlite)(nil)
+	_ driver.Driver  = (*Driver)(nil)
 	_ driver.Execer  = (*conn)(nil)
 	_ driver.Queryer = (*conn)(nil)
 	_ driver.Result  = (*result)(nil)
@@ -991,17 +991,17 @@ func (t *tx) exec(sql string) (err error) {
 }
 
 type conn struct {
-	*sqlite
+	*Driver
 	*virtual.Thread
 	ppdb uintptr
 }
 
 func (c *conn) String() string {
-	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, ppdb: %#x}", *c, c, c.sqlite, c.Thread, c.ppdb)
+	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, ppdb: %#x}", *c, c, c.Driver, c.Thread, c.ppdb)
 }
 
-func newConn(s *sqlite, name string) (_ *conn, err error) {
-	c := &conn{sqlite: s}
+func newConn(s *Driver, name string) (_ *conn, err error) {
+	c := &conn{Driver: s}
 
 	defer func() {
 		if err != nil {
@@ -1298,12 +1298,12 @@ func (c *conn) close() (err error) {
 	return err
 }
 
-type sqlite struct {
+type Driver struct {
 	conns int
 	sync.Mutex
 }
 
-func newDrv() *sqlite { return &sqlite{} }
+func newDrv() *Driver { return &Driver{} }
 
 // Open returns a new connection to the database.  The name is a string in a
 // driver-specific format.
@@ -1313,7 +1313,7 @@ func newDrv() *sqlite { return &sqlite{} }
 // efficient re-use.
 //
 // The returned connection is only used by one goroutine at a time.
-func (s *sqlite) Open(name string) (c driver.Conn, err error) {
+func (s *Driver) Open(name string) (c driver.Conn, err error) {
 	if trace {
 		defer func() {
 			tracer(s, "Open(%s): (%v, %v)", name, c, err)
