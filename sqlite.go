@@ -1195,7 +1195,7 @@ func (c *conn) exec(ctx context.Context, query string, args []namedValue) (r dri
 		}()
 	}
 
-	s, err := c.PrepareContext(ctx, query)
+	s, err := c.prepare(ctx, query)
 	if err != nil {
 		return nil, err
 	}
@@ -1241,7 +1241,7 @@ func (c *conn) query(ctx context.Context, query string, args []namedValue) (r dr
 			tracer(c, "Query(%s, %v): (%v, %v)", query, args, r, err)
 		}()
 	}
-	s, err := c.PrepareContext(ctx, query)
+	s, err := c.prepare(ctx, query)
 	if err != nil {
 		return nil, err
 	}
