@@ -464,3 +464,31 @@ func BenchmarkNextMemory(b *testing.B) {
 	d := time.Since(t0)
 	profile(b, d, os.Stderr, "==== BenchmarkNextMemory b.N %v\n", b.N)
 }
+
+// https://github.com/cznic/sqlite/issues/11
+func TestIssue11(t *testing.T) {
+	const N = 6570
+	dir, db := tempDB(t)
+
+	defer func() {
+		db.Close()
+		os.RemoveAll(dir)
+	}()
+
+	if _, err := db.Exec(`
+	CREATE TABLE t1 (t INT);
+	BEGIN;
+`,
+	); err != nil {
+		panic(err)
+	}
+
+	for i := 0; i < N; i++ {
+		if _, err := db.Exec("INSERT INTO t1 (t) VALUES (?)", i); err != nil {
+			t.Fatalf("#%v: %v", i, err)
+		}
+	}
+	if _, err := db.Exec("COMMIT;"); err != nil {
+		t.Fatal(err)
+	}
+}
