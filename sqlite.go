@@ -2,67 +2,24 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:generate go run generator.go
-
-// Package sqlite is an in-process implementation of a self-contained,
-// serverless, zero-configuration, transactional SQL database engine. (Work In Progress)
-//
-// Connecting to a database
-//
-// To access a Sqlite database do something like
-//
-//	import (
-//		"database/sql"
-//
-//		_ "github.com/cznic/sqlite"
-//	)
-//
-//	...
-//
-//
-//	db, err := sql.Open("sqlite", dsnURI)
-//
-//	...
-//
-//
-// Do not use in production
-//
-// This is an experimental, pre-alpha, technology preview package. Performance
-// is not (yet) a priority. When this virtual machine approach, hopefully,
-// reaches a reasonable level of completeness and correctness, the plan is to
-// eventually mechanically translate the IR form, produced by
-// http://github.com/cznic/ccir, to Go. Unreadable Go, presumably.
-//
-// Supported platforms and architectures
-//
-// See http://github.com/cznic/ccir. To add a newly supported os/arch
-// combination to this package try running 'go generate'.
-//
-// Sqlite documentation
-//
-// See https://sqlite.org/docs.html
 package sqlite
 
 import (
-	"bytes"
-	"compress/gzip"
 	"database/sql"
 	"database/sql/driver"
-	"encoding/gob"
 	"fmt"
 	"io"
-	"io/ioutil"
+	"math"
 	"os"
 	"runtime"
 	"sync"
 	"time"
 	"unsafe"
 
+	"github.com/cznic/crt"
 	"github.com/cznic/internal/buffer"
-	"github.com/cznic/ir"
 	"github.com/cznic/mathutil"
 	"github.com/cznic/sqlite/internal/bin"
-	"github.com/cznic/virtual"
 	"github.com/cznic/xc"
 	"golang.org/x/net/context"
 )
@@ -76,121 +33,21 @@ var (
 	_ driver.Rows    = (*rows)(nil)
 	_ driver.Stmt    = (*stmt)(nil)
 	_ driver.Tx      = (*tx)(nil)
-	_ io.Writer      = debugWriter{}
 )
 
 const (
-	driverName      = "sqlite"
-	ptrSize         = mathutil.UintPtrBits / 8
-	vmHeapReserve   = 1 << 20
-	vmHeapSize      = 32 << 20
-	vmMainStackSize = 1 << 16
-	vmStackSize     = 1 << 18
+	driverName  = "sqlite"
+	ptrSize     = mathutil.UintPtrBits / 8
+	heapReserve = 1 << 20
+	heapSize    = 32 << 20
 )
 
 var (
-	binary virtual.Binary
-	dict   = xc.Dict
-	null   = virtual.Ptr(0)
-	vm     *virtual.Machine
-
-	// FFI
-	bindBlob            int
-	bindDouble          int
-	bindInt             int
-	bindInt64           int
-	bindParameterCount  int
-	bindParameterName   int
-	bindText            int
-	changes             int
-	closeV2             int
-	columnBlob          int
-	columnBytes         int
-	columnCount         int
-	columnDouble        int
-	columnInt64         int
-	columnName          int
-	columnText          int
-	columnType          int
-	errmsg              int
-	errstr              int
-	exec                int
-	extendedResultCodes int
-	finalize            int
-	free                int
-	interrupt           int
-	lastInsertRowID     int
-	maloc               int
-	openV2              int
-	prepareV2           int
-	step                int
+	dict = xc.Dict
 )
 
 func init() {
-	b0 := bytes.NewBufferString(bin.Data)
-	decomp, err := gzip.NewReader(b0)
-	if err != nil {
-		panic(err)
-	}
-
-	var b1 bytes.Buffer
-	chunk := make([]byte, 1<<15)
-	for {
-		n, err := decomp.Read(chunk)
-		b1.Write(chunk[:n])
-		if err != nil {
-			if err != io.EOF {
-				panic(err)
-			}
-
-			break
-		}
-	}
-	dec := gob.NewDecoder(&b1)
-	if err := dec.Decode(&binary); err != nil {
-		panic(err)
-	}
-
-	for _, v := range []struct {
-		*int
-		string
-	}{
-		{&bindBlob, "sqlite3_bind_blob"},
-		{&bindDouble, "sqlite3_bind_double"},
-		{&bindInt, "sqlite3_bind_int"},
-		{&bindInt64, "sqlite3_bind_int64"},
-		{&bindParameterCount, "sqlite3_bind_parameter_count"},
-		{&bindParameterName, "sqlite3_bind_parameter_name"},
-		{&bindText, "sqlite3_bind_text"},
-		{&changes, "sqlite3_changes"},
-		{&closeV2, "sqlite3_close_v2"},
-		{&columnBlob, "sqlite3_column_blob"},
-		{&columnBytes, "sqlite3_column_bytes"},
-		{&columnCount, "sqlite3_column_count"},
-		{&columnDouble, "sqlite3_column_double"},
-		{&columnInt64, "sqlite3_column_int64"},
-		{&columnName, "sqlite3_column_name"},
-		{&columnText, "sqlite3_column_text"},
-		{&columnType, "sqlite3_column_type"},
-		{&errmsg, "sqlite3_errmsg"},
-		{&errstr, "sqlite3_errstr"},
-		{&exec, "sqlite3_exec"},
-		{&extendedResultCodes, "sqlite3_extended_result_codes"},
-		{&finalize, "sqlite3_finalize"},
-		{&free, "sqlite3_free"},
-		{&interrupt, "sqlite3_interrupt"},
-		{&lastInsertRowID, "sqlite3_last_insert_rowid"},
-		{&maloc, "sqlite3_malloc"},
-		{&openV2, "sqlite3_open_v2"},
-		{&prepareV2, "sqlite3_prepare_v2"},
-		{&step, "sqlite3_step"},
-	} {
-		var ok bool
-		if *v.int, ok = binary.Sym[ir.NameID(dict.SID(v.string))]; !ok {
-			panic(fmt.Errorf("missing symbol: %v", v.string))
-		}
-	}
-
+	bin.Init(heapSize, heapReserve)
 	sql.Register(driverName, newDrv())
 }
 
@@ -202,13 +59,6 @@ func tracer(rx interface{}, format string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, "%s\n", b.Bytes())
 	b.Close()
 }
-
-func readI8(p uintptr) int8     { return *(*int8)(unsafe.Pointer(p)) }
-func readPtr(p uintptr) uintptr { return *(*uintptr)(unsafe.Pointer(p)) }
-
-type debugWriter struct{}
-
-func (debugWriter) Write(b []byte) (int, error) { return os.Stderr.Write(b) }
 
 type result struct {
 	*stmt
@@ -235,23 +85,13 @@ func newResult(s *stmt) (_ *result, err error) {
 
 // sqlite3_int64 sqlite3_last_insert_rowid(sqlite3*);
 func (r *result) lastInsertRowID() (v int64, _ error) {
-	_, err := r.FFI1(
-		lastInsertRowID,
-		virtual.Int64Result{&v},
-		virtual.Ptr(r.pdb()),
-	)
-	return v, err
+	return bin.Xsqlite3_last_insert_rowid(r.tls, r.pdb()), nil
 }
 
 // int sqlite3_changes(sqlite3*);
 func (r *result) changes() (int, error) {
-	var v int32
-	_, err := r.FFI1(
-		changes,
-		virtual.Int32Result{&v},
-		virtual.Ptr(r.pdb()),
-	)
-	return int(v), err
+	v := bin.Xsqlite3_changes(r.tls, r.pdb())
+	return int(v), nil
 }
 
 // LastInsertId returns the database's auto-generated ID after, for example, an
@@ -277,7 +117,7 @@ type rows struct {
 	*stmt
 	columns []string
 	rc0     int
-	pstmt   uintptr
+	pstmt   unsafe.Pointer
 	doStep  bool
 }
 
@@ -285,7 +125,7 @@ func (r *rows) String() string {
 	return fmt.Sprintf("&%T@%p{stmt: %p, columns: %v, rc0: %v, pstmt: %#x, doStep: %v}", *r, r, r.stmt, r.columns, r.rc0, r.pstmt, r.doStep)
 }
 
-func newRows(s *stmt, pstmt uintptr, rc0 int) (*rows, error) {
+func newRows(s *stmt, pstmt unsafe.Pointer, rc0 int) (*rows, error) {
 	r := &rows{
 		stmt:  s,
 		pstmt: pstmt,
@@ -405,118 +245,68 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 
 // int sqlite3_column_bytes(sqlite3_stmt*, int iCol);
 func (r *rows) columnBytes(iCol int) (_ int, err error) {
-	var v int32
-	if _, err = r.FFI1(
-		columnBytes,
-		virtual.Int32Result{&v},
-		virtual.Ptr(r.pstmt), virtual.Int32(iCol),
-	); err != nil {
-		return 0, err
-	}
-
-	return int(v), err
+	v := bin.Xsqlite3_column_bytes(r.tls, r.pstmt, int32(iCol))
+	return int(v), nil
 }
 
 // const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
 func (r *rows) columnBlob(iCol int) (v []byte, err error) {
-	var p uintptr
-	if _, err = r.FFI1(
-		columnBlob,
-		virtual.PtrResult{&p},
-		virtual.Ptr(r.pstmt), virtual.Int32(iCol),
-	); err != nil {
-		return nil, err
-	}
-
+	p := bin.Xsqlite3_column_blob(r.tls, r.pstmt, int32(iCol))
 	len, err := r.columnBytes(iCol)
 	if err != nil {
 		return nil, err
 	}
 
-	return virtual.GoBytesLen(p, len), nil
+	return crt.GoBytesLen((*int8)(p), len), nil
 }
 
 // const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
 func (r *rows) columnText(iCol int) (v string, err error) {
-	var p uintptr
-	if _, err = r.FFI1(
-		columnText,
-		virtual.PtrResult{&p},
-		virtual.Ptr(r.pstmt), virtual.Int32(iCol),
-	); err != nil {
-		return "", err
-	}
-
+	p := bin.Xsqlite3_column_text(r.tls, r.pstmt, int32(iCol))
 	len, err := r.columnBytes(iCol)
 	if err != nil {
 		return "", err
 	}
 
-	return virtual.GoStringLen(p, len), nil
+	return crt.GoStringLen((*int8)(unsafe.Pointer(p)), len), nil
 }
 
 // double sqlite3_column_double(sqlite3_stmt*, int iCol);
 func (r *rows) columnDouble(iCol int) (v float64, err error) {
-	_, err = r.FFI1(
-		columnDouble,
-		virtual.Float64Result{&v},
-		virtual.Ptr(r.pstmt), virtual.Int32(iCol),
-	)
-	return v, err
+	v = bin.Xsqlite3_column_double(r.tls, r.pstmt, int32(iCol))
+	return v, nil
 }
 
 // sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
 func (r *rows) columnInt64(iCol int) (v int64, err error) {
-	_, err = r.FFI1(
-		columnInt64,
-		virtual.Int64Result{&v},
-		virtual.Ptr(r.pstmt), virtual.Int32(iCol),
-	)
-	return v, err
+	v = bin.Xsqlite3_column_int64(r.tls, r.pstmt, int32(iCol))
+	return v, nil
 }
 
 // int sqlite3_column_type(sqlite3_stmt*, int iCol);
 func (r *rows) columnType(iCol int) (_ int, err error) {
-	var v int32
-	_, err = r.FFI1(
-		columnType,
-		virtual.Int32Result{&v},
-		virtual.Ptr(r.pstmt), virtual.Int32(iCol),
-	)
-	return int(v), err
+	v := bin.Xsqlite3_column_type(r.tls, r.pstmt, int32(iCol))
+	return int(v), nil
 }
 
 // int sqlite3_column_count(sqlite3_stmt *pStmt);
 func (r *rows) columnCount() (_ int, err error) {
-	var v int32
-	_, err = r.FFI1(
-		columnCount,
-		virtual.Int32Result{&v},
-		virtual.Ptr(r.pstmt),
-	)
-	return int(v), err
+	v := bin.Xsqlite3_column_count(r.tls, r.pstmt)
+	return int(v), nil
 }
 
 // const char *sqlite3_column_name(sqlite3_stmt*, int N);
 func (r *rows) columnName(n int) (string, error) {
-	var p uintptr
-	if _, err := r.FFI1(
-		columnName,
-		virtual.PtrResult{&p},
-		virtual.Ptr(r.pstmt), virtual.Int32(n),
-	); err != nil {
-		return "", err
-	}
-
-	return virtual.GoString(p), nil
+	p := bin.Xsqlite3_column_name(r.tls, r.pstmt, int32(n))
+	return crt.GoString(p), nil
 }
 
 type stmt struct {
 	*conn
-	allocs []uintptr
-	psql   uintptr
-	ppstmt uintptr
-	pzTail uintptr
+	allocs []unsafe.Pointer
+	psql   *int8
+	ppstmt *unsafe.Pointer
+	pzTail **int8
 }
 
 func (s *stmt) String() string {
@@ -533,19 +323,19 @@ func newStmt(c *conn, sql string) (*stmt, error) {
 	s.psql = psql
 	ppstmt, err := s.malloc(ptrSize)
 	if err != nil {
-		s.free(psql)
+		s.free(unsafe.Pointer(psql))
 		return nil, err
 	}
 
-	s.ppstmt = ppstmt
+	s.ppstmt = (*unsafe.Pointer)(ppstmt)
 	pzTail, err := s.malloc(ptrSize)
 	if err != nil {
-		s.free(psql)
+		s.free(unsafe.Pointer(psql))
 		s.free(ppstmt)
 		return nil, err
 	}
 
-	s.pzTail = pzTail
+	s.pzTail = (**int8)(pzTail)
 	return s, nil
 }
 
@@ -558,21 +348,21 @@ func (s *stmt) Close() (err error) {
 			tracer(s, "Close(): %v", err)
 		}()
 	}
-	if s.psql != 0 {
-		err = s.free(s.psql)
-		s.psql = 0
+	if s.psql != nil {
+		err = s.free(unsafe.Pointer(s.psql))
+		s.psql = nil
 	}
-	if s.ppstmt != 0 {
-		if err2 := s.free(s.ppstmt); err2 != nil && err == nil {
+	if s.ppstmt != nil {
+		if err2 := s.free(unsafe.Pointer(s.ppstmt)); err2 != nil && err == nil {
 			err = err2
 		}
-		s.ppstmt = 0
+		s.ppstmt = nil
 	}
-	if s.pzTail != 0 {
-		if err2 := s.free(s.pzTail); err2 != nil && err == nil {
+	if s.pzTail != nil {
+		if err2 := s.free(unsafe.Pointer(s.pzTail)); err2 != nil && err == nil {
 			err = err2
 		}
-		s.pzTail = 0
+		s.pzTail = nil
 	}
 	for _, v := range s.allocs {
 		if err2 := s.free(v); err2 != nil && err == nil {
@@ -613,27 +403,27 @@ func (s *stmt) exec(ctx context.Context, args []namedValue) (r driver.Result, er
 		}(args)
 	}
 
-	var pstmt uintptr
+	var pstmt unsafe.Pointer
 
 	donech := make(chan struct{})
 	defer close(donech)
 	go func() {
 		select {
 		case <-ctx.Done():
-			if pstmt != 0 {
+			if pstmt != nil {
 				s.interrupt(s.pdb())
 			}
 		case <-donech:
 		}
 	}()
 
-	for psql := s.psql; readI8(psql) != 0; psql = readPtr(s.pzTail) {
+	for psql := s.psql; *psql != 0; psql = *s.pzTail {
 		if err := s.prepareV2(psql); err != nil {
 			return nil, err
 		}
 
-		pstmt = readPtr(s.ppstmt)
-		if pstmt == 0 {
+		pstmt = *s.ppstmt
+		if pstmt == nil {
 			continue
 		}
 
@@ -679,8 +469,7 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 		}(args)
 	}
 
-	var pstmt uintptr
-	var rowStmt uintptr
+	var pstmt, rowStmt unsafe.Pointer
 	var rc0 int
 
 	donech := make(chan struct{})
@@ -688,20 +477,20 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 	go func() {
 		select {
 		case <-ctx.Done():
-			if pstmt != 0 {
+			if pstmt != nil {
 				s.interrupt(s.pdb())
 			}
 		case <-donech:
 		}
 	}()
 
-	for psql := s.psql; readI8(psql) != 0; psql = readPtr(s.pzTail) {
+	for psql := s.psql; *psql != 0; psql = *s.pzTail {
 		if err := s.prepareV2(psql); err != nil {
 			return nil, err
 		}
 
-		pstmt = readPtr(s.ppstmt)
-		if pstmt == 0 {
+		pstmt = *s.ppstmt
+		if pstmt == nil {
 			continue
 		}
 
@@ -724,7 +513,7 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 
 		switch rc {
 		case bin.XSQLITE_ROW:
-			if rowStmt != 0 {
+			if rowStmt != nil {
 				if err := s.finalize(pstmt); err != nil {
 					return nil, err
 				}
@@ -735,7 +524,7 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 			rowStmt = pstmt
 			rc0 = rc
 		case bin.XSQLITE_DONE:
-			if rowStmt == 0 {
+			if rowStmt == nil {
 				rc0 = rc
 			}
 		default:
@@ -748,17 +537,8 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 }
 
 // int sqlite3_bind_double(sqlite3_stmt*, int, double);
-func (s *stmt) bindDouble(pstmt uintptr, idx1 int, value float64) (err error) {
-	var rc int32
-	if _, err = s.FFI1(
-		bindDouble,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Float64(value),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+func (s *stmt) bindDouble(pstmt unsafe.Pointer, idx1 int, value float64) (err error) {
+	if rc := bin.Xsqlite3_bind_double(s.tls, pstmt, int32(idx1), value); rc != 0 {
 		return s.errstr(rc)
 	}
 
@@ -766,17 +546,8 @@ func (s *stmt) bindDouble(pstmt uintptr, idx1 int, value float64) (err error) {
 }
 
 // int sqlite3_bind_int(sqlite3_stmt*, int, int);
-func (s *stmt) bindInt(pstmt uintptr, idx1, value int) (err error) {
-	var rc int32
-	if _, err = s.FFI1(
-		bindInt,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Int32(int32(value)),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+func (s *stmt) bindInt(pstmt unsafe.Pointer, idx1, value int) (err error) {
+	if rc := bin.Xsqlite3_bind_int(s.tls, pstmt, int32(idx1), int32(value)); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -784,17 +555,8 @@ func (s *stmt) bindInt(pstmt uintptr, idx1, value int) (err error) {
 }
 
 // int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
-func (s *stmt) bindInt64(pstmt uintptr, idx1 int, value int64) (err error) {
-	var rc int32
-	if _, err = s.FFI1(
-		bindInt64,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Int64(value),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+func (s *stmt) bindInt64(pstmt unsafe.Pointer, idx1 int, value int64) (err error) {
+	if rc := bin.Xsqlite3_bind_int64(s.tls, pstmt, int32(idx1), value); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -802,24 +564,15 @@ func (s *stmt) bindInt64(pstmt uintptr, idx1 int, value int64) (err error) {
 }
 
 // int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
-func (s *stmt) bindBlob(pstmt uintptr, idx1 int, value []byte) (err error) {
+func (s *stmt) bindBlob(pstmt unsafe.Pointer, idx1 int, value []byte) (err error) {
 	p, err := s.malloc(len(value))
 	if err != nil {
 		return err
 	}
 
 	s.allocs = append(s.allocs, p)
-	virtual.CopyBytes(p, value, false)
-	var rc int32
-	if _, err = s.FFI1(
-		bindBlob,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Ptr(p), virtual.Int32(int32(len(value))), null,
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+	crt.CopyBytes(p, value, false)
+	if rc := bin.Xsqlite3_bind_blob(s.tls, pstmt, int32(idx1), p, int32(len(value)), nil); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -827,30 +580,21 @@ func (s *stmt) bindBlob(pstmt uintptr, idx1 int, value []byte) (err error) {
 }
 
 // int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
-func (s *stmt) bindText(pstmt uintptr, idx1 int, value string) (err error) {
+func (s *stmt) bindText(pstmt unsafe.Pointer, idx1 int, value string) (err error) {
 	p, err := s.cString(value)
 	if err != nil {
 		return err
 	}
 
-	s.allocs = append(s.allocs, p)
-	var rc int32
-	if _, err = s.FFI1(
-		bindText,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt), virtual.Int32(int32(idx1)), virtual.Ptr(p), virtual.Int32(int32(len(value))), null,
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+	s.allocs = append(s.allocs, unsafe.Pointer(p))
+	if rc := bin.Xsqlite3_bind_text(s.tls, pstmt, int32(idx1), p, int32(len(value)), nil); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
 	return nil
 }
 
-func (s *stmt) bind(pstmt uintptr, n int, args []namedValue) error {
+func (s *stmt) bind(pstmt unsafe.Pointer, n int, args []namedValue) error {
 	for i := 1; i <= n; i++ {
 		name, err := s.bindParameterName(pstmt, i)
 		if err != nil {
@@ -878,9 +622,9 @@ func (s *stmt) bind(pstmt uintptr, n int, args []namedValue) error {
 		if v.Ordinal == 0 {
 			if name != "" {
 				return fmt.Errorf("missing named argument %q", name[1:])
-			} else {
-				return fmt.Errorf("missing argument with %d index", i)
 			}
+
+			return fmt.Errorf("missing argument with %d index", i)
 		}
 
 		switch x := v.Value.(type) {
@@ -920,40 +664,20 @@ func (s *stmt) bind(pstmt uintptr, n int, args []namedValue) error {
 }
 
 // int sqlite3_bind_parameter_count(sqlite3_stmt*);
-func (s *stmt) bindParameterCount(pstmt uintptr) (_ int, err error) {
-	var r int32
-	_, err = s.FFI1(
-		bindParameterCount,
-		virtual.Int32Result{&r},
-		virtual.Ptr(pstmt),
-	)
-	return int(r), err
+func (s *stmt) bindParameterCount(pstmt unsafe.Pointer) (_ int, err error) {
+	r := bin.Xsqlite3_bind_parameter_count(s.tls, pstmt)
+	return int(r), nil
 }
 
 // const char *sqlite3_bind_parameter_name(sqlite3_stmt*, int);
-func (s *stmt) bindParameterName(pstmt uintptr, i int) (string, error) {
-	var p uintptr
-	_, err := s.FFI1(
-		bindParameterName,
-		virtual.PtrResult{&p},
-		virtual.Ptr(pstmt),
-		virtual.Int32(i),
-	)
-	return virtual.GoString(p), err
+func (s *stmt) bindParameterName(pstmt unsafe.Pointer, i int) (string, error) {
+	p := bin.Xsqlite3_bind_parameter_name(s.tls, pstmt, int32(i))
+	return crt.GoString(p), nil
 }
 
 // int sqlite3_finalize(sqlite3_stmt *pStmt);
-func (s *stmt) finalize(pstmt uintptr) error {
-	var rc int32
-	if _, err := s.FFI1(
-		finalize,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+func (s *stmt) finalize(pstmt unsafe.Pointer) error {
+	if rc := bin.Xsqlite3_finalize(s.tls, pstmt); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -961,14 +685,9 @@ func (s *stmt) finalize(pstmt uintptr) error {
 }
 
 // int sqlite3_step(sqlite3_stmt*);
-func (s *stmt) step(pstmt uintptr) (int, error) {
-	var rc int32
-	_, err := s.FFI1(
-		step,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(pstmt),
-	)
-	return int(rc), err
+func (s *stmt) step(pstmt unsafe.Pointer) (int, error) {
+	r := bin.Xsqlite3_step(s.tls, pstmt)
+	return int(r), nil
 }
 
 // int sqlite3_prepare_v2(
@@ -978,17 +697,8 @@ func (s *stmt) step(pstmt uintptr) (int, error) {
 //   sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
 //   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 // );
-func (s *stmt) prepareV2(zSql uintptr) error {
-	var rc int32
-	if _, err := s.FFI1(
-		prepareV2,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(s.pdb()), virtual.Ptr(zSql), virtual.Int32(-1), virtual.Ptr(s.ppstmt), virtual.Ptr(s.pzTail),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+func (s *stmt) prepareV2(zSql *int8) error {
+	if rc := bin.Xsqlite3_prepare_v2(s.tls, s.pdb(), zSql, -1, s.ppstmt, s.pzTail); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -1043,7 +753,7 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 		return err
 	}
 
-	defer t.free(psql)
+	defer t.free(unsafe.Pointer(psql))
 
 	// TODO: use t.conn.ExecContext() instead
 	donech := make(chan struct{})
@@ -1056,16 +766,7 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 		}
 	}()
 
-	var rc int32
-	if _, err = t.FFI1(
-		exec,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(t.pdb()), virtual.Ptr(psql), null, null, null,
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+	if rc := bin.Xsqlite3_exec(t.tls, t.pdb(), psql, nil, nil, nil); rc != bin.XSQLITE_OK {
 		return t.errstr(rc)
 	}
 
@@ -1074,12 +775,12 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 
 type conn struct {
 	*Driver
-	*virtual.Thread
-	ppdb uintptr
+	ppdb **bin.Xsqlite3
+	tls  *crt.TLS
 }
 
 func (c *conn) String() string {
-	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, ppdb: %#x}", *c, c, c.Driver, c.Thread, c.ppdb)
+	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, ppdb: %#x}", *c, c, c.Driver, c.tls, c.ppdb)
 }
 
 func newConn(s *Driver, name string) (_ *conn, err error) {
@@ -1095,24 +796,7 @@ func newConn(s *Driver, name string) (_ *conn, err error) {
 
 	defer c.Unlock()
 
-	c.conns++
-	if c.conns == 1 {
-		stderr := ioutil.Discard
-		if trace {
-			stderr = debugWriter{}
-		}
-		m, status, err2 := virtual.New(&binary, []string{"", fmt.Sprint(vmHeapSize - vmHeapReserve)}, nil, nil, stderr, vmHeapSize, vmMainStackSize, "")
-		if status != 0 || err2 != nil {
-			return nil, fmt.Errorf("virtual.New: %v, %v", status, err2)
-		}
-
-		vm = m
-	}
-	c.Thread, err = vm.NewThread(vmStackSize)
-	if err != nil {
-		return nil, err
-	}
-
+	c.tls = crt.NewTLS()
 	if err = c.openV2(
 		name,
 		bin.XSQLITE_OPEN_READWRITE|bin.XSQLITE_OPEN_CREATE|
@@ -1255,23 +939,15 @@ func (c *conn) query(ctx context.Context, query string, args []namedValue) (r dr
 	return s.(*stmt).query(ctx, args)
 }
 
-func (c *conn) pdb() uintptr { return readPtr(c.ppdb) }
+func (c *conn) pdb() *bin.Xsqlite3 { return *c.ppdb }
 
 // int sqlite3_extended_result_codes(sqlite3*, int onoff);
 func (c *conn) extendedResultCodes(on bool) (err error) {
-	var v, rc int32
+	var v int32
 	if on {
 		v = 1
 	}
-	if _, err = c.FFI1(
-		extendedResultCodes,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(c.pdb()), virtual.Int32(v),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+	if rc := bin.Xsqlite3_extended_result_codes(c.tls, c.pdb(), v); rc != bin.XSQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -1279,23 +955,28 @@ func (c *conn) extendedResultCodes(on bool) (err error) {
 }
 
 // void *sqlite3_malloc(int);
-func (c *conn) malloc(n int) (r uintptr, err error) {
-	_, err = c.FFI1(
-		maloc,
-		virtual.PtrResult{&r},
-		virtual.Int32(int32(n)),
-	)
-	return r, err
-}
-
-func (c *conn) cString(s string) (p uintptr, err error) {
-	n := len(s)
-	if p, err = c.malloc(n + 1); err != nil {
-		return 0, err
+func (c *conn) malloc(n int) (r unsafe.Pointer, err error) {
+	if n > math.MaxInt32 {
+		panic("internal error")
 	}
 
-	virtual.CopyString(p, s, true)
-	return p, nil
+	r = bin.Xsqlite3_malloc(c.tls, int32(n))
+	if r == nil {
+		return nil, fmt.Errorf("malloc(%v) failed", n)
+	}
+
+	return r, nil
+}
+
+func (c *conn) cString(s string) (*int8, error) {
+	n := len(s)
+	p, err := c.malloc(n + 1)
+	if err != nil {
+		return nil, err
+	}
+
+	crt.CopyString(p, s, true)
+	return (*int8)(p), nil
 }
 
 // int sqlite3_open_v2(
@@ -1310,24 +991,15 @@ func (c *conn) openV2(name string, flags int32) error {
 		return err
 	}
 
-	defer c.free(filename)
+	defer c.free(unsafe.Pointer(filename))
 
 	ppdb, err := c.malloc(ptrSize)
 	if err != nil {
 		return err
 	}
 
-	c.ppdb = ppdb
-	var rc int32
-	if _, err = c.FFI1(
-		openV2,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(filename), virtual.Ptr(ppdb), virtual.Int32(flags), null,
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+	c.ppdb = (**bin.Xsqlite3)(ppdb)
+	if rc := bin.Xsqlite3_open_v2(c.tls, filename, c.ppdb, flags, nil); rc != bin.XSQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -1336,25 +1008,11 @@ func (c *conn) openV2(name string, flags int32) error {
 
 // const char *sqlite3_errstr(int);
 func (c *conn) errstr(rc int32) (err error) {
-	var p uintptr
-	if _, err = c.FFI1(
-		errstr,
-		virtual.PtrResult{&p},
-		virtual.Int32(rc),
-	); err != nil {
-		return err
-	}
+	p := bin.Xsqlite3_errstr(c.tls, rc)
+	str := crt.GoString(p)
+	p = bin.Xsqlite3_errmsg(c.tls, c.pdb())
 
-	str := virtual.GoString(p)
-	if _, err = c.FFI1(
-		errmsg,
-		virtual.PtrResult{&p},
-		virtual.Ptr(c.pdb()),
-	); err != nil {
-		return err
-	}
-
-	switch msg := virtual.GoString(p); {
+	switch msg := crt.GoString(p); {
 	case msg == str:
 		return fmt.Errorf("%s (%v)", str, rc)
 	default:
@@ -1364,64 +1022,39 @@ func (c *conn) errstr(rc int32) (err error) {
 
 // int sqlite3_close_v2(sqlite3*);
 func (c *conn) closeV2() (err error) {
-	var rc int32
-	if _, err = c.FFI1(
-		closeV2,
-		virtual.Int32Result{&rc},
-		virtual.Ptr(c.pdb()),
-	); err != nil {
-		return err
-	}
-
-	if rc != bin.XSQLITE_OK {
+	if rc := bin.Xsqlite3_close_v2(c.tls, c.pdb()); rc != bin.XSQLITE_OK {
 		return c.errstr(rc)
 	}
 
-	err = c.free(c.ppdb)
-	c.ppdb = 0
+	err = c.free(unsafe.Pointer(c.ppdb))
+	c.ppdb = nil
 	return err
 }
 
 // void sqlite3_free(void*);
-func (c *conn) free(p uintptr) (err error) {
-	_, err = c.FFI0(
-		free,
-		virtual.Ptr(p),
-	)
-	return err
+func (c *conn) free(p unsafe.Pointer) (err error) {
+	bin.Xsqlite3_free(c.tls, p)
+	return nil
 }
 
 // void sqlite3_interrupt(sqlite3*);
-func (c *conn) interrupt(pdb uintptr) (err error) {
-	_, err = c.FFI0(
-		interrupt,
-		virtual.Ptr(pdb),
-	)
-	return err
+func (c *conn) interrupt(pdb *bin.Xsqlite3) (err error) {
+	bin.Xsqlite3_interrupt(c.tls, pdb)
+	return nil
 }
 
 func (c *conn) close() (err error) {
 	c.Lock()
 
-	defer func() {
-		c.conns--
-		if c.conns == 0 {
-			if err2 := vm.Close(); err2 != nil && err == nil {
-				err = err2
-			}
-			vm = nil
-		}
-		c.Unlock()
-	}()
+	defer c.Unlock()
 
-	if c.ppdb != 0 {
+	if c.ppdb != nil {
 		err = c.closeV2()
 	}
 	return err
 }
 
 type Driver struct {
-	conns int
 	sync.Mutex
 }
 

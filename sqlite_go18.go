@@ -10,6 +10,7 @@ import (
 	"context"
 	"database/sql/driver"
 	"errors"
+	"unsafe"
 )
 
 // Ping implements driver.Pinger
@@ -17,7 +18,7 @@ func (c *conn) Ping(ctx context.Context) error {
 	c.Lock()
 	defer c.Unlock()
 
-	if c.ppdb == 0 {
+	if uintptr(unsafe.Pointer(c.ppdb)) == 0 {
 		return errors.New("db is closed")
 	}
 

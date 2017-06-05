@@ -29,13 +29,13 @@ cpu: clean
 	go tool pprof -lines *.test cpu.out
 
 edit:
-	@ 1>/dev/null 2>/dev/null gvim -p Makefile main.c all_test.go sqlite.go
+	@ 1>/dev/null 2>/dev/null gvim -p Makefile main.c *.go
 
 editor:
 	gofmt -l -s -w *.go
 	indent -linux *.c
+	go test -i
 	go test 2>&1 | tee log
-	go build
 
 internalError:
 	egrep -ho '"internal error.*"' *.go | sort | cat -n
