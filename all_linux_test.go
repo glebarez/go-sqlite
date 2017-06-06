@@ -58,13 +58,7 @@ func init() {
 // ============================================================================
 
 var (
-	// Add "-tags virtual.profile" to the command.
-	profileAll          = flag.Bool("profile", false, "")
-	profileFunctions    = flag.Bool("profile_functions", false, "")
-	profileInstructions = flag.Bool("profile_instructions", false, "")
-	profileLines        = flag.Bool("profile_lines", false, "")
-	profileRate         = flag.Int("profile_rate", 1000, "")
-	recsPerSec          = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
+	recsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 )
 
 func tempDB(t testing.TB) (string, *sql.DB) {

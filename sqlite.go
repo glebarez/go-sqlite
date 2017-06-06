@@ -5,6 +5,7 @@
 package sqlite
 
 import (
+	"bytes"
 	"database/sql"
 	"database/sql/driver"
 	"fmt"
@@ -17,10 +18,7 @@ import (
 	"unsafe"
 
 	"github.com/cznic/crt"
-	"github.com/cznic/internal/buffer"
-	"github.com/cznic/mathutil"
 	"github.com/cznic/sqlite/internal/bin"
-	"github.com/cznic/xc"
 	"golang.org/x/net/context"
 )
 
@@ -37,13 +35,9 @@ var (
 
 const (
 	driverName  = "sqlite"
-	ptrSize     = mathutil.UintPtrBits / 8
 	heapReserve = 1 << 20
 	heapSize    = 32 << 20
-)
-
-var (
-	dict = xc.Dict
+	ptrSize     = 1 << (^uintptr(0)>>32&1 + ^uintptr(0)>>16&1 + ^uintptr(0)>>8&1 + 3) / 8
 )
 
 func init() {
@@ -52,12 +46,11 @@ func init() {
 }
 
 func tracer(rx interface{}, format string, args ...interface{}) {
-	var b buffer.Bytes
+	var b bytes.Buffer
 	_, file, line, _ := runtime.Caller(1)
 	fmt.Fprintf(&b, "%v:%v: (%[3]T)(%[3]p).", file, line, rx)
 	fmt.Fprintf(&b, format, args...)
 	fmt.Fprintf(os.Stderr, "%s\n", b.Bytes())
-	b.Close()
 }
 
 type result struct {

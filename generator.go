@@ -264,6 +264,7 @@ func main() {
 
 	asta, src := build(
 		`
+		#define HAVE_USLEEP 1
 		#define SQLITE_DEBUG 1
 		#define SQLITE_ENABLE_API_ARMOR 1
 		#define SQLITE_ENABLE_MEMSYS5 1
