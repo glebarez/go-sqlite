@@ -41,7 +41,10 @@ const (
 )
 
 func init() {
-	bin.Init(heapSize, heapReserve)
+	if v := bin.Init(heapSize, heapReserve); v != 0 {
+		panic(fmt.Errorf("initialization failed: %v", v))
+	}
+
 	sql.Register(driverName, newDrv())
 }
 
