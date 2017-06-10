@@ -7,6 +7,8 @@
 //
 // Changelog
 //
+// 2017-06-10 Windows/Intel no more uses the VM (thanks Steffen Butzer).
+//
 // 2017-06-05 Linux/Intel no more uses the VM (cznic/virtual).
 //
 // Connecting to a database
