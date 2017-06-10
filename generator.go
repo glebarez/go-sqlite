@@ -168,6 +168,7 @@ func build(predef string, tus [][]string, opts ...cc.Opt) ([]*cc.TranslationUnit
 				cc.EnableEmptyStructs(),
 				cc.EnableImplicitFuncDef(),
 				cc.EnableNonConstStaticInitExpressions(),
+				cc.EnableWideBitFieldTypes(),
 				cc.ErrLimit(*errLimit),
 				cc.SysIncludePaths([]string{ccir.LibcIncludePath}),
 			}, opts...)...,
