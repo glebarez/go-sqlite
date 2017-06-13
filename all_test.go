@@ -300,7 +300,7 @@ func TestIssue11(t *testing.T) {
 	BEGIN;
 `,
 	); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	for i := 0; i < N; i++ {
