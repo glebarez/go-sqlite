@@ -34,15 +34,26 @@ var (
 )
 
 const (
-	driverName  = "sqlite"
-	heapReserve = 1 << 20
-	heapSize    = 32 << 20
-	ptrSize     = 1 << (^uintptr(0)>>32&1 + ^uintptr(0)>>16&1 + ^uintptr(0)>>8&1 + 3) / 8
+	driverName = "sqlite"
+	ptrSize    = 1 << (^uintptr(0)>>32&1 + ^uintptr(0)>>16&1 + ^uintptr(0)>>8&1 + 3) / 8
 )
 
 func init() {
-	if v := bin.Init(heapSize, heapReserve); v != 0 {
-		panic(fmt.Errorf("initialization failed: %v", v))
+	tls := crt.NewTLS()
+	crt.X__register_stdfiles(tls, bin.Xstdin, bin.Xstdout, bin.Xstderr)
+	if bin.Xsqlite3_threadsafe(tls) == 0 {
+		panic(fmt.Errorf("sqlite: thread safety configuration error"))
+	}
+
+	if bin.Xsqlite3_config(
+		tls,
+		bin.XSQLITE_CONFIG_LOG,
+		func(tls *crt.TLS, pArg unsafe.Pointer, iErrCode int32, zMsg *int8) {
+			fmt.Fprintf(os.Stderr, "%v(%#x): %s\n", iErrCode, iErrCode, crt.GoString(zMsg))
+		},
+		unsafe.Pointer(nil),
+	) != 0 {
+		panic("sqlite: cannot configure error log callback")
 	}
 
 	sql.Register(driverName, newDrv())
@@ -58,12 +69,12 @@ func tracer(rx interface{}, format string, args ...interface{}) {
 
 type result struct {
 	*stmt
-	lastInsertId int64
+	lastInsertID int64
 	rowsAffected int
 }
 
 func (r *result) String() string {
-	return fmt.Sprintf("&%T@%p{stmt: %p, LastInsertId: %v, RowsAffected: %v}", *r, r, r.stmt, r.lastInsertId, r.rowsAffected)
+	return fmt.Sprintf("&%T@%p{stmt: %p, LastInsertId: %v, RowsAffected: %v}", *r, r, r.stmt, r.lastInsertID, r.rowsAffected)
 }
 
 func newResult(s *stmt) (_ *result, err error) {
@@ -72,7 +83,7 @@ func newResult(s *stmt) (_ *result, err error) {
 		return nil, err
 	}
 
-	if r.lastInsertId, err = r.lastInsertRowID(); err != nil {
+	if r.lastInsertID, err = r.lastInsertRowID(); err != nil {
 		return nil, err
 	}
 
@@ -97,7 +108,7 @@ func (r *result) LastInsertId() (int64, error) {
 		return 0, nil
 	}
 
-	return r.lastInsertId, nil
+	return r.lastInsertID, nil
 }
 
 // RowsAffected returns the number of rows affected by the query.
@@ -693,8 +704,8 @@ func (s *stmt) step(pstmt unsafe.Pointer) (int, error) {
 //   sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
 //   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 // );
-func (s *stmt) prepareV2(zSql *int8) error {
-	if rc := bin.Xsqlite3_prepare_v2(s.tls, s.pdb(), zSql, -1, s.ppstmt, s.pzTail); rc != bin.XSQLITE_OK {
+func (s *stmt) prepareV2(zSQL *int8) error {
+	if rc := bin.Xsqlite3_prepare_v2(s.tls, s.pdb(), zSQL, -1, s.ppstmt, s.pzTail); rc != bin.XSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -1050,6 +1061,7 @@ func (c *conn) close() (err error) {
 	return err
 }
 
+// Driver implements database/sql/driver.Driver.
 type Driver struct {
 	sync.Mutex
 }

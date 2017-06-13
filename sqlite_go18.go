@@ -63,11 +63,7 @@ func (s *stmt) QueryContext(ctx context.Context, args []driver.NamedValue) (driv
 func toNamedValues2(vals []driver.NamedValue) []namedValue {
 	args := make([]namedValue, 0, len(vals))
 	for _, val := range vals {
-		args = append(args, namedValue{
-			Name:    val.Name,
-			Ordinal: val.Ordinal,
-			Value:   val.Value,
-		})
+		args = append(args, namedValue(val))
 	}
 	return args
 }

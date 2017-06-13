@@ -61,32 +61,15 @@ import (
 	"unsafe"
 
 	"github.com/cznic/crt"
-	"github.com/edsrzf/mmap-go"
-
 )
 
-const minAlloc = 2<<5
+var inf = math.Inf(1)
 
-var (
-	inf = math.Inf(1)
-)
 
 func ftrace(s string, args ...interface{}) {
 	_, fn, fl, _ := runtime.Caller(1)
 	fmt.Fprintf(os.Stderr, "# %%s:%%d: %%v\n", path.Base(fn), fl, fmt.Sprintf(s, args...))
 	os.Stderr.Sync()
-}
-
-func Init(heapSize, heapReserve int) int {
-	heap, err := mmap.MapRegion(nil, heapSize+heapReserve, mmap.RDWR, mmap.ANON, 0)
-	if err != nil {
-		panic(err)
-	}
-
-	tls := crt.NewTLS()
-	crt.RegisterHeap(unsafe.Pointer(&heap[0]), int64(heapSize+heapReserve))
-	crt.X__register_stdfiles(tls, Xstdin, Xstdout, Xstderr)
-	return int(Xinit(tls, int32(heapSize)))
 }
 `
 )
@@ -265,11 +248,13 @@ func main() {
 
 	asta, src := build(
 		`
+		#define HAVE_MALLOC_H 1
+		#define HAVE_MALLOC_USABLE_SIZE 1
 		#define HAVE_USLEEP 1
 		#define SQLITE_DEBUG 1
 		#define SQLITE_ENABLE_API_ARMOR 1
-		#define SQLITE_ENABLE_MEMSYS5 1
 		#define SQLITE_USE_URI 1
+		#define SQLITE_WITHOUT_MSIZE 1
 		`,
 		[][]string{
 			{"main.c"},

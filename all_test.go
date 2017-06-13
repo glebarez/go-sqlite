@@ -312,3 +312,39 @@ func TestIssue11(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+// https://github.com/cznic/sqlite/issues/12
+func TestMemDB(t *testing.T) {
+	// Verify we can create out-of-the heap memory DB instance.
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		db.Close()
+	}()
+
+	v := strings.Repeat("a", 1024)
+	if _, err := db.Exec(`
+	create table t(s string);
+	begin;
+	`); err != nil {
+		t.Fatal(err)
+	}
+
+	s, err := db.Prepare("insert into t values(?)")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Heap used to be fixed at 32MB.
+	for i := 0; i < (64<<20)/len(v); i++ {
+		if _, err := s.Exec(v); err != nil {
+			t.Fatalf("%v * %v= %v: %v", i, len(v), i*len(v), err)
+		}
+	}
+	if _, err := db.Exec(`commit;`); err != nil {
+		t.Fatal(err)
+	}
+}
