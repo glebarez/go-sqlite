@@ -15,6 +15,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"sort"
@@ -31,15 +32,16 @@ import (
 )
 
 var (
-	cpp      = flag.Bool("cpp", false, "")
-	dict     = xc.Dict
-	errLimit = flag.Int("errlimit", 10, "")
-	filter   = flag.String("re", "", "")
-	ndebug   = flag.Bool("ndebug", false, "")
-	noexec   = flag.Bool("noexec", false, "")
-	oLog     = flag.Bool("log", false, "")
-	trace    = flag.Bool("trc", false, "")
-	yydebug  = flag.Int("yydebug", 0, "")
+	cpp          = flag.Bool("cpp", false, "")
+	dict         = xc.Dict
+	errLimit     = flag.Int("errlimit", 10, "")
+	filter       = flag.String("re", "", "")
+	ndebug       = flag.Bool("ndebug", false, "")
+	noexec       = flag.Bool("noexec", false, "")
+	oLog         = flag.Bool("log", false, "")
+	trace        = flag.Bool("trc", false, "")
+	unconvertBin string
+	yydebug      = flag.Int("yydebug", 0, "")
 )
 
 const (
@@ -62,9 +64,6 @@ import (
 
 	"github.com/cznic/crt"
 )
-
-var inf = math.Inf(1)
-
 
 func ftrace(s string, args ...interface{}) {
 	_, fn, fl, _ := runtime.Caller(1)
@@ -119,6 +118,27 @@ func errStr(err error) string {
 		return b.String()
 	default:
 		return err.Error()
+	}
+}
+
+func unconvert(pth string) {
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.Chdir(wd); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	if err := os.Chdir(filepath.Dir(pth)); err != nil {
+		log.Fatal(err)
+	}
+
+	if out, err := exec.Command(unconvertBin, "-apply").CombinedOutput(); err != nil {
+		log.Fatalf("unconvert: %s\n%s", err, out)
 	}
 }
 
@@ -236,9 +256,14 @@ func macros(buf io.Writer, ast *cc.TranslationUnit) {
 }
 
 func main() {
-	const repo = "sqlite.org/sqlite-amalgamation-3180000/"
+	const repo = "sqlite.org/sqlite-amalgamation-3190300/"
 
 	log.SetFlags(log.Lshortfile | log.Lmicroseconds)
+	var err error
+	if unconvertBin, err = exec.LookPath("unconvert"); err != nil {
+		log.Fatal("Please install the unconvert tool (go get -u github.com/mdempsky/unconvert)")
+	}
+
 	flag.Parse()
 	pth := findRepo(repo)
 	if pth == "" {
@@ -281,7 +306,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := ioutil.WriteFile(fmt.Sprintf("internal/bin/bin_%s_%s.go", runtime.GOOS, runtime.GOARCH), b2, 0664); err != nil {
+	dst := fmt.Sprintf("internal/bin/bin_%s_%s.go", runtime.GOOS, runtime.GOARCH)
+	if err := ioutil.WriteFile(dst, b2, 0664); err != nil {
 		log.Fatal(err)
 	}
+	unconvert(dst)
 }
