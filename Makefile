@@ -8,6 +8,7 @@ grep=--include=*.go --include=*.l --include=*.y --include=*.yy
 ngrep='TODOOK\|parser\.go\|scanner\.go\|.*_string\.go'
 
 all: editor
+	go test 2>&1 | tee log
 	go vet 2>&1 | grep -v $(ngrep) || true
 	golint 2>&1 | grep -v $(ngrep) || true
 	make todo
@@ -35,7 +36,6 @@ editor:
 	gofmt -l -s -w *.go
 	indent -linux *.c
 	go test -i
-	go test 2>&1 | tee log
 
 internalError:
 	egrep -ho '"internal error.*"' *.go | sort | cat -n

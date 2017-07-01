@@ -11,9 +11,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -346,5 +348,184 @@ func TestMemDB(t *testing.T) {
 	}
 	if _, err := db.Exec(`commit;`); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestMP(t *testing.T) {
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.RemoveAll(dir); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.Chdir(wd); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+	if out, err := exec.Command("go", "build", "-o", "mptest", "github.com/cznic/sqlite/internal/mptest").CombinedOutput(); err != nil {
+		t.Fatalf("go build mptest: %s\n%s", err, out)
+	}
+
+	pat := filepath.Join(wd, filepath.FromSlash("testdata/mptest"), "*.test")
+	m, err := filepath.Glob(pat)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(m) == 0 {
+		t.Fatalf("%s: no files", pat)
+	}
+
+	cmd := filepath.FromSlash("./mptest")
+	for _, v := range m {
+		os.Remove("db")
+		out, err := exec.Command(cmd, "db", v).CombinedOutput()
+		t.Logf("%s", out)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func TestThread1(t *testing.T) {
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.RemoveAll(dir); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.Chdir(wd); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+	if out, err := exec.Command("go", "build", "-o", "threadtest1", "github.com/cznic/sqlite/internal/threadtest1").CombinedOutput(); err != nil {
+		t.Fatalf("go build mptest: %s\n%s", err, out)
+	}
+
+	for i := 1; i <= 10; i++ {
+		out, err := exec.Command("./threadtest1", strconv.Itoa(i), "-v").CombinedOutput()
+		t.Logf("%v: %s", i, out)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func TestThread2(t *testing.T) {
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.RemoveAll(dir); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.Chdir(wd); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+	if out, err := exec.Command("go", "build", "-o", "threadtest2", "github.com/cznic/sqlite/internal/threadtest2").CombinedOutput(); err != nil {
+		t.Fatalf("go build mptest: %s\n%s", err, out)
+	}
+
+	out, err := exec.Command("./threadtest2").CombinedOutput()
+	t.Logf("%s", out)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestThread4(t *testing.T) {
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.RemoveAll(dir); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := os.Chdir(wd); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+	if out, err := exec.Command("go", "build", "-o", "threadtest4", "github.com/cznic/sqlite/internal/threadtest4").CombinedOutput(); err != nil {
+		t.Fatalf("go build mptest: %s\n%s", err, out)
+	}
+
+	for _, opts := range [][]string{
+		{},
+		{"-serialized", "-wal"},
+		{"-serialized"},
+		{"-multithread"},
+		{"-multithread", "-wal"},
+		{"-wal"},
+	} {
+		for i := 2; i <= 10; i++ {
+			out, err := exec.Command("./threadtest4", append(opts, strconv.Itoa(i))...).CombinedOutput()
+			t.Logf("%v: %s", i, out)
+			if err != nil {
+				t.Fatal(err)
+			}
+		}
 	}
 }

@@ -6,8 +6,11 @@
 
 #include <sqlite3.h>
 
+static void use(int, ...)
+{
+}
+
 int main(int argc, char **argv)
 {
-	// Prevent the linker from optimizing out everything.
-	int (*f) (int, ...) = sqlite3_config;
+	use(0, sqlite3_exec, sqlite3_enable_load_extension);
 }
