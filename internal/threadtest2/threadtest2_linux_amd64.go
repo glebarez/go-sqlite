@@ -131,10 +131,10 @@ _0:
 	if (_cnt % i32(100)) == i32(0) {
 		crt.Xprintf(tls, str(167), _id, _cnt)
 	}
-_4:
+_3:
 	if bin.Xsqlite3_open(tls, str(0), (**bin.Xsqlite3)(unsafe.Pointer(&_db))) != i32(0) {
 		crt.Xsched_yield(tls)
-		goto _4
+		goto _3
 	}
 	bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_db), str(175), nil, nil, nil)
 	if Xall_stop != 0 {

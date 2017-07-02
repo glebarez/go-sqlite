@@ -243,10 +243,10 @@ func Xdb_execute(tls *crt.TLS, _db unsafe.Pointer, _zFile *int8, _zFormat *int8,
 	if _verbose != 0 {
 		crt.Xprintf(tls, str(314), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
 	}
-_1:
+_0:
 	_rc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_db), _zSql, nil, nil, &_zErrMsg)
 	if _rc == i32(5) {
-		goto _1
+		goto _0
 	}
 	if _verbose != 0 {
 		crt.Xprintf(tls, str(327), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
@@ -272,7 +272,7 @@ func Xdb_query(tls *crt.TLS, _db unsafe.Pointer, _zFile *int8, _zFormat *int8, a
 	_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 	crt.Xmemset(tls, (unsafe.Pointer)(&_sResult), i32(0), u64(24))
-	*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_sResult)) + uintptr(0 /* X0 */))) = _zFile
+	*(**int8)(unsafe.Pointer(&(_sResult.X0))) = _zFile
 	if _verbose != 0 {
 		crt.Xprintf(tls, str(369), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
 	}
@@ -314,12 +314,12 @@ func _db_query_callback(tls *crt.TLS, _pUser unsafe.Pointer, _nArg int32, _azArg
 		goto _0
 	}
 	if (_pResult.X2) == i32(0) {
-		*(*int32)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult)) + uintptr(12 /* X2 */))) = _nArg + i32(1)
+		*(*int32)(unsafe.Pointer(&(_pResult.X2))) = _nArg + i32(1)
 		goto _2
 	}
-	*(*int32)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult)) + uintptr(12 /* X2 */))) = (((_pResult.X2) * i32(2)) + _nArg) + i32(1)
+	*(*int32)(unsafe.Pointer(&(_pResult.X2))) = (((_pResult.X2) * i32(2)) + _nArg) + i32(1)
 _2:
-	*(***int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult)) + uintptr(16 /* X3 */))) = (**int8)(crt.Xrealloc(tls, (unsafe.Pointer)(_pResult.X3), uint64(_pResult.X2)*u64(8)))
+	*(***int8)(unsafe.Pointer(&(_pResult.X3))) = (**int8)(crt.Xrealloc(tls, (unsafe.Pointer)(_pResult.X3), uint64(_pResult.X2)*u64(8)))
 	if (_pResult.X3) == nil {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(422), unsafe.Pointer(_pResult.X0))
 		return i32(1)
@@ -333,7 +333,7 @@ _5:
 	if _i >= _nArg {
 		goto _8
 	}
-	*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult.X3)) + 8*uintptr(postInc0((*int32)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult))+uintptr(8 /* X1 */))), int32(1))))) = bin.Xsqlite3_mprintf(tls, str(441), unsafe.Pointer(func() *int8 {
+	*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult.X3)) + 8*uintptr(postInc0((*int32)(unsafe.Pointer(&(_pResult.X1))), int32(1))))) = bin.Xsqlite3_mprintf(tls, str(441), unsafe.Pointer(func() *int8 {
 		if (*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_azArg)) + 8*uintptr(_i)))) != nil {
 			return (*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_azArg)) + 8*uintptr(_i))))
 		}
