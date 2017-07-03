@@ -404,41 +404,43 @@ func TestMP(t *testing.T) {
 }
 
 func TestThread1(t *testing.T) {
-	dir, err := ioutil.TempDir("", "sqlite-test-")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer func() {
-		if err := os.RemoveAll(dir); err != nil {
-			t.Fatal(err)
-		}
-	}()
-
-	wd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer func() {
-		if err := os.Chdir(wd); err != nil {
-			t.Fatal(err)
-		}
-	}()
-
-	if err := os.Chdir(dir); err != nil {
-		t.Fatal(err)
-	}
-
-	if out, err := exec.Command("go", "build", "-o", "threadtest1", "github.com/cznic/sqlite/internal/threadtest1").CombinedOutput(); err != nil {
-		t.Fatalf("go build mptest: %s\n%s", err, out)
-	}
-
-	for i := 1; i <= 10; i++ {
-		out, err := exec.Command("./threadtest1", strconv.Itoa(i), "-v").CombinedOutput()
-		t.Logf("%v: %s", i, out)
+	for i := 0; i < 10; i++ {
+		dir, err := ioutil.TempDir("", "sqlite-test-")
 		if err != nil {
 			t.Fatal(err)
+		}
+
+		defer func() {
+			if err := os.RemoveAll(dir); err != nil {
+				t.Fatal(err)
+			}
+		}()
+
+		wd, err := os.Getwd()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		defer func() {
+			if err := os.Chdir(wd); err != nil {
+				t.Fatal(err)
+			}
+		}()
+
+		if err := os.Chdir(dir); err != nil {
+			t.Fatal(err)
+		}
+
+		if out, err := exec.Command("go", "build", "-o", "threadtest1", "github.com/cznic/sqlite/internal/threadtest1").CombinedOutput(); err != nil {
+			t.Fatalf("go build mptest: %s\n%s", err, out)
+		}
+
+		for j := 0; j <= 20; j++ {
+			out, err := exec.Command("./threadtest1", strconv.Itoa(j), "-v").CombinedOutput()
+			t.Logf("%v, %v: %s", i, j, out)
+			if err != nil {
+				t.Fatal(err)
+			}
 		}
 	}
 }
@@ -514,15 +516,17 @@ func TestThread4(t *testing.T) {
 
 	for _, opts := range [][]string{
 		{},
-		{"-serialized", "-wal"},
-		{"-serialized"},
-		{"-multithread"},
-		{"-multithread", "-wal"},
 		{"-wal"},
+		{"-serialized"},
+		{"-serialized", "-wal"},
+		{"--multithread"},
+		{"--multithread", "-wal"},
+		{"--multithread", "-serialized"},
+		{"--multithread", "-serialized", "-wal"},
 	} {
 		for i := 2; i <= 10; i++ {
 			out, err := exec.Command("./threadtest4", append(opts, strconv.Itoa(i))...).CombinedOutput()
-			t.Logf("%v: %s", i, out)
+			t.Logf("%v: %v %s", i, opts, out)
 			if err != nil {
 				t.Fatal(err)
 			}
