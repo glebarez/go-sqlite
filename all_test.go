@@ -60,6 +60,7 @@ func init() {
 // ============================================================================
 
 var (
+	memTrace   = flag.Bool("memory.trace", false, "")
 	recsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 )
 
@@ -392,10 +393,10 @@ func TestMP(t *testing.T) {
 		t.Fatalf("%s: no files", pat)
 	}
 
-	cmd := filepath.FromSlash("./mptest")
+	nm := filepath.FromSlash("./mptest")
 	for _, v := range m {
 		os.Remove("db")
-		out, err := exec.Command(cmd, "db", v).CombinedOutput()
+		out, err := exec.Command(nm, "db", v).CombinedOutput()
 		t.Logf("%s", out)
 		if err != nil {
 			t.Fatal(err)
@@ -437,7 +438,7 @@ func TestThread1(t *testing.T) {
 
 		for j := 0; j <= 20; j++ {
 			out, err := exec.Command("./threadtest1", strconv.Itoa(j), "-v").CombinedOutput()
-			t.Logf("%v, %v: %s", i, j, out)
+			t.Logf("%v, %v:\n%s", i, j, out)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -510,7 +511,11 @@ func TestThread4(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if out, err := exec.Command("go", "build", "-o", "threadtest4", "github.com/cznic/sqlite/internal/threadtest4").CombinedOutput(); err != nil {
+	s := []string{"build", "-o", "threadtest4"}
+	if *memTrace {
+		s = append(s, "-tags", "memory.trace", "-race")
+	}
+	if out, err := exec.Command("go", append(s, "github.com/cznic/sqlite/internal/threadtest4")...).CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
@@ -526,9 +531,15 @@ func TestThread4(t *testing.T) {
 	} {
 		for i := 2; i <= 10; i++ {
 			out, err := exec.Command("./threadtest4", append(opts, strconv.Itoa(i))...).CombinedOutput()
-			t.Logf("%v: %v %s", i, opts, out)
+			t.Logf("%v: %v\n%s", i, opts, out)
 			if err != nil {
 				t.Fatal(err)
+			}
+
+			if bytes.Contains(out, []byte("fault address")) ||
+				bytes.Contains(out, []byte("data race")) ||
+				bytes.Contains(out, []byte("RACE")) {
+				t.Fatal("fault")
 			}
 		}
 	}

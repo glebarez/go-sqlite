@@ -203,7 +203,7 @@ _24:
 	{
 		p := &_openFlags
 		*p = (*p) | i32(4)
-		sink1 = *p
+		sink1(*p)
 	}
 _14:
 	_rc = bin.Xsqlite3_open_v2(tls, _g.X2, (**bin.Xsqlite3)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&(_g.X3))))), _openFlags, _g.X1)
@@ -306,7 +306,7 @@ _56:
 		{
 			p := &_15_iTimeout
 			*p = (*p) - i32(10)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _56
 	}
@@ -319,7 +319,7 @@ _60:
 		{
 			p := &_15_iTimeout
 			*p = (*p) - i32(10)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _60
 	}
@@ -327,12 +327,12 @@ _60:
 		{
 			p := (*int32)(unsafe.Pointer(&(_g.X13)))
 			*p = (*p) + bin.Xsqlite3_column_int(tls, _15_pStmt, i32(0))
-			sink1 = *p
+			sink1(*p)
 		}
 		{
 			p := (*int32)(unsafe.Pointer(&(_g.X14)))
 			*p = (*p) + bin.Xsqlite3_column_int(tls, _15_pStmt, i32(1))
-			sink1 = *p
+			sink1(*p)
 		}
 	}
 	bin.Xsqlite3_finalize(tls, _15_pStmt)
@@ -664,7 +664,7 @@ _8:
 	{
 		p := &_zMsg
 		*p = (*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(*p)) + 1*uintptr(_1_i)))
-		sink0 = *p
+		sink0(*p)
 	}
 _9:
 	if (int32(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_zMsg)) + 1*uintptr(i32(0))))) == i32(10)) || (int32(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_zMsg)) + 1*uintptr(i32(0))))) == i32(13)) {
@@ -896,7 +896,7 @@ _15:
 		{
 			p := &_z
 			*p = (*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(*p)) + 1*uintptr(_i+i32(1))))
-			sink0 = *p
+			sink0(*p)
 		}
 		goto _17
 	}
@@ -930,7 +930,7 @@ _1:
 	{
 		p := (*int32)(unsafe.Pointer(&(_p.X1)))
 		*p = (*p) + _n
-		sink1 = *p
+		sink1(*p)
 	}
 	*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_p.X0)) + 1*uintptr(_p.X1))) = int8(i32(0))
 }
@@ -994,7 +994,7 @@ _0:
 		{
 			p := &_totalTime
 			*p = (*p) + i32(10)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _0
 	}
@@ -1045,7 +1045,7 @@ _9:
 		{
 			p := &_totalTime
 			*p = (*p) + i32(10)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _9
 	}
@@ -1053,7 +1053,7 @@ _9:
 	{
 		p := &_totalTime
 		*p = (*p) + i32(100)
-		sink1 = *p
+		sink1(*p)
 	}
 	goto _0
 _8:
@@ -1105,7 +1105,7 @@ _0:
 		{
 			p := &_ii
 			*p = (*p) + _len
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _0
 	}
@@ -1113,7 +1113,7 @@ _0:
 		{
 			p := &_ii
 			*p = (*p) + _len
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _0
 	}
@@ -1143,7 +1143,7 @@ _15:
 	{
 		p := &_n
 		*p = (*p) + _extractToken(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(i32(2))))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), (_len-i32(2))-_n, (*int8)(unsafe.Pointer((*[100]int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_azArg))+100*uintptr(_nArg))))), int32(u32(100)))
-		sink1 = *p
+		sink1(*p)
 	}
 	_nArg += 1
 	goto _10
@@ -1204,7 +1204,7 @@ _41:
 	{
 		p := &_12_zAns
 		*p = (*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(*p)) + 1*uintptr(_12_jj)))
-		sink0 = *p
+		sink0(*p)
 	}
 	if (((_len - _12_jj) - i32(1)) != (_sResult.X1)) || crt.Xstrncmp(tls, _sResult.X0, _12_zAns, uint32((_len-_12_jj)-i32(1))) != 0 {
 		_errorMessage(tls, str(2752), _prevLine, unsafe.Pointer(_zFilename), (_len-_12_jj)-i32(1), unsafe.Pointer(_12_zAns), unsafe.Pointer(_sResult.X0))
@@ -1229,7 +1229,7 @@ _51:
 	{
 		p := &_15_zAns
 		*p = (*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(*p)) + 1*uintptr(_15_jj)))
-		sink0 = *p
+		sink0(*p)
 	}
 	_15_zCopy = bin.Xsqlite3_mprintf(tls, str(2708), (_len-_15_jj)-i32(1), unsafe.Pointer(_15_zAns))
 	if (bool2int(bin.Xsqlite3_strglob(tls, _15_zCopy, _sResult.X0) == i32(0)) ^ _15_isGlob) != 0 {
@@ -1307,7 +1307,7 @@ _79:
 		{
 			p := &_ii
 			*p = (*p) + _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len))))))), i32(1), &_lineno)
-			sink1 = *p
+			sink1(*p)
 		}
 	}
 	bin.Xsqlite3_finalize(tls, _25_pStmt)
@@ -1317,7 +1317,7 @@ _74:
 		{
 			p := &_ii
 			*p = (*p) + _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len))))))), i32(0), &_lineno)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _108
 	}
@@ -1368,12 +1368,12 @@ _99:
 	{
 		p := &_33_iEnd
 		*p = (*p) + _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_33_iEnd))))))), &_lineno)
-		sink1 = *p
+		sink1(*p)
 	}
 	{
 		p := &_len
 		*p = (*p) + _33_iEnd
-		sink1 = *p
+		sink1(*p)
 	}
 	_iBegin = _ii + _len
 	goto _108
@@ -1396,7 +1396,7 @@ _108:
 	{
 		p := &_ii
 		*p = (*p) + _len
-		sink1 = *p
+		sink1(*p)
 	}
 	goto _0
 _1:
@@ -1625,14 +1625,14 @@ _0:
 		{
 			p := &_n
 			*p = (*p) + (_3_skip + _1_len)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _9
 	}
 	{
 		p := &_n
 		*p = (*p) + _1_len
-		sink1 = *p
+		sink1(*p)
 	}
 _9:
 	goto _0
@@ -1690,7 +1690,7 @@ _2:
 		{
 			p := &_iTimeout
 			*p = (*p) - i32(50)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _2
 	}
@@ -1720,7 +1720,7 @@ _0:
 		{
 			p := &_n
 			*p = (*p) + _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), _pnLine)
-			sink1 = *p
+			sink1(*p)
 		}
 		goto _0
 	}
@@ -1799,8 +1799,8 @@ func u8(n byte) byte       { return n }
 var inf = math.Inf(1)
 var nzf32 float32 // -0.0
 var nzf64 float64 // -0.0
-var sink0 *int8   //TODO report GC bug
-var sink1 int32   //TODO report GC bug
+func sink0(*int8) {} //TODO report GC bug
+func sink1(int32) {} //TODO report GC bug
 func postInc0(p **int8, d int) *int8 {
 	q := (*uintptr)(unsafe.Pointer(p))
 	v := *q

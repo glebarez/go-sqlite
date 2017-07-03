@@ -109,7 +109,7 @@ _0:
 		{
 			p := &_wkrFlags
 			*p = (*p) & uint32(i32(-2))
-			sink0 = *p
+			sink0(*p)
 		}
 		goto _14
 	}
@@ -118,7 +118,7 @@ _0:
 		{
 			p := &_wkrFlags
 			*p = (*p) | uint32(i32(1))
-			sink0 = *p
+			sink0(*p)
 		}
 		goto _14
 	}
@@ -126,7 +126,7 @@ _0:
 		{
 			p := &_wkrFlags
 			*p = (*p) | uint32(i32(2))
-			sink0 = *p
+			sink0(*p)
 		}
 		goto _14
 	}
@@ -134,7 +134,7 @@ _0:
 		{
 			p := &_wkrFlags
 			*p = (*p) | uint32(i32(4))
-			sink0 = *p
+			sink0(*p)
 		}
 		goto _14
 	}
@@ -234,12 +234,12 @@ _35:
 	{
 		p := &_nErr
 		*p = (*p) + ((*XWorkerInfo)(unsafe.Pointer(uintptr((unsafe.Pointer)(_aInfo)) + 40*uintptr(_i))).X5)
-		sink1 = *p
+		sink1(*p)
 	}
 	{
 		p := &_nTest
 		*p = (*p) + ((*XWorkerInfo)(unsafe.Pointer(uintptr((unsafe.Pointer)(_aInfo)) + 40*uintptr(_i))).X6)
-		sink1 = *p
+		sink1(*p)
 	}
 	crt.Xfflush(tls, (*crt.XFILE)(Xstdout))
 	_i += 1
@@ -574,8 +574,8 @@ func u8(n byte) byte       { return n }
 var inf = math.Inf(1)
 var nzf32 float32                    // -0.0
 var nzf64 float64                    // -0.0
-var sink1 int32                      //TODO report GC bug
-var sink0 uint32                     //TODO report GC bug
+func sink1(int32)                    {} //TODO report GC bug
+func sink0(uint32)                   {} //TODO report GC bug
 func store1(p *int32, v int32) int32 { *p = v; return v }
 
 type XWorkerInfo struct {
