@@ -484,7 +484,7 @@ func TestThread2(t *testing.T) {
 	}
 }
 
-func TestThread4(t *testing.T) {
+func TestThread3(t *testing.T) {
 	dir, err := ioutil.TempDir("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
@@ -511,36 +511,107 @@ func TestThread4(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	s := []string{"build", "-o", "threadtest4"}
+	s := []string{"build", "-o", "threadtest3"}
 	if *memTrace {
 		s = append(s, "-tags", "memory.trace", "-race")
 	}
-	if out, err := exec.Command("go", append(s, "github.com/cznic/sqlite/internal/threadtest4")...).CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", append(s, "github.com/cznic/sqlite/internal/threadtest3")...).CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
 	for _, opts := range [][]string{
-		{},
-		{"-wal"},
-		{"-serialized"},
-		{"-serialized", "-wal"},
-		{"--multithread"},
-		{"--multithread", "-wal"},
-		{"--multithread", "-serialized"},
-		{"--multithread", "-serialized", "-wal"},
+		{"walthread1"},
+		{"walthread2"},
+		{"walthread3"},
+		{"walthread4"},
+		{"walthread5"},
+		{"cgt_pager_1"},
+		{"dynamic_triggers"},
+		{"checkpoint_starvation_1"},
+		{"checkpoint_starvation_2"},
+		{"create_drop_index_1"},
+		{"lookaside1"},
+		{"vacuum1"},
+		{"stress1"},
+		{"stress2"},
 	} {
-		for i := 2; i <= 10; i++ {
-			out, err := exec.Command("./threadtest4", append(opts, strconv.Itoa(i))...).CombinedOutput()
-			t.Logf("%v: %v\n%s", i, opts, out)
-			if err != nil {
+		out, err := exec.Command("./threadtest3", opts...).CombinedOutput()
+		dbg("%v\n%s", opts, out)
+		t.Logf("%v\n%s", opts, out)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if bytes.Contains(out, []byte("fault address")) ||
+			bytes.Contains(out, []byte("data race")) ||
+			bytes.Contains(out, []byte("RACE")) {
+			t.Fatal("fault")
+		}
+	}
+}
+
+func TestThread4(t *testing.T) {
+	cases := 0
+	for i := 0; i < 10; i++ {
+		dir, err := ioutil.TempDir("", "sqlite-test-")
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		defer func() {
+			if err := os.RemoveAll(dir); err != nil {
 				t.Fatal(err)
 			}
+		}()
 
-			if bytes.Contains(out, []byte("fault address")) ||
-				bytes.Contains(out, []byte("data race")) ||
-				bytes.Contains(out, []byte("RACE")) {
-				t.Fatal("fault")
+		wd, err := os.Getwd()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		defer func() {
+			if err := os.Chdir(wd); err != nil {
+				t.Fatal(err)
+			}
+		}()
+
+		if err := os.Chdir(dir); err != nil {
+			t.Fatal(err)
+		}
+
+		s := []string{"build", "-o", "threadtest4"}
+		if *memTrace {
+			s = append(s, "-tags", "memory.trace", "-race")
+		}
+		if out, err := exec.Command("go", append(s, "github.com/cznic/sqlite/internal/threadtest4")...).CombinedOutput(); err != nil {
+			t.Fatalf("go build mptest: %s\n%s", err, out)
+		}
+
+		for _, opts := range [][]string{
+			{},
+			{"-wal"},
+			{"-serialized"},
+			{"-serialized", "-wal"},
+			{"--multithread"},
+			{"--multithread", "-wal"},
+			{"--multithread", "-serialized"},
+			{"--multithread", "-serialized", "-wal"},
+		} {
+			for j := 2; j <= 20; j++ {
+				out, err := exec.Command("./threadtest4", append(opts, strconv.Itoa(j))...).CombinedOutput()
+				t.Logf("%v %v: %v\n%s", i, j, opts, out)
+				if err != nil {
+					t.Fatal(err)
+				}
+
+				if bytes.Contains(out, []byte("fault address")) ||
+					bytes.Contains(out, []byte("data race")) ||
+					bytes.Contains(out, []byte("RACE")) {
+					t.Fatalf("case %v: fault", cases)
+				}
+				cases++
 			}
 		}
 	}
+	t.Logf("cases: %v", cases)
 }
