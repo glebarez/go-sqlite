@@ -20,7 +20,7 @@ all: editor
 
 clean:
 	go clean
-	rm -f *~ *.test *.out test.db* tt4-test*.db*
+	rm -f *~ *.test *.out test.db* tt4-test*.db* test_sv.* testdb-*
 
 cover:
 	t=$(shell tempfile) ; go test -coverprofile $$t && go tool cover -html $$t && unlink $$t
