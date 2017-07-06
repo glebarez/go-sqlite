@@ -93,7 +93,7 @@ _3:
 	if uint64(_i) >= u64(5) {
 		goto _6
 	}
-	crt.Xpthread_create(tls, (*uint64)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_aThread))+8*uintptr(_i))), nil, Xworker, (unsafe.Pointer)(uintptr(_i)))
+	crt.Xpthread_create(tls, (*uint64)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_aThread))+8*uintptr(_i))), nil, Xworker, crt.U2P(uintptr(_i)))
 	_i += 1
 	goto _3
 _6:
@@ -121,7 +121,7 @@ _10:
 func Xworker(tls *crt.TLS, _workerArg unsafe.Pointer) (r0 unsafe.Pointer) {
 	var _id, _rc, _cnt int32
 	var _db unsafe.Pointer
-	_id = int32(uintptr(_workerArg))
+	_id = int32(crt.P2U(_workerArg))
 	_cnt = i32(0)
 	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(147), _id)
 _0:

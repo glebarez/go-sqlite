@@ -105,31 +105,31 @@ func Xmain(tls *crt.TLS, _argc int32, _argv **int8) (r0 int32) {
 	}
 	_n = _argc - i32(2)
 	bin.Xsqlite3_snprintf(tls, int32(u64(32)), (*int8)(unsafe.Pointer((*[32]int8)(unsafe.Pointer(&(_g.X8))))), str(152), crt.Xgetpid(tls))
-	_zJMode = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(164), i32(1))
-	_zNRep = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(176), i32(1))
+	_zJMode = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(164), i32(1))
+	_zNRep = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(176), i32(1))
 	if _zNRep != nil {
 		_nRep = crt.Xatoi(tls, _zNRep)
 	}
 	if _nRep < i32(1) {
 		_nRep = i32(1)
 	}
-	*(**int8)(unsafe.Pointer(&(_g.X1))) = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(183), i32(1))
-	_zClient = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(187), i32(1))
-	*(**int8)(unsafe.Pointer(&(_g.X4))) = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(194), i32(1))
-	*(**int8)(unsafe.Pointer(&(_g.X6))) = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(201), i32(1))
-	_zTrace = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(205), i32(1))
+	*(**int8)(unsafe.Pointer(&(_g.X1))) = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(183), i32(1))
+	_zClient = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(187), i32(1))
+	*(**int8)(unsafe.Pointer(&(_g.X4))) = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(194), i32(1))
+	*(**int8)(unsafe.Pointer(&(_g.X6))) = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(201), i32(1))
+	_zTrace = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(205), i32(1))
 	if _zTrace != nil {
 		*(*int32)(unsafe.Pointer(&(_g.X10))) = crt.Xatoi(tls, _zTrace)
 	}
-	if _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(211), i32(0)) != nil {
+	if _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(211), i32(0)) != nil {
 		*(*int32)(unsafe.Pointer(&(_g.X10))) = i32(0)
 	}
-	_zTmout = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(217), i32(1))
+	_zTmout = _findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(217), i32(1))
 	if _zTmout != nil {
 		_iTmout = crt.Xatoi(tls, _zTmout)
 	}
-	*(*int32)(unsafe.Pointer(&(_g.X11))) = bool2int(_findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(225), i32(0)) != nil)
-	*(*int32)(unsafe.Pointer(&(_g.X16))) = bool2int(_findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(234), i32(0)) != nil)
+	*(*int32)(unsafe.Pointer(&(_g.X11))) = bool2int(_findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(225), i32(0)) != nil)
+	*(*int32)(unsafe.Pointer(&(_g.X16))) = bool2int(_findOption(tls, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))), &_n, str(234), i32(0)) != nil)
 	if (_g.X4) != nil {
 		*(**crt.XFILE)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&(_g.X5))))) = crt.Xfopen64(tls, _g.X4, str(239))
 		goto _9
@@ -243,7 +243,7 @@ _14:
 		goto _38
 	}
 	if _n > i32(0) {
-		_unrecognizedArguments(tls, *(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_argv)) + 8*uintptr(i32(0)))), _n, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))))
+		_unrecognizedArguments(tls, *(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_argv)) + 8*uintptr(i32(0)))), _n, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))))
 	}
 	if (_g.X10) != 0 {
 		_logMessage(tls, str(573))
@@ -275,7 +275,7 @@ _38:
 		_fatalError(tls, str(623))
 	}
 	if _n > i32(1) {
-		_unrecognizedArguments(tls, *(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_argv)) + 8*uintptr(i32(0)))), _n, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))))))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))))
+		_unrecognizedArguments(tls, *(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_argv)) + 8*uintptr(i32(0)))), _n, (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv))+uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(i32(2))*uintptr(unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(8))))))))))))
 	}
 	_runSql(tls, str(647))
 	_zScript = _readFile(tls, *(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_argv)) + 8*uintptr(i32(2)))))
@@ -372,7 +372,7 @@ _0:
 		goto _3
 	}
 	if int32(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_argv0)) + 1*uintptr(_i)))) == i32(47) {
-		_zTail = (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv0))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_i))))))))) + uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(i32(1))))))))
+		_zTail = (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv0))+uintptr(_i))))) + uintptr(i32(1))))
 	}
 	_i += 1
 	goto _0
@@ -423,7 +423,7 @@ _4:
 		goto _10
 	}
 _11:
-	if ((*_z) != 0) && Xstrglob(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zGlob))-uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(i32(1)))))))), _z) != 0 {
+	if ((*_z) != 0) && Xstrglob(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zGlob))-uintptr(i32(1)))), _z) != 0 {
 		*(*uintptr)(unsafe.Pointer(&_z)) += uintptr(1)
 		goto _11
 	}
@@ -677,7 +677,7 @@ _1:
 
 // Close output stream pOut if it is not stdout or stderr
 func _maybeClose(tls *crt.TLS, _pOut *crt.XFILE) {
-	if (uintptr(unsafe.Pointer(_pOut)) != uintptr(Xstdout)) && (_pOut != (*crt.XFILE)(Xstderr)) {
+	if (unsafe.Pointer(_pOut) != Xstdout) && (_pOut != (*crt.XFILE)(Xstderr)) {
 		crt.Xfclose(tls, _pOut)
 	}
 }
@@ -926,7 +926,7 @@ func _stringAppend(tls *crt.TLS, _p *XString, _z *int8, _n int32) {
 	*(**int8)(unsafe.Pointer(&(_p.X0))) = _1_zNew
 	*(*int32)(unsafe.Pointer(&(_p.X2))) = _1_nAlloc
 _1:
-	crt.Xmemcpy(tls, (unsafe.Pointer)((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_p.X0))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_p.X1)))))))), (unsafe.Pointer)(_z), uint64(_n))
+	crt.Xmemcpy(tls, (unsafe.Pointer)((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_p.X0))+uintptr(_p.X1)))), (unsafe.Pointer)(_z), uint64(_n))
 	{
 		p := (*int32)(unsafe.Pointer(&(_p.X1)))
 		*p = (*p) + _n
@@ -1100,7 +1100,7 @@ _0:
 		goto _1
 	}
 	_prevLine = _lineno
-	_len = _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii))))))), &_lineno)
+	_len = _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii))), &_lineno)
 	if (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(_c))))))&int32(u16(8192))) != 0 || ((_c == i32(47)) && (int32(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_zScript)) + 1*uintptr(_ii+i32(1))))) == i32(42))) {
 		{
 			p := &_ii
@@ -1118,15 +1118,15 @@ _0:
 		goto _0
 	}
 	if _ii > _iBegin {
-		_4_zSql = bin.Xsqlite3_mprintf(tls, str(2708), _ii-_iBegin, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_iBegin)))))))))
+		_4_zSql = bin.Xsqlite3_mprintf(tls, str(2708), _ii-_iBegin, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_iBegin)))))
 		_evalSql(tls, &_sResult, _4_zSql)
 		bin.Xsqlite3_free(tls, (unsafe.Pointer)(_4_zSql))
 		_iBegin = _ii + _len
 	}
 	if (_g.X10) >= i32(2) {
-		_logMessage(tls, str(2708), _len, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))
+		_logMessage(tls, str(2708), _len, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))
 	}
-	_n = _extractToken(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(i32(2)))))))), _len-i32(2), (*int8)(unsafe.Pointer(&_zCmd)), int32(u64(30)))
+	_n = _extractToken(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(i32(2)))), _len-i32(2), (*int8)(unsafe.Pointer(&_zCmd)), int32(u64(30)))
 	_nArg = i32(0)
 _10:
 	if _n >= (_len-i32(2)) || _nArg >= i32(2) {
@@ -1142,7 +1142,7 @@ _15:
 	}
 	{
 		p := &_n
-		*p = (*p) + _extractToken(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(i32(2))))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), (_len-i32(2))-_n, (*int8)(unsafe.Pointer((*[100]int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_azArg))+100*uintptr(_nArg))))), int32(u64(100)))
+		*p = (*p) + _extractToken(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(i32(2))))))+uintptr(_n))), (_len-i32(2))-_n, (*int8)(unsafe.Pointer((*[100]int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_azArg))+100*uintptr(_nArg))))), int32(u64(100)))
 		sink1(*p)
 	}
 	_nArg += 1
@@ -1176,7 +1176,7 @@ _25:
 		goto _28
 	}
 	if (_g.X10) == i32(1) {
-		_logMessage(tls, str(2708), _len-i32(1), unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))
+		_logMessage(tls, str(2708), _len-i32(1), unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))
 	}
 	_stringReset(tls, &_sResult)
 	goto _108
@@ -1192,7 +1192,7 @@ _28:
 	if crt.Xstrcmp(tls, (*int8)(unsafe.Pointer(&_zCmd)), str(2746)) != i32(0) {
 		goto _36
 	}
-	_12_zAns = (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript)) + uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))
+	_12_zAns = (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript)) + uintptr(_ii)))
 	_12_jj = i32(7)
 _37:
 	if _12_jj >= (_len-i32(1)) || (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_12_zAns)) + 1*uintptr(_12_jj)))))))))&int32(u16(8192))) == 0 {
@@ -1216,7 +1216,7 @@ _36:
 	if crt.Xstrcmp(tls, (*int8)(unsafe.Pointer(&_zCmd)), str(2797)) != i32(0) && crt.Xstrcmp(tls, (*int8)(unsafe.Pointer(&_zCmd)), str(2802)) != i32(0) {
 		goto _46
 	}
-	_15_zAns = (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript)) + uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))
+	_15_zAns = (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript)) + uintptr(_ii)))
 	_15_isGlob = bool2int(int32(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_zCmd)) + 1*uintptr(i32(0))))) == i32(103))
 	_15_jj = i32(9) - (i32(3) * _15_isGlob)
 _47:
@@ -1287,7 +1287,7 @@ _68:
 	_23_jj += 1
 	goto _68
 _72:
-	_logMessage(tls, str(2708), _len-_23_jj, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_23_jj)))))))))
+	_logMessage(tls, str(2708), _len-_23_jj, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_23_jj)))))
 	goto _108
 _67:
 	if crt.Xstrcmp(tls, (*int8)(unsafe.Pointer(&_zCmd)), str(2917)) != i32(0) {
@@ -1301,12 +1301,12 @@ _75:
 	_25_jj += 1
 	goto _75
 _79:
-	_25_pStmt = _prepareSql(tls, str(2920), _len-_25_jj, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_25_jj)))))))))
+	_25_pStmt = _prepareSql(tls, str(2920), _len-_25_jj, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_25_jj)))))
 	_25_rc = bin.Xsqlite3_step(tls, _25_pStmt)
 	if (_25_rc != i32(100)) || (bin.Xsqlite3_column_int(tls, _25_pStmt, i32(0)) == i32(0)) {
 		{
 			p := &_ii
-			*p = (*p) + _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len))))))), i32(1), &_lineno)
+			*p = (*p) + _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_len))), i32(1), &_lineno)
 			sink1(*p)
 		}
 	}
@@ -1316,7 +1316,7 @@ _74:
 	if crt.Xstrcmp(tls, (*int8)(unsafe.Pointer(&_zCmd)), str(2932)) == i32(0) {
 		{
 			p := &_ii
-			*p = (*p) + _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len))))))), i32(0), &_lineno)
+			*p = (*p) + _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_len))), i32(0), &_lineno)
 			sink1(*p)
 		}
 		goto _108
@@ -1348,12 +1348,12 @@ _88:
 		goto _97
 	}
 	_33_iTarget = crt.Xatoi(tls, (*int8)(unsafe.Pointer((*[100]int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_azArg))+100*uintptr(i32(0)))))))
-	_33_iEnd = _findEnd(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len))))))), &_lineno)
+	_33_iEnd = _findEnd(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_len))), &_lineno)
 	if _33_iTarget < i32(0) {
 		_errorMessage(tls, str(2974), _prevLine, unsafe.Pointer(_zFilename), _33_iTarget)
 		goto _99
 	}
-	_33_zTask = bin.Xsqlite3_mprintf(tls, str(2708), _33_iEnd, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len)))))))))
+	_33_zTask = bin.Xsqlite3_mprintf(tls, str(2708), _33_iEnd, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_len)))))
 	if _nArg > i32(1) {
 		_33_zTName = bin.Xsqlite3_mprintf(tls, str(2526), unsafe.Pointer((*int8)(unsafe.Pointer((*[100]int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(&_azArg))+100*uintptr(i32(1))))))))
 		goto _101
@@ -1367,7 +1367,7 @@ _101:
 _99:
 	{
 		p := &_33_iEnd
-		*p = (*p) + _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_ii)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_len)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_33_iEnd))))))), &_lineno)
+		*p = (*p) + _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_ii)))))+uintptr(_len)))))+uintptr(_33_iEnd))), &_lineno)
 		sink1(*p)
 	}
 	{
@@ -1401,7 +1401,7 @@ _108:
 	goto _0
 _1:
 	if _iBegin < _ii {
-		_41_zSql = bin.Xsqlite3_mprintf(tls, str(2708), _ii-_iBegin, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_iBegin)))))))))
+		_41_zSql = bin.Xsqlite3_mprintf(tls, str(2708), _ii-_iBegin, unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zScript))+uintptr(_iBegin)))))
 		_runSql(tls, _41_zSql)
 		bin.Xsqlite3_free(tls, (unsafe.Pointer)(_41_zSql))
 	}
@@ -1616,12 +1616,12 @@ _0:
 	if (*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n)))) == 0 {
 		goto _1
 	}
-	_1_len = _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), _pnLine)
-	if ((crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), str(3280), uint64(i32(7))) == i32(0)) && (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(7))))))))))&int32(u16(8192))) != 0) || ((_stopAtElse != 0 && (crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), str(3288), uint64(i32(6))) == i32(0))) && (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(6))))))))))&int32(u16(8192))) != 0) {
+	_1_len = _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n))), _pnLine)
+	if ((crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n))), str(3280), uint64(i32(7))) == i32(0)) && (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(7))))))))))&int32(u16(8192))) != 0) || ((_stopAtElse != 0 && (crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n))), str(3288), uint64(i32(6))) == i32(0))) && (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(6))))))))))&int32(u16(8192))) != 0) {
 		return _n + _1_len
 	}
-	if (crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), str(3295), uint64(i32(4))) == i32(0)) && (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(4))))))))))&int32(u16(8192))) != 0 {
-		_3_skip = _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n)))))))))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_1_len))))))), i32(0), _pnLine)
+	if (crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n))), str(3295), uint64(i32(4))) == i32(0)) && (int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(4))))))))))&int32(u16(8192))) != 0 {
+		_3_skip = _findEndif(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n)))))+uintptr(_1_len))), i32(0), _pnLine)
 		{
 			p := &_n
 			*p = (*p) + (_3_skip + _1_len)
@@ -1716,10 +1716,10 @@ func _findEnd(tls *crt.TLS, _z *int8, _pnLine *int32) (r0 int32) {
 	var _n int32
 	_n = i32(0)
 _0:
-	if ((*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n)))) != 0) && (crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), str(3706), uint64(i32(5))) != 0 || ((int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(5)))))))))) & int32(u16(8192))) == 0)) {
+	if ((*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n)))) != 0) && (crt.Xstrncmp(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n))), str(3706), uint64(i32(5))) != 0 || ((int32(*(*uint16)(unsafe.Pointer(uintptr((unsafe.Pointer)(*crt.X__ctype_b_loc(tls))) + 2*uintptr(int32(uint8(*(*int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_z)) + 1*uintptr(_n+i32(5)))))))))) & int32(u16(8192))) == 0)) {
 		{
 			p := &_n
-			*p = (*p) + _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_n))))))), _pnLine)
+			*p = (*p) + _tokenLength(tls, (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z))+uintptr(_n))), _pnLine)
 			sink1(*p)
 		}
 		goto _0
@@ -1741,7 +1741,7 @@ _0:
 	_i += 1
 	goto _0
 _3:
-	return (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z)) + uintptr(unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_j)))))))
+	return (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_z)) + uintptr(_j)))
 }
 
 // This routine exists as a convenient place to set a debugger

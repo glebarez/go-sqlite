@@ -177,27 +177,27 @@ _8:
 	Xdb_check(tls, _zFilename, str(148), _az, unsafe.Pointer(str(156)), i32(0))
 	_az = Xdb_query(tls, _db, _zFilename, str(160), _t)
 	Xdb_check(tls, _zFilename, str(183), _az, unsafe.Pointer(str(190)), i32(0))
-	Xdb_execute(tls, _db, _zFilename, str(194), _t)
+	Xdb_execute(tls, _db, _zFilename, str(196), _t)
 	_az = Xdb_query(tls, _db, _zFilename, str(160), _t)
-	Xdb_check(tls, _zFilename, str(221), _az, unsafe.Pointer(str(229)), i32(0))
+	Xdb_check(tls, _zFilename, str(223), _az, unsafe.Pointer(str(231)), i32(0))
 	_i = i32(1)
 _9:
 	if _i > i32(50) {
 		goto _12
 	}
-	_az = Xdb_query(tls, _db, _zFilename, str(232), _t, _i)
-	crt.Xsprintf(tls, (*int8)(unsafe.Pointer(&_4_z1)), str(264), _i*i32(2))
-	crt.Xsprintf(tls, (*int8)(unsafe.Pointer(&_4_z2)), str(264), _i*_i)
-	Xdb_check(tls, _zFilename, str(267), _az, unsafe.Pointer((*int8)(unsafe.Pointer(&_4_z1))), unsafe.Pointer((*int8)(unsafe.Pointer(&_4_z2))), i32(0))
+	_az = Xdb_query(tls, _db, _zFilename, str(236), _t, _i)
+	crt.Xsprintf(tls, (*int8)(unsafe.Pointer(&_4_z1)), str(268), _i*i32(2))
+	crt.Xsprintf(tls, (*int8)(unsafe.Pointer(&_4_z2)), str(268), _i*_i)
+	Xdb_check(tls, _zFilename, str(271), _az, unsafe.Pointer((*int8)(unsafe.Pointer(&_4_z1))), unsafe.Pointer((*int8)(unsafe.Pointer(&_4_z2))), i32(0))
 	_i += 1
 	goto _9
 _12:
-	Xdb_execute(tls, _db, _zFilename, str(276), _t)
+	Xdb_execute(tls, _db, _zFilename, str(280), _t)
 	bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_db))
 	_cnt += 1
 	goto _0
 _3:
-	crt.Xprintf(tls, str(292), unsafe.Pointer(_zFilename))
+	crt.Xprintf(tls, str(296), unsafe.Pointer(_zFilename))
 	crt.Xfflush(tls, (*crt.XFILE)(Xstdout))
 	crt.Xpthread_mutex_lock(tls, &Xlock)
 	Xthread_cnt -= 1
@@ -225,10 +225,10 @@ func _Exit(tls *crt.TLS, _rc int32) {
 // When a lock occurs, yield.
 func _db_is_locked(tls *crt.TLS, _NotUsed unsafe.Pointer, _iCount int32) (r0 int32) {
 	if _verbose != 0 {
-		crt.Xprintf(tls, str(301), unsafe.Pointer((*int8)(_NotUsed)), _iCount)
+		crt.Xprintf(tls, str(305), unsafe.Pointer((*int8)(_NotUsed)), _iCount)
 	}
 	crt.Xusleep(tls, uint32(i32(100)))
-	return bool2int(_iCount < i32(25))
+	return bool2int(_iCount < i32(20000))
 }
 
 // Execute an SQL statement.
@@ -241,7 +241,7 @@ func Xdb_execute(tls *crt.TLS, _db unsafe.Pointer, _zFile *int8, _zFormat *int8,
 	_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 	if _verbose != 0 {
-		crt.Xprintf(tls, str(314), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
+		crt.Xprintf(tls, str(318), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
 	}
 _0:
 	_rc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_db), _zSql, nil, nil, &_zErrMsg)
@@ -249,10 +249,10 @@ _0:
 		goto _0
 	}
 	if _verbose != 0 {
-		crt.Xprintf(tls, str(327), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
+		crt.Xprintf(tls, str(331), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
 	}
 	if _zErrMsg != nil {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(340), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql), unsafe.Pointer(_zErrMsg))
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(344), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql), unsafe.Pointer(_zErrMsg))
 		crt.Xfree(tls, (unsafe.Pointer)(_zErrMsg))
 		bin.Xsqlite3_free(tls, (unsafe.Pointer)(_zSql))
 		_Exit(tls, i32(1))
@@ -274,7 +274,7 @@ func Xdb_query(tls *crt.TLS, _db unsafe.Pointer, _zFile *int8, _zFormat *int8, a
 	crt.Xmemset(tls, (unsafe.Pointer)(&_sResult), i32(0), u64(24))
 	*(**int8)(unsafe.Pointer(&(_sResult.X0))) = _zFile
 	if _verbose != 0 {
-		crt.Xprintf(tls, str(369), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
+		crt.Xprintf(tls, str(373), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
 	}
 	_rc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_db), _zSql, _db_query_callback, (unsafe.Pointer)(&_sResult), &_zErrMsg)
 	if _rc != i32(17) {
@@ -286,10 +286,10 @@ func Xdb_query(tls *crt.TLS, _db unsafe.Pointer, _zFile *int8, _zFormat *int8, a
 	_rc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_db), _zSql, _db_query_callback, (unsafe.Pointer)(&_sResult), &_zErrMsg)
 _1:
 	if _verbose != 0 {
-		crt.Xprintf(tls, str(383), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
+		crt.Xprintf(tls, str(387), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql))
 	}
 	if _zErrMsg != nil {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(395), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql), unsafe.Pointer(_zErrMsg))
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(399), unsafe.Pointer(_zFile), unsafe.Pointer(_zSql), unsafe.Pointer(_zErrMsg))
 		crt.Xfree(tls, (unsafe.Pointer)(_zErrMsg))
 		crt.Xfree(tls, (unsafe.Pointer)(_zSql))
 		_Exit(tls, i32(1))
@@ -321,7 +321,7 @@ func _db_query_callback(tls *crt.TLS, _pUser unsafe.Pointer, _nArg int32, _azArg
 _2:
 	*(***int8)(unsafe.Pointer(&(_pResult.X3))) = (**int8)(crt.Xrealloc(tls, (unsafe.Pointer)(_pResult.X3), uint64(_pResult.X2)*u64(8)))
 	if (_pResult.X3) == nil {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(422), unsafe.Pointer(_pResult.X0))
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(426), unsafe.Pointer(_pResult.X0))
 		return i32(1)
 	}
 _0:
@@ -333,11 +333,11 @@ _5:
 	if _i >= _nArg {
 		goto _8
 	}
-	*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult.X3)) + 8*uintptr(postInc0((*int32)(unsafe.Pointer(&(_pResult.X1))), int32(1))))) = bin.Xsqlite3_mprintf(tls, str(441), unsafe.Pointer(func() *int8 {
+	*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_pResult.X3)) + 8*uintptr(postInc0((*int32)(unsafe.Pointer(&(_pResult.X1))), int32(1))))) = bin.Xsqlite3_mprintf(tls, str(445), unsafe.Pointer(func() *int8 {
 		if (*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_azArg)) + 8*uintptr(_i)))) != nil {
 			return (*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_azArg)) + 8*uintptr(_i))))
 		}
-		return str(444)
+		return str(448)
 	}()))
 	_i += 1
 	goto _5
@@ -357,7 +357,7 @@ _0:
 		goto _3
 	}
 	if ((*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_az)) + 8*uintptr(_i)))) == nil) || (crt.Xstrcmp(tls, *(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_az)) + 8*uintptr(_i))), _z) != i32(0)) {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(445), unsafe.Pointer(_zFile), unsafe.Pointer(_zMsg), _i+i32(1), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_az)) + 8*uintptr(_i)))))
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstdout), str(449), unsafe.Pointer(_zFile), unsafe.Pointer(_zMsg), _i+i32(1), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr((unsafe.Pointer)(_az)) + 8*uintptr(_i)))))
 		Xdb_query_free(tls, _az)
 		_Exit(tls, i32(1))
 	}
@@ -418,4 +418,4 @@ type TQueryResult struct {
 func str(n int) *int8   { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32 { return (*int32)(unsafe.Pointer(&strTab[n])) }
 
-var strTab = []byte("-v\x00testdb-%d\x00%d.testdb-%d\x00%s-journal\x00%s: START\x0a\x00%s: can't open\x0a\x00CREATE TABLE t%d(a,b,c);\x00INSERT INTO t%d VALUES(%d,%d,%d);\x00SELECT count(*) FROM t%d\x00tX size\x00100\x00SELECT avg(b) FROM t%d\x00tX avg\x00101\x00DELETE FROM t%d WHERE a>50\x00tX avg2\x0051\x00SELECT b, c FROM t%d WHERE a=%d\x00%d\x00readback\x00DROP TABLE t%d;\x00%s: END\x0a\x00BUSY %s #%d\x0a\x00EXEC %s: %s\x0a\x00DONE %s: %s\x0a\x00%s: command failed: %s - %s\x0a\x00QUERY %s: %s\x0a\x00DONE %s %s\x0a\x00%s: query failed: %s - %s\x0a\x00%s: malloc failed\x0a\x00%s\x00\x00%s: %s: bad result in column %d: %s\x0a\x00")
+var strTab = []byte("-v\x00testdb-%d\x00%d.testdb-%d\x00%s-journal\x00%s: START\x0a\x00%s: can't open\x0a\x00CREATE TABLE t%d(a,b,c);\x00INSERT INTO t%d VALUES(%d,%d,%d);\x00SELECT count(*) FROM t%d\x00tX size\x00100\x00SELECT avg(b) FROM t%d\x00tX avg\x00101.0\x00DELETE FROM t%d WHERE a>50\x00tX avg2\x0051.0\x00SELECT b, c FROM t%d WHERE a=%d\x00%d\x00readback\x00DROP TABLE t%d;\x00%s: END\x0a\x00BUSY %s #%d\x0a\x00EXEC %s: %s\x0a\x00DONE %s: %s\x0a\x00%s: command failed: %s - %s\x0a\x00QUERY %s: %s\x0a\x00DONE %s %s\x0a\x00%s: query failed: %s - %s\x0a\x00%s: malloc failed\x0a\x00%s\x00\x00%s: %s: bad result in column %d: %s\x0a\x00")

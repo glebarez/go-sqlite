@@ -10,7 +10,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strconv"
 	"testing"
 )
 
@@ -97,20 +96,14 @@ func TestThread1(t *testing.T) {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
-	for i := 0; i <= 20; i++ {
-		out, err := exec.Command("./threadtest1", strconv.Itoa(i), "-v").CombinedOutput()
-		t.Logf("%v:\n%s", i, out)
-		if err != nil {
-			t.Fatal(err)
-		}
+	out, err := exec.Command("./threadtest1", "10").CombinedOutput()
+	t.Logf("%s", out)
+	if err != nil {
+		t.Fatal(err)
 	}
 }
 
 func TestThread2(t *testing.T) {
-	t.Log("TODO")
-	return //TODO- 
-
-	//TODO sqlite3.c:143403: createCollation(db, "RTRIM", SQLITE_UTF8, (void*)1, binCollFunc, 0); -> fatal error: bad pointer in write barrier
 	dir, err := ioutil.TempDir("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
@@ -150,7 +143,7 @@ func TestThread2(t *testing.T) {
 
 func TestThread3(t *testing.T) {
 	t.Log("TODO")
-	return //TODO- 
+	return //TODO-
 
 	//TODO sqlite3.c:142510: sqlite3_wal_hook(db, sqlite3WalDefaultHook, SQLITE_INT_TO_PTR(nFrame)); -> fatal error: bad pointer in write barrier
 	dir, err := ioutil.TempDir("", "sqlite-test-")
@@ -219,10 +212,6 @@ func TestThread3(t *testing.T) {
 }
 
 func TestThread4(t *testing.T) {
-	t.Log("TODO")
-	return //TODO- 
-
-	//TODO sqlite3.c:143403: createCollation(db, "RTRIM", SQLITE_UTF8, (void*)1, binCollFunc, 0); -> fatal error: bad pointer in write barrier
 	cases := 0
 	dir, err := ioutil.TempDir("", "sqlite-test-")
 	if err != nil {
@@ -268,20 +257,19 @@ func TestThread4(t *testing.T) {
 		{"--multithread", "-serialized"},
 		{"--multithread", "-serialized", "-wal"},
 	} {
-		for i := 2; i <= 20; i++ {
-			out, err := exec.Command("./threadtest4", append(opts, strconv.Itoa(i))...).CombinedOutput()
-			t.Logf("%v: %v\n%s", i, opts, out)
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			if bytes.Contains(out, []byte("fault address")) ||
-				bytes.Contains(out, []byte("data race")) ||
-				bytes.Contains(out, []byte("RACE")) {
-				t.Fatalf("case %v: fault", cases)
-			}
-			cases++
+		out, err := exec.Command("./threadtest4", append(opts, "5")...).CombinedOutput()
+		dbg("%v\n%s", opts, out)
+		t.Logf("%v\n%s", opts, out)
+		if err != nil {
+			t.Fatal(err)
 		}
+
+		if bytes.Contains(out, []byte("fault address")) ||
+			bytes.Contains(out, []byte("data race")) ||
+			bytes.Contains(out, []byte("RACE")) {
+			t.Fatalf("case %v: fault", cases)
+		}
+		cases++
 	}
 	t.Logf("cases: %v", cases)
 }
