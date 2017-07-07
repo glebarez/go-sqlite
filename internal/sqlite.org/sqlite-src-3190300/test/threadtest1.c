@@ -51,7 +51,7 @@ static int db_is_locked(void *NotUsed, int iCount){
   /* sched_yield(); */
   if( verbose ) printf("BUSY %s #%d\n", (char*)NotUsed, iCount);
   usleep(100);
-  return iCount<20000;
+  return iCount<40000;
 }
 
 /*

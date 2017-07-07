@@ -540,7 +540,7 @@ func threadTest1() {
 	unconvert(dst)
 }
 
-func threadTest(n int) {
+func threadTest2() {
 	repo := findRepo(sqliteRepo)
 	if repo == "" {
 		log.Fatalf("repository not found: %v", sqliteRepo)
@@ -549,7 +549,7 @@ func threadTest(n int) {
 
 	sqlitePth := filepath.Join(repo, "sqlite-amalgamation-"+version)
 	pth := filepath.Join(repo, "sqlite-src-"+version, "test")
-	tag := fmt.Sprintf("threadtest%v", n)
+	tag := "threadtest2"
 	test := filepath.Join(pth, tag+".c")
 	_, src := build(
 		defines,
@@ -633,6 +633,50 @@ func threadTest3() {
 	unconvert(dst)
 }
 
+func threadTest4() {
+	repo := findRepo(sqliteRepo)
+	if repo == "" {
+		log.Fatalf("repository not found: %v", sqliteRepo)
+		return
+	}
+
+	sqlitePth := filepath.Join(repo, "sqlite-amalgamation-"+version)
+	tag := "threadtest4"
+	test := filepath.Join("internal", "sqlite.org", "sqlite-src-3190300", "test", "threadtest4.c")
+	_, src := build(
+		defines,
+		[][]string{
+			{filepath.Join(sqlitePth, "sqlite3.c")},
+			{test},
+		},
+		[]string{"bin"},
+		cc.EnableAnonymousStructFields(),
+		cc.IncludePaths([]string{".", sqlitePth, filepath.Join(repo, "sqlite-src-"+version, "src")}),
+	)
+
+	var b bytes.Buffer
+	fmt.Fprintf(&b, prologueTest, tidyComments(header(test)))
+	b.Write(src)
+	b2, err := format.Source(b.Bytes())
+	if err != nil {
+		b2 = b.Bytes()
+	}
+	if err := os.MkdirAll(filepath.Join("internal", tag), 0775); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := os.MkdirAll(filepath.Join("testdata", tag), 0775); err != nil {
+		log.Fatal(err)
+	}
+
+	dst := fmt.Sprintf(filepath.Join("internal", tag, tag+"_%s_%s.go"), runtime.GOOS, runtime.GOARCH)
+	if err := ioutil.WriteFile(dst, b2, 0664); err != nil {
+		log.Fatal(err)
+	}
+
+	unconvert(dst)
+}
+
 func main() {
 	log.SetFlags(log.Lshortfile | log.Lmicroseconds)
 	var err error
@@ -645,7 +689,7 @@ func main() {
 	sqlite()
 	mpTest()
 	threadTest1()
-	threadTest(2)
+	threadTest2()
 	threadTest3()
-	threadTest(4)
+	threadTest4()
 }

@@ -228,7 +228,7 @@ func _db_is_locked(tls *crt.TLS, _NotUsed unsafe.Pointer, _iCount int32) (r0 int
 		crt.Xprintf(tls, str(305), unsafe.Pointer((*int8)(_NotUsed)), _iCount)
 	}
 	crt.Xusleep(tls, uint32(i32(100)))
-	return bool2int(_iCount < i32(20000))
+	return bool2int(_iCount < i32(40000))
 }
 
 // Execute an SQL statement.

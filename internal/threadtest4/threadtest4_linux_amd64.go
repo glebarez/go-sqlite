@@ -257,7 +257,7 @@ _33:
 
 // Run a SQL statements.  Panic if unable.
 func _run_sql(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interface{}) {
-	var _rc, _nRetry int32
+	var _rc, _i, _nRetry int32
 	var _zSql *int8
 	var _pStmt unsafe.Pointer
 	var _ap []interface{}
@@ -267,35 +267,46 @@ func _run_sql(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interface{}
 	_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 	_check_oom(tls, (unsafe.Pointer)(_zSql))
+	_i = i32(0)
+_0:
+	if _i >= i32(1000) {
+		goto _3
+	}
 	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_p.X4), _zSql, i32(-1), &_pStmt, nil)
+	if _rc == i32(0) {
+		goto _3
+	}
+	_i += 1
+	goto _0
+_3:
 	if _rc != i32(0) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(991), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_p.X4)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_p.X4))), unsafe.Pointer(_zSql))
 		crt.Xexit(tls, i32(1))
 	}
 	_worker_trace(tls, _p, str(1036), unsafe.Pointer(_zSql))
-_1:
+_6:
 	if store1(&_rc, bin.Xsqlite3_step(tls, _pStmt)) == i32(101) {
-		goto _2
+		goto _7
 	}
 	if (_rc&i32(255)) != i32(5) && (_rc&i32(255)) != i32(6) {
-		goto _4
+		goto _9
 	}
 	bin.Xsqlite3_reset(tls, _pStmt)
 	_nRetry += 1
 	if _nRetry < i32(10) {
 		_worker_trace(tls, _p, str(1049), _nRetry, unsafe.Pointer(_zSql))
 		crt.Xsched_yield(tls)
-		goto _1
+		goto _6
 	}
 	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1067), _p.X0, unsafe.Pointer(_zSql))
 	crt.Xexit(tls, i32(1))
-_4:
+_9:
 	if _rc != i32(100) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1109), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_p.X4)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_p.X4))), unsafe.Pointer(_zSql))
 		crt.Xexit(tls, i32(1))
 	}
-	goto _1
-_2:
+	goto _6
+_7:
 	bin.Xsqlite3_free(tls, (unsafe.Pointer)(_zSql))
 	bin.Xsqlite3_finalize(tls, _pStmt)
 }
@@ -486,7 +497,7 @@ _4:
 
 // Prepare a single SQL query
 func _prep_sql(tls *crt.TLS, _db unsafe.Pointer, _zFormat *int8, args ...interface{}) (r0 unsafe.Pointer) {
-	var _rc int32
+	var _rc, _i int32
 	var _zSql *int8
 	var _pStmt unsafe.Pointer
 	var _ap []interface{}
@@ -495,7 +506,18 @@ func _prep_sql(tls *crt.TLS, _db unsafe.Pointer, _zFormat *int8, args ...interfa
 	_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 	_check_oom(tls, (unsafe.Pointer)(_zSql))
+	_i = i32(0)
+_0:
+	if _i >= i32(1000) {
+		goto _3
+	}
 	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_db), _zSql, i32(-1), &_pStmt, nil)
+	if _rc == i32(0) {
+		goto _3
+	}
+	_i += 1
+	goto _0
+_3:
 	if _rc != i32(0) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(991), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_db)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_db))), unsafe.Pointer(_zSql))
 		crt.Xexit(tls, i32(1))

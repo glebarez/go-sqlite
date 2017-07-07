@@ -197,7 +197,6 @@ func TestThread3(t *testing.T) {
 		{"stress2"},
 	} {
 		out, err := exec.Command("./threadtest3", opts...).CombinedOutput()
-		dbg("%v\n%s", opts, out)
 		t.Logf("%v\n%s", opts, out)
 		if err != nil {
 			t.Fatal(err)
@@ -258,7 +257,6 @@ func TestThread4(t *testing.T) {
 		{"--multithread", "-serialized", "-wal"},
 	} {
 		out, err := exec.Command("./threadtest4", append(opts, "5")...).CombinedOutput()
-		dbg("%v\n%s", opts, out)
 		t.Logf("%v\n%s", opts, out)
 		if err != nil {
 			t.Fatal(err)
