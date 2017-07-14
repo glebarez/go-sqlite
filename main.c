@@ -4,13 +4,6 @@
 
 // +build ignore
 
-#include <sqlite3.h>
-
-static void use(int, ...)
-{
-}
-
 int main(int argc, char **argv)
 {
-	use(0, sqlite3_exec, sqlite3_enable_load_extension);
 }
