@@ -409,7 +409,7 @@ func sqlite() {
 			{filepath.Join(pth, "sqlite3.h")},
 			{"main.c"},
 		},
-		[]ccgo.Option{ccgo.Library()},
+		[]ccgo.Option{ccgo.Library(), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{pth}),
 	)
@@ -420,7 +420,7 @@ func sqlite() {
 			{sqlite3},
 			{"main.c"},
 		},
-		[]ccgo.Option{ccgo.Library()},
+		[]ccgo.Option{ccgo.Library(), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{pth}),
 	)
@@ -468,7 +468,7 @@ func mpTest() {
 			{filepath.Join(sqlitePth, "sqlite3.c")},
 			{test},
 		},
-		[]ccgo.Option{ccgo.Packages([]string{"bin"})},
+		[]ccgo.Option{ccgo.Packages([]string{"bin"}), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{sqlitePth}),
 	)
@@ -514,7 +514,7 @@ func threadTest1() {
 			{filepath.Join(sqlitePth, "sqlite3.c")},
 			{test},
 		},
-		[]ccgo.Option{ccgo.Packages([]string{"bin"})},
+		[]ccgo.Option{ccgo.Packages([]string{"bin"}), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{".", sqlitePth, filepath.Join(repo, "sqlite-src-"+version, "src")}),
 	)
@@ -559,7 +559,7 @@ func threadTest2() {
 			{filepath.Join(sqlitePth, "sqlite3.c")},
 			{test},
 		},
-		[]ccgo.Option{ccgo.Packages([]string{"bin"})},
+		[]ccgo.Option{ccgo.Packages([]string{"bin"}), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{".", sqlitePth, filepath.Join(repo, "sqlite-src-"+version, "src")}),
 	)
@@ -606,7 +606,7 @@ func threadTest3() {
 			{filepath.Join(repo, "sqlite-src-"+version, "src", "test_multiplex.c")},
 			{test},
 		},
-		[]ccgo.Option{ccgo.Packages([]string{"bin"})},
+		[]ccgo.Option{ccgo.Packages([]string{"bin"}), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{".", sqlitePth, filepath.Join(repo, "sqlite-src-"+version, "src")}),
 	)
@@ -651,7 +651,7 @@ func threadTest4() {
 			{filepath.Join(sqlitePth, "sqlite3.c")},
 			{test},
 		},
-		[]ccgo.Option{ccgo.Packages([]string{"bin"})},
+		[]ccgo.Option{ccgo.Packages([]string{"bin"}), ccgo.LibcTypes()},
 		cc.EnableAnonymousStructFields(),
 		cc.IncludePaths([]string{".", sqlitePth, filepath.Join(repo, "sqlite-src-"+version, "src")}),
 	)

@@ -73,7 +73,7 @@ func Xmain(tls *crt.TLS, _argc int32, _argv **int8) (r0 int32) {
 	var _1_zJournal *int8
 	var _db unsafe.Pointer
 	var _aThread [5]uint64
-	r0 = i32(0)
+	r0 = int32(0)
 	if crt.Xstrcmp(tls, str(0), str(8)) != 0 {
 		_1_zJournal = bin.Xsqlite3_mprintf(tls, str(17), unsafe.Pointer(str(0)))
 		crt.Xunlink(tls, str(0))
@@ -83,38 +83,38 @@ func Xmain(tls *crt.TLS, _argc int32, _argv **int8) (r0 int32) {
 	bin.Xsqlite3_open(tls, str(0), (**bin.Xsqlite3)(unsafe.Pointer(&_db)))
 	if _db == nil {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(28))
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
 	_rc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_db), str(59), nil, nil, nil)
 	if _rc != 0 {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(79), _rc)
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
 	bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_db))
-	_i = i32(0)
+	_i = int32(0)
 _3:
-	if uint64(_i) >= u64(5) {
+	if uint64(_i) >= uint64(5) {
 		goto _6
 	}
-	crt.Xpthread_create(tls, (*uint64)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aThread))+8*uintptr(_i))), nil, Xworker, crt.U2P(uintptr(_i)))
+	crt.Xpthread_create(tls, elem0((*uint64)(unsafe.Pointer(&_aThread)), uintptr(_i)), nil, Xworker, crt.U2P(uintptr(_i)))
 	_i += 1
 	goto _3
 _6:
-	_i = i32(0)
+	_i = int32(0)
 _7:
-	if uint64(_i) >= u64(5) {
+	if uint64(_i) >= uint64(5) {
 		goto _10
 	}
-	crt.Xpthread_join(tls, *(*uint64)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aThread)) + 8*uintptr(_i))), nil)
+	crt.Xpthread_join(tls, *elem0((*uint64)(unsafe.Pointer(&_aThread)), uintptr(_i)), nil)
 	_i += 1
 	goto _7
 _10:
 	if Xall_stop == 0 {
 		crt.Xprintf(tls, str(107))
-		return i32(0)
+		return int32(0)
 	}
 	crt.Xprintf(tls, str(129))
-	return i32(1)
+	return int32(1)
 
 	_ = _aThread
 	panic(0)
@@ -128,17 +128,17 @@ func Xworker(tls *crt.TLS, _workerArg unsafe.Pointer) (r0 unsafe.Pointer) {
 	var _id, _rc, _cnt int32
 	var _db unsafe.Pointer
 	_id = int32(crt.P2U(_workerArg))
-	_cnt = i32(0)
+	_cnt = int32(0)
 	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(147), _id)
 _0:
-	if Xall_stop != 0 || postInc0(&_cnt, 1) >= i32(10000) {
+	if Xall_stop != 0 || postInc1(&_cnt, 1) >= int32(10000) {
 		goto _1
 	}
-	if (_cnt % i32(100)) == i32(0) {
+	if (_cnt % int32(100)) == int32(0) {
 		crt.Xprintf(tls, str(167), _id, _cnt)
 	}
 _3:
-	if bin.Xsqlite3_open(tls, str(0), (**bin.Xsqlite3)(unsafe.Pointer(&_db))) != i32(0) {
+	if bin.Xsqlite3_open(tls, str(0), (**bin.Xsqlite3)(unsafe.Pointer(&_db))) != int32(0) {
 		crt.Xsched_yield(tls)
 		goto _3
 	}
@@ -158,6 +158,11 @@ _1:
 	panic(0)
 }
 
+// C comment
+//  /*
+//  ** When this variable becomes non-zero, all threads stop
+//  ** what they are doing.
+//  */
 var Xall_stop int32
 
 func bool2int(b bool) int32 {
@@ -167,20 +172,15 @@ func bool2int(b bool) int32 {
 	return 0
 }
 func bug20530(interface{}) {} //TODO remove when https://github.com/golang/go/issues/20530 is fixed.
-func i16(n int16) int16    { return n }
-func i32(n int32) int32    { return n }
-func i64(n int64) int64    { return n }
-func i8(n int8) int8       { return n }
 func init()                { nzf32 *= -1; nzf64 *= -1 }
-func u16(n uint16) uint16  { return n }
-func u32(n uint32) uint32  { return n }
-func u64(n uint64) uint64  { return n }
-func u8(n byte) byte       { return n }
 
 var inf = math.Inf(1)
-var nzf32 float32                      // -0.0
-var nzf64 float64                      // -0.0
-func postInc0(p *int32, d int32) int32 { v := *p; *p += d; return v }
+var nzf32 float32 // -0.0
+var nzf64 float64 // -0.0
+func elem0(a *uint64, index uintptr) *uint64 {
+	return (*uint64)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 8*index))
+}
+func postInc1(p *int32, d int32) int32 { v := *p; *p += d; return v }
 func str(n int) *int8                  { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32                { return (*int32)(unsafe.Pointer(&strTab[n])) }
 

@@ -85,104 +85,88 @@ func Xmain(tls *crt.TLS, _argc int32, _argv **int8) (r0 int32) {
 	var _wrMutex crt.Xpthread_mutex_t
 	var _infoTop XWorkerInfo
 	var _aInfo, _p *XWorkerInfo
-	r0 = i32(0)
-	_nWorker = i32(0)
-	_wkrFlags = u32(0)
-	_nErr = i32(0)
-	_nTest = i32(0)
+	r0 = int32(0)
+	_nWorker = int32(0)
+	_wkrFlags = uint32(0)
+	_nErr = int32(0)
+	_nTest = int32(0)
 	_db = nil
-	bin.Xsqlite3_config(tls, i32(2))
-	_i = i32(1)
+	bin.Xsqlite3_config(tls, int32(2))
+	_i = int32(1)
 _0:
 	if _i >= _argc {
 		goto _3
 	}
-	_1_z = *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_i)))
-	if int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_z)) + 1*uintptr(i32(0))))) != i32(45) {
+	_1_z = *elem0(_argv, uintptr(_i))
+	if int32(*elem1(_1_z, 0)) != int32(45) {
 		goto _4
 	}
-	if (int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_z)) + 1*uintptr(i32(1))))) == i32(45)) && (int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_z)) + 1*uintptr(i32(2))))) != i32(0)) {
+	if (int32(*elem1(_1_z, uintptr(1))) == int32(45)) && (int32(*elem1(_1_z, uintptr(2))) != int32(0)) {
 		*(*uintptr)(unsafe.Pointer(&_1_z)) += uintptr(1)
 	}
-	if crt.Xstrcmp(tls, _1_z, str(0)) == i32(0) {
-		bin.Xsqlite3_config(tls, i32(2))
-		{
-			p := &_wkrFlags
-			*p = (*p) & uint32(i32(-2))
-			sink0(*p)
-		}
+	if crt.Xstrcmp(tls, _1_z, str(0)) == int32(0) {
+		bin.Xsqlite3_config(tls, int32(2))
+		_wkrFlags &= uint32(4294967294)
 		goto _14
 	}
-	if crt.Xstrcmp(tls, _1_z, str(13)) == i32(0) {
-		bin.Xsqlite3_config(tls, i32(3))
-		{
-			p := &_wkrFlags
-			*p = (*p) | uint32(i32(1))
-			sink0(*p)
-		}
+	if crt.Xstrcmp(tls, _1_z, str(13)) == int32(0) {
+		bin.Xsqlite3_config(tls, int32(3))
+		_wkrFlags |= uint32(1)
 		goto _14
 	}
-	if crt.Xstrcmp(tls, _1_z, str(25)) == i32(0) {
-		{
-			p := &_wkrFlags
-			*p = (*p) | uint32(i32(2))
-			sink0(*p)
-		}
+	if crt.Xstrcmp(tls, _1_z, str(25)) == int32(0) {
+		_wkrFlags |= uint32(2)
 		goto _14
 	}
-	if crt.Xstrcmp(tls, _1_z, str(30)) == i32(0) {
-		{
-			p := &_wkrFlags
-			*p = (*p) | uint32(i32(4))
-			sink0(*p)
-		}
+	if crt.Xstrcmp(tls, _1_z, str(30)) == int32(0) {
+		_wkrFlags |= uint32(4)
 		goto _14
 	}
-	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(37), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_i)))))
-	crt.Xexit(tls, i32(1))
+	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(37), unsafe.Pointer(*elem0(_argv, uintptr(_i))))
+	crt.Xexit(tls, int32(1))
 _14:
 	goto _20
 _4:
-	if int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_z)) + 1*uintptr(i32(0))))) < i32(49) || int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_z)) + 1*uintptr(i32(0))))) > i32(57) || _nWorker != i32(0) {
+	if int32(*elem1(_1_z, 0)) < int32(49) || int32(*elem1(_1_z, 0)) > int32(57) || _nWorker != int32(0) {
 		goto _18
 	}
 	_nWorker = crt.Xatoi(tls, _1_z)
-	if _nWorker < i32(2) {
+	if _nWorker < int32(2) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(70))
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
 	goto _20
 _18:
-	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(92), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_i)))))
-	crt.Xexit(tls, i32(1))
+	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(92), unsafe.Pointer(*elem0(_argv, uintptr(_i))))
+	crt.Xexit(tls, int32(1))
 _20:
 	_i += 1
 	goto _0
 _3:
-	if _nWorker == i32(0) {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(127), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(i32(0))))))
-		crt.Xexit(tls, i32(1))
+	if _nWorker == int32(0) {
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(127), unsafe.Pointer(*elem0(_argv, 0)))
+		crt.Xexit(tls, int32(1))
 	}
 	if bin.Xsqlite3_threadsafe(tls) == 0 {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(260))
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
 	bin.Xsqlite3_initialize(tls)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
 	crt.Xpthread_mutex_init(tls, &_wrMutex, nil)
 	crt.Xunlink(tls, str(299))
 	crt.Xunlink(tls, str(312))
 	crt.Xunlink(tls, str(325))
 	_rc = bin.Xsqlite3_open(tls, str(299), (**bin.Xsqlite3)(unsafe.Pointer(&_db)))
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(338))
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
-	crt.Xmemset(tls, unsafe.Pointer(&_infoTop), i32(0), u64(64))
-	*(*unsafe.Pointer)(unsafe.Pointer(&_infoTop.X4)) = _db
-	*(*uint32)(unsafe.Pointer(&_infoTop.X2)) = _wkrFlags
+	crt.Xmemset(tls, unsafe.Pointer(&_infoTop), int32(0), uint64(64))
+	_infoTop.Xdb = _db
+	_infoTop.XwkrFlags = _wkrFlags
 	_p = &_infoTop
-	if (_wkrFlags & uint32(i32(2))) != 0 {
+	if (_wkrFlags & uint32(2)) != 0 {
 		_run_sql(tls, _p, str(382))
 	}
 	_run_sql(tls, _p, str(406))
@@ -197,50 +181,42 @@ _3:
 	_run_sql(tls, _p, str(743))
 	_run_sql(tls, _p, str(805))
 	_run_sql(tls, _p, str(841))
-	_aInfo = (*XWorkerInfo)(_safe_malloc(tls, int32(u64(64)*uint64(_nWorker))))
-	crt.Xmemset(tls, unsafe.Pointer(_aInfo), i32(0), u64(64)*uint64(_nWorker))
-	_i = i32(0)
+	_aInfo = (*XWorkerInfo)(_safe_malloc(tls, int32(uint64(64)*uint64(_nWorker))))
+	crt.Xmemset(tls, unsafe.Pointer(_aInfo), int32(0), uint64(64)*uint64(_nWorker))
+	_i = int32(0)
 _25:
 	if _i >= _nWorker {
 		goto _28
 	}
-	*(*int32)(unsafe.Pointer(&((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X0))) = _i + i32(1)
-	*(*int32)(unsafe.Pointer(&((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X1))) = _nWorker
-	*(*uint32)(unsafe.Pointer(&((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X2))) = _wkrFlags
-	*(*unsafe.Pointer)(unsafe.Pointer(&((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X3))) = _db
-	*(**crt.Xpthread_mutex_t)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X9))))) = &_wrMutex
-	_rc = crt.Xpthread_create(tls, (*uint64)(unsafe.Pointer(&((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X8))), nil, _worker_thread, unsafe.Pointer((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo))+64*uintptr(_i)))))
-	if _rc != i32(0) {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(876), _i+i32(1))
-		crt.Xexit(tls, i32(1))
+	elem2(_aInfo, uintptr(_i)).Xtid = _i + int32(1)
+	elem2(_aInfo, uintptr(_i)).XnWorker = _nWorker
+	elem2(_aInfo, uintptr(_i)).XwkrFlags = _wkrFlags
+	elem2(_aInfo, uintptr(_i)).XmainDb = _db
+	*(**crt.Xpthread_mutex_t)(unsafe.Pointer(&(elem2(_aInfo, uintptr(_i)).XpWrMutex))) = &_wrMutex
+	_rc = crt.Xpthread_create(tls, &(elem2(_aInfo, uintptr(_i)).Xid), nil, _worker_thread, unsafe.Pointer(elem2(_aInfo, uintptr(_i))))
+	if _rc != int32(0) {
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(876), _i+int32(1))
+		crt.Xexit(tls, int32(1))
 	}
 	crt.Xsched_yield(tls)
 	_i += 1
 	goto _25
 _28:
-	_i = i32(0)
+	_i = int32(0)
 _30:
 	if _i >= _nWorker {
 		goto _33
 	}
-	crt.Xpthread_join(tls, (*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo))+64*uintptr(_i))).X8, nil)
-	crt.Xprintf(tls, str(914), (*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo))+64*uintptr(_i))).X0, (*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo))+64*uintptr(_i))).X5, (*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo))+64*uintptr(_i))).X6)
-	if ((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X7) != nil {
-		crt.Xprintf(tls, str(954), unsafe.Pointer((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo))+64*uintptr(_i))).X7))
+	crt.Xpthread_join(tls, elem2(_aInfo, uintptr(_i)).Xid, nil)
+	crt.Xprintf(tls, str(914), elem2(_aInfo, uintptr(_i)).Xtid, elem2(_aInfo, uintptr(_i)).XnErr, elem2(_aInfo, uintptr(_i)).XnTest)
+	if (elem2(_aInfo, uintptr(_i)).XzMsg) != nil {
+		crt.Xprintf(tls, str(954), unsafe.Pointer(elem2(_aInfo, uintptr(_i)).XzMsg))
 		goto _35
 	}
 	crt.Xprintf(tls, str(960))
 _35:
-	{
-		p := &_nErr
-		*p = (*p) + ((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X5)
-		sink1(*p)
-	}
-	{
-		p := &_nTest
-		*p = (*p) + ((*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_aInfo)) + 64*uintptr(_i))).X6)
-		sink1(*p)
-	}
+	_nErr += elem2(_aInfo, uintptr(_i)).XnErr
+	_nTest += elem2(_aInfo, uintptr(_i)).XnTest
 	crt.Xfflush(tls, (*crt.XFILE)(Xstdout))
 	_i += 1
 	goto _30
@@ -249,10 +225,6 @@ _33:
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_aInfo))
 	crt.Xprintf(tls, str(962), _nErr, _nTest)
 	return _nErr
-
-	_ = _wrMutex
-	_ = _infoTop
-	panic(0)
 }
 
 // C comment
@@ -265,48 +237,48 @@ func _run_sql(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interface{}
 	var _pStmt unsafe.Pointer
 	var _ap []interface{}
 	_pStmt = nil
-	_nRetry = i32(0)
+	_nRetry = int32(0)
 	_ap = args
 	_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 	_check_oom(tls, unsafe.Pointer(_zSql))
-	_i = i32(0)
+	_i = int32(0)
 _0:
-	if _i >= i32(1000) {
+	if _i >= int32(1000) {
 		goto _3
 	}
-	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_p.X4), _zSql, i32(-1), &_pStmt, nil)
-	if _rc == i32(0) {
+	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_p.Xdb), _zSql, int32(-1), &_pStmt, nil)
+	if _rc == int32(0) {
 		goto _3
 	}
 	_i += 1
 	goto _0
 _3:
-	if _rc != i32(0) {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(991), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_p.X4)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_p.X4))), unsafe.Pointer(_zSql))
-		crt.Xexit(tls, i32(1))
+	if _rc != int32(0) {
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(991), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_p.Xdb)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_p.Xdb))), unsafe.Pointer(_zSql))
+		crt.Xexit(tls, int32(1))
 	}
 	_worker_trace(tls, _p, str(1036), unsafe.Pointer(_zSql))
 _6:
-	if store1(&_rc, bin.Xsqlite3_step(tls, _pStmt)) == i32(101) {
+	if store3(&_rc, bin.Xsqlite3_step(tls, _pStmt)) == int32(101) {
 		goto _7
 	}
-	if (_rc&i32(255)) != i32(5) && (_rc&i32(255)) != i32(6) {
+	if (_rc&int32(255)) != int32(5) && (_rc&int32(255)) != int32(6) {
 		goto _9
 	}
 	bin.Xsqlite3_reset(tls, _pStmt)
 	_nRetry += 1
-	if _nRetry < i32(10) {
+	if _nRetry < int32(10) {
 		_worker_trace(tls, _p, str(1049), _nRetry, unsafe.Pointer(_zSql))
 		crt.Xsched_yield(tls)
 		goto _6
 	}
-	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1067), _p.X0, unsafe.Pointer(_zSql))
-	crt.Xexit(tls, i32(1))
+	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1067), _p.Xtid, unsafe.Pointer(_zSql))
+	crt.Xexit(tls, int32(1))
 _9:
-	if _rc != i32(100) {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1109), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_p.X4)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_p.X4))), unsafe.Pointer(_zSql))
-		crt.Xexit(tls, i32(1))
+	if _rc != int32(100) {
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1109), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_p.Xdb)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_p.Xdb))), unsafe.Pointer(_zSql))
+		crt.Xexit(tls, int32(1))
 	}
 	goto _6
 _7:
@@ -321,7 +293,7 @@ _7:
 func _check_oom(tls *crt.TLS, _x unsafe.Pointer) {
 	if _x == nil {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1151))
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
 }
 
@@ -332,14 +304,14 @@ func _check_oom(tls *crt.TLS, _x unsafe.Pointer) {
 func _worker_trace(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interface{}) {
 	var _zMsg *int8
 	var _ap []interface{}
-	if (_p.X2 & uint32(i32(4))) == uint32(i32(0)) {
+	if (_p.XwkrFlags & uint32(4)) == (0) {
 		return
 	}
 	_ap = args
 	_zMsg = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_check_oom(tls, unsafe.Pointer(_zMsg))
 	_ap = nil
-	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1166), _p.X0, unsafe.Pointer(_zMsg))
+	crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1166), _p.Xtid, unsafe.Pointer(_zMsg))
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_zMsg))
 }
 
@@ -351,10 +323,10 @@ func _worker_trace(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interf
 func _safe_malloc(tls *crt.TLS, _sz int32) (r0 unsafe.Pointer) {
 	var _x unsafe.Pointer
 	_x = bin.Xsqlite3_malloc(tls, func() int32 {
-		if _sz > i32(0) {
+		if _sz > int32(0) {
 			return _sz
 		}
-		return i32(1)
+		return int32(1)
 	}())
 	_check_oom(tls, _x)
 	return _x
@@ -369,66 +341,66 @@ func _worker_thread(tls *crt.TLS, _pArg unsafe.Pointer) (r0 unsafe.Pointer) {
 	var _pStmt unsafe.Pointer
 	var _p *XWorkerInfo
 	_p = (*XWorkerInfo)(_pArg)
-	crt.Xprintf(tls, str(1183), _p.X0)
+	crt.Xprintf(tls, str(1183), _p.Xtid)
 	crt.Xfflush(tls, (*crt.XFILE)(Xstdout))
-	_iOuter = i32(1)
+	_iOuter = int32(1)
 _0:
-	if _iOuter > _p.X1 {
+	if _iOuter > _p.XnWorker {
 		goto _3
 	}
 	_worker_open_connection(tls, _p, _iOuter)
-	_i = i32(0)
+	_i = int32(0)
 _4:
-	if _i >= i32(4) {
+	if _i >= int32(4) {
 		goto _7
 	}
-	_worker_add_content(tls, _p, (_i*i32(100))+i32(1), (_i+i32(1))*i32(100), ((_p.X0+_iOuter)%i32(3))+i32(1))
-	_worker_add_content(tls, _p, (_i*i32(100))+i32(1), (_i+i32(1))*i32(100), (((_p.X0+_iOuter)+i32(1))%i32(3))+i32(1))
-	_worker_add_content(tls, _p, (_i*i32(100))+i32(1), (_i+i32(1))*i32(100), (((_p.X0+_iOuter)+i32(2))%i32(3))+i32(1))
+	_worker_add_content(tls, _p, (_i*int32(100))+int32(1), (_i+int32(1))*int32(100), ((_p.Xtid+_iOuter)%int32(3))+int32(1))
+	_worker_add_content(tls, _p, (_i*int32(100))+int32(1), (_i+int32(1))*int32(100), (((_p.Xtid+_iOuter)+int32(1))%int32(3))+int32(1))
+	_worker_add_content(tls, _p, (_i*int32(100))+int32(1), (_i+int32(1))*int32(100), (((_p.Xtid+_iOuter)+int32(2))%int32(3))+int32(1))
 	_i += 1
 	goto _4
 _7:
-	_pStmt = _prep_sql(tls, _p.X4, str(1202), _p.X0)
+	_pStmt = _prep_sql(tls, _p.Xdb, str(1202), _p.Xtid)
 	_worker_trace(tls, _p, str(1239), unsafe.Pointer(bin.Xsqlite3_sql(tls, _pStmt)))
 	_rc = bin.Xsqlite3_step(tls, _pStmt)
-	if _rc != i32(100) {
+	if _rc != int32(100) {
 		_worker_error(tls, _p, str(1250), unsafe.Pointer(bin.Xsqlite3_sql(tls, _pStmt)))
 		goto _10
 	}
-	if bin.Xsqlite3_column_int(tls, _pStmt, i32(0)) != i32(400) {
-		_worker_error(tls, _p, str(1269), bin.Xsqlite3_column_int(tls, _pStmt, i32(0)))
+	if bin.Xsqlite3_column_int(tls, _pStmt, int32(0)) != int32(400) {
+		_worker_error(tls, _p, str(1269), bin.Xsqlite3_column_int(tls, _pStmt, int32(0)))
 	}
 _10:
 	bin.Xsqlite3_finalize(tls, _pStmt)
-	if _p.X5 != 0 {
+	if _p.XnErr != 0 {
 		goto _3
 	}
-	if ((_iOuter + _p.X0) % i32(3)) == i32(0) {
-		bin.Xsqlite3_db_release_memory(tls, (*bin.Xsqlite3)(_p.X4))
-		*(*int32)(unsafe.Pointer(&_p.X6)) += 1
+	if ((_iOuter + _p.Xtid) % int32(3)) == int32(0) {
+		bin.Xsqlite3_db_release_memory(tls, (*bin.Xsqlite3)(_p.Xdb))
+		_p.XnTest += 1
 	}
-	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
+	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
 	_run_sql(tls, _p, str(1286))
 	_run_sql(tls, _p, str(1293))
 	_run_sql(tls, _p, str(1325))
 	_run_sql(tls, _p, str(1357))
 	_run_sql(tls, _p, str(1389))
-	*(*int32)(unsafe.Pointer(&_p.X6)) += 1
-	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	if _iOuter == _p.X0 {
-		crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
+	_p.XnTest += 1
+	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	if _iOuter == _p.Xtid {
+		crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
 		_run_sql(tls, _p, str(1399))
-		crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
+		crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
 	}
-	_pStmt = _prep_sql(tls, _p.X4, str(1406), _p.X0, _p.X0, _p.X0)
+	_pStmt = _prep_sql(tls, _p.Xdb, str(1406), _p.Xtid, _p.Xtid, _p.Xtid)
 	_worker_trace(tls, _p, str(1239), unsafe.Pointer(bin.Xsqlite3_sql(tls, _pStmt)))
-	_i = i32(0)
+	_i = int32(0)
 _14:
-	if _i >= _p.X1 {
+	if _i >= _p.XnWorker {
 		goto _17
 	}
 	_rc = bin.Xsqlite3_step(tls, _pStmt)
-	if _rc != i32(100) {
+	if _rc != int32(100) {
 		_worker_error(tls, _p, str(1250), unsafe.Pointer(bin.Xsqlite3_sql(tls, _pStmt)))
 		goto _17
 	}
@@ -437,17 +409,17 @@ _14:
 	goto _14
 _17:
 	bin.Xsqlite3_finalize(tls, _pStmt)
-	if _p.X5 != 0 {
+	if _p.XnErr != 0 {
 		goto _3
 	}
-	_worker_delete_all_content(tls, _p, (_p.X0+_iOuter)%i32(2))
+	_worker_delete_all_content(tls, _p, (_p.Xtid+_iOuter)%int32(2))
 	_worker_close_connection(tls, _p)
-	*(*unsafe.Pointer)(unsafe.Pointer(&_p.X4)) = nil
+	_p.Xdb = nil
 	_iOuter += 1
 	goto _0
 _3:
 	_worker_close_connection(tls, _p)
-	crt.Xprintf(tls, str(1552), _p.X0)
+	crt.Xprintf(tls, str(1552), _p.Xtid)
 	crt.Xfflush(tls, (*crt.XFILE)(Xstdout))
 	return nil
 }
@@ -460,27 +432,27 @@ _3:
 func _worker_open_connection(tls *crt.TLS, _p *XWorkerInfo, _iCnt int32) {
 	var _x, _rc int32
 	var _zFile *int8
-	_x = (_p.X0 + _iCnt) % i32(6)
-	_zFile = bin.Xsqlite3_mprintf(tls, str(1572), int32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*[3]uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_worker_open_connectionØ00aOrderØ001))+3*uintptr(_x))))) + 1*uintptr(i32(0))))))
+	_x = (_p.Xtid + _iCnt) % int32(6)
+	_zFile = bin.Xsqlite3_mprintf(tls, str(1572), int32(*elem4((*uint8)(unsafe.Pointer(elem5((*[3]uint8)(unsafe.Pointer(&_worker_open_connectionØ00aOrderØ001)), uintptr(_x)))), 0)))
 	_check_oom(tls, unsafe.Pointer(_zFile))
 	_worker_trace(tls, _p, str(1586), unsafe.Pointer(_zFile))
-	_rc = bin.Xsqlite3_open_v2(tls, _zFile, (**bin.Xsqlite3)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_p.X4)))), i32(131074), nil)
-	if _rc != i32(0) {
-		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1594), unsafe.Pointer(_zFile), _p.X0)
-		crt.Xexit(tls, i32(1))
+	_rc = bin.Xsqlite3_open_v2(tls, _zFile, (**bin.Xsqlite3)(unsafe.Pointer(&_p.Xdb)), int32(131074), nil)
+	if _rc != int32(0) {
+		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(1594), unsafe.Pointer(_zFile), _p.Xtid)
+		crt.Xexit(tls, int32(1))
 	}
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_zFile))
 	_run_sql(tls, _p, str(1634))
-	bin.Xsqlite3_busy_timeout(tls, (*bin.Xsqlite3)(_p.X4), i32(10000))
+	bin.Xsqlite3_busy_timeout(tls, (*bin.Xsqlite3)(_p.Xdb), int32(10000))
 	_run_sql(tls, _p, str(1662))
-	_run_sql(tls, _p, str(1686), int32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*[3]uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_worker_open_connectionØ00aOrderØ001))+3*uintptr(_x))))) + 1*uintptr(i32(1))))))
-	_run_sql(tls, _p, str(1717), int32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*[3]uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_worker_open_connectionØ00aOrderØ001))+3*uintptr(_x))))) + 1*uintptr(i32(2))))))
+	_run_sql(tls, _p, str(1686), int32(*elem4((*uint8)(unsafe.Pointer(elem5((*[3]uint8)(unsafe.Pointer(&_worker_open_connectionØ00aOrderØ001)), uintptr(_x)))), uintptr(1))))
+	_run_sql(tls, _p, str(1717), int32(*elem4((*uint8)(unsafe.Pointer(elem5((*[3]uint8)(unsafe.Pointer(&_worker_open_connectionØ00aOrderØ001)), uintptr(_x)))), uintptr(2))))
 }
 
 var _worker_open_connectionØ00aOrderØ001 [6][3]uint8
 
 func init() {
-	_worker_open_connectionØ00aOrderØ001 = [6][3]uint8{[3]uint8{u8(1), u8(2), u8(3)}, [3]uint8{u8(1), u8(3), u8(2)}, [3]uint8{u8(2), u8(1), u8(3)}, [3]uint8{u8(2), u8(3), u8(1)}, [3]uint8{u8(3), u8(1), u8(2)}, [3]uint8{u8(3), u8(2), u8(1)}}
+	_worker_open_connectionØ00aOrderØ001 = [6][3]uint8{[3]uint8{uint8(1), uint8(2), uint8(3)}, [3]uint8{uint8(1), uint8(3), uint8(2)}, [3]uint8{uint8(2), uint8(1), uint8(3)}, [3]uint8{uint8(2), uint8(3), uint8(1)}, [3]uint8{uint8(3), uint8(1), uint8(2)}, [3]uint8{uint8(3), uint8(2), uint8(1)}}
 }
 
 // C comment
@@ -490,11 +462,11 @@ func init() {
 func _worker_add_content(tls *crt.TLS, _p *XWorkerInfo, _mn int32, _mx int32, _iTab int32) {
 	var _zTabDef *int8
 	switch _iTab {
-	case i32(1):
+	case int32(1):
 		goto _1
-	case i32(2):
+	case int32(2):
 		goto _2
-	case i32(3):
+	case int32(3):
 		goto _3
 	default:
 		goto _4
@@ -510,10 +482,10 @@ _3:
 	_zTabDef = str(1782)
 	goto _4
 _4:
-	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	_run_sql(tls, _p, str(1799), _mn, _mx, unsafe.Pointer(_zTabDef), _p.X0)
-	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	*(*int32)(unsafe.Pointer(&_p.X6)) += 1
+	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_run_sql(tls, _p, str(1799), _mn, _mx, unsafe.Pointer(_zTabDef), _p.Xtid)
+	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_p.XnTest += 1
 }
 
 // C comment
@@ -530,21 +502,21 @@ func _prep_sql(tls *crt.TLS, _db unsafe.Pointer, _zFormat *int8, args ...interfa
 	_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 	_check_oom(tls, unsafe.Pointer(_zSql))
-	_i = i32(0)
+	_i = int32(0)
 _0:
-	if _i >= i32(1000) {
+	if _i >= int32(1000) {
 		goto _3
 	}
-	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_db), _zSql, i32(-1), &_pStmt, nil)
-	if _rc == i32(0) {
+	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_db), _zSql, int32(-1), &_pStmt, nil)
+	if _rc == int32(0) {
 		goto _3
 	}
 	_i += 1
 	goto _0
 _3:
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(991), _rc, bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_db)), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_db))), unsafe.Pointer(_zSql))
-		crt.Xexit(tls, i32(1))
+		crt.Xexit(tls, int32(1))
 	}
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_zSql))
 	return _pStmt
@@ -556,10 +528,10 @@ _3:
 //  */
 func _worker_error(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interface{}) {
 	var _ap []interface{}
-	*(*int32)(unsafe.Pointer(&_p.X5)) += 1
-	bin.Xsqlite3_free(tls, unsafe.Pointer(_p.X7))
+	_p.XnErr += 1
+	bin.Xsqlite3_free(tls, unsafe.Pointer(_p.XzMsg))
 	_ap = args
-	*(**int8)(unsafe.Pointer(&_p.X7)) = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
+	_p.XzMsg = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
 	_ap = nil
 }
 
@@ -572,28 +544,28 @@ func _worker_error(tls *crt.TLS, _p *XWorkerInfo, _zFormat *int8, args ...interf
 //  */
 func _worker_delete_all_content(tls *crt.TLS, _p *XWorkerInfo, _inTrans int32) {
 	if _inTrans != 0 {
-		crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
+		crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
 		_run_sql(tls, _p, str(1947))
-		_run_sql(tls, _p, str(1953), _p.X0)
-		_run_sql(tls, _p, str(1981), _p.X0)
-		_run_sql(tls, _p, str(2009), _p.X0)
+		_run_sql(tls, _p, str(1953), _p.Xtid)
+		_run_sql(tls, _p, str(1981), _p.Xtid)
+		_run_sql(tls, _p, str(2009), _p.Xtid)
 		_run_sql(tls, _p, str(2037))
-		crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-		*(*int32)(unsafe.Pointer(&_p.X6)) += 1
+		crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+		_p.XnTest += 1
 		goto _1
 	}
-	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	_run_sql(tls, _p, str(1953), _p.X0)
-	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	*(*int32)(unsafe.Pointer(&_p.X6)) += 1
-	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	_run_sql(tls, _p, str(1981), _p.X0)
-	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	*(*int32)(unsafe.Pointer(&_p.X6)) += 1
-	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	_run_sql(tls, _p, str(2009), _p.X0)
-	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.X9))
-	*(*int32)(unsafe.Pointer(&_p.X6)) += 1
+	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_run_sql(tls, _p, str(1953), _p.Xtid)
+	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_p.XnTest += 1
+	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_run_sql(tls, _p, str(1981), _p.Xtid)
+	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_p.XnTest += 1
+	crt.Xpthread_mutex_lock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_run_sql(tls, _p, str(2009), _p.Xtid)
+	crt.Xpthread_mutex_unlock(tls, (*crt.Xpthread_mutex_t)(_p.XpWrMutex))
+	_p.XnTest += 1
 _1:
 }
 
@@ -602,10 +574,10 @@ _1:
 //  ** Close the worker database connection
 //  */
 func _worker_close_connection(tls *crt.TLS, _p *XWorkerInfo) {
-	if _p.X4 != nil {
+	if _p.Xdb != nil {
 		_worker_trace(tls, _p, str(2044))
-		bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_p.X4))
-		*(*unsafe.Pointer)(unsafe.Pointer(&_p.X4)) = nil
+		bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_p.Xdb))
+		_p.Xdb = nil
 	}
 }
 
@@ -616,35 +588,40 @@ func bool2int(b bool) int32 {
 	return 0
 }
 func bug20530(interface{}) {} //TODO remove when https://github.com/golang/go/issues/20530 is fixed.
-func i16(n int16) int16    { return n }
-func i32(n int32) int32    { return n }
-func i64(n int64) int64    { return n }
-func i8(n int8) int8       { return n }
 func init()                { nzf32 *= -1; nzf64 *= -1 }
-func u16(n uint16) uint16  { return n }
-func u32(n uint32) uint32  { return n }
-func u64(n uint64) uint64  { return n }
-func u8(n byte) byte       { return n }
 
 var inf = math.Inf(1)
-var nzf32 float32                    // -0.0
-var nzf64 float64                    // -0.0
-func sink1(int32)                    {} //TODO report GC bug
-func sink0(uint32)                   {} //TODO report GC bug
-func store1(p *int32, v int32) int32 { *p = v; return v }
+var nzf32 float32 // -0.0
+var nzf64 float64 // -0.0
+func elem0(a **int8, index uintptr) **int8 {
+	return (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 8*index))
+}
+func elem5(a *[3]uint8, index uintptr) *[3]uint8 {
+	return (*[3]uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 3*index))
+}
+func elem1(a *int8, index uintptr) *int8 {
+	return (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 1*index))
+}
+func elem2(a *XWorkerInfo, index uintptr) *XWorkerInfo {
+	return (*XWorkerInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 64*index))
+}
+func elem4(a *uint8, index uintptr) *uint8 {
+	return (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 1*index))
+}
+func store3(p *int32, v int32) int32 { *p = v; return v }
 
 type XWorkerInfo struct {
-	X0 int32
-	X1 int32
-	X2 uint32
-	X3 unsafe.Pointer
-	X4 unsafe.Pointer
-	X5 int32
-	X6 int32
-	X7 *int8
-	X8 uint64
-	X9 unsafe.Pointer
-}                       // t2 struct{int32,int32,uint32,*struct{},*struct{},int32,int32,*int8,uint64,*struct{}}
+	Xtid      int32
+	XnWorker  int32
+	XwkrFlags uint32
+	XmainDb   unsafe.Pointer
+	Xdb       unsafe.Pointer
+	XnErr     int32
+	XnTest    int32
+	XzMsg     *int8
+	Xid       uint64
+	XpWrMutex unsafe.Pointer
+}                       // t6 struct{int32,int32,uint32,*struct{},*struct{},int32,int32,*int8,uint64,*struct{}}
 func str(n int) *int8   { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32 { return (*int32)(unsafe.Pointer(&strTab[n])) }
 

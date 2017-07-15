@@ -88,72 +88,72 @@ func Xmain(tls *crt.TLS, _argc int32, _argv **int8) (r0 int32) {
 	var _i, _iArg, _nTestfound, _4_rc int32
 	var _2_zArg, _9_z *int8
 	var _aTest [14]TThreadTest
-	r0 = i32(0)
+	r0 = int32(0)
 	_aTest = [14]TThreadTest{}
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(0)))).X0))) = _walthread1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(0)))).X1))) = str(0)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(0)))).X2))) = i32(20000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(1)))).X0))) = _walthread2
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(1)))).X1))) = str(11)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(1)))).X2))) = i32(20000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(2)))).X0))) = _walthread3
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(2)))).X1))) = str(22)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(2)))).X2))) = i32(20000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(3)))).X0))) = _walthread4
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(3)))).X1))) = str(33)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(3)))).X2))) = i32(20000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(4)))).X0))) = _walthread5
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(4)))).X1))) = str(44)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(4)))).X2))) = i32(1000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(5)))).X0))) = _cgt_pager_1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(5)))).X1))) = str(55)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(5)))).X2))) = i32(0)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(6)))).X0))) = _dynamic_triggers
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(6)))).X1))) = str(67)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(6)))).X2))) = i32(20000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(7)))).X0))) = _checkpoint_starvation_1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(7)))).X1))) = str(84)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(7)))).X2))) = i32(10000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(8)))).X0))) = _checkpoint_starvation_2
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(8)))).X1))) = str(108)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(8)))).X2))) = i32(10000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(9)))).X0))) = _create_drop_index_1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(9)))).X1))) = str(132)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(9)))).X2))) = i32(10000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(10)))).X0))) = _lookaside1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(10)))).X1))) = str(152)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(10)))).X2))) = i32(10000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(11)))).X0))) = _vacuum1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(11)))).X1))) = str(163)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(11)))).X2))) = i32(10000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(12)))).X0))) = _stress1
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(12)))).X1))) = str(171)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(12)))).X2))) = i32(10000)
-	*(*func(*crt.TLS, int32))(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(13)))).X0))) = _stress2
-	*(**int8)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(13)))).X1))) = str(179)
-	*(*int32)(unsafe.Pointer(&((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(i32(13)))).X2))) = i32(60000)
-	_nTestfound = i32(0)
-	bin.Xsqlite3_config(tls, i32(2))
-	if _argc < i32(2) {
-		_argc = i32(2)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), 0).XxTest = _walthread1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), 0).XzTest = str(0)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), 0).XnMs = int32(20000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(1)).XxTest = _walthread2
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(1)).XzTest = str(11)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(1)).XnMs = int32(20000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(2)).XxTest = _walthread3
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(2)).XzTest = str(22)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(2)).XnMs = int32(20000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(3)).XxTest = _walthread4
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(3)).XzTest = str(33)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(3)).XnMs = int32(20000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(4)).XxTest = _walthread5
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(4)).XzTest = str(44)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(4)).XnMs = int32(1000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(5)).XxTest = _cgt_pager_1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(5)).XzTest = str(55)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(5)).XnMs = int32(0)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(6)).XxTest = _dynamic_triggers
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(6)).XzTest = str(67)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(6)).XnMs = int32(20000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(7)).XxTest = _checkpoint_starvation_1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(7)).XzTest = str(84)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(7)).XnMs = int32(10000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(8)).XxTest = _checkpoint_starvation_2
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(8)).XzTest = str(108)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(8)).XnMs = int32(10000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(9)).XxTest = _create_drop_index_1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(9)).XzTest = str(132)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(9)).XnMs = int32(10000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(10)).XxTest = _lookaside1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(10)).XzTest = str(152)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(10)).XnMs = int32(10000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(11)).XxTest = _vacuum1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(11)).XzTest = str(163)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(11)).XnMs = int32(10000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(12)).XxTest = _stress1
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(12)).XzTest = str(171)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(12)).XnMs = int32(10000)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(13)).XxTest = _stress2
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(13)).XzTest = str(179)
+	elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(13)).XnMs = int32(60000)
+	_nTestfound = int32(0)
+	bin.Xsqlite3_config(tls, int32(2))
+	if _argc < int32(2) {
+		_argc = int32(2)
 		_argv = (**int8)(unsafe.Pointer(&_mainØ00substArgvØ001))
 	}
-	_iArg = i32(1)
+	_iArg = int32(1)
 _1:
 	if _iArg >= _argc {
 		goto _4
 	}
-	_2_zArg = *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_iArg)))
-	if int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_2_zArg)) + 1*uintptr(i32(0))))) != i32(45) {
+	_2_zArg = *elem1(_argv, uintptr(_iArg))
+	if int32(*elem2(_2_zArg, 0)) != int32(45) {
 		goto _5
 	}
-	if bin.Xsqlite3_stricmp(tls, _2_zArg, str(187)) != i32(0) {
+	if bin.Xsqlite3_stricmp(tls, _2_zArg, str(187)) != int32(0) {
 		goto _6
 	}
-	_4_rc = Xsqlite3_multiplex_initialize(tls, nil, i32(1))
-	if _4_rc != i32(0) {
+	_4_rc = Xsqlite3_multiplex_initialize(tls, nil, int32(1))
+	if _4_rc != int32(0) {
 		crt.Xfprintf(tls, (*crt.XFILE)(Xstderr), str(200), _4_rc)
-		return i32(253)
+		return int32(253)
 	}
 	goto _8
 _6:
@@ -161,42 +161,42 @@ _6:
 _8:
 	goto _2
 _5:
-	_i = i32(0)
+	_i = int32(0)
 _9:
-	if uint64(_i) >= u64(14) {
+	if uint64(_i) >= uint64(14) {
 		goto _12
 	}
-	if bin.Xsqlite3_strglob(tls, _2_zArg, (*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest))+24*uintptr(_i))).X1) == i32(0) {
+	if bin.Xsqlite3_strglob(tls, _2_zArg, elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(_i)).XzTest) == int32(0) {
 		goto _12
 	}
 	_i += 1
 	goto _9
 _12:
-	if uint64(_i) >= u64(14) {
+	if uint64(_i) >= uint64(14) {
 		goto _usage
 	}
 _2:
 	_iArg += 1
 	goto _1
 _4:
-	_iArg = i32(1)
+	_iArg = int32(1)
 _15:
 	if _iArg >= _argc {
 		goto _18
 	}
-	if int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_iArg))))) + 1*uintptr(i32(0))))) == i32(45) {
+	if int32(*elem2(*elem1(_argv, uintptr(_iArg)), 0)) == int32(45) {
 		goto _16
 	}
-	_i = i32(0)
+	_i = int32(0)
 _20:
-	if uint64(_i) >= u64(14) {
+	if uint64(_i) >= uint64(14) {
 		goto _23
 	}
-	_9_z = (*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(_i))).X1
-	if bin.Xsqlite3_strglob(tls, *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_iArg))), _9_z) == i32(0) {
-		crt.Xprintf(tls, str(240), unsafe.Pointer(_9_z), ((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest))+24*uintptr(_i))).X2)/i32(1000))
+	_9_z = elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(_i)).XzTest
+	if bin.Xsqlite3_strglob(tls, *elem1(_argv, uintptr(_iArg)), _9_z) == int32(0) {
+		crt.Xprintf(tls, str(240), unsafe.Pointer(_9_z), (elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(_i)).XnMs)/int32(1000))
 		crt.Xfflush(tls, (*crt.XFILE)(Xstdout))
-		((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest)) + 24*uintptr(_i))).X0)(tls, (*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest))+24*uintptr(_i))).X2)
+		(elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(_i)).XxTest)(tls, elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(_i)).XnMs)
 		_nTestfound += 1
 	}
 	_i += 1
@@ -206,30 +206,30 @@ _16:
 	_iArg += 1
 	goto _15
 _18:
-	if _nTestfound == i32(0) {
+	if _nTestfound == int32(0) {
 		goto _usage
 	}
 	crt.Xprintf(tls, str(270), _nGlobalErr, _nTestfound)
 	return func() int32 {
-		if _nGlobalErr > i32(0) {
-			return i32(255)
+		if _nGlobalErr > int32(0) {
+			return int32(255)
 		}
-		return i32(0)
+		return int32(0)
 	}()
 
 _usage:
-	crt.Xprintf(tls, str(297), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(i32(0))))))
+	crt.Xprintf(tls, str(297), unsafe.Pointer(*elem1(_argv, 0)))
 	crt.Xprintf(tls, str(349))
-	_i = i32(0)
+	_i = int32(0)
 _28:
-	if uint64(_i) >= u64(14) {
+	if uint64(_i) >= uint64(14) {
 		goto _31
 	}
-	crt.Xprintf(tls, str(371), unsafe.Pointer((*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTest))+24*uintptr(_i))).X1))
+	crt.Xprintf(tls, str(371), unsafe.Pointer(elem0((*TThreadTest)(unsafe.Pointer(&_aTest)), uintptr(_i)).XzTest))
 	_i += 1
 	goto _28
 _31:
-	return i32(254)
+	return int32(254)
 
 	_ = _aTest
 	panic(0)
@@ -237,59 +237,59 @@ _31:
 
 func _walthread1(tls *crt.TLS, _nMs int32) {
 	var _i int32
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(987)
+			return int32(987)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(988)
+			return int32(988)
 		}()
 		return &_err
 	}(), &_db, str(386))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(995)
+			return int32(995)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(997)
+			return int32(997)
 		}()
 		return &_err
 	}(), _nMs)
-	_i = i32(0)
+	_i = int32(0)
 _8:
-	if _i >= i32(10) {
+	if _i >= int32(10) {
 		goto _11
 	}
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(999)
+			return int32(999)
 		}()
 		return &_err
 	}(), &_threads, _walthread1_thread, nil)
@@ -297,61 +297,58 @@ _8:
 	goto _8
 _11:
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1001)
+			return int32(1001)
 		}()
 		return &_err
 	}(), &_threads, _walthread1_ckpt_thread, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1002)
+			return int32(1002)
 		}()
 		return &_err
 	}(), &_threads)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _opendb_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zFile *int8, _bDelete int32) {
 	var _1_rc, _1_flags int32
-	if _pErr.X0 != i32(0) {
+	if _pErr.Xrc != int32(0) {
 		goto _0
 	}
-	_1_flags = i32(70)
+	_1_flags = int32(70)
 	if _bDelete != 0 {
 		crt.Xunlink(tls, _zFile)
 	}
-	_1_rc = bin.Xsqlite3_open_v2(tls, _zFile, (**bin.Xsqlite3)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pDb.X0)))), _1_flags, nil)
+	_1_rc = bin.Xsqlite3_open_v2(tls, _zFile, (**bin.Xsqlite3)(unsafe.Pointer(&_pDb.Xdb)), _1_flags, nil)
 	if _1_rc != 0 {
 		_sqlite_error(tls, _pErr, _pDb, str(562))
-		bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_pDb.X0))
-		*(*unsafe.Pointer)(unsafe.Pointer(&_pDb.X0)) = nil
+		bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_pDb.Xdb))
+		_pDb.Xdb = nil
 		goto _3
 	}
-	bin.Xsqlite3_create_function(tls, (*bin.Xsqlite3)(_pDb.X0), str(567), i32(-1), i32(1), nil, nil, func() func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem) {
+	bin.Xsqlite3_create_function(tls, (*bin.Xsqlite3)(_pDb.Xdb), str(567), int32(-1), int32(1), nil, nil, func() func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem) {
 		v := _md5step
 		return *(*func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem))(unsafe.Pointer(&v))
 	}(), func() func(*crt.TLS, *bin.Xsqlite3_context) {
 		v := _md5finalize
 		return *(*func(*crt.TLS, *bin.Xsqlite3_context))(unsafe.Pointer(&v))
 	}())
-	bin.Xsqlite3_busy_handler(tls, (*bin.Xsqlite3)(_pDb.X0), _busyhandler, nil)
-	bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_pDb.X0), str(574), nil, nil, nil)
+	bin.Xsqlite3_busy_handler(tls, (*bin.Xsqlite3)(_pDb.Xdb), _busyhandler, nil)
+	bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_pDb.Xdb), str(574), nil, nil, nil)
 _3:
 _0:
 }
 
 func _sqlite_error(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zFunc *int8) {
-	*(*int32)(unsafe.Pointer(&_pErr.X0)) = bin.Xsqlite3_errcode(tls, (*bin.Xsqlite3)(_pDb.X0))
-	*(**int8)(unsafe.Pointer(&_pErr.X2)) = bin.Xsqlite3_mprintf(tls, str(597), unsafe.Pointer(_zFunc), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_pDb.X0))), bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_pDb.X0)))
+	_pErr.Xrc = bin.Xsqlite3_errcode(tls, (*bin.Xsqlite3)(_pDb.Xdb))
+	_pErr.XzErr = bin.Xsqlite3_mprintf(tls, str(597), unsafe.Pointer(_zFunc), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_pDb.Xdb))), bin.Xsqlite3_extended_errcode(tls, (*bin.Xsqlite3)(_pDb.Xdb)))
 }
 
 // C comment
@@ -363,22 +360,22 @@ func _md5step(tls *crt.TLS, _context unsafe.Pointer, _argc int32, _argv *unsafe.
 	var _i int32
 	var _2_zData *int8
 	var _p *XMD5Context
-	if _argc < i32(1) {
+	if _argc < int32(1) {
 		return
 	}
-	_p = (*XMD5Context)(bin.Xsqlite3_aggregate_context(tls, (*bin.Xsqlite3_context)(_context), int32(u64(92))))
+	_p = (*XMD5Context)(bin.Xsqlite3_aggregate_context(tls, (*bin.Xsqlite3_context)(_context), int32(92)))
 	if _p == nil {
 		return
 	}
-	if _p.X0 == 0 {
+	if _p.XisInit == 0 {
 		_MD5Init(tls, _p)
 	}
-	_i = i32(0)
+	_i = int32(0)
 _3:
 	if _i >= _argc {
 		goto _6
 	}
-	_2_zData = (*int8)(unsafe.Pointer(bin.Xsqlite3_value_text(tls, (*bin.XMem)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(_i)))))))
+	_2_zData = (*int8)(unsafe.Pointer(bin.Xsqlite3_value_text(tls, (*bin.XMem)(*elem3(_argv, uintptr(_i))))))
 	if _2_zData != nil {
 		_MD5Update(tls, _p, (*uint8)(unsafe.Pointer(_2_zData)), uint32(crt.Xstrlen(tls, _2_zData)))
 	}
@@ -393,13 +390,13 @@ _6:
 //   * initialization constants.
 //   */
 func _MD5Init(tls *crt.TLS, _ctx *XMD5Context) {
-	*(*int32)(unsafe.Pointer(&_ctx.X0)) = i32(1)
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))) + 4*uintptr(i32(0)))) = uint32(i32(1732584193))
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))) + 4*uintptr(i32(1)))) = u32(4023233417)
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))) + 4*uintptr(i32(2)))) = u32(2562383102)
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))) + 4*uintptr(i32(3)))) = uint32(i32(271733878))
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(0)))) = uint32(i32(0))
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(1)))) = uint32(i32(0))
+	_ctx.XisInit = int32(1)
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbuf)), 0) = uint32(1732584193)
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbuf)), uintptr(1)) = uint32(4023233417)
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbuf)), uintptr(2)) = uint32(2562383102)
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbuf)), uintptr(3)) = uint32(271733878)
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), 0) = 0
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), uintptr(1)) = 0
 }
 
 // C comment
@@ -410,56 +407,36 @@ func _MD5Init(tls *crt.TLS, _ctx *XMD5Context) {
 func _MD5Update(tls *crt.TLS, _ctx *XMD5Context, _buf *uint8, _len uint32) {
 	var _t uint32
 	var _1_p *uint8
-	_t = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(0))))
-	if store0((*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2))))+4*uintptr(i32(0)))), _t+(_len<<uint(i32(3)))) < _t {
-		*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(1)))) += 1
+	_t = *elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), 0)
+	if store5(elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), 0), _t+(_len<<3)) < _t {
+		*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), uintptr(1)) += 1
 	}
-	{
-		p := (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(1))))
-		*p = (*p) + (_len >> uint(i32(29)))
-		sink0(*p)
-	}
-	_t = (_t >> uint(i32(3))) & uint32(i32(63))
+	*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), uintptr(1)) += _len >> 29
+	_t = (_t >> 3) & uint32(63)
 	if _t == 0 {
 		goto _1
 	}
-	_1_p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))))) + uintptr(_t)))
-	_t = uint32(i32(64)) - _t
+	_1_p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))) + uintptr(_t)))
+	_t = uint32(64) - _t
 	if _len < _t {
 		crt.Xmemcpy(tls, unsafe.Pointer(_1_p), unsafe.Pointer(_buf), uint64(_len))
 		return
 	}
 	crt.Xmemcpy(tls, unsafe.Pointer(_1_p), unsafe.Pointer(_buf), uint64(_t))
-	_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))), uint32(i32(16)))
-	_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))))))))
-	{
-		p := &_buf
-		*p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(*p)) + 1*uintptr(_t)))
-		sink2(*p)
-	}
-	{
-		p := &_len
-		*p = (*p) - _t
-		sink0(*p)
-	}
+	_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))), uint32(16))
+	_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer(&_ctx.Xbuf)))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))))))))
+	*(*uintptr)(unsafe.Pointer(&_buf)) += uintptr(_t)
+	_len -= _t
 _1:
-	if _len >= uint32(i32(64)) {
-		crt.Xmemcpy(tls, unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3))))), unsafe.Pointer(_buf), uint64(i32(64)))
-		_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))), uint32(i32(16)))
-		_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))))))))
-		{
-			p := &_buf
-			*p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(*p)) + 1*uintptr(i32(64))))
-			sink2(*p)
-		}
-		{
-			p := &_len
-			*p = (*p) - uint32(i32(64))
-			sink0(*p)
-		}
+	if _len >= uint32(64) {
+		crt.Xmemcpy(tls, unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu))), unsafe.Pointer(_buf), uint64(64))
+		_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))), uint32(16))
+		_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer(&_ctx.Xbuf)))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))))))))
+		*(*uintptr)(unsafe.Pointer(&_buf)) += uintptr(int32(64))
+		_len -= uint32(64)
 		goto _1
 	}
-	crt.Xmemcpy(tls, unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3))))), unsafe.Pointer(_buf), uint64(_len))
+	crt.Xmemcpy(tls, unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu))), unsafe.Pointer(_buf), uint64(_len))
 }
 
 // C comment
@@ -469,14 +446,10 @@ _1:
 func _byteReverse(tls *crt.TLS, _buf *uint8, _longs uint32) {
 	var _t uint32
 _0:
-	_t = (((uint32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 1*uintptr(i32(3))))) << uint(i32(8))) | uint32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 1*uintptr(i32(2)))))) << uint(i32(16))) | ((uint32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 1*uintptr(i32(1))))) << uint(i32(8))) | uint32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 1*uintptr(i32(0))))))
+	_t = (((uint32(*elem6(_buf, uintptr(3))) << 8) | uint32(*elem6(_buf, uintptr(2)))) << 16) | ((uint32(*elem6(_buf, uintptr(1))) << 8) | uint32(*elem6(_buf, 0)))
 	*(*uint32)(unsafe.Pointer(_buf)) = _t
-	{
-		p := &_buf
-		*p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(*p)) + 1*uintptr(i32(4))))
-		sink2(*p)
-	}
-	if preInc0(&_longs, uint32(4294967295)) != 0 {
+	*(*uintptr)(unsafe.Pointer(&_buf)) += uintptr(int32(4))
+	if preInc5(&_longs, uint32(4294967295)) != 0 {
 		goto _0
 	}
 }
@@ -489,1001 +462,473 @@ _0:
 //   */
 func _MD5Transform(tls *crt.TLS, _buf *[4]uint32, _in *[16]uint32) {
 	var _a, _b, _c, _d uint32
-	_a = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(0))))
-	_b = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(1))))
-	_c = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(2))))
-	_d = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(3))))
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_d ^ (_b & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(0)))))) + u32(3614090360))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(7))) | (_a >> uint(i32(25)))
+	_a = *elem4((*uint32)(unsafe.Pointer(_buf)), 0)
+	_b = *elem4((*uint32)(unsafe.Pointer(_buf)), uintptr(1))
+	_c = *elem4((*uint32)(unsafe.Pointer(_buf)), uintptr(2))
+	_d = *elem4((*uint32)(unsafe.Pointer(_buf)), uintptr(3))
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_d ^ (_b & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), 0))) + uint32(3614090360)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_c ^ (_a & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(1)))))) + u32(3905402710))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(12))) | (_d >> uint(i32(20)))
+		}() = (_a << 7) | (_a >> 25)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_c ^ (_a & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(1)))) + uint32(3905402710)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_b ^ (_d & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(2)))))) + uint32(i32(606105819)))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(17))) | (_c >> uint(i32(15)))
+		}() = (_d << 12) | (_d >> 20)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_b ^ (_d & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(2)))) + uint32(606105819)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_a ^ (_c & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(3)))))) + u32(3250441966))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(22))) | (_b >> uint(i32(10)))
+		}() = (_c << 17) | (_c >> 15)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_a ^ (_c & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(3)))) + uint32(3250441966)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_d ^ (_b & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(4)))))) + u32(4118548399))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(7))) | (_a >> uint(i32(25)))
+		}() = (_b << 22) | (_b >> 10)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_d ^ (_b & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(4)))) + uint32(4118548399)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_c ^ (_a & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(5)))))) + uint32(i32(1200080426)))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(12))) | (_d >> uint(i32(20)))
+		}() = (_a << 7) | (_a >> 25)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_c ^ (_a & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(5)))) + uint32(1200080426)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_b ^ (_d & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(6)))))) + u32(2821735955))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(17))) | (_c >> uint(i32(15)))
+		}() = (_d << 12) | (_d >> 20)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_b ^ (_d & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(6)))) + uint32(2821735955)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_a ^ (_c & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(7)))))) + u32(4249261313))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(22))) | (_b >> uint(i32(10)))
+		}() = (_c << 17) | (_c >> 15)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_a ^ (_c & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(7)))) + uint32(4249261313)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_d ^ (_b & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(8)))))) + uint32(i32(1770035416)))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(7))) | (_a >> uint(i32(25)))
+		}() = (_b << 22) | (_b >> 10)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_d ^ (_b & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(8)))) + uint32(1770035416)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_c ^ (_a & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(9)))))) + u32(2336552879))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(12))) | (_d >> uint(i32(20)))
+		}() = (_a << 7) | (_a >> 25)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_c ^ (_a & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(9)))) + uint32(2336552879)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_b ^ (_d & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(10)))))) + u32(4294925233))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(17))) | (_c >> uint(i32(15)))
+		}() = (_d << 12) | (_d >> 20)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_b ^ (_d & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(10)))) + uint32(4294925233)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_a ^ (_c & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(11)))))) + u32(2304563134))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(22))) | (_b >> uint(i32(10)))
+		}() = (_c << 17) | (_c >> 15)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_a ^ (_c & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(11)))) + uint32(2304563134)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_d ^ (_b & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(12)))))) + uint32(i32(1804603682)))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(7))) | (_a >> uint(i32(25)))
+		}() = (_b << 22) | (_b >> 10)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_d ^ (_b & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(12)))) + uint32(1804603682)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_c ^ (_a & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(13)))))) + u32(4254626195))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(12))) | (_d >> uint(i32(20)))
+		}() = (_a << 7) | (_a >> 25)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_c ^ (_a & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(13)))) + uint32(4254626195)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_b ^ (_d & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(14)))))) + u32(2792965006))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(17))) | (_c >> uint(i32(15)))
+		}() = (_d << 12) | (_d >> 20)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_b ^ (_d & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(14)))) + uint32(2792965006)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_a ^ (_c & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(15)))))) + uint32(i32(1236535329)))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(22))) | (_b >> uint(i32(10)))
+		}() = (_c << 17) | (_c >> 15)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_a ^ (_c & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(15)))) + uint32(1236535329)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_d & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(1)))))) + u32(4129170786))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(5))) | (_a >> uint(i32(27)))
+		}() = (_b << 22) | (_b >> 10)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_d & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(1)))) + uint32(4129170786)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_c & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(6)))))) + u32(3225465664))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(9))) | (_d >> uint(i32(23)))
+		}() = (_a << 5) | (_a >> 27)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_c & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(6)))) + uint32(3225465664)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_b & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(11)))))) + uint32(i32(643717713)))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(14))) | (_c >> uint(i32(18)))
+		}() = (_d << 9) | (_d >> 23)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_b & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(11)))) + uint32(643717713)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_a & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(0)))))) + u32(3921069994))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(20))) | (_b >> uint(i32(12)))
+		}() = (_c << 14) | (_c >> 18)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_a & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), 0))) + uint32(3921069994)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_d & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(5)))))) + u32(3593408605))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(5))) | (_a >> uint(i32(27)))
+		}() = (_b << 20) | (_b >> 12)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_d & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(5)))) + uint32(3593408605)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_c & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(10)))))) + uint32(i32(38016083)))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(9))) | (_d >> uint(i32(23)))
+		}() = (_a << 5) | (_a >> 27)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_c & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(10)))) + uint32(38016083)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_b & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(15)))))) + u32(3634488961))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(14))) | (_c >> uint(i32(18)))
+		}() = (_d << 9) | (_d >> 23)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_b & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(15)))) + uint32(3634488961)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_a & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(4)))))) + u32(3889429448))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(20))) | (_b >> uint(i32(12)))
+		}() = (_c << 14) | (_c >> 18)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_a & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(4)))) + uint32(3889429448)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_d & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(9)))))) + uint32(i32(568446438)))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(5))) | (_a >> uint(i32(27)))
+		}() = (_b << 20) | (_b >> 12)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_d & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(9)))) + uint32(568446438)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_c & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(14)))))) + u32(3275163606))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(9))) | (_d >> uint(i32(23)))
+		}() = (_a << 5) | (_a >> 27)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_c & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(14)))) + uint32(3275163606)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_b & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(3)))))) + u32(4107603335))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(14))) | (_c >> uint(i32(18)))
+		}() = (_d << 9) | (_d >> 23)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_b & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(3)))) + uint32(4107603335)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_a & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(8)))))) + uint32(i32(1163531501)))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(20))) | (_b >> uint(i32(12)))
+		}() = (_c << 14) | (_c >> 18)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_a & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(8)))) + uint32(1163531501)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_d & (_b ^ _c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(13)))))) + u32(2850285829))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(5))) | (_a >> uint(i32(27)))
+		}() = (_b << 20) | (_b >> 12)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_d & (_b ^ _c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(13)))) + uint32(2850285829)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_c & (_a ^ _b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(2)))))) + u32(4243563512))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(9))) | (_d >> uint(i32(23)))
+		}() = (_a << 5) | (_a >> 27)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_c & (_a ^ _b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(2)))) + uint32(4243563512)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_b & (_d ^ _a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(7)))))) + uint32(i32(1735328473)))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(14))) | (_c >> uint(i32(18)))
+		}() = (_d << 9) | (_d >> 23)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_b & (_d ^ _a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(7)))) + uint32(1735328473)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_a & (_c ^ _d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(12)))))) + u32(2368359562))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(20))) | (_b >> uint(i32(12)))
+		}() = (_c << 14) | (_c >> 18)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_a & (_c ^ _d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(12)))) + uint32(2368359562)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + ((((_b ^ _c) ^ _d) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(5)))))) + u32(4294588738))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(4))) | (_a >> uint(i32(28)))
+		}() = (_b << 20) | (_b >> 12)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += (((_b ^ _c) ^ _d) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(5)))) + uint32(4294588738)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + ((((_a ^ _b) ^ _c) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(8)))))) + u32(2272392833))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(11))) | (_d >> uint(i32(21)))
+		}() = (_a << 4) | (_a >> 28)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += (((_a ^ _b) ^ _c) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(8)))) + uint32(2272392833)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + ((((_d ^ _a) ^ _b) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(11)))))) + uint32(i32(1839030562)))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(16))) | (_c >> uint(i32(16)))
+		}() = (_d << 11) | (_d >> 21)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += (((_d ^ _a) ^ _b) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(11)))) + uint32(1839030562)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + ((((_c ^ _d) ^ _a) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(14)))))) + u32(4259657740))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(23))) | (_b >> uint(i32(9)))
+		}() = (_c << 16) | (_c >> 16)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += (((_c ^ _d) ^ _a) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(14)))) + uint32(4259657740)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + ((((_b ^ _c) ^ _d) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(1)))))) + u32(2763975236))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(4))) | (_a >> uint(i32(28)))
+		}() = (_b << 23) | (_b >> 9)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += (((_b ^ _c) ^ _d) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(1)))) + uint32(2763975236)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + ((((_a ^ _b) ^ _c) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(4)))))) + uint32(i32(1272893353)))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(11))) | (_d >> uint(i32(21)))
+		}() = (_a << 4) | (_a >> 28)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += (((_a ^ _b) ^ _c) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(4)))) + uint32(1272893353)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + ((((_d ^ _a) ^ _b) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(7)))))) + u32(4139469664))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(16))) | (_c >> uint(i32(16)))
+		}() = (_d << 11) | (_d >> 21)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += (((_d ^ _a) ^ _b) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(7)))) + uint32(4139469664)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + ((((_c ^ _d) ^ _a) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(10)))))) + u32(3200236656))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(23))) | (_b >> uint(i32(9)))
+		}() = (_c << 16) | (_c >> 16)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += (((_c ^ _d) ^ _a) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(10)))) + uint32(3200236656)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + ((((_b ^ _c) ^ _d) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(13)))))) + uint32(i32(681279174)))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(4))) | (_a >> uint(i32(28)))
+		}() = (_b << 23) | (_b >> 9)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += (((_b ^ _c) ^ _d) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(13)))) + uint32(681279174)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + ((((_a ^ _b) ^ _c) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(0)))))) + u32(3936430074))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(11))) | (_d >> uint(i32(21)))
+		}() = (_a << 4) | (_a >> 28)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += (((_a ^ _b) ^ _c) + (*elem4((*uint32)(unsafe.Pointer(_in)), 0))) + uint32(3936430074)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + ((((_d ^ _a) ^ _b) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(3)))))) + u32(3572445317))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(16))) | (_c >> uint(i32(16)))
+		}() = (_d << 11) | (_d >> 21)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += (((_d ^ _a) ^ _b) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(3)))) + uint32(3572445317)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + ((((_c ^ _d) ^ _a) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(6)))))) + uint32(i32(76029189)))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(23))) | (_b >> uint(i32(9)))
+		}() = (_c << 16) | (_c >> 16)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += (((_c ^ _d) ^ _a) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(6)))) + uint32(76029189)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + ((((_b ^ _c) ^ _d) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(9)))))) + u32(3654602809))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(4))) | (_a >> uint(i32(28)))
+		}() = (_b << 23) | (_b >> 9)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += (((_b ^ _c) ^ _d) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(9)))) + uint32(3654602809)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + ((((_a ^ _b) ^ _c) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(12)))))) + u32(3873151461))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(11))) | (_d >> uint(i32(21)))
+		}() = (_a << 4) | (_a >> 28)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += (((_a ^ _b) ^ _c) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(12)))) + uint32(3873151461)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + ((((_d ^ _a) ^ _b) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(15)))))) + uint32(i32(530742520)))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(16))) | (_c >> uint(i32(16)))
+		}() = (_d << 11) | (_d >> 21)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += (((_d ^ _a) ^ _b) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(15)))) + uint32(530742520)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + ((((_c ^ _d) ^ _a) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(2)))))) + u32(3299628645))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(23))) | (_b >> uint(i32(9)))
+		}() = (_c << 16) | (_c >> 16)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += (((_c ^ _d) ^ _a) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(2)))) + uint32(3299628645)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_b | (^_d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(0)))))) + u32(4096336452))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(6))) | (_a >> uint(i32(26)))
+		}() = (_b << 23) | (_b >> 9)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_b | (^_d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), 0))) + uint32(4096336452)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_a | (^_c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(7)))))) + uint32(i32(1126891415)))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(10))) | (_d >> uint(i32(22)))
+		}() = (_a << 6) | (_a >> 26)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_a | (^_c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(7)))) + uint32(1126891415)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_d | (^_b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(14)))))) + u32(2878612391))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(15))) | (_c >> uint(i32(17)))
+		}() = (_d << 10) | (_d >> 22)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_d | (^_b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(14)))) + uint32(2878612391)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_c | (^_a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(5)))))) + u32(4237533241))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(21))) | (_b >> uint(i32(11)))
+		}() = (_c << 15) | (_c >> 17)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_c | (^_a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(5)))) + uint32(4237533241)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_b | (^_d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(12)))))) + uint32(i32(1700485571)))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(6))) | (_a >> uint(i32(26)))
+		}() = (_b << 21) | (_b >> 11)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_b | (^_d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(12)))) + uint32(1700485571)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_a | (^_c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(3)))))) + u32(2399980690))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(10))) | (_d >> uint(i32(22)))
+		}() = (_a << 6) | (_a >> 26)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_a | (^_c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(3)))) + uint32(2399980690)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_d | (^_b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(10)))))) + u32(4293915773))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(15))) | (_c >> uint(i32(17)))
+		}() = (_d << 10) | (_d >> 22)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_d | (^_b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(10)))) + uint32(4293915773)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_c | (^_a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(1)))))) + u32(2240044497))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(21))) | (_b >> uint(i32(11)))
+		}() = (_c << 15) | (_c >> 17)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_c | (^_a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(1)))) + uint32(2240044497)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_b | (^_d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(8)))))) + uint32(i32(1873313359)))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(6))) | (_a >> uint(i32(26)))
+		}() = (_b << 21) | (_b >> 11)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_b | (^_d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(8)))) + uint32(1873313359)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_a | (^_c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(15)))))) + u32(4264355552))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(10))) | (_d >> uint(i32(22)))
+		}() = (_a << 6) | (_a >> 26)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_a | (^_c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(15)))) + uint32(4264355552)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_d | (^_b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(6)))))) + u32(2734768916))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(15))) | (_c >> uint(i32(17)))
+		}() = (_d << 10) | (_d >> 22)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_d | (^_b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(6)))) + uint32(2734768916)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_c | (^_a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(13)))))) + uint32(i32(1309151649)))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(21))) | (_b >> uint(i32(11)))
+		}() = (_c << 15) | (_c >> 17)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_c | (^_a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(13)))) + uint32(1309151649)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_a
-					*p = (*p) + (((_c ^ (_b | (^_d))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(4)))))) + u32(4149444226))
-					sink0(*p)
-				}
-				return &_a
-			}() = (_a << uint(i32(6))) | (_a >> uint(i32(26)))
+		}() = (_b << 21) | (_b >> 11)
+		return &_b
+	}() += _c
+	*func() *uint32 {
+		*func() *uint32 {
+			_a += ((_c ^ (_b | (^_d))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(4)))) + uint32(4149444226)
 			return &_a
-		}()
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_d
-					*p = (*p) + (((_b ^ (_a | (^_c))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(11)))))) + u32(3174756917))
-					sink0(*p)
-				}
-				return &_d
-			}() = (_d << uint(i32(10))) | (_d >> uint(i32(22)))
+		}() = (_a << 6) | (_a >> 26)
+		return &_a
+	}() += _b
+	*func() *uint32 {
+		*func() *uint32 {
+			_d += ((_b ^ (_a | (^_c))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(11)))) + uint32(3174756917)
 			return &_d
-		}()
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_c
-					*p = (*p) + (((_a ^ (_d | (^_b))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(2)))))) + uint32(i32(718787259)))
-					sink0(*p)
-				}
-				return &_c
-			}() = (_c << uint(i32(15))) | (_c >> uint(i32(17)))
+		}() = (_d << 10) | (_d >> 22)
+		return &_d
+	}() += _a
+	*func() *uint32 {
+		*func() *uint32 {
+			_c += ((_a ^ (_d | (^_b))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(2)))) + uint32(718787259)
 			return &_c
-		}()
-		*p = (*p) + _d
-		sink0(*p)
-	}
-	{
-		p := func() *uint32 {
-			*func() *uint32 {
-				{
-					p := &_b
-					*p = (*p) + (((_d ^ (_c | (^_a))) + (*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_in)) + 4*uintptr(i32(9)))))) + u32(3951481745))
-					sink0(*p)
-				}
-				return &_b
-			}() = (_b << uint(i32(21))) | (_b >> uint(i32(11)))
+		}() = (_c << 15) | (_c >> 17)
+		return &_c
+	}() += _d
+	*func() *uint32 {
+		*func() *uint32 {
+			_b += ((_d ^ (_c | (^_a))) + (*elem4((*uint32)(unsafe.Pointer(_in)), uintptr(9)))) + uint32(3951481745)
 			return &_b
-		}()
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(0))))
-		*p = (*p) + _a
-		sink0(*p)
-	}
-	{
-		p := (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(1))))
-		*p = (*p) + _b
-		sink0(*p)
-	}
-	{
-		p := (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(2))))
-		*p = (*p) + _c
-		sink0(*p)
-	}
-	{
-		p := (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(_buf)) + 4*uintptr(i32(3))))
-		*p = (*p) + _d
-		sink0(*p)
-	}
+		}() = (_b << 21) | (_b >> 11)
+		return &_b
+	}() += _c
+	*elem4((*uint32)(unsafe.Pointer(_buf)), 0) += _a
+	*elem4((*uint32)(unsafe.Pointer(_buf)), uintptr(1)) += _b
+	*elem4((*uint32)(unsafe.Pointer(_buf)), uintptr(2)) += _c
+	*elem4((*uint32)(unsafe.Pointer(_buf)), uintptr(3)) += _d
 }
 
 func _md5finalize(tls *crt.TLS, _context unsafe.Pointer) {
 	var _zBuf [33]int8
 	var _digest [16]uint8
 	var _p *XMD5Context
-	_p = (*XMD5Context)(bin.Xsqlite3_aggregate_context(tls, (*bin.Xsqlite3_context)(_context), int32(u64(92))))
+	_p = (*XMD5Context)(bin.Xsqlite3_aggregate_context(tls, (*bin.Xsqlite3_context)(_context), int32(92)))
 	_MD5Final(tls, (*[16]uint8)(unsafe.Pointer((*uint8)(unsafe.Pointer(&_digest)))), _p)
 	_MD5DigestToBase16(tls, (*uint8)(unsafe.Pointer(&_digest)), (*int8)(unsafe.Pointer(&_zBuf)))
-	bin.Xsqlite3_result_text(tls, (*bin.Xsqlite3_context)(_context), (*int8)(unsafe.Pointer(&_zBuf)), i32(-1), func() func(*crt.TLS, unsafe.Pointer) {
-		v := u64(18446744073709551615)
+	bin.Xsqlite3_result_text(tls, (*bin.Xsqlite3_context)(_context), (*int8)(unsafe.Pointer(&_zBuf)), int32(-1), func() func(*crt.TLS, unsafe.Pointer) {
+		v := uint64(18446744073709551615)
 		return *(*func(*crt.TLS, unsafe.Pointer))(unsafe.Pointer(&v))
 	}())
 	_ = _digest
@@ -1498,26 +943,26 @@ func _md5finalize(tls *crt.TLS, _context unsafe.Pointer) {
 func _MD5Final(tls *crt.TLS, _digest *[16]uint8, _ctx *XMD5Context) {
 	var _count uint32
 	var _p *uint8
-	_count = ((*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(0))))) >> uint(i32(3))) & uint32(i32(63))
-	_p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))))) + uintptr(_count)))
-	*postInc2(&_p, 1) = uint8(i32(128))
-	_count = uint32(i32(63)) - _count
-	if _count < uint32(i32(8)) {
-		crt.Xmemset(tls, unsafe.Pointer(_p), i32(0), uint64(_count))
-		_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))), uint32(i32(16)))
-		_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))))))))
-		crt.Xmemset(tls, unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3))))), i32(0), uint64(i32(56)))
+	_count = ((*elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), 0)) >> 3) & uint32(63)
+	_p = (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))) + uintptr(_count)))
+	*postInc6(&_p, 1) = uint8(128)
+	_count = uint32(63) - _count
+	if _count < uint32(8) {
+		crt.Xmemset(tls, unsafe.Pointer(_p), int32(0), uint64(_count))
+		_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))), uint32(16))
+		_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer(&_ctx.Xbuf)))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))))))))
+		crt.Xmemset(tls, unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu))), int32(0), uint64(56))
 		goto _1
 	}
-	crt.Xmemset(tls, unsafe.Pointer(_p), i32(0), uint64(_count-uint32(i32(8))))
+	crt.Xmemset(tls, unsafe.Pointer(_p), int32(0), uint64(_count-uint32(8)))
 _1:
-	_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))), uint32(i32(14)))
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[16]uint32)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))) + 4*uintptr(i32(14)))) = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(0))))
-	*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[16]uint32)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))) + 4*uintptr(i32(15)))) = *(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer((*[2]uint32)(unsafe.Pointer(&_ctx.X2)))) + 4*uintptr(i32(1))))
-	_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer((*t1)(unsafe.Pointer(&_ctx.X3)))))))))))
-	_byteReverse(tls, (*uint8)(unsafe.Pointer((*uint32)(unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1)))))), uint32(i32(4)))
-	crt.Xmemcpy(tls, unsafe.Pointer(_digest), unsafe.Pointer((*[4]uint32)(unsafe.Pointer(&_ctx.X1))), uint64(i32(16)))
-	crt.Xmemset(tls, unsafe.Pointer(_ctx), i32(0), u64(92))
+	_byteReverse(tls, (*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))), uint32(14))
+	*elem4((*uint32)(unsafe.Pointer((*[16]uint32)(unsafe.Pointer(&_ctx.Xu)))), uintptr(14)) = *elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), 0)
+	*elem4((*uint32)(unsafe.Pointer((*[16]uint32)(unsafe.Pointer(&_ctx.Xu)))), uintptr(15)) = *elem4((*uint32)(unsafe.Pointer(&_ctx.Xbits)), uintptr(1))
+	_MD5Transform(tls, (*[4]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer(&_ctx.Xbuf)))), (*[16]uint32)(unsafe.Pointer((*uint32)(unsafe.Pointer((*uint8)(unsafe.Pointer((*[64]uint8)(unsafe.Pointer(&_ctx.Xu)))))))))
+	_byteReverse(tls, (*uint8)(unsafe.Pointer((*uint32)(unsafe.Pointer(&_ctx.Xbuf)))), uint32(4))
+	crt.Xmemcpy(tls, unsafe.Pointer(_digest), unsafe.Pointer(&_ctx.Xbuf), uint64(16))
+	crt.Xmemset(tls, unsafe.Pointer(_ctx), int32(0), uint64(92))
 }
 
 // C comment
@@ -1526,18 +971,18 @@ _1:
 //  */
 func _MD5DigestToBase16(tls *crt.TLS, _digest *uint8, _zBuf *int8) {
 	var _i, _j, _1_a int32
-	_j = store3(&_i, i32(0))
+	_j = store7(&_i, int32(0))
 _0:
-	if _i >= i32(16) {
+	if _i >= int32(16) {
 		goto _3
 	}
-	_1_a = int32(*(*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(_digest)) + 1*uintptr(_i))))
-	*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zBuf)) + 1*uintptr(postInc3(&_j, 1)))) = *(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_MD5DigestToBase16Ø00zEncodeØ001)) + 1*uintptr((_1_a>>uint(i32(4)))&i32(15))))
-	*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zBuf)) + 1*uintptr(postInc3(&_j, 1)))) = *(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_MD5DigestToBase16Ø00zEncodeØ001)) + 1*uintptr(_1_a&i32(15))))
+	_1_a = int32(*elem6(_digest, uintptr(_i)))
+	*elem2(_zBuf, uintptr(postInc7(&_j, 1))) = *elem2((*int8)(unsafe.Pointer(&_MD5DigestToBase16Ø00zEncodeØ001)), uintptr((_1_a>>4)&int32(15)))
+	*elem2(_zBuf, uintptr(postInc7(&_j, 1))) = *elem2((*int8)(unsafe.Pointer(&_MD5DigestToBase16Ø00zEncodeØ001)), uintptr(_1_a&int32(15)))
 	_i += 1
 	goto _0
 _3:
-	*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zBuf)) + 1*uintptr(_j))) = int8(i32(0))
+	*elem2(_zBuf, uintptr(_j)) = 0
 }
 
 var _MD5DigestToBase16Ø00zEncodeØ001 [17]int8
@@ -1547,50 +992,50 @@ func init() {
 }
 
 func _busyhandler(tls *crt.TLS, _pArg unsafe.Pointer, _n int32) (r0 int32) {
-	crt.Xusleep(tls, uint32(i32(10000)))
-	return i32(1)
+	crt.Xusleep(tls, uint32(10000))
+	return int32(1)
 }
 
 func _sql_script_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zSql *int8) {
-	if _pErr.X0 == i32(0) {
-		*(*int32)(unsafe.Pointer(&_pErr.X0)) = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_pDb.X0), _zSql, nil, nil, (**int8)(unsafe.Pointer(&_pErr.X2)))
+	if _pErr.Xrc == int32(0) {
+		_pErr.Xrc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_pDb.Xdb), _zSql, nil, nil, &_pErr.XzErr)
 	}
 }
 
 func _closedb_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
 	var _rc, _i int32
-	var _pIter, _pNext *bin.Xsqlite3_pcache_page
-	_pIter = (*bin.Xsqlite3_pcache_page)(_pDb.X1)
+	var _pIter, _pNext *XStatement
+	_pIter = (*XStatement)(_pDb.XpCache)
 _0:
 	if _pIter == nil {
 		goto _3
 	}
-	_pNext = (*bin.Xsqlite3_pcache_page)(_pIter.X1)
-	bin.Xsqlite3_finalize(tls, _pIter.X0)
+	_pNext = (*XStatement)(_pIter.XpNext)
+	bin.Xsqlite3_finalize(tls, _pIter.XpStmt)
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_pIter))
 	_pIter = _pNext
 	goto _0
 _3:
-	_i = i32(0)
+	_i = int32(0)
 _4:
-	if _i >= _pDb.X2 {
+	if _i >= _pDb.XnText {
 		goto _7
 	}
-	bin.Xsqlite3_free(tls, unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_pDb.X3)) + 8*uintptr(_i)))))
+	bin.Xsqlite3_free(tls, unsafe.Pointer(*elem1(_pDb.XaText, uintptr(_i))))
 	_i += 1
 	goto _4
 _7:
-	bin.Xsqlite3_free(tls, unsafe.Pointer(_pDb.X3))
-	_rc = bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_pDb.X0))
-	if _rc != 0 && (_pErr.X0 == i32(0)) {
-		*(**int8)(unsafe.Pointer(&_pErr.X2)) = bin.Xsqlite3_mprintf(tls, str(637), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_pDb.X0))))
+	bin.Xsqlite3_free(tls, unsafe.Pointer(_pDb.XaText))
+	_rc = bin.Xsqlite3_close(tls, (*bin.Xsqlite3)(_pDb.Xdb))
+	if _rc != 0 && (_pErr.Xrc == int32(0)) {
+		_pErr.XzErr = bin.Xsqlite3_mprintf(tls, str(637), unsafe.Pointer(bin.Xsqlite3_errmsg(tls, (*bin.Xsqlite3)(_pDb.Xdb))))
 	}
-	crt.Xmemset(tls, unsafe.Pointer(_pDb), i32(0), u64(32))
+	crt.Xmemset(tls, unsafe.Pointer(_pDb), int32(0), uint64(32))
 }
 
 func _setstoptime_x(tls *crt.TLS, _pErr *XError, _nMs int32) {
 	var _1_t float64
-	if _pErr.X0 == i32(0) {
+	if _pErr.Xrc == int32(0) {
 		_1_t = _currentTime(tls)
 		_timelimit = _1_t + (float64(_nMs) / (8.64e+07))
 		bug20530(_timelimit)
@@ -1604,23 +1049,19 @@ func _currentTime(tls *crt.TLS) (r0 float64) {
 		_currentTimeØ00pTimelimitVfsØ001 = bin.Xsqlite3_vfs_find(tls, nil)
 		bug20530(_currentTimeØ00pTimelimitVfsØ001)
 	}
-	if (_currentTimeØ00pTimelimitVfsØ001.X0 >= i32(2)) && (*(*unsafe.Pointer)(unsafe.Pointer(&struct {
-		f func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32
-	}{func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32 {
-		v := _currentTimeØ00pTimelimitVfsØ001.X18
+	if (_currentTimeØ00pTimelimitVfsØ001.XiVersion >= int32(2)) && (func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32 {
+		v := _currentTimeØ00pTimelimitVfsØ001.XxCurrentTimeInt64
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32)(unsafe.Pointer(&v))
-	}()})) != *(*unsafe.Pointer)(unsafe.Pointer(&struct {
-		f func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32
-	}{nil}))) {
+	}() != nil) {
 		func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32 {
-			v := _currentTimeØ00pTimelimitVfsØ001.X18
+			v := _currentTimeØ00pTimelimitVfsØ001.XxCurrentTimeInt64
 			return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32)(unsafe.Pointer(&v))
 		}()(tls, _currentTimeØ00pTimelimitVfsØ001, &_1_tm)
 		_t = float64(_1_tm) / (8.64e+07)
 		goto _3
 	}
 	func() func(*crt.TLS, *bin.Xsqlite3_vfs, *float64) int32 {
-		v := _currentTimeØ00pTimelimitVfsØ001.X16
+		v := _currentTimeØ00pTimelimitVfsØ001.XxCurrentTime
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *float64) int32)(unsafe.Pointer(&v))
 	}()(tls, _currentTimeØ00pTimelimitVfsØ001, &_t)
 _3:
@@ -1629,28 +1070,32 @@ _3:
 
 var _currentTimeØ00pTimelimitVfsØ001 *bin.Xsqlite3_vfs
 
+// C comment
+//  /*
+//  ** Used by setstoptime() and timetostop().
+//  */
 var _timelimit float64
 
-func _launch_thread_x(tls *crt.TLS, _pErr *XError, _pThreads *bin.T_ht, _xProc func(*crt.TLS, int32, unsafe.Pointer) *int8, _pArg unsafe.Pointer) {
+func _launch_thread_x(tls *crt.TLS, _pErr *XError, _pThreads *XThreadset, _xProc func(*crt.TLS, int32, unsafe.Pointer) *int8, _pArg unsafe.Pointer) {
 	var _1_iTid, _1_rc int32
 	var _1_p *XThread
-	if _pErr.X0 != i32(0) {
+	if _pErr.Xrc != int32(0) {
 		goto _0
 	}
-	_1_iTid = preInc3((*int32)(unsafe.Pointer(&_pThreads.X0)), 1)
-	_1_p = (*XThread)(bin.Xsqlite3_malloc(tls, int32(u64(40))))
-	crt.Xmemset(tls, unsafe.Pointer(_1_p), i32(0), u64(40))
-	*(*int32)(unsafe.Pointer(&_1_p.X0)) = _1_iTid
-	*(*unsafe.Pointer)(unsafe.Pointer(&_1_p.X1)) = _pArg
-	*(*func(*crt.TLS, int32, unsafe.Pointer) *int8)(unsafe.Pointer(&_1_p.X3)) = _xProc
-	_1_rc = crt.Xpthread_create(tls, (*uint64)(unsafe.Pointer(&_1_p.X2)), (*crt.Xpthread_attr_t)(unsafe.Pointer(nil)), _launch_thread_main, unsafe.Pointer(_1_p))
-	if _1_rc != i32(0) {
+	_1_iTid = preInc7(&_pThreads.XiMaxTid, 1)
+	_1_p = (*XThread)(bin.Xsqlite3_malloc(tls, int32(40)))
+	crt.Xmemset(tls, unsafe.Pointer(_1_p), int32(0), uint64(40))
+	_1_p.XiTid = _1_iTid
+	_1_p.XpArg = _pArg
+	_1_p.XxProc = _xProc
+	_1_rc = crt.Xpthread_create(tls, &_1_p.Xtid, nil, _launch_thread_main, unsafe.Pointer(_1_p))
+	if _1_rc != int32(0) {
 		_system_error(tls, _pErr, _1_rc)
 		bin.Xsqlite3_free(tls, unsafe.Pointer(_1_p))
 		goto _2
 	}
-	*(**XThread)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_1_p.X4)))) = (*XThread)(_pThreads.X1)
-	*(**XThread)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pThreads.X1)))) = _1_p
+	*(**XThread)(unsafe.Pointer(&_1_p.XpNext)) = (*XThread)(_pThreads.XpThread)
+	*(**XThread)(unsafe.Pointer(&_pThreads.XpThread)) = _1_p
 _2:
 _0:
 }
@@ -1658,14 +1103,14 @@ _0:
 func _launch_thread_main(tls *crt.TLS, _pArg unsafe.Pointer) (r0 unsafe.Pointer) {
 	var _p *XThread
 	_p = (*XThread)(_pArg)
-	return unsafe.Pointer(_p.X3(tls, _p.X0, _p.X1))
+	return unsafe.Pointer(_p.XxProc(tls, _p.XiTid, _p.XpArg))
 }
 
 func _system_error(tls *crt.TLS, _pErr *XError, _iSys int32) {
-	*(*int32)(unsafe.Pointer(&_pErr.X0)) = _iSys
-	*(**int8)(unsafe.Pointer(&_pErr.X2)) = (*int8)(bin.Xsqlite3_malloc(tls, i32(512)))
-	crt.Xstrerror_r(tls, _iSys, _pErr.X2, uint64(i32(512)))
-	*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_pErr.X2)) + 1*uintptr(i32(511)))) = int8(i32(0))
+	_pErr.Xrc = _iSys
+	_pErr.XzErr = (*int8)(bin.Xsqlite3_malloc(tls, int32(512)))
+	crt.Xstrerror_r(tls, _iSys, _pErr.XzErr, uint64(512))
+	*elem2(_pErr.XzErr, uintptr(511)) = 0
 }
 
 func _walthread1_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -1676,82 +1121,82 @@ func _walthread1_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *in
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_nIter = i32(0)
+	_nIter = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(929)
+			return int32(929)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(930)
+			return int32(930)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
 	_1_azSql = [2]*int8{}
-	*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_1_azSql)) + 8*uintptr(i32(0)))) = str(640)
-	*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_1_azSql)) + 8*uintptr(i32(1)))) = str(708)
+	*elem1((**int8)(unsafe.Pointer(&_1_azSql)), 0) = str(640)
+	*elem1((**int8)(unsafe.Pointer(&_1_azSql)), uintptr(1)) = str(708)
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(937)
+			return int32(937)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(767)))
 	_integrity_check_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(938)
+			return int32(938)
 		}()
 		return &_err
 	}(), &_db)
 	_1_z1 = _execsql_text_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(939)
+			return int32(939)
 		}()
 		return &_err
-	}(), &_db, i32(1), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_1_azSql)) + 8*uintptr(i32(0))))))
+	}(), &_db, int32(1), unsafe.Pointer(*elem1((**int8)(unsafe.Pointer(&_1_azSql)), 0)))
 	_1_z2 = _execsql_text_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(940)
+			return int32(940)
 		}()
 		return &_err
-	}(), &_db, i32(2), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_1_azSql)) + 8*uintptr(i32(1))))))
+	}(), &_db, int32(2), unsafe.Pointer(*elem1((**int8)(unsafe.Pointer(&_1_azSql)), uintptr(1))))
 	_1_z3 = _execsql_text_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(941)
+			return int32(941)
 		}()
 		return &_err
-	}(), &_db, i32(3), unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&_1_azSql)) + 8*uintptr(i32(0))))))
+	}(), &_db, int32(3), unsafe.Pointer(*elem1((**int8)(unsafe.Pointer(&_1_azSql)), 0)))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(942)
+			return int32(942)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(773)))
@@ -1759,11 +1204,11 @@ _2:
 		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(780), unsafe.Pointer(_1_z1), unsafe.Pointer(_1_z2), unsafe.Pointer(_1_z3)))
 	}
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(948)
+			return int32(948)
 		}()
 		return &_err
 	}(), &_db, str(802))
@@ -1771,19 +1216,17 @@ _2:
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(957)
+			return int32(957)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(934), _nIter)
 
-	_ = _err
-	_ = _db
 	_ = _1_azSql
 	panic(0)
 }
@@ -1791,8 +1234,8 @@ _3:
 func _timetostop_x(tls *crt.TLS, _pErr *XError) (r0 int32) {
 	var _ret int32
 	var _1_t float64
-	_ret = i32(1)
-	if _pErr.X0 == i32(0) {
+	_ret = int32(1)
+	if _pErr.Xrc == int32(0) {
 		_1_t = _currentTime(tls)
 		_ret = bool2int(_1_t >= _timelimit)
 	}
@@ -1804,8 +1247,8 @@ func _execsql_i64_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, args ...interfac
 	var _iRet int64
 	var _1_pStmt unsafe.Pointer
 	var _1_ap []interface{}
-	_iRet = i64(0)
-	if _pErr.X0 != i32(0) {
+	_iRet = int64(0)
+	if _pErr.Xrc != int32(0) {
 		goto _0
 	}
 	_1_ap = args
@@ -1813,18 +1256,18 @@ func _execsql_i64_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, args ...interfac
 	if _1_pStmt == nil {
 		goto _1
 	}
-	_2_first = i32(1)
+	_2_first = int32(1)
 _2:
-	if i32(100) != bin.Xsqlite3_step(tls, _1_pStmt) {
+	if int32(100) != bin.Xsqlite3_step(tls, _1_pStmt) {
 		goto _3
 	}
-	if _2_first != 0 && (bin.Xsqlite3_column_count(tls, _1_pStmt) > i32(0)) {
-		_iRet = bin.Xsqlite3_column_int64(tls, _1_pStmt, i32(0))
+	if _2_first != 0 && (bin.Xsqlite3_column_count(tls, _1_pStmt) > int32(0)) {
+		_iRet = bin.Xsqlite3_column_int64(tls, _1_pStmt, int32(0))
 	}
-	_2_first = i32(0)
+	_2_first = int32(0)
 	goto _2
 _3:
-	if i32(0) != bin.Xsqlite3_reset(tls, _1_pStmt) {
+	if int32(0) != bin.Xsqlite3_reset(tls, _1_pStmt) {
 		_sqlite_error(tls, _pErr, _pDb, str(948))
 	}
 _1:
@@ -1837,21 +1280,21 @@ func _getAndBindSqlStatement(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _ap []i
 	var _i int32
 	var _1_zName *int8
 	var _pStmt, _1_pArg unsafe.Pointer
-	var _pStatement *bin.Xsqlite3_pcache_page
+	var _pStatement *XStatement
 	_pStatement = _getSqlStatement(tls, _pErr, _pDb, (*int8)(crt.VAPointer(&_ap)))
 	if _pStatement == nil {
 		return nil
 	}
-	_pStmt = _pStatement.X0
-	_i = i32(1)
+	_pStmt = _pStatement.XpStmt
+	_i = int32(1)
 _1:
 	if _i > bin.Xsqlite3_bind_parameter_count(tls, _pStmt) {
 		goto _4
 	}
 	_1_zName = bin.Xsqlite3_bind_parameter_name(tls, _pStmt, _i)
 	_1_pArg = crt.VAPointer(&_ap)
-	switch int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_zName)) + 1*uintptr(i32(1))))) {
-	case i32(105):
+	switch int32(*elem2(_1_zName, uintptr(1))) {
+	case int32(105):
 		goto _6
 	default:
 		goto _7
@@ -1861,8 +1304,8 @@ _6:
 	bin.Xsqlite3_bind_int64(tls, _pStmt, _i, *(*int64)(_1_pArg))
 	goto _8
 _7:
-	*(*int32)(unsafe.Pointer(&_pErr.X0)) = i32(1)
-	*(**int8)(unsafe.Pointer(&_pErr.X2)) = bin.Xsqlite3_mprintf(tls, str(954), unsafe.Pointer(_1_zName))
+	_pErr.Xrc = int32(1)
+	_pErr.XzErr = bin.Xsqlite3_mprintf(tls, str(954), unsafe.Pointer(_1_zName))
 	_pStmt = nil
 	goto _8
 _8:
@@ -1872,34 +1315,34 @@ _4:
 	return _pStmt
 }
 
-func _getSqlStatement(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zSql *int8) (r0 *bin.Xsqlite3_pcache_page) {
+func _getSqlStatement(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zSql *int8) (r0 *XStatement) {
 	var _rc int32
-	var _pRet *bin.Xsqlite3_pcache_page
-	_pRet = (*bin.Xsqlite3_pcache_page)(_pDb.X1)
+	var _pRet *XStatement
+	_pRet = (*XStatement)(_pDb.XpCache)
 _0:
 	if _pRet == nil {
 		goto _3
 	}
-	if i32(0) == crt.Xstrcmp(tls, bin.Xsqlite3_sql(tls, _pRet.X0), _zSql) {
+	if int32(0) == crt.Xstrcmp(tls, bin.Xsqlite3_sql(tls, _pRet.XpStmt), _zSql) {
 		return _pRet
 	}
-	_pRet = (*bin.Xsqlite3_pcache_page)(_pRet.X1)
+	_pRet = (*XStatement)(_pRet.XpNext)
 	goto _0
 _3:
-	_pRet = (*bin.Xsqlite3_pcache_page)(bin.Xsqlite3_malloc(tls, int32(u64(16))))
-	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_pDb.X0), _zSql, i32(-1), (*unsafe.Pointer)(unsafe.Pointer(&_pRet.X0)), nil)
-	if _rc != i32(0) {
+	_pRet = (*XStatement)(bin.Xsqlite3_malloc(tls, int32(16)))
+	_rc = bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_pDb.Xdb), _zSql, int32(-1), &_pRet.XpStmt, nil)
+	if _rc != int32(0) {
 		_sqlite_error(tls, _pErr, _pDb, str(980))
 		return nil
 	}
 	func() {
-		if i32(0) != crt.Xstrcmp(tls, bin.Xsqlite3_sql(tls, _pRet.X0), _zSql) {
-			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(1027)), i32(614), unsafe.Pointer((*int8)(unsafe.Pointer(&_getSqlStatementØ00__func__Ø000))), unsafe.Pointer(str(1085)))
+		if int32(0) != crt.Xstrcmp(tls, bin.Xsqlite3_sql(tls, _pRet.XpStmt), _zSql) {
+			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(1027)), int32(614), unsafe.Pointer(&_getSqlStatementØ00__func__Ø000), unsafe.Pointer(str(1085)))
 			crt.X__builtin_abort(tls)
 		}
 	}()
-	*(**bin.Xsqlite3_pcache_page)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pRet.X1)))) = (*bin.Xsqlite3_pcache_page)(_pDb.X1)
-	*(**bin.Xsqlite3_pcache_page)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pDb.X1)))) = _pRet
+	*(**XStatement)(unsafe.Pointer(&_pRet.XpNext)) = (*XStatement)(_pDb.XpCache)
+	*(**XStatement)(unsafe.Pointer(&_pDb.XpCache)) = _pRet
 	return _pRet
 }
 
@@ -1912,8 +1355,8 @@ func init() {
 func _integrity_check_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
 	var _1_zErr, _3_z *int8
 	var _2_pStmt unsafe.Pointer
-	var _1_pStatement *bin.Xsqlite3_pcache_page
-	if _pErr.X0 != i32(0) {
+	var _1_pStatement *XStatement
+	if _pErr.Xrc != int32(0) {
 		goto _0
 	}
 	_1_zErr = nil
@@ -1921,12 +1364,12 @@ func _integrity_check_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
 	if _1_pStatement == nil {
 		goto _1
 	}
-	_2_pStmt = _1_pStatement.X0
+	_2_pStmt = _1_pStatement.XpStmt
 _2:
-	if i32(100) != bin.Xsqlite3_step(tls, _2_pStmt) {
+	if int32(100) != bin.Xsqlite3_step(tls, _2_pStmt) {
 		goto _3
 	}
-	_3_z = (*int8)(unsafe.Pointer(bin.Xsqlite3_column_text(tls, _2_pStmt, i32(0))))
+	_3_z = (*int8)(unsafe.Pointer(bin.Xsqlite3_column_text(tls, _2_pStmt, int32(0))))
 	if crt.Xstrcmp(tls, _3_z, str(1166)) == 0 {
 		goto _4
 	}
@@ -1941,8 +1384,8 @@ _4:
 _3:
 	bin.Xsqlite3_reset(tls, _2_pStmt)
 	if _1_zErr != nil {
-		*(**int8)(unsafe.Pointer(&_pErr.X2)) = _1_zErr
-		*(*int32)(unsafe.Pointer(&_pErr.X0)) = i32(1)
+		_pErr.XzErr = _1_zErr
+		_pErr.Xrc = int32(1)
 	}
 _1:
 _0:
@@ -1954,13 +1397,13 @@ func _execsql_text_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _iSlot int32, a
 	var _2_pStmt unsafe.Pointer
 	var _2_ap []interface{}
 	_zRet = nil
-	if _iSlot >= _pDb.X2 {
-		_1_nByte = int32(u64(8) * uint64(_iSlot+i32(1)))
-		*(***int8)(unsafe.Pointer(&_pDb.X3)) = (**int8)(bin.Xsqlite3_realloc(tls, unsafe.Pointer(_pDb.X3), _1_nByte))
-		crt.Xmemset(tls, unsafe.Pointer((**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_pDb.X3))+8*uintptr(_pDb.X2)))), i32(0), u64(8)*uint64((_iSlot+i32(1))-_pDb.X2))
-		*(*int32)(unsafe.Pointer(&_pDb.X2)) = _iSlot + i32(1)
+	if _iSlot >= _pDb.XnText {
+		_1_nByte = int32(uint64(8) * uint64(_iSlot+int32(1)))
+		_pDb.XaText = (**int8)(bin.Xsqlite3_realloc(tls, unsafe.Pointer(_pDb.XaText), _1_nByte))
+		crt.Xmemset(tls, unsafe.Pointer(elem1(_pDb.XaText, uintptr(_pDb.XnText))), int32(0), uint64(8)*uint64((_iSlot+int32(1))-_pDb.XnText))
+		_pDb.XnText = _iSlot + int32(1)
 	}
-	if _pErr.X0 != i32(0) {
+	if _pErr.Xrc != int32(0) {
 		goto _1
 	}
 	_2_ap = args
@@ -1968,20 +1411,20 @@ func _execsql_text_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _iSlot int32, a
 	if _2_pStmt == nil {
 		goto _2
 	}
-	_3_first = i32(1)
+	_3_first = int32(1)
 _3:
-	if i32(100) != bin.Xsqlite3_step(tls, _2_pStmt) {
+	if int32(100) != bin.Xsqlite3_step(tls, _2_pStmt) {
 		goto _4
 	}
-	if _3_first != 0 && (bin.Xsqlite3_column_count(tls, _2_pStmt) > i32(0)) {
-		_zRet = bin.Xsqlite3_mprintf(tls, str(637), unsafe.Pointer(bin.Xsqlite3_column_text(tls, _2_pStmt, i32(0))))
-		bin.Xsqlite3_free(tls, unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_pDb.X3)) + 8*uintptr(_iSlot)))))
-		*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_pDb.X3)) + 8*uintptr(_iSlot))) = _zRet
+	if _3_first != 0 && (bin.Xsqlite3_column_count(tls, _2_pStmt) > int32(0)) {
+		_zRet = bin.Xsqlite3_mprintf(tls, str(637), unsafe.Pointer(bin.Xsqlite3_column_text(tls, _2_pStmt, int32(0))))
+		bin.Xsqlite3_free(tls, unsafe.Pointer(*elem1(_pDb.XaText, uintptr(_iSlot))))
+		*elem1(_pDb.XaText, uintptr(_iSlot)) = _zRet
 	}
-	_3_first = i32(0)
+	_3_first = int32(0)
 	goto _3
 _4:
-	if i32(0) != bin.Xsqlite3_reset(tls, _2_pStmt) {
+	if int32(0) != bin.Xsqlite3_reset(tls, _2_pStmt) {
 		_sqlite_error(tls, _pErr, _pDb, str(948))
 	}
 _2:
@@ -1991,9 +1434,9 @@ _1:
 }
 
 func _test_error_x(tls *crt.TLS, _pErr *XError, _zErr *int8) {
-	if _pErr.X0 == i32(0) {
-		*(*int32)(unsafe.Pointer(&_pErr.X0)) = i32(1)
-		*(**int8)(unsafe.Pointer(&_pErr.X2)) = _zErr
+	if _pErr.Xrc == int32(0) {
+		_pErr.Xrc = int32(1)
+		_pErr.XzErr = _zErr
 		goto _1
 	}
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_zErr))
@@ -2007,22 +1450,22 @@ func _print_and_free_err(tls *crt.TLS, _p *XError) {
 
 func _print_err(tls *crt.TLS, _p *XError) {
 	var _1_isWarn int32
-	if _p.X0 == i32(0) {
+	if _p.Xrc == int32(0) {
 		goto _0
 	}
-	_1_isWarn = i32(0)
-	if _p.X0 == i32(17) {
-		_1_isWarn = i32(1)
+	_1_isWarn = int32(0)
+	if _p.Xrc == int32(17) {
+		_1_isWarn = int32(1)
 	}
-	if bin.Xsqlite3_strglob(tls, str(1175), _p.X2) == i32(0) {
-		_1_isWarn = i32(1)
+	if bin.Xsqlite3_strglob(tls, str(1175), _p.XzErr) == int32(0) {
+		_1_isWarn = int32(1)
 	}
 	crt.Xprintf(tls, str(1196), unsafe.Pointer(func() *int8 {
 		if _1_isWarn != 0 {
 			return str(1222)
 		}
 		return str(1230)
-	}()), _p.X0, unsafe.Pointer(_p.X2), _p.X1)
+	}()), _p.Xrc, unsafe.Pointer(_p.XzErr), _p.XiLine)
 	if _1_isWarn == 0 {
 		_nGlobalErr += 1
 	}
@@ -2030,12 +1473,14 @@ func _print_err(tls *crt.TLS, _p *XError) {
 _0:
 }
 
+// C comment
+//  /* Total number of errors in this process so far. */
 var _nGlobalErr int32
 
 func _free_err(tls *crt.TLS, _p *XError) {
-	bin.Xsqlite3_free(tls, unsafe.Pointer(_p.X2))
-	*(**int8)(unsafe.Pointer(&_p.X2)) = nil
-	*(*int32)(unsafe.Pointer(&_p.X0)) = i32(0)
+	bin.Xsqlite3_free(tls, unsafe.Pointer(_p.XzErr))
+	_p.XzErr = nil
+	_p.Xrc = int32(0)
 }
 
 func _walthread1_ckpt_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -2044,89 +1489,85 @@ func _walthread1_ckpt_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_nCkpt = i32(0)
+	_nCkpt = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(968)
+			return int32(968)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(969)
+			return int32(969)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
-	crt.Xusleep(tls, uint32(i32(500000)))
+	crt.Xusleep(tls, uint32(500000))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(971)
+			return int32(971)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(1236)))
-	if _err.X0 == i32(0) {
+	if _err.Xrc == int32(0) {
 		_nCkpt += 1
 	}
-	_clear_error_x(tls, &_err, i32(5))
+	_clear_error_x(tls, &_err, int32(5))
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(975)
+			return int32(975)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1258), _nCkpt)
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _clear_error_x(tls *crt.TLS, _pErr *XError, _rc int32) {
-	if _pErr.X0 == _rc {
-		*(*int32)(unsafe.Pointer(&_pErr.X0)) = i32(0)
-		bin.Xsqlite3_free(tls, unsafe.Pointer(_pErr.X2))
-		*(**int8)(unsafe.Pointer(&_pErr.X2)) = nil
+	if _pErr.Xrc == _rc {
+		_pErr.Xrc = int32(0)
+		bin.Xsqlite3_free(tls, unsafe.Pointer(_pErr.XzErr))
+		_pErr.XzErr = nil
 	}
 }
 
-func _join_all_threads_x(tls *crt.TLS, _pErr *XError, _pThreads *bin.T_ht) {
+func _join_all_threads_x(tls *crt.TLS, _pErr *XError, _pThreads *XThreadset) {
 	var _1_rc int32
 	var _1_ret unsafe.Pointer
 	var _p, _pNext *XThread
-	_p = (*XThread)(_pThreads.X1)
+	_p = (*XThread)(_pThreads.XpThread)
 _0:
 	if _p == nil {
 		goto _3
 	}
-	_pNext = (*XThread)(_p.X4)
-	_1_rc = crt.Xpthread_join(tls, _p.X2, &_1_ret)
-	if _1_rc == i32(0) {
+	_pNext = (*XThread)(_p.XpNext)
+	_1_rc = crt.Xpthread_join(tls, _p.Xtid, &_1_ret)
+	if _1_rc == int32(0) {
 		goto _4
 	}
-	if _pErr.X0 == i32(0) {
+	if _pErr.Xrc == int32(0) {
 		_system_error(tls, _pErr, _1_rc)
 	}
 	goto _6
 _4:
-	crt.Xprintf(tls, str(1273), _p.X0, unsafe.Pointer(func() *int8 {
+	crt.Xprintf(tls, str(1273), _p.XiTid, unsafe.Pointer(func() *int8 {
 		if _1_ret == nil {
 			return str(1293)
 		}
@@ -2138,101 +1579,98 @@ _6:
 	_p = _pNext
 	goto _0
 _3:
-	*(**XThread)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pThreads.X1)))) = nil
+	*(**XThread)(unsafe.Pointer(&_pThreads.XpThread)) = nil
 }
 
 func _walthread2(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1050)
+			return int32(1050)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1051)
+			return int32(1051)
 		}()
 		return &_err
 	}(), &_db, str(1297))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1052)
+			return int32(1052)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1054)
+			return int32(1054)
 		}()
 		return &_err
 	}(), _nMs)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1055)
+			return int32(1055)
 		}()
 		return &_err
 	}(), &_threads, _walthread2_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1056)
+			return int32(1056)
 		}()
 		return &_err
 	}(), &_threads, _walthread2_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1057)
+			return int32(1057)
 		}()
 		return &_err
-	}(), &_threads, _walthread2_thread, crt.U2P(uintptr(u32(1))))
+	}(), &_threads, _walthread2_thread, crt.U2P(uintptr(uint32(1))))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1058)
+			return int32(1058)
 		}()
 		return &_err
-	}(), &_threads, _walthread2_thread, crt.U2P(uintptr(u32(1))))
+	}(), &_threads, _walthread2_thread, crt.U2P(uintptr(uint32(1))))
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1059)
+			return int32(1059)
 		}()
 		return &_err
 	}(), &_threads)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _walthread2_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -2251,111 +1689,109 @@ func _walthread2_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *in
 	}
 _0:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1016)
+			return int32(1016)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _2
 	}
-	_2_journal_exists = i32(0)
-	_2_wal_exists = i32(0)
+	_2_journal_exists = int32(0)
+	_2_wal_exists = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1020)
+			return int32(1020)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1022)
+			return int32(1022)
 		}()
 		return &_err
 	}(), &_db, _zJournal)
-	_clear_error_x(tls, &_err, i32(5))
+	_clear_error_x(tls, &_err, int32(5))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1024)
+			return int32(1024)
 		}()
 		return &_err
 	}(), &_db, str(767))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1025)
+			return int32(1025)
 		}()
 		return &_err
 	}(), &_db, str(1401))
 	_2_journal_exists = bool2int(_filesize_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1027)
+			return int32(1027)
 		}()
 		return &_err
-	}(), str(1446)) >= int64(i32(0)))
+	}(), str(1446)) >= (0))
 	_2_wal_exists = bool2int(_filesize_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1028)
+			return int32(1028)
 		}()
 		return &_err
-	}(), str(1462)) >= int64(i32(0)))
-	if (_2_journal_exists + _2_wal_exists) != i32(1) {
+	}(), str(1462)) >= (0))
+	if (_2_journal_exists + _2_wal_exists) != int32(1) {
 		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(1474), _2_journal_exists, _2_wal_exists))
 	}
-	*(*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&_anTrans)) + 4*uintptr(_2_journal_exists))) += 1
+	*elem8((*int32)(unsafe.Pointer(&_anTrans)), uintptr(_2_journal_exists)) += 1
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1036)
+			return int32(1036)
 		}()
 		return &_err
 	}(), &_db, str(773))
 	_integrity_check_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1037)
+			return int32(1037)
 		}()
 		return &_err
 	}(), &_db)
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1038)
+			return int32(1038)
 		}()
 		return &_err
 	}(), &_db)
 	goto _0
 _2:
 	_print_and_free_err(tls, &_err)
-	return bin.Xsqlite3_mprintf(tls, str(1511), *(*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&_anTrans)) + 4*uintptr(i32(0)))), *(*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&_anTrans)) + 4*uintptr(i32(1)))))
+	return bin.Xsqlite3_mprintf(tls, str(1511), *elem8((*int32)(unsafe.Pointer(&_anTrans)), 0), *elem8((*int32)(unsafe.Pointer(&_anTrans)), uintptr(1)))
 
-	_ = _err
-	_ = _db
 	_ = _anTrans
 	panic(0)
 }
@@ -2363,78 +1799,75 @@ _2:
 func _filesize_x(tls *crt.TLS, _pErr *XError, _zFile *int8) (r0 int64) {
 	var _iRet int64
 	var _1_sStat crt.Xstruct_stat64
-	_iRet = i64(0)
-	if _pErr.X0 != i32(0) {
+	_iRet = int64(0)
+	if _pErr.Xrc != int32(0) {
 		goto _0
 	}
 	if crt.Xstat64(tls, _zFile, &_1_sStat) != 0 {
-		_iRet = int64(i32(-1))
+		_iRet = int64(-1)
 		goto _2
 	}
-	_iRet = _1_sStat.X8
+	_iRet = _1_sStat.Xst_size
 _2:
 _0:
 	return _iRet
-
-	_ = _1_sStat
-	panic(0)
 }
 
 func _walthread3(tls *crt.TLS, _nMs int32) {
 	var _i int32
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1107)
+			return int32(1107)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1108)
+			return int32(1108)
 		}()
 		return &_err
 	}(), &_db, str(1521))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1115)
+			return int32(1115)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1117)
+			return int32(1117)
 		}()
 		return &_err
 	}(), _nMs)
-	_i = i32(0)
+	_i = int32(0)
 _8:
-	if _i >= i32(6) {
+	if _i >= int32(6) {
 		goto _11
 	}
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1119)
+			return int32(1119)
 		}()
 		return &_err
 	}(), &_threads, _walthread3_thread, crt.U2P(uintptr(int64(_i))))
@@ -2442,18 +1875,15 @@ _8:
 	goto _8
 _11:
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1121)
+			return int32(1121)
 		}()
 		return &_err
 	}(), &_threads)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _walthread3_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -2465,48 +1895,48 @@ func _walthread3_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *in
 	_db = XSqlite{}
 	_iArg = int32(int64(crt.P2U(_pArg)))
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1070)
+			return int32(1070)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1071)
+			return int32(1071)
 		}()
 		return &_err
 	}(), &_db, str(1680))
-	_iNextWrite = int64(_iArg + i32(1))
+	_iNextWrite = int64(_iArg + int32(1))
 _4:
-	_1_stop = i32(0)
+	_1_stop = int32(0)
 _6:
-	if i32(0) != store3(&_1_stop, _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+	if int32(0) != store7(&_1_stop, _timetostop_x(tls, func() *XError {
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1079)
+			return int32(1079)
 		}()
 		return &_err
 	}())) {
 		goto _7
 	}
 	_2_iMax = _execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1080)
+			return int32(1080)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(1711)))
-	if (_2_iMax + int64(i32(1))) == _iNextWrite {
+	if (_2_iMax + int64(1)) == _iNextWrite {
 		goto _7
 	}
 	goto _6
@@ -2515,141 +1945,128 @@ _7:
 		goto _5
 	}
 	_1_sum1 = _execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1085)
+			return int32(1085)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(1735)))
 	_1_sum2 = _execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1086)
+			return int32(1086)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(1759)))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1087)
+			return int32(1087)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(1784)), unsafe.Pointer(&_iNextWrite), unsafe.Pointer(&_1_sum1), unsafe.Pointer(&_1_sum2))
 	_integrity_check_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1091)
+			return int32(1091)
 		}()
 		return &_err
 	}(), &_db)
-	{
-		p := &_iNextWrite
-		*p = (*p) + int64(i32(6))
-		sink4(*p)
-	}
+	_iNextWrite += int64(6)
 	goto _4
 _5:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1096)
+			return int32(1096)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return nil
-
-	_ = _err
-	_ = _db
-	_ = _1_sum1
-	_ = _1_sum2
-	panic(0)
 }
 
 func _walthread4(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1165)
+			return int32(1165)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1166)
+			return int32(1166)
 		}()
 		return &_err
 	}(), &_db, str(1835))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1170)
+			return int32(1170)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1172)
+			return int32(1172)
 		}()
 		return &_err
 	}(), _nMs)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1173)
+			return int32(1173)
 		}()
 		return &_err
 	}(), &_threads, _walthread4_reader_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1174)
+			return int32(1174)
 		}()
 		return &_err
 	}(), &_threads, _walthread4_writer_thread, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1175)
+			return int32(1175)
 		}()
 		return &_err
 	}(), &_threads)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _walthread4_reader_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -2658,50 +2075,46 @@ func _walthread4_reader_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) 
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1130)
+			return int32(1130)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1131)
+			return int32(1131)
 		}()
 		return &_err
 	}()) == 0 {
 		_integrity_check_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(1132)
+				return int32(1132)
 			}()
 			return &_err
 		}(), &_db)
 		goto _2
 	}
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1134)
+			return int32(1134)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return nil
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _walthread4_writer_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -2710,278 +2123,271 @@ func _walthread4_writer_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) 
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_iRow = i64(1)
+	_iRow = int64(1)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1145)
+			return int32(1145)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1146)
+			return int32(1146)
 		}()
 		return &_err
 	}(), &_db, str(1911))
 _4:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1147)
+			return int32(1147)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _5
 	}
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1148)
+			return int32(1148)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(1943)), unsafe.Pointer(&_iRow))
 	_iRow += 1
-	if _iRow == int64(i32(10)) {
-		_iRow = int64(i32(0))
+	if _iRow == int64(10) {
+		_iRow = 0
 	}
 	goto _4
 _5:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1154)
+			return int32(1154)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return nil
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _walthread5(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1198)
+			return int32(1198)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1199)
+			return int32(1199)
 		}()
 		return &_err
 	}(), &_db, str(1990))
 	_filecopy_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1224)
+			return int32(1224)
 		}()
 		return &_err
 	}(), str(378), str(3150))
 	_filecopy_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1225)
+			return int32(1225)
 		}()
 		return &_err
 	}(), str(1462), str(3161))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1226)
+			return int32(1226)
 		}()
 		return &_err
 	}(), &_db)
 	_filecopy_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1228)
+			return int32(1228)
 		}()
 		return &_err
 	}(), str(3150), str(378))
 	_filecopy_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1229)
+			return int32(1229)
 		}()
 		return &_err
 	}(), str(3161), str(1462))
-	if _err.X0 == i32(0) {
+	if _err.Xrc == int32(0) {
 		crt.Xprintf(tls, str(3176), int32(_filesize_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(1232)
+				return int32(1232)
 			}()
 			return &_err
 		}(), str(1462))))
 		crt.Xprintf(tls, str(3200), int32(_filesize_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(1233)
+				return int32(1233)
 			}()
 			return &_err
 		}(), str(378))))
 	}
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1236)
+			return int32(1236)
 		}()
 		return &_err
 	}(), _nMs)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1237)
+			return int32(1237)
 		}()
 		return &_err
 	}(), &_threads, _walthread5_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1238)
+			return int32(1238)
 		}()
 		return &_err
 	}(), &_threads, _walthread5_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1239)
+			return int32(1239)
 		}()
 		return &_err
 	}(), &_threads, _walthread5_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1240)
+			return int32(1240)
 		}()
 		return &_err
 	}(), &_threads, _walthread5_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1241)
+			return int32(1241)
 		}()
 		return &_err
 	}(), &_threads, _walthread5_thread, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1242)
+			return int32(1242)
 		}()
 		return &_err
 	}(), &_threads)
-	if _err.X0 == i32(0) {
+	if _err.Xrc == int32(0) {
 		crt.Xprintf(tls, str(3176), int32(_filesize_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(1245)
+				return int32(1245)
 			}()
 			return &_err
 		}(), str(1462))))
 		crt.Xprintf(tls, str(3200), int32(_filesize_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(1246)
+				return int32(1246)
 			}()
 			return &_err
 		}(), str(378))))
 	}
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _filecopy_x(tls *crt.TLS, _pErr *XError, _zFrom *int8, _zTo *int8) {
 	var _3_fd1, _3_fd2, _6_nCopy int32
 	var _1_nByte, _3_iOff int64
 	var _3_aBuf [1024]int8
-	if _pErr.X0 != i32(0) {
+	if _pErr.Xrc != int32(0) {
 		goto _0
 	}
 	_1_nByte = _filesize_x(tls, _pErr, _zFrom)
-	if _1_nByte < int64(i32(0)) {
+	if _1_nByte < (0) {
 		_test_error_x(tls, _pErr, bin.Xsqlite3_mprintf(tls, str(3217), unsafe.Pointer(_zFrom)))
 		goto _2
 	}
 	crt.Xunlink(tls, _zTo)
-	_3_fd1 = crt.Xopen64(tls, _zFrom, i32(0))
-	if _3_fd1 < i32(0) {
+	_3_fd1 = crt.Xopen64(tls, _zFrom, int32(0))
+	if _3_fd1 < int32(0) {
 		_system_error(tls, _pErr, *crt.X__errno_location(tls))
 		return
 	}
-	_3_fd2 = crt.Xopen64(tls, _zTo, i32(194), i32(420))
-	if _3_fd2 < i32(0) {
+	_3_fd2 = crt.Xopen64(tls, _zTo, int32(194), int32(420))
+	if _3_fd2 < int32(0) {
 		_system_error(tls, _pErr, *crt.X__errno_location(tls))
 		crt.Xclose(tls, _3_fd1)
 		return
 	}
-	_3_iOff = int64(i32(0))
+	_3_iOff = 0
 _5:
 	if _3_iOff >= _1_nByte {
 		goto _6
 	}
-	_6_nCopy = int32(u64(1024))
+	_6_nCopy = int32(1024)
 	if (int64(_6_nCopy) + _3_iOff) > _1_nByte {
 		_6_nCopy = int32(_1_nByte - _3_iOff)
 	}
@@ -2993,11 +2399,7 @@ _5:
 		_system_error(tls, _pErr, *crt.X__errno_location(tls))
 		goto _6
 	}
-	{
-		p := &_3_iOff
-		*p = (*p) + int64(_6_nCopy)
-		sink4(*p)
-	}
+	_3_iOff += int64(_6_nCopy)
 	goto _5
 _6:
 	crt.Xclose(tls, _3_fd1)
@@ -3014,41 +2416,37 @@ func _walthread5_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *in
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1185)
+			return int32(1185)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 	_nRow = _execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1186)
+			return int32(1186)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(3234)))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1187)
+			return int32(1187)
 		}()
 		return &_err
 	}(), &_db)
-	if _nRow != int64(i32(65536)) {
+	if _nRow != int64(65536) {
 		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(3258), int32(_nRow)))
 	}
 	_print_and_free_err(tls, &_err)
 	return nil
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _cgt_pager_1(tls *crt.TLS, _nMs int32) {
@@ -3058,20 +2456,20 @@ func _cgt_pager_1(tls *crt.TLS, _nMs int32) {
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1289)
+			return int32(1289)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1290)
+			return int32(1290)
 		}()
 		return &_err
 	}(), &_db, str(3276))
@@ -3082,17 +2480,15 @@ func _cgt_pager_1(tls *crt.TLS, _nMs int32) {
 	_xSub = _cgt_pager_1_read
 	_xSub(tls, &_err, &_db)
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1300)
+			return int32(1300)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
 }
 
 func _cgt_pager_1_populate(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
@@ -3100,26 +2496,26 @@ func _cgt_pager_1_populate(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
 	var _zInsert *int8
 	_zInsert = str(3373)
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1259)
+			return int32(1259)
 		}()
 		return _pErr
 	}(), _pDb, str(767))
-	_iRow = int64(i32(1))
+	_iRow = int64(1)
 _2:
-	if _iRow > int64(i32(10000)) {
+	if _iRow > int64(10000) {
 		goto _5
 	}
-	_1_iBlob = int64(i32(600)) + (_iRow % int64(i32(300)))
+	_1_iBlob = int64(600) + (_iRow % int64(300))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1262)
+			return int32(1262)
 		}()
 		return _pErr
 	}(), _pDb, unsafe.Pointer(_zInsert), unsafe.Pointer(&_iRow), unsafe.Pointer(&_1_iBlob))
@@ -3127,15 +2523,14 @@ _2:
 	goto _2
 _5:
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1264)
+			return int32(1264)
 		}()
 		return _pErr
 	}(), _pDb, str(773))
-	_ = _1_iBlob
 }
 
 func _cgt_pager_1_update(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
@@ -3143,26 +2538,26 @@ func _cgt_pager_1_update(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
 	var _zUpdate *int8
 	_zUpdate = str(3420)
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1269)
+			return int32(1269)
 		}()
 		return _pErr
 	}(), _pDb, str(767))
-	_iRow = int64(i32(1))
+	_iRow = int64(1)
 _2:
-	if _iRow > int64(i32(10000)) {
+	if _iRow > int64(10000) {
 		goto _5
 	}
-	_1_iBlob = int64(i32(600)) + ((_iRow + int64(i32(100))) % int64(i32(300)))
+	_1_iBlob = int64(600) + ((_iRow + int64(100)) % int64(300))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1272)
+			return int32(1272)
 		}()
 		return _pErr
 	}(), _pDb, unsafe.Pointer(_zUpdate), unsafe.Pointer(&_1_iBlob), unsafe.Pointer(&_iRow))
@@ -3170,39 +2565,38 @@ _2:
 	goto _2
 _5:
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1274)
+			return int32(1274)
 		}()
 		return _pErr
 	}(), _pDb, str(773))
-	_ = _1_iBlob
 }
 
 func _cgt_pager_1_read(tls *crt.TLS, _pErr *XError, _pDb *XSqlite) {
 	var _iRow int64
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1278)
+			return int32(1278)
 		}()
 		return _pErr
 	}(), _pDb, str(767))
-	_iRow = int64(i32(1))
+	_iRow = int64(1)
 _2:
-	if _iRow > int64(i32(10000)) {
+	if _iRow > int64(10000) {
 		goto _5
 	}
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1280)
+			return int32(1280)
 		}()
 		return _pErr
 	}(), _pDb, unsafe.Pointer(str(3471)), unsafe.Pointer(&_iRow))
@@ -3210,111 +2604,108 @@ _2:
 	goto _2
 _5:
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(1282)
+			return int32(1282)
 		}()
 		return _pErr
 	}(), _pDb, str(773))
 }
 
 func _dynamic_triggers(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1396)
+			return int32(1396)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1397)
+			return int32(1397)
 		}()
 		return &_err
 	}(), &_db, str(3504))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1410)
+			return int32(1410)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1412)
+			return int32(1412)
 		}()
 		return &_err
 	}(), _nMs)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1415)
+			return int32(1415)
 		}()
 		return &_err
 	}(), &_threads, _dynamic_triggers_2, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1416)
+			return int32(1416)
 		}()
 		return &_err
 	}(), &_threads, _dynamic_triggers_2, nil)
-	crt.Xsleep(tls, uint32(i32(2)))
-	bin.Xsqlite3_enable_shared_cache(tls, i32(0))
+	crt.Xsleep(tls, uint32(2))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(0))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1421)
+			return int32(1421)
 		}()
 		return &_err
 	}(), &_threads, _dynamic_triggers_2, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1422)
+			return int32(1422)
 		}()
 		return &_err
 	}(), &_threads, _dynamic_triggers_1, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1424)
+			return int32(1424)
 		}()
 		return &_err
 	}(), &_threads)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _dynamic_triggers_2(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -3324,38 +2715,38 @@ func _dynamic_triggers_2(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *i
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_iVal = i64(0)
-	_nInsert = i32(0)
-	_nDelete = i32(0)
+	_iVal = int64(0)
+	_nInsert = int32(0)
+	_nDelete = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1371)
+			return int32(1371)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1372)
+			return int32(1372)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
 _6:
-	_iVal = (_iVal + int64(i32(1))) % int64(i32(100))
+	_iVal = (_iVal + int64(1)) % int64(100)
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1375)
+			return int32(1375)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(3753)), unsafe.Pointer(&_iVal), unsafe.Pointer(&_iVal))
@@ -3364,13 +2755,13 @@ _6:
 		goto _6
 	}
 _9:
-	_iVal = (_iVal + int64(i32(1))) % int64(i32(100))
+	_iVal = (_iVal + int64(1)) % int64(100)
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1381)
+			return int32(1381)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(3787)), unsafe.Pointer(&_iVal))
@@ -3381,20 +2772,16 @@ _9:
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1385)
+			return int32(1385)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(3816), _nInsert, _nDelete)
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _dynamic_triggers_1(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -3404,41 +2791,41 @@ func _dynamic_triggers_1(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *i
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_nDrop = i32(0)
-	_nCreate = i32(0)
+	_nDrop = int32(0)
+	_nCreate = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1318)
+			return int32(1318)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1319)
+			return int32(1319)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
-	_1_i = i32(1)
+	_1_i = int32(1)
 _6:
-	if _1_i >= i32(9) {
+	if _1_i >= int32(9) {
 		goto _9
 	}
-	_2_zSql = bin.Xsqlite3_mprintf(tls, str(3839), _1_i, _1_i, _1_i+i32(1))
+	_2_zSql = bin.Xsqlite3_mprintf(tls, str(3839), _1_i, _1_i, _1_i+int32(1))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1328)
+			return int32(1328)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(_2_zSql))
@@ -3447,18 +2834,18 @@ _6:
 	_1_i += 1
 	goto _6
 _9:
-	_1_i = i32(1)
+	_1_i = int32(1)
 _12:
-	if _1_i >= i32(9) {
+	if _1_i >= int32(9) {
 		goto _15
 	}
-	_3_zSql = bin.Xsqlite3_mprintf(tls, str(3929), _1_i, _1_i, _1_i+i32(1))
+	_3_zSql = bin.Xsqlite3_mprintf(tls, str(3929), _1_i, _1_i, _1_i+int32(1))
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1339)
+			return int32(1339)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(_3_zSql))
@@ -3467,18 +2854,18 @@ _12:
 	_1_i += 1
 	goto _12
 _15:
-	_1_i = i32(1)
+	_1_i = int32(1)
 _18:
-	if _1_i >= i32(9) {
+	if _1_i >= int32(9) {
 		goto _21
 	}
 	_4_zSql = bin.Xsqlite3_mprintf(tls, str(4015), _1_i)
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1346)
+			return int32(1346)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(_4_zSql))
@@ -3487,18 +2874,18 @@ _18:
 	_1_i += 1
 	goto _18
 _21:
-	_1_i = i32(1)
+	_1_i = int32(1)
 _24:
-	if _1_i >= i32(9) {
+	if _1_i >= int32(9) {
 		goto _27
 	}
 	_5_zSql = bin.Xsqlite3_mprintf(tls, str(4034), _1_i)
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1353)
+			return int32(1353)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(_5_zSql))
@@ -3510,110 +2897,104 @@ _27:
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(1358)
+			return int32(1358)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(4053), _nCreate, _nDrop)
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _checkpoint_starvation_1(tls *crt.TLS, _nMs int32) {
-	var _ctx bin.Xsqlite3_debug_mutex
+	var _ctx XCheckpointStarvationCtx
 	var _err XError
 	_err = XError{}
-	_ctx = bin.Xsqlite3_debug_mutex{}
+	_ctx = XCheckpointStarvationCtx{}
 	_checkpoint_starvation_main(tls, _nMs, &_ctx)
-	if _ctx.X1 < i32(500) {
-		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(4076), _ctx.X1))
+	if _ctx.XnMaxFrame < int32(500) {
+		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(4076), _ctx.XnMaxFrame))
 	}
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _ctx
 }
 
-func _checkpoint_starvation_main(tls *crt.TLS, _nMs int32, _p *bin.Xsqlite3_debug_mutex) {
+func _checkpoint_starvation_main(tls *crt.TLS, _nMs int32, _p *XCheckpointStarvationCtx) {
 	var _nInsert, _i int32
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
-	_nInsert = i32(0)
+	_threads = XThreadset{}
+	_nInsert = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(99)
+			return int32(99)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(100)
+			return int32(100)
 		}()
 		return &_err
 	}(), &_db, str(4107))
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(106)
+			return int32(106)
 		}()
 		return &_err
 	}(), _nMs)
-	_i = i32(0)
+	_i = int32(0)
 _6:
-	if _i >= i32(4) {
+	if _i >= int32(4) {
 		goto _9
 	}
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(109)
+			return int32(109)
 		}()
 		return &_err
 	}(), &_threads, _checkpoint_starvation_reader, nil)
-	crt.Xusleep(tls, uint32(i32(25000)))
+	crt.Xusleep(tls, uint32(25000))
 	_i += 1
 	goto _6
 _9:
-	bin.Xsqlite3_wal_hook(tls, (*bin.Xsqlite3)(_db.X0), func() func(*crt.TLS, unsafe.Pointer, *bin.Xsqlite3, *int8, int32) int32 {
+	bin.Xsqlite3_wal_hook(tls, (*bin.Xsqlite3)(_db.Xdb), func() func(*crt.TLS, unsafe.Pointer, *bin.Xsqlite3, *int8, int32) int32 {
 		v := _checkpoint_starvation_walhook
 		return *(*func(*crt.TLS, unsafe.Pointer, *bin.Xsqlite3, *int8, int32) int32)(unsafe.Pointer(&v))
 	}(), unsafe.Pointer(_p))
 _12:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(114)
+			return int32(114)
 		}()
 		return &_err
 	}()) == 0 {
 		_sql_script_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(115)
+				return int32(115)
 			}()
 			return &_err
 		}(), &_db, str(4177))
@@ -3621,35 +3002,32 @@ _12:
 		goto _12
 	}
 	crt.Xprintf(tls, str(4217), unsafe.Pointer(func() *int8 {
-		if _p.X0 == i32(0) {
+		if _p.XeMode == int32(0) {
 			return str(4241)
 		}
 		return str(4249)
 	}()))
-	crt.Xprintf(tls, str(4257), _p.X1)
+	crt.Xprintf(tls, str(4257), _p.XnMaxFrame)
 	crt.Xprintf(tls, str(4288), _nInsert)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(125)
+			return int32(125)
 		}()
 		return &_err
 	}(), &_threads)
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(126)
+			return int32(126)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _checkpoint_starvation_reader(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -3659,60 +3037,60 @@ func _checkpoint_starvation_reader(tls *crt.TLS, _iTid int32, _pArg unsafe.Point
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(73)
+			return int32(73)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(74)
+			return int32(74)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(76)
+			return int32(76)
 		}()
 		return &_err
 	}(), &_db, str(767))
 	_1_iCount1 = _execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(77)
+			return int32(77)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(4325)))
-	crt.Xusleep(tls, uint32(i32(100000)))
+	crt.Xusleep(tls, uint32(100000))
 	_1_iCount2 = _execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(79)
+			return int32(79)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(4325)))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(80)
+			return int32(80)
 		}()
 		return &_err
 	}(), &_db, str(773))
@@ -3722,151 +3100,142 @@ _2:
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(86)
+			return int32(86)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return nil
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _checkpoint_starvation_walhook(tls *crt.TLS, _pCtx unsafe.Pointer, _db unsafe.Pointer, _zDb *int8, _nFrame int32) (r0 int32) {
-	var _p *bin.Xsqlite3_debug_mutex
-	_p = (*bin.Xsqlite3_debug_mutex)(_pCtx)
-	if _nFrame > _p.X1 {
-		*(*int32)(unsafe.Pointer(&_p.X1)) = _nFrame
+	var _p *XCheckpointStarvationCtx
+	_p = (*XCheckpointStarvationCtx)(_pCtx)
+	if _nFrame > _p.XnMaxFrame {
+		_p.XnMaxFrame = _nFrame
 	}
-	if _nFrame >= i32(50) {
-		bin.Xsqlite3_wal_checkpoint_v2(tls, (*bin.Xsqlite3)(_db), _zDb, _p.X0, nil, nil)
+	if _nFrame >= int32(50) {
+		bin.Xsqlite3_wal_checkpoint_v2(tls, (*bin.Xsqlite3)(_db), _zDb, _p.XeMode, nil, nil)
 	}
-	return i32(0)
+	return int32(0)
 }
 
 func _checkpoint_starvation_2(tls *crt.TLS, _nMs int32) {
-	var _ctx bin.Xsqlite3_debug_mutex
+	var _ctx XCheckpointStarvationCtx
 	var _err XError
 	_err = XError{}
-	_ctx = bin.Xsqlite3_debug_mutex{X0: i32(2), X1: i32(0)}
+	_ctx = XCheckpointStarvationCtx{XeMode: int32(2)}
 	_checkpoint_starvation_main(tls, _nMs, &_ctx)
-	if _ctx.X1 > i32(60) {
-		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(4379), _ctx.X1))
+	if _ctx.XnMaxFrame > int32(60) {
+		_test_error_x(tls, &_err, bin.Xsqlite3_mprintf(tls, str(4379), _ctx.XnMaxFrame))
 	}
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _ctx
 }
 
 func _create_drop_index_1(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(54)
+			return int32(54)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(55)
+			return int32(55)
 		}()
 		return &_err
 	}(), &_db, str(4410))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(60)
+			return int32(60)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(62)
+			return int32(62)
 		}()
 		return &_err
 	}(), _nMs)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(65)
+			return int32(65)
 		}()
 		return &_err
 	}(), &_threads, _create_drop_index_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(66)
+			return int32(66)
 		}()
 		return &_err
 	}(), &_threads, _create_drop_index_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(67)
+			return int32(67)
 		}()
 		return &_err
 	}(), &_threads, _create_drop_index_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(68)
+			return int32(68)
 		}()
 		return &_err
 	}(), &_threads, _create_drop_index_thread, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(69)
+			return int32(69)
 		}()
 		return &_err
 	}(), &_threads, _create_drop_index_thread, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(71)
+			return int32(71)
 		}()
 		return &_err
 	}(), &_threads)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(0))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(0))
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _create_drop_index_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -3876,39 +3245,39 @@ func _create_drop_index_thread(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) 
 	_db = XSqlite{}
 _0:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(21)
+			return int32(21)
 		}()
 		return &_err
 	}()) == 0 {
 		_opendb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(22)
+				return int32(22)
 			}()
 			return &_err
-		}(), &_db, str(378), i32(0))
+		}(), &_db, str(378), int32(0))
 		_sql_script_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(24)
+				return int32(24)
 			}()
 			return &_err
 		}(), &_db, str(4551))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		_closedb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(42)
+				return int32(42)
 			}()
 			return &_err
 		}(), &_db)
@@ -3916,124 +3285,117 @@ _0:
 	}
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _lookaside1(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(71)
+			return int32(71)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(72)
+			return int32(72)
 		}()
 		return &_err
 	}(), &_db, str(4924))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(85)
+			return int32(85)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(87)
+			return int32(87)
 		}()
 		return &_err
 	}(), _nMs)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(90)
+			return int32(90)
 		}()
 		return &_err
 	}(), &_threads, _lookaside1_thread_reader, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(91)
+			return int32(91)
 		}()
 		return &_err
 	}(), &_threads, _lookaside1_thread_reader, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(92)
+			return int32(92)
 		}()
 		return &_err
 	}(), &_threads, _lookaside1_thread_reader, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(93)
+			return int32(93)
 		}()
 		return &_err
 	}(), &_threads, _lookaside1_thread_reader, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(94)
+			return int32(94)
 		}()
 		return &_err
 	}(), &_threads, _lookaside1_thread_reader, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(95)
+			return int32(95)
 		}()
 		return &_err
 	}(), &_threads, _lookaside1_thread_writer, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(96)
+			return int32(96)
 		}()
 		return &_err
 	}(), &_threads)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(0))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(0))
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _lookaside1_thread_reader(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -4044,62 +3406,58 @@ func _lookaside1_thread_reader(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) 
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(25)
+			return int32(25)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(27)
+			return int32(27)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
 	_1_pStmt = nil
-	bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_db.X0), str(5276), i32(-1), &_1_pStmt, nil)
+	bin.Xsqlite3_prepare_v2(tls, (*bin.Xsqlite3)(_db.Xdb), str(5276), int32(-1), &_1_pStmt, nil)
 _6:
-	if bin.Xsqlite3_step(tls, _1_pStmt) == i32(100) {
+	if bin.Xsqlite3_step(tls, _1_pStmt) == int32(100) {
 		_execsql_i64_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(33)
+				return int32(33)
 			}()
 			return &_err
 		}(), &_db, unsafe.Pointer(str(5293)))
 		goto _6
 	}
 	_1_rc = bin.Xsqlite3_finalize(tls, _1_pStmt)
-	if (_err.X0 == i32(0)) && (_1_rc != i32(0)) {
+	if (_err.Xrc == int32(0)) && (_1_rc != int32(0)) {
 		_sqlite_error(tls, &_err, &_db, str(5324))
 	}
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(41)
+			return int32(41)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _lookaside1_thread_writer(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -4108,146 +3466,139 @@ func _lookaside1_thread_writer(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) 
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(50)
+			return int32(50)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(53)
+			return int32(53)
 		}()
 		return &_err
 	}(), &_db, str(5333))
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(58)
+			return int32(58)
 		}()
 		return &_err
 	}()) == 0 {
 		goto _2
 	}
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(60)
+			return int32(60)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _vacuum1(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(72)
+			return int32(72)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(1))
+	}(), &_db, str(378), int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(73)
+			return int32(73)
 		}()
 		return &_err
 	}(), &_db, str(5379))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(77)
+			return int32(77)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(79)
+			return int32(79)
 		}()
 		return &_err
 	}(), _nMs)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(82)
+			return int32(82)
 		}()
 		return &_err
 	}(), &_threads, _vacuum1_thread_writer, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(83)
+			return int32(83)
 		}()
 		return &_err
 	}(), &_threads, _vacuum1_thread_writer, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(84)
+			return int32(84)
 		}()
 		return &_err
 	}(), &_threads, _vacuum1_thread_writer, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(85)
+			return int32(85)
 		}()
 		return &_err
 	}(), &_threads, _vacuum1_thread_vacuumer, nil)
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(86)
+			return int32(86)
 		}()
 		return &_err
 	}(), &_threads)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(0))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(0))
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _vacuum1_thread_writer(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -4257,73 +3608,68 @@ func _vacuum1_thread_writer(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(26)
+			return int32(26)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
-	_i = i64(0)
+	}(), &_db, str(378), int32(0))
+	_i = int64(0)
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(29)
+			return int32(29)
 		}()
 		return &_err
 	}()) == 0 {
 		_i += 1
 		_execsql_i64_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(33)
+				return int32(33)
 			}()
 			return &_err
 		}(), &_db, unsafe.Pointer(str(5444)))
 		_execsql_i64_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(39)
+				return int32(39)
 			}()
 			return &_err
 		}(), &_db, unsafe.Pointer(str(5579)), unsafe.Pointer(&_i))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		_execsql_i64_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(43)
+				return int32(43)
 			}()
 			return &_err
 		}(), &_db, unsafe.Pointer(str(5611)))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		goto _2
 	}
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(47)
+			return int32(47)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	_ = _i
-	panic(0)
 }
 
 func _vacuum1_thread_vacuumer(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -4332,171 +3678,165 @@ func _vacuum1_thread_vacuumer(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(55)
+			return int32(55)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(58)
+			return int32(58)
 		}()
 		return &_err
 	}(), &_db, str(5639))
-	_clear_error_x(tls, &_err, i32(6))
+	_clear_error_x(tls, &_err, int32(6))
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(60)
+			return int32(60)
 		}()
 		return &_err
 	}()) == 0 {
 		goto _2
 	}
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(62)
+			return int32(62)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _stress1(tls *crt.TLS, _nMs int32) {
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	_err = XError{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(138)
+			return int32(138)
 		}()
 		return &_err
 	}(), _nMs)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(141)
+			return int32(141)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_1, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(142)
+			return int32(142)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_1, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(144)
+			return int32(144)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_2, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(145)
+			return int32(145)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_2, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(147)
+			return int32(147)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_3, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(148)
+			return int32(148)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_3, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(150)
+			return int32(150)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_4, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(151)
+			return int32(151)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_4, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(153)
+			return int32(153)
 		}()
 		return &_err
 	}(), &_threads, _stress_thread_5, nil)
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(154)
+			return int32(154)
 		}()
 		return &_err
-	}(), &_threads, _stress_thread_5, crt.U2P(uintptr(u32(1))))
+	}(), &_threads, _stress_thread_5, crt.U2P(uintptr(uint32(1))))
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(156)
+			return int32(156)
 		}()
 		return &_err
 	}(), &_threads)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(0))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(0))
 	_print_and_free_err(tls, &_err)
-	_ = _err
-	_ = _threads
 }
 
 // C comment
@@ -4509,61 +3849,57 @@ func _stress_thread_1(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8
 	_err = XError{}
 	_db = XSqlite{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(24)
+			return int32(24)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(25)
+			return int32(25)
 		}()
 		return &_err
 	}()) == 0 {
 		_sql_script_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(26)
+				return int32(26)
 			}()
 			return &_err
 		}(), &_db, str(5646))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		_sql_script_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(28)
+				return int32(28)
 			}()
 			return &_err
 		}(), &_db, str(5694))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		goto _2
 	}
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(31)
+			return int32(31)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 // C comment
@@ -4577,39 +3913,39 @@ func _stress_thread_2(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8
 	_db = XSqlite{}
 _0:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(42)
+			return int32(42)
 		}()
 		return &_err
 	}()) == 0 {
 		_opendb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(43)
+				return int32(43)
 			}()
 			return &_err
-		}(), &_db, str(378), i32(0))
+		}(), &_db, str(378), int32(0))
 		_sql_script_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(44)
+				return int32(44)
 			}()
 			return &_err
 		}(), &_db, str(5718))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		_closedb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(46)
+				return int32(46)
 			}()
 			return &_err
 		}(), &_db)
@@ -4617,10 +3953,6 @@ _0:
 	}
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 // C comment
@@ -4633,61 +3965,57 @@ func _stress_thread_3(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_i1 = i32(0)
-	_i2 = i32(0)
+	_i1 = int32(0)
+	_i2 = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(62)
+			return int32(62)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(63)
+			return int32(63)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(64)
+			return int32(64)
 		}()
 		return &_err
 	}(), &_db, str(5747))
 	_i1 += 1
-	if _err.X0 != 0 {
+	if _err.Xrc != 0 {
 		_i2 += 1
 	}
-	_clear_error_x(tls, &_err, i32(6))
-	_clear_error_x(tls, &_err, i32(1))
+	_clear_error_x(tls, &_err, int32(6))
+	_clear_error_x(tls, &_err, int32(1))
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(70)
+			return int32(70)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(5776), _i2, _i1)
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 // C comment
@@ -4700,25 +4028,25 @@ func _stress_thread_4(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8
 	var _db XSqlite
 	_err = XError{}
 	_db = XSqlite{}
-	_i1 = i32(0)
-	_i2 = i32(0)
+	_i1 = int32(0)
+	_i2 = int32(0)
 	_iArg = int32(int64(crt.P2U(_pArg)))
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(85)
+			return int32(85)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(86)
+			return int32(86)
 		}()
 		return &_err
 	}()) != 0 {
@@ -4726,56 +4054,52 @@ _2:
 	}
 	if _iArg != 0 {
 		_closedb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(88)
+				return int32(88)
 			}()
 			return &_err
 		}(), &_db)
 		_opendb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(89)
+				return int32(89)
 			}()
 			return &_err
-		}(), &_db, str(378), i32(0))
+		}(), &_db, str(378), int32(0))
 	}
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(91)
+			return int32(91)
 		}()
 		return &_err
 	}(), &_db, str(5799))
 	_i1 += 1
-	if _err.X0 != 0 {
+	if _err.Xrc != 0 {
 		_i2 += 1
 	}
-	_clear_error_x(tls, &_err, i32(6))
-	_clear_error_x(tls, &_err, i32(1))
+	_clear_error_x(tls, &_err, int32(6))
+	_clear_error_x(tls, &_err, int32(1))
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(100)
+			return int32(100)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(5922), _i2, _i1)
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 // C comment
@@ -4790,241 +4114,233 @@ func _stress_thread_5(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8
 	_err = XError{}
 	_db = XSqlite{}
 	_iArg = int32(int64(crt.P2U(_pArg)))
-	_i1 = i32(0)
-	_i2 = i32(0)
+	_i1 = int32(0)
+	_i2 = int32(0)
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(116)
+			return int32(116)
 		}()
 		return &_err
-	}(), &_db, str(378), i32(0))
+	}(), &_db, str(378), int32(0))
 _2:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(117)
+			return int32(117)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _3
 	}
-	_1_i = int64(_i1 % i32(4))
+	_1_i = int64(_i1 % int32(4))
 	if _iArg != 0 {
 		_closedb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(120)
+				return int32(120)
 			}()
 			return &_err
 		}(), &_db)
 		_opendb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(121)
+				return int32(121)
 			}()
 			return &_err
-		}(), &_db, str(378), i32(0))
+		}(), &_db, str(378), int32(0))
 	}
 	_execsql_i64_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(123)
+			return int32(123)
 		}()
 		return &_err
 	}(), &_db, unsafe.Pointer(str(5946)), unsafe.Pointer(&_1_i))
 	_i1 += 1
-	if _err.X0 != 0 {
+	if _err.Xrc != 0 {
 		_i2 += 1
 	}
-	_clear_error_x(tls, &_err, i32(6))
+	_clear_error_x(tls, &_err, int32(6))
 	goto _2
 _3:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(128)
+			return int32(128)
 		}()
 		return &_err
 	}(), &_db)
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(5983), _i2, _i1)
-
-	_ = _err
-	_ = _db
-	_ = _1_i
-	panic(0)
 }
 
 func _stress2(tls *crt.TLS, _nMs int32) {
 	var _i int32
 	var _zDb *int8
-	var _threads bin.T_ht
+	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
 	var _aTask [13]TStress2Task
 	_aTask = [13]TStress2Task{}
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(0)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), 0).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload1
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(1)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(1)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload2
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(2)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(2)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload3
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(3)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(3)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload4
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(4)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(4)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload5
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(5)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(5)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload6
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(6)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(6)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload7
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(7)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(7)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload8
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(8)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(8)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload9
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(9)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(9)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload10
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(10)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(10)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload11
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(11)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(11)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload14
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
-	*(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&((*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(i32(12)))).X0))) = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
+	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(12)).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
 		v := _stress2_workload17
 		return *(*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&v))
 	}()
 	_zDb = str(378)
 	_err = XError{}
 	_db = XSqlite{}
-	_threads = bin.T_ht{}
+	_threads = XThreadset{}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(345)
+			return int32(345)
 		}()
 		return &_err
-	}(), &_db, _zDb, i32(1))
+	}(), &_db, _zDb, int32(1))
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(346)
+			return int32(346)
 		}()
 		return &_err
 	}(), &_db, str(6014))
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(350)
+			return int32(350)
 		}()
 		return &_err
 	}(), &_db)
 	_setstoptime_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(352)
+			return int32(352)
 		}()
 		return &_err
 	}(), _nMs)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(1))
-	_i = i32(0)
+	bin.Xsqlite3_enable_shared_cache(tls, int32(1))
+	_i = int32(0)
 _8:
-	if uint64(_i) >= u64(13) {
+	if uint64(_i) >= uint64(13) {
 		goto _11
 	}
 	_stress2_launch_thread_loop(tls, &_err, &_threads, _zDb, func() func(*crt.TLS, *XError, *XSqlite, int32) {
-		v := (*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(&_aTask)) + 8*uintptr(_i))).X0
+		v := elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), uintptr(_i)).Xx
 		return *(*func(*crt.TLS, *XError, *XSqlite, int32))(unsafe.Pointer(&v))
 	}())
 	_i += 1
 	goto _8
 _11:
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(358)
+			return int32(358)
 		}()
 		return &_err
 	}(), &_threads, _stress2_workload19, unsafe.Pointer(_zDb))
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(359)
+			return int32(359)
 		}()
 		return &_err
 	}(), &_threads, _stress2_workload19, unsafe.Pointer(_zDb))
 	_join_all_threads_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(361)
+			return int32(361)
 		}()
 		return &_err
 	}(), &_threads)
-	bin.Xsqlite3_enable_shared_cache(tls, i32(0))
+	bin.Xsqlite3_enable_shared_cache(tls, int32(0))
 	_print_and_free_err(tls, &_err)
 	_ = _aTask
-	_ = _err
-	_ = _db
-	_ = _threads
 }
 
 func _stress2_workload1(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	var _iTab int32
-	_iTab = (_i % i32(4)) + i32(1)
+	_iTab = (_i % int32(4)) + int32(1)
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(193)
+			return int32(193)
 		}()
 		return _pErr
 	}(), _pDb, str(6105), _iTab)
@@ -5034,9 +4350,9 @@ func _sql_script_printf_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zFormat *
 	var _1_zSql *int8
 	var _ap []interface{}
 	_ap = args
-	if _pErr.X0 == i32(0) {
+	if _pErr.Xrc == int32(0) {
 		_1_zSql = bin.Xsqlite3_vmprintf(tls, _zFormat, _ap)
-		*(*int32)(unsafe.Pointer(&_pErr.X0)) = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_pDb.X0), _1_zSql, nil, nil, (**int8)(unsafe.Pointer(&_pErr.X2)))
+		_pErr.Xrc = bin.Xsqlite3_exec(tls, (*bin.Xsqlite3)(_pDb.Xdb), _1_zSql, nil, nil, &_pErr.XzErr)
 		bin.Xsqlite3_free(tls, unsafe.Pointer(_1_zSql))
 	}
 	_ap = nil
@@ -5044,13 +4360,13 @@ func _sql_script_printf_x(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _zFormat *
 
 func _stress2_workload2(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	var _iTab int32
-	_iTab = (_i % i32(4)) + i32(1)
+	_iTab = (_i % int32(4)) + int32(1)
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(200)
+			return int32(200)
 		}()
 		return _pErr
 	}(), _pDb, str(6158), _iTab)
@@ -5058,11 +4374,11 @@ func _stress2_workload2(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload3(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(204)
+			return int32(204)
 		}()
 		return _pErr
 	}(), _pDb, str(6184))
@@ -5070,11 +4386,11 @@ func _stress2_workload3(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload4(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(208)
+			return int32(208)
 		}()
 		return _pErr
 	}(), _pDb, str(6219))
@@ -5082,11 +4398,11 @@ func _stress2_workload4(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload5(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(212)
+			return int32(212)
 		}()
 		return _pErr
 	}(), _pDb, str(6252))
@@ -5094,11 +4410,11 @@ func _stress2_workload5(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload6(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(218)
+			return int32(218)
 		}()
 		return _pErr
 	}(), _pDb, str(6321))
@@ -5106,11 +4422,11 @@ func _stress2_workload6(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload7(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(224)
+			return int32(224)
 		}()
 		return _pErr
 	}(), _pDb, str(6387), _i)
@@ -5118,11 +4434,11 @@ func _stress2_workload7(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload8(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(231)
+			return int32(231)
 		}()
 		return _pErr
 	}(), _pDb, str(6469), _i)
@@ -5130,11 +4446,11 @@ func _stress2_workload8(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload9(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(239)
+			return int32(239)
 		}()
 		return _pErr
 	}(), _pDb, str(6546), _i)
@@ -5142,11 +4458,11 @@ func _stress2_workload9(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload10(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(244)
+			return int32(244)
 		}()
 		return _pErr
 	}(), _pDb, str(6602), _i)
@@ -5154,11 +4470,11 @@ func _stress2_workload10(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload11(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(250)
+			return int32(250)
 		}()
 		return _pErr
 	}(), _pDb, str(5639))
@@ -5166,11 +4482,11 @@ func _stress2_workload11(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload14(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(254)
+			return int32(254)
 		}()
 		return _pErr
 	}(), _pDb, str(1143))
@@ -5178,32 +4494,32 @@ func _stress2_workload14(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 
 func _stress2_workload17(tls *crt.TLS, _pErr *XError, _pDb *XSqlite, _i int32) {
 	_sql_script_printf_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(258)
+			return int32(258)
 		}()
 		return _pErr
 	}(), _pDb, str(6656), unsafe.Pointer(func() *int8 {
-		if (_i % i32(2)) != 0 {
+		if (_i % int32(2)) != 0 {
 			return str(6681)
 		}
 		return str(6688)
 	}()))
 }
 
-func _stress2_launch_thread_loop(tls *crt.TLS, _pErr *XError, _pThreads *bin.T_ht, _zDb *int8, _x func(*crt.TLS, *XError, *XSqlite, int32)) {
+func _stress2_launch_thread_loop(tls *crt.TLS, _pErr *XError, _pThreads *XThreadset, _zDb *int8, _x func(*crt.TLS, *XError, *XSqlite, int32)) {
 	var _pCtx *XStress2Ctx
-	_pCtx = (*XStress2Ctx)(bin.Xsqlite3_malloc(tls, int32(u64(16))))
-	*(**int8)(unsafe.Pointer(&_pCtx.X0)) = _zDb
-	*(*func(*crt.TLS, *XError, *XSqlite, int32))(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32))(unsafe.Pointer(&_pCtx.X1)))) = _x
+	_pCtx = (*XStress2Ctx)(bin.Xsqlite3_malloc(tls, int32(16)))
+	_pCtx.XzDb = _zDb
+	*(*func(*crt.TLS, *XError, *XSqlite, int32))(unsafe.Pointer(&_pCtx.XxProc)) = _x
 	_launch_thread_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_pErr.X1)) = func() int32 {
-			if _pErr.X0 != 0 {
-				return _pErr.X1
+		_pErr.XiLine = func() int32 {
+			if _pErr.Xrc != 0 {
+				return _pErr.XiLine
 			}
-			return i32(316)
+			return int32(316)
 		}()
 		return _pErr
 	}(), _pThreads, _stress2_thread_wrapper, unsafe.Pointer(_pCtx))
@@ -5217,54 +4533,50 @@ func _stress2_thread_wrapper(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r
 	_pCtx = (*XStress2Ctx)(_pArg)
 	_err = XError{}
 	_db = XSqlite{}
-	_i1 = i32(0)
-	_i2 = i32(0)
+	_i1 = int32(0)
+	_i2 = int32(0)
 _0:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(291)
+			return int32(291)
 		}()
 		return &_err
 	}()) != 0 {
 		goto _1
 	}
 	_opendb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(293)
+			return int32(293)
 		}()
 		return &_err
-	}(), &_db, _pCtx.X0, i32(0))
-	_1_cnt = i32(0)
+	}(), &_db, _pCtx.XzDb, int32(0))
+	_1_cnt = int32(0)
 _6:
-	if _err.X0 != i32(0) || _1_cnt >= i32(5) {
+	if _err.Xrc != int32(0) || _1_cnt >= int32(5) {
 		goto _10
 	}
 	func() func(*crt.TLS, *XError, *XSqlite, int32) {
-		v := _pCtx.X1
+		v := _pCtx.XxProc
 		return *(*func(*crt.TLS, *XError, *XSqlite, int32))(unsafe.Pointer(&v))
 	}()(tls, &_err, &_db, _i1)
-	{
-		p := &_i2
-		*p = (*p) + bool2int(_err.X0 == i32(0))
-		sink3(*p)
-	}
-	_clear_error_x(tls, &_err, i32(6))
+	_i2 += bool2int(_err.Xrc == int32(0))
+	_clear_error_x(tls, &_err, int32(6))
 	_i1 += 1
 	_1_cnt += 1
 	goto _6
 _10:
 	_closedb_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(300)
+			return int32(300)
 		}()
 		return &_err
 	}(), &_db)
@@ -5272,10 +4584,6 @@ _10:
 _1:
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(6692), _i2, _i1)
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 func _stress2_workload19(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *int8) {
@@ -5287,39 +4595,39 @@ func _stress2_workload19(tls *crt.TLS, _iTid int32, _pArg unsafe.Pointer) (r0 *i
 	_zDb = (*int8)(_pArg)
 _0:
 	if _timetostop_x(tls, func() *XError {
-		*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-			if _err.X0 != 0 {
-				return _err.X1
+		_err.XiLine = func() int32 {
+			if _err.Xrc != 0 {
+				return _err.XiLine
 			}
-			return i32(267)
+			return int32(267)
 		}()
 		return &_err
 	}()) == 0 {
 		_opendb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(268)
+				return int32(268)
 			}()
 			return &_err
-		}(), &_db, _zDb, i32(0))
+		}(), &_db, _zDb, int32(0))
 		_sql_script_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(269)
+				return int32(269)
 			}()
 			return &_err
 		}(), &_db, str(5718))
-		_clear_error_x(tls, &_err, i32(6))
+		_clear_error_x(tls, &_err, int32(6))
 		_closedb_x(tls, func() *XError {
-			*(*int32)(unsafe.Pointer(&_err.X1)) = func() int32 {
-				if _err.X0 != 0 {
-					return _err.X1
+			_err.XiLine = func() int32 {
+				if _err.Xrc != 0 {
+					return _err.XiLine
 				}
-				return i32(271)
+				return int32(271)
 			}()
 			return &_err
 		}(), &_db)
@@ -5327,10 +4635,6 @@ _0:
 	}
 	_print_and_free_err(tls, &_err)
 	return bin.Xsqlite3_mprintf(tls, str(1166))
-
-	_ = _err
-	_ = _db
-	panic(0)
 }
 
 var _mainØ00substArgvØ001 [3]*int8
@@ -5341,8 +4645,6 @@ func init() {
 
 // C comment
 //  /************************** Public Interfaces *****************************/
-
-// C comment
 //  /*
 //  ** CAPI: Initialize the multiplex VFS shim - sqlite3_multiplex_initialize()
 //  **
@@ -5357,66 +4659,71 @@ func init() {
 //  */
 func Xsqlite3_multiplex_initialize(tls *crt.TLS, _zOrigVfsName *int8, _makeDefault int32) (r0 int32) {
 	var _pOrigVfs *bin.Xsqlite3_vfs
-	if _gMultiplex.X4 != 0 {
-		return i32(21)
+	if _gMultiplex.XisInitialized != 0 {
+		return int32(21)
 	}
 	_pOrigVfs = bin.Xsqlite3_vfs_find(tls, _zOrigVfsName)
 	if _pOrigVfs == nil {
-		return i32(1)
+		return int32(1)
 	}
 	func() {
-		if _pOrigVfs == (*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)) {
-			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(6703)), i32(1099), unsafe.Pointer((*int8)(unsafe.Pointer(&_sqlite3_multiplex_initializeØ00__func__Ø000))), unsafe.Pointer(str(6763)))
+		if _pOrigVfs == &_gMultiplex.XsThisVfs {
+			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(6703)), int32(1099), unsafe.Pointer(&_sqlite3_multiplex_initializeØ00__func__Ø000), unsafe.Pointer(str(6763)))
 			crt.X__builtin_abort(tls)
 		}
 	}()
-	*(*int32)(unsafe.Pointer(&_gMultiplex.X4)) = i32(1)
-	*(**bin.Xsqlite3_vfs)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_gMultiplex.X0)))) = _pOrigVfs
-	*(*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)) = *_pOrigVfs
+	_gMultiplex.XisInitialized = int32(1)
+	*(**bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.XpOrigVfs)) = _pOrigVfs
+	_gMultiplex.XsThisVfs = *_pOrigVfs
 	{
-		p := (*int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X1)))
-		*p = int32(uint64(*p) + u64(16))
-		sink3(*p)
+		p := &(_gMultiplex.XsThisVfs.XszOsFile)
+		*p = int32(uint64(*p) + uint64(16))
 	}
-	*(**int8)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X4))) = str(6794)
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, *bin.Xsqlite3_file, int32, *int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int8, unsafe.Pointer, int32, *int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X6))))) = _multiplexOpen
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int8, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X7))))) = _multiplexDelete
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int8, int32, *int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X8))))) = _multiplexAccess
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int8) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int8, int32, *int8) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X9))))) = _multiplexFullPathname
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8) unsafe.Pointer)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int8) unsafe.Pointer)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X10))))) = _multiplexDlOpen
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8))(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32, *int8))(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X11))))) = _multiplexDlError
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer, *int8) func(*crt.TLS))(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, *int8) func(*crt.TLS))(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X12))))) = _multiplexDlSym
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer))(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer))(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X13))))) = _multiplexDlClose
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32, *int8) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X14))))) = _multiplexRandomness
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X15))))) = _multiplexSleep
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *float64) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *float64) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X16))))) = _multiplexCurrentTime
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32, *int8) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X17))))) = _multiplexGetLastError
-	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int64) int32)(unsafe.Pointer(&((*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)).X18))))) = _multiplexCurrentTimeInt64
-	*(*int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X0))) = i32(1)
-	*(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X1))))) = _multiplexClose
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X2))))) = _multiplexRead
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X3))))) = _multiplexWrite
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int64) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int64) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X4))))) = _multiplexTruncate
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X5))))) = _multiplexSync
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int64) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X6))))) = _multiplexFileSize
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X7))))) = _multiplexLock
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X8))))) = _multiplexUnlock
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, *int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, *int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X9))))) = _multiplexCheckReservedLock
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32, unsafe.Pointer) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X10))))) = _multiplexFileControl
-	*(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X11))))) = _multiplexSectorSize
-	*(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2)).X12))))) = _multiplexDeviceCharacteristics
-	*(*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3)) = _gMultiplex.X2
-	*(*int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3)).X0))) = i32(2)
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32, *unsafe.Pointer) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32, int32, int32, *unsafe.Pointer) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3)).X13))))) = _multiplexShmMap
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32, int32, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3)).X14))))) = _multiplexShmLock
-	*(*func(*crt.TLS, *bin.Xsqlite3_file))(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer))(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3)).X15))))) = _multiplexShmBarrier
-	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer((*func(*crt.TLS, unsafe.Pointer, int32) int32)(unsafe.Pointer(&((*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3)).X16))))) = _multiplexShmUnmap
-	bin.Xsqlite3_vfs_register(tls, (*bin.Xsqlite3_vfs)(unsafe.Pointer(&_gMultiplex.X1)), _makeDefault)
+	_gMultiplex.XsThisVfs.XzName = str(6794)
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, *bin.Xsqlite3_file, int32, *int32) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxOpen))) = _multiplexOpen
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxDelete))) = _multiplexDelete
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxAccess))) = _multiplexAccess
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int8) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxFullPathname))) = _multiplexFullPathname
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8) unsafe.Pointer)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxDlOpen))) = _multiplexDlOpen
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8))(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxDlError))) = _multiplexDlError
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer, *int8) func(*crt.TLS))(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxDlSym))) = _multiplexDlSym
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer))(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxDlClose))) = _multiplexDlClose
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxRandomness))) = _multiplexRandomness
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxSleep))) = _multiplexSleep
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *float64) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxCurrentTime))) = _multiplexCurrentTime
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxGetLastError))) = _multiplexGetLastError
+	*(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32)(unsafe.Pointer(&(_gMultiplex.XsThisVfs.XxCurrentTimeInt64))) = _multiplexCurrentTimeInt64
+	_gMultiplex.XsIoMethodsV1.XiVersion = int32(1)
+	*(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxClose))) = _multiplexClose
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxRead))) = _multiplexRead
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxWrite))) = _multiplexWrite
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int64) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxTruncate))) = _multiplexTruncate
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxSync))) = _multiplexSync
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxFileSize))) = _multiplexFileSize
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxLock))) = _multiplexLock
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxUnlock))) = _multiplexUnlock
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, *int32) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxCheckReservedLock))) = _multiplexCheckReservedLock
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32, unsafe.Pointer) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxFileControl))) = _multiplexFileControl
+	*(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxSectorSize))) = _multiplexSectorSize
+	*(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV1.XxDeviceCharacteristics))) = _multiplexDeviceCharacteristics
+	_gMultiplex.XsIoMethodsV2 = _gMultiplex.XsIoMethodsV1
+	_gMultiplex.XsIoMethodsV2.XiVersion = int32(2)
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32, *unsafe.Pointer) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV2.XxShmMap))) = _multiplexShmMap
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV2.XxShmLock))) = _multiplexShmLock
+	*(*func(*crt.TLS, *bin.Xsqlite3_file))(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV2.XxShmBarrier))) = _multiplexShmBarrier
+	*(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&(_gMultiplex.XsIoMethodsV2.XxShmUnmap))) = _multiplexShmUnmap
+	bin.Xsqlite3_vfs_register(tls, &_gMultiplex.XsThisVfs, _makeDefault)
 	bin.Xsqlite3_auto_extension(tls, func() func(*crt.TLS) { v := _multiplexFuncInit; return *(*func(*crt.TLS))(unsafe.Pointer(&v)) }())
-	return i32(0)
+	return int32(0)
 }
 
-var _gMultiplex t5
+// C comment
+//  /************************* Global Variables **********************************/
+//  /*
+//  ** All global variables used by this file are containing within the following
+//  ** gMultiplex structure.
+//  */
+var _gMultiplex t10
 
 var _sqlite3_multiplex_initializeØ00__func__Ø000 [29]int8
 
@@ -5440,148 +4747,144 @@ func _multiplexOpen(tls *crt.TLS, _pVfs *bin.Xsqlite3_vfs, _zName *int8, _pConn 
 	var _pOrigVfs *bin.Xsqlite3_vfs
 	var _pGroup *XmultiplexGroup
 	var _pMultiplexOpen *XmultiplexConn
-	_rc = i32(0)
+	_rc = int32(0)
 	_pGroup = nil
 	_pSubOpen = nil
-	_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.X0)
-	_nName = i32(0)
-	_sz = i32(0)
+	_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs)
+	_nName = int32(0)
+	_sz = int32(0)
 	_zToFree = nil
 
-	crt.Xmemset(tls, unsafe.Pointer(_pConn), i32(0), uint64(_pVfs.X1))
+	crt.Xmemset(tls, unsafe.Pointer(_pConn), int32(0), uint64(_pVfs.XszOsFile))
 	func() {
-		if _zName == nil && (_flags&i32(8)) == 0 {
-			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(6703)), i32(484), unsafe.Pointer((*int8)(unsafe.Pointer(&_multiplexOpenØ00__func__Ø000))), unsafe.Pointer(str(6833)))
+		if _zName == nil && (_flags&int32(8)) == 0 {
+			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(6703)), int32(484), unsafe.Pointer(&_multiplexOpenØ00__func__Ø000), unsafe.Pointer(str(6833)))
 			crt.X__builtin_abort(tls)
 		}
 	}()
 	_pMultiplexOpen = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _3
 	}
 	_nName = func() int32 {
 		if _zName != nil {
 			return _multiplexStrlen30(tls, _zName)
 		}
-		return i32(0)
+		return int32(0)
 	}()
-	_sz = int32((u64(40) + uint64(_nName)) + uint64(i32(1)))
+	_sz = int32((uint64(40) + uint64(_nName)) + uint64(1))
 	_pGroup = (*XmultiplexGroup)(bin.Xsqlite3_malloc64(tls, uint64(_sz)))
 	if _pGroup == nil {
-		_rc = i32(7)
+		_rc = int32(7)
 	}
 _3:
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _7
 	}
 	_3_zUri = func() *int8 {
-		if (_flags & i32(64)) != 0 {
+		if (_flags & int32(64)) != 0 {
 			return _zName
 		}
 		return nil
 	}()
-	crt.Xmemset(tls, unsafe.Pointer(_pGroup), i32(0), uint64(_sz))
-	*(**XmultiplexGroup)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pMultiplexOpen.X1)))) = _pGroup
-	*(*uint8)(unsafe.Pointer(&_pGroup.X6)) = u8(255)
-	*(*uint8)(unsafe.Pointer(&_pGroup.X7)) = uint8(bin.Xsqlite3_uri_boolean(tls, _3_zUri, str(6878), bool2int((_flags&i32(256)) == i32(0))))
-	*(*uint32)(unsafe.Pointer(&_pGroup.X5)) = uint32(int32(bin.Xsqlite3_uri_int64(tls, _3_zUri, str(6887), int64(i32(2147418112)))))
-	*(*uint32)(unsafe.Pointer(&_pGroup.X5)) = (_pGroup.X5 + uint32(i32(65535))) & uint32(i32(-65536))
+	crt.Xmemset(tls, unsafe.Pointer(_pGroup), int32(0), uint64(_sz))
+	*(**XmultiplexGroup)(unsafe.Pointer(&_pMultiplexOpen.XpGroup)) = _pGroup
+	_pGroup.XbEnabled = uint8(255)
+	_pGroup.XbTruncate = uint8(bin.Xsqlite3_uri_boolean(tls, _3_zUri, str(6878), bool2int((_flags&int32(256)) == int32(0))))
+	_pGroup.XszChunk = uint32(int32(bin.Xsqlite3_uri_int64(tls, _3_zUri, str(6887), int64(2147418112))))
+	_pGroup.XszChunk = (_pGroup.XszChunk + uint32(65535)) & uint32(4294901760)
 	if _zName != nil {
-		_4_p = (*int8)(unsafe.Pointer((*XmultiplexGroup)(unsafe.Pointer(uintptr(unsafe.Pointer(_pGroup)) + 40*uintptr(i32(1))))))
-		*(**int8)(unsafe.Pointer(&_pGroup.X2)) = _4_p
-		crt.Xmemcpy(tls, unsafe.Pointer(_pGroup.X2), unsafe.Pointer(_zName), uint64(_nName+i32(1)))
-		*(*int32)(unsafe.Pointer(&_pGroup.X3)) = _nName
+		_4_p = (*int8)(unsafe.Pointer(elem11(_pGroup, uintptr(1))))
+		_pGroup.XzName = _4_p
+		crt.Xmemcpy(tls, unsafe.Pointer(_pGroup.XzName), unsafe.Pointer(_zName), uint64(_nName+int32(1)))
+		_pGroup.XnName = _nName
 	}
-	if _pGroup.X6 == 0 {
+	if _pGroup.XbEnabled == 0 {
 		goto _11
 	}
 _12:
-	if (uint32(bin.Xsqlite3PendingByte()) % _pGroup.X5) >= (_pGroup.X5 - uint32(i32(65536))) {
-		{
-			p := (*uint32)(unsafe.Pointer(&_pGroup.X5))
-			*p = (*p) + uint32(i32(65536))
-			sink0(*p)
-		}
+	if (uint32(bin.Xsqlite3PendingByte()) % _pGroup.XszChunk) >= (_pGroup.XszChunk - uint32(65536)) {
+		_pGroup.XszChunk += uint32(65536)
 		goto _12
 	}
 _11:
-	*(*int32)(unsafe.Pointer(&_pGroup.X4)) = _flags
-	_rc = _multiplexSubFilename(tls, _pGroup, i32(1))
-	if _rc != i32(0) {
+	_pGroup.Xflags = _flags
+	_rc = _multiplexSubFilename(tls, _pGroup, int32(1))
+	if _rc != int32(0) {
 		goto _14
 	}
-	_pSubOpen = _multiplexSubOpen(tls, _pGroup, i32(0), &_rc, _pOutFlags, i32(0))
-	if (_pSubOpen == nil) && (_rc == i32(0)) {
-		_rc = i32(14)
+	_pSubOpen = _multiplexSubOpen(tls, _pGroup, int32(0), &_rc, _pOutFlags, int32(0))
+	if (_pSubOpen == nil) && (_rc == int32(0)) {
+		_rc = int32(14)
 	}
 _14:
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _17
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X6
+		v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxFileSize
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32)(unsafe.Pointer(&v))
 	}()(tls, _pSubOpen, &_8_sz64)
-	if _rc != i32(0) || _zName == nil {
+	if _rc != int32(0) || _zName == nil {
 		goto _19
 	}
-	if (_flags & i32(16384)) != 0 {
-		*(*uint8)(unsafe.Pointer(&_pGroup.X6)) = uint8(i32(0))
+	if (_flags & int32(16384)) != 0 {
+		_pGroup.XbEnabled = 0
 		goto _29
 	}
-	if _8_sz64 != int64(i32(0)) {
+	if _8_sz64 != (0) {
 		goto _22
 	}
-	if (_flags & i32(2048)) == 0 {
+	if (_flags & int32(2048)) == 0 {
 		goto _23
 	}
-	_12_iChunk = i32(1)
+	_12_iChunk = int32(1)
 _24:
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32 {
-		v := _pOrigVfs.X8
+		v := _pOrigVfs.XxAccess
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_12_iChunk))).X1, i32(0), &_9_bExists)
-	if _rc != i32(0) || _9_bExists == 0 {
+	}()(tls, _pOrigVfs, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_12_iChunk)).Xz, int32(0), &_9_bExists)
+	if _rc != int32(0) || _9_bExists == 0 {
 		goto _26
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32 {
-		v := _pOrigVfs.X7
+		v := _pOrigVfs.XxDelete
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_12_iChunk))).X1, i32(0))
-	if _rc == i32(0) {
-		_rc = _multiplexSubFilename(tls, _pGroup, preInc3(&_12_iChunk, 1))
+	}()(tls, _pOrigVfs, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_12_iChunk)).Xz, int32(0))
+	if _rc == int32(0) {
+		_rc = _multiplexSubFilename(tls, _pGroup, preInc7(&_12_iChunk, 1))
 	}
 _26:
-	if (_rc == i32(0)) && _9_bExists != 0 {
+	if (_rc == int32(0)) && _9_bExists != 0 {
 		goto _24
 	}
 _23:
 	goto _29
 _22:
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32 {
-		v := _pOrigVfs.X8
+		v := _pOrigVfs.XxAccess
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(i32(1)))).X1, i32(0), &_9_bExists)
-	_9_bExists = bool2int(_multiplexSubSize(tls, _pGroup, i32(1), &_rc) > int64(i32(0)))
-	if ((((_rc == i32(0)) && _9_bExists != 0) && (_8_sz64 == (_8_sz64 & int64(u32(4294901760))))) && (_8_sz64 > int64(i32(0)))) && (_8_sz64 != int64(_pGroup.X5)) {
-		*(*uint32)(unsafe.Pointer(&_pGroup.X5)) = uint32(int32(_8_sz64))
+	}()(tls, _pOrigVfs, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(1)).Xz, int32(0), &_9_bExists)
+	_9_bExists = bool2int(_multiplexSubSize(tls, _pGroup, int32(1), &_rc) > (0))
+	if ((((_rc == int32(0)) && _9_bExists != 0) && (_8_sz64 == (_8_sz64 & int64(4294901760)))) && (_8_sz64 > (0))) && (_8_sz64 != int64(_pGroup.XszChunk)) {
+		_pGroup.XszChunk = uint32(int32(_8_sz64))
 		goto _38
 	}
-	if ((_rc == i32(0)) && (_9_bExists == 0)) && (_8_sz64 > int64(_pGroup.X5)) {
-		*(*uint8)(unsafe.Pointer(&_pGroup.X6)) = uint8(i32(0))
+	if ((_rc == int32(0)) && (_9_bExists == 0)) && (_8_sz64 > int64(_pGroup.XszChunk)) {
+		_pGroup.XbEnabled = 0
 	}
 _38:
 _29:
 _19:
 _17:
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _39
 	}
-	if ((*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X0) == i32(1) {
-		*(**bin.Xsqlite3_io_methods)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&((*bin.Xsqlite3_file)(unsafe.Pointer(&_pMultiplexOpen.X0)).X0))))) = (*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X2))
+	if ((*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XiVersion) == int32(1) {
+		*(**bin.Xsqlite3_io_methods)(unsafe.Pointer(&(_pMultiplexOpen.Xbase.XpMethods))) = &_gMultiplex.XsIoMethodsV1
 		goto _41
 	}
-	*(**bin.Xsqlite3_io_methods)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&((*bin.Xsqlite3_file)(unsafe.Pointer(&_pMultiplexOpen.X0)).X0))))) = (*bin.Xsqlite3_io_methods)(unsafe.Pointer(&_gMultiplex.X3))
+	*(**bin.Xsqlite3_io_methods)(unsafe.Pointer(&(_pMultiplexOpen.Xbase.XpMethods))) = &_gMultiplex.XsIoMethodsV2
 _41:
 	goto _42
 _39:
@@ -5601,8 +4904,6 @@ func init() {
 
 // C comment
 //  /************************* Utility Routines *********************************/
-
-// C comment
 //  /*
 //  ** Compute a string length that is limited to what can be stored in
 //  ** lower 30 bits of a 32-bit signed integer.
@@ -5615,14 +4916,14 @@ func _multiplexStrlen30(tls *crt.TLS, _z *int8) (r0 int32) {
 	var _z2 *int8
 	_z2 = _z
 	if _z == nil {
-		return i32(0)
+		return int32(0)
 	}
 _0:
 	if (*_z2) != 0 {
 		*(*uintptr)(unsafe.Pointer(&_z2)) += uintptr(1)
 		goto _0
 	}
-	return i32(1073741823) & int32(int64((uintptr(unsafe.Pointer(_z2))-uintptr(unsafe.Pointer(_z)))/1))
+	return int32(1073741823) & int32(int64(uintptr(unsafe.Pointer(_z2))-uintptr(unsafe.Pointer(_z))))
 }
 
 // C comment
@@ -5631,29 +4932,29 @@ _0:
 func _multiplexSubFilename(tls *crt.TLS, _pGroup *XmultiplexGroup, _iChunk int32) (r0 int32) {
 	var _3_n int32
 	var _3_z *int8
-	var _1_p *bin.XanalysisInfo
-	if _iChunk < _pGroup.X1 {
+	var _1_p *TmultiplexReal
+	if _iChunk < _pGroup.XnReal {
 		goto _0
 	}
-	_1_p = (*bin.XanalysisInfo)(bin.Xsqlite3_realloc64(tls, _pGroup.X0, uint64(_iChunk+i32(1))*u64(16)))
+	_1_p = (*TmultiplexReal)(bin.Xsqlite3_realloc64(tls, _pGroup.XaReal, uint64(_iChunk+int32(1))*uint64(16)))
 	if _1_p == nil {
-		return i32(7)
+		return int32(7)
 	}
-	crt.Xmemset(tls, unsafe.Pointer((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(unsafe.Pointer(_1_p))+16*uintptr(_pGroup.X1)))), i32(0), u64(16)*uint64((_iChunk+i32(1))-_pGroup.X1))
-	*(**bin.XanalysisInfo)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pGroup.X0)))) = _1_p
-	*(*int32)(unsafe.Pointer(&_pGroup.X1)) = _iChunk + i32(1)
+	crt.Xmemset(tls, unsafe.Pointer(elem12(_1_p, uintptr(_pGroup.XnReal))), int32(0), uint64(16)*uint64((_iChunk+int32(1))-_pGroup.XnReal))
+	*(**TmultiplexReal)(unsafe.Pointer(&_pGroup.XaReal)) = _1_p
+	_pGroup.XnReal = _iChunk + int32(1)
 _0:
-	if _pGroup.X2 == nil || ((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1) != nil {
+	if _pGroup.XzName == nil || (elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz) != nil {
 		goto _3
 	}
-	_3_n = _pGroup.X3
-	*(**int8)(unsafe.Pointer(&((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_iChunk))).X1))) = store6(&_3_z, (*int8)(bin.Xsqlite3_malloc64(tls, uint64(_3_n+i32(5)))))
+	_3_n = _pGroup.XnName
+	elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz = store2(&_3_z, (*int8)(bin.Xsqlite3_malloc64(tls, uint64(_3_n+int32(5)))))
 	if _3_z == nil {
-		return i32(7)
+		return int32(7)
 	}
-	_multiplexFilename(tls, _pGroup.X2, _pGroup.X3, _pGroup.X4, _iChunk, _3_z)
+	_multiplexFilename(tls, _pGroup.XzName, _pGroup.XnName, _pGroup.Xflags, _iChunk, _3_z)
 _3:
-	return i32(0)
+	return int32(0)
 }
 
 // C comment
@@ -5685,22 +4986,18 @@ _3:
 func _multiplexFilename(tls *crt.TLS, _zBase *int8, _nBase int32, _flags int32, _iChunk int32, _zOut *int8) {
 	var _n int32
 	_n = _nBase
-	crt.Xmemcpy(tls, unsafe.Pointer(_zOut), unsafe.Pointer(_zBase), uint64(_n+i32(1)))
-	if (_iChunk != i32(0)) && (_iChunk <= i32(299)) {
-		bin.Xsqlite3_snprintf(tls, i32(4), (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zOut))+1*uintptr(_n))), str(6911), _iChunk)
-		{
-			p := &_n
-			*p = (*p) + i32(3)
-			sink3(*p)
-		}
+	crt.Xmemcpy(tls, unsafe.Pointer(_zOut), unsafe.Pointer(_zBase), uint64(_n+int32(1)))
+	if (_iChunk != int32(0)) && (_iChunk <= int32(299)) {
+		bin.Xsqlite3_snprintf(tls, int32(4), elem2(_zOut, uintptr(_n)), str(6911), _iChunk)
+		_n += int32(3)
 	}
 	func() {
-		if int32(*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zOut)) + 1*uintptr(_n)))) != i32(0) {
-			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(6703)), i32(250), unsafe.Pointer((*int8)(unsafe.Pointer(&_multiplexFilenameØ00__func__Ø000))), unsafe.Pointer(str(6916)))
+		if int32(*elem2(_zOut, uintptr(_n))) != int32(0) {
+			crt.X__builtin_fprintf(tls, Xstderr, str(991), unsafe.Pointer(str(6703)), int32(250), unsafe.Pointer(&_multiplexFilenameØ00__func__Ø000), unsafe.Pointer(str(6916)))
 			crt.X__builtin_abort(tls)
 		}
 	}()
-	*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_zOut)) + 1*uintptr(_n+i32(1)))) = int8(i32(0))
+	*elem2(_zOut, uintptr(_n+int32(1))) = 0
 }
 
 var _multiplexFilenameØ00__func__Ø000 [18]int8
@@ -5722,59 +5019,51 @@ func _multiplexSubOpen(tls *crt.TLS, _pGroup *XmultiplexGroup, _iChunk int32, _r
 	var _pSubOpen *bin.Xsqlite3_file
 	var _pOrigVfs *bin.Xsqlite3_vfs
 	_pSubOpen = nil
-	_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.X0)
+	_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs)
 	*_rc = _multiplexSubFilename(tls, _pGroup, _iChunk)
-	if (*_rc) != i32(0) || store7(&_pSubOpen, (*bin.Xsqlite3_file)((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X0)) != nil {
+	if (*_rc) != int32(0) || store13(&_pSubOpen, (*bin.Xsqlite3_file)(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xp)) != nil {
 		goto _1
 	}
-	_1_flags = _pGroup.X4
+	_1_flags = _pGroup.Xflags
 	if _createFlag != 0 {
-		{
-			p := &_1_flags
-			*p = (*p) | i32(4)
-			sink3(*p)
-		}
+		_1_flags |= int32(4)
 		goto _7
 	}
-	if _iChunk == i32(0) {
+	if _iChunk == int32(0) {
 		goto _7
 	}
-	if ((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_iChunk))).X1) == nil {
+	if (elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz) == nil {
 		return nil
 	}
 	*_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32 {
-		v := _pOrigVfs.X8
+		v := _pOrigVfs.XxAccess
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1, i32(0), &_1_bExists)
+	}()(tls, _pOrigVfs, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz, int32(0), &_1_bExists)
 	if (*_rc) == 0 && _1_bExists != 0 {
 		goto _9
 	}
 	if (*_rc) != 0 {
-		bin.Xsqlite3_log(tls, *_rc, str(6948), unsafe.Pointer((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1))
+		bin.Xsqlite3_log(tls, *_rc, str(6948), unsafe.Pointer(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz))
 	}
 	return nil
 
 _9:
-	{
-		p := &_1_flags
-		*p = (*p) & i32(-5)
-		sink3(*p)
-	}
+	_1_flags &= int32(-5)
 _7:
-	_pSubOpen = (*bin.Xsqlite3_file)(bin.Xsqlite3_malloc64(tls, uint64(_pOrigVfs.X1)))
+	_pSubOpen = (*bin.Xsqlite3_file)(bin.Xsqlite3_malloc64(tls, uint64(_pOrigVfs.XszOsFile)))
 	if _pSubOpen == nil {
-		*_rc = i32(3082)
+		*_rc = int32(3082)
 		return nil
 	}
-	*(**bin.Xsqlite3_file)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_iChunk))).X0))))) = _pSubOpen
+	*(**bin.Xsqlite3_file)(unsafe.Pointer(&(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xp))) = _pSubOpen
 	*_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, *bin.Xsqlite3_file, int32, *int32) int32 {
-		v := _pOrigVfs.X6
+		v := _pOrigVfs.XxOpen
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, *bin.Xsqlite3_file, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1, _pSubOpen, _1_flags, _pOutFlags)
-	if (*_rc) != i32(0) {
-		bin.Xsqlite3_log(tls, *_rc, str(6982), unsafe.Pointer((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1))
+	}()(tls, _pOrigVfs, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz, _pSubOpen, _1_flags, _pOutFlags)
+	if (*_rc) != int32(0) {
+		bin.Xsqlite3_log(tls, *_rc, str(6982), unsafe.Pointer(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz))
 		bin.Xsqlite3_free(tls, unsafe.Pointer(_pSubOpen))
-		*(**bin.Xsqlite3_file)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_iChunk))).X0))))) = nil
+		*(**bin.Xsqlite3_file)(unsafe.Pointer(&(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xp))) = nil
 		return nil
 	}
 _1:
@@ -5790,16 +5079,16 @@ _1:
 func _multiplexSubSize(tls *crt.TLS, _pGroup *XmultiplexGroup, _iChunk int32, _rc *int32) (r0 int64) {
 	var _sz int64
 	var _pSub *bin.Xsqlite3_file
-	_sz = i64(0)
+	_sz = int64(0)
 	if (*_rc) != 0 {
-		return int64(i32(0))
+		return 0
 	}
-	_pSub = _multiplexSubOpen(tls, _pGroup, _iChunk, _rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSub = _multiplexSubOpen(tls, _pGroup, _iChunk, _rc, nil, int32(0))
 	if _pSub == nil {
-		return int64(i32(0))
+		return 0
 	}
 	*_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_pSub.X0).X6
+		v := (*bin.Xsqlite3_io_methods)(_pSub.XpMethods).XxFileSize
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32)(unsafe.Pointer(&v))
 	}()(tls, _pSub, &_sz)
 	return _sz
@@ -5811,18 +5100,18 @@ func _multiplexSubSize(tls *crt.TLS, _pGroup *XmultiplexGroup, _iChunk int32, _r
 //  */
 func _multiplexFreeComponents(tls *crt.TLS, _pGroup *XmultiplexGroup) {
 	var _i int32
-	_i = i32(0)
+	_i = int32(0)
 _0:
-	if _i >= _pGroup.X1 {
+	if _i >= _pGroup.XnReal {
 		goto _3
 	}
 	_multiplexSubClose(tls, _pGroup, _i, nil)
 	_i += 1
 	goto _0
 _3:
-	bin.Xsqlite3_free(tls, _pGroup.X0)
-	*(**bin.XanalysisInfo)(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(&_pGroup.X0)))) = nil
-	*(*int32)(unsafe.Pointer(&_pGroup.X1)) = i32(0)
+	bin.Xsqlite3_free(tls, _pGroup.XaReal)
+	*(**TmultiplexReal)(unsafe.Pointer(&_pGroup.XaReal)) = nil
+	_pGroup.XnReal = int32(0)
 }
 
 // C comment
@@ -5831,24 +5120,24 @@ _3:
 //  */
 func _multiplexSubClose(tls *crt.TLS, _pGroup *XmultiplexGroup, _iChunk int32, _pOrigVfs *bin.Xsqlite3_vfs) {
 	var _pSubOpen *bin.Xsqlite3_file
-	_pSubOpen = (*bin.Xsqlite3_file)((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_iChunk))).X0)
+	_pSubOpen = (*bin.Xsqlite3_file)(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xp)
 	if _pSubOpen == nil {
 		goto _0
 	}
 	func() func(*crt.TLS, *bin.Xsqlite3_file) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X1
+		v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxClose
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer(&v))
 	}()(tls, _pSubOpen)
-	if (_pOrigVfs != nil) && (((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_iChunk))).X1) != nil) {
+	if (_pOrigVfs != nil) && ((elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz) != nil) {
 		func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32 {
-			v := _pOrigVfs.X7
+			v := _pOrigVfs.XxDelete
 			return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer(&v))
-		}()(tls, _pOrigVfs, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1, i32(0))
+		}()(tls, _pOrigVfs, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz, int32(0))
 	}
-	bin.Xsqlite3_free(tls, (*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X0)
+	bin.Xsqlite3_free(tls, elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xp)
 _0:
-	bin.Xsqlite3_free(tls, unsafe.Pointer((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk))).X1))
-	crt.Xmemset(tls, unsafe.Pointer((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0)+16*uintptr(_iChunk)))), i32(0), u64(16))
+	bin.Xsqlite3_free(tls, unsafe.Pointer(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk)).Xz))
+	crt.Xmemset(tls, unsafe.Pointer(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_iChunk))), int32(0), uint64(16))
 }
 
 // C comment
@@ -5860,57 +5149,57 @@ func _multiplexDelete(tls *crt.TLS, _pVfs *bin.Xsqlite3_vfs, _zName *int8, _sync
 	var _rc, _1_nName, _3_iChunk, _3_bExists int32
 	var _1_z *int8
 	var _pOrigVfs *bin.Xsqlite3_vfs
-	_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.X0)
+	_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs)
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32 {
-		v := _pOrigVfs.X7
+		v := _pOrigVfs.XxDelete
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer(&v))
 	}()(tls, _pOrigVfs, _zName, _syncDir)
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _0
 	}
 	_1_nName = int32(crt.Xstrlen(tls, _zName))
-	_1_z = (*int8)(bin.Xsqlite3_malloc64(tls, uint64(_1_nName+i32(5))))
+	_1_z = (*int8)(bin.Xsqlite3_malloc64(tls, uint64(_1_nName+int32(5))))
 	if _1_z == nil {
-		_rc = i32(3082)
+		_rc = int32(3082)
 		goto _2
 	}
-	_3_iChunk = i32(0)
+	_3_iChunk = int32(0)
 _3:
-	_multiplexFilename(tls, _zName, _1_nName, i32(2048), preInc3(&_3_iChunk, 1), _1_z)
+	_multiplexFilename(tls, _zName, _1_nName, int32(2048), preInc7(&_3_iChunk, 1), _1_z)
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32 {
-		v := _pOrigVfs.X8
+		v := _pOrigVfs.XxAccess
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, _1_z, i32(0), &_3_bExists)
-	if (_rc == i32(0)) && _3_bExists != 0 {
+	}()(tls, _pOrigVfs, _1_z, int32(0), &_3_bExists)
+	if (_rc == int32(0)) && _3_bExists != 0 {
 		goto _3
 	}
 _5:
-	if (_rc == i32(0)) && (_3_iChunk > i32(1)) {
-		_multiplexFilename(tls, _zName, _1_nName, i32(2048), preInc3(&_3_iChunk, -1), _1_z)
+	if (_rc == int32(0)) && (_3_iChunk > int32(1)) {
+		_multiplexFilename(tls, _zName, _1_nName, int32(2048), preInc7(&_3_iChunk, -1), _1_z)
 		_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32 {
-			v := _pOrigVfs.X7
+			v := _pOrigVfs.XxDelete
 			return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pOrigVfs, _1_z, _syncDir)
 		goto _5
 	}
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _8
 	}
-	_3_iChunk = i32(0)
+	_3_iChunk = int32(0)
 _9:
-	_multiplexFilename(tls, _zName, _1_nName, i32(524288), preInc3(&_3_iChunk, 1), _1_z)
+	_multiplexFilename(tls, _zName, _1_nName, int32(524288), preInc7(&_3_iChunk, 1), _1_z)
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32 {
-		v := _pOrigVfs.X8
+		v := _pOrigVfs.XxAccess
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, _pOrigVfs, _1_z, i32(0), &_3_bExists)
-	if (_rc == i32(0)) && _3_bExists != 0 {
+	}()(tls, _pOrigVfs, _1_z, int32(0), &_3_bExists)
+	if (_rc == int32(0)) && _3_bExists != 0 {
 		goto _9
 	}
 _11:
-	if (_rc == i32(0)) && (_3_iChunk > i32(1)) {
-		_multiplexFilename(tls, _zName, _1_nName, i32(524288), preInc3(&_3_iChunk, -1), _1_z)
+	if (_rc == int32(0)) && (_3_iChunk > int32(1)) {
+		_multiplexFilename(tls, _zName, _1_nName, int32(524288), preInc7(&_3_iChunk, -1), _1_z)
 		_rc = func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32 {
-			v := _pOrigVfs.X7
+			v := _pOrigVfs.XxDelete
 			return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pOrigVfs, _1_z, _syncDir)
 		goto _11
@@ -5924,82 +5213,82 @@ _0:
 
 func _multiplexAccess(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b *int8, _c int32, _d *int32) (r0 int32) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32 {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X8
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxAccess
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int32) int32)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b, _c, _d)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b, _c, _d)
 }
 
 func _multiplexFullPathname(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b *int8, _c int32, _d *int8) (r0 int32) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int8) int32 {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X9
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxFullPathname
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8, int32, *int8) int32)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b, _c, _d)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b, _c, _d)
 }
 
 func _multiplexDlOpen(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b *int8) (r0 unsafe.Pointer) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int8) unsafe.Pointer {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X10
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxDlOpen
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int8) unsafe.Pointer)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b)
 }
 
 func _multiplexDlError(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b int32, _c *int8) {
 	func() func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X11
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxDlError
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8))(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b, _c)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b, _c)
 }
 
 func _multiplexDlSym(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b unsafe.Pointer, _c *int8) (r0 func(*crt.TLS)) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer, *int8) func(*crt.TLS) {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X12
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxDlSym
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer, *int8) func(*crt.TLS))(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b, _c)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b, _c)
 }
 
 func _multiplexDlClose(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b unsafe.Pointer) {
 	func() func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer) {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X13
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxDlClose
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, unsafe.Pointer))(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b)
 }
 
 func _multiplexRandomness(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b int32, _c *int8) (r0 int32) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32 {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X14
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxRandomness
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b, _c)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b, _c)
 }
 
 func _multiplexSleep(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b int32) (r0 int32) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, int32) int32 {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X15
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxSleep
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32) int32)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b)
 }
 
 func _multiplexCurrentTime(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b *float64) (r0 int32) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, *float64) int32 {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X16
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxCurrentTime
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *float64) int32)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b)
 }
 
 func _multiplexGetLastError(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b int32, _c *int8) (r0 int32) {
-	if ((*bin.Xsqlite3_vfs)(_gMultiplex.X0).X17) != nil {
+	if ((*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxGetLastError) != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32 {
-			v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X17
+			v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxGetLastError
 			return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, int32, *int8) int32)(unsafe.Pointer(&v))
-		}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b, _c)
+		}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b, _c)
 	}
-	return i32(0)
+	return int32(0)
 }
 
 func _multiplexCurrentTimeInt64(tls *crt.TLS, _a *bin.Xsqlite3_vfs, _b *int64) (r0 int32) {
 	return func() func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32 {
-		v := (*bin.Xsqlite3_vfs)(_gMultiplex.X0).X18
+		v := (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs).XxCurrentTimeInt64
 		return *(*func(*crt.TLS, *bin.Xsqlite3_vfs, *int64) int32)(unsafe.Pointer(&v))
-	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.X0), _b)
+	}()(tls, (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs), _b)
 }
 
 // C comment
@@ -6013,8 +5302,8 @@ func _multiplexClose(tls *crt.TLS, _pConn *bin.Xsqlite3_file) (r0 int32) {
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(0)
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(0)
 	_multiplexFreeComponents(tls, _pGroup)
 	bin.Xsqlite3_free(tls, unsafe.Pointer(_pGroup))
 	return _rc
@@ -6031,58 +5320,50 @@ func _multiplexRead(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _pBuf unsafe.Pointe
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(0)
-	if _pGroup.X6 != 0 {
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(0)
+	if _pGroup.XbEnabled != 0 {
 		goto _0
 	}
-	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, int32(0), &_rc, nil, int32(0))
 	if _1_pSubOpen == nil {
-		_rc = i32(266)
+		_rc = int32(266)
 		goto _2
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.X0).X2
+		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.XpMethods).XxRead
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&v))
 	}()(tls, _1_pSubOpen, _pBuf, _iAmt, _iOfst)
 _2:
 	goto _3
 _0:
 _4:
-	if _iAmt <= i32(0) {
+	if _iAmt <= int32(0) {
 		goto _5
 	}
-	_5_i = int32(_iOfst / int64(_pGroup.X5))
-	_5_pSubOpen = _multiplexSubOpen(tls, _pGroup, _5_i, &_rc, (*int32)(unsafe.Pointer(nil)), i32(1))
+	_5_i = int32(_iOfst / int64(_pGroup.XszChunk))
+	_5_pSubOpen = _multiplexSubOpen(tls, _pGroup, _5_i, &_rc, nil, int32(1))
 	if _5_pSubOpen == nil {
 		goto _6
 	}
-	_6_extra = int32(uint32(int32(_iOfst%int64(_pGroup.X5))+_iAmt) - _pGroup.X5)
-	if _6_extra < i32(0) {
-		_6_extra = i32(0)
+	_6_extra = int32(uint32(int32(_iOfst%int64(_pGroup.XszChunk))+_iAmt) - _pGroup.XszChunk)
+	if _6_extra < int32(0) {
+		_6_extra = int32(0)
 	}
-	{
-		p := &_iAmt
-		*p = (*p) - _6_extra
-		sink3(*p)
-	}
+	_iAmt -= _6_extra
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_5_pSubOpen.X0).X2
+		v := (*bin.Xsqlite3_io_methods)(_5_pSubOpen.XpMethods).XxRead
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&v))
-	}()(tls, _5_pSubOpen, _pBuf, _iAmt, _iOfst%int64(_pGroup.X5))
-	if _rc != i32(0) {
+	}()(tls, _5_pSubOpen, _pBuf, _iAmt, _iOfst%int64(_pGroup.XszChunk))
+	if _rc != int32(0) {
 		goto _5
 	}
-	_pBuf = unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(_pBuf))) + uintptr(_iAmt))))
-	{
-		p := &_iOfst
-		*p = (*p) + int64(_iAmt)
-		sink4(*p)
-	}
+	_pBuf = unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_pBuf) + uintptr(_iAmt))))
+	_iOfst += int64(_iAmt)
 	_iAmt = _6_extra
 	goto _9
 _6:
-	_rc = i32(266)
+	_rc = int32(266)
 	goto _5
 _9:
 	goto _4
@@ -6102,51 +5383,43 @@ func _multiplexWrite(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _pBuf unsafe.Point
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(0)
-	if _pGroup.X6 != 0 {
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(0)
+	if _pGroup.XbEnabled != 0 {
 		goto _0
 	}
-	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, int32(0), &_rc, nil, int32(0))
 	if _1_pSubOpen == nil {
-		_rc = i32(778)
+		_rc = int32(778)
 		goto _2
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.X0).X3
+		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.XpMethods).XxWrite
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&v))
 	}()(tls, _1_pSubOpen, _pBuf, _iAmt, _iOfst)
 _2:
 	goto _3
 _0:
 _4:
-	if _rc != i32(0) || _iAmt <= i32(0) {
+	if _rc != int32(0) || _iAmt <= int32(0) {
 		goto _5
 	}
-	_5_i = int32(_iOfst / int64(_pGroup.X5))
-	_5_pSubOpen = _multiplexSubOpen(tls, _pGroup, _5_i, &_rc, (*int32)(unsafe.Pointer(nil)), i32(1))
+	_5_i = int32(_iOfst / int64(_pGroup.XszChunk))
+	_5_pSubOpen = _multiplexSubOpen(tls, _pGroup, _5_i, &_rc, nil, int32(1))
 	if _5_pSubOpen == nil {
 		goto _7
 	}
-	_6_extra = int32(uint32(int32(_iOfst%int64(_pGroup.X5))+_iAmt) - _pGroup.X5)
-	if _6_extra < i32(0) {
-		_6_extra = i32(0)
+	_6_extra = int32(uint32(int32(_iOfst%int64(_pGroup.XszChunk))+_iAmt) - _pGroup.XszChunk)
+	if _6_extra < int32(0) {
+		_6_extra = int32(0)
 	}
-	{
-		p := &_iAmt
-		*p = (*p) - _6_extra
-		sink3(*p)
-	}
+	_iAmt -= _6_extra
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_5_pSubOpen.X0).X3
+		v := (*bin.Xsqlite3_io_methods)(_5_pSubOpen.XpMethods).XxWrite
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, unsafe.Pointer, int32, int64) int32)(unsafe.Pointer(&v))
-	}()(tls, _5_pSubOpen, _pBuf, _iAmt, _iOfst%int64(_pGroup.X5))
-	_pBuf = unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(unsafe.Pointer((*int8)(_pBuf))) + uintptr(_iAmt))))
-	{
-		p := &_iOfst
-		*p = (*p) + int64(_iAmt)
-		sink4(*p)
-	}
+	}()(tls, _5_pSubOpen, _pBuf, _iAmt, _iOfst%int64(_pGroup.XszChunk))
+	_pBuf = unsafe.Pointer((*int8)(unsafe.Pointer(uintptr(_pBuf) + uintptr(_iAmt))))
+	_iOfst += int64(_iAmt)
 	_iAmt = _6_extra
 _7:
 	goto _4
@@ -6167,58 +5440,58 @@ func _multiplexTruncate(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _size int64) (r
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(0)
-	if _pGroup.X6 != 0 {
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(0)
+	if _pGroup.XbEnabled != 0 {
 		goto _0
 	}
-	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, int32(0), &_rc, nil, int32(0))
 	if _1_pSubOpen == nil {
-		_rc = i32(1546)
+		_rc = int32(1546)
 		goto _2
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.X0).X4
+		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.XpMethods).XxTruncate
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, int64) int32)(unsafe.Pointer(&v))
 	}()(tls, _1_pSubOpen, _size)
 _2:
 	goto _3
 _0:
-	_4_iBaseGroup = int32(_size / int64(_pGroup.X5))
-	_4_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.X0)
-	_4_i = _pGroup.X1 - i32(1)
+	_4_iBaseGroup = int32(_size / int64(_pGroup.XszChunk))
+	_4_pOrigVfs = (*bin.Xsqlite3_vfs)(_gMultiplex.XpOrigVfs)
+	_4_i = _pGroup.XnReal - int32(1)
 _4:
-	if _4_i <= _4_iBaseGroup || _rc != i32(0) {
+	if _4_i <= _4_iBaseGroup || _rc != int32(0) {
 		goto _8
 	}
-	if _pGroup.X7 != 0 {
+	if _pGroup.XbTruncate != 0 {
 		_multiplexSubClose(tls, _pGroup, _4_i, _4_pOrigVfs)
 		goto _10
 	}
-	_4_pSubOpen = _multiplexSubOpen(tls, _pGroup, _4_i, &_rc, nil, i32(0))
+	_4_pSubOpen = _multiplexSubOpen(tls, _pGroup, _4_i, &_rc, nil, int32(0))
 	if _4_pSubOpen != nil {
 		_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, int64) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_4_pSubOpen.X0).X4
+			v := (*bin.Xsqlite3_io_methods)(_4_pSubOpen.XpMethods).XxTruncate
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int64) int32)(unsafe.Pointer(&v))
-		}()(tls, _4_pSubOpen, int64(i32(0)))
+		}()(tls, _4_pSubOpen, 0)
 	}
 _10:
 	_4_i -= 1
 	goto _4
 _8:
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _12
 	}
-	_4_pSubOpen = _multiplexSubOpen(tls, _pGroup, _4_iBaseGroup, &_rc, nil, i32(0))
+	_4_pSubOpen = _multiplexSubOpen(tls, _pGroup, _4_iBaseGroup, &_rc, nil, int32(0))
 	if _4_pSubOpen != nil {
 		_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, int64) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_4_pSubOpen.X0).X4
+			v := (*bin.Xsqlite3_io_methods)(_4_pSubOpen.XpMethods).XxTruncate
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int64) int32)(unsafe.Pointer(&v))
-		}()(tls, _4_pSubOpen, _size%int64(_pGroup.X5))
+		}()(tls, _4_pSubOpen, _size%int64(_pGroup.XszChunk))
 	}
 _12:
 	if _rc != 0 {
-		_rc = i32(1546)
+		_rc = int32(1546)
 	}
 _3:
 	return _rc
@@ -6233,22 +5506,22 @@ func _multiplexSync(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _flags int32) (r0 i
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(0)
-	_i = i32(0)
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(0)
+	_i = int32(0)
 _0:
-	if _i >= _pGroup.X1 {
+	if _i >= _pGroup.XnReal {
 		goto _3
 	}
-	_1_pSubOpen = (*bin.Xsqlite3_file)((*bin.XanalysisInfo)(unsafe.Pointer(uintptr(_pGroup.X0) + 16*uintptr(_i))).X0)
+	_1_pSubOpen = (*bin.Xsqlite3_file)(elem12((*TmultiplexReal)(_pGroup.XaReal), uintptr(_i)).Xp)
 	if _1_pSubOpen == nil {
 		goto _4
 	}
 	_2_rc2 = func() func(*crt.TLS, *bin.Xsqlite3_file, int32) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.X0).X5
+		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.XpMethods).XxSync
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&v))
 	}()(tls, _1_pSubOpen, _flags)
-	if _2_rc2 != i32(0) {
+	if _2_rc2 != int32(0) {
 		_rc = _2_rc2
 	}
 _4:
@@ -6269,34 +5542,34 @@ func _multiplexFileSize(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _pSize *int64) 
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(0)
-	if _pGroup.X6 != 0 {
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(0)
+	if _pGroup.XbEnabled != 0 {
 		goto _0
 	}
-	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_1_pSubOpen = _multiplexSubOpen(tls, _pGroup, int32(0), &_rc, nil, int32(0))
 	if _1_pSubOpen == nil {
-		_rc = i32(1802)
+		_rc = int32(1802)
 		goto _2
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.X0).X6
+		v := (*bin.Xsqlite3_io_methods)(_1_pSubOpen.XpMethods).XxFileSize
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, *int64) int32)(unsafe.Pointer(&v))
 	}()(tls, _1_pSubOpen, _pSize)
 _2:
 	goto _3
 _0:
-	*_pSize = int64(i32(0))
-	_i = i32(0)
+	*_pSize = 0
+	_i = int32(0)
 _4:
-	if _rc != i32(0) {
+	if _rc != int32(0) {
 		goto _7
 	}
 	_5_sz = _multiplexSubSize(tls, _pGroup, _i, &_rc)
-	if _5_sz == int64(i32(0)) {
+	if _5_sz == (0) {
 		goto _7
 	}
-	*_pSize = (int64(_i) * int64(_pGroup.X5)) + _5_sz
+	*_pSize = (int64(_i) * int64(_pGroup.XszChunk)) + _5_sz
 	_i += 1
 	goto _4
 _7:
@@ -6312,17 +5585,14 @@ func _multiplexLock(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _lock int32) (r0 in
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file, int32) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X7
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxLock
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen, _lock)
 	}
-	return i32(5)
-
-	_ = _rc
-	panic(0)
+	return int32(5)
 }
 
 // C comment
@@ -6333,17 +5603,14 @@ func _multiplexUnlock(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _lock int32) (r0 
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file, int32) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X8
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxUnlock
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen, _lock)
 	}
-	return i32(2058)
-
-	_ = _rc
-	panic(0)
+	return int32(2058)
 }
 
 // C comment
@@ -6354,17 +5621,14 @@ func _multiplexCheckReservedLock(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _pResO
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file, *int32) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X9
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxCheckReservedLock
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, *int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen, _pResOut)
 	}
-	return i32(3594)
-
-	_ = _rc
-	panic(0)
+	return int32(3594)
 }
 
 // C comment
@@ -6379,23 +5643,23 @@ func _multiplexFileControl(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _op int32, _
 	var _pGroup *XmultiplexGroup
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pGroup = (*XmultiplexGroup)(_p.X1)
-	_rc = i32(1)
-	if _gMultiplex.X4 == 0 {
-		return i32(21)
+	_pGroup = (*XmultiplexGroup)(_p.XpGroup)
+	_rc = int32(1)
+	if _gMultiplex.XisInitialized == 0 {
+		return int32(21)
 	}
 	switch _op {
-	case i32(5):
+	case int32(5):
 		goto _5
-	case i32(6):
+	case int32(6):
 		goto _5
-	case i32(14):
+	case int32(14):
 		goto _7
-	case i32(214014):
+	case int32(214014):
 		goto _2
-	case i32(214015):
+	case int32(214015):
 		goto _3
-	case i32(214016):
+	case int32(214016):
 		goto _4
 	default:
 		goto _8
@@ -6404,8 +5668,8 @@ func _multiplexFileControl(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _op int32, _
 _2:
 	if _pArg != nil {
 		_2_bEnabled = *(*int32)(_pArg)
-		*(*uint8)(unsafe.Pointer(&_pGroup.X6)) = uint8(_2_bEnabled)
-		_rc = i32(0)
+		_pGroup.XbEnabled = uint8(_2_bEnabled)
+		_rc = int32(0)
 	}
 	goto _10
 _3:
@@ -6413,63 +5677,59 @@ _3:
 		goto _11
 	}
 	_3_szChunk = *(*uint32)(_pArg)
-	if _3_szChunk < uint32(i32(1)) {
-		_rc = i32(21)
+	if _3_szChunk < uint32(1) {
+		_rc = int32(21)
 		goto _13
 	}
-	_3_szChunk = _3_szChunk + uint32(i32(65535))
-	{
-		p := &_3_szChunk
-		*p = (*p) & uint32(i32(-65536))
-		sink0(*p)
-	}
-	*(*uint32)(unsafe.Pointer(&_pGroup.X5)) = _3_szChunk
-	_rc = i32(0)
+	_3_szChunk = _3_szChunk + uint32(65535)
+	_3_szChunk &= uint32(4294901760)
+	_pGroup.XszChunk = _3_szChunk
+	_rc = int32(0)
 _13:
 _11:
 	goto _10
 _4:
-	_rc = i32(0)
+	_rc = int32(0)
 	goto _10
 _5:
-	_rc = i32(0)
+	_rc = int32(0)
 	goto _10
 _7:
 	_6_aFcntl = (**int8)(_pArg)
-	if (*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(1))))) == nil || bin.Xsqlite3_stricmp(tls, *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(1)))), str(7014)) != i32(0) {
+	if (*elem1(_6_aFcntl, uintptr(1))) == nil || bin.Xsqlite3_stricmp(tls, *elem1(_6_aFcntl, uintptr(1)), str(7014)) != int32(0) {
 		goto _15
 	}
-	if (*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(2))))) == nil || (*(*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(2)))))) + 1*uintptr(i32(0))))) == 0 {
+	if (*elem1(_6_aFcntl, uintptr(2))) == nil || (*elem2(*elem1(_6_aFcntl, uintptr(2)), 0)) == 0 {
 		goto _17
 	}
-	if (bin.Xsqlite3_stricmp(tls, *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(2)))), str(7033)) == i32(0)) || (bin.Xsqlite3_stricmp(tls, *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(2)))), str(7036)) == i32(0)) {
-		*(*uint8)(unsafe.Pointer(&_pGroup.X7)) = uint8(i32(1))
+	if (bin.Xsqlite3_stricmp(tls, *elem1(_6_aFcntl, uintptr(2)), str(7033)) == int32(0)) || (bin.Xsqlite3_stricmp(tls, *elem1(_6_aFcntl, uintptr(2)), str(7036)) == int32(0)) {
+		_pGroup.XbTruncate = uint8(1)
 		goto _22
 	}
-	if (bin.Xsqlite3_stricmp(tls, *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(2)))), str(7038)) == i32(0)) || (bin.Xsqlite3_stricmp(tls, *(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(2)))), str(7042)) == i32(0)) {
-		*(*uint8)(unsafe.Pointer(&_pGroup.X7)) = uint8(i32(0))
+	if (bin.Xsqlite3_stricmp(tls, *elem1(_6_aFcntl, uintptr(2)), str(7038)) == int32(0)) || (bin.Xsqlite3_stricmp(tls, *elem1(_6_aFcntl, uintptr(2)), str(7042)) == int32(0)) {
+		_pGroup.XbTruncate = 0
 	}
 _22:
 _17:
-	*(**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(_6_aFcntl)) + 8*uintptr(i32(0)))) = bin.Xsqlite3_mprintf(tls, func() *int8 {
-		if _pGroup.X7 != 0 {
+	*elem1(_6_aFcntl, 0) = bin.Xsqlite3_mprintf(tls, func() *int8 {
+		if _pGroup.XbTruncate != 0 {
 			return str(7033)
 		}
 		return str(7038)
 	}())
-	_rc = i32(0)
+	_rc = int32(0)
 	goto _10
 _15:
 _8:
-	_pSubOpen = _multiplexSubOpen(tls, _pGroup, i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, _pGroup, int32(0), &_rc, nil, int32(0))
 	if _pSubOpen == nil {
 		goto _25
 	}
 	_rc = func() func(*crt.TLS, *bin.Xsqlite3_file, int32, unsafe.Pointer) int32 {
-		v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X10
+		v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxFileControl
 		return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32, unsafe.Pointer) int32)(unsafe.Pointer(&v))
 	}()(tls, _pSubOpen, _op, _pArg)
-	if (_op == i32(12)) && (_rc == i32(0)) {
+	if (_op == int32(12)) && (_rc == int32(0)) {
 		*(**int8)(_pArg) = bin.Xsqlite3_mprintf(tls, str(7044), unsafe.Pointer(*(**int8)(_pArg)))
 	}
 _25:
@@ -6486,17 +5746,14 @@ func _multiplexSectorSize(tls *crt.TLS, _pConn *bin.Xsqlite3_file) (r0 int32) {
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
-	if (_pSubOpen != nil) && (((*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X11) != nil) {
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
+	if (_pSubOpen != nil) && (((*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxSectorSize) != nil) {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X11
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxSectorSize
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen)
 	}
-	return i32(4096)
-
-	_ = _rc
-	panic(0)
+	return int32(4096)
 }
 
 // C comment
@@ -6507,17 +5764,14 @@ func _multiplexDeviceCharacteristics(tls *crt.TLS, _pConn *bin.Xsqlite3_file) (r
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X12
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxDeviceCharacteristics
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen)
 	}
-	return i32(0)
-
-	_ = _rc
-	panic(0)
+	return int32(0)
 }
 
 // C comment
@@ -6528,17 +5782,14 @@ func _multiplexShmMap(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _iRegion int32, _
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32, *unsafe.Pointer) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X13
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxShmMap
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32, *unsafe.Pointer) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen, _iRegion, _szRegion, _bExtend, _pp)
 	}
-	return i32(10)
-
-	_ = _rc
-	panic(0)
+	return int32(10)
 }
 
 // C comment
@@ -6549,17 +5800,14 @@ func _multiplexShmLock(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _ofst int32, _n 
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X14
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxShmLock
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32, int32, int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen, _ofst, _n, _flags)
 	}
-	return i32(5)
-
-	_ = _rc
-	panic(0)
+	return int32(5)
 }
 
 // C comment
@@ -6570,14 +5818,13 @@ func _multiplexShmBarrier(tls *crt.TLS, _pConn *bin.Xsqlite3_file) {
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		func() func(*crt.TLS, *bin.Xsqlite3_file) {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X15
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxShmBarrier
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file))(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen)
 	}
-	_ = _rc
 }
 
 // C comment
@@ -6588,17 +5835,14 @@ func _multiplexShmUnmap(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _deleteFlag int
 	var _pSubOpen *bin.Xsqlite3_file
 	var _p *XmultiplexConn
 	_p = (*XmultiplexConn)(unsafe.Pointer(_pConn))
-	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.X1), i32(0), &_rc, (*int32)(unsafe.Pointer(nil)), i32(0))
+	_pSubOpen = _multiplexSubOpen(tls, (*XmultiplexGroup)(_p.XpGroup), int32(0), &_rc, nil, int32(0))
 	if _pSubOpen != nil {
 		return func() func(*crt.TLS, *bin.Xsqlite3_file, int32) int32 {
-			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.X0).X16
+			v := (*bin.Xsqlite3_io_methods)(_pSubOpen.XpMethods).XxShmUnmap
 			return *(*func(*crt.TLS, *bin.Xsqlite3_file, int32) int32)(unsafe.Pointer(&v))
 		}()(tls, _pSubOpen, _deleteFlag)
 	}
-	return i32(0)
-
-	_ = _rc
-	panic(0)
+	return int32(0)
 }
 
 // C comment
@@ -6608,7 +5852,7 @@ func _multiplexShmUnmap(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _deleteFlag int
 //  */
 func _multiplexFuncInit(tls *crt.TLS, _db unsafe.Pointer, _pzErrMsg **int8, _pApi *bin.Xsqlite3_api_routines) (r0 int32) {
 	var _rc int32
-	_rc = bin.Xsqlite3_create_function(tls, (*bin.Xsqlite3)(_db), str(7057), i32(2), i32(5), nil, func() func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem) {
+	_rc = bin.Xsqlite3_create_function(tls, (*bin.Xsqlite3)(_db), str(7057), int32(2), int32(5), nil, func() func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem) {
 		v := _multiplexControlFunc
 		return *(*func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem))(unsafe.Pointer(&v))
 	}(), nil, nil)
@@ -6622,41 +5866,41 @@ func _multiplexFuncInit(tls *crt.TLS, _db unsafe.Pointer, _pzErrMsg **int8, _pAp
 func _multiplexControlFunc(tls *crt.TLS, _context unsafe.Pointer, _argc int32, _argv *unsafe.Pointer) {
 	var _rc, _op, _iVal int32
 	var _db unsafe.Pointer
-	_rc = i32(0)
+	_rc = int32(0)
 	_db = unsafe.Pointer(bin.Xsqlite3_context_db_handle(tls, (*bin.Xsqlite3_context)(_context)))
-	_op = i32(0)
-	if (_db == nil) || (_argc != i32(2)) {
-		_rc = i32(1)
+	_op = int32(0)
+	if (_db == nil) || (_argc != int32(2)) {
+		_rc = int32(1)
 		goto _2
 	}
-	_op = bin.Xsqlite3_value_int(tls, (*bin.XMem)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(i32(0))))))
-	_iVal = bin.Xsqlite3_value_int(tls, (*bin.XMem)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(_argv)) + 8*uintptr(i32(1))))))
+	_op = bin.Xsqlite3_value_int(tls, (*bin.XMem)(*elem3(_argv, 0)))
+	_iVal = bin.Xsqlite3_value_int(tls, (*bin.XMem)(*elem3(_argv, uintptr(1))))
 	switch _op {
-	case i32(1):
+	case int32(1):
 		goto _4
-	case i32(2):
+	case int32(2):
 		goto _5
-	case i32(3):
+	case int32(3):
 		goto _6
 	default:
 		goto _7
 	}
 
 _4:
-	_op = i32(214014)
+	_op = int32(214014)
 	goto _8
 _5:
-	_op = i32(214015)
+	_op = int32(214015)
 	goto _8
 _6:
-	_op = i32(214016)
+	_op = int32(214016)
 	goto _8
 _7:
-	_rc = i32(12)
+	_rc = int32(12)
 	goto _8
 _8:
 _2:
-	if _rc == i32(0) {
+	if _rc == int32(0) {
 		_rc = bin.Xsqlite3_file_control(tls, (*bin.Xsqlite3)(_db), nil, _op, unsafe.Pointer(&_iVal))
 	}
 	bin.Xsqlite3_result_error_code(tls, (*bin.Xsqlite3_context)(_context), _rc)
@@ -6670,177 +5914,146 @@ func bool2int(b bool) int32 {
 	return 0
 }
 func bug20530(interface{}) {} //TODO remove when https://github.com/golang/go/issues/20530 is fixed.
-func i16(n int16) int16    { return n }
-func i32(n int32) int32    { return n }
-func i64(n int64) int64    { return n }
-func i8(n int8) int8       { return n }
 func init()                { nzf32 *= -1; nzf64 *= -1 }
-func u16(n uint16) uint16  { return n }
-func u32(n uint32) uint32  { return n }
-func u64(n uint64) uint64  { return n }
-func u8(n byte) byte       { return n }
 
 var inf = math.Inf(1)
-var nzf32 float32  // -0.0
-var nzf64 float64  // -0.0
-func sink2(*uint8) {} //TODO report GC bug
-func sink3(int32)  {} //TODO report GC bug
-func sink4(int64)  {} //TODO report GC bug
-func sink0(uint32) {} //TODO report GC bug
-func postInc2(p **uint8, d int) *uint8 {
+var nzf32 float32 // -0.0
+var nzf64 float64 // -0.0
+func elem1(a **int8, index uintptr) **int8 {
+	return (**int8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 8*index))
+}
+func elem3(a *unsafe.Pointer, index uintptr) *unsafe.Pointer {
+	return (*unsafe.Pointer)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 8*index))
+}
+func elem8(a *int32, index uintptr) *int32 {
+	return (*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 4*index))
+}
+func elem2(a *int8, index uintptr) *int8 {
+	return (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 1*index))
+}
+func elem9(a *TStress2Task, index uintptr) *TStress2Task {
+	return (*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 8*index))
+}
+func elem0(a *TThreadTest, index uintptr) *TThreadTest {
+	return (*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 24*index))
+}
+func elem12(a *TmultiplexReal, index uintptr) *TmultiplexReal {
+	return (*TmultiplexReal)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 16*index))
+}
+func elem11(a *XmultiplexGroup, index uintptr) *XmultiplexGroup {
+	return (*XmultiplexGroup)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 40*index))
+}
+func elem4(a *uint32, index uintptr) *uint32 {
+	return (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 4*index))
+}
+func elem6(a *uint8, index uintptr) *uint8 {
+	return (*uint8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 1*index))
+}
+func postInc6(p **uint8, d int) *uint8 {
 	q := (*uintptr)(unsafe.Pointer(p))
 	v := *q
 	*q += uintptr(d)
 	return (*uint8)(unsafe.Pointer(v))
 }
-func postInc3(p *int32, d int32) int32                                      { v := *p; *p += d; return v }
-func preInc3(p *int32, d int32) int32                                       { v := *p + d; *p = v; return v }
-func preInc0(p *uint32, d uint32) uint32                                    { v := *p + d; *p = v; return v }
-func store6(p **int8, v *int8) *int8                                        { *p = v; return v }
-func store7(p **bin.Xsqlite3_file, v *bin.Xsqlite3_file) *bin.Xsqlite3_file { *p = v; return v }
-func store3(p *int32, v int32) int32                                        { *p = v; return v }
-func store0(p *uint32, v uint32) uint32                                     { *p = v; return v }
+func postInc7(p *int32, d int32) int32                                       { v := *p; *p += d; return v }
+func preInc7(p *int32, d int32) int32                                        { v := *p + d; *p = v; return v }
+func preInc5(p *uint32, d uint32) uint32                                     { v := *p + d; *p = v; return v }
+func store2(p **int8, v *int8) *int8                                         { *p = v; return v }
+func store13(p **bin.Xsqlite3_file, v *bin.Xsqlite3_file) *bin.Xsqlite3_file { *p = v; return v }
+func store7(p *int32, v int32) int32                                         { *p = v; return v }
+func store5(p *uint32, v uint32) uint32                                      { *p = v; return v }
+
+type XStatement struct {
+	XpStmt unsafe.Pointer
+	XpNext unsafe.Pointer
+} // t14 struct{*struct{},*struct{}}
+
+type XThreadset struct {
+	XiMaxTid int32
+	XpThread unsafe.Pointer
+} // t15 struct{int32,*struct{}}
+
+type XCheckpointStarvationCtx struct {
+	XeMode     int32
+	XnMaxFrame int32
+} // t16 struct{int32,int32}
+
+type TmultiplexReal struct {
+	Xp unsafe.Pointer
+	Xz *int8
+} // t17 struct{*struct{},*int8}
 
 type XmultiplexGroup struct {
-	X0 unsafe.Pointer
-	X1 int32
-	X2 *int8
-	X3 int32
-	X4 int32
-	X5 uint32
-	X6 uint8
-	X7 uint8
-} // t8 struct{*struct{},int32,*int8,int32,int32,uint32,uint8,uint8}
+	XaReal     unsafe.Pointer
+	XnReal     int32
+	XzName     *int8
+	XnName     int32
+	Xflags     int32
+	XszChunk   uint32
+	XbEnabled  uint8
+	XbTruncate uint8
+} // t18 struct{*struct{},int32,*int8,int32,int32,uint32,uint8,uint8}
 
 type XmultiplexConn struct {
-	X0 struct{ X0 unsafe.Pointer }
-	X1 unsafe.Pointer
-} // t9 struct{struct{*struct{}},*struct{}}
+	Xbase   bin.Xsqlite3_file
+	XpGroup unsafe.Pointer
+} // t19 struct{struct{*struct{}},*struct{}}
 
 type XMD5Context struct {
-	X0 int32
-	X1 [4]uint32
-	X2 [2]uint32
-	X3 struct {
-		X [0]struct {
-			X0 [64]uint8
-			X1 [16]uint32
-		}
-		U [64]byte
-	}
-} // t10 struct{int32,[4]uint32,[2]uint32,union{[64]uint8,[16]uint32}}
+	XisInit int32
+	Xbuf    [4]uint32
+	Xbits   [2]uint32
+	Xu      t20
+} // t21 struct{int32,[4]uint32,[2]uint32,union{[64]uint8,[16]uint32}}
 
 type XError struct {
-	X0 int32
-	X1 int32
-	X2 *int8
-} // t11 struct{int32,int32,*int8}
+	Xrc    int32
+	XiLine int32
+	XzErr  *int8
+} // t22 struct{int32,int32,*int8}
 
 type XSqlite struct {
-	X0 unsafe.Pointer
-	X1 unsafe.Pointer
-	X2 int32
-	X3 **int8
-} // t12 struct{*struct{},*struct{},int32,**int8}
+	Xdb     unsafe.Pointer
+	XpCache unsafe.Pointer
+	XnText  int32
+	XaText  **int8
+} // t23 struct{*struct{},*struct{},int32,**int8}
 
 type XThread struct {
-	X0 int32
-	X1 unsafe.Pointer
-	X2 uint64
-	X3 func(*crt.TLS, int32, unsafe.Pointer) *int8
-	X4 unsafe.Pointer
-} // t13 struct{int32,*struct{},uint64,*func(int32,*struct{})*int8,*struct{}}
+	XiTid  int32
+	XpArg  unsafe.Pointer
+	Xtid   uint64
+	XxProc func(*crt.TLS, int32, unsafe.Pointer) *int8
+	XpNext unsafe.Pointer
+} // t24 struct{int32,*struct{},uint64,*func(int32,*struct{})*int8,*struct{}}
 
 type XStress2Ctx struct {
-	X0 *int8
-	X1 func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
-} // t14 struct{*int8,*func(*struct{},*struct{},int32)}
+	XzDb   *int8
+	XxProc func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
+} // t25 struct{*int8,*func(*struct{},*struct{},int32)}
 
 type TStress2Task struct {
-	X0 func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
-} // t15 struct{*func(*struct{},*struct{},int32)}
+	Xx func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
+} // t26 struct{*func(*struct{},*struct{},int32)}
 
 type TThreadTest struct {
-	X0 func(*crt.TLS, int32)
-	X1 *int8
-	X2 int32
-} // t16 struct{*func(int32),*int8,int32}
+	XxTest func(*crt.TLS, int32)
+	XzTest *int8
+	XnMs   int32
+} // t27 struct{*func(int32),*int8,int32}
 
-type t5 struct {
-	X0 unsafe.Pointer
-	X1 struct {
-		X0  int32
-		X1  int32
-		X2  int32
-		X3  unsafe.Pointer
-		X4  *int8
-		X5  unsafe.Pointer
-		X6  func(*crt.TLS, unsafe.Pointer, *int8, unsafe.Pointer, int32, *int32) int32
-		X7  func(*crt.TLS, unsafe.Pointer, *int8, int32) int32
-		X8  func(*crt.TLS, unsafe.Pointer, *int8, int32, *int32) int32
-		X9  func(*crt.TLS, unsafe.Pointer, *int8, int32, *int8) int32
-		X10 func(*crt.TLS, unsafe.Pointer, *int8) unsafe.Pointer
-		X11 func(*crt.TLS, unsafe.Pointer, int32, *int8)
-		X12 func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, *int8) func(*crt.TLS)
-		X13 func(*crt.TLS, unsafe.Pointer, unsafe.Pointer)
-		X14 func(*crt.TLS, unsafe.Pointer, int32, *int8) int32
-		X15 func(*crt.TLS, unsafe.Pointer, int32) int32
-		X16 func(*crt.TLS, unsafe.Pointer, *float64) int32
-		X17 func(*crt.TLS, unsafe.Pointer, int32, *int8) int32
-		X18 func(*crt.TLS, unsafe.Pointer, *int64) int32
-		X19 func(*crt.TLS, unsafe.Pointer, *int8, func(*crt.TLS)) int32
-		X20 func(*crt.TLS, unsafe.Pointer, *int8) func(*crt.TLS)
-		X21 func(*crt.TLS, unsafe.Pointer, *int8) *int8
-	}
-	X2 struct {
-		X0  int32
-		X1  func(*crt.TLS, unsafe.Pointer) int32
-		X2  func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int64) int32
-		X3  func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int64) int32
-		X4  func(*crt.TLS, unsafe.Pointer, int64) int32
-		X5  func(*crt.TLS, unsafe.Pointer, int32) int32
-		X6  func(*crt.TLS, unsafe.Pointer, *int64) int32
-		X7  func(*crt.TLS, unsafe.Pointer, int32) int32
-		X8  func(*crt.TLS, unsafe.Pointer, int32) int32
-		X9  func(*crt.TLS, unsafe.Pointer, *int32) int32
-		X10 func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer) int32
-		X11 func(*crt.TLS, unsafe.Pointer) int32
-		X12 func(*crt.TLS, unsafe.Pointer) int32
-		X13 func(*crt.TLS, unsafe.Pointer, int32, int32, int32, *unsafe.Pointer) int32
-		X14 func(*crt.TLS, unsafe.Pointer, int32, int32, int32) int32
-		X15 func(*crt.TLS, unsafe.Pointer)
-		X16 func(*crt.TLS, unsafe.Pointer, int32) int32
-		X17 func(*crt.TLS, unsafe.Pointer, int64, int32, *unsafe.Pointer) int32
-		X18 func(*crt.TLS, unsafe.Pointer, int64, unsafe.Pointer) int32
-	}
-	X3 struct {
-		X0  int32
-		X1  func(*crt.TLS, unsafe.Pointer) int32
-		X2  func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int64) int32
-		X3  func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int64) int32
-		X4  func(*crt.TLS, unsafe.Pointer, int64) int32
-		X5  func(*crt.TLS, unsafe.Pointer, int32) int32
-		X6  func(*crt.TLS, unsafe.Pointer, *int64) int32
-		X7  func(*crt.TLS, unsafe.Pointer, int32) int32
-		X8  func(*crt.TLS, unsafe.Pointer, int32) int32
-		X9  func(*crt.TLS, unsafe.Pointer, *int32) int32
-		X10 func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer) int32
-		X11 func(*crt.TLS, unsafe.Pointer) int32
-		X12 func(*crt.TLS, unsafe.Pointer) int32
-		X13 func(*crt.TLS, unsafe.Pointer, int32, int32, int32, *unsafe.Pointer) int32
-		X14 func(*crt.TLS, unsafe.Pointer, int32, int32, int32) int32
-		X15 func(*crt.TLS, unsafe.Pointer)
-		X16 func(*crt.TLS, unsafe.Pointer, int32) int32
-		X17 func(*crt.TLS, unsafe.Pointer, int64, int32, *unsafe.Pointer) int32
-		X18 func(*crt.TLS, unsafe.Pointer, int64, unsafe.Pointer) int32
-	}
-	X4 int32
+type t10 struct {
+	XpOrigVfs      unsafe.Pointer
+	XsThisVfs      bin.Xsqlite3_vfs
+	XsIoMethodsV1  bin.Xsqlite3_io_methods
+	XsIoMethodsV2  bin.Xsqlite3_io_methods
+	XisInitialized int32
 } // struct{*struct{},struct{int32,int32,int32,*struct{},*int8,*struct{},*func(*struct{},*int8,*struct{},int32,*int32)int32,*func(*struct{},*int8,int32)int32,*func(*struct{},*int8,int32,*int32)int32,*func(*struct{},*int8,int32,*int8)int32,*func(*struct{},*int8)*struct{},*func(*struct{},int32,*int8),*func(*struct{},*struct{},*int8)*func(),*func(*struct{},*struct{}),*func(*struct{},int32,*int8)int32,*func(*struct{},int32)int32,*func(*struct{},*float64)int32,*func(*struct{},int32,*int8)int32,*func(*struct{},*int64)int32,*func(*struct{},*int8,*func())int32,*func(*struct{},*int8)*func(),*func(*struct{},*int8)*int8},struct{int32,*func(*struct{})int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},int64)int32,*func(*struct{},int32)int32,*func(*struct{},*int64)int32,*func(*struct{},int32)int32,*func(*struct{},int32)int32,*func(*struct{},*int32)int32,*func(*struct{},int32,*struct{})int32,*func(*struct{})int32,*func(*struct{})int32,*func(*struct{},int32,int32,int32,**struct{})int32,*func(*struct{},int32,int32,int32)int32,*func(*struct{}),*func(*struct{},int32)int32,*func(*struct{},int64,int32,**struct{})int32,*func(*struct{},int64,*struct{})int32},struct{int32,*func(*struct{})int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},int64)int32,*func(*struct{},int32)int32,*func(*struct{},*int64)int32,*func(*struct{},int32)int32,*func(*struct{},int32)int32,*func(*struct{},*int32)int32,*func(*struct{},int32,*struct{})int32,*func(*struct{})int32,*func(*struct{})int32,*func(*struct{},int32,int32,int32,**struct{})int32,*func(*struct{},int32,int32,int32)int32,*func(*struct{}),*func(*struct{},int32)int32,*func(*struct{},int64,int32,**struct{})int32,*func(*struct{},int64,*struct{})int32},int32}
 
-type t1 struct {
+type t20 struct {
 	X [0]struct {
-		X0 [64]uint8
-		X1 [16]uint32
+		Xin   [64]uint8
+		Xin32 [16]uint32
 	}
 	U [64]byte
 }                       // union{[64]uint8,[16]uint32}
