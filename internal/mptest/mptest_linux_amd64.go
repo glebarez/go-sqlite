@@ -1837,13 +1837,13 @@ type TGlobal struct {
 	XnTest            int32
 	XiTimeout         int32
 	XbSync            int32
-} // t6 struct{*int8,*int8,*int8,*struct{},*int8,*struct{},*int8,*struct{},[32]int8,int32,int32,int32,int32,int32,int32,int32,int32}
+} // t6 struct{argv0 *int8,zVfs *int8,zDbFile *int8,db *struct{},zErrLog *int8,pErrLog *struct{},zLog *int8,pLog *struct{},zName [32]int8,taskId int32,iTrace int32,bSqlTrace int32,bIgnoreSqlErrors int32,nError int32,nTest int32,iTimeout int32,bSync int32}
 
 type XString struct {
 	Xz      *int8
 	Xn      int32
 	XnAlloc int32
-}                       // t7 struct{*int8,int32,int32}
+}                       // t7 struct{z *int8,n int32,nAlloc int32}
 func str(n int) *int8   { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32 { return (*int32)(unsafe.Pointer(&strTab[n])) }
 

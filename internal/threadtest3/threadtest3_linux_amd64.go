@@ -237,9 +237,9 @@ _31:
 
 func _walthread1(tls *crt.TLS, _nMs int32) {
 	var _i int32
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -1583,9 +1583,9 @@ _3:
 }
 
 func _walthread2(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -1815,9 +1815,9 @@ _0:
 
 func _walthread3(tls *crt.TLS, _nMs int32) {
 	var _i int32
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -1997,9 +1997,9 @@ _5:
 }
 
 func _walthread4(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -2183,9 +2183,9 @@ _5:
 }
 
 func _walthread5(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -2615,9 +2615,9 @@ _5:
 }
 
 func _dynamic_triggers(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -2910,8 +2910,8 @@ _3:
 }
 
 func _checkpoint_starvation_1(tls *crt.TLS, _nMs int32) {
-	var _ctx XCheckpointStarvationCtx
 	var _err XError
+	var _ctx XCheckpointStarvationCtx
 	_err = XError{}
 	_ctx = XCheckpointStarvationCtx{}
 	_checkpoint_starvation_main(tls, _nMs, &_ctx)
@@ -2923,9 +2923,9 @@ func _checkpoint_starvation_1(tls *crt.TLS, _nMs int32) {
 
 func _checkpoint_starvation_main(tls *crt.TLS, _nMs int32, _p *XCheckpointStarvationCtx) {
 	var _nInsert, _i int32
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -3125,8 +3125,8 @@ func _checkpoint_starvation_walhook(tls *crt.TLS, _pCtx unsafe.Pointer, _db unsa
 }
 
 func _checkpoint_starvation_2(tls *crt.TLS, _nMs int32) {
-	var _ctx XCheckpointStarvationCtx
 	var _err XError
+	var _ctx XCheckpointStarvationCtx
 	_err = XError{}
 	_ctx = XCheckpointStarvationCtx{XeMode: int32(2)}
 	_checkpoint_starvation_main(tls, _nMs, &_ctx)
@@ -3137,9 +3137,9 @@ func _checkpoint_starvation_2(tls *crt.TLS, _nMs int32) {
 }
 
 func _create_drop_index_1(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -3288,9 +3288,9 @@ _0:
 }
 
 func _lookaside1(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -3509,9 +3509,9 @@ _2:
 }
 
 func _vacuum1(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	_err = XError{}
 	_db = XSqlite{}
 	_threads = XThreadset{}
@@ -3722,8 +3722,8 @@ _2:
 }
 
 func _stress1(tls *crt.TLS, _nMs int32) {
-	var _threads XThreadset
 	var _err XError
+	var _threads XThreadset
 	_err = XError{}
 	_threads = XThreadset{}
 	_setstoptime_x(tls, func() *XError {
@@ -4190,9 +4190,9 @@ _3:
 func _stress2(tls *crt.TLS, _nMs int32) {
 	var _i int32
 	var _zDb *int8
-	var _threads XThreadset
 	var _err XError
 	var _db XSqlite
+	var _threads XThreadset
 	var _aTask [13]TStress2Task
 	_aTask = [13]TStress2Task{}
 	elem9((*TStress2Task)(unsafe.Pointer(&_aTask)), 0).Xx = func() func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32) {
@@ -5850,7 +5850,7 @@ func _multiplexShmUnmap(tls *crt.TLS, _pConn *bin.Xsqlite3_file, _deleteFlag int
 //  ** This is the entry point to register the auto-extension for the
 //  ** multiplex_control() function.
 //  */
-func _multiplexFuncInit(tls *crt.TLS, _db unsafe.Pointer, _pzErrMsg **int8, _pApi *bin.Xsqlite3_api_routines) (r0 int32) {
+func _multiplexFuncInit(tls *crt.TLS, _db unsafe.Pointer, _pzErrMsg **int8, _pApi *t14) (r0 int32) {
 	var _rc int32
 	_rc = bin.Xsqlite3_create_function(tls, (*bin.Xsqlite3)(_db), str(7057), int32(2), int32(5), nil, func() func(*crt.TLS, *bin.Xsqlite3_context, int32, **bin.XMem) {
 		v := _multiplexControlFunc
@@ -5931,17 +5931,17 @@ func elem8(a *int32, index uintptr) *int32 {
 func elem2(a *int8, index uintptr) *int8 {
 	return (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 1*index))
 }
+func elem11(a *XmultiplexGroup, index uintptr) *XmultiplexGroup {
+	return (*XmultiplexGroup)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 40*index))
+}
+func elem12(a *TmultiplexReal, index uintptr) *TmultiplexReal {
+	return (*TmultiplexReal)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 16*index))
+}
 func elem9(a *TStress2Task, index uintptr) *TStress2Task {
 	return (*TStress2Task)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 8*index))
 }
 func elem0(a *TThreadTest, index uintptr) *TThreadTest {
 	return (*TThreadTest)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 24*index))
-}
-func elem12(a *TmultiplexReal, index uintptr) *TmultiplexReal {
-	return (*TmultiplexReal)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 16*index))
-}
-func elem11(a *XmultiplexGroup, index uintptr) *XmultiplexGroup {
-	return (*XmultiplexGroup)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 40*index))
 }
 func elem4(a *uint32, index uintptr) *uint32 {
 	return (*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(a)) + 4*index))
@@ -5963,26 +5963,6 @@ func store13(p **bin.Xsqlite3_file, v *bin.Xsqlite3_file) *bin.Xsqlite3_file { *
 func store7(p *int32, v int32) int32                                         { *p = v; return v }
 func store5(p *uint32, v uint32) uint32                                      { *p = v; return v }
 
-type XStatement struct {
-	XpStmt unsafe.Pointer
-	XpNext unsafe.Pointer
-} // t14 struct{*struct{},*struct{}}
-
-type XThreadset struct {
-	XiMaxTid int32
-	XpThread unsafe.Pointer
-} // t15 struct{int32,*struct{}}
-
-type XCheckpointStarvationCtx struct {
-	XeMode     int32
-	XnMaxFrame int32
-} // t16 struct{int32,int32}
-
-type TmultiplexReal struct {
-	Xp unsafe.Pointer
-	Xz *int8
-} // t17 struct{*struct{},*int8}
-
 type XmultiplexGroup struct {
 	XaReal     unsafe.Pointer
 	XnReal     int32
@@ -5992,32 +5972,42 @@ type XmultiplexGroup struct {
 	XszChunk   uint32
 	XbEnabled  uint8
 	XbTruncate uint8
-} // t18 struct{*struct{},int32,*int8,int32,int32,uint32,uint8,uint8}
+} // t15 struct{aReal *struct{},nReal int32,zName *int8,nName int32,flags int32,szChunk uint32,bEnabled uint8,bTruncate uint8}
+
+type TmultiplexReal struct {
+	Xp unsafe.Pointer
+	Xz *int8
+} // t16 struct{p *struct{},z *int8}
 
 type XmultiplexConn struct {
 	Xbase   bin.Xsqlite3_file
 	XpGroup unsafe.Pointer
-} // t19 struct{struct{*struct{}},*struct{}}
+} // t17 struct{base struct{pMethods *struct{}},pGroup *struct{}}
 
 type XMD5Context struct {
 	XisInit int32
 	Xbuf    [4]uint32
 	Xbits   [2]uint32
-	Xu      t20
-} // t21 struct{int32,[4]uint32,[2]uint32,union{[64]uint8,[16]uint32}}
+	Xu      t18
+} // t19 struct{isInit int32,buf [4]uint32,bits [2]uint32,u union{in [64]uint8,in32 [16]uint32}}
 
 type XError struct {
 	Xrc    int32
 	XiLine int32
 	XzErr  *int8
-} // t22 struct{int32,int32,*int8}
+} // t20 struct{rc int32,iLine int32,zErr *int8}
 
 type XSqlite struct {
 	Xdb     unsafe.Pointer
 	XpCache unsafe.Pointer
 	XnText  int32
 	XaText  **int8
-} // t23 struct{*struct{},*struct{},int32,**int8}
+} // t21 struct{db *struct{},pCache *struct{},nText int32,aText **int8}
+
+type XStatement struct {
+	XpStmt unsafe.Pointer
+	XpNext unsafe.Pointer
+} // t22 struct{pStmt *struct{},pNext *struct{}}
 
 type XThread struct {
 	XiTid  int32
@@ -6025,22 +6015,32 @@ type XThread struct {
 	Xtid   uint64
 	XxProc func(*crt.TLS, int32, unsafe.Pointer) *int8
 	XpNext unsafe.Pointer
-} // t24 struct{int32,*struct{},uint64,*func(int32,*struct{})*int8,*struct{}}
+} // t23 struct{iTid int32,pArg *struct{},tid uint64,xProc *func(int32,*struct{})*int8,pNext *struct{}}
+
+type XThreadset struct {
+	XiMaxTid int32
+	XpThread unsafe.Pointer
+} // t24 struct{iMaxTid int32,pThread *struct{}}
+
+type XCheckpointStarvationCtx struct {
+	XeMode     int32
+	XnMaxFrame int32
+} // t25 struct{eMode int32,nMaxFrame int32}
 
 type XStress2Ctx struct {
 	XzDb   *int8
 	XxProc func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
-} // t25 struct{*int8,*func(*struct{},*struct{},int32)}
+} // t26 struct{zDb *int8,xProc *func(*struct{},*struct{},int32)}
 
 type TStress2Task struct {
 	Xx func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
-} // t26 struct{*func(*struct{},*struct{},int32)}
+} // t27 struct{x *func(*struct{},*struct{},int32)}
 
 type TThreadTest struct {
 	XxTest func(*crt.TLS, int32)
 	XzTest *int8
 	XnMs   int32
-} // t27 struct{*func(int32),*int8,int32}
+} // t28 struct{xTest *func(int32),zTest *int8,nMs int32}
 
 type t10 struct {
 	XpOrigVfs      unsafe.Pointer
@@ -6048,15 +6048,235 @@ type t10 struct {
 	XsIoMethodsV1  bin.Xsqlite3_io_methods
 	XsIoMethodsV2  bin.Xsqlite3_io_methods
 	XisInitialized int32
-} // struct{*struct{},struct{int32,int32,int32,*struct{},*int8,*struct{},*func(*struct{},*int8,*struct{},int32,*int32)int32,*func(*struct{},*int8,int32)int32,*func(*struct{},*int8,int32,*int32)int32,*func(*struct{},*int8,int32,*int8)int32,*func(*struct{},*int8)*struct{},*func(*struct{},int32,*int8),*func(*struct{},*struct{},*int8)*func(),*func(*struct{},*struct{}),*func(*struct{},int32,*int8)int32,*func(*struct{},int32)int32,*func(*struct{},*float64)int32,*func(*struct{},int32,*int8)int32,*func(*struct{},*int64)int32,*func(*struct{},*int8,*func())int32,*func(*struct{},*int8)*func(),*func(*struct{},*int8)*int8},struct{int32,*func(*struct{})int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},int64)int32,*func(*struct{},int32)int32,*func(*struct{},*int64)int32,*func(*struct{},int32)int32,*func(*struct{},int32)int32,*func(*struct{},*int32)int32,*func(*struct{},int32,*struct{})int32,*func(*struct{})int32,*func(*struct{})int32,*func(*struct{},int32,int32,int32,**struct{})int32,*func(*struct{},int32,int32,int32)int32,*func(*struct{}),*func(*struct{},int32)int32,*func(*struct{},int64,int32,**struct{})int32,*func(*struct{},int64,*struct{})int32},struct{int32,*func(*struct{})int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},*struct{},int32,int64)int32,*func(*struct{},int64)int32,*func(*struct{},int32)int32,*func(*struct{},*int64)int32,*func(*struct{},int32)int32,*func(*struct{},int32)int32,*func(*struct{},*int32)int32,*func(*struct{},int32,*struct{})int32,*func(*struct{})int32,*func(*struct{})int32,*func(*struct{},int32,int32,int32,**struct{})int32,*func(*struct{},int32,int32,int32)int32,*func(*struct{}),*func(*struct{},int32)int32,*func(*struct{},int64,int32,**struct{})int32,*func(*struct{},int64,*struct{})int32},int32}
+} // struct{pOrigVfs *struct{},sThisVfs struct{iVersion int32,szOsFile int32,mxPathname int32,pNext *struct{},zName *int8,pAppData *struct{},xOpen *func(*struct{},*int8,*struct{},int32,*int32)int32,xDelete *func(*struct{},*int8,int32)int32,xAccess *func(*struct{},*int8,int32,*int32)int32,xFullPathname *func(*struct{},*int8,int32,*int8)int32,xDlOpen *func(*struct{},*int8)*struct{},xDlError *func(*struct{},int32,*int8),xDlSym *func(*struct{},*struct{},*int8)*func(),xDlClose *func(*struct{},*struct{}),xRandomness *func(*struct{},int32,*int8)int32,xSleep *func(*struct{},int32)int32,xCurrentTime *func(*struct{},*float64)int32,xGetLastError *func(*struct{},int32,*int8)int32,xCurrentTimeInt64 *func(*struct{},*int64)int32,xSetSystemCall *func(*struct{},*int8,*func())int32,xGetSystemCall *func(*struct{},*int8)*func(),xNextSystemCall *func(*struct{},*int8)*int8},sIoMethodsV1 struct{iVersion int32,xClose *func(*struct{})int32,xRead *func(*struct{},*struct{},int32,int64)int32,xWrite *func(*struct{},*struct{},int32,int64)int32,xTruncate *func(*struct{},int64)int32,xSync *func(*struct{},int32)int32,xFileSize *func(*struct{},*int64)int32,xLock *func(*struct{},int32)int32,xUnlock *func(*struct{},int32)int32,xCheckReservedLock *func(*struct{},*int32)int32,xFileControl *func(*struct{},int32,*struct{})int32,xSectorSize *func(*struct{})int32,xDeviceCharacteristics *func(*struct{})int32,xShmMap *func(*struct{},int32,int32,int32,**struct{})int32,xShmLock *func(*struct{},int32,int32,int32)int32,xShmBarrier *func(*struct{}),xShmUnmap *func(*struct{},int32)int32,xFetch *func(*struct{},int64,int32,**struct{})int32,xUnfetch *func(*struct{},int64,*struct{})int32},sIoMethodsV2 struct{iVersion int32,xClose *func(*struct{})int32,xRead *func(*struct{},*struct{},int32,int64)int32,xWrite *func(*struct{},*struct{},int32,int64)int32,xTruncate *func(*struct{},int64)int32,xSync *func(*struct{},int32)int32,xFileSize *func(*struct{},*int64)int32,xLock *func(*struct{},int32)int32,xUnlock *func(*struct{},int32)int32,xCheckReservedLock *func(*struct{},*int32)int32,xFileControl *func(*struct{},int32,*struct{})int32,xSectorSize *func(*struct{})int32,xDeviceCharacteristics *func(*struct{})int32,xShmMap *func(*struct{},int32,int32,int32,**struct{})int32,xShmLock *func(*struct{},int32,int32,int32)int32,xShmBarrier *func(*struct{}),xShmUnmap *func(*struct{},int32)int32,xFetch *func(*struct{},int64,int32,**struct{})int32,xUnfetch *func(*struct{},int64,*struct{})int32},isInitialized int32}
 
-type t20 struct {
+type t14 struct {
+	Xaggregate_context      func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xaggregate_count        func(*crt.TLS, unsafe.Pointer) int32
+	Xbind_blob              func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer)) int32
+	Xbind_double            func(*crt.TLS, unsafe.Pointer, int32, float64) int32
+	Xbind_int               func(*crt.TLS, unsafe.Pointer, int32, int32) int32
+	Xbind_int64             func(*crt.TLS, unsafe.Pointer, int32, int64) int32
+	Xbind_null              func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xbind_parameter_count   func(*crt.TLS, unsafe.Pointer) int32
+	Xbind_parameter_index   func(*crt.TLS, unsafe.Pointer, *int8) int32
+	Xbind_parameter_name    func(*crt.TLS, unsafe.Pointer, int32) *int8
+	Xbind_text              func(*crt.TLS, unsafe.Pointer, int32, *int8, int32, func(*crt.TLS, unsafe.Pointer)) int32
+	Xbind_text16            func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer)) int32
+	Xbind_value             func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer) int32
+	Xbusy_handler           func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32) int32, unsafe.Pointer) int32
+	Xbusy_timeout           func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xchanges                func(*crt.TLS, unsafe.Pointer) int32
+	Xclose                  func(*crt.TLS, unsafe.Pointer) int32
+	Xcollation_needed       func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, *int8)) int32
+	Xcollation_needed16     func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, unsafe.Pointer)) int32
+	Xcolumn_blob            func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_bytes           func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xcolumn_bytes16         func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xcolumn_count           func(*crt.TLS, unsafe.Pointer) int32
+	Xcolumn_database_name   func(*crt.TLS, unsafe.Pointer, int32) *int8
+	Xcolumn_database_name16 func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_decltype        func(*crt.TLS, unsafe.Pointer, int32) *int8
+	Xcolumn_decltype16      func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_double          func(*crt.TLS, unsafe.Pointer, int32) float64
+	Xcolumn_int             func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xcolumn_int64           func(*crt.TLS, unsafe.Pointer, int32) int64
+	Xcolumn_name            func(*crt.TLS, unsafe.Pointer, int32) *int8
+	Xcolumn_name16          func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_origin_name     func(*crt.TLS, unsafe.Pointer, int32) *int8
+	Xcolumn_origin_name16   func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_table_name      func(*crt.TLS, unsafe.Pointer, int32) *int8
+	Xcolumn_table_name16    func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_text            func(*crt.TLS, unsafe.Pointer, int32) *uint8
+	Xcolumn_text16          func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcolumn_type            func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xcolumn_value           func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xcommit_hook            func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer) int32, unsafe.Pointer) unsafe.Pointer
+	Xcomplete               func(*crt.TLS, *int8) int32
+	Xcomplete16             func(*crt.TLS, unsafe.Pointer) int32
+	Xcreate_collation       func(*crt.TLS, unsafe.Pointer, *int8, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, int32, unsafe.Pointer) int32) int32
+	Xcreate_collation16     func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, int32, unsafe.Pointer) int32) int32
+	Xcreate_function        func(*crt.TLS, unsafe.Pointer, *int8, int32, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, *unsafe.Pointer), func(*crt.TLS, unsafe.Pointer, int32, *unsafe.Pointer), func(*crt.TLS, unsafe.Pointer)) int32
+	Xcreate_function16      func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, *unsafe.Pointer), func(*crt.TLS, unsafe.Pointer, int32, *unsafe.Pointer), func(*crt.TLS, unsafe.Pointer)) int32
+	Xcreate_module          func(*crt.TLS, unsafe.Pointer, *int8, unsafe.Pointer, unsafe.Pointer) int32
+	Xdata_count             func(*crt.TLS, unsafe.Pointer) int32
+	Xdb_handle              func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xdeclare_vtab           func(*crt.TLS, unsafe.Pointer, *int8) int32
+	Xenable_shared_cache    func(*crt.TLS, int32) int32
+	Xerrcode                func(*crt.TLS, unsafe.Pointer) int32
+	Xerrmsg                 func(*crt.TLS, unsafe.Pointer) *int8
+	Xerrmsg16               func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xexec                   func(*crt.TLS, unsafe.Pointer, *int8, func(*crt.TLS, unsafe.Pointer, int32, **int8, **int8) int32, unsafe.Pointer, **int8) int32
+	Xexpired                func(*crt.TLS, unsafe.Pointer) int32
+	Xfinalize               func(*crt.TLS, unsafe.Pointer) int32
+	Xfree                   func(*crt.TLS, unsafe.Pointer)
+	Xfree_table             func(*crt.TLS, **int8)
+	Xget_autocommit         func(*crt.TLS, unsafe.Pointer) int32
+	Xget_auxdata            func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xget_table              func(*crt.TLS, unsafe.Pointer, *int8, ***int8, *int32, *int32, **int8) int32
+	Xglobal_recover         func(*crt.TLS) int32
+	Xinterruptx             func(*crt.TLS, unsafe.Pointer)
+	Xlast_insert_rowid      func(*crt.TLS, unsafe.Pointer) int64
+	Xlibversion             func(*crt.TLS) *int8
+	Xlibversion_number      func(*crt.TLS) int32
+	Xmalloc                 func(*crt.TLS, int32) unsafe.Pointer
+	Xmprintf                func(*crt.TLS, *int8, ...interface{}) *int8
+	Xopen                   func(*crt.TLS, *int8, *unsafe.Pointer) int32
+	Xopen16                 func(*crt.TLS, unsafe.Pointer, *unsafe.Pointer) int32
+	Xprepare                func(*crt.TLS, unsafe.Pointer, *int8, int32, *unsafe.Pointer, **int8) int32
+	Xprepare16              func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, *unsafe.Pointer, *unsafe.Pointer) int32
+	Xprofile                func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, *int8, uint64), unsafe.Pointer) unsafe.Pointer
+	Xprogress_handler       func(*crt.TLS, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer) int32, unsafe.Pointer)
+	Xrealloc                func(*crt.TLS, unsafe.Pointer, int32) unsafe.Pointer
+	Xreset                  func(*crt.TLS, unsafe.Pointer) int32
+	Xresult_blob            func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer))
+	Xresult_double          func(*crt.TLS, unsafe.Pointer, float64)
+	Xresult_error           func(*crt.TLS, unsafe.Pointer, *int8, int32)
+	Xresult_error16         func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32)
+	Xresult_int             func(*crt.TLS, unsafe.Pointer, int32)
+	Xresult_int64           func(*crt.TLS, unsafe.Pointer, int64)
+	Xresult_null            func(*crt.TLS, unsafe.Pointer)
+	Xresult_text            func(*crt.TLS, unsafe.Pointer, *int8, int32, func(*crt.TLS, unsafe.Pointer))
+	Xresult_text16          func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer))
+	Xresult_text16be        func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer))
+	Xresult_text16le        func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, func(*crt.TLS, unsafe.Pointer))
+	Xresult_value           func(*crt.TLS, unsafe.Pointer, unsafe.Pointer)
+	Xrollback_hook          func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer), unsafe.Pointer) unsafe.Pointer
+	Xset_authorizer         func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, *int8, *int8, *int8, *int8) int32, unsafe.Pointer) int32
+	Xset_auxdata            func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer))
+	Xsnprintf               func(*crt.TLS, int32, *int8, *int8, ...interface{}) *int8
+	Xstep                   func(*crt.TLS, unsafe.Pointer) int32
+	Xtable_column_metadata  func(*crt.TLS, unsafe.Pointer, *int8, *int8, *int8, **int8, **int8, *int32, *int32, *int32) int32
+	Xthread_cleanup         func(*crt.TLS)
+	Xtotal_changes          func(*crt.TLS, unsafe.Pointer) int32
+	Xtrace                  func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, *int8), unsafe.Pointer) unsafe.Pointer
+	Xtransfer_bindings      func(*crt.TLS, unsafe.Pointer, unsafe.Pointer) int32
+	Xupdate_hook            func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, *int8, *int8, int64), unsafe.Pointer) unsafe.Pointer
+	Xuser_data              func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xvalue_blob             func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xvalue_bytes            func(*crt.TLS, unsafe.Pointer) int32
+	Xvalue_bytes16          func(*crt.TLS, unsafe.Pointer) int32
+	Xvalue_double           func(*crt.TLS, unsafe.Pointer) float64
+	Xvalue_int              func(*crt.TLS, unsafe.Pointer) int32
+	Xvalue_int64            func(*crt.TLS, unsafe.Pointer) int64
+	Xvalue_numeric_type     func(*crt.TLS, unsafe.Pointer) int32
+	Xvalue_text             func(*crt.TLS, unsafe.Pointer) *uint8
+	Xvalue_text16           func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xvalue_text16be         func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xvalue_text16le         func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xvalue_type             func(*crt.TLS, unsafe.Pointer) int32
+	Xvmprintf               func(*crt.TLS, *int8, unsafe.Pointer) *int8
+	Xoverload_function      func(*crt.TLS, unsafe.Pointer, *int8, int32) int32
+	Xprepare_v2             func(*crt.TLS, unsafe.Pointer, *int8, int32, *unsafe.Pointer, **int8) int32
+	Xprepare16_v2           func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, *unsafe.Pointer, *unsafe.Pointer) int32
+	Xclear_bindings         func(*crt.TLS, unsafe.Pointer) int32
+	Xcreate_module_v2       func(*crt.TLS, unsafe.Pointer, *int8, unsafe.Pointer, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer)) int32
+	Xbind_zeroblob          func(*crt.TLS, unsafe.Pointer, int32, int32) int32
+	Xblob_bytes             func(*crt.TLS, unsafe.Pointer) int32
+	Xblob_close             func(*crt.TLS, unsafe.Pointer) int32
+	Xblob_open              func(*crt.TLS, unsafe.Pointer, *int8, *int8, *int8, int64, int32, *unsafe.Pointer) int32
+	Xblob_read              func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int32) int32
+	Xblob_write             func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, int32, int32) int32
+	Xcreate_collation_v2    func(*crt.TLS, unsafe.Pointer, *int8, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, int32, unsafe.Pointer) int32, func(*crt.TLS, unsafe.Pointer)) int32
+	Xfile_control           func(*crt.TLS, unsafe.Pointer, *int8, int32, unsafe.Pointer) int32
+	Xmemory_highwater       func(*crt.TLS, int32) int64
+	Xmemory_used            func(*crt.TLS) int64
+	Xmutex_alloc            func(*crt.TLS, int32) unsafe.Pointer
+	Xmutex_enter            func(*crt.TLS, unsafe.Pointer)
+	Xmutex_free             func(*crt.TLS, unsafe.Pointer)
+	Xmutex_leave            func(*crt.TLS, unsafe.Pointer)
+	Xmutex_try              func(*crt.TLS, unsafe.Pointer) int32
+	Xopen_v2                func(*crt.TLS, *int8, *unsafe.Pointer, int32, *int8) int32
+	Xrelease_memory         func(*crt.TLS, int32) int32
+	Xresult_error_nomem     func(*crt.TLS, unsafe.Pointer)
+	Xresult_error_toobig    func(*crt.TLS, unsafe.Pointer)
+	Xsleep                  func(*crt.TLS, int32) int32
+	Xsoft_heap_limit        func(*crt.TLS, int32)
+	Xvfs_find               func(*crt.TLS, *int8) unsafe.Pointer
+	Xvfs_register           func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xvfs_unregister         func(*crt.TLS, unsafe.Pointer) int32
+	Xxthreadsafe            func(*crt.TLS) int32
+	Xresult_zeroblob        func(*crt.TLS, unsafe.Pointer, int32)
+	Xresult_error_code      func(*crt.TLS, unsafe.Pointer, int32)
+	Xtest_control           func(*crt.TLS, int32, ...interface{}) int32
+	Xrandomness             func(*crt.TLS, int32, unsafe.Pointer)
+	Xcontext_db_handle      func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xextended_result_codes  func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xlimit                  func(*crt.TLS, unsafe.Pointer, int32, int32) int32
+	Xnext_stmt              func(*crt.TLS, unsafe.Pointer, unsafe.Pointer) unsafe.Pointer
+	Xsql                    func(*crt.TLS, unsafe.Pointer) *int8
+	Xstatus                 func(*crt.TLS, int32, *int32, *int32, int32) int32
+	Xbackup_finish          func(*crt.TLS, unsafe.Pointer) int32
+	Xbackup_init            func(*crt.TLS, unsafe.Pointer, *int8, unsafe.Pointer, *int8) unsafe.Pointer
+	Xbackup_pagecount       func(*crt.TLS, unsafe.Pointer) int32
+	Xbackup_remaining       func(*crt.TLS, unsafe.Pointer) int32
+	Xbackup_step            func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xcompileoption_get      func(*crt.TLS, int32) *int8
+	Xcompileoption_used     func(*crt.TLS, *int8) int32
+	Xcreate_function_v2     func(*crt.TLS, unsafe.Pointer, *int8, int32, int32, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, int32, *unsafe.Pointer), func(*crt.TLS, unsafe.Pointer, int32, *unsafe.Pointer), func(*crt.TLS, unsafe.Pointer), func(*crt.TLS, unsafe.Pointer)) int32
+	Xdb_config              func(*crt.TLS, unsafe.Pointer, int32, ...interface{}) int32
+	Xdb_mutex               func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xdb_status              func(*crt.TLS, unsafe.Pointer, int32, *int32, *int32, int32) int32
+	Xextended_errcode       func(*crt.TLS, unsafe.Pointer) int32
+	Xlog                    func(*crt.TLS, int32, *int8, ...interface{})
+	Xsoft_heap_limit64      func(*crt.TLS, int64) int64
+	Xsourceid               func(*crt.TLS) *int8
+	Xstmt_status            func(*crt.TLS, unsafe.Pointer, int32, int32) int32
+	Xstrnicmp               func(*crt.TLS, *int8, *int8, int32) int32
+	Xunlock_notify          func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, *unsafe.Pointer, int32), unsafe.Pointer) int32
+	Xwal_autocheckpoint     func(*crt.TLS, unsafe.Pointer, int32) int32
+	Xwal_checkpoint         func(*crt.TLS, unsafe.Pointer, *int8) int32
+	Xwal_hook               func(*crt.TLS, unsafe.Pointer, func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, *int8, int32) int32, unsafe.Pointer) unsafe.Pointer
+	Xblob_reopen            func(*crt.TLS, unsafe.Pointer, int64) int32
+	Xvtab_config            func(*crt.TLS, unsafe.Pointer, int32, ...interface{}) int32
+	Xvtab_on_conflict       func(*crt.TLS, unsafe.Pointer) int32
+	Xclose_v2               func(*crt.TLS, unsafe.Pointer) int32
+	Xdb_filename            func(*crt.TLS, unsafe.Pointer, *int8) *int8
+	Xdb_readonly            func(*crt.TLS, unsafe.Pointer, *int8) int32
+	Xdb_release_memory      func(*crt.TLS, unsafe.Pointer) int32
+	Xerrstr                 func(*crt.TLS, int32) *int8
+	Xstmt_busy              func(*crt.TLS, unsafe.Pointer) int32
+	Xstmt_readonly          func(*crt.TLS, unsafe.Pointer) int32
+	Xstricmp                func(*crt.TLS, *int8, *int8) int32
+	Xuri_boolean            func(*crt.TLS, *int8, *int8, int32) int32
+	Xuri_int64              func(*crt.TLS, *int8, *int8, int64) int64
+	Xuri_parameter          func(*crt.TLS, *int8, *int8) *int8
+	Xvsnprintf              func(*crt.TLS, int32, *int8, *int8, unsafe.Pointer) *int8
+	Xwal_checkpoint_v2      func(*crt.TLS, unsafe.Pointer, *int8, int32, *int32, *int32) int32
+	Xauto_extension         func(*crt.TLS, func(*crt.TLS)) int32
+	Xbind_blob64            func(*crt.TLS, unsafe.Pointer, int32, unsafe.Pointer, uint64, func(*crt.TLS, unsafe.Pointer)) int32
+	Xbind_text64            func(*crt.TLS, unsafe.Pointer, int32, *int8, uint64, func(*crt.TLS, unsafe.Pointer), uint8) int32
+	Xcancel_auto_extension  func(*crt.TLS, func(*crt.TLS)) int32
+	Xload_extension         func(*crt.TLS, unsafe.Pointer, *int8, *int8, **int8) int32
+	Xmalloc64               func(*crt.TLS, uint64) unsafe.Pointer
+	Xmsize                  func(*crt.TLS, unsafe.Pointer) uint64
+	Xrealloc64              func(*crt.TLS, unsafe.Pointer, uint64) unsafe.Pointer
+	Xreset_auto_extension   func(*crt.TLS)
+	Xresult_blob64          func(*crt.TLS, unsafe.Pointer, unsafe.Pointer, uint64, func(*crt.TLS, unsafe.Pointer))
+	Xresult_text64          func(*crt.TLS, unsafe.Pointer, *int8, uint64, func(*crt.TLS, unsafe.Pointer), uint8)
+	Xstrglob                func(*crt.TLS, *int8, *int8) int32
+	Xvalue_dup              func(*crt.TLS, unsafe.Pointer) unsafe.Pointer
+	Xvalue_free             func(*crt.TLS, unsafe.Pointer)
+	Xresult_zeroblob64      func(*crt.TLS, unsafe.Pointer, uint64) int32
+	Xbind_zeroblob64        func(*crt.TLS, unsafe.Pointer, int32, uint64) int32
+	Xvalue_subtype          func(*crt.TLS, unsafe.Pointer) uint32
+	Xresult_subtype         func(*crt.TLS, unsafe.Pointer, uint32)
+	Xstatus64               func(*crt.TLS, int32, *int64, *int64, int32) int32
+	Xstrlike                func(*crt.TLS, *int8, *int8, uint32) int32
+	Xdb_cacheflush          func(*crt.TLS, unsafe.Pointer) int32
+	Xsystem_errno           func(*crt.TLS, unsafe.Pointer) int32
+	Xtrace_v2               func(*crt.TLS, unsafe.Pointer, uint32, func(*crt.TLS, uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32, unsafe.Pointer) int32
+	Xexpanded_sql           func(*crt.TLS, unsafe.Pointer) *int8
+	Xset_last_insert_rowid  func(*crt.TLS, unsafe.Pointer, int64)
+} // struct{aggregate_context *func(*struct{},int32)*struct{},aggregate_count *func(*struct{})int32,bind_blob *func(*struct{},int32,*struct{},int32,*func(*struct{}))int32,bind_double *func(*struct{},int32,float64)int32,bind_int *func(*struct{},int32,int32)int32,bind_int64 *func(*struct{},int32,int64)int32,bind_null *func(*struct{},int32)int32,bind_parameter_count *func(*struct{})int32,bind_parameter_index *func(*struct{},*int8)int32,bind_parameter_name *func(*struct{},int32)*int8,bind_text *func(*struct{},int32,*int8,int32,*func(*struct{}))int32,bind_text16 *func(*struct{},int32,*struct{},int32,*func(*struct{}))int32,bind_value *func(*struct{},int32,*struct{})int32,busy_handler *func(*struct{},*func(*struct{},int32)int32,*struct{})int32,busy_timeout *func(*struct{},int32)int32,changes *func(*struct{})int32,close *func(*struct{})int32,collation_needed *func(*struct{},*struct{},*func(*struct{},*struct{},int32,*int8))int32,collation_needed16 *func(*struct{},*struct{},*func(*struct{},*struct{},int32,*struct{}))int32,column_blob *func(*struct{},int32)*struct{},column_bytes *func(*struct{},int32)int32,column_bytes16 *func(*struct{},int32)int32,column_count *func(*struct{})int32,column_database_name *func(*struct{},int32)*int8,column_database_name16 *func(*struct{},int32)*struct{},column_decltype *func(*struct{},int32)*int8,column_decltype16 *func(*struct{},int32)*struct{},column_double *func(*struct{},int32)float64,column_int *func(*struct{},int32)int32,column_int64 *func(*struct{},int32)int64,column_name *func(*struct{},int32)*int8,column_name16 *func(*struct{},int32)*struct{},column_origin_name *func(*struct{},int32)*int8,column_origin_name16 *func(*struct{},int32)*struct{},column_table_name *func(*struct{},int32)*int8,column_table_name16 *func(*struct{},int32)*struct{},column_text *func(*struct{},int32)*uint8,column_text16 *func(*struct{},int32)*struct{},column_type *func(*struct{},int32)int32,column_value *func(*struct{},int32)*struct{},commit_hook *func(*struct{},*func(*struct{})int32,*struct{})*struct{},complete *func(*int8)int32,complete16 *func(*struct{})int32,create_collation *func(*struct{},*int8,int32,*struct{},*func(*struct{},int32,*struct{},int32,*struct{})int32)int32,create_collation16 *func(*struct{},*struct{},int32,*struct{},*func(*struct{},int32,*struct{},int32,*struct{})int32)int32,create_function *func(*struct{},*int8,int32,int32,*struct{},*func(*struct{},int32,**struct{}),*func(*struct{},int32,**struct{}),*func(*struct{}))int32,create_function16 *func(*struct{},*struct{},int32,int32,*struct{},*func(*struct{},int32,**struct{}),*func(*struct{},int32,**struct{}),*func(*struct{}))int32,create_module *func(*struct{},*int8,*struct{},*struct{})int32,data_count *func(*struct{})int32,db_handle *func(*struct{})*struct{},declare_vtab *func(*struct{},*int8)int32,enable_shared_cache *func(int32)int32,errcode *func(*struct{})int32,errmsg *func(*struct{})*int8,errmsg16 *func(*struct{})*struct{},exec *func(*struct{},*int8,*func(*struct{},int32,**int8,**int8)int32,*struct{},**int8)int32,expired *func(*struct{})int32,finalize *func(*struct{})int32,free *func(*struct{}),free_table *func(**int8),get_autocommit *func(*struct{})int32,get_auxdata *func(*struct{},int32)*struct{},get_table *func(*struct{},*int8,***int8,*int32,*int32,**int8)int32,global_recover *func()int32,interruptx *func(*struct{}),last_insert_rowid *func(*struct{})int64,libversion *func()*int8,libversion_number *func()int32,malloc *func(int32)*struct{},mprintf *func(*int8...)*int8,open *func(*int8,**struct{})int32,open16 *func(*struct{},**struct{})int32,prepare *func(*struct{},*int8,int32,**struct{},**int8)int32,prepare16 *func(*struct{},*struct{},int32,**struct{},**struct{})int32,profile *func(*struct{},*func(*struct{},*int8,uint64),*struct{})*struct{},progress_handler *func(*struct{},int32,*func(*struct{})int32,*struct{}),realloc *func(*struct{},int32)*struct{},reset *func(*struct{})int32,result_blob *func(*struct{},*struct{},int32,*func(*struct{})),result_double *func(*struct{},float64),result_error *func(*struct{},*int8,int32),result_error16 *func(*struct{},*struct{},int32),result_int *func(*struct{},int32),result_int64 *func(*struct{},int64),result_null *func(*struct{}),result_text *func(*struct{},*int8,int32,*func(*struct{})),result_text16 *func(*struct{},*struct{},int32,*func(*struct{})),result_text16be *func(*struct{},*struct{},int32,*func(*struct{})),result_text16le *func(*struct{},*struct{},int32,*func(*struct{})),result_value *func(*struct{},*struct{}),rollback_hook *func(*struct{},*func(*struct{}),*struct{})*struct{},set_authorizer *func(*struct{},*func(*struct{},int32,*int8,*int8,*int8,*int8)int32,*struct{})int32,set_auxdata *func(*struct{},int32,*struct{},*func(*struct{})),snprintf *func(int32,*int8,*int8...)*int8,step *func(*struct{})int32,table_column_metadata *func(*struct{},*int8,*int8,*int8,**int8,**int8,*int32,*int32,*int32)int32,thread_cleanup *func(),total_changes *func(*struct{})int32,trace *func(*struct{},*func(*struct{},*int8),*struct{})*struct{},transfer_bindings *func(*struct{},*struct{})int32,update_hook *func(*struct{},*func(*struct{},int32,*int8,*int8,int64),*struct{})*struct{},user_data *func(*struct{})*struct{},value_blob *func(*struct{})*struct{},value_bytes *func(*struct{})int32,value_bytes16 *func(*struct{})int32,value_double *func(*struct{})float64,value_int *func(*struct{})int32,value_int64 *func(*struct{})int64,value_numeric_type *func(*struct{})int32,value_text *func(*struct{})*uint8,value_text16 *func(*struct{})*struct{},value_text16be *func(*struct{})*struct{},value_text16le *func(*struct{})*struct{},value_type *func(*struct{})int32,vmprintf *func(*int8,*struct{})*int8,overload_function *func(*struct{},*int8,int32)int32,prepare_v2 *func(*struct{},*int8,int32,**struct{},**int8)int32,prepare16_v2 *func(*struct{},*struct{},int32,**struct{},**struct{})int32,clear_bindings *func(*struct{})int32,create_module_v2 *func(*struct{},*int8,*struct{},*struct{},*func(*struct{}))int32,bind_zeroblob *func(*struct{},int32,int32)int32,blob_bytes *func(*struct{})int32,blob_close *func(*struct{})int32,blob_open *func(*struct{},*int8,*int8,*int8,int64,int32,**struct{})int32,blob_read *func(*struct{},*struct{},int32,int32)int32,blob_write *func(*struct{},*struct{},int32,int32)int32,create_collation_v2 *func(*struct{},*int8,int32,*struct{},*func(*struct{},int32,*struct{},int32,*struct{})int32,*func(*struct{}))int32,file_control *func(*struct{},*int8,int32,*struct{})int32,memory_highwater *func(int32)int64,memory_used *func()int64,mutex_alloc *func(int32)*struct{},mutex_enter *func(*struct{}),mutex_free *func(*struct{}),mutex_leave *func(*struct{}),mutex_try *func(*struct{})int32,open_v2 *func(*int8,**struct{},int32,*int8)int32,release_memory *func(int32)int32,result_error_nomem *func(*struct{}),result_error_toobig *func(*struct{}),sleep *func(int32)int32,soft_heap_limit *func(int32),vfs_find *func(*int8)*struct{},vfs_register *func(*struct{},int32)int32,vfs_unregister *func(*struct{})int32,xthreadsafe *func()int32,result_zeroblob *func(*struct{},int32),result_error_code *func(*struct{},int32),test_control *func(int32...)int32,randomness *func(int32,*struct{}),context_db_handle *func(*struct{})*struct{},extended_result_codes *func(*struct{},int32)int32,limit *func(*struct{},int32,int32)int32,next_stmt *func(*struct{},*struct{})*struct{},sql *func(*struct{})*int8,status *func(int32,*int32,*int32,int32)int32,backup_finish *func(*struct{})int32,backup_init *func(*struct{},*int8,*struct{},*int8)*struct{},backup_pagecount *func(*struct{})int32,backup_remaining *func(*struct{})int32,backup_step *func(*struct{},int32)int32,compileoption_get *func(int32)*int8,compileoption_used *func(*int8)int32,create_function_v2 *func(*struct{},*int8,int32,int32,*struct{},*func(*struct{},int32,**struct{}),*func(*struct{},int32,**struct{}),*func(*struct{}),*func(*struct{}))int32,db_config *func(*struct{},int32...)int32,db_mutex *func(*struct{})*struct{},db_status *func(*struct{},int32,*int32,*int32,int32)int32,extended_errcode *func(*struct{})int32,log *func(int32,*int8...),soft_heap_limit64 *func(int64)int64,sourceid *func()*int8,stmt_status *func(*struct{},int32,int32)int32,strnicmp *func(*int8,*int8,int32)int32,unlock_notify *func(*struct{},*func(**struct{},int32),*struct{})int32,wal_autocheckpoint *func(*struct{},int32)int32,wal_checkpoint *func(*struct{},*int8)int32,wal_hook *func(*struct{},*func(*struct{},*struct{},*int8,int32)int32,*struct{})*struct{},blob_reopen *func(*struct{},int64)int32,vtab_config *func(*struct{},int32...)int32,vtab_on_conflict *func(*struct{})int32,close_v2 *func(*struct{})int32,db_filename *func(*struct{},*int8)*int8,db_readonly *func(*struct{},*int8)int32,db_release_memory *func(*struct{})int32,errstr *func(int32)*int8,stmt_busy *func(*struct{})int32,stmt_readonly *func(*struct{})int32,stricmp *func(*int8,*int8)int32,uri_boolean *func(*int8,*int8,int32)int32,uri_int64 *func(*int8,*int8,int64)int64,uri_parameter *func(*int8,*int8)*int8,vsnprintf *func(int32,*int8,*int8,*struct{})*int8,wal_checkpoint_v2 *func(*struct{},*int8,int32,*int32,*int32)int32,auto_extension *func(*func())int32,bind_blob64 *func(*struct{},int32,*struct{},uint64,*func(*struct{}))int32,bind_text64 *func(*struct{},int32,*int8,uint64,*func(*struct{}),uint8)int32,cancel_auto_extension *func(*func())int32,load_extension *func(*struct{},*int8,*int8,**int8)int32,malloc64 *func(uint64)*struct{},msize *func(*struct{})uint64,realloc64 *func(*struct{},uint64)*struct{},reset_auto_extension *func(),result_blob64 *func(*struct{},*struct{},uint64,*func(*struct{})),result_text64 *func(*struct{},*int8,uint64,*func(*struct{}),uint8),strglob *func(*int8,*int8)int32,value_dup *func(*struct{})*struct{},value_free *func(*struct{}),result_zeroblob64 *func(*struct{},uint64)int32,bind_zeroblob64 *func(*struct{},int32,uint64)int32,value_subtype *func(*struct{})uint32,result_subtype *func(*struct{},uint32),status64 *func(int32,*int64,*int64,int32)int32,strlike *func(*int8,*int8,uint32)int32,db_cacheflush *func(*struct{})int32,system_errno *func(*struct{})int32,trace_v2 *func(*struct{},uint32,*func(uint32,*struct{},*struct{},*struct{})int32,*struct{})int32,expanded_sql *func(*struct{})*int8,set_last_insert_rowid *func(*struct{},int64)}
+
+type t18 struct {
 	X [0]struct {
 		Xin   [64]uint8
 		Xin32 [16]uint32
 	}
 	U [64]byte
-}                       // union{[64]uint8,[16]uint32}
+}                       // union{in [64]uint8,in32 [16]uint32}
 func str(n int) *int8   { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32 { return (*int32)(unsafe.Pointer(&strTab[n])) }
 

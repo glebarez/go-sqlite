@@ -621,7 +621,7 @@ type XWorkerInfo struct {
 	XzMsg     *int8
 	Xid       uint64
 	XpWrMutex unsafe.Pointer
-}                       // t6 struct{int32,int32,uint32,*struct{},*struct{},int32,int32,*int8,uint64,*struct{}}
+}                       // t6 struct{tid int32,nWorker int32,wkrFlags uint32,mainDb *struct{},db *struct{},nErr int32,nTest int32,zMsg *int8,id uint64,pWrMutex *struct{}}
 func str(n int) *int8   { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32 { return (*int32)(unsafe.Pointer(&strTab[n])) }
 

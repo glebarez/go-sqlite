@@ -434,7 +434,7 @@ type TQueryResult struct {
 	XnElem  int32
 	XnAlloc int32
 	XazElem **int8
-}                       // t3 struct{*int8,int32,int32,**int8}
+}                       // t3 struct{zFile *int8,nElem int32,nAlloc int32,azElem **int8}
 func str(n int) *int8   { return (*int8)(unsafe.Pointer(&strTab[n])) }
 func wstr(n int) *int32 { return (*int32)(unsafe.Pointer(&strTab[n])) }
 
