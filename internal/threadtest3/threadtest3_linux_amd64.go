@@ -45,7 +45,7 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/cznic/crt"
+	"github.com/cznic/ccgo/crt"
 	"github.com/cznic/sqlite/internal/bin"
 )
 

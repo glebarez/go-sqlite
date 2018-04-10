@@ -17,7 +17,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/cznic/crt"
+	"github.com/cznic/ccgo/crt"
 	"github.com/cznic/sqlite/internal/bin"
 	"golang.org/x/net/context"
 )
