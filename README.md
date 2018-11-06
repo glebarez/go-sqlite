@@ -4,6 +4,6 @@ Package sqlite is an in-process implementation of a self-contained, serverless, 
 
 Installation
 
-    $ go get github.com/cznic/sqlite
+    $ go get modernc.org/sqlite
 
-Documentation: [godoc.org/github.com/cznic/sqlite](http://godoc.org/github.com/cznic/sqlite)
+Documentation: [godoc.org/modernc.org/sqlite](http://godoc.org/modernc.org/sqlite)
