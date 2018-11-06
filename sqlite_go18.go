@@ -4,7 +4,7 @@
 
 //+build go1.8
 
-package sqlite
+package sqlite // import "modernc.org/sqlite"
 
 import (
 	"context"

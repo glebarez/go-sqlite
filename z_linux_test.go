@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package sqlite
+package sqlite // import "modernc.org/sqlite"
 
 import (
 	"bytes"
@@ -40,7 +40,7 @@ func TestMP(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if out, err := exec.Command("go", "build", "-o", "mptest", "github.com/cznic/sqlite/internal/mptest").CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", "build", "-o", "mptest", "modernc.org/sqlite/internal/mptest").CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
@@ -92,7 +92,7 @@ func TestThread1(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if out, err := exec.Command("go", "build", "-o", "threadtest1", "github.com/cznic/sqlite/internal/threadtest1").CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", "build", "-o", "threadtest1", "modernc.org/sqlite/internal/threadtest1").CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
@@ -130,7 +130,7 @@ func TestThread2(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if out, err := exec.Command("go", "build", "-o", "threadtest2", "github.com/cznic/sqlite/internal/threadtest2").CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", "build", "-o", "threadtest2", "modernc.org/sqlite/internal/threadtest2").CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
@@ -176,7 +176,7 @@ func TestThread3(t *testing.T) {
 	if *memTrace {
 		s = append(s, "-tags", "memory.trace", "-race")
 	}
-	if out, err := exec.Command("go", append(s, "github.com/cznic/sqlite/internal/threadtest3")...).CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", append(s, "modernc.org/sqlite/internal/threadtest3")...).CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 
@@ -242,7 +242,7 @@ func TestThread4(t *testing.T) {
 	if *memTrace {
 		s = append(s, "-tags", "memory.trace", "-race")
 	}
-	if out, err := exec.Command("go", append(s, "github.com/cznic/sqlite/internal/threadtest4")...).CombinedOutput(); err != nil {
+	if out, err := exec.Command("go", append(s, "modernc.org/sqlite/internal/threadtest4")...).CombinedOutput(); err != nil {
 		t.Fatalf("go build mptest: %s\n%s", err, out)
 	}
 

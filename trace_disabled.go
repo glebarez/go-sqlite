@@ -4,6 +4,6 @@
 
 // +build !sqlite.trace
 
-package sqlite
+package sqlite // import "modernc.org/sqlite"
 
 const trace = false

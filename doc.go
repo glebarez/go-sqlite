@@ -18,7 +18,7 @@
 //	import (
 //		"database/sql"
 //
-//		_ "github.com/cznic/sqlite"
+//		_ "modernc.org/sqlite"
 //	)
 //
 //	...
@@ -38,10 +38,10 @@
 //
 // Supported platforms and architectures
 //
-// See http://github.com/cznic/ccir. To add a newly supported os/arch
+// See http://modernc.org/ccir. To add a newly supported os/arch
 // combination to this package try running 'go generate'.
 //
 // Sqlite documentation
 //
 // See https://sqlite.org/docs.html
-package sqlite
+package sqlite // import "modernc.org/sqlite"

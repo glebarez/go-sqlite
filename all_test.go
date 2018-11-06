@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package sqlite
+package sqlite // import "modernc.org/sqlite"
 
 import (
 	"bytes"
@@ -286,7 +286,7 @@ func BenchmarkNextMemory(b *testing.B) {
 	}
 }
 
-// https://github.com/cznic/sqlite/issues/11
+// https://gitlab.com/cznic/sqlite/issues/11
 func TestIssue11(t *testing.T) {
 	const N = 6570
 	dir, db := tempDB(t)
@@ -314,7 +314,7 @@ func TestIssue11(t *testing.T) {
 	}
 }
 
-// https://github.com/cznic/sqlite/issues/12
+// https://gitlab.com/cznic/sqlite/issues/12
 func TestMemDB(t *testing.T) {
 	// Verify we can create out-of-the heap memory DB instance.
 	db, err := sql.Open(driverName, "file::memory:")

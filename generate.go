@@ -4,4 +4,4 @@
 
 //go:generate go run generator.go
 
-package sqlite
+package sqlite // import "modernc.org/sqlite"

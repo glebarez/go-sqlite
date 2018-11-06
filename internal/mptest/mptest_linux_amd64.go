@@ -43,8 +43,8 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/cznic/ccgo/crt"
-	"github.com/cznic/sqlite/internal/bin"
+	"modernc.org/ccgo/crt"
+	"modernc.org/sqlite/internal/bin"
 )
 
 var argv []*int8

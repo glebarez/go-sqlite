@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package sqlite
+package sqlite // import "modernc.org/sqlite"
 
 import (
 	"bytes"
@@ -17,9 +17,9 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/cznic/ccgo/crt"
-	"github.com/cznic/sqlite/internal/bin"
 	"golang.org/x/net/context"
+	"modernc.org/ccgo/crt"
+	"modernc.org/sqlite/internal/bin"
 )
 
 var (

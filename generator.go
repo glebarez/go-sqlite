@@ -24,12 +24,12 @@ import (
 
 	"log"
 
-	"github.com/cznic/cc"
-	"github.com/cznic/ccgo"
-	"github.com/cznic/ccir"
-	"github.com/cznic/internal/buffer"
-	"github.com/cznic/strutil"
-	"github.com/cznic/xc"
+	"modernc.org/cc"
+	"modernc.org/ccgo"
+	"modernc.org/ccir"
+	"modernc.org/internal/buffer"
+	"modernc.org/strutil"
+	"modernc.org/xc"
 )
 
 var (
@@ -69,7 +69,7 @@ import (
 	"runtime"
 	"unsafe"
 
-	"github.com/cznic/ccgo/crt"
+	"modernc.org/ccgo/crt"
 )
 
 func ftrace(s string, args ...interface{}) {
@@ -90,8 +90,8 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/cznic/ccgo/crt"
-	"github.com/cznic/sqlite/internal/bin"
+	"modernc.org/ccgo/crt"
+	"modernc.org/sqlite/internal/bin"
 )
 
 var argv []*int8
