@@ -5,18 +5,30 @@
 .PHONY:	all clean cover cpu editor internalError later mem nuke todo edit
 
 grep=--include=*.go --include=*.l --include=*.y --include=*.yy
-ngrep='TODOOK\|parser\.go\|scanner\.go\|.*_string\.go'
+ngrep='TODOOK\|internal\/bin'
 
 all: editor
-	go test 2>&1 | tee log
+	date
+	go version 2>&1 | tee log
+	./unconvert.sh
+	gofmt -l -s -w *.go
+	go test -i
+	go test 2>&1 -timeout 1h | tee -a log
+	#TODO GOOS=linux GOARCH=arm go build
+	#TODO GOOS=linux GOARCH=arm64 go build
+	GOOS=linux GOARCH=386 go build
+	GOOS=linux GOARCH=amd64 go build
+	#TODO GOOS=windows GOARCH=386 go build
+	#TODO GOOS=windows GOARCH=amd64 go build
 	go vet 2>&1 | grep -v $(ngrep) || true
 	golint 2>&1 | grep -v $(ngrep) || true
 	make todo
-	unused . || true
 	misspell *.go
-	gosimple || true
+	staticcheck | grep -v 'lexer\.go\|parser\.go' || true
 	maligned || true
-	unconvert -apply
+	grep -n 'FAIL\|PASS' log 
+	go version
+	date 2>&1 | tee -a log
 
 clean:
 	go clean
@@ -30,12 +42,11 @@ cpu: clean
 	go tool pprof -lines *.test cpu.out
 
 edit:
-	@ 1>/dev/null 2>/dev/null gvim -p Makefile main.c *.go
+	gvim -p Makefile *.go &
 
 editor:
 	gofmt -l -s -w *.go
-	indent -linux *.c
-	go test -i
+	go install -v ./...
 
 internalError:
 	egrep -ho '"internal error.*"' *.go | sort | cat -n

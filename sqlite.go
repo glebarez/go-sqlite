@@ -2,23 +2,23 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:generate go run generator.go
+//go:generate gofmt -l -s -w .
+
 package sqlite // import "modernc.org/sqlite"
 
 import (
-	"bytes"
+	"context"
 	"database/sql"
 	"database/sql/driver"
 	"fmt"
 	"io"
 	"math"
-	"os"
-	"runtime"
 	"sync"
 	"time"
 	"unsafe"
 
-	"golang.org/x/net/context"
-	"modernc.org/ccgo/crt"
+	"modernc.org/crt/v2"
 	"modernc.org/sqlite/internal/bin"
 )
 
@@ -35,46 +35,22 @@ var (
 
 const (
 	driverName = "sqlite"
-	ptrSize    = 1 << (^uintptr(0)>>32&1 + ^uintptr(0)>>16&1 + ^uintptr(0)>>8&1 + 3) / 8
+	ptrSize    = int(unsafe.Sizeof(uintptr(0)))
 )
 
 func init() {
 	tls := crt.NewTLS()
-	crt.X__register_stdfiles(tls, bin.Xstdin, bin.Xstdout, bin.Xstderr)
-	if bin.Xsqlite3_threadsafe(tls) == 0 {
+	if bin.Xsqlite3_threadsafe(tls) != 0 { //TODO implement mutexes
 		panic(fmt.Errorf("sqlite: thread safety configuration error"))
 	}
 
-	if bin.Xsqlite3_config(
-		tls,
-		bin.XSQLITE_CONFIG_LOG,
-		func(tls *crt.TLS, pArg unsafe.Pointer, iErrCode int32, zMsg *int8) {
-			fmt.Fprintf(os.Stderr, "%v(%#x): %s\n", iErrCode, iErrCode, crt.GoString(zMsg))
-		},
-		unsafe.Pointer(nil),
-	) != 0 {
-		panic("sqlite: cannot configure error log callback")
-	}
-
 	sql.Register(driverName, newDrv())
-}
-
-func tracer(rx interface{}, format string, args ...interface{}) {
-	var b bytes.Buffer
-	_, file, line, _ := runtime.Caller(1)
-	fmt.Fprintf(&b, "%v:%v: (%[3]T)(%[3]p).", file, line, rx)
-	fmt.Fprintf(&b, format, args...)
-	fmt.Fprintf(os.Stderr, "%s\n", b.Bytes())
 }
 
 type result struct {
 	*stmt
 	lastInsertID int64
 	rowsAffected int
-}
-
-func (r *result) String() string {
-	return fmt.Sprintf("&%T@%p{stmt: %p, LastInsertId: %v, RowsAffected: %v}", *r, r, r.stmt, r.lastInsertID, r.rowsAffected)
 }
 
 func newResult(s *stmt) (_ *result, err error) {
@@ -124,15 +100,11 @@ type rows struct {
 	*stmt
 	columns []string
 	rc0     int
-	pstmt   unsafe.Pointer
+	pstmt   crt.Intptr
 	doStep  bool
 }
 
-func (r *rows) String() string {
-	return fmt.Sprintf("&%T@%p{stmt: %p, columns: %v, rc0: %v, pstmt: %#x, doStep: %v}", *r, r, r.stmt, r.columns, r.rc0, r.pstmt, r.doStep)
-}
-
-func newRows(s *stmt, pstmt unsafe.Pointer, rc0 int) (*rows, error) {
+func newRows(s *stmt, pstmt crt.Intptr, rc0 int) (*rows, error) {
 	r := &rows{
 		stmt:  s,
 		pstmt: pstmt,
@@ -158,21 +130,11 @@ func newRows(s *stmt, pstmt unsafe.Pointer, rc0 int) (*rows, error) {
 // result is inferred from the length of the slice. If a particular column name
 // isn't known, an empty string should be returned for that entry.
 func (r *rows) Columns() (c []string) {
-	if trace {
-		defer func() {
-			tracer(r, "Columns(): %v", c)
-		}()
-	}
 	return r.columns
 }
 
 // Close closes the rows iterator.
 func (r *rows) Close() (err error) {
-	if trace {
-		defer func() {
-			tracer(r, "Close(): %v", err)
-		}()
-	}
 	return r.finalize(r.pstmt)
 }
 
@@ -181,11 +143,6 @@ func (r *rows) Close() (err error) {
 //
 // Next should return io.EOF when there are no more rows.
 func (r *rows) Next(dest []driver.Value) (err error) {
-	if trace {
-		defer func() {
-			tracer(r, "Next(%v): %v", dest, err)
-		}()
-	}
 	rc := r.rc0
 	if r.doStep {
 		if rc, err = r.step(r.pstmt); err != nil {
@@ -196,7 +153,7 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 	r.doStep = true
 
 	switch rc {
-	case bin.XSQLITE_ROW:
+	case bin.DSQLITE_ROW:
 		if g, e := len(dest), len(r.columns); g != e {
 			return fmt.Errorf("Next(): have %v destination values, expected %v", g, e)
 		}
@@ -208,42 +165,42 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 			}
 
 			switch ct {
-			case bin.XSQLITE_INTEGER:
+			case bin.DSQLITE_INTEGER:
 				v, err := r.columnInt64(i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.XSQLITE_FLOAT:
+			case bin.DSQLITE_FLOAT:
 				v, err := r.columnDouble(i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.XSQLITE_TEXT:
+			case bin.DSQLITE_TEXT:
 				v, err := r.columnText(i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.XSQLITE_BLOB:
+			case bin.DSQLITE_BLOB:
 				v, err := r.columnBlob(i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.XSQLITE_NULL:
+			case bin.DSQLITE_NULL:
 				dest[i] = nil
 			default:
-				panic("internal error")
+				return fmt.Errorf("internal error: rc %d", rc)
 			}
 		}
 		return nil
-	case bin.XSQLITE_DONE:
+	case bin.DSQLITE_DONE:
 		return io.EOF
 	default:
 		return r.errstr(int32(rc))
@@ -264,7 +221,13 @@ func (r *rows) columnBlob(iCol int) (v []byte, err error) {
 		return nil, err
 	}
 
-	return crt.GoBytesLen((*int8)(p), len), nil
+	if p == 0 || len == 0 {
+		return nil, nil
+	}
+
+	v = make([]byte, len)
+	copy(v, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
+	return v, nil
 }
 
 // const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
@@ -275,7 +238,13 @@ func (r *rows) columnText(iCol int) (v string, err error) {
 		return "", err
 	}
 
-	return crt.GoStringLen((*int8)(unsafe.Pointer(p)), len), nil
+	if p == 0 || len == 0 {
+		return "", nil
+	}
+
+	b := make([]byte, len)
+	copy(b, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
+	return string(b), nil
 }
 
 // double sqlite3_column_double(sqlite3_stmt*, int iCol);
@@ -310,14 +279,10 @@ func (r *rows) columnName(n int) (string, error) {
 
 type stmt struct {
 	*conn
-	allocs []unsafe.Pointer
-	psql   *int8
-	ppstmt *unsafe.Pointer
-	pzTail **int8
-}
-
-func (s *stmt) String() string {
-	return fmt.Sprintf("&%T@%p{conn: %p, alloc %v, psql: %#x, ppstmt: %#x, pzTail: %#x}", *s, s, s.conn, s.allocs, s.psql, s.ppstmt, s.pzTail)
+	allocs []crt.Intptr
+	psql   crt.Intptr // *int8
+	ppstmt crt.Intptr // **sqlite3_stmt
+	pzTail crt.Intptr // **int8
 }
 
 func newStmt(c *conn, sql string) (*stmt, error) {
@@ -330,19 +295,19 @@ func newStmt(c *conn, sql string) (*stmt, error) {
 	s.psql = psql
 	ppstmt, err := s.malloc(ptrSize)
 	if err != nil {
-		s.free(unsafe.Pointer(psql))
+		s.free(psql)
 		return nil, err
 	}
 
-	s.ppstmt = (*unsafe.Pointer)(ppstmt)
+	s.ppstmt = ppstmt
 	pzTail, err := s.malloc(ptrSize)
 	if err != nil {
-		s.free(unsafe.Pointer(psql))
+		s.free(psql)
 		s.free(ppstmt)
 		return nil, err
 	}
 
-	s.pzTail = (**int8)(pzTail)
+	s.pzTail = pzTail
 	return s, nil
 }
 
@@ -350,26 +315,21 @@ func newStmt(c *conn, sql string) (*stmt, error) {
 //
 // As of Go 1.1, a Stmt will not be closed if it's in use by any queries.
 func (s *stmt) Close() (err error) {
-	if trace {
-		defer func() {
-			tracer(s, "Close(): %v", err)
-		}()
+	if s.psql != 0 {
+		err = s.free(s.psql)
+		s.psql = 0
 	}
-	if s.psql != nil {
-		err = s.free(unsafe.Pointer(s.psql))
-		s.psql = nil
-	}
-	if s.ppstmt != nil {
-		if err2 := s.free(unsafe.Pointer(s.ppstmt)); err2 != nil && err == nil {
+	if s.ppstmt != 0 {
+		if err2 := s.free(s.ppstmt); err2 != nil && err == nil {
 			err = err2
 		}
-		s.ppstmt = nil
+		s.ppstmt = 0
 	}
-	if s.pzTail != nil {
-		if err2 := s.free(unsafe.Pointer(s.pzTail)); err2 != nil && err == nil {
+	if s.pzTail != 0 {
+		if err2 := s.free(s.pzTail); err2 != nil && err == nil {
 			err = err2
 		}
-		s.pzTail = nil
+		s.pzTail = 0
 	}
 	for _, v := range s.allocs {
 		if err2 := s.free(v); err2 != nil && err == nil {
@@ -390,11 +350,6 @@ func (s *stmt) Close() (err error) {
 // placeholders. In that case, the sql package will not sanity check Exec or
 // Query argument counts.
 func (s *stmt) NumInput() (n int) {
-	if trace {
-		defer func() {
-			tracer(s, "NumInput(): %v", n)
-		}()
-	}
 	return -1
 }
 
@@ -404,33 +359,27 @@ func (s *stmt) Exec(args []driver.Value) (driver.Result, error) {
 }
 
 func (s *stmt) exec(ctx context.Context, args []namedValue) (r driver.Result, err error) {
-	if trace {
-		defer func(args []namedValue) {
-			tracer(s, "Exec(%v): (%v, %v)", args, r, err)
-		}(args)
-	}
-
-	var pstmt unsafe.Pointer
+	var pstmt crt.Intptr
 
 	donech := make(chan struct{})
 	defer close(donech)
 	go func() {
 		select {
 		case <-ctx.Done():
-			if pstmt != nil {
+			if pstmt != 0 {
 				s.interrupt(s.pdb())
 			}
 		case <-donech:
 		}
 	}()
 
-	for psql := s.psql; *psql != 0; psql = *s.pzTail {
+	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; psql = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.pzTail))) {
 		if err := s.prepareV2(psql); err != nil {
 			return nil, err
 		}
 
-		pstmt = *s.ppstmt
-		if pstmt == nil {
+		pstmt = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.ppstmt)))
+		if pstmt == 0 {
 			continue
 		}
 
@@ -452,7 +401,7 @@ func (s *stmt) exec(ctx context.Context, args []namedValue) (r driver.Result, er
 		}
 
 		switch rc & 0xff {
-		case bin.XSQLITE_DONE, bin.XSQLITE_ROW:
+		case bin.DSQLITE_DONE, bin.DSQLITE_ROW:
 			if err := s.finalize(pstmt); err != nil {
 				return nil, err
 			}
@@ -470,13 +419,7 @@ func (s *stmt) Query(args []driver.Value) (driver.Rows, error) {
 }
 
 func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err error) {
-	if trace {
-		defer func(args []namedValue) {
-			tracer(s, "Query(%v): (%v, %v)", args, r, err)
-		}(args)
-	}
-
-	var pstmt, rowStmt unsafe.Pointer
+	var pstmt, rowStmt crt.Intptr
 	var rc0 int
 
 	donech := make(chan struct{})
@@ -484,20 +427,20 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 	go func() {
 		select {
 		case <-ctx.Done():
-			if pstmt != nil {
+			if pstmt != 0 {
 				s.interrupt(s.pdb())
 			}
 		case <-donech:
 		}
 	}()
 
-	for psql := s.psql; *psql != 0; psql = *s.pzTail {
+	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; psql = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.pzTail))) {
 		if err := s.prepareV2(psql); err != nil {
 			return nil, err
 		}
 
-		pstmt = *s.ppstmt
-		if pstmt == nil {
+		pstmt = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.ppstmt)))
+		if pstmt == 0 {
 			continue
 		}
 
@@ -519,8 +462,8 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 		}
 
 		switch rc {
-		case bin.XSQLITE_ROW:
-			if rowStmt != nil {
+		case bin.DSQLITE_ROW:
+			if rowStmt != 0 {
 				if err := s.finalize(pstmt); err != nil {
 					return nil, err
 				}
@@ -530,8 +473,8 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 
 			rowStmt = pstmt
 			rc0 = rc
-		case bin.XSQLITE_DONE:
-			if rowStmt == nil {
+		case bin.DSQLITE_DONE:
+			if rowStmt == 0 {
 				rc0 = rc
 			}
 		default:
@@ -544,7 +487,7 @@ func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err
 }
 
 // int sqlite3_bind_double(sqlite3_stmt*, int, double);
-func (s *stmt) bindDouble(pstmt unsafe.Pointer, idx1 int, value float64) (err error) {
+func (s *stmt) bindDouble(pstmt crt.Intptr, idx1 int, value float64) (err error) {
 	if rc := bin.Xsqlite3_bind_double(s.tls, pstmt, int32(idx1), value); rc != 0 {
 		return s.errstr(rc)
 	}
@@ -553,8 +496,8 @@ func (s *stmt) bindDouble(pstmt unsafe.Pointer, idx1 int, value float64) (err er
 }
 
 // int sqlite3_bind_int(sqlite3_stmt*, int, int);
-func (s *stmt) bindInt(pstmt unsafe.Pointer, idx1, value int) (err error) {
-	if rc := bin.Xsqlite3_bind_int(s.tls, pstmt, int32(idx1), int32(value)); rc != bin.XSQLITE_OK {
+func (s *stmt) bindInt(pstmt crt.Intptr, idx1, value int) (err error) {
+	if rc := bin.Xsqlite3_bind_int(s.tls, pstmt, int32(idx1), int32(value)); rc != bin.DSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -562,8 +505,8 @@ func (s *stmt) bindInt(pstmt unsafe.Pointer, idx1, value int) (err error) {
 }
 
 // int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
-func (s *stmt) bindInt64(pstmt unsafe.Pointer, idx1 int, value int64) (err error) {
-	if rc := bin.Xsqlite3_bind_int64(s.tls, pstmt, int32(idx1), value); rc != bin.XSQLITE_OK {
+func (s *stmt) bindInt64(pstmt crt.Intptr, idx1 int, value int64) (err error) {
+	if rc := bin.Xsqlite3_bind_int64(s.tls, pstmt, int32(idx1), value); rc != bin.DSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -571,15 +514,15 @@ func (s *stmt) bindInt64(pstmt unsafe.Pointer, idx1 int, value int64) (err error
 }
 
 // int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
-func (s *stmt) bindBlob(pstmt unsafe.Pointer, idx1 int, value []byte) (err error) {
+func (s *stmt) bindBlob(pstmt crt.Intptr, idx1 int, value []byte) (err error) {
 	p, err := s.malloc(len(value))
 	if err != nil {
 		return err
 	}
 
 	s.allocs = append(s.allocs, p)
-	crt.CopyBytes(p, value, false)
-	if rc := bin.Xsqlite3_bind_blob(s.tls, pstmt, int32(idx1), p, int32(len(value)), nil); rc != bin.XSQLITE_OK {
+	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len(value)], value)
+	if rc := bin.Xsqlite3_bind_blob(s.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -587,21 +530,21 @@ func (s *stmt) bindBlob(pstmt unsafe.Pointer, idx1 int, value []byte) (err error
 }
 
 // int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
-func (s *stmt) bindText(pstmt unsafe.Pointer, idx1 int, value string) (err error) {
+func (s *stmt) bindText(pstmt crt.Intptr, idx1 int, value string) (err error) {
 	p, err := s.cString(value)
 	if err != nil {
 		return err
 	}
 
-	s.allocs = append(s.allocs, unsafe.Pointer(p))
-	if rc := bin.Xsqlite3_bind_text(s.tls, pstmt, int32(idx1), p, int32(len(value)), nil); rc != bin.XSQLITE_OK {
+	s.allocs = append(s.allocs, p)
+	if rc := bin.Xsqlite3_bind_text(s.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
 		return s.errstr(rc)
 	}
 
 	return nil
 }
 
-func (s *stmt) bind(pstmt unsafe.Pointer, n int, args []namedValue) error {
+func (s *stmt) bind(pstmt crt.Intptr, n int, args []namedValue) error {
 	for i := 1; i <= n; i++ {
 		name, err := s.bindParameterName(pstmt, i)
 		if err != nil {
@@ -671,20 +614,20 @@ func (s *stmt) bind(pstmt unsafe.Pointer, n int, args []namedValue) error {
 }
 
 // int sqlite3_bind_parameter_count(sqlite3_stmt*);
-func (s *stmt) bindParameterCount(pstmt unsafe.Pointer) (_ int, err error) {
+func (s *stmt) bindParameterCount(pstmt crt.Intptr) (_ int, err error) {
 	r := bin.Xsqlite3_bind_parameter_count(s.tls, pstmt)
 	return int(r), nil
 }
 
 // const char *sqlite3_bind_parameter_name(sqlite3_stmt*, int);
-func (s *stmt) bindParameterName(pstmt unsafe.Pointer, i int) (string, error) {
+func (s *stmt) bindParameterName(pstmt crt.Intptr, i int) (string, error) {
 	p := bin.Xsqlite3_bind_parameter_name(s.tls, pstmt, int32(i))
 	return crt.GoString(p), nil
 }
 
 // int sqlite3_finalize(sqlite3_stmt *pStmt);
-func (s *stmt) finalize(pstmt unsafe.Pointer) error {
-	if rc := bin.Xsqlite3_finalize(s.tls, pstmt); rc != bin.XSQLITE_OK {
+func (s *stmt) finalize(pstmt crt.Intptr) error {
+	if rc := bin.Xsqlite3_finalize(s.tls, pstmt); rc != bin.DSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -692,7 +635,7 @@ func (s *stmt) finalize(pstmt unsafe.Pointer) error {
 }
 
 // int sqlite3_step(sqlite3_stmt*);
-func (s *stmt) step(pstmt unsafe.Pointer) (int, error) {
+func (s *stmt) step(pstmt crt.Intptr) (int, error) {
 	r := bin.Xsqlite3_step(s.tls, pstmt)
 	return int(r), nil
 }
@@ -704,8 +647,8 @@ func (s *stmt) step(pstmt unsafe.Pointer) (int, error) {
 //   sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
 //   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 // );
-func (s *stmt) prepareV2(zSQL *int8) error {
-	if rc := bin.Xsqlite3_prepare_v2(s.tls, s.pdb(), zSQL, -1, s.ppstmt, s.pzTail); rc != bin.XSQLITE_OK {
+func (s *stmt) prepareV2(zSQL crt.Intptr) error {
+	if rc := bin.Xsqlite3_prepare_v2(s.tls, s.pdb(), zSQL, -1, s.ppstmt, s.pzTail); rc != bin.DSQLITE_OK {
 		return s.errstr(rc)
 	}
 
@@ -715,8 +658,6 @@ func (s *stmt) prepareV2(zSQL *int8) error {
 type tx struct {
 	*conn
 }
-
-func (t *tx) String() string { return fmt.Sprintf("&%T@%p{conn: %p}", *t, t, t.conn) }
 
 func newTx(c *conn) (*tx, error) {
 	t := &tx{conn: c}
@@ -729,21 +670,11 @@ func newTx(c *conn) (*tx, error) {
 
 // Commit implements driver.Tx.
 func (t *tx) Commit() (err error) {
-	if trace {
-		defer func() {
-			tracer(t, "Commit(): %v", err)
-		}()
-	}
 	return t.exec(context.Background(), "commit")
 }
 
 // Rollback implements driver.Tx.
 func (t *tx) Rollback() (err error) {
-	if trace {
-		defer func() {
-			tracer(t, "Rollback(): %v", err)
-		}()
-	}
 	return t.exec(context.Background(), "rollback")
 }
 
@@ -760,9 +691,9 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 		return err
 	}
 
-	defer t.free(unsafe.Pointer(psql))
+	defer t.free(psql)
 
-	// TODO: use t.conn.ExecContext() instead
+	//TODO use t.conn.ExecContext() instead
 	donech := make(chan struct{})
 	defer close(donech)
 	go func() {
@@ -773,7 +704,7 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 		}
 	}()
 
-	if rc := bin.Xsqlite3_exec(t.tls, t.pdb(), psql, nil, nil, nil); rc != bin.XSQLITE_OK {
+	if rc := bin.Xsqlite3_exec(t.tls, t.pdb(), psql, 0, 0, 0); rc != bin.DSQLITE_OK {
 		return t.errstr(rc)
 	}
 
@@ -782,12 +713,8 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 
 type conn struct {
 	*Driver
-	ppdb **bin.Xsqlite3
+	ppdb crt.Intptr // **bin.Xsqlite3
 	tls  *crt.TLS
-}
-
-func (c *conn) String() string {
-	return fmt.Sprintf("&%T@%p{sqlite: %p, Thread: %p, ppdb: %#x}", *c, c, c.Driver, c.tls, c.ppdb)
 }
 
 func newConn(s *Driver, name string) (_ *conn, err error) {
@@ -806,9 +733,9 @@ func newConn(s *Driver, name string) (_ *conn, err error) {
 	c.tls = crt.NewTLS()
 	if err = c.openV2(
 		name,
-		bin.XSQLITE_OPEN_READWRITE|bin.XSQLITE_OPEN_CREATE|
-			bin.XSQLITE_OPEN_FULLMUTEX|
-			bin.XSQLITE_OPEN_URI,
+		bin.DSQLITE_OPEN_READWRITE|bin.DSQLITE_OPEN_CREATE|
+			bin.DSQLITE_OPEN_FULLMUTEX|
+			bin.DSQLITE_OPEN_URI,
 	); err != nil {
 		return nil, err
 	}
@@ -826,11 +753,6 @@ func (c *conn) Prepare(query string) (s driver.Stmt, err error) {
 }
 
 func (c *conn) prepare(ctx context.Context, query string) (s driver.Stmt, err error) {
-	if trace {
-		defer func() {
-			tracer(c, "Prepare(%s): (%v, %v)", query, s, err)
-		}()
-	}
 	return newStmt(c, query)
 }
 
@@ -841,11 +763,6 @@ func (c *conn) prepare(ctx context.Context, query string) (s driver.Stmt, err er
 // Close when there's a surplus of idle connections, it shouldn't be necessary
 // for drivers to do their own connection caching.
 func (c *conn) Close() (err error) {
-	if trace {
-		defer func() {
-			tracer(c, "Close(): %v", err)
-		}()
-	}
 	return c.close()
 }
 
@@ -861,11 +778,6 @@ type txOptions struct {
 }
 
 func (c *conn) begin(ctx context.Context, opts txOptions) (t driver.Tx, err error) {
-	if trace {
-		defer func() {
-			tracer(c, "BeginTx(): (%v, %v)", t, err)
-		}()
-	}
 	return newTx(c)
 }
 
@@ -880,12 +792,6 @@ func (c *conn) Exec(query string, args []driver.Value) (driver.Result, error) {
 }
 
 func (c *conn) exec(ctx context.Context, query string, args []namedValue) (r driver.Result, err error) {
-	if trace {
-		defer func() {
-			tracer(c, "ExecContext(%s, %v): (%v, %v)", query, args, r, err)
-		}()
-	}
-
 	s, err := c.prepare(ctx, query)
 	if err != nil {
 		return nil, err
@@ -927,11 +833,6 @@ func (c *conn) Query(query string, args []driver.Value) (driver.Rows, error) {
 }
 
 func (c *conn) query(ctx context.Context, query string, args []namedValue) (r driver.Rows, err error) {
-	if trace {
-		defer func() {
-			tracer(c, "Query(%s, %v): (%v, %v)", query, args, r, err)
-		}()
-	}
 	s, err := c.prepare(ctx, query)
 	if err != nil {
 		return nil, err
@@ -946,15 +847,11 @@ func (c *conn) query(ctx context.Context, query string, args []namedValue) (r dr
 	return s.(*stmt).query(ctx, args)
 }
 
-func (c *conn) pdb() *bin.Xsqlite3 { return *c.ppdb }
+func (c *conn) pdb() crt.Intptr { return *(*crt.Intptr)(unsafe.Pointer(uintptr(c.ppdb))) }
 
 // int sqlite3_extended_result_codes(sqlite3*, int onoff);
 func (c *conn) extendedResultCodes(on bool) (err error) {
-	var v int32
-	if on {
-		v = 1
-	}
-	if rc := bin.Xsqlite3_extended_result_codes(c.tls, c.pdb(), v); rc != bin.XSQLITE_OK {
+	if rc := bin.Xsqlite3_extended_result_codes(c.tls, c.pdb(), crt.Bool32(on)); rc != bin.DSQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -962,28 +859,29 @@ func (c *conn) extendedResultCodes(on bool) (err error) {
 }
 
 // void *sqlite3_malloc(int);
-func (c *conn) malloc(n int) (r unsafe.Pointer, err error) {
+func (c *conn) malloc(n int) (r crt.Intptr, err error) {
 	if n > math.MaxInt32 {
-		panic("internal error")
+		return 0, fmt.Errorf("cannot allocate %d bytes of memory", n)
 	}
 
 	r = bin.Xsqlite3_malloc(c.tls, int32(n))
-	if r == nil {
-		return nil, fmt.Errorf("malloc(%v) failed", n)
+	if r == 0 {
+		return 0, fmt.Errorf("malloc(%v) failed", n)
 	}
 
 	return r, nil
 }
 
-func (c *conn) cString(s string) (*int8, error) {
+func (c *conn) cString(s string) (crt.Intptr, error) {
 	n := len(s)
 	p, err := c.malloc(n + 1)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 
-	crt.CopyString(p, s, true)
-	return (*int8)(p), nil
+	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:n], s)
+	*(*byte)(unsafe.Pointer(uintptr(p) + uintptr(n))) = 0
+	return p, nil
 }
 
 // int sqlite3_open_v2(
@@ -998,15 +896,15 @@ func (c *conn) openV2(name string, flags int32) error {
 		return err
 	}
 
-	defer c.free(unsafe.Pointer(filename))
+	defer c.free(filename)
 
 	ppdb, err := c.malloc(ptrSize)
 	if err != nil {
 		return err
 	}
 
-	c.ppdb = (**bin.Xsqlite3)(ppdb)
-	if rc := bin.Xsqlite3_open_v2(c.tls, filename, c.ppdb, flags, nil); rc != bin.XSQLITE_OK {
+	c.ppdb = ppdb
+	if rc := bin.Xsqlite3_open_v2(c.tls, filename, c.ppdb, flags, 0); rc != bin.DSQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -1029,23 +927,23 @@ func (c *conn) errstr(rc int32) (err error) {
 
 // int sqlite3_close_v2(sqlite3*);
 func (c *conn) closeV2() (err error) {
-	if rc := bin.Xsqlite3_close_v2(c.tls, c.pdb()); rc != bin.XSQLITE_OK {
+	if rc := bin.Xsqlite3_close_v2(c.tls, c.pdb()); rc != bin.DSQLITE_OK {
 		return c.errstr(rc)
 	}
 
-	err = c.free(unsafe.Pointer(c.ppdb))
-	c.ppdb = nil
+	err = c.free(c.ppdb)
+	c.ppdb = 0
 	return err
 }
 
 // void sqlite3_free(void*);
-func (c *conn) free(p unsafe.Pointer) (err error) {
+func (c *conn) free(p crt.Intptr) (err error) {
 	bin.Xsqlite3_free(c.tls, p)
 	return nil
 }
 
 // void sqlite3_interrupt(sqlite3*);
-func (c *conn) interrupt(pdb *bin.Xsqlite3) (err error) {
+func (c *conn) interrupt(pdb crt.Intptr) (err error) {
 	bin.Xsqlite3_interrupt(c.tls, pdb)
 	return nil
 }
@@ -1055,7 +953,7 @@ func (c *conn) close() (err error) {
 
 	defer c.Unlock()
 
-	if c.ppdb != nil {
+	if c.ppdb != 0 {
 		err = c.closeV2()
 	}
 	return err
@@ -1077,10 +975,5 @@ func newDrv() *Driver { return &Driver{} }
 //
 // The returned connection is only used by one goroutine at a time.
 func (s *Driver) Open(name string) (c driver.Conn, err error) {
-	if trace {
-		defer func() {
-			tracer(s, "Open(%s): (%v, %v)", name, c, err)
-		}()
-	}
 	return newConn(s, name)
 }

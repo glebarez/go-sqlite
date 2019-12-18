@@ -7,6 +7,11 @@
 //
 // Changelog
 //
+// 2019-12-18 v1.1.0 Pre-alpha release using the new cc/v3, gocc, qbe
+// toolchain. Some primitive tests pass on linux_{amd64,386}. Not yet safe for
+// concurrent access by multiple goroutines. Alpha release is planed to arrive
+// before the end of this year.
+//
 // 2017-06-10 Windows/Intel no more uses the VM (thanks Steffen Butzer).
 //
 // 2017-06-05 Linux/Intel no more uses the VM (cznic/virtual).
@@ -31,15 +36,17 @@
 //
 // Do not use in production
 //
-// This is an experimental, pre-alpha, technology preview package.
-//
-// The alpha release is due when the C runtime support of SQLite in cznic/crt
-// will be complete.
-//
 // Supported platforms and architectures
 //
-// See http://modernc.org/ccir. To add a newly supported os/arch
-// combination to this package try running 'go generate'.
+// 	linux	386
+// 	linux	amd64
+//
+// Planned platforms and architectures
+// 	linux	arm
+// 	linux	arm64
+// 	windows	386
+// 	windows	amd64
+//
 //
 // Sqlite documentation
 //

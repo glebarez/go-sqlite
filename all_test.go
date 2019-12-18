@@ -58,7 +58,6 @@ func init() {
 // ============================================================================
 
 var (
-	memTrace   = flag.Bool("memory.trace", false, "")
 	recsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 )
 
@@ -89,7 +88,7 @@ func TestScalar(t *testing.T) {
 	t2 := time.Date(2018, 5, 21, 2, 3, 4, 98765, time.UTC)
 	r, err := db.Exec(`
 	create table t(i int, f double, b bool, s text, t time);
-	insert into t values(12, 3.14, ?, "foo", ?), (34, 2.78, ?, "bar", ?);
+	insert into t values(12, 3.14, ?, 'foo', ?), (34, 2.78, ?, 'bar', ?);
 	`,
 		true, t1,
 		false, t2,
