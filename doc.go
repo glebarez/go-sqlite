@@ -7,10 +7,10 @@
 //
 // Changelog
 //
-// 2019-12-18 v1.1.0 Pre-alpha release using the new cc/v3, gocc, qbe
+// 2019-12-18 v1.1.0 First alpha release using the new cc/v3, gocc, qbe
 // toolchain. Some primitive tests pass on linux_{amd64,386}. Not yet safe for
-// concurrent access by multiple goroutines. Alpha release is planed to arrive
-// before the end of this year.
+// concurrent access by multiple goroutines. Next alpha release is planed to
+// arrive before the end of this year.
 //
 // 2017-06-10 Windows/Intel no more uses the VM (thanks Steffen Butzer).
 //

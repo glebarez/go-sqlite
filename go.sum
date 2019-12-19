@@ -5,9 +5,8 @@ github.com/remyoudompheng/bigfft v0.0.0-20170806203942-52369c62f446/go.mod h1:uY
 golang.org/x/sys v0.0.0-20191026070338-33540a1f6037/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20191218084908-4a24b4065292 h1:Y8q0zsdcgAd+JU8VUA8p8Qv2YhuY9zevDG2ORt5qBUI=
 golang.org/x/sys v0.0.0-20191218084908-4a24b4065292/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-modernc.org/crt v1.0.0 h1:avY0RResvfWYzwlZTAO31E5B1mUr0JF6n6gaLJHeO+I=
-modernc.org/crt/v2 v2.0.0-alpha.1 h1:zWuZqfDO54bDrWHYOPXHSthbdCAuk8uXIQF/uVzhkqc=
-modernc.org/crt/v2 v2.0.0-alpha.1/go.mod h1:5b/3yxJX576AKnw3EWIUhZ0MqklKuZKO0udiE+EQgPE=
+modernc.org/crt/v2 v2.0.0-20191219143825-5728f219e36a h1:SrbTBDKoF2Q62x9YAsaVpt2e650s8groKXRjQ2Y2iZs=
+modernc.org/crt/v2 v2.0.0-20191219143825-5728f219e36a/go.mod h1:5b/3yxJX576AKnw3EWIUhZ0MqklKuZKO0udiE+EQgPE=
 modernc.org/internal v1.0.0/go.mod h1:VUD/+JAkhCpvkUitlEOnhpVxCgsBI90oTzSCRcqQVSM=
 modernc.org/mathutil v1.0.0 h1:93vKjrJopTPrtTNpZ8XIovER7iCIH1QU7wNbOQXC60I=
 modernc.org/mathutil v1.0.0/go.mod h1:wU0vUrJsVWBZ4P6e7xtFJEhFSNsfRLJ8H458uRjg03k=

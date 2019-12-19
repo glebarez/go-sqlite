@@ -40,10 +40,24 @@ const (
 
 func init() {
 	tls := crt.NewTLS()
-	if bin.Xsqlite3_threadsafe(tls) != 0 { //TODO implement mutexes
+	if bin.Xsqlite3_threadsafe(tls) == 0 {
 		panic(fmt.Errorf("sqlite: thread safety configuration error"))
 	}
 
+	varArgs := crt.Xmalloc(tls, crt.Intptr(ptrSize))
+	if varArgs == 0 {
+		panic(fmt.Errorf("cannot allocate memory"))
+	}
+
+	*(*uintptr)(unsafe.Pointer(uintptr(varArgs))) = uintptr(unsafe.Pointer(&mutexMethods))
+	// int sqlite3_config(int, ...);
+	if rc := bin.Xsqlite3_config(tls, bin.DSQLITE_CONFIG_MUTEX, uintptr(varArgs)); rc != bin.DSQLITE_OK {
+		p := bin.Xsqlite3_errstr(tls, rc)
+		str := crt.GoString(p)
+		panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
+	}
+
+	crt.Xfree(tls, varArgs)
 	sql.Register(driverName, newDrv())
 }
 
@@ -725,10 +739,6 @@ func newConn(s *Driver, name string) (_ *conn, err error) {
 			c.close()
 		}
 	}()
-
-	c.Lock()
-
-	defer c.Unlock()
 
 	c.tls = crt.NewTLS()
 	if err = c.openV2(
