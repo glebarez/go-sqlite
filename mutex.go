@@ -52,10 +52,17 @@ type mutex struct {
 	cnt int32
 	id  int32
 	sync.Mutex
-	wait sync.Mutex
+	wait      sync.Mutex
+	recursive bool
 }
 
 func (m *mutex) enter(id int32) {
+	if !m.recursive {
+		m.Lock()
+		m.id = id
+		return
+	}
+
 	for {
 		m.Lock()
 		switch m.id {
@@ -77,7 +84,36 @@ func (m *mutex) enter(id int32) {
 	}
 }
 
+func (m *mutex) try(id int32) int32 {
+	if !m.recursive {
+		return bin.DSQLITE_BUSY
+	}
+
+	m.Lock()
+	switch m.id {
+	case 0:
+		m.cnt = 1
+		m.id = id
+		m.wait.Lock()
+		m.Unlock()
+		return bin.DSQLITE_OK
+	case id:
+		m.cnt++
+		m.Unlock()
+		return bin.DSQLITE_OK
+	}
+
+	m.Unlock()
+	return bin.DSQLITE_BUSY
+}
+
 func (m *mutex) leave() {
+	if !m.recursive {
+		m.id = 0
+		m.Unlock()
+		return
+	}
+
 	m.Lock()
 	m.cnt--
 	if m.cnt == 0 {
@@ -155,11 +191,12 @@ func mutexAlloc(tls *crt.TLS, typ int32) (r crt.Intptr) {
 	defer func() {
 	}()
 	switch typ {
-	case
-		bin.DSQLITE_MUTEX_FAST,
-		bin.DSQLITE_MUTEX_RECURSIVE:
-
+	case bin.DSQLITE_MUTEX_FAST:
 		return crt.Xcalloc(tls, 1, crt.Intptr(unsafe.Sizeof(mutex{})))
+	case bin.DSQLITE_MUTEX_RECURSIVE:
+		p := crt.Xcalloc(tls, 1, crt.Intptr(unsafe.Sizeof(mutex{})))
+		(*mutex)(unsafe.Pointer(uintptr(p))).recursive = true
+		return p
 	case bin.DSQLITE_MUTEX_STATIC_MASTER:
 		return crt.Intptr(uintptr(unsafe.Pointer(&mutexMaster)))
 	case bin.DSQLITE_MUTEX_STATIC_MEM:
@@ -216,7 +253,13 @@ func mutexEnter(tls *crt.TLS, m crt.Intptr) {
 }
 
 // int (*xMutexTry)(sqlite3_mutex *);
-func mutexTry(tls *crt.TLS, m crt.Intptr) int32 { return bin.DSQLITE_BUSY }
+func mutexTry(tls *crt.TLS, m crt.Intptr) int32 {
+	if m == 0 {
+		return bin.DSQLITE_OK
+	}
+
+	return (*mutex)(unsafe.Pointer(uintptr(m))).try(tls.ID)
+}
 
 // void (*xMutexLeave)(sqlite3_mutex *);
 func mutexLeave(tls *crt.TLS, m crt.Intptr) {

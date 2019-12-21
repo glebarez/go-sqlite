@@ -6,6 +6,7 @@ package sqlite // import "modernc.org/sqlite"
 
 import (
 	"bytes"
+	"context"
 	"database/sql"
 	"flag"
 	"fmt"
@@ -15,8 +16,11 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"sync"
 	"testing"
 	"time"
+
+	"modernc.org/mathutil"
 )
 
 func caller(s string, va ...interface{}) {
@@ -347,4 +351,108 @@ func TestMemDB(t *testing.T) {
 	if _, err := db.Exec(`commit;`); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestConcurrentInserts(t *testing.T) {
+	const (
+		ngoroutines = 8
+		nrows       = 2500
+	)
+
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(dir)
+
+	db, err := sql.Open(driverName, filepath.Join(dir, "test.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tx, err := db.BeginTx(context.Background(), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := tx.Exec("create table t(i)"); err != nil {
+		t.Fatal(err)
+	}
+
+	prep, err := tx.Prepare("insert into t values(?)")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rnd := make(chan int, 100)
+	go func() {
+		lim := ngoroutines * nrows
+		rng, err := mathutil.NewFC32(0, lim-1, false)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		for i := 0; i < lim; i++ {
+			rnd <- int(rng.Next())
+		}
+	}()
+
+	start := make(chan int)
+	var wg sync.WaitGroup
+	for i := 0; i < ngoroutines; i++ {
+		wg.Add(1)
+
+		go func(id int) {
+
+			defer wg.Done()
+
+		next:
+			for i := 0; i < nrows; i++ {
+				n := <-rnd
+				var err error
+				for j := 0; j < 10; j++ {
+					if _, err := prep.Exec(n); err == nil {
+						continue next
+					}
+				}
+
+				t.Errorf("id %d, seq %d: %v", id, i, err)
+				return
+			}
+		}(i)
+	}
+	t0 := time.Now()
+	close(start)
+	wg.Wait()
+	if err := tx.Commit(); err != nil {
+		t.Fatal(err)
+	}
+
+	d := time.Since(t0)
+	rows, err := db.Query("select * from t order by i")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var i int
+	for ; rows.Next(); i++ {
+		var j int
+		if err := rows.Scan(&j); err != nil {
+			t.Fatalf("seq %d: %v", i, err)
+		}
+
+		if g, e := j, i; g != e {
+			t.Fatalf("seq %d: got %d, exp %d", i, g, e)
+		}
+	}
+	if err := rows.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	if g, e := i, ngoroutines*nrows; g != e {
+		t.Fatalf("got %d rows, expected %d", g, e)
+	}
+
+	t.Logf("%d goroutines concurrently inserted %d rows in %v", ngoroutines, ngoroutines*nrows, d)
 }
