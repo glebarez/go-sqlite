@@ -21,22 +21,24 @@ import (
 
 var (
 	config = []string{
+		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
-		"-DSQLITE_DEBUG", //TODO-
 		"-DSQLITE_DEFAULT_MEMSTATUS=0",
 		"-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1",
 		"-DSQLITE_DQS=0",
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MAX_EXPR_DEPTH=0",
-		"-DSQLITE_MEMDEBUG", //TODO-
+		"-DSQLITE_MAX_MMAP_SIZE=0", // mmap somehow fails on linux/386
 		"-DSQLITE_MUTEX_APPDEF=1",
 		"-DSQLITE_MUTEX_NOOP",
 		"-DSQLITE_OMIT_DECLTYPE",
-		"-DSQLITE_OMIT_DEPRECATED",
 		"-DSQLITE_OMIT_PROGRESS_CALLBACK",
 		"-DSQLITE_OMIT_SHARED_CACHE",
 		"-DSQLITE_THREADSAFE=2", // Multi-thread
 		"-DSQLITE_USE_ALLOCA",
+		// "-DSQLITE_OMIT_DEPRECATED", // mptest needs deprecated sqlite3_trace.
+		//TODO- "-DSQLITE_DEBUG",    //TODO-
+		//TODO- "-DSQLITE_MEMDEBUG", //TODO-
 	}
 
 	downloads = []struct {
@@ -44,10 +46,12 @@ var (
 		sz       int
 		dev      bool
 	}{
-		{sqliteDir, "https://www.sqlite.org/2019/sqlite-amalgamation-3300100.zip", 2400, false},
+		{sqliteDir, "https://www.sqlite.org/2019/sqlite-amalgamation-3300100.zip", 2240, false},
+		{sqliteSrcDir, "https://www.sqlite.org/2019/sqlite-src-3300100.zip", 12060, false},
 	}
 
-	sqliteDir = filepath.FromSlash("testdata/sqlite-amalgamation-3300100")
+	sqliteDir    = filepath.FromSlash("testdata/sqlite-amalgamation-3300100")
+	sqliteSrcDir = filepath.FromSlash("testdata/sqlite-src-3300100")
 )
 
 func download() {
@@ -197,6 +201,22 @@ func main() {
 				"-qbec-import", "<none>",
 				"-qbec-pkgname", "bin",
 				"-qbec-structs",
+			},
+			config...)...,
+	).CombinedOutput()
+	if err != nil {
+		fail("%s\n%s\n", out, err)
+	}
+
+	out, err = exec.Command(
+		"gocc",
+		append(
+			[]string{
+				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
+				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
+				fmt.Sprintf("-I%s", sqliteDir),
+				"-qbec-dot-import", "modernc.org/sqlite/internal/bin",
+				"-qbec-static-prefix", "s_",
 			},
 			config...)...,
 	).CombinedOutput()

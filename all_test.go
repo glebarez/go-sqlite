@@ -12,9 +12,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"testing"
@@ -353,10 +355,10 @@ func TestMemDB(t *testing.T) {
 	}
 }
 
-func TestConcurrentInserts(t *testing.T) {
+func TestConcurrentGoroutines(t *testing.T) {
 	const (
 		ngoroutines = 8
-		nrows       = 2500
+		nrows       = 5000
 	)
 
 	dir, err := ioutil.TempDir("", "sqlite-test-")
@@ -455,4 +457,86 @@ func TestConcurrentInserts(t *testing.T) {
 	}
 
 	t.Logf("%d goroutines concurrently inserted %d rows in %v", ngoroutines, ngoroutines*nrows, d)
+}
+
+func TestConcurrentProcesses(t *testing.T) {
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(dir)
+
+	m, err := filepath.Glob(filepath.FromSlash("internal/mptest/*"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, v := range m {
+		if s := filepath.Ext(v); s != ".test" && s != ".subtest" {
+			continue
+		}
+
+		b, err := ioutil.ReadFile(v)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if err := ioutil.WriteFile(filepath.Join(dir, filepath.Base(v)), b, 0666); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	out, err := exec.Command("go", "build", "-o", filepath.Join(dir, "mptest"), "modernc.org/sqlite/internal/mptest").CombinedOutput()
+	if err != nil {
+		t.Fatalf("%s\n%v", out, err)
+	}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.Chdir(wd)
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+outer:
+	for _, script := range m {
+		script = filepath.Base(script)
+		if filepath.Ext(script) != ".test" {
+			continue
+		}
+
+		out, err := exec.Command(filepath.FromSlash("./mptest"), "db", "--trace", "2", script).CombinedOutput()
+		if err != nil {
+			t.Fatalf("%s\n%v", out, err)
+		}
+
+		a := strings.Split(string(out), "\n")
+		for _, v := range a {
+			if strings.HasPrefix(v, "Summary:") {
+				b := strings.Fields(v)
+				if len(b) < 2 {
+					t.Fatalf("unexpected format of %q", v)
+				}
+
+				n, err := strconv.Atoi(b[1])
+				if err != nil {
+					t.Fatalf("unexpected format of %q", v)
+				}
+
+				if n != 0 {
+					t.Errorf("%s", out)
+				}
+
+				t.Logf("%v: %v", script, v)
+				continue outer
+			}
+
+		}
+		t.Fatalf("%s\nerror: summary line not found", out)
+	}
 }
