@@ -7,6 +7,13 @@
 //
 // Changelog
 //
+// 2019-12-28 v1.2.0-alpha.3: Third alpha fixes issue #19.
+//
+// It also bumps the minor version as the repository was wrongly already tagged
+// with v1.1.0 before.  Even though the tag was deleted there are proxies that
+// cached that tag. Thanks /u/garaktailor for detecting the problem and
+// suggesting this solution.
+//
 // 2019-12-26 v1.1.0-alpha.2: Second alpha release adds support for accessing a
 // database concurrently by multiple goroutines and/or processes. v1.1.0 is now
 // considered feature-complete. Next planed release should be a beta with a
