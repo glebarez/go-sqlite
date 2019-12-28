@@ -119,6 +119,7 @@ type rows struct {
 }
 
 func newRows(s *stmt, pstmt crt.Intptr, rc0 int) (*rows, error) {
+	s.owned = true
 	r := &rows{
 		stmt:  s,
 		pstmt: pstmt,
@@ -149,7 +150,12 @@ func (r *rows) Columns() (c []string) {
 
 // Close closes the rows iterator.
 func (r *rows) Close() (err error) {
-	return r.finalize(r.pstmt)
+	err = r.finalize(r.pstmt)
+	r.stmt.owned = false
+	if err2 := r.stmt.Close(); err2 != nil && err == nil {
+		err = err2
+	}
+	return err
 }
 
 // Next is called to populate the next row of data into the provided slice. The
@@ -297,6 +303,8 @@ type stmt struct {
 	psql   crt.Intptr // *int8
 	ppstmt crt.Intptr // **sqlite3_stmt
 	pzTail crt.Intptr // **int8
+
+	owned bool
 }
 
 func newStmt(c *conn, sql string) (*stmt, error) {
@@ -329,6 +337,10 @@ func newStmt(c *conn, sql string) (*stmt, error) {
 //
 // As of Go 1.1, a Stmt will not be closed if it's in use by any queries.
 func (s *stmt) Close() (err error) {
+	if s.owned {
+		return
+	}
+
 	if s.psql != 0 {
 		err = s.free(s.psql)
 		s.psql = 0

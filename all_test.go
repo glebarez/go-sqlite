@@ -540,3 +540,114 @@ outer:
 		t.Fatalf("%s\nerror: summary line not found", out)
 	}
 }
+
+// https://gitlab.com/cznic/sqlite/issues/19
+func TestIssue19(t *testing.T) {
+	const (
+		drop = `
+drop table if exists products;
+`
+
+		up = `
+CREATE TABLE IF NOT EXISTS "products" (
+	"id"	VARCHAR(255),
+	"user_id"	VARCHAR(255),
+	"name"	VARCHAR(255),
+	"description"	VARCHAR(255),
+	"created_at"	BIGINT,
+	"credits_price"	BIGINT,
+	"enabled"	BOOLEAN,
+	PRIMARY KEY("id")
+);
+`
+
+		productInsert = `
+INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "credits_price", "enabled") VALUES ('9be4398c-d527-4efb-93a4-fc532cbaf804', '16935690-348b-41a6-bb20-f8bb16011015', 'dqdwqdwqdwqwqdwqd', 'qwdwqwqdwqdwqdwqd', '1577448686', '1', '0');
+INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "credits_price", "enabled") VALUES ('759f10bd-9e1d-4ec7-b764-0868758d7b85', '16935690-348b-41a6-bb20-f8bb16011015', 'qdqwqwdwqdwqdwqwqd', 'wqdwqdwqdwqdwqdwq', '1577448692', '1', '1');
+INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "credits_price", "enabled") VALUES ('512956e7-224d-4b2a-9153-b83a52c4aa38', '16935690-348b-41a6-bb20-f8bb16011015', 'qwdwqwdqwdqdwqwqd', 'wqdwdqwqdwqdwqdwqdwqdqw', '1577448699', '2', '1');
+INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "credits_price", "enabled") VALUES ('02cd138f-6fa6-4909-9db7-a9d0eca4a7b7', '16935690-348b-41a6-bb20-f8bb16011015', 'qdwqdwqdwqwqdwdq', 'wqddwqwqdwqdwdqwdqwq', '1577448706', '3', '1');
+`
+	)
+
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(dir)
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.Chdir(wd)
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+	db, err := sql.Open("sqlite", "test.db")
+	if err != nil {
+		t.Fatal("failed to connect database")
+	}
+
+	defer db.Close()
+
+	db.SetMaxOpenConns(1)
+
+	if _, err = db.Exec(drop); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err = db.Exec(up); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err = db.Exec(productInsert); err != nil {
+		t.Fatal(err)
+	}
+
+	var count int64
+	if err = db.QueryRow("select count(*) from products where user_id = ?", "16935690-348b-41a6-bb20-f8bb16011015").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+
+	if count != 4 {
+		t.Fatalf("expected result for the count query %d, we received %d\n", 4, count)
+	}
+
+	rows, err := db.Query("select * from products where user_id = ?", "16935690-348b-41a6-bb20-f8bb16011015")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	count = 0
+	for rows.Next() {
+		count++
+	}
+	if err := rows.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	if count != 4 {
+		t.Fatalf("expected result for the select query %d, we received %d\n", 4, count)
+	}
+
+	rows, err = db.Query("select * from products where enabled = ?", true)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	count = 0
+	for rows.Next() {
+		count++
+	}
+	if err := rows.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	if count != 3 {
+		t.Fatalf("expected result for the enabled select query %d, we received %d\n", 3, count)
+	}
+}
