@@ -11,11 +11,13 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
 	"runtime"
+	"runtime/debug"
 	"strconv"
 	"strings"
 	"sync"
@@ -54,6 +56,8 @@ func TODO(...interface{}) string { //TODOOK
 	_, fn, fl, _ := runtime.Caller(1)
 	return fmt.Sprintf("# TODO: %s:%d:\n", path.Base(fn), fl) //TODOOK
 }
+
+func stack() string { return string(debug.Stack()) }
 
 func use(...interface{}) {}
 
@@ -649,5 +653,73 @@ INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "c
 
 	if count != 3 {
 		t.Fatalf("expected result for the enabled select query %d, we received %d\n", 3, count)
+	}
+}
+
+func mustExec(t *testing.T, db *sql.DB, sql string, args ...interface{}) sql.Result {
+	res, err := db.Exec(sql, args...)
+	if err != nil {
+		t.Fatalf("Error running %q: %v", sql, err)
+	}
+
+	return res
+}
+
+// https://gitlab.com/cznic/sqlite/issues/20
+func TestIssue20(t *testing.T) {
+	const TablePrefix = "gosqltest_"
+
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(tempDir)
+
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db"))
+	if err != nil {
+		t.Fatalf("foo.db open fail: %v", err)
+	}
+
+	mustExec(t, db, "CREATE TABLE "+TablePrefix+"t (count INT)")
+	sel, err := db.PrepareContext(context.Background(), "SELECT count FROM "+TablePrefix+"t ORDER BY count DESC")
+	if err != nil {
+		t.Fatalf("prepare 1: %v", err)
+	}
+
+	ins, err := db.PrepareContext(context.Background(), "INSERT INTO "+TablePrefix+"t (count) VALUES (?)")
+	if err != nil {
+		t.Fatalf("prepare 2: %v", err)
+	}
+
+	for n := 1; n <= 3; n++ {
+		if _, err := ins.Exec(n); err != nil {
+			t.Fatalf("insert(%d) = %v", n, err)
+		}
+	}
+
+	const nRuns = 10
+	ch := make(chan bool)
+	for i := 0; i < nRuns; i++ {
+		go func() {
+			defer func() {
+				ch <- true
+			}()
+			for j := 0; j < 10; j++ {
+				count := 0
+				if err := sel.QueryRow().Scan(&count); err != nil && err != sql.ErrNoRows {
+					t.Errorf("Query: %v", err)
+					return
+				}
+
+				if _, err := ins.Exec(rand.Intn(100)); err != nil {
+					t.Errorf("Insert: %v", err)
+					return
+				}
+			}
+		}()
+	}
+	for i := 0; i < nRuns; i++ {
+		<-ch
 	}
 }

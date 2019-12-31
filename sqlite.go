@@ -13,8 +13,6 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"io"
-	"math"
-	"sync"
 	"time"
 	"unsafe"
 
@@ -31,11 +29,79 @@ var (
 	_ driver.Rows    = (*rows)(nil)
 	_ driver.Stmt    = (*stmt)(nil)
 	_ driver.Tx      = (*tx)(nil)
+	_ error          = (*Error)(nil)
 )
 
 const (
-	driverName = "sqlite"
-	ptrSize    = int(unsafe.Sizeof(uintptr(0)))
+	driverName              = "sqlite"
+	ptrSize                 = int(unsafe.Sizeof(uintptr(0)))
+	sqliteLockedSharedcache = bin.DSQLITE_LOCKED | (1 << 8)
+)
+
+// Error represents sqlite library error code.
+type Error struct {
+	msg  string
+	code int
+}
+
+// Error implements error.
+func (e *Error) Error() string { return e.msg }
+
+// Code returns the sqlite result code for this error.
+func (e *Error) Code() int { return e.code }
+
+var (
+	// ErrorCodeString maps Error.Code() to its string representation.
+	ErrorCodeString = map[int]string{
+		bin.DSQLITE_ABORT:             "Callback routine requested an abort (SQLITE_ABORT)",
+		bin.DSQLITE_AUTH:              "Authorization denied (SQLITE_AUTH)",
+		bin.DSQLITE_BUSY:              "The database file is locked (SQLITE_BUSY)",
+		bin.DSQLITE_CANTOPEN:          "Unable to open the database file (SQLITE_CANTOPEN)",
+		bin.DSQLITE_CONSTRAINT:        "Abort due to constraint violation (SQLITE_CONSTRAINT)",
+		bin.DSQLITE_CORRUPT:           "The database disk image is malformed (SQLITE_CORRUPT)",
+		bin.DSQLITE_DONE:              "sqlite3_step() has finished executing (SQLITE_DONE)",
+		bin.DSQLITE_EMPTY:             "Internal use only (SQLITE_EMPTY)",
+		bin.DSQLITE_ERROR:             "Generic error (SQLITE_ERROR)",
+		bin.DSQLITE_FORMAT:            "Not used (SQLITE_FORMAT)",
+		bin.DSQLITE_FULL:              "Insertion failed because database is full (SQLITE_FULL)",
+		bin.DSQLITE_INTERNAL:          "Internal logic error in SQLite (SQLITE_INTERNAL)",
+		bin.DSQLITE_INTERRUPT:         "Operation terminated by sqlite3_interrupt()(SQLITE_INTERRUPT)",
+		bin.DSQLITE_IOERR | (1 << 8):  "(SQLITE_IOERR_READ)",
+		bin.DSQLITE_IOERR | (10 << 8): "(SQLITE_IOERR_DELETE)",
+		bin.DSQLITE_IOERR | (11 << 8): "(SQLITE_IOERR_BLOCKED)",
+		bin.DSQLITE_IOERR | (12 << 8): "(SQLITE_IOERR_NOMEM)",
+		bin.DSQLITE_IOERR | (13 << 8): "(SQLITE_IOERR_ACCESS)",
+		bin.DSQLITE_IOERR | (14 << 8): "(SQLITE_IOERR_CHECKRESERVEDLOCK)",
+		bin.DSQLITE_IOERR | (15 << 8): "(SQLITE_IOERR_LOCK)",
+		bin.DSQLITE_IOERR | (16 << 8): "(SQLITE_IOERR_CLOSE)",
+		bin.DSQLITE_IOERR | (17 << 8): "(SQLITE_IOERR_DIR_CLOSE)",
+		bin.DSQLITE_IOERR | (2 << 8):  "(SQLITE_IOERR_SHORT_READ)",
+		bin.DSQLITE_IOERR | (3 << 8):  "(SQLITE_IOERR_WRITE)",
+		bin.DSQLITE_IOERR | (4 << 8):  "(SQLITE_IOERR_FSYNC)",
+		bin.DSQLITE_IOERR | (5 << 8):  "(SQLITE_IOERR_DIR_FSYNC)",
+		bin.DSQLITE_IOERR | (6 << 8):  "(SQLITE_IOERR_TRUNCATE)",
+		bin.DSQLITE_IOERR | (7 << 8):  "(SQLITE_IOERR_FSTAT)",
+		bin.DSQLITE_IOERR | (8 << 8):  "(SQLITE_IOERR_UNLOCK)",
+		bin.DSQLITE_IOERR | (9 << 8):  "(SQLITE_IOERR_RDLOCK)",
+		bin.DSQLITE_IOERR:             "Some kind of disk I/O error occurred (SQLITE_IOERR)",
+		bin.DSQLITE_LOCKED | (1 << 8): "(SQLITE_LOCKED_SHAREDCACHE)",
+		bin.DSQLITE_LOCKED:            "A table in the database is locked (SQLITE_LOCKED)",
+		bin.DSQLITE_MISMATCH:          "Data type mismatch (SQLITE_MISMATCH)",
+		bin.DSQLITE_MISUSE:            "Library used incorrectly (SQLITE_MISUSE)",
+		bin.DSQLITE_NOLFS:             "Uses OS features not supported on host (SQLITE_NOLFS)",
+		bin.DSQLITE_NOMEM:             "A malloc() failed (SQLITE_NOMEM)",
+		bin.DSQLITE_NOTADB:            "File opened that is not a database file (SQLITE_NOTADB)",
+		bin.DSQLITE_NOTFOUND:          "Unknown opcode in sqlite3_file_control() (SQLITE_NOTFOUND)",
+		bin.DSQLITE_NOTICE:            "Notifications from sqlite3_log() (SQLITE_NOTICE)",
+		bin.DSQLITE_PERM:              "Access permission denied (SQLITE_PERM)",
+		bin.DSQLITE_PROTOCOL:          "Database lock protocol error (SQLITE_PROTOCOL)",
+		bin.DSQLITE_RANGE:             "2nd parameter to sqlite3_bind out of range (SQLITE_RANGE)",
+		bin.DSQLITE_READONLY:          "Attempt to write a readonly database (SQLITE_READONLY)",
+		bin.DSQLITE_ROW:               "sqlite3_step() has another row ready (SQLITE_ROW)",
+		bin.DSQLITE_SCHEMA:            "The database schema changed (SQLITE_SCHEMA)",
+		bin.DSQLITE_TOOBIG:            "String or BLOB exceeds size limit (SQLITE_TOOBIG)",
+		bin.DSQLITE_WARNING:           "Warnings from sqlite3_log() (SQLITE_WARNING)",
+	}
 )
 
 func init() {
@@ -58,37 +124,25 @@ func init() {
 	}
 
 	crt.Xfree(tls, varArgs)
-	sql.Register(driverName, newDrv())
+	sql.Register(driverName, newDriver())
 }
 
 type result struct {
-	*stmt
 	lastInsertID int64
 	rowsAffected int
 }
 
-func newResult(s *stmt) (_ *result, err error) {
-	r := &result{stmt: s}
-	if r.rowsAffected, err = r.changes(); err != nil {
+func newResult(c *conn) (_ *result, err error) {
+	r := &result{}
+	if r.rowsAffected, err = c.changes(); err != nil {
 		return nil, err
 	}
 
-	if r.lastInsertID, err = r.lastInsertRowID(); err != nil {
+	if r.lastInsertID, err = c.lastInsertRowID(); err != nil {
 		return nil, err
 	}
 
 	return r, nil
-}
-
-// sqlite3_int64 sqlite3_last_insert_rowid(sqlite3*);
-func (r *result) lastInsertRowID() (v int64, _ error) {
-	return bin.Xsqlite3_last_insert_rowid(r.tls, r.pdb()), nil
-}
-
-// int sqlite3_changes(sqlite3*);
-func (r *result) changes() (int, error) {
-	v := bin.Xsqlite3_changes(r.tls, r.pdb())
-	return int(v), nil
 }
 
 // LastInsertId returns the database's auto-generated ID after, for example, an
@@ -111,34 +165,45 @@ func (r *result) RowsAffected() (int64, error) {
 }
 
 type rows struct {
-	*stmt
+	allocs  []crt.Intptr
+	c       *conn
 	columns []string
-	rc0     int
 	pstmt   crt.Intptr
-	doStep  bool
+
+	doStep bool
 }
 
-func newRows(s *stmt, pstmt crt.Intptr, rc0 int) (*rows, error) {
-	s.owned = true
-	r := &rows{
-		stmt:  s,
-		pstmt: pstmt,
-		rc0:   rc0,
-	}
+func newRows(c *conn, pstmt crt.Intptr, allocs []crt.Intptr) (r *rows, err error) {
+	defer func() {
+		if err != nil {
+			c.finalize(pstmt)
+			r = nil
+		}
+	}()
 
-	n, err := r.columnCount()
+	r = &rows{c: c, pstmt: pstmt, allocs: allocs}
+	n, err := c.columnCount(pstmt)
 	if err != nil {
 		return nil, err
 	}
 
 	r.columns = make([]string, n)
 	for i := range r.columns {
-		if r.columns[i], err = r.columnName(i); err != nil {
+		if r.columns[i], err = r.c.columnName(pstmt, i); err != nil {
 			return nil, err
 		}
 	}
 
 	return r, nil
+}
+
+// Close closes the rows iterator.
+func (r *rows) Close() (err error) {
+	for _, v := range r.allocs {
+		r.c.free(v)
+	}
+	r.allocs = nil
+	return r.c.finalize(r.pstmt)
 }
 
 // Columns returns the names of the columns. The number of columns of the
@@ -148,66 +213,55 @@ func (r *rows) Columns() (c []string) {
 	return r.columns
 }
 
-// Close closes the rows iterator.
-func (r *rows) Close() (err error) {
-	err = r.finalize(r.pstmt)
-	r.stmt.owned = false
-	if err2 := r.stmt.Close(); err2 != nil && err == nil {
-		err = err2
-	}
-	return err
-}
-
 // Next is called to populate the next row of data into the provided slice. The
 // provided slice will be the same size as the Columns() are wide.
 //
 // Next should return io.EOF when there are no more rows.
 func (r *rows) Next(dest []driver.Value) (err error) {
-	rc := r.rc0
+	rc := bin.DSQLITE_ROW
 	if r.doStep {
-		if rc, err = r.step(r.pstmt); err != nil {
+		if rc, err = r.c.step(r.pstmt); err != nil {
 			return err
 		}
 	}
 
 	r.doStep = true
-
 	switch rc {
 	case bin.DSQLITE_ROW:
 		if g, e := len(dest), len(r.columns); g != e {
-			return fmt.Errorf("Next(): have %v destination values, expected %v", g, e)
+			return fmt.Errorf("sqlite: Next: have %v destination values, expected %v", g, e)
 		}
 
 		for i := range dest {
-			ct, err := r.columnType(i)
+			ct, err := r.c.columnType(r.pstmt, i)
 			if err != nil {
 				return err
 			}
 
 			switch ct {
 			case bin.DSQLITE_INTEGER:
-				v, err := r.columnInt64(i)
+				v, err := r.c.columnInt64(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
 			case bin.DSQLITE_FLOAT:
-				v, err := r.columnDouble(i)
+				v, err := r.c.columnDouble(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
 			case bin.DSQLITE_TEXT:
-				v, err := r.columnText(i)
+				v, err := r.c.columnText(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
 			case bin.DSQLITE_BLOB:
-				v, err := r.columnBlob(i)
+				v, err := r.c.columnBlob(r.pstmt, i)
 				if err != nil {
 					return err
 				}
@@ -223,147 +277,125 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 	case bin.DSQLITE_DONE:
 		return io.EOF
 	default:
-		return r.errstr(int32(rc))
+		return r.c.errstr(int32(rc))
 	}
-}
-
-// int sqlite3_column_bytes(sqlite3_stmt*, int iCol);
-func (r *rows) columnBytes(iCol int) (_ int, err error) {
-	v := bin.Xsqlite3_column_bytes(r.tls, r.pstmt, int32(iCol))
-	return int(v), nil
-}
-
-// const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
-func (r *rows) columnBlob(iCol int) (v []byte, err error) {
-	p := bin.Xsqlite3_column_blob(r.tls, r.pstmt, int32(iCol))
-	len, err := r.columnBytes(iCol)
-	if err != nil {
-		return nil, err
-	}
-
-	if p == 0 || len == 0 {
-		return nil, nil
-	}
-
-	v = make([]byte, len)
-	copy(v, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
-	return v, nil
-}
-
-// const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
-func (r *rows) columnText(iCol int) (v string, err error) {
-	p := bin.Xsqlite3_column_text(r.tls, r.pstmt, int32(iCol))
-	len, err := r.columnBytes(iCol)
-	if err != nil {
-		return "", err
-	}
-
-	if p == 0 || len == 0 {
-		return "", nil
-	}
-
-	b := make([]byte, len)
-	copy(b, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
-	return string(b), nil
-}
-
-// double sqlite3_column_double(sqlite3_stmt*, int iCol);
-func (r *rows) columnDouble(iCol int) (v float64, err error) {
-	v = bin.Xsqlite3_column_double(r.tls, r.pstmt, int32(iCol))
-	return v, nil
-}
-
-// sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
-func (r *rows) columnInt64(iCol int) (v int64, err error) {
-	v = bin.Xsqlite3_column_int64(r.tls, r.pstmt, int32(iCol))
-	return v, nil
-}
-
-// int sqlite3_column_type(sqlite3_stmt*, int iCol);
-func (r *rows) columnType(iCol int) (_ int, err error) {
-	v := bin.Xsqlite3_column_type(r.tls, r.pstmt, int32(iCol))
-	return int(v), nil
-}
-
-// int sqlite3_column_count(sqlite3_stmt *pStmt);
-func (r *rows) columnCount() (_ int, err error) {
-	v := bin.Xsqlite3_column_count(r.tls, r.pstmt)
-	return int(v), nil
-}
-
-// const char *sqlite3_column_name(sqlite3_stmt*, int N);
-func (r *rows) columnName(n int) (string, error) {
-	p := bin.Xsqlite3_column_name(r.tls, r.pstmt, int32(n))
-	return crt.GoString(p), nil
 }
 
 type stmt struct {
-	*conn
-	allocs []crt.Intptr
-	psql   crt.Intptr // *int8
-	ppstmt crt.Intptr // **sqlite3_stmt
-	pzTail crt.Intptr // **int8
-
-	owned bool
+	c    *conn
+	psql crt.Intptr
 }
 
 func newStmt(c *conn, sql string) (*stmt, error) {
-	s := &stmt{conn: c}
-	psql, err := s.cString(sql)
+	p, err := crt.CString(sql)
 	if err != nil {
 		return nil, err
 	}
 
-	s.psql = psql
-	ppstmt, err := s.malloc(ptrSize)
-	if err != nil {
-		s.free(psql)
-		return nil, err
-	}
-
-	s.ppstmt = ppstmt
-	pzTail, err := s.malloc(ptrSize)
-	if err != nil {
-		s.free(psql)
-		s.free(ppstmt)
-		return nil, err
-	}
-
-	s.pzTail = pzTail
-	return s, nil
+	return &stmt{c: c, psql: p}, nil
 }
 
 // Close closes the statement.
 //
 // As of Go 1.1, a Stmt will not be closed if it's in use by any queries.
 func (s *stmt) Close() (err error) {
-	if s.owned {
-		return
-	}
+	s.c.free(s.psql)
+	s.psql = 0
+	return nil
+}
 
-	if s.psql != 0 {
-		err = s.free(s.psql)
-		s.psql = 0
+// Exec executes a query that doesn't return rows, such as an INSERT or UPDATE.
+//
+//
+// Deprecated: Drivers should implement StmtExecContext instead (or
+// additionally).
+func (s *stmt) Exec(args []driver.Value) (driver.Result, error) { //TODO StmtExecContext
+	return s.exec(context.Background(), toNamedValues(args))
+}
+
+// toNamedValues converts []driver.Value to []driver.NamedValue
+func toNamedValues(vals []driver.Value) (r []driver.NamedValue) {
+	r = make([]driver.NamedValue, len(vals))
+	for i, val := range vals {
+		r[i] = driver.NamedValue{Value: val, Ordinal: i + 1}
 	}
-	if s.ppstmt != 0 {
-		if err2 := s.free(s.ppstmt); err2 != nil && err == nil {
-			err = err2
+	return r
+}
+
+func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Result, err error) {
+	var pstmt crt.Intptr
+
+	donech := make(chan struct{})
+
+	go func() {
+		select {
+		case <-ctx.Done():
+			if pstmt != 0 {
+				s.c.interrupt(s.c.db)
+			}
+		case <-donech:
 		}
-		s.ppstmt = 0
-	}
-	if s.pzTail != 0 {
-		if err2 := s.free(s.pzTail); err2 != nil && err == nil {
-			err = err2
+	}()
+
+	defer func() {
+		pstmt = 0
+		close(donech)
+	}()
+
+	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; {
+		if pstmt, err = s.c.prepareV2(&psql); err != nil {
+			return nil, err
 		}
-		s.pzTail = 0
-	}
-	for _, v := range s.allocs {
-		if err2 := s.free(v); err2 != nil && err == nil {
-			err = err2
+
+		if pstmt == 0 {
+			continue
+		}
+
+		if err := func() (err error) {
+			defer func() {
+				if e := s.c.finalize(pstmt); e != nil && err == nil {
+					err = e
+				}
+			}()
+
+			n, err := s.c.bindParameterCount(pstmt)
+			if err != nil {
+				return err
+			}
+
+			if n != 0 {
+				allocs, err := s.c.bind(pstmt, n, args)
+				if err != nil {
+					return err
+				}
+
+				if len(allocs) != 0 {
+					defer func() {
+						for _, v := range allocs {
+							s.c.free(v)
+						}
+					}()
+				}
+			}
+
+			rc, err := s.c.step(pstmt)
+			if err != nil {
+				return err
+			}
+
+			switch rc & 0xff {
+			case bin.DSQLITE_DONE, bin.DSQLITE_ROW:
+				// nop
+			default:
+				return s.c.errstr(int32(rc))
+			}
+
+			return nil
+		}(); err != nil {
+			return nil, err
 		}
 	}
-	s.allocs = nil
-	return err
+	return newResult(s.c)
 }
 
 // NumInput returns the number of placeholder parameters.
@@ -379,205 +411,324 @@ func (s *stmt) NumInput() (n int) {
 	return -1
 }
 
-// Exec executes a query that doesn't return rows, such as an INSERT or UPDATE.
-func (s *stmt) Exec(args []driver.Value) (driver.Result, error) {
-	return s.exec(context.Background(), toNamedValues(args))
-}
-
-func (s *stmt) exec(ctx context.Context, args []namedValue) (r driver.Result, err error) {
-	var pstmt crt.Intptr
-
-	donech := make(chan struct{})
-	defer close(donech)
-	go func() {
-		select {
-		case <-ctx.Done():
-			if pstmt != 0 {
-				s.interrupt(s.pdb())
-			}
-		case <-donech:
-		}
-	}()
-
-	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; psql = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.pzTail))) {
-		if err := s.prepareV2(psql); err != nil {
-			return nil, err
-		}
-
-		pstmt = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.ppstmt)))
-		if pstmt == 0 {
-			continue
-		}
-
-		n, err := s.bindParameterCount(pstmt)
-		if err != nil {
-			return nil, err
-		}
-
-		if n != 0 {
-			if err = s.bind(pstmt, n, args); err != nil {
-				return nil, err
-			}
-		}
-
-		rc, err := s.step(pstmt)
-		if err != nil {
-			s.finalize(pstmt)
-			return nil, err
-		}
-
-		switch rc & 0xff {
-		case bin.DSQLITE_DONE, bin.DSQLITE_ROW:
-			if err := s.finalize(pstmt); err != nil {
-				return nil, err
-			}
-		default:
-			err = s.errstr(int32(rc))
-			s.finalize(pstmt)
-			return nil, err
-		}
-	}
-	return newResult(s)
-}
-
-func (s *stmt) Query(args []driver.Value) (driver.Rows, error) {
+// Query executes a query that may return rows, such as a
+// SELECT.
+//
+// Deprecated: Drivers should implement StmtQueryContext instead (or
+// additionally).
+func (s *stmt) Query(args []driver.Value) (driver.Rows, error) { //TODO StmtQueryContext
 	return s.query(context.Background(), toNamedValues(args))
 }
 
-func (s *stmt) query(ctx context.Context, args []namedValue) (r driver.Rows, err error) {
-	var pstmt, rowStmt crt.Intptr
-	var rc0 int
+func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Rows, err error) {
+	var pstmt crt.Intptr
 
 	donech := make(chan struct{})
-	defer close(donech)
+
 	go func() {
 		select {
 		case <-ctx.Done():
 			if pstmt != 0 {
-				s.interrupt(s.pdb())
+				s.c.interrupt(s.c.db)
 			}
 		case <-donech:
 		}
 	}()
 
-	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; psql = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.pzTail))) {
-		if err := s.prepareV2(psql); err != nil {
+	defer func() {
+		pstmt = 0
+		close(donech)
+	}()
+
+	var allocs []crt.Intptr
+	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; {
+		if pstmt, err = s.c.prepareV2(&psql); err != nil {
 			return nil, err
 		}
 
-		pstmt = *(*crt.Intptr)(unsafe.Pointer(uintptr(s.ppstmt)))
 		if pstmt == 0 {
 			continue
 		}
 
-		n, err := s.bindParameterCount(pstmt)
-		if err != nil {
-			return nil, err
-		}
+		if err = func() (err error) {
+			defer func() {
+				if e := s.c.finalize(pstmt); e != nil && err == nil {
+					err = e
+				}
+			}()
 
-		if n != 0 {
-			if err = s.bind(pstmt, n, args); err != nil {
-				return nil, err
+			n, err := s.c.bindParameterCount(pstmt)
+			if err != nil {
+				return err
 			}
-		}
 
-		rc, err := s.step(pstmt)
-		if err != nil {
-			s.finalize(pstmt)
-			return nil, err
-		}
-
-		switch rc {
-		case bin.DSQLITE_ROW:
-			if rowStmt != 0 {
-				if err := s.finalize(pstmt); err != nil {
-					return nil, err
+			if n != 0 {
+				a, err := s.c.bind(pstmt, n, args)
+				if err != nil {
+					return err
 				}
 
-				return nil, fmt.Errorf("query contains multiple select statements")
+				if len(a) != 0 {
+					allocs = append(allocs, a...)
+				}
 			}
 
-			rowStmt = pstmt
-			rc0 = rc
-		case bin.DSQLITE_DONE:
-			if rowStmt == 0 {
-				rc0 = rc
+			rc, err := s.c.step(pstmt)
+			if err != nil {
+				return err
 			}
-		default:
-			err = s.errstr(int32(rc))
-			s.finalize(pstmt)
+
+			switch rc & 0xff {
+			case bin.DSQLITE_ROW:
+				if r, err = newRows(s.c, pstmt, allocs); err != nil {
+					return err
+				}
+
+				pstmt = 0
+				return nil
+			case bin.DSQLITE_DONE:
+				// nop
+			default:
+				return s.c.errstr(int32(rc))
+			}
+
+			return nil
+		}(); err != nil {
 			return nil, err
 		}
 	}
-	return newRows(s, rowStmt, rc0)
-}
-
-// int sqlite3_bind_double(sqlite3_stmt*, int, double);
-func (s *stmt) bindDouble(pstmt crt.Intptr, idx1 int, value float64) (err error) {
-	if rc := bin.Xsqlite3_bind_double(s.tls, pstmt, int32(idx1), value); rc != 0 {
-		return s.errstr(rc)
+	if r != nil {
+		return r, nil
 	}
 
-	return nil
+	panic("TODO")
 }
 
-// int sqlite3_bind_int(sqlite3_stmt*, int, int);
-func (s *stmt) bindInt(pstmt crt.Intptr, idx1, value int) (err error) {
-	if rc := bin.Xsqlite3_bind_int(s.tls, pstmt, int32(idx1), int32(value)); rc != bin.DSQLITE_OK {
-		return s.errstr(rc)
+type tx struct {
+	c *conn
+}
+
+func newTx(c *conn) (*tx, error) {
+	r := &tx{c: c}
+	if err := r.exec(context.Background(), "begin"); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return r, nil
 }
 
-// int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
-func (s *stmt) bindInt64(pstmt crt.Intptr, idx1 int, value int64) (err error) {
-	if rc := bin.Xsqlite3_bind_int64(s.tls, pstmt, int32(idx1), value); rc != bin.DSQLITE_OK {
-		return s.errstr(rc)
-	}
-
-	return nil
+// Commit implements driver.Tx.
+func (t *tx) Commit() (err error) {
+	return t.exec(context.Background(), "commit")
 }
 
-// int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
-func (s *stmt) bindBlob(pstmt crt.Intptr, idx1 int, value []byte) (err error) {
-	p, err := s.malloc(len(value))
+// Rollback implements driver.Tx.
+func (t *tx) Rollback() (err error) {
+	return t.exec(context.Background(), "rollback")
+}
+
+func (t *tx) exec(ctx context.Context, sql string) (err error) {
+	psql, err := crt.CString(sql)
 	if err != nil {
 		return err
 	}
 
-	s.allocs = append(s.allocs, p)
-	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len(value)], value)
-	if rc := bin.Xsqlite3_bind_blob(s.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
-		return s.errstr(rc)
+	defer t.c.free(psql)
+
+	//TODO use t.conn.ExecContext() instead
+	donech := make(chan struct{})
+
+	defer close(donech)
+
+	go func() {
+		select {
+		case <-ctx.Done():
+			t.c.interrupt(t.c.db)
+		case <-donech:
+		}
+	}()
+
+	if rc := bin.Xsqlite3_exec(t.c.tls, t.c.db, psql, 0, 0, 0); rc != bin.DSQLITE_OK {
+		return t.c.errstr(rc)
 	}
 
 	return nil
 }
 
-// int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
-func (s *stmt) bindText(pstmt crt.Intptr, idx1 int, value string) (err error) {
-	p, err := s.cString(value)
+type conn struct {
+	db  crt.Intptr // *bin.Xsqlite3
+	tls *crt.TLS
+}
+
+func newConn(name string) (*conn, error) {
+	c := &conn{tls: crt.NewTLS()}
+	db, err := c.openV2(
+		name,
+		bin.DSQLITE_OPEN_READWRITE|bin.DSQLITE_OPEN_CREATE|
+			bin.DSQLITE_OPEN_FULLMUTEX|
+			bin.DSQLITE_OPEN_URI,
+	)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	s.allocs = append(s.allocs, p)
-	if rc := bin.Xsqlite3_bind_text(s.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
-		return s.errstr(rc)
+	c.db = db
+	if err = c.extendedResultCodes(true); err != nil {
+		return nil, err
 	}
 
+	return c, nil
+}
+
+// const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
+func (c *conn) columnBlob(pstmt crt.Intptr, iCol int) (v []byte, err error) {
+	p := bin.Xsqlite3_column_blob(c.tls, pstmt, int32(iCol))
+	len, err := c.columnBytes(pstmt, iCol)
+	if err != nil {
+		return nil, err
+	}
+
+	if p == 0 || len == 0 {
+		return nil, nil
+	}
+
+	v = make([]byte, len)
+	copy(v, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
+	return v, nil
+}
+
+// int sqlite3_column_bytes(sqlite3_stmt*, int iCol);
+func (c *conn) columnBytes(pstmt crt.Intptr, iCol int) (_ int, err error) {
+	v := bin.Xsqlite3_column_bytes(c.tls, pstmt, int32(iCol))
+	return int(v), nil
+}
+
+// const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
+func (c *conn) columnText(pstmt crt.Intptr, iCol int) (v string, err error) {
+	p := bin.Xsqlite3_column_text(c.tls, pstmt, int32(iCol))
+	len, err := c.columnBytes(pstmt, iCol)
+	if err != nil {
+		return "", err
+	}
+
+	if p == 0 || len == 0 {
+		return "", nil
+	}
+
+	b := make([]byte, len)
+	copy(b, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
+	return string(b), nil
+}
+
+// double sqlite3_column_double(sqlite3_stmt*, int iCol);
+func (c *conn) columnDouble(pstmt crt.Intptr, iCol int) (v float64, err error) {
+	v = bin.Xsqlite3_column_double(c.tls, pstmt, int32(iCol))
+	return v, nil
+}
+
+// sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
+func (c *conn) columnInt64(pstmt crt.Intptr, iCol int) (v int64, err error) {
+	v = bin.Xsqlite3_column_int64(c.tls, pstmt, int32(iCol))
+	return v, nil
+}
+
+// int sqlite3_column_type(sqlite3_stmt*, int iCol);
+func (c *conn) columnType(pstmt crt.Intptr, iCol int) (_ int, err error) {
+	v := bin.Xsqlite3_column_type(c.tls, pstmt, int32(iCol))
+	return int(v), nil
+}
+
+// const char *sqlite3_column_name(sqlite3_stmt*, int N);
+func (c *conn) columnName(pstmt crt.Intptr, n int) (string, error) {
+	p := bin.Xsqlite3_column_name(c.tls, pstmt, int32(n))
+	return crt.GoString(p), nil
+}
+
+// int sqlite3_column_count(sqlite3_stmt *pStmt);
+func (c *conn) columnCount(pstmt crt.Intptr) (_ int, err error) {
+	v := bin.Xsqlite3_column_count(c.tls, pstmt)
+	return int(v), nil
+}
+
+// sqlite3_int64 sqlite3_last_insert_rowid(sqlite3*);
+func (c *conn) lastInsertRowID() (v int64, _ error) {
+	return bin.Xsqlite3_last_insert_rowid(c.tls, c.db), nil
+}
+
+// int sqlite3_changes(sqlite3*);
+func (c *conn) changes() (int, error) {
+	v := bin.Xsqlite3_changes(c.tls, c.db)
+	return int(v), nil
+}
+
+// int sqlite3_step(sqlite3_stmt*);
+func (c *conn) step(pstmt crt.Intptr) (int, error) {
+	for {
+		switch rc := bin.Xsqlite3_step(c.tls, pstmt); rc {
+		case sqliteLockedSharedcache, bin.DSQLITE_BUSY:
+			if err := c.retry(pstmt); err != nil {
+				return bin.DSQLITE_LOCKED, err
+			}
+		default:
+			return int(rc), nil
+		}
+	}
+}
+
+func (c *conn) retry(pstmt crt.Intptr) error {
+	mu := mutexAlloc(c.tls, bin.DSQLITE_MUTEX_FAST)
+	(*mutex)(unsafe.Pointer(uintptr(mu))).enter(c.tls.ID) // Block
+	rc := bin.Xsqlite3_unlock_notify(
+		c.tls,
+		c.db,
+		*(*crt.Intptr)(unsafe.Pointer(&struct {
+			f func(*crt.TLS, crt.Intptr, int32)
+		}{unlockNotify})),
+		mu,
+	)
+	if rc == bin.DSQLITE_LOCKED { // Deadlock, see https://www.sqlite.org/c3ref/unlock_notify.html
+		(*mutex)(unsafe.Pointer(uintptr(mu))).leave() // Clear
+		mutexFree(c.tls, mu)
+		return c.errstr(rc)
+	}
+
+	(*mutex)(unsafe.Pointer(uintptr(mu))).enter(c.tls.ID) // Wait
+	(*mutex)(unsafe.Pointer(uintptr(mu))).leave()         // Clear
+	mutexFree(c.tls, mu)
+	if pstmt != 0 {
+		bin.Xsqlite3_reset(c.tls, pstmt)
+	}
 	return nil
 }
 
-func (s *stmt) bind(pstmt crt.Intptr, n int, args []namedValue) error {
-	for i := 1; i <= n; i++ {
-		name, err := s.bindParameterName(pstmt, i)
-		if err != nil {
-			return err
+func unlockNotify(t *crt.TLS, ppArg crt.Intptr, nArg int32) {
+	for i := int32(0); i < nArg; i++ {
+		mu := *(*crt.Intptr)(unsafe.Pointer(uintptr(ppArg)))
+		(*mutex)(unsafe.Pointer(uintptr(mu))).leave() // Signal
+		ppArg += crt.Intptr(ptrSize)
+	}
+}
+
+func (c *conn) bind(pstmt crt.Intptr, n int, args []driver.NamedValue) (allocs []crt.Intptr, err error) {
+	defer func() {
+		if err == nil {
+			return
 		}
 
-		var v namedValue
+		for _, v := range allocs {
+			c.free(v)
+		}
+		allocs = nil
+	}()
+
+	for i := 1; i <= n; i++ {
+		var p crt.Intptr
+		name, err := c.bindParameterName(pstmt, i)
+		if err != nil {
+			return allocs, err
+		}
+
+		var v driver.NamedValue
 		for _, v = range args {
 			if name != "" {
 				// sqlite supports '$', '@' and ':' prefixes for string
@@ -597,73 +748,128 @@ func (s *stmt) bind(pstmt crt.Intptr, n int, args []namedValue) error {
 
 		if v.Ordinal == 0 {
 			if name != "" {
-				return fmt.Errorf("missing named argument %q", name[1:])
+				return allocs, fmt.Errorf("missing named argument %q", name[1:])
 			}
 
-			return fmt.Errorf("missing argument with %d index", i)
+			return allocs, fmt.Errorf("missing argument with %d index", i)
 		}
 
 		switch x := v.Value.(type) {
 		case int64:
-			if err := s.bindInt64(pstmt, i, x); err != nil {
-				return err
+			if err := c.bindInt64(pstmt, i, x); err != nil {
+				return allocs, err
 			}
 		case float64:
-			if err := s.bindDouble(pstmt, i, x); err != nil {
-				return err
+			if err := c.bindDouble(pstmt, i, x); err != nil {
+				return allocs, err
 			}
 		case bool:
 			v := 0
 			if x {
 				v = 1
 			}
-			if err := s.bindInt(pstmt, i, v); err != nil {
-				return err
+			if err := c.bindInt(pstmt, i, v); err != nil {
+				return allocs, err
 			}
 		case []byte:
-			if err := s.bindBlob(pstmt, i, x); err != nil {
-				return err
+			if p, err = c.bindBlob(pstmt, i, x); err != nil {
+				return allocs, err
 			}
 		case string:
-			if err := s.bindText(pstmt, i, x); err != nil {
-				return err
+			if p, err = c.bindText(pstmt, i, x); err != nil {
+				return allocs, err
 			}
 		case time.Time:
-			if err := s.bindText(pstmt, i, x.String()); err != nil {
-				return err
+			if p, err = c.bindText(pstmt, i, x.String()); err != nil {
+				return allocs, err
 			}
 		default:
-			return fmt.Errorf("invalid driver.Value type %T", x)
+			return allocs, fmt.Errorf("sqlite: invalid driver.Value type %T", x)
+		}
+		if p != 0 {
+			allocs = append(allocs, p)
 		}
 	}
+	return allocs, nil
+}
+
+// int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
+func (c *conn) bindText(pstmt crt.Intptr, idx1 int, value string) (crt.Intptr, error) {
+	p, err := crt.CString(value)
+	if err != nil {
+		return 0, err
+	}
+
+	if rc := bin.Xsqlite3_bind_text(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
+		c.free(p)
+		return 0, c.errstr(rc)
+	}
+
+	return p, nil
+}
+
+// int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
+func (c *conn) bindBlob(pstmt crt.Intptr, idx1 int, value []byte) (crt.Intptr, error) {
+	p, err := c.malloc(len(value))
+	if err != nil {
+		return 0, err
+	}
+
+	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len(value)], value)
+	if rc := bin.Xsqlite3_bind_blob(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
+		c.free(p)
+		return 0, c.errstr(rc)
+	}
+
+	return p, nil
+}
+
+// int sqlite3_bind_int(sqlite3_stmt*, int, int);
+func (c *conn) bindInt(pstmt crt.Intptr, idx1, value int) (err error) {
+	if rc := bin.Xsqlite3_bind_int(c.tls, pstmt, int32(idx1), int32(value)); rc != bin.DSQLITE_OK {
+		return c.errstr(rc)
+	}
+
 	return nil
 }
 
-// int sqlite3_bind_parameter_count(sqlite3_stmt*);
-func (s *stmt) bindParameterCount(pstmt crt.Intptr) (_ int, err error) {
-	r := bin.Xsqlite3_bind_parameter_count(s.tls, pstmt)
-	return int(r), nil
+// int sqlite3_bind_double(sqlite3_stmt*, int, double);
+func (c *conn) bindDouble(pstmt crt.Intptr, idx1 int, value float64) (err error) {
+	if rc := bin.Xsqlite3_bind_double(c.tls, pstmt, int32(idx1), value); rc != 0 {
+		return c.errstr(rc)
+	}
+
+	return nil
+}
+
+// int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
+func (c *conn) bindInt64(pstmt crt.Intptr, idx1 int, value int64) (err error) {
+	if rc := bin.Xsqlite3_bind_int64(c.tls, pstmt, int32(idx1), value); rc != bin.DSQLITE_OK {
+		return c.errstr(rc)
+	}
+
+	return nil
 }
 
 // const char *sqlite3_bind_parameter_name(sqlite3_stmt*, int);
-func (s *stmt) bindParameterName(pstmt crt.Intptr, i int) (string, error) {
-	p := bin.Xsqlite3_bind_parameter_name(s.tls, pstmt, int32(i))
+func (c *conn) bindParameterName(pstmt crt.Intptr, i int) (string, error) {
+	p := bin.Xsqlite3_bind_parameter_name(c.tls, pstmt, int32(i))
 	return crt.GoString(p), nil
 }
 
+// int sqlite3_bind_parameter_count(sqlite3_stmt*);
+func (c *conn) bindParameterCount(pstmt crt.Intptr) (_ int, err error) {
+	r := bin.Xsqlite3_bind_parameter_count(c.tls, pstmt)
+	return int(r), nil
+}
+
 // int sqlite3_finalize(sqlite3_stmt *pStmt);
-func (s *stmt) finalize(pstmt crt.Intptr) error {
-	if rc := bin.Xsqlite3_finalize(s.tls, pstmt); rc != bin.DSQLITE_OK {
-		return s.errstr(rc)
+func (c *conn) finalize(pstmt crt.Intptr) error {
+	if rc := bin.Xsqlite3_finalize(c.tls, pstmt); rc != bin.DSQLITE_OK {
+		return c.errstr(rc)
 	}
 
 	return nil
-}
-
-// int sqlite3_step(sqlite3_stmt*);
-func (s *stmt) step(pstmt crt.Intptr) (int, error) {
-	r := bin.Xsqlite3_step(s.tls, pstmt)
-	return int(r), nil
 }
 
 // int sqlite3_prepare_v2(
@@ -673,109 +879,122 @@ func (s *stmt) step(pstmt crt.Intptr) (int, error) {
 //   sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
 //   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 // );
-func (s *stmt) prepareV2(zSQL crt.Intptr) error {
-	if rc := bin.Xsqlite3_prepare_v2(s.tls, s.pdb(), zSQL, -1, s.ppstmt, s.pzTail); rc != bin.DSQLITE_OK {
-		return s.errstr(rc)
-	}
-
-	return nil
-}
-
-type tx struct {
-	*conn
-}
-
-func newTx(c *conn) (*tx, error) {
-	t := &tx{conn: c}
-	if err := t.exec(context.Background(), "begin"); err != nil {
-		return nil, err
-	}
-
-	return t, nil
-}
-
-// Commit implements driver.Tx.
-func (t *tx) Commit() (err error) {
-	return t.exec(context.Background(), "commit")
-}
-
-// Rollback implements driver.Tx.
-func (t *tx) Rollback() (err error) {
-	return t.exec(context.Background(), "rollback")
-}
-
-// int sqlite3_exec(
-//   sqlite3*,                                  /* An open database */
-//   const char *sql,                           /* SQL to be evaluated */
-//   int (*callback)(void*,int,char**,char**),  /* Callback function */
-//   void *,                                    /* 1st argument to callback */
-//   char **errmsg                              /* Error msg written here */
-// );
-func (t *tx) exec(ctx context.Context, sql string) (err error) {
-	psql, err := t.cString(sql)
-	if err != nil {
-		return err
-	}
-
-	defer t.free(psql)
-
-	//TODO use t.conn.ExecContext() instead
-	donech := make(chan struct{})
-	defer close(donech)
-	go func() {
-		select {
-		case <-ctx.Done():
-			t.interrupt(t.pdb())
-		case <-donech:
-		}
-	}()
-
-	if rc := bin.Xsqlite3_exec(t.tls, t.pdb(), psql, 0, 0, 0); rc != bin.DSQLITE_OK {
-		return t.errstr(rc)
-	}
-
-	return nil
-}
-
-type conn struct {
-	*Driver
-	ppdb crt.Intptr // **bin.Xsqlite3
-	tls  *crt.TLS
-}
-
-func newConn(s *Driver, name string) (_ *conn, err error) {
-	c := &conn{Driver: s}
+func (c *conn) prepareV2(zSql *crt.Intptr) (pstmt crt.Intptr, err error) {
+	var ppstmt, pptail crt.Intptr
 
 	defer func() {
-		if err != nil {
-			c.close()
+		c.free(ppstmt)
+		c.free(pptail)
+	}()
+
+	if ppstmt, err = c.malloc(ptrSize); err != nil {
+		return 0, err
+	}
+
+	if pptail, err = c.malloc(ptrSize); err != nil {
+		return 0, err
+	}
+
+	for {
+		switch rc := bin.Xsqlite3_prepare_v2(c.tls, c.db, *zSql, -1, ppstmt, pptail); rc {
+		case bin.DSQLITE_OK:
+			*zSql = *(*crt.Intptr)(unsafe.Pointer(uintptr(pptail)))
+			return *(*crt.Intptr)(unsafe.Pointer(uintptr(ppstmt))), nil
+		case sqliteLockedSharedcache, bin.DSQLITE_BUSY:
+			if err := c.retry(0); err != nil {
+				return 0, err
+			}
+		default:
+			return 0, c.errstr(rc)
+		}
+	}
+}
+
+// void sqlite3_interrupt(sqlite3*);
+func (c *conn) interrupt(pdb crt.Intptr) (err error) {
+	bin.Xsqlite3_interrupt(c.tls, pdb)
+	return nil
+}
+
+// int sqlite3_extended_result_codes(sqlite3*, int onoff);
+func (c *conn) extendedResultCodes(on bool) error {
+	if rc := bin.Xsqlite3_extended_result_codes(c.tls, c.db, crt.Bool32(on)); rc != bin.DSQLITE_OK {
+		return c.errstr(rc)
+	}
+
+	return nil
+}
+
+// int sqlite3_open_v2(
+//   const char *filename,   /* Database filename (UTF-8) */
+//   sqlite3 **ppDb,         /* OUT: SQLite db handle */
+//   int flags,              /* Flags */
+//   const char *zVfs        /* Name of VFS module to use */
+// );
+func (c *conn) openV2(name string, flags int32) (crt.Intptr, error) {
+	var p, s crt.Intptr
+
+	defer func() {
+		if p != 0 {
+			c.free(p)
+		}
+		if s != 0 {
+			c.free(s)
 		}
 	}()
 
-	c.tls = crt.NewTLS()
-	if err = c.openV2(
-		name,
-		bin.DSQLITE_OPEN_READWRITE|bin.DSQLITE_OPEN_CREATE|
-			bin.DSQLITE_OPEN_FULLMUTEX|
-			bin.DSQLITE_OPEN_URI,
-	); err != nil {
-		return nil, err
+	p, err := c.malloc(ptrSize)
+	if err != nil {
+		return 0, err
 	}
 
-	if err = c.extendedResultCodes(true); err != nil {
-		return nil, err
+	if s, err = crt.CString(name); err != nil {
+		return 0, err
 	}
 
-	return c, nil
+	if rc := bin.Xsqlite3_open_v2(c.tls, s, p, flags, 0); rc != bin.DSQLITE_OK {
+		return 0, c.errstr(rc)
+	}
+
+	return *(*crt.Intptr)(unsafe.Pointer(uintptr(p))), nil
 }
 
-// Prepare returns a prepared statement, bound to this connection.
-func (c *conn) Prepare(query string) (s driver.Stmt, err error) {
-	return c.prepare(context.Background(), query)
+func (c *conn) malloc(n int) (crt.Intptr, error) {
+	if p := crt.Xmalloc(c.tls, crt.Intptr(n)); p != 0 {
+		return p, nil
+	}
+
+	return 0, fmt.Errorf("sqlite: cannot allocate %d bytes of memory", n)
 }
 
-func (c *conn) prepare(ctx context.Context, query string) (s driver.Stmt, err error) {
-	return newStmt(c, query)
+func (c *conn) free(p crt.Intptr) {
+	if p != 0 {
+		crt.Xfree(c.tls, p)
+	}
+}
+
+// const char *sqlite3_errstr(int);
+func (c *conn) errstr(rc int32) error {
+	p := bin.Xsqlite3_errstr(c.tls, rc)
+	str := crt.GoString(p)
+	p = bin.Xsqlite3_errmsg(c.tls, c.db)
+	switch msg := crt.GoString(p); {
+	case msg == str:
+		return &Error{msg: fmt.Sprintf("%s (%v)", str, rc), code: int(rc)}
+	default:
+		return &Error{msg: fmt.Sprintf("%s: %s (%v)", str, msg, rc), code: int(rc)}
+	}
+}
+
+// Begin starts a transaction.
+//
+// Deprecated: Drivers should implement ConnBeginTx instead (or additionally).
+func (c *conn) Begin() (driver.Tx, error) {
+	return c.begin(context.Background(), driver.TxOptions{})
+}
+
+func (c *conn) begin(ctx context.Context, opts driver.TxOptions) (t driver.Tx, err error) {
+	return newTx(c)
 }
 
 // Close invalidates and potentially stops any current prepared statements and
@@ -784,23 +1003,24 @@ func (c *conn) prepare(ctx context.Context, query string) (s driver.Stmt, err er
 // Because the sql package maintains a free pool of connections and only calls
 // Close when there's a surplus of idle connections, it shouldn't be necessary
 // for drivers to do their own connection caching.
-func (c *conn) Close() (err error) {
-	return c.close()
+func (c *conn) Close() error {
+	if c.db != 0 {
+		if err := c.closeV2(c.db); err != nil {
+			return err
+		}
+
+		c.db = 0
+	}
+	return nil
 }
 
-// Begin starts a transaction.
-func (c *conn) Begin() (driver.Tx, error) {
-	return c.begin(context.Background(), txOptions{})
-}
+// int sqlite3_close_v2(sqlite3*);
+func (c *conn) closeV2(db crt.Intptr) error {
+	if rc := bin.Xsqlite3_close_v2(c.tls, db); rc != bin.DSQLITE_OK {
+		return c.errstr(rc)
+	}
 
-// copy of driver.TxOptions
-type txOptions struct {
-	Isolation int // driver.IsolationLevel
-	ReadOnly  bool
-}
-
-func (c *conn) begin(ctx context.Context, opts txOptions) (t driver.Tx, err error) {
-	return newTx(c)
+	return nil
 }
 
 // Execer is an optional interface that may be implemented by a Conn.
@@ -809,11 +1029,13 @@ func (c *conn) begin(ctx context.Context, opts txOptions) (t driver.Tx, err erro
 // prepare a query, execute the statement, and then close the statement.
 //
 // Exec may return ErrSkip.
+//
+// Deprecated: Drivers should implement ExecerContext instead.
 func (c *conn) Exec(query string, args []driver.Value) (driver.Result, error) {
 	return c.exec(context.Background(), query, toNamedValues(args))
 }
 
-func (c *conn) exec(ctx context.Context, query string, args []namedValue) (r driver.Result, err error) {
+func (c *conn) exec(ctx context.Context, query string, args []driver.NamedValue) (r driver.Result, err error) {
 	s, err := c.prepare(ctx, query)
 	if err != nil {
 		return nil, err
@@ -828,20 +1050,14 @@ func (c *conn) exec(ctx context.Context, query string, args []namedValue) (r dri
 	return s.(*stmt).exec(ctx, args)
 }
 
-// copy of driver.NameValue
-type namedValue struct {
-	Name    string
-	Ordinal int
-	Value   driver.Value
+// Prepare returns a prepared statement, bound to this connection.
+func (c *conn) Prepare(query string) (driver.Stmt, error) {
+	return c.prepare(context.Background(), query)
 }
 
-// toNamedValues converts []driver.Value to []namedValue
-func toNamedValues(vals []driver.Value) []namedValue {
-	args := make([]namedValue, 0, len(vals))
-	for i, val := range vals {
-		args = append(args, namedValue{Value: val, Ordinal: i + 1})
-	}
-	return args
+func (c *conn) prepare(ctx context.Context, query string) (s driver.Stmt, err error) {
+	//TODO use ctx
+	return newStmt(c, query)
 }
 
 // Queryer is an optional interface that may be implemented by a Conn.
@@ -850,11 +1066,13 @@ func toNamedValues(vals []driver.Value) []namedValue {
 // prepare a query, execute the statement, and then close the statement.
 //
 // Query may return ErrSkip.
+//
+// Deprecated: Drivers should implement QueryerContext instead.
 func (c *conn) Query(query string, args []driver.Value) (driver.Rows, error) {
 	return c.query(context.Background(), query, toNamedValues(args))
 }
 
-func (c *conn) query(ctx context.Context, query string, args []namedValue) (r driver.Rows, err error) {
+func (c *conn) query(ctx context.Context, query string, args []driver.NamedValue) (r driver.Rows, err error) {
 	s, err := c.prepare(ctx, query)
 	if err != nil {
 		return nil, err
@@ -869,124 +1087,10 @@ func (c *conn) query(ctx context.Context, query string, args []namedValue) (r dr
 	return s.(*stmt).query(ctx, args)
 }
 
-func (c *conn) pdb() crt.Intptr { return *(*crt.Intptr)(unsafe.Pointer(uintptr(c.ppdb))) }
-
-// int sqlite3_extended_result_codes(sqlite3*, int onoff);
-func (c *conn) extendedResultCodes(on bool) (err error) {
-	if rc := bin.Xsqlite3_extended_result_codes(c.tls, c.pdb(), crt.Bool32(on)); rc != bin.DSQLITE_OK {
-		return c.errstr(rc)
-	}
-
-	return nil
-}
-
-// void *sqlite3_malloc(int);
-func (c *conn) malloc(n int) (r crt.Intptr, err error) {
-	if n > math.MaxInt32 {
-		return 0, fmt.Errorf("cannot allocate %d bytes of memory", n)
-	}
-
-	r = bin.Xsqlite3_malloc(c.tls, int32(n))
-	if r == 0 {
-		return 0, fmt.Errorf("malloc(%v) failed", n)
-	}
-
-	return r, nil
-}
-
-func (c *conn) cString(s string) (crt.Intptr, error) {
-	n := len(s)
-	p, err := c.malloc(n + 1)
-	if err != nil {
-		return 0, err
-	}
-
-	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:n], s)
-	*(*byte)(unsafe.Pointer(uintptr(p) + uintptr(n))) = 0
-	return p, nil
-}
-
-// int sqlite3_open_v2(
-//   const char *filename,   /* Database filename (UTF-8) */
-//   sqlite3 **ppDb,         /* OUT: SQLite db handle */
-//   int flags,              /* Flags */
-//   const char *zVfs        /* Name of VFS module to use */
-// );
-func (c *conn) openV2(name string, flags int32) error {
-	filename, err := c.cString(name)
-	if err != nil {
-		return err
-	}
-
-	defer c.free(filename)
-
-	ppdb, err := c.malloc(ptrSize)
-	if err != nil {
-		return err
-	}
-
-	c.ppdb = ppdb
-	if rc := bin.Xsqlite3_open_v2(c.tls, filename, c.ppdb, flags, 0); rc != bin.DSQLITE_OK {
-		return c.errstr(rc)
-	}
-
-	return nil
-}
-
-// const char *sqlite3_errstr(int);
-func (c *conn) errstr(rc int32) (err error) {
-	p := bin.Xsqlite3_errstr(c.tls, rc)
-	str := crt.GoString(p)
-	p = bin.Xsqlite3_errmsg(c.tls, c.pdb())
-
-	switch msg := crt.GoString(p); {
-	case msg == str:
-		return fmt.Errorf("%s (%v)", str, rc)
-	default:
-		return fmt.Errorf("%s: %s (%v)", str, msg, rc)
-	}
-}
-
-// int sqlite3_close_v2(sqlite3*);
-func (c *conn) closeV2() (err error) {
-	if rc := bin.Xsqlite3_close_v2(c.tls, c.pdb()); rc != bin.DSQLITE_OK {
-		return c.errstr(rc)
-	}
-
-	err = c.free(c.ppdb)
-	c.ppdb = 0
-	return err
-}
-
-// void sqlite3_free(void*);
-func (c *conn) free(p crt.Intptr) (err error) {
-	bin.Xsqlite3_free(c.tls, p)
-	return nil
-}
-
-// void sqlite3_interrupt(sqlite3*);
-func (c *conn) interrupt(pdb crt.Intptr) (err error) {
-	bin.Xsqlite3_interrupt(c.tls, pdb)
-	return nil
-}
-
-func (c *conn) close() (err error) {
-	c.Lock()
-
-	defer c.Unlock()
-
-	if c.ppdb != 0 {
-		err = c.closeV2()
-	}
-	return err
-}
-
 // Driver implements database/sql/driver.Driver.
-type Driver struct {
-	sync.Mutex
-}
+type Driver struct{}
 
-func newDrv() *Driver { return &Driver{} }
+func newDriver() *Driver { return &Driver{} }
 
 // Open returns a new connection to the database.  The name is a string in a
 // driver-specific format.
@@ -996,6 +1100,6 @@ func newDrv() *Driver { return &Driver{} }
 // efficient re-use.
 //
 // The returned connection is only used by one goroutine at a time.
-func (s *Driver) Open(name string) (c driver.Conn, err error) {
-	return newConn(s, name)
+func (d *Driver) Open(name string) (driver.Conn, error) {
+	return newConn(name)
 }
