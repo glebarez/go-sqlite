@@ -21,6 +21,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -52,6 +53,23 @@ func dbg(s string, va ...interface{}) {
 	os.Stderr.Sync()
 }
 
+var traceLevel int32
+
+func trace() func() {
+	return func() {}
+	n := atomic.AddInt32(&traceLevel, 1)
+	pc, file, line, _ := runtime.Caller(1)
+	s := strings.Repeat("· ", int(n)-1)
+	fn := runtime.FuncForPC(pc)
+	fmt.Fprintf(os.Stderr, "%s# trace %s:%d:%s: in\n", s, path.Base(file), line, fn.Name())
+	os.Stderr.Sync()
+	return func() {
+		atomic.AddInt32(&traceLevel, -1)
+		fmt.Fprintf(os.Stderr, "%s# trace %s:%d:%s: out\n", s, path.Base(file), line, fn.Name())
+		os.Stderr.Sync()
+	}
+}
+
 func TODO(...interface{}) string { //TODOOK
 	_, fn, fl, _ := runtime.Caller(1)
 	return fmt.Sprintf("# TODO: %s:%d:\n", path.Base(fn), fl) //TODOOK
@@ -62,7 +80,7 @@ func stack() string { return string(debug.Stack()) }
 func use(...interface{}) {}
 
 func init() {
-	use(caller, dbg, TODO) //TODOOK
+	use(caller, dbg, TODO, trace) //TODOOK
 }
 
 // ============================================================================
@@ -377,6 +395,8 @@ func TestConcurrentGoroutines(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	defer db.Close()
+
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		t.Fatal(err)
@@ -681,6 +701,8 @@ func TestIssue20(t *testing.T) {
 		t.Fatalf("foo.db open fail: %v", err)
 	}
 
+	defer db.Close()
+
 	mustExec(t, db, "CREATE TABLE "+TablePrefix+"t (count INT)")
 	sel, err := db.PrepareContext(context.Background(), "SELECT count FROM "+TablePrefix+"t ORDER BY count DESC")
 	if err != nil {
@@ -721,5 +743,30 @@ func TestIssue20(t *testing.T) {
 	}
 	for i := 0; i < nRuns; i++ {
 		<-ch
+	}
+}
+
+func TestNoRows(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(tempDir)
+
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db"))
+	if err != nil {
+		t.Fatalf("foo.db open fail: %v", err)
+	}
+
+	defer db.Close()
+
+	stmt, err := db.Prepare("create table t(i);")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := stmt.Query(); err != nil {
+		t.Fatal(err)
 	}
 }

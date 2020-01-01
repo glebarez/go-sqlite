@@ -171,9 +171,10 @@ type rows struct {
 	pstmt   crt.Intptr
 
 	doStep bool
+	empty  bool
 }
 
-func newRows(c *conn, pstmt crt.Intptr, allocs []crt.Intptr) (r *rows, err error) {
+func newRows(c *conn, pstmt crt.Intptr, allocs []crt.Intptr, empty bool) (r *rows, err error) {
 	defer func() {
 		if err != nil {
 			c.finalize(pstmt)
@@ -218,6 +219,10 @@ func (r *rows) Columns() (c []string) {
 //
 // Next should return io.EOF when there are no more rows.
 func (r *rows) Next(dest []driver.Value) (err error) {
+	if r.empty {
+		return io.EOF
+	}
+
 	rc := bin.DSQLITE_ROW
 	if r.doStep {
 		if rc, err = r.c.step(r.pstmt); err != nil {
@@ -480,7 +485,7 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 
 			switch rc & 0xff {
 			case bin.DSQLITE_ROW:
-				if r, err = newRows(s.c, pstmt, allocs); err != nil {
+				if r, err = newRows(s.c, pstmt, allocs, false); err != nil {
 					return err
 				}
 
@@ -492,16 +497,19 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 				return s.c.errstr(int32(rc))
 			}
 
+			if *(*byte)(unsafe.Pointer(uintptr(psql))) == 0 {
+				if r, err = newRows(s.c, pstmt, allocs, true); err != nil {
+					return err
+				}
+
+				pstmt = 0
+			}
 			return nil
 		}(); err != nil {
 			return nil, err
 		}
 	}
-	if r != nil {
-		return r, nil
-	}
-
-	panic("TODO")
+	return r, err
 }
 
 type tx struct {
