@@ -26,6 +26,8 @@ import (
 	"time"
 
 	"modernc.org/mathutil"
+	"modernc.org/sqlite/internal/testfixture"
+	"modernc.org/tcl"
 )
 
 func caller(s string, va ...interface{}) {
@@ -80,14 +82,27 @@ func stack() string { return string(debug.Stack()) }
 func use(...interface{}) {}
 
 func init() {
-	use(caller, dbg, TODO, trace) //TODOOK
+	use(caller, dbg, TODO, trace, stack) //TODOOK
 }
 
 // ============================================================================
 
 var (
+	oMaxError  = flag.Uint("maxerror", 0, "argument of -maxerror passed to the Tcl test suite")
+	oStart     = flag.String("start", "", "argument of -start passed to the Tcl test suite (--start=[$permutation:]$testfile)")
+	oVerbose   = flag.String("verbose", "0", "argument of -verbose passed to the Tcl test suite, must be set to a boolean (0, 1) or to \"file\"")
 	recsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 )
+
+func TestMain(m *testing.M) {
+	oTestFixture := flag.Bool("testfixture", false, "emulate running the testfixture binary produced by sqlite3 '$ make tcltest'")
+	flag.Parse()
+	if !*oTestFixture {
+		os.Exit(m.Run())
+	}
+
+	tclTestMain()
+}
 
 func tempDB(t testing.TB) (string, *sql.DB) {
 	dir, err := ioutil.TempDir("", "sqlite-test-")
@@ -296,7 +311,7 @@ func BenchmarkNextMemory(b *testing.B) {
 
 	r, err := db.Query("select * from t")
 	if err != nil {
-
+		b.Fatal(err)
 	}
 
 	defer r.Close()
@@ -416,11 +431,11 @@ func TestConcurrentGoroutines(t *testing.T) {
 		lim := ngoroutines * nrows
 		rng, err := mathutil.NewFC32(0, lim-1, false)
 		if err != nil {
-			t.Fatal(err)
+			panic(fmt.Errorf("internal error: %v", err))
 		}
 
 		for i := 0; i < lim; i++ {
-			rnd <- int(rng.Next())
+			rnd <- rng.Next()
 		}
 	}()
 
@@ -769,4 +784,186 @@ func TestNoRows(t *testing.T) {
 	if _, err := stmt.Query(); err != nil {
 		t.Fatal(err)
 	}
+}
+
+// 630 errors out of 200177 tests on  Linux 64-bit little-endian
+func TestTclTest(t *testing.T) {
+	blacklist := []string{
+		//TODO crashers
+		"exists.test",
+		"index.test",
+		// "mallocK.test",
+		"misc1.test",
+		"quota2.test",
+		// "sortfault.test",
+		// "swarmvtabfault.test",
+		"multiplex2.test",
+		"symlink.test",
+		"pager1.test",
+		"printf.test",
+		// "walfault.test",
+		// "walfault2.test",
+		// "walhook.test",
+		// "walmode.test",
+		// "walnoshm.test",
+		// "waloverwrite.test",
+		// "walvfs.test",
+		"rowallock.test",
+		"savepoint.test",
+		"schema2.test",
+		"schema3.test",
+		"shared2.test",
+		"superlock.test",
+		"syscall.test",
+		"tkt-5d863f876e.test",
+		"tkt-fc62af4523.test",
+		"unixexcl.test",
+		"wal.test",
+		"wal5.test",
+		"walro.test",
+		"walro2.test",
+		"walsetlk.test",
+
+		// // Needs fork.
+		// "crash.test",
+		// "crash1.test",
+		// "crash2.test",
+		// "crash3.test",
+		// "crash4.test",
+		// "crash6.test",
+		// "crash7.test",
+		// "malloc.test",
+		// "mmap1.test",
+		// "mmap3.test",
+		// "mmap4.test",
+		// "pagerfault.test",
+		// "tkt-54844eea3f.test",
+		// "wal3.test",
+		// "walslow.test",
+
+		// //TODO needs fts_open
+		// "misc7.test",
+
+		//TODO hangs
+		"corruptL.test",
+		"e_walckpt.test",
+		"gencol1.test",
+		// "savepoint4.test",
+
+		//TODO OOM
+		"csv01.test",
+
+		// //TODO scanf
+	}
+	if testing.Short() {
+		blacklist = append(blacklist, []string{
+			"altermalloc.test",
+			"altermalloc2.test",
+			"attachmalloc.test",
+			"backup_ioerr.test",
+			"backup_malloc.test",
+			"corruptC.test",
+			"fkey_malloc.test",
+			"fuzz.test",
+			"fuzz3.test",
+			"incrvacuum_ioerr.test",
+			"pagerfault2.test",
+			"savepoint6.test",
+			"savepointfault.test",
+			"securedel2.test",
+			"shared_err.test",
+			"sort3.test",
+			"tempfault.test",
+			"vacuum3.test",
+			"vtab_err.test",
+			"walprotocol.test",
+		}...)
+	}
+
+	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	dir, err := ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(dir)
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.Chdir(wd)
+
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+
+	blacklisted := map[string]struct{}{}
+	for _, v := range blacklist {
+		blacklisted[v] = struct{}{}
+	}
+	for _, v := range m {
+		if _, ok := blacklisted[filepath.Base(v)]; ok {
+			continue
+		}
+
+		s := filepath.Join(wd, v)
+		d := filepath.Join(dir, filepath.Base(v))
+		f, err := ioutil.ReadFile(s)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := ioutil.WriteFile(d, f, 0660); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	library := filepath.Join(dir, "library")
+	if err := tcl.Library(library); err != nil {
+		t.Fatal(err)
+	}
+
+	os.Setenv("TCL_LIBRARY", library)
+	f, err := os.Create(filepath.Join(wd, "testdata", fmt.Sprintf("tcltest_%s_%s.golden", runtime.GOOS, runtime.GOARCH)))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer f.Close()
+
+	//args := []string{"-testfixture", "all.test"}
+	args := []string{"-testfixture", "permutations.test", "extraquick"}
+	if *oVerbose != "" {
+		args = append(args, fmt.Sprintf("-verbose=%s", *oVerbose))
+	}
+	if *oMaxError != 0 {
+		args = append(args, fmt.Sprintf("-maxerror=%d", *oMaxError))
+	}
+	if *oStart != "" {
+		args = append(args, fmt.Sprintf("-start=%s", *oStart))
+	}
+	cmd := exec.Command(os.Args[0], args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func tclTestMain() {
+	var argv []string
+	for _, v := range os.Args {
+		if !strings.HasPrefix(v, "-test.") && v != "-testfixture" {
+			argv = append(argv, v)
+		}
+	}
+	os.Args = argv
+	fmt.Printf("testfixture %q\n", os.Args)
+	testfixture.Main()
+	panic("unreachable")
 }

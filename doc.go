@@ -7,6 +7,17 @@
 //
 // Changelog
 //
+// 2020-07-26 v1.4.0-beta1:
+//
+// The project has reached beta status while supporting linux/amd64 only at the
+// moment. The 'extraquick' Tcl testsuite reports
+//
+//	630 errors out of 200177 tests on  Linux 64-bit little-endian
+//
+// and some memory leaks
+//
+//	Unfreed memory: 698816 bytes in 322 allocations
+//
 // 2019-12-28 v1.2.0-alpha.3: Third alpha fixes issue #19.
 //
 // It also bumps the minor version as the repository was wrongly already tagged
@@ -46,19 +57,17 @@
 //	...
 //
 //
-// Do not use in production
-//
 // Supported platforms and architectures
 //
-// 	linux	386
 // 	linux	amd64
 //
 // Planned platforms and architectures
+//
+// 	linux	386
 // 	linux	arm
 // 	linux	arm64
 // 	windows	386
 // 	windows	amd64
-//
 //
 // Sqlite documentation
 //

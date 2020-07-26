@@ -9,28 +9,28 @@ import (
 	"sync/atomic"
 	"unsafe"
 
-	"modernc.org/crt/v2"
-	"modernc.org/sqlite/internal/bin"
+	"modernc.org/crt/v3"
+	"modernc.org/sqlite/lib"
 )
 
 var (
-	mutexMethods = bin.Ssqlite3_mutex_methods{
+	mutexMethods = sqlite3.Sqlite3_mutex_methods{
 		FxMutexInit: *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS) int32 }{mutexInit})),
 		FxMutexEnd:  *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS) int32 }{mutexEnd})),
 		FxMutexAlloc: *(*uintptr)(unsafe.Pointer(&struct {
-			f func(*crt.TLS, int32) crt.Intptr
+			f func(*crt.TLS, int32) uintptr
 		}{mutexAlloc})),
-		FxMutexFree:  *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS, crt.Intptr) }{mutexFree})),
-		FxMutexEnter: *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS, crt.Intptr) }{mutexEnter})),
+		FxMutexFree:  *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS, uintptr) }{mutexFree})),
+		FxMutexEnter: *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS, uintptr) }{mutexEnter})),
 		FxMutexTry: *(*uintptr)(unsafe.Pointer(&struct {
-			f func(*crt.TLS, crt.Intptr) int32
+			f func(*crt.TLS, uintptr) int32
 		}{mutexTry})),
-		FxMutexLeave: *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS, crt.Intptr) }{mutexLeave})),
+		FxMutexLeave: *(*uintptr)(unsafe.Pointer(&struct{ f func(*crt.TLS, uintptr) }{mutexLeave})),
 		FxMutexHeld: *(*uintptr)(unsafe.Pointer(&struct {
-			f func(*crt.TLS, crt.Intptr) int32
+			f func(*crt.TLS, uintptr) int32
 		}{mutexHeld})),
 		FxMutexNotheld: *(*uintptr)(unsafe.Pointer(&struct {
-			f func(*crt.TLS, crt.Intptr) int32
+			f func(*crt.TLS, uintptr) int32
 		}{mutexNotheld})),
 	}
 
@@ -86,7 +86,7 @@ func (m *mutex) enter(id int32) {
 
 func (m *mutex) try(id int32) int32 {
 	if !m.recursive {
-		return bin.DSQLITE_BUSY
+		return sqlite3.SQLITE_BUSY
 	}
 
 	m.Lock()
@@ -96,18 +96,18 @@ func (m *mutex) try(id int32) int32 {
 		m.id = id
 		m.wait.Lock()
 		m.Unlock()
-		return bin.DSQLITE_OK
+		return sqlite3.SQLITE_OK
 	case id:
 		m.cnt++
 		m.Unlock()
-		return bin.DSQLITE_OK
+		return sqlite3.SQLITE_OK
 	}
 
 	m.Unlock()
-	return bin.DSQLITE_BUSY
+	return sqlite3.SQLITE_BUSY
 }
 
-func (m *mutex) leave() {
+func (m *mutex) leave(id int32) {
 	if !m.recursive {
 		m.id = 0
 		m.Unlock()
@@ -138,10 +138,10 @@ func (m *mutex) leave() {
 //
 // If xMutexInit fails in any way, it is expected to clean up after itself
 // prior to returning.
-func mutexInit(tls *crt.TLS) int32 { return bin.DSQLITE_OK }
+func mutexInit(tls *crt.TLS) int32 { return sqlite3.SQLITE_OK }
 
 // int (*xMutexEnd)(void);
-func mutexEnd(tls *crt.TLS) int32 { return bin.DSQLITE_OK }
+func mutexEnd(tls *crt.TLS) int32 { return sqlite3.SQLITE_OK }
 
 // sqlite3_mutex *(*xMutexAlloc)(int);
 //
@@ -187,47 +187,47 @@ func mutexEnd(tls *crt.TLS) int32 { return bin.DSQLITE_OK }
 // SQLITE_MUTEX_RECURSIVE) is used then sqlite3_mutex_alloc() returns a
 // different mutex on every call. For the static mutex types, the same mutex is
 // returned on every call that has the same type number.
-func mutexAlloc(tls *crt.TLS, typ int32) (r crt.Intptr) {
+func mutexAlloc(tls *crt.TLS, typ int32) uintptr {
 	defer func() {
 	}()
 	switch typ {
-	case bin.DSQLITE_MUTEX_FAST:
-		return crt.Xcalloc(tls, 1, crt.Intptr(unsafe.Sizeof(mutex{})))
-	case bin.DSQLITE_MUTEX_RECURSIVE:
-		p := crt.Xcalloc(tls, 1, crt.Intptr(unsafe.Sizeof(mutex{})))
+	case sqlite3.SQLITE_MUTEX_FAST:
+		return crt.Xcalloc(tls, 1, crt.Size_t(unsafe.Sizeof(mutex{})))
+	case sqlite3.SQLITE_MUTEX_RECURSIVE:
+		p := crt.Xcalloc(tls, 1, crt.Size_t(unsafe.Sizeof(mutex{})))
 		(*mutex)(unsafe.Pointer(uintptr(p))).recursive = true
 		return p
-	case bin.DSQLITE_MUTEX_STATIC_MASTER:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexMaster)))
-	case bin.DSQLITE_MUTEX_STATIC_MEM:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexMem)))
-	case bin.DSQLITE_MUTEX_STATIC_OPEN:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexOpen)))
-	case bin.DSQLITE_MUTEX_STATIC_PRNG:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexPRNG)))
-	case bin.DSQLITE_MUTEX_STATIC_LRU:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexLRU)))
-	case bin.DSQLITE_MUTEX_STATIC_PMEM:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexPMem)))
-	case bin.DSQLITE_MUTEX_STATIC_APP1:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexApp1)))
-	case bin.DSQLITE_MUTEX_STATIC_APP2:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexApp2)))
-	case bin.DSQLITE_MUTEX_STATIC_APP3:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexApp3)))
-	case bin.DSQLITE_MUTEX_STATIC_VFS1:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexVFS1)))
-	case bin.DSQLITE_MUTEX_STATIC_VFS2:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexVFS2)))
-	case bin.DSQLITE_MUTEX_STATIC_VFS3:
-		return crt.Intptr(uintptr(unsafe.Pointer(&mutexVFS3)))
+	case sqlite3.SQLITE_MUTEX_STATIC_MASTER:
+		return uintptr(unsafe.Pointer(&mutexMaster))
+	case sqlite3.SQLITE_MUTEX_STATIC_MEM:
+		return uintptr(unsafe.Pointer(&mutexMem))
+	case sqlite3.SQLITE_MUTEX_STATIC_OPEN:
+		return uintptr(unsafe.Pointer(&mutexOpen))
+	case sqlite3.SQLITE_MUTEX_STATIC_PRNG:
+		return uintptr(unsafe.Pointer(&mutexPRNG))
+	case sqlite3.SQLITE_MUTEX_STATIC_LRU:
+		return uintptr(unsafe.Pointer(&mutexLRU))
+	case sqlite3.SQLITE_MUTEX_STATIC_PMEM:
+		return uintptr(unsafe.Pointer(&mutexPMem))
+	case sqlite3.SQLITE_MUTEX_STATIC_APP1:
+		return uintptr(unsafe.Pointer(&mutexApp1))
+	case sqlite3.SQLITE_MUTEX_STATIC_APP2:
+		return uintptr(unsafe.Pointer(&mutexApp2))
+	case sqlite3.SQLITE_MUTEX_STATIC_APP3:
+		return uintptr(unsafe.Pointer(&mutexApp3))
+	case sqlite3.SQLITE_MUTEX_STATIC_VFS1:
+		return uintptr(unsafe.Pointer(&mutexVFS1))
+	case sqlite3.SQLITE_MUTEX_STATIC_VFS2:
+		return uintptr(unsafe.Pointer(&mutexVFS2))
+	case sqlite3.SQLITE_MUTEX_STATIC_VFS3:
+		return uintptr(unsafe.Pointer(&mutexVFS3))
 	default:
 		return 0
 	}
 }
 
 // void (*xMutexFree)(sqlite3_mutex *);
-func mutexFree(tls *crt.TLS, m crt.Intptr) { crt.Xfree(tls, m) }
+func mutexFree(tls *crt.TLS, m uintptr) { crt.Xfree(tls, m) }
 
 // The sqlite3_mutex_enter() and sqlite3_mutex_try() routines attempt to enter
 // a mutex. If another thread is already within the mutex,
@@ -244,30 +244,30 @@ func mutexFree(tls *crt.TLS, m crt.Intptr) { crt.Xfree(tls, m) }
 // no-ops.
 
 // void (*xMutexEnter)(sqlite3_mutex *);
-func mutexEnter(tls *crt.TLS, m crt.Intptr) {
+func mutexEnter(tls *crt.TLS, m uintptr) {
 	if m == 0 {
 		return
 	}
 
-	(*mutex)(unsafe.Pointer(uintptr(m))).enter(tls.ID)
+	(*mutex)(unsafe.Pointer(m)).enter(tls.ID)
 }
 
 // int (*xMutexTry)(sqlite3_mutex *);
-func mutexTry(tls *crt.TLS, m crt.Intptr) int32 {
+func mutexTry(tls *crt.TLS, m uintptr) int32 {
 	if m == 0 {
-		return bin.DSQLITE_OK
+		return sqlite3.SQLITE_OK
 	}
 
-	return (*mutex)(unsafe.Pointer(uintptr(m))).try(tls.ID)
+	return (*mutex)(unsafe.Pointer(m)).try(tls.ID)
 }
 
 // void (*xMutexLeave)(sqlite3_mutex *);
-func mutexLeave(tls *crt.TLS, m crt.Intptr) {
+func mutexLeave(tls *crt.TLS, m uintptr) {
 	if m == 0 {
 		return
 	}
 
-	(*mutex)(unsafe.Pointer(uintptr(m))).leave()
+	(*mutex)(unsafe.Pointer(m)).leave(tls.ID)
 }
 
 // The sqlite3_mutex_held() and sqlite3_mutex_notheld() routines are intended
@@ -295,19 +295,19 @@ func mutexLeave(tls *crt.TLS, m crt.Intptr) {
 // also return 1 when given a NULL pointer.
 
 // int (*xMutexHeld)(sqlite3_mutex *);
-func mutexHeld(tls *crt.TLS, m crt.Intptr) int32 {
+func mutexHeld(tls *crt.TLS, m uintptr) int32 {
 	if m == 0 {
 		return 1
 	}
 
-	return crt.Bool32(atomic.LoadInt32(&(*mutex)(unsafe.Pointer(uintptr(m))).id) == tls.ID)
+	return crt.Bool32(atomic.LoadInt32(&(*mutex)(unsafe.Pointer(m)).id) == tls.ID)
 }
 
 // int (*xMutexNotheld)(sqlite3_mutex *);
-func mutexNotheld(tls *crt.TLS, m crt.Intptr) int32 {
+func mutexNotheld(tls *crt.TLS, m uintptr) int32 {
 	if m == 0 {
 		return 1
 	}
 
-	return crt.Bool32(atomic.LoadInt32(&(*mutex)(unsafe.Pointer(uintptr(m))).id) != tls.ID)
+	return crt.Bool32(atomic.LoadInt32(&(*mutex)(unsafe.Pointer(m)).id) != tls.ID)
 }

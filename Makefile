@@ -2,10 +2,10 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-.PHONY:	all clean cover cpu editor internalError later mem nuke todo edit
+.PHONY:	all clean cover cpu editor internalError later mem nuke todo edit tcl
 
 grep=--include=*.go --include=*.l --include=*.y --include=*.yy
-ngrep='TODOOK\|internal\/bin'
+ngrep='TODOOK\|internal\/vfs\|internal\/bin\|internal\/mptest\|.*stringer.*\.go'
 
 all: editor
 	date
@@ -16,7 +16,7 @@ all: editor
 	go test 2>&1 -timeout 1h | tee -a log
 	#TODO GOOS=linux GOARCH=arm go build
 	#TODO GOOS=linux GOARCH=arm64 go build
-	GOOS=linux GOARCH=386 go build
+	#TODO GOOS=linux GOARCH=386 go build
 	GOOS=linux GOARCH=amd64 go build
 	#TODO GOOS=windows GOARCH=386 go build
 	#TODO GOOS=windows GOARCH=amd64 go build
@@ -26,6 +26,7 @@ all: editor
 	misspell *.go
 	staticcheck | grep -v 'lexer\.go\|parser\.go' || true
 	maligned || true
+	git diff --unified=0 testdata *.golden
 	grep -n 'FAIL\|PASS' log 
 	go version
 	date 2>&1 | tee -a log
@@ -67,3 +68,17 @@ todo:
 	@grep -nr $(grep) TODO * | grep -v $(ngrep) || true
 	@grep -nr $(grep) BUG * | grep -v $(ngrep) || true
 	@grep -nr $(grep) [^[:alpha:]]println * | grep -v $(ngrep) || true
+
+tcl:
+	cp log log-0
+	go test -run Tcl$$ 2>&1 -timeout 24h -trc | tee log
+	grep -c '\.\.\. \?Ok' log || true
+	grep -c '^!' log || true
+	# grep -c 'Error:' log || true
+
+tclshort:
+	cp log log-0
+	go test -run Tcl$$ -short 2>&1 -timeout 24h -trc | tee log
+	grep -c '\.\.\. \?Ok' log || true
+	grep -c '^!' log || true
+	# grep -c 'Error:' log || true

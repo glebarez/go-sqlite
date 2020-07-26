@@ -1,8 +1,9 @@
 module modernc.org/sqlite
 
-go 1.13
+go 1.14
 
 require (
-	modernc.org/crt/v2 v2.0.0-alpha.2
+	modernc.org/crt/v3 v3.24.0
 	modernc.org/mathutil v1.0.0
+	modernc.org/tcl v1.0.0-beta1
 )

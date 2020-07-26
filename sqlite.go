@@ -13,11 +13,14 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"io"
+	"os"
+	"runtime"
+	"strings"
 	"time"
 	"unsafe"
 
-	"modernc.org/crt/v2"
-	"modernc.org/sqlite/internal/bin"
+	"modernc.org/crt/v3"
+	"modernc.org/sqlite/lib"
 )
 
 var (
@@ -34,9 +37,48 @@ var (
 
 const (
 	driverName              = "sqlite"
-	ptrSize                 = int(unsafe.Sizeof(uintptr(0)))
-	sqliteLockedSharedcache = bin.DSQLITE_LOCKED | (1 << 8)
+	ptrSize                 = unsafe.Sizeof(uintptr(0))
+	sqliteLockedSharedcache = sqlite3.SQLITE_LOCKED | (1 << 8)
 )
+
+func origin(skip int) string {
+	pc, fn, fl, _ := runtime.Caller(skip)
+	f := runtime.FuncForPC(pc)
+	var fns string
+	if f != nil {
+		fns = f.Name()
+		if x := strings.LastIndex(fns, "."); x > 0 {
+			fns = fns[x+1:]
+		}
+	}
+	return fmt.Sprintf("%s:%d:%s", fn, fl, fns)
+}
+
+func todo(s string, args ...interface{}) string { //TODO-
+	switch {
+	case s == "":
+		s = fmt.Sprintf(strings.Repeat("%v ", len(args)), args...)
+	default:
+		s = fmt.Sprintf(s, args...)
+	}
+	r := fmt.Sprintf("%s: TODOTODO %s", origin(2), s) //TODOOK
+	fmt.Fprintf(os.Stdout, "%s\n", r)
+	os.Stdout.Sync()
+	return r
+}
+
+func trc(s string, args ...interface{}) string { //TODO-
+	switch {
+	case s == "":
+		s = fmt.Sprintf(strings.Repeat("%v ", len(args)), args...)
+	default:
+		s = fmt.Sprintf(s, args...)
+	}
+	r := fmt.Sprintf("\n%s: TRC %s", origin(2), s)
+	fmt.Fprintf(os.Stdout, "%s\n", r)
+	os.Stdout.Sync()
+	return r
+}
 
 // Error represents sqlite library error code.
 type Error struct {
@@ -53,72 +95,72 @@ func (e *Error) Code() int { return e.code }
 var (
 	// ErrorCodeString maps Error.Code() to its string representation.
 	ErrorCodeString = map[int]string{
-		bin.DSQLITE_ABORT:             "Callback routine requested an abort (SQLITE_ABORT)",
-		bin.DSQLITE_AUTH:              "Authorization denied (SQLITE_AUTH)",
-		bin.DSQLITE_BUSY:              "The database file is locked (SQLITE_BUSY)",
-		bin.DSQLITE_CANTOPEN:          "Unable to open the database file (SQLITE_CANTOPEN)",
-		bin.DSQLITE_CONSTRAINT:        "Abort due to constraint violation (SQLITE_CONSTRAINT)",
-		bin.DSQLITE_CORRUPT:           "The database disk image is malformed (SQLITE_CORRUPT)",
-		bin.DSQLITE_DONE:              "sqlite3_step() has finished executing (SQLITE_DONE)",
-		bin.DSQLITE_EMPTY:             "Internal use only (SQLITE_EMPTY)",
-		bin.DSQLITE_ERROR:             "Generic error (SQLITE_ERROR)",
-		bin.DSQLITE_FORMAT:            "Not used (SQLITE_FORMAT)",
-		bin.DSQLITE_FULL:              "Insertion failed because database is full (SQLITE_FULL)",
-		bin.DSQLITE_INTERNAL:          "Internal logic error in SQLite (SQLITE_INTERNAL)",
-		bin.DSQLITE_INTERRUPT:         "Operation terminated by sqlite3_interrupt()(SQLITE_INTERRUPT)",
-		bin.DSQLITE_IOERR | (1 << 8):  "(SQLITE_IOERR_READ)",
-		bin.DSQLITE_IOERR | (10 << 8): "(SQLITE_IOERR_DELETE)",
-		bin.DSQLITE_IOERR | (11 << 8): "(SQLITE_IOERR_BLOCKED)",
-		bin.DSQLITE_IOERR | (12 << 8): "(SQLITE_IOERR_NOMEM)",
-		bin.DSQLITE_IOERR | (13 << 8): "(SQLITE_IOERR_ACCESS)",
-		bin.DSQLITE_IOERR | (14 << 8): "(SQLITE_IOERR_CHECKRESERVEDLOCK)",
-		bin.DSQLITE_IOERR | (15 << 8): "(SQLITE_IOERR_LOCK)",
-		bin.DSQLITE_IOERR | (16 << 8): "(SQLITE_IOERR_CLOSE)",
-		bin.DSQLITE_IOERR | (17 << 8): "(SQLITE_IOERR_DIR_CLOSE)",
-		bin.DSQLITE_IOERR | (2 << 8):  "(SQLITE_IOERR_SHORT_READ)",
-		bin.DSQLITE_IOERR | (3 << 8):  "(SQLITE_IOERR_WRITE)",
-		bin.DSQLITE_IOERR | (4 << 8):  "(SQLITE_IOERR_FSYNC)",
-		bin.DSQLITE_IOERR | (5 << 8):  "(SQLITE_IOERR_DIR_FSYNC)",
-		bin.DSQLITE_IOERR | (6 << 8):  "(SQLITE_IOERR_TRUNCATE)",
-		bin.DSQLITE_IOERR | (7 << 8):  "(SQLITE_IOERR_FSTAT)",
-		bin.DSQLITE_IOERR | (8 << 8):  "(SQLITE_IOERR_UNLOCK)",
-		bin.DSQLITE_IOERR | (9 << 8):  "(SQLITE_IOERR_RDLOCK)",
-		bin.DSQLITE_IOERR:             "Some kind of disk I/O error occurred (SQLITE_IOERR)",
-		bin.DSQLITE_LOCKED | (1 << 8): "(SQLITE_LOCKED_SHAREDCACHE)",
-		bin.DSQLITE_LOCKED:            "A table in the database is locked (SQLITE_LOCKED)",
-		bin.DSQLITE_MISMATCH:          "Data type mismatch (SQLITE_MISMATCH)",
-		bin.DSQLITE_MISUSE:            "Library used incorrectly (SQLITE_MISUSE)",
-		bin.DSQLITE_NOLFS:             "Uses OS features not supported on host (SQLITE_NOLFS)",
-		bin.DSQLITE_NOMEM:             "A malloc() failed (SQLITE_NOMEM)",
-		bin.DSQLITE_NOTADB:            "File opened that is not a database file (SQLITE_NOTADB)",
-		bin.DSQLITE_NOTFOUND:          "Unknown opcode in sqlite3_file_control() (SQLITE_NOTFOUND)",
-		bin.DSQLITE_NOTICE:            "Notifications from sqlite3_log() (SQLITE_NOTICE)",
-		bin.DSQLITE_PERM:              "Access permission denied (SQLITE_PERM)",
-		bin.DSQLITE_PROTOCOL:          "Database lock protocol error (SQLITE_PROTOCOL)",
-		bin.DSQLITE_RANGE:             "2nd parameter to sqlite3_bind out of range (SQLITE_RANGE)",
-		bin.DSQLITE_READONLY:          "Attempt to write a readonly database (SQLITE_READONLY)",
-		bin.DSQLITE_ROW:               "sqlite3_step() has another row ready (SQLITE_ROW)",
-		bin.DSQLITE_SCHEMA:            "The database schema changed (SQLITE_SCHEMA)",
-		bin.DSQLITE_TOOBIG:            "String or BLOB exceeds size limit (SQLITE_TOOBIG)",
-		bin.DSQLITE_WARNING:           "Warnings from sqlite3_log() (SQLITE_WARNING)",
+		sqlite3.SQLITE_ABORT:             "Callback routine requested an abort (SQLITE_ABORT)",
+		sqlite3.SQLITE_AUTH:              "Authorization denied (SQLITE_AUTH)",
+		sqlite3.SQLITE_BUSY:              "The database file is locked (SQLITE_BUSY)",
+		sqlite3.SQLITE_CANTOPEN:          "Unable to open the database file (SQLITE_CANTOPEN)",
+		sqlite3.SQLITE_CONSTRAINT:        "Abort due to constraint violation (SQLITE_CONSTRAINT)",
+		sqlite3.SQLITE_CORRUPT:           "The database disk image is malformed (SQLITE_CORRUPT)",
+		sqlite3.SQLITE_DONE:              "sqlite3_step() has finished executing (SQLITE_DONE)",
+		sqlite3.SQLITE_EMPTY:             "Internal use only (SQLITE_EMPTY)",
+		sqlite3.SQLITE_ERROR:             "Generic error (SQLITE_ERROR)",
+		sqlite3.SQLITE_FORMAT:            "Not used (SQLITE_FORMAT)",
+		sqlite3.SQLITE_FULL:              "Insertion failed because database is full (SQLITE_FULL)",
+		sqlite3.SQLITE_INTERNAL:          "Internal logic error in SQLite (SQLITE_INTERNAL)",
+		sqlite3.SQLITE_INTERRUPT:         "Operation terminated by sqlite3_interrupt()(SQLITE_INTERRUPT)",
+		sqlite3.SQLITE_IOERR | (1 << 8):  "(SQLITE_IOERR_READ)",
+		sqlite3.SQLITE_IOERR | (10 << 8): "(SQLITE_IOERR_DELETE)",
+		sqlite3.SQLITE_IOERR | (11 << 8): "(SQLITE_IOERR_BLOCKED)",
+		sqlite3.SQLITE_IOERR | (12 << 8): "(SQLITE_IOERR_NOMEM)",
+		sqlite3.SQLITE_IOERR | (13 << 8): "(SQLITE_IOERR_ACCESS)",
+		sqlite3.SQLITE_IOERR | (14 << 8): "(SQLITE_IOERR_CHECKRESERVEDLOCK)",
+		sqlite3.SQLITE_IOERR | (15 << 8): "(SQLITE_IOERR_LOCK)",
+		sqlite3.SQLITE_IOERR | (16 << 8): "(SQLITE_IOERR_CLOSE)",
+		sqlite3.SQLITE_IOERR | (17 << 8): "(SQLITE_IOERR_DIR_CLOSE)",
+		sqlite3.SQLITE_IOERR | (2 << 8):  "(SQLITE_IOERR_SHORT_READ)",
+		sqlite3.SQLITE_IOERR | (3 << 8):  "(SQLITE_IOERR_WRITE)",
+		sqlite3.SQLITE_IOERR | (4 << 8):  "(SQLITE_IOERR_FSYNC)",
+		sqlite3.SQLITE_IOERR | (5 << 8):  "(SQLITE_IOERR_DIR_FSYNC)",
+		sqlite3.SQLITE_IOERR | (6 << 8):  "(SQLITE_IOERR_TRUNCATE)",
+		sqlite3.SQLITE_IOERR | (7 << 8):  "(SQLITE_IOERR_FSTAT)",
+		sqlite3.SQLITE_IOERR | (8 << 8):  "(SQLITE_IOERR_UNLOCK)",
+		sqlite3.SQLITE_IOERR | (9 << 8):  "(SQLITE_IOERR_RDLOCK)",
+		sqlite3.SQLITE_IOERR:             "Some kind of disk I/O error occurred (SQLITE_IOERR)",
+		sqlite3.SQLITE_LOCKED | (1 << 8): "(SQLITE_LOCKED_SHAREDCACHE)",
+		sqlite3.SQLITE_LOCKED:            "A table in the database is locked (SQLITE_LOCKED)",
+		sqlite3.SQLITE_MISMATCH:          "Data type mismatch (SQLITE_MISMATCH)",
+		sqlite3.SQLITE_MISUSE:            "Library used incorrectly (SQLITE_MISUSE)",
+		sqlite3.SQLITE_NOLFS:             "Uses OS features not supported on host (SQLITE_NOLFS)",
+		sqlite3.SQLITE_NOMEM:             "A malloc() failed (SQLITE_NOMEM)",
+		sqlite3.SQLITE_NOTADB:            "File opened that is not a database file (SQLITE_NOTADB)",
+		sqlite3.SQLITE_NOTFOUND:          "Unknown opcode in sqlite3_file_control() (SQLITE_NOTFOUND)",
+		sqlite3.SQLITE_NOTICE:            "Notifications from sqlite3_log() (SQLITE_NOTICE)",
+		sqlite3.SQLITE_PERM:              "Access permission denied (SQLITE_PERM)",
+		sqlite3.SQLITE_PROTOCOL:          "Database lock protocol error (SQLITE_PROTOCOL)",
+		sqlite3.SQLITE_RANGE:             "2nd parameter to sqlite3_bind out of range (SQLITE_RANGE)",
+		sqlite3.SQLITE_READONLY:          "Attempt to write a readonly database (SQLITE_READONLY)",
+		sqlite3.SQLITE_ROW:               "sqlite3_step() has another row ready (SQLITE_ROW)",
+		sqlite3.SQLITE_SCHEMA:            "The database schema changed (SQLITE_SCHEMA)",
+		sqlite3.SQLITE_TOOBIG:            "String or BLOB exceeds size limit (SQLITE_TOOBIG)",
+		sqlite3.SQLITE_WARNING:           "Warnings from sqlite3_log() (SQLITE_WARNING)",
 	}
 )
 
 func init() {
 	tls := crt.NewTLS()
-	if bin.Xsqlite3_threadsafe(tls) == 0 {
+	if sqlite3.Xsqlite3_threadsafe(tls) == 0 {
 		panic(fmt.Errorf("sqlite: thread safety configuration error"))
 	}
 
-	varArgs := crt.Xmalloc(tls, crt.Intptr(ptrSize))
+	varArgs := crt.Xmalloc(tls, crt.Size_t(ptrSize))
 	if varArgs == 0 {
 		panic(fmt.Errorf("cannot allocate memory"))
 	}
 
 	*(*uintptr)(unsafe.Pointer(uintptr(varArgs))) = uintptr(unsafe.Pointer(&mutexMethods))
 	// int sqlite3_config(int, ...);
-	if rc := bin.Xsqlite3_config(tls, bin.DSQLITE_CONFIG_MUTEX, uintptr(varArgs)); rc != bin.DSQLITE_OK {
-		p := bin.Xsqlite3_errstr(tls, rc)
+	if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, uintptr(varArgs)); rc != sqlite3.SQLITE_OK {
+		p := sqlite3.Xsqlite3_errstr(tls, rc)
 		str := crt.GoString(p)
 		panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
 	}
@@ -165,16 +207,16 @@ func (r *result) RowsAffected() (int64, error) {
 }
 
 type rows struct {
-	allocs  []crt.Intptr
+	allocs  []uintptr
 	c       *conn
 	columns []string
-	pstmt   crt.Intptr
+	pstmt   uintptr
 
 	doStep bool
 	empty  bool
 }
 
-func newRows(c *conn, pstmt crt.Intptr, allocs []crt.Intptr, empty bool) (r *rows, err error) {
+func newRows(c *conn, pstmt uintptr, allocs []uintptr, empty bool) (r *rows, err error) {
 	defer func() {
 		if err != nil {
 			c.finalize(pstmt)
@@ -223,7 +265,7 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 		return io.EOF
 	}
 
-	rc := bin.DSQLITE_ROW
+	rc := sqlite3.SQLITE_ROW
 	if r.doStep {
 		if rc, err = r.c.step(r.pstmt); err != nil {
 			return err
@@ -232,7 +274,7 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 
 	r.doStep = true
 	switch rc {
-	case bin.DSQLITE_ROW:
+	case sqlite3.SQLITE_ROW:
 		if g, e := len(dest), len(r.columns); g != e {
 			return fmt.Errorf("sqlite: Next: have %v destination values, expected %v", g, e)
 		}
@@ -244,42 +286,42 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 			}
 
 			switch ct {
-			case bin.DSQLITE_INTEGER:
+			case sqlite3.SQLITE_INTEGER:
 				v, err := r.c.columnInt64(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.DSQLITE_FLOAT:
+			case sqlite3.SQLITE_FLOAT:
 				v, err := r.c.columnDouble(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.DSQLITE_TEXT:
+			case sqlite3.SQLITE_TEXT:
 				v, err := r.c.columnText(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.DSQLITE_BLOB:
+			case sqlite3.SQLITE_BLOB:
 				v, err := r.c.columnBlob(r.pstmt, i)
 				if err != nil {
 					return err
 				}
 
 				dest[i] = v
-			case bin.DSQLITE_NULL:
+			case sqlite3.SQLITE_NULL:
 				dest[i] = nil
 			default:
 				return fmt.Errorf("internal error: rc %d", rc)
 			}
 		}
 		return nil
-	case bin.DSQLITE_DONE:
+	case sqlite3.SQLITE_DONE:
 		return io.EOF
 	default:
 		return r.c.errstr(int32(rc))
@@ -288,7 +330,7 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 
 type stmt struct {
 	c    *conn
-	psql crt.Intptr
+	psql uintptr
 }
 
 func newStmt(c *conn, sql string) (*stmt, error) {
@@ -328,7 +370,7 @@ func toNamedValues(vals []driver.Value) (r []driver.NamedValue) {
 }
 
 func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Result, err error) {
-	var pstmt crt.Intptr
+	var pstmt uintptr
 
 	donech := make(chan struct{})
 
@@ -389,7 +431,7 @@ func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Res
 			}
 
 			switch rc & 0xff {
-			case bin.DSQLITE_DONE, bin.DSQLITE_ROW:
+			case sqlite3.SQLITE_DONE, sqlite3.SQLITE_ROW:
 				// nop
 			default:
 				return s.c.errstr(int32(rc))
@@ -426,7 +468,7 @@ func (s *stmt) Query(args []driver.Value) (driver.Rows, error) { //TODO StmtQuer
 }
 
 func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Rows, err error) {
-	var pstmt crt.Intptr
+	var pstmt uintptr
 
 	donech := make(chan struct{})
 
@@ -445,8 +487,8 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 		close(donech)
 	}()
 
-	var allocs []crt.Intptr
-	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; {
+	var allocs []uintptr
+	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0; {
 		if pstmt, err = s.c.prepareV2(&psql); err != nil {
 			return nil, err
 		}
@@ -484,14 +526,14 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 			}
 
 			switch rc & 0xff {
-			case bin.DSQLITE_ROW:
+			case sqlite3.SQLITE_ROW:
 				if r, err = newRows(s.c, pstmt, allocs, false); err != nil {
 					return err
 				}
 
 				pstmt = 0
 				return nil
-			case bin.DSQLITE_DONE:
+			case sqlite3.SQLITE_DONE:
 				// nop
 			default:
 				return s.c.errstr(int32(rc))
@@ -556,7 +598,7 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 		}
 	}()
 
-	if rc := bin.Xsqlite3_exec(t.c.tls, t.c.db, psql, 0, 0, 0); rc != bin.DSQLITE_OK {
+	if rc := sqlite3.Xsqlite3_exec(t.c.tls, t.c.db, psql, 0, 0, 0); rc != sqlite3.SQLITE_OK {
 		return t.c.errstr(rc)
 	}
 
@@ -564,7 +606,7 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 }
 
 type conn struct {
-	db  crt.Intptr // *bin.Xsqlite3
+	db  uintptr // *sqlite3.Xsqlite3
 	tls *crt.TLS
 }
 
@@ -572,9 +614,9 @@ func newConn(name string) (*conn, error) {
 	c := &conn{tls: crt.NewTLS()}
 	db, err := c.openV2(
 		name,
-		bin.DSQLITE_OPEN_READWRITE|bin.DSQLITE_OPEN_CREATE|
-			bin.DSQLITE_OPEN_FULLMUTEX|
-			bin.DSQLITE_OPEN_URI,
+		sqlite3.SQLITE_OPEN_READWRITE|sqlite3.SQLITE_OPEN_CREATE|
+			sqlite3.SQLITE_OPEN_FULLMUTEX|
+			sqlite3.SQLITE_OPEN_URI,
 	)
 	if err != nil {
 		return nil, err
@@ -589,8 +631,8 @@ func newConn(name string) (*conn, error) {
 }
 
 // const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
-func (c *conn) columnBlob(pstmt crt.Intptr, iCol int) (v []byte, err error) {
-	p := bin.Xsqlite3_column_blob(c.tls, pstmt, int32(iCol))
+func (c *conn) columnBlob(pstmt uintptr, iCol int) (v []byte, err error) {
+	p := sqlite3.Xsqlite3_column_blob(c.tls, pstmt, int32(iCol))
 	len, err := c.columnBytes(pstmt, iCol)
 	if err != nil {
 		return nil, err
@@ -606,14 +648,14 @@ func (c *conn) columnBlob(pstmt crt.Intptr, iCol int) (v []byte, err error) {
 }
 
 // int sqlite3_column_bytes(sqlite3_stmt*, int iCol);
-func (c *conn) columnBytes(pstmt crt.Intptr, iCol int) (_ int, err error) {
-	v := bin.Xsqlite3_column_bytes(c.tls, pstmt, int32(iCol))
+func (c *conn) columnBytes(pstmt uintptr, iCol int) (_ int, err error) {
+	v := sqlite3.Xsqlite3_column_bytes(c.tls, pstmt, int32(iCol))
 	return int(v), nil
 }
 
 // const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
-func (c *conn) columnText(pstmt crt.Intptr, iCol int) (v string, err error) {
-	p := bin.Xsqlite3_column_text(c.tls, pstmt, int32(iCol))
+func (c *conn) columnText(pstmt uintptr, iCol int) (v string, err error) {
+	p := sqlite3.Xsqlite3_column_text(c.tls, pstmt, int32(iCol))
 	len, err := c.columnBytes(pstmt, iCol)
 	if err != nil {
 		return "", err
@@ -629,53 +671,53 @@ func (c *conn) columnText(pstmt crt.Intptr, iCol int) (v string, err error) {
 }
 
 // double sqlite3_column_double(sqlite3_stmt*, int iCol);
-func (c *conn) columnDouble(pstmt crt.Intptr, iCol int) (v float64, err error) {
-	v = bin.Xsqlite3_column_double(c.tls, pstmt, int32(iCol))
+func (c *conn) columnDouble(pstmt uintptr, iCol int) (v float64, err error) {
+	v = sqlite3.Xsqlite3_column_double(c.tls, pstmt, int32(iCol))
 	return v, nil
 }
 
 // sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
-func (c *conn) columnInt64(pstmt crt.Intptr, iCol int) (v int64, err error) {
-	v = bin.Xsqlite3_column_int64(c.tls, pstmt, int32(iCol))
+func (c *conn) columnInt64(pstmt uintptr, iCol int) (v int64, err error) {
+	v = sqlite3.Xsqlite3_column_int64(c.tls, pstmt, int32(iCol))
 	return v, nil
 }
 
 // int sqlite3_column_type(sqlite3_stmt*, int iCol);
-func (c *conn) columnType(pstmt crt.Intptr, iCol int) (_ int, err error) {
-	v := bin.Xsqlite3_column_type(c.tls, pstmt, int32(iCol))
+func (c *conn) columnType(pstmt uintptr, iCol int) (_ int, err error) {
+	v := sqlite3.Xsqlite3_column_type(c.tls, pstmt, int32(iCol))
 	return int(v), nil
 }
 
 // const char *sqlite3_column_name(sqlite3_stmt*, int N);
-func (c *conn) columnName(pstmt crt.Intptr, n int) (string, error) {
-	p := bin.Xsqlite3_column_name(c.tls, pstmt, int32(n))
+func (c *conn) columnName(pstmt uintptr, n int) (string, error) {
+	p := sqlite3.Xsqlite3_column_name(c.tls, pstmt, int32(n))
 	return crt.GoString(p), nil
 }
 
 // int sqlite3_column_count(sqlite3_stmt *pStmt);
-func (c *conn) columnCount(pstmt crt.Intptr) (_ int, err error) {
-	v := bin.Xsqlite3_column_count(c.tls, pstmt)
+func (c *conn) columnCount(pstmt uintptr) (_ int, err error) {
+	v := sqlite3.Xsqlite3_column_count(c.tls, pstmt)
 	return int(v), nil
 }
 
 // sqlite3_int64 sqlite3_last_insert_rowid(sqlite3*);
 func (c *conn) lastInsertRowID() (v int64, _ error) {
-	return bin.Xsqlite3_last_insert_rowid(c.tls, c.db), nil
+	return sqlite3.Xsqlite3_last_insert_rowid(c.tls, c.db), nil
 }
 
 // int sqlite3_changes(sqlite3*);
 func (c *conn) changes() (int, error) {
-	v := bin.Xsqlite3_changes(c.tls, c.db)
+	v := sqlite3.Xsqlite3_changes(c.tls, c.db)
 	return int(v), nil
 }
 
 // int sqlite3_step(sqlite3_stmt*);
-func (c *conn) step(pstmt crt.Intptr) (int, error) {
+func (c *conn) step(pstmt uintptr) (int, error) {
 	for {
-		switch rc := bin.Xsqlite3_step(c.tls, pstmt); rc {
-		case sqliteLockedSharedcache, bin.DSQLITE_BUSY:
+		switch rc := sqlite3.Xsqlite3_step(c.tls, pstmt); rc {
+		case sqliteLockedSharedcache, sqlite3.SQLITE_BUSY:
 			if err := c.retry(pstmt); err != nil {
-				return bin.DSQLITE_LOCKED, err
+				return sqlite3.SQLITE_LOCKED, err
 			}
 		default:
 			return int(rc), nil
@@ -683,28 +725,28 @@ func (c *conn) step(pstmt crt.Intptr) (int, error) {
 	}
 }
 
-func (c *conn) retry(pstmt crt.Intptr) error {
-	mu := mutexAlloc(c.tls, bin.DSQLITE_MUTEX_FAST)
+func (c *conn) retry(pstmt uintptr) error {
+	mu := mutexAlloc(c.tls, sqlite3.SQLITE_MUTEX_FAST)
 	(*mutex)(unsafe.Pointer(uintptr(mu))).enter(c.tls.ID) // Block
-	rc := bin.Xsqlite3_unlock_notify(
+	rc := sqlite3.Xsqlite3_unlock_notify(
 		c.tls,
 		c.db,
-		*(*crt.Intptr)(unsafe.Pointer(&struct {
+		*(*uintptr)(unsafe.Pointer(&struct {
 			f func(*crt.TLS, crt.Intptr, int32)
 		}{unlockNotify})),
 		mu,
 	)
-	if rc == bin.DSQLITE_LOCKED { // Deadlock, see https://www.sqlite.org/c3ref/unlock_notify.html
-		(*mutex)(unsafe.Pointer(uintptr(mu))).leave() // Clear
+	if rc == sqlite3.SQLITE_LOCKED { // Deadlock, see https://www.sqlite.org/c3ref/unlock_notify.html
+		(*mutex)(unsafe.Pointer(uintptr(mu))).leave(c.tls.ID) // Clear
 		mutexFree(c.tls, mu)
 		return c.errstr(rc)
 	}
 
 	(*mutex)(unsafe.Pointer(uintptr(mu))).enter(c.tls.ID) // Wait
-	(*mutex)(unsafe.Pointer(uintptr(mu))).leave()         // Clear
+	(*mutex)(unsafe.Pointer(uintptr(mu))).leave(c.tls.ID) // Clear
 	mutexFree(c.tls, mu)
 	if pstmt != 0 {
-		bin.Xsqlite3_reset(c.tls, pstmt)
+		sqlite3.Xsqlite3_reset(c.tls, pstmt)
 	}
 	return nil
 }
@@ -712,12 +754,12 @@ func (c *conn) retry(pstmt crt.Intptr) error {
 func unlockNotify(t *crt.TLS, ppArg crt.Intptr, nArg int32) {
 	for i := int32(0); i < nArg; i++ {
 		mu := *(*crt.Intptr)(unsafe.Pointer(uintptr(ppArg)))
-		(*mutex)(unsafe.Pointer(uintptr(mu))).leave() // Signal
+		(*mutex)(unsafe.Pointer(uintptr(mu))).leave(t.ID) // Signal
 		ppArg += crt.Intptr(ptrSize)
 	}
 }
 
-func (c *conn) bind(pstmt crt.Intptr, n int, args []driver.NamedValue) (allocs []crt.Intptr, err error) {
+func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []uintptr, err error) {
 	defer func() {
 		if err == nil {
 			return
@@ -730,7 +772,7 @@ func (c *conn) bind(pstmt crt.Intptr, n int, args []driver.NamedValue) (allocs [
 	}()
 
 	for i := 1; i <= n; i++ {
-		var p crt.Intptr
+		var p uintptr
 		name, err := c.bindParameterName(pstmt, i)
 		if err != nil {
 			return allocs, err
@@ -802,13 +844,13 @@ func (c *conn) bind(pstmt crt.Intptr, n int, args []driver.NamedValue) (allocs [
 }
 
 // int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
-func (c *conn) bindText(pstmt crt.Intptr, idx1 int, value string) (crt.Intptr, error) {
+func (c *conn) bindText(pstmt uintptr, idx1 int, value string) (uintptr, error) {
 	p, err := crt.CString(value)
 	if err != nil {
 		return 0, err
 	}
 
-	if rc := bin.Xsqlite3_bind_text(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
+	if rc := sqlite3.Xsqlite3_bind_text(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != sqlite3.SQLITE_OK {
 		c.free(p)
 		return 0, c.errstr(rc)
 	}
@@ -817,14 +859,14 @@ func (c *conn) bindText(pstmt crt.Intptr, idx1 int, value string) (crt.Intptr, e
 }
 
 // int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
-func (c *conn) bindBlob(pstmt crt.Intptr, idx1 int, value []byte) (crt.Intptr, error) {
+func (c *conn) bindBlob(pstmt uintptr, idx1 int, value []byte) (uintptr, error) {
 	p, err := c.malloc(len(value))
 	if err != nil {
 		return 0, err
 	}
 
 	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len(value)], value)
-	if rc := bin.Xsqlite3_bind_blob(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != bin.DSQLITE_OK {
+	if rc := sqlite3.Xsqlite3_bind_blob(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != sqlite3.SQLITE_OK {
 		c.free(p)
 		return 0, c.errstr(rc)
 	}
@@ -833,8 +875,8 @@ func (c *conn) bindBlob(pstmt crt.Intptr, idx1 int, value []byte) (crt.Intptr, e
 }
 
 // int sqlite3_bind_int(sqlite3_stmt*, int, int);
-func (c *conn) bindInt(pstmt crt.Intptr, idx1, value int) (err error) {
-	if rc := bin.Xsqlite3_bind_int(c.tls, pstmt, int32(idx1), int32(value)); rc != bin.DSQLITE_OK {
+func (c *conn) bindInt(pstmt uintptr, idx1, value int) (err error) {
+	if rc := sqlite3.Xsqlite3_bind_int(c.tls, pstmt, int32(idx1), int32(value)); rc != sqlite3.SQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -842,8 +884,8 @@ func (c *conn) bindInt(pstmt crt.Intptr, idx1, value int) (err error) {
 }
 
 // int sqlite3_bind_double(sqlite3_stmt*, int, double);
-func (c *conn) bindDouble(pstmt crt.Intptr, idx1 int, value float64) (err error) {
-	if rc := bin.Xsqlite3_bind_double(c.tls, pstmt, int32(idx1), value); rc != 0 {
+func (c *conn) bindDouble(pstmt uintptr, idx1 int, value float64) (err error) {
+	if rc := sqlite3.Xsqlite3_bind_double(c.tls, pstmt, int32(idx1), value); rc != 0 {
 		return c.errstr(rc)
 	}
 
@@ -851,8 +893,8 @@ func (c *conn) bindDouble(pstmt crt.Intptr, idx1 int, value float64) (err error)
 }
 
 // int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
-func (c *conn) bindInt64(pstmt crt.Intptr, idx1 int, value int64) (err error) {
-	if rc := bin.Xsqlite3_bind_int64(c.tls, pstmt, int32(idx1), value); rc != bin.DSQLITE_OK {
+func (c *conn) bindInt64(pstmt uintptr, idx1 int, value int64) (err error) {
+	if rc := sqlite3.Xsqlite3_bind_int64(c.tls, pstmt, int32(idx1), value); rc != sqlite3.SQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -860,20 +902,20 @@ func (c *conn) bindInt64(pstmt crt.Intptr, idx1 int, value int64) (err error) {
 }
 
 // const char *sqlite3_bind_parameter_name(sqlite3_stmt*, int);
-func (c *conn) bindParameterName(pstmt crt.Intptr, i int) (string, error) {
-	p := bin.Xsqlite3_bind_parameter_name(c.tls, pstmt, int32(i))
+func (c *conn) bindParameterName(pstmt uintptr, i int) (string, error) {
+	p := sqlite3.Xsqlite3_bind_parameter_name(c.tls, pstmt, int32(i))
 	return crt.GoString(p), nil
 }
 
 // int sqlite3_bind_parameter_count(sqlite3_stmt*);
-func (c *conn) bindParameterCount(pstmt crt.Intptr) (_ int, err error) {
-	r := bin.Xsqlite3_bind_parameter_count(c.tls, pstmt)
+func (c *conn) bindParameterCount(pstmt uintptr) (_ int, err error) {
+	r := sqlite3.Xsqlite3_bind_parameter_count(c.tls, pstmt)
 	return int(r), nil
 }
 
 // int sqlite3_finalize(sqlite3_stmt *pStmt);
-func (c *conn) finalize(pstmt crt.Intptr) error {
-	if rc := bin.Xsqlite3_finalize(c.tls, pstmt); rc != bin.DSQLITE_OK {
+func (c *conn) finalize(pstmt uintptr) error {
+	if rc := sqlite3.Xsqlite3_finalize(c.tls, pstmt); rc != sqlite3.SQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -887,28 +929,28 @@ func (c *conn) finalize(pstmt crt.Intptr) error {
 //   sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
 //   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 // );
-func (c *conn) prepareV2(zSql *crt.Intptr) (pstmt crt.Intptr, err error) {
-	var ppstmt, pptail crt.Intptr
+func (c *conn) prepareV2(zSQL *uintptr) (pstmt uintptr, err error) {
+	var ppstmt, pptail uintptr
 
 	defer func() {
 		c.free(ppstmt)
 		c.free(pptail)
 	}()
 
-	if ppstmt, err = c.malloc(ptrSize); err != nil {
+	if ppstmt, err = c.malloc(int(ptrSize)); err != nil {
 		return 0, err
 	}
 
-	if pptail, err = c.malloc(ptrSize); err != nil {
+	if pptail, err = c.malloc(int(ptrSize)); err != nil {
 		return 0, err
 	}
 
 	for {
-		switch rc := bin.Xsqlite3_prepare_v2(c.tls, c.db, *zSql, -1, ppstmt, pptail); rc {
-		case bin.DSQLITE_OK:
-			*zSql = *(*crt.Intptr)(unsafe.Pointer(uintptr(pptail)))
-			return *(*crt.Intptr)(unsafe.Pointer(uintptr(ppstmt))), nil
-		case sqliteLockedSharedcache, bin.DSQLITE_BUSY:
+		switch rc := sqlite3.Xsqlite3_prepare_v2(c.tls, c.db, *zSQL, -1, ppstmt, pptail); rc {
+		case sqlite3.SQLITE_OK:
+			*zSQL = *(*uintptr)(unsafe.Pointer(pptail))
+			return *(*uintptr)(unsafe.Pointer(ppstmt)), nil
+		case sqliteLockedSharedcache, sqlite3.SQLITE_BUSY:
 			if err := c.retry(0); err != nil {
 				return 0, err
 			}
@@ -919,14 +961,14 @@ func (c *conn) prepareV2(zSql *crt.Intptr) (pstmt crt.Intptr, err error) {
 }
 
 // void sqlite3_interrupt(sqlite3*);
-func (c *conn) interrupt(pdb crt.Intptr) (err error) {
-	bin.Xsqlite3_interrupt(c.tls, pdb)
+func (c *conn) interrupt(pdb uintptr) (err error) {
+	sqlite3.Xsqlite3_interrupt(c.tls, pdb)
 	return nil
 }
 
 // int sqlite3_extended_result_codes(sqlite3*, int onoff);
 func (c *conn) extendedResultCodes(on bool) error {
-	if rc := bin.Xsqlite3_extended_result_codes(c.tls, c.db, crt.Bool32(on)); rc != bin.DSQLITE_OK {
+	if rc := sqlite3.Xsqlite3_extended_result_codes(c.tls, c.db, crt.Bool32(on)); rc != sqlite3.SQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -939,8 +981,8 @@ func (c *conn) extendedResultCodes(on bool) error {
 //   int flags,              /* Flags */
 //   const char *zVfs        /* Name of VFS module to use */
 // );
-func (c *conn) openV2(name string, flags int32) (crt.Intptr, error) {
-	var p, s crt.Intptr
+func (c *conn) openV2(name string, flags int32) (uintptr, error) {
+	var p, s uintptr
 
 	defer func() {
 		if p != 0 {
@@ -951,7 +993,7 @@ func (c *conn) openV2(name string, flags int32) (crt.Intptr, error) {
 		}
 	}()
 
-	p, err := c.malloc(ptrSize)
+	p, err := c.malloc(int(ptrSize))
 	if err != nil {
 		return 0, err
 	}
@@ -960,22 +1002,22 @@ func (c *conn) openV2(name string, flags int32) (crt.Intptr, error) {
 		return 0, err
 	}
 
-	if rc := bin.Xsqlite3_open_v2(c.tls, s, p, flags, 0); rc != bin.DSQLITE_OK {
+	if rc := sqlite3.Xsqlite3_open_v2(c.tls, s, p, flags, 0); rc != sqlite3.SQLITE_OK {
 		return 0, c.errstr(rc)
 	}
 
-	return *(*crt.Intptr)(unsafe.Pointer(uintptr(p))), nil
+	return *(*uintptr)(unsafe.Pointer(uintptr(p))), nil
 }
 
-func (c *conn) malloc(n int) (crt.Intptr, error) {
-	if p := crt.Xmalloc(c.tls, crt.Intptr(n)); p != 0 {
+func (c *conn) malloc(n int) (uintptr, error) {
+	if p := crt.Xmalloc(c.tls, crt.Size_t(n)); p != 0 {
 		return p, nil
 	}
 
 	return 0, fmt.Errorf("sqlite: cannot allocate %d bytes of memory", n)
 }
 
-func (c *conn) free(p crt.Intptr) {
+func (c *conn) free(p uintptr) {
 	if p != 0 {
 		crt.Xfree(c.tls, p)
 	}
@@ -983,9 +1025,9 @@ func (c *conn) free(p crt.Intptr) {
 
 // const char *sqlite3_errstr(int);
 func (c *conn) errstr(rc int32) error {
-	p := bin.Xsqlite3_errstr(c.tls, rc)
+	p := sqlite3.Xsqlite3_errstr(c.tls, rc)
 	str := crt.GoString(p)
-	p = bin.Xsqlite3_errmsg(c.tls, c.db)
+	p = sqlite3.Xsqlite3_errmsg(c.tls, c.db)
 	switch msg := crt.GoString(p); {
 	case msg == str:
 		return &Error{msg: fmt.Sprintf("%s (%v)", str, rc), code: int(rc)}
@@ -1023,8 +1065,8 @@ func (c *conn) Close() error {
 }
 
 // int sqlite3_close_v2(sqlite3*);
-func (c *conn) closeV2(db crt.Intptr) error {
-	if rc := bin.Xsqlite3_close_v2(c.tls, db); rc != bin.DSQLITE_OK {
+func (c *conn) closeV2(db uintptr) error {
+	if rc := sqlite3.Xsqlite3_close_v2(c.tls, db); rc != sqlite3.SQLITE_OK {
 		return c.errstr(rc)
 	}
 

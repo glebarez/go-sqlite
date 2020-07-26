@@ -32,11 +32,33 @@ func main1() error {
 		return err
 	}
 
-	if _, err := db.Exec("create table if not exists t(i);"); err != nil {
+	if _, err = db.Exec(`
+drop table if exists t;
+create table t(i);
+insert into t values(42), (314);
+`); err != nil {
 		return err
 	}
 
-	if err := db.Close(); err != nil {
+	rows, err := db.Query("select 3*i from t order by i;")
+	if err != nil {
+		return err
+	}
+
+	for rows.Next() {
+		var i int
+		if err = rows.Scan(&i); err != nil {
+			return err
+		}
+
+		fmt.Println(i)
+	}
+
+	if err = rows.Err(); err != nil {
+		return err
+	}
+
+	if err = db.Close(); err != nil {
 		return err
 	}
 
