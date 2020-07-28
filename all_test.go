@@ -790,27 +790,16 @@ func TestNoRows(t *testing.T) {
 func TestTclTest(t *testing.T) {
 	blacklist := []string{
 		//TODO crashers
-		"exists.test",
-		"index.test",
-		// "mallocK.test",
 		"misc1.test",
 		"quota2.test",
-		// "sortfault.test",
-		// "swarmvtabfault.test",
+		"printf.test", // scanf
+
+		//TODO needs fork
+		"exists.test",
 		"multiplex2.test",
-		"symlink.test",
 		"pager1.test",
-		"printf.test",
-		// "walfault.test",
-		// "walfault2.test",
-		// "walhook.test",
-		// "walmode.test",
-		// "walnoshm.test",
-		// "waloverwrite.test",
-		// "walvfs.test",
 		"rowallock.test",
 		"savepoint.test",
-		"schema2.test",
 		"schema3.test",
 		"shared2.test",
 		"superlock.test",
@@ -824,36 +813,15 @@ func TestTclTest(t *testing.T) {
 		"walro2.test",
 		"walsetlk.test",
 
-		// // Needs fork.
-		// "crash.test",
-		// "crash1.test",
-		// "crash2.test",
-		// "crash3.test",
-		// "crash4.test",
-		// "crash6.test",
-		// "crash7.test",
-		// "malloc.test",
-		// "mmap1.test",
-		// "mmap3.test",
-		// "mmap4.test",
-		// "pagerfault.test",
-		// "tkt-54844eea3f.test",
-		// "wal3.test",
-		// "walslow.test",
-
-		// //TODO needs fts_open
-		// "misc7.test",
+		//TODO exits tests
+		"index.test",
 
 		//TODO hangs
 		"corruptL.test",
-		"e_walckpt.test",
 		"gencol1.test",
-		// "savepoint4.test",
 
 		//TODO OOM
 		"csv01.test",
-
-		// //TODO scanf
 	}
 	if testing.Short() {
 		blacklist = append(blacklist, []string{
@@ -863,6 +831,7 @@ func TestTclTest(t *testing.T) {
 			"backup_ioerr.test",
 			"backup_malloc.test",
 			"corruptC.test",
+			"e_walckpt.test",
 			"fkey_malloc.test",
 			"fuzz.test",
 			"fuzz3.test",

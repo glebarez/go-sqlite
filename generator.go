@@ -24,30 +24,30 @@ var (
 	config = []string{
 		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
-		//TODO- "-DSQLITE_DEBUG", //TODO-
 		"-DSQLITE_DEFAULT_MEMSTATUS=0",
 		"-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1",
 		"-DSQLITE_DQS=0",
-		//TODO- "-DSQLITE_ENABLE_API_ARMOR",     //TODO-
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MAX_EXPR_DEPTH=0",
-		//TODO 386 "-DSQLITE_MAX_MMAP_SIZE=0", // mmap somehow fails on linux/386
-		//TODO- "-DSQLITE_MEMDEBUG", //TODO-
 		"-DSQLITE_MUTEX_APPDEF=1",
 		"-DSQLITE_MUTEX_NOOP",
-		"-DSQLITE_OMIT_DECLTYPE",
 		"-DSQLITE_OMIT_PROGRESS_CALLBACK",
 		"-DSQLITE_OMIT_UTF16",
 		"-DSQLITE_TEST",
 		"-DSQLITE_THREADSAFE=2", // Multi-thread
 		"-ccgo-long-double-is-double",
-		//TODO- "-ccgo-verify-structs", //TODO-
+		// "-DSQLITE_OMIT_DECLTYPE", // testfixture needs this
 		// "-DSQLITE_OMIT_DEPRECATED", // mptest needs deprecated sqlite3_trace.
 		// "-DSQLITE_OMIT_LOAD_EXTENSION", // mptest needs this
 		// "-DSQLITE_OMIT_SHARED_CACHE",
 		// "-DSQLITE_USE_ALLOCA",
 		//TODO "-DHAVE_MALLOC_USABLE_SIZE"
+		//TODO 386 "-DSQLITE_MAX_MMAP_SIZE=0", // mmap somehow fails on linux/386
+		//TODO- "-DSQLITE_DEBUG", //TODO-
+		//TODO- "-DSQLITE_ENABLE_API_ARMOR",     //TODO-
+		//TODO- "-DSQLITE_MEMDEBUG", //TODO-
+		//TODO- "-ccgo-verify-structs", //TODO-
 	}
 
 	downloads = []struct {
