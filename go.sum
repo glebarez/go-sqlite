@@ -7,6 +7,8 @@ golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 h1:DYfZAGf2WMFjMxbgTjaC+2HC7
 golang.org/x/sys v0.0.0-20200519105757-fe76b779f299/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 modernc.org/crt/v3 v3.24.6 h1:GKQR9pBq9kutl8jxlWXux78XZ53b8AQI/1w2K5Me2Pw=
 modernc.org/crt/v3 v3.24.6/go.mod h1:jZ0M2dvOLID7IgZPGZ189WFLj+m5qEACQm84BoFsHF4=
+modernc.org/crt/v3 v3.24.8 h1:zgcSVZQvN1k1xqsJS2q4QDA43Wx4dYXpWuhYeDupmh8=
+modernc.org/crt/v3 v3.24.8/go.mod h1:jZ0M2dvOLID7IgZPGZ189WFLj+m5qEACQm84BoFsHF4=
 modernc.org/httpfs v1.0.0 h1:LtuKNg6JMiaBKVQHKd6Phhvk+2GFp+pUcmDQgRjrds0=
 modernc.org/httpfs v1.0.0/go.mod h1:BSkfoMUcahSijQD5J/Vu4UMOxzmEf5SNRwyXC4PJBEw=
 modernc.org/mathutil v1.0.0 h1:93vKjrJopTPrtTNpZ8XIovER7iCIH1QU7wNbOQXC60I=

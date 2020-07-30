@@ -786,13 +786,11 @@ func TestNoRows(t *testing.T) {
 	}
 }
 
-// 630 errors out of 200177 tests on  Linux 64-bit little-endian
 func TestTclTest(t *testing.T) {
 	blacklist := []string{
 		//TODO crashers
 		"misc1.test",
 		"quota2.test",
-		"printf.test", // scanf
 
 		//TODO needs fork
 		"exists.test",
@@ -898,14 +896,14 @@ func TestTclTest(t *testing.T) {
 	}
 
 	os.Setenv("TCL_LIBRARY", library)
-	f, err := os.Create(filepath.Join(wd, "testdata", fmt.Sprintf("tcltest_%s_%s.golden", runtime.GOOS, runtime.GOARCH)))
-	if err != nil {
-		t.Fatal(err)
-	}
+	//TODO f, err := os.Create(filepath.Join(wd, "testdata", filepath.Join("testdata", fmt.Sprintf("testfixture_%s_%s.golden", runtime.GOOS, runtime.GOARCH))))
+	//TODO if err != nil {
+	//TODO 	t.Fatal(err)
+	//TODO }
 
-	defer f.Close()
+	//TODO defer f.Close()
 
-	//args := []string{"-testfixture", "all.test"}
+	//TODO args := []string{"-testfixture", "all.test"}
 	args := []string{"-testfixture", "permutations.test", "extraquick"}
 	if *oVerbose != "" {
 		args = append(args, fmt.Sprintf("-verbose=%s", *oVerbose))

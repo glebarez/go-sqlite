@@ -25,6 +25,7 @@ var (
 		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
 		"-DSQLITE_DEFAULT_MEMSTATUS=0",
+		"-DSQLITE_DEFAULT_PAGE_SIZE=1024", // Needed by testfixture, where it's sadly hardcoded. See file_pages in autovacuum.test.
 		"-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1",
 		"-DSQLITE_DQS=0",
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
