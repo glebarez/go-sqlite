@@ -88,10 +88,11 @@ func init() {
 // ============================================================================
 
 var (
-	oMaxError  = flag.Uint("maxerror", 0, "argument of -maxerror passed to the Tcl test suite")
-	oStart     = flag.String("start", "", "argument of -start passed to the Tcl test suite (--start=[$permutation:]$testfile)")
-	oVerbose   = flag.String("verbose", "0", "argument of -verbose passed to the Tcl test suite, must be set to a boolean (0, 1) or to \"file\"")
-	recsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
+	oMaxError   = flag.Uint("maxerror", 0, "argument of -maxerror passed to the Tcl test suite")
+	oStart      = flag.String("start", "", "argument of -start passed to the Tcl test suite (--start=[$permutation:]$testfile)")
+	oTcl        = flag.Bool("tcl", true, "enable Tcl tests")
+	oVerbose    = flag.String("verbose", "0", "argument of -verbose passed to the Tcl test suite, must be set to a boolean (0, 1) or to \"file\"")
+	oRecsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 )
 
 func TestMain(m *testing.M) {
@@ -268,7 +269,7 @@ func BenchmarkInsertMemory(b *testing.B) {
 		}
 	}
 	b.StopTimer()
-	if *recsPerSec {
+	if *oRecsPerSec {
 		b.SetBytes(1e6)
 	}
 	if _, err := db.Exec(`commit;`); err != nil {
@@ -323,7 +324,7 @@ func BenchmarkNextMemory(b *testing.B) {
 		}
 	}
 	b.StopTimer()
-	if *recsPerSec {
+	if *oRecsPerSec {
 		b.SetBytes(1e6)
 	}
 }
@@ -787,10 +788,15 @@ func TestNoRows(t *testing.T) {
 }
 
 func TestTclTest(t *testing.T) {
+	if !*oTcl {
+		t.Skip("Not enabled")
+	}
+
 	blacklist := []string{
 		//TODO crashers
 		"misc1.test",
 		"quota2.test",
+		"zipfile.test",
 
 		//TODO needs fork
 		"exists.test",
@@ -813,10 +819,6 @@ func TestTclTest(t *testing.T) {
 
 		//TODO exits tests
 		"index.test",
-
-		//TODO hangs
-		"corruptL.test",
-		"gencol1.test",
 
 		//TODO OOM
 		"csv01.test",

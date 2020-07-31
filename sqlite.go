@@ -157,15 +157,15 @@ func init() {
 		panic(fmt.Errorf("cannot allocate memory"))
 	}
 
-	*(*uintptr)(unsafe.Pointer(uintptr(varArgs))) = uintptr(unsafe.Pointer(&mutexMethods))
 	// int sqlite3_config(int, ...);
-	if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, uintptr(varArgs)); rc != sqlite3.SQLITE_OK {
+	if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, crt.VaList(varArgs, uintptr(unsafe.Pointer(&mutexMethods)))); rc != sqlite3.SQLITE_OK {
 		p := sqlite3.Xsqlite3_errstr(tls, rc)
 		str := crt.GoString(p)
 		panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
 	}
 
 	crt.Xfree(tls, varArgs)
+	tls.Close()
 	sql.Register(driverName, newDriver())
 }
 

@@ -24,23 +24,34 @@ var (
 	config = []string{
 		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
+		"-DNDEBUG",
+		"-DSQLITE_CORE", // testfixture
 		"-DSQLITE_DEFAULT_MEMSTATUS=0",
-		"-DSQLITE_DEFAULT_PAGE_SIZE=1024", // Needed by testfixture, where it's sadly hardcoded. See file_pages in autovacuum.test.
+		"-DSQLITE_DEFAULT_PAGE_SIZE=1024", // testfixture, hardcoded. See file_pages in autovacuum.test.
 		"-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1",
 		"-DSQLITE_DQS=0",
+		"-DSQLITE_ENABLE_BYTECODE_VTAB", // testfixture
+		"-DSQLITE_ENABLE_DBPAGE_VTAB",   // testfixture
+		"-DSQLITE_ENABLE_DESERIALIZE",   // testfixture
+		"-DSQLITE_ENABLE_STMTVTAB",      // testfixture
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
+		"-DSQLITE_HAVE_ZLIB=1",          // testfixture
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MAX_EXPR_DEPTH=0",
+		"-DSQLITE_MAX_MMAP_SIZE=8589934592", // testfixture
 		"-DSQLITE_MUTEX_APPDEF=1",
 		"-DSQLITE_MUTEX_NOOP",
-		"-DSQLITE_OMIT_PROGRESS_CALLBACK",
-		"-DSQLITE_OMIT_UTF16",
+		"-DSQLITE_NO_SYNC=1",                  // testfixture
+		"-DSQLITE_OS_UNIX=1",                  // testfixture //TODO adjust for non unix OS
+		"-DSQLITE_SERIES_CONSTRAINT_VERIFY=1", // testfixture
+		"-DSQLITE_SERVER=1",                   // testfixture
+		"-DSQLITE_TEMP_STORE=1",               // testfixture
 		"-DSQLITE_TEST",
-		"-DSQLITE_THREADSAFE=2", // Multi-thread
+		"-DSQLITE_THREADSAFE=1",
 		"-ccgo-long-double-is-double",
-		// "-DSQLITE_OMIT_DECLTYPE", // testfixture needs this
-		// "-DSQLITE_OMIT_DEPRECATED", // mptest needs deprecated sqlite3_trace.
-		// "-DSQLITE_OMIT_LOAD_EXTENSION", // mptest needs this
+		// "-DSQLITE_OMIT_DECLTYPE", // testfixture
+		// "-DSQLITE_OMIT_DEPRECATED", // mptest
+		// "-DSQLITE_OMIT_LOAD_EXTENSION", // mptest
 		// "-DSQLITE_OMIT_SHARED_CACHE",
 		// "-DSQLITE_USE_ALLOCA",
 		//TODO "-DHAVE_MALLOC_USABLE_SIZE"
@@ -253,14 +264,14 @@ func makeTestfixture() {
 		append(
 			[]string{
 				"-DSQLITE_OMIT_LOAD_EXTENSION",
-				"-DTCLSH",
 				"-DTCLSH_INIT_PROC=sqlite3TestInit",
 				"-I/usr/include/tcl8.6",
 				"-ccgo-export-defines", "",
 				"-ccgo-export-fields", "F",
 				"-ccgo-pkgname", "testfixture",
-				//TODO- "-ccgo-watch-instrumentation", //TODO-
+				"-l", "modernc.org/tcl/lib,modernc.org/sqlite/internal/crt2,modernc.org/sqlite/lib",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
+				//TODO- "-ccgo-watch-instrumentation", //TODO-
 				filepath.Join(sqliteSrcDir, "ext", "expert", "sqlite3expert.c"),
 				filepath.Join(sqliteSrcDir, "ext", "expert", "test_expert.c"),
 				filepath.Join(sqliteSrcDir, "ext", "fts5", "fts5_tcl.c"),
@@ -285,6 +296,7 @@ func makeTestfixture() {
 				filepath.Join(sqliteSrcDir, "ext", "misc", "totype.c"),
 				filepath.Join(sqliteSrcDir, "ext", "misc", "unionvtab.c"),
 				filepath.Join(sqliteSrcDir, "ext", "misc", "wholenumber.c"),
+				filepath.Join(sqliteSrcDir, "ext", "misc", "zipfile.c"),
 				filepath.Join(sqliteSrcDir, "ext", "rbu", "sqlite3rbu.c"),
 				filepath.Join(sqliteSrcDir, "ext", "rbu", "test_rbu.c"),
 				filepath.Join(sqliteSrcDir, "src", "tclsqlite.c"),
@@ -323,6 +335,7 @@ func makeTestfixture() {
 				filepath.Join(sqliteSrcDir, "src", "test_quota.c"),
 				filepath.Join(sqliteSrcDir, "src", "test_rtree.c"),
 				filepath.Join(sqliteSrcDir, "src", "test_schema.c"),
+				filepath.Join(sqliteSrcDir, "src", "test_server.c"),
 				filepath.Join(sqliteSrcDir, "src", "test_superlock.c"),
 				filepath.Join(sqliteSrcDir, "src", "test_syscall.c"),
 				filepath.Join(sqliteSrcDir, "src", "test_tclsh.c"),
@@ -333,7 +346,6 @@ func makeTestfixture() {
 				filepath.Join(sqliteSrcDir, "src", "test_window.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				fmt.Sprintf("-I%s", sqliteSrcDir),
-				"-l", "modernc.org/tcl/lib,modernc.org/sqlite/internal/crt2,modernc.org/sqlite/lib",
 			},
 			config...)...,
 	)
