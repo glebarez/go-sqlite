@@ -396,6 +396,7 @@ func makeSqlite() {
 			[]string{
 				"-DSQLITE_PRIVATE=",
 				"-ccgo-export-defines", "",
+				"-ccgo-export-enums", "",
 				"-ccgo-export-externs", "X",
 				"-ccgo-export-fields", "F",
 				"-ccgo-export-typedefs", "",

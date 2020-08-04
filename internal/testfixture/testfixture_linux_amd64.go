@@ -512,49 +512,49 @@ const (
 	SQLITE_WIN32_TEMP_DIRECTORY_TYPE      = 2
 	TMP_MAX                               = 238328
 	UNIQUE_TABLE_NAME                     = "t592690916721053953805701627921227776"
-	_ANSI_STDARG_H_                       = 0
-	_ASSERT_H                             = 1
-	_ATFILE_SOURCE                        = 1
-	_BITS_STDIO_LIM_H                     = 1
-	_BITS_TYPESIZES_H                     = 1
-	_BITS_TYPES_H                         = 1
-	_BITS_TYPES_LOCALE_T_H                = 1
-	_BITS_TYPES___LOCALE_T_H              = 1
-	_BSD_SIZE_T_                          = 0
-	_BSD_SIZE_T_DEFINED_                  = 0
-	_DEFAULT_SOURCE                       = 1
-	_FEATURES_H                           = 1
-	_FTS5_H                               = 0
-	_GCC_SIZE_T                           = 0
-	_IOFBF                                = 0
-	_IOLBF                                = 1
-	_IONBF                                = 2
-	_IO_EOF_SEEN                          = 0x0010
-	_IO_ERR_SEEN                          = 0x0020
-	_IO_USER_LOCK                         = 0x8000
-	_LP64                                 = 1
-	_POSIX_C_SOURCE                       = 200809
-	_POSIX_SOURCE                         = 1
-	_SIZET_                               = 0
-	_SIZE_T                               = 0
-	_SIZE_T_                              = 0
-	_SIZE_T_DECLARED                      = 0
-	_SIZE_T_DEFINED                       = 0
-	_SIZE_T_DEFINED_                      = 0
-	_SQLITE3RTREE_H_                      = 0
-	_STDARG_H                             = 0
-	_STDC_PREDEF_H                        = 1
-	_STDIO_H                              = 1
-	_STRINGS_H                            = 1
-	_STRING_H                             = 1
-	_SYS_CDEFS_H                          = 1
-	_SYS_SIZE_T_H                         = 0
-	_T_SIZE                               = 0
-	_T_SIZE_                              = 0
-	_VA_LIST                              = 0
-	_VA_LIST_                             = 0
-	_VA_LIST_DEFINED                      = 0
-	_VA_LIST_T_H                          = 0
+	X_ANSI_STDARG_H_                      = 0
+	X_ASSERT_H                            = 1
+	X_ATFILE_SOURCE                       = 1
+	X_BITS_STDIO_LIM_H                    = 1
+	X_BITS_TYPESIZES_H                    = 1
+	X_BITS_TYPES_H                        = 1
+	X_BITS_TYPES_LOCALE_T_H               = 1
+	X_BITS_TYPES___LOCALE_T_H             = 1
+	X_BSD_SIZE_T_                         = 0
+	X_BSD_SIZE_T_DEFINED_                 = 0
+	X_DEFAULT_SOURCE                      = 1
+	X_FEATURES_H                          = 1
+	X_FTS5_H                              = 0
+	X_GCC_SIZE_T                          = 0
+	X_IOFBF                               = 0
+	X_IOLBF                               = 1
+	X_IONBF                               = 2
+	X_IO_EOF_SEEN                         = 0x0010
+	X_IO_ERR_SEEN                         = 0x0020
+	X_IO_USER_LOCK                        = 0x8000
+	X_LP64                                = 1
+	X_POSIX_C_SOURCE                      = 200809
+	X_POSIX_SOURCE                        = 1
+	X_SIZET_                              = 0
+	X_SIZE_T                              = 0
+	X_SIZE_T_                             = 0
+	X_SIZE_T_DECLARED                     = 0
+	X_SIZE_T_DEFINED                      = 0
+	X_SIZE_T_DEFINED_                     = 0
+	X_SQLITE3RTREE_H_                     = 0
+	X_STDARG_H                            = 0
+	X_STDC_PREDEF_H                       = 1
+	X_STDIO_H                             = 1
+	X_STRINGS_H                           = 1
+	X_STRING_H                            = 1
+	X_SYS_CDEFS_H                         = 1
+	X_SYS_SIZE_T_H                        = 0
+	X_T_SIZE                              = 0
+	X_T_SIZE_                             = 0
+	X_VA_LIST                             = 0
+	X_VA_LIST_                            = 0
+	X_VA_LIST_DEFINED                     = 0
+	X_VA_LIST_T_H                         = 0
 	Linux                                 = 1
 	Unix                                  = 1
 	AIO_PRIO_DELTA_MAX                    = 20
@@ -807,59 +807,59 @@ const (
 	XATTR_LIST_MAX                        = 65536
 	XATTR_NAME_MAX                        = 255
 	XATTR_SIZE_MAX                        = 65536
-	_BITS_POSIX1_LIM_H                    = 1
-	_BITS_POSIX2_LIM_H                    = 1
-	_CLIENTDATA                           = 0
-	_GCC_LIMITS_H_                        = 0
-	_LIBC_LIMITS_H_                       = 1
-	_LIMITS_H                             = 1
-	_LIMITS_H___                          = 0
-	_LINUX_LIMITS_H                       = 0
-	_POSIX2_BC_BASE_MAX                   = 99
-	_POSIX2_BC_DIM_MAX                    = 2048
-	_POSIX2_BC_SCALE_MAX                  = 99
-	_POSIX2_BC_STRING_MAX                 = 1000
-	_POSIX2_CHARCLASS_NAME_MAX            = 14
-	_POSIX2_COLL_WEIGHTS_MAX              = 2
-	_POSIX2_EXPR_NEST_MAX                 = 32
-	_POSIX2_LINE_MAX                      = 2048
-	_POSIX2_RE_DUP_MAX                    = 255
-	_POSIX_AIO_LISTIO_MAX                 = 2
-	_POSIX_AIO_MAX                        = 1
-	_POSIX_ARG_MAX                        = 4096
-	_POSIX_CHILD_MAX                      = 25
-	_POSIX_CLOCKRES_MIN                   = 20000000
-	_POSIX_DELAYTIMER_MAX                 = 32
-	_POSIX_HOST_NAME_MAX                  = 255
-	_POSIX_LINK_MAX                       = 8
-	_POSIX_LOGIN_NAME_MAX                 = 9
-	_POSIX_MAX_CANON                      = 255
-	_POSIX_MAX_INPUT                      = 255
-	_POSIX_MQ_OPEN_MAX                    = 8
-	_POSIX_MQ_PRIO_MAX                    = 32
-	_POSIX_NAME_MAX                       = 14
-	_POSIX_NGROUPS_MAX                    = 8
-	_POSIX_OPEN_MAX                       = 20
-	_POSIX_PATH_MAX                       = 256
-	_POSIX_PIPE_BUF                       = 512
-	_POSIX_RE_DUP_MAX                     = 255
-	_POSIX_RTSIG_MAX                      = 8
-	_POSIX_SEM_NSEMS_MAX                  = 256
-	_POSIX_SEM_VALUE_MAX                  = 32767
-	_POSIX_SIGQUEUE_MAX                   = 32
-	_POSIX_SSIZE_MAX                      = 32767
-	_POSIX_STREAM_MAX                     = 8
-	_POSIX_SYMLINK_MAX                    = 255
-	_POSIX_SYMLOOP_MAX                    = 8
-	_POSIX_THREAD_DESTRUCTOR_ITERATIONS   = 4
-	_POSIX_THREAD_KEYS_MAX                = 128
-	_POSIX_THREAD_THREADS_MAX             = 64
-	_POSIX_TIMER_MAX                      = 32
-	_POSIX_TTY_NAME_MAX                   = 9
-	_POSIX_TZNAME_MAX                     = 6
-	_TCL                                  = 0
-	_TCLDECLS                             = 0
-	_TCLPLATDECLS                         = 0
+	X_BITS_POSIX1_LIM_H                   = 1
+	X_BITS_POSIX2_LIM_H                   = 1
+	X_CLIENTDATA                          = 0
+	X_GCC_LIMITS_H_                       = 0
+	X_LIBC_LIMITS_H_                      = 1
+	X_LIMITS_H                            = 1
+	X_LIMITS_H___                         = 0
+	X_LINUX_LIMITS_H                      = 0
+	X_POSIX2_BC_BASE_MAX                  = 99
+	X_POSIX2_BC_DIM_MAX                   = 2048
+	X_POSIX2_BC_SCALE_MAX                 = 99
+	X_POSIX2_BC_STRING_MAX                = 1000
+	X_POSIX2_CHARCLASS_NAME_MAX           = 14
+	X_POSIX2_COLL_WEIGHTS_MAX             = 2
+	X_POSIX2_EXPR_NEST_MAX                = 32
+	X_POSIX2_LINE_MAX                     = 2048
+	X_POSIX2_RE_DUP_MAX                   = 255
+	X_POSIX_AIO_LISTIO_MAX                = 2
+	X_POSIX_AIO_MAX                       = 1
+	X_POSIX_ARG_MAX                       = 4096
+	X_POSIX_CHILD_MAX                     = 25
+	X_POSIX_CLOCKRES_MIN                  = 20000000
+	X_POSIX_DELAYTIMER_MAX                = 32
+	X_POSIX_HOST_NAME_MAX                 = 255
+	X_POSIX_LINK_MAX                      = 8
+	X_POSIX_LOGIN_NAME_MAX                = 9
+	X_POSIX_MAX_CANON                     = 255
+	X_POSIX_MAX_INPUT                     = 255
+	X_POSIX_MQ_OPEN_MAX                   = 8
+	X_POSIX_MQ_PRIO_MAX                   = 32
+	X_POSIX_NAME_MAX                      = 14
+	X_POSIX_NGROUPS_MAX                   = 8
+	X_POSIX_OPEN_MAX                      = 20
+	X_POSIX_PATH_MAX                      = 256
+	X_POSIX_PIPE_BUF                      = 512
+	X_POSIX_RE_DUP_MAX                    = 255
+	X_POSIX_RTSIG_MAX                     = 8
+	X_POSIX_SEM_NSEMS_MAX                 = 256
+	X_POSIX_SEM_VALUE_MAX                 = 32767
+	X_POSIX_SIGQUEUE_MAX                  = 32
+	X_POSIX_SSIZE_MAX                     = 32767
+	X_POSIX_STREAM_MAX                    = 8
+	X_POSIX_SYMLINK_MAX                   = 255
+	X_POSIX_SYMLOOP_MAX                   = 8
+	X_POSIX_THREAD_DESTRUCTOR_ITERATIONS  = 4
+	X_POSIX_THREAD_KEYS_MAX               = 128
+	X_POSIX_THREAD_THREADS_MAX            = 64
+	X_POSIX_TIMER_MAX                     = 32
+	X_POSIX_TTY_NAME_MAX                  = 9
+	X_POSIX_TZNAME_MAX                    = 6
+	X_TCL                                 = 0
+	X_TCLDECLS                            = 0
+	X_TCLPLATDECLS                        = 0
 	AMATCH_COL_COMMAND                    = 3
 	AMATCH_COL_DISTANCE                   = 1
 	AMATCH_COL_LANGUAGE                   = 2
@@ -885,30 +885,30 @@ const (
 	WNOWAIT                               = 0x01000000
 	WSTOPPED                              = 2
 	WUNTRACED                             = 2
-	_ALLOCA_H                             = 1
-	_BITS_BYTESWAP_H                      = 1
-	_BITS_FLOATN_COMMON_H                 = 0
-	_BITS_FLOATN_H                        = 0
-	_BITS_PTHREADTYPES_ARCH_H             = 1
-	_BITS_PTHREADTYPES_COMMON_H           = 1
-	_BITS_STDINT_INTN_H                   = 1
-	_BITS_UINTN_IDENTITY_H                = 1
-	_CTYPE_H                              = 1
-	_ENDIAN_H                             = 1
-	_GCC_WCHAR_T                          = 0
-	_STDLIB_H                             = 1
-	_STRUCT_TIMESPEC                      = 1
-	_SYS_SELECT_H                         = 1
-	_SYS_TYPES_H                          = 1
-	_THREAD_SHARED_TYPES_H                = 1
-	_T_WCHAR                              = 0
-	_T_WCHAR_                             = 0
-	_WCHAR_T                              = 0
-	_WCHAR_T_                             = 0
-	_WCHAR_T_DECLARED                     = 0
-	_WCHAR_T_DEFINED                      = 0
-	_WCHAR_T_DEFINED_                     = 0
-	_WCHAR_T_H                            = 0
+	X_ALLOCA_H                            = 1
+	X_BITS_BYTESWAP_H                     = 1
+	X_BITS_FLOATN_COMMON_H                = 0
+	X_BITS_FLOATN_H                       = 0
+	X_BITS_PTHREADTYPES_ARCH_H            = 1
+	X_BITS_PTHREADTYPES_COMMON_H          = 1
+	X_BITS_STDINT_INTN_H                  = 1
+	X_BITS_UINTN_IDENTITY_H               = 1
+	X_CTYPE_H                             = 1
+	X_ENDIAN_H                            = 1
+	X_GCC_WCHAR_T                         = 0
+	X_STDLIB_H                            = 1
+	X_STRUCT_TIMESPEC                     = 1
+	X_SYS_SELECT_H                        = 1
+	X_SYS_TYPES_H                         = 1
+	X_THREAD_SHARED_TYPES_H               = 1
+	X_T_WCHAR                             = 0
+	X_T_WCHAR_                            = 0
+	X_WCHAR_T                             = 0
+	X_WCHAR_T_                            = 0
+	X_WCHAR_T_DECLARED                    = 0
+	X_WCHAR_T_DEFINED                     = 0
+	X_WCHAR_T_DEFINED_                    = 0
+	X_WCHAR_T_H                           = 0
 	CARRAY_COLUMN_COUNT                   = 2
 	CARRAY_COLUMN_CTYPE                   = 3
 	CARRAY_COLUMN_POINTER                 = 1
@@ -1196,116 +1196,116 @@ const (
 	UTIME_OMIT                            = 1073741822
 	W_OK                                  = 2
 	X_OK                                  = 1
-	_ASM_GENERIC_ERRNO_BASE_H             = 0
-	_ASM_GENERIC_ERRNO_H                  = 0
-	_BITS_ERRNO_H                         = 1
-	_BITS_POSIX_OPT_H                     = 1
-	_BITS_STAT_H                          = 1
-	_BITS_TIME_H                          = 1
-	_DIRENT_H                             = 1
-	_DIRENT_HAVE_D_OFF                    = 0
-	_DIRENT_HAVE_D_RECLEN                 = 0
-	_DIRENT_HAVE_D_TYPE                   = 0
-	_DIRENT_MATCHES_DIRENT64              = 1
-	_ERRNO_H                              = 1
-	_FCNTL_H                              = 1
-	_GETOPT_CORE_H                        = 1
-	_GETOPT_POSIX_H                       = 1
-	_LFS64_ASYNCHRONOUS_IO                = 1
-	_LFS64_LARGEFILE                      = 1
-	_LFS64_STDIO                          = 1
-	_LFS_ASYNCHRONOUS_IO                  = 1
-	_LFS_LARGEFILE                        = 1
-	_MKNOD_VER                            = 0
-	_MKNOD_VER_LINUX                      = 0
-	_POSIX2_CHAR_TERM                     = 200809
-	_POSIX2_C_BIND                        = 200809
-	_POSIX2_C_DEV                         = 200809
-	_POSIX2_C_VERSION                     = 200809
-	_POSIX2_LOCALEDEF                     = 200809
-	_POSIX2_SW_DEV                        = 200809
-	_POSIX2_VERSION                       = 200809
-	_POSIX_ADVISORY_INFO                  = 200809
-	_POSIX_ASYNCHRONOUS_IO                = 200809
-	_POSIX_ASYNC_IO                       = 1
-	_POSIX_BARRIERS                       = 200809
-	_POSIX_CHOWN_RESTRICTED               = 0
-	_POSIX_CLOCK_SELECTION                = 200809
-	_POSIX_CPUTIME                        = 0
-	_POSIX_FSYNC                          = 200809
-	_POSIX_IPV6                           = 200809
-	_POSIX_JOB_CONTROL                    = 1
-	_POSIX_MAPPED_FILES                   = 200809
-	_POSIX_MEMLOCK                        = 200809
-	_POSIX_MEMLOCK_RANGE                  = 200809
-	_POSIX_MEMORY_PROTECTION              = 200809
-	_POSIX_MESSAGE_PASSING                = 200809
-	_POSIX_MONOTONIC_CLOCK                = 0
-	_POSIX_NO_TRUNC                       = 1
-	_POSIX_PRIORITIZED_IO                 = 200809
-	_POSIX_PRIORITY_SCHEDULING            = 200809
-	_POSIX_RAW_SOCKETS                    = 200809
-	_POSIX_READER_WRITER_LOCKS            = 200809
-	_POSIX_REALTIME_SIGNALS               = 200809
-	_POSIX_REENTRANT_FUNCTIONS            = 1
-	_POSIX_REGEXP                         = 1
-	_POSIX_SAVED_IDS                      = 1
-	_POSIX_SEMAPHORES                     = 200809
-	_POSIX_SHARED_MEMORY_OBJECTS          = 200809
-	_POSIX_SHELL                          = 1
-	_POSIX_SPAWN                          = 200809
-	_POSIX_SPIN_LOCKS                     = 200809
-	_POSIX_SPORADIC_SERVER                = -1
-	_POSIX_SYNCHRONIZED_IO                = 200809
-	_POSIX_THREADS                        = 200809
-	_POSIX_THREAD_ATTR_STACKADDR          = 200809
-	_POSIX_THREAD_ATTR_STACKSIZE          = 200809
-	_POSIX_THREAD_CPUTIME                 = 0
-	_POSIX_THREAD_PRIORITY_SCHEDULING     = 200809
-	_POSIX_THREAD_PRIO_INHERIT            = 200809
-	_POSIX_THREAD_PRIO_PROTECT            = 200809
-	_POSIX_THREAD_PROCESS_SHARED          = 200809
-	_POSIX_THREAD_ROBUST_PRIO_INHERIT     = 200809
-	_POSIX_THREAD_ROBUST_PRIO_PROTECT     = -1
-	_POSIX_THREAD_SAFE_FUNCTIONS          = 200809
-	_POSIX_THREAD_SPORADIC_SERVER         = -1
-	_POSIX_TIMEOUTS                       = 200809
-	_POSIX_TIMERS                         = 200809
-	_POSIX_TRACE                          = -1
-	_POSIX_TRACE_EVENT_FILTER             = -1
-	_POSIX_TRACE_INHERIT                  = -1
-	_POSIX_TRACE_LOG                      = -1
-	_POSIX_TYPED_MEMORY_OBJECTS           = -1
-	_POSIX_V6_LP64_OFF64                  = 1
-	_POSIX_V6_LPBIG_OFFBIG                = -1
-	_POSIX_V7_LP64_OFF64                  = 1
-	_POSIX_V7_LPBIG_OFFBIG                = -1
-	_POSIX_VDISABLE                       = 0
-	_POSIX_VERSION                        = 200809
-	_STATBUF_ST_BLKSIZE                   = 0
-	_STATBUF_ST_NSEC                      = 0
-	_STATBUF_ST_RDEV                      = 0
-	_STAT_VER                             = 1
-	_STAT_VER_KERNEL                      = 0
-	_STAT_VER_LINUX                       = 1
-	_SYS_STAT_H                           = 1
-	_SYS_TIME_H                           = 1
-	_TIME_H                               = 1
-	_UNISTD_H                             = 1
-	_UTIME_H                              = 1
-	_XBS5_LP64_OFF64                      = 1
-	_XBS5_LPBIG_OFFBIG                    = -1
-	_XOPEN_ENH_I18N                       = 1
-	_XOPEN_LEGACY                         = 1
-	_XOPEN_REALTIME                       = 1
-	_XOPEN_REALTIME_THREADS               = 1
-	_XOPEN_SHM                            = 1
-	_XOPEN_UNIX                           = 1
-	_XOPEN_VERSION                        = 700
-	_XOPEN_XCU_VERSION                    = 4
-	_XOPEN_XPG2                           = 1
-	_XOPEN_XPG3                           = 1
-	_XOPEN_XPG4                           = 1
+	X_ASM_GENERIC_ERRNO_BASE_H            = 0
+	X_ASM_GENERIC_ERRNO_H                 = 0
+	X_BITS_ERRNO_H                        = 1
+	X_BITS_POSIX_OPT_H                    = 1
+	X_BITS_STAT_H                         = 1
+	X_BITS_TIME_H                         = 1
+	X_DIRENT_H                            = 1
+	X_DIRENT_HAVE_D_OFF                   = 0
+	X_DIRENT_HAVE_D_RECLEN                = 0
+	X_DIRENT_HAVE_D_TYPE                  = 0
+	X_DIRENT_MATCHES_DIRENT64             = 1
+	X_ERRNO_H                             = 1
+	X_FCNTL_H                             = 1
+	X_GETOPT_CORE_H                       = 1
+	X_GETOPT_POSIX_H                      = 1
+	X_LFS64_ASYNCHRONOUS_IO               = 1
+	X_LFS64_LARGEFILE                     = 1
+	X_LFS64_STDIO                         = 1
+	X_LFS_ASYNCHRONOUS_IO                 = 1
+	X_LFS_LARGEFILE                       = 1
+	X_MKNOD_VER                           = 0
+	X_MKNOD_VER_LINUX                     = 0
+	X_POSIX2_CHAR_TERM                    = 200809
+	X_POSIX2_C_BIND                       = 200809
+	X_POSIX2_C_DEV                        = 200809
+	X_POSIX2_C_VERSION                    = 200809
+	X_POSIX2_LOCALEDEF                    = 200809
+	X_POSIX2_SW_DEV                       = 200809
+	X_POSIX2_VERSION                      = 200809
+	X_POSIX_ADVISORY_INFO                 = 200809
+	X_POSIX_ASYNCHRONOUS_IO               = 200809
+	X_POSIX_ASYNC_IO                      = 1
+	X_POSIX_BARRIERS                      = 200809
+	X_POSIX_CHOWN_RESTRICTED              = 0
+	X_POSIX_CLOCK_SELECTION               = 200809
+	X_POSIX_CPUTIME                       = 0
+	X_POSIX_FSYNC                         = 200809
+	X_POSIX_IPV6                          = 200809
+	X_POSIX_JOB_CONTROL                   = 1
+	X_POSIX_MAPPED_FILES                  = 200809
+	X_POSIX_MEMLOCK                       = 200809
+	X_POSIX_MEMLOCK_RANGE                 = 200809
+	X_POSIX_MEMORY_PROTECTION             = 200809
+	X_POSIX_MESSAGE_PASSING               = 200809
+	X_POSIX_MONOTONIC_CLOCK               = 0
+	X_POSIX_NO_TRUNC                      = 1
+	X_POSIX_PRIORITIZED_IO                = 200809
+	X_POSIX_PRIORITY_SCHEDULING           = 200809
+	X_POSIX_RAW_SOCKETS                   = 200809
+	X_POSIX_READER_WRITER_LOCKS           = 200809
+	X_POSIX_REALTIME_SIGNALS              = 200809
+	X_POSIX_REENTRANT_FUNCTIONS           = 1
+	X_POSIX_REGEXP                        = 1
+	X_POSIX_SAVED_IDS                     = 1
+	X_POSIX_SEMAPHORES                    = 200809
+	X_POSIX_SHARED_MEMORY_OBJECTS         = 200809
+	X_POSIX_SHELL                         = 1
+	X_POSIX_SPAWN                         = 200809
+	X_POSIX_SPIN_LOCKS                    = 200809
+	X_POSIX_SPORADIC_SERVER               = -1
+	X_POSIX_SYNCHRONIZED_IO               = 200809
+	X_POSIX_THREADS                       = 200809
+	X_POSIX_THREAD_ATTR_STACKADDR         = 200809
+	X_POSIX_THREAD_ATTR_STACKSIZE         = 200809
+	X_POSIX_THREAD_CPUTIME                = 0
+	X_POSIX_THREAD_PRIORITY_SCHEDULING    = 200809
+	X_POSIX_THREAD_PRIO_INHERIT           = 200809
+	X_POSIX_THREAD_PRIO_PROTECT           = 200809
+	X_POSIX_THREAD_PROCESS_SHARED         = 200809
+	X_POSIX_THREAD_ROBUST_PRIO_INHERIT    = 200809
+	X_POSIX_THREAD_ROBUST_PRIO_PROTECT    = -1
+	X_POSIX_THREAD_SAFE_FUNCTIONS         = 200809
+	X_POSIX_THREAD_SPORADIC_SERVER        = -1
+	X_POSIX_TIMEOUTS                      = 200809
+	X_POSIX_TIMERS                        = 200809
+	X_POSIX_TRACE                         = -1
+	X_POSIX_TRACE_EVENT_FILTER            = -1
+	X_POSIX_TRACE_INHERIT                 = -1
+	X_POSIX_TRACE_LOG                     = -1
+	X_POSIX_TYPED_MEMORY_OBJECTS          = -1
+	X_POSIX_V6_LP64_OFF64                 = 1
+	X_POSIX_V6_LPBIG_OFFBIG               = -1
+	X_POSIX_V7_LP64_OFF64                 = 1
+	X_POSIX_V7_LPBIG_OFFBIG               = -1
+	X_POSIX_VDISABLE                      = 0
+	X_POSIX_VERSION                       = 200809
+	X_STATBUF_ST_BLKSIZE                  = 0
+	X_STATBUF_ST_NSEC                     = 0
+	X_STATBUF_ST_RDEV                     = 0
+	X_STAT_VER                            = 1
+	X_STAT_VER_KERNEL                     = 0
+	X_STAT_VER_LINUX                      = 1
+	X_SYS_STAT_H                          = 1
+	X_SYS_TIME_H                          = 1
+	X_TIME_H                              = 1
+	X_UNISTD_H                            = 1
+	X_UTIME_H                             = 1
+	X_XBS5_LP64_OFF64                     = 1
+	X_XBS5_LPBIG_OFFBIG                   = -1
+	X_XOPEN_ENH_I18N                      = 1
+	X_XOPEN_LEGACY                        = 1
+	X_XOPEN_REALTIME                      = 1
+	X_XOPEN_REALTIME_THREADS              = 1
+	X_XOPEN_SHM                           = 1
+	X_XOPEN_UNIX                          = 1
+	X_XOPEN_VERSION                       = 700
+	X_XOPEN_XCU_VERSION                   = 4
+	X_XOPEN_XPG2                          = 1
+	X_XOPEN_XPG3                          = 1
+	X_XOPEN_XPG4                          = 1
 	FUZZER_HASH                           = 4001
 	FUZZER_MX_COST                        = 1000
 	FUZZER_MX_LENGTH                      = 50
@@ -1504,17 +1504,17 @@ const (
 	Z_TREES                               = 6
 	Z_UNKNOWN                             = 2
 	Z_VERSION_ERROR                       = -6
-	_ANSI_STDDEF_H                        = 0
-	_BSD_PTRDIFF_T_                       = 0
-	_GCC_MAX_ALIGN_T                      = 0
-	_GCC_PTRDIFF_T                        = 0
-	_PTRDIFF_T                            = 0
-	_PTRDIFF_T_                           = 0
-	_PTRDIFF_T_DECLARED                   = 0
-	_STDDEF_H                             = 0
-	_STDDEF_H_                            = 0
-	_T_PTRDIFF                            = 0
-	_T_PTRDIFF_                           = 0
+	X_ANSI_STDDEF_H                       = 0
+	X_BSD_PTRDIFF_T_                      = 0
+	X_GCC_MAX_ALIGN_T                     = 0
+	X_GCC_PTRDIFF_T                       = 0
+	X_PTRDIFF_T                           = 0
+	X_PTRDIFF_T_                          = 0
+	X_PTRDIFF_T_DECLARED                  = 0
+	X_STDDEF_H                            = 0
+	X_STDDEF_H_                           = 0
+	X_T_PTRDIFF                           = 0
+	X_T_PTRDIFF_                          = 0
 	Z_const                               = 0
 	FP_XSTATE_MAGIC1                      = 0x46505853
 	FP_XSTATE_MAGIC2                      = 0x46505845
@@ -1575,19 +1575,19 @@ const (
 	SQLITE_EVAL_WITHOUTNULLS              = 0x00001
 	SQLITE_TCL_NRE                        = 1
 	TCLSH                                 = 1
-	_BITS_SIGACTION_H                     = 1
-	_BITS_SIGCONTEXT_H                    = 1
-	_BITS_SIGEVENT_CONSTS_H               = 1
-	_BITS_SIGINFO_ARCH_H                  = 1
-	_BITS_SIGINFO_CONSTS_H                = 1
-	_BITS_SIGNUM_GENERIC_H                = 1
-	_BITS_SIGNUM_H                        = 1
-	_BITS_SIGSTACK_H                      = 1
-	_BITS_SIGTHREAD_H                     = 1
-	_BITS_SS_FLAGS_H                      = 1
-	_NSIG                                 = 65
-	_SIGNAL_H                             = 0
-	_SYS_UCONTEXT_H                       = 1
+	X_BITS_SIGACTION_H                    = 1
+	X_BITS_SIGCONTEXT_H                   = 1
+	X_BITS_SIGEVENT_CONSTS_H              = 1
+	X_BITS_SIGINFO_ARCH_H                 = 1
+	X_BITS_SIGINFO_CONSTS_H               = 1
+	X_BITS_SIGNUM_GENERIC_H               = 1
+	X_BITS_SIGNUM_H                       = 1
+	X_BITS_SIGSTACK_H                     = 1
+	X_BITS_SIGTHREAD_H                    = 1
+	X_BITS_SS_FLAGS_H                     = 1
+	X_NSIG                                = 65
+	X_SIGNAL_H                            = 0
+	X_SYS_UCONTEXT_H                      = 1
 	AggInfoMagic                          = 0x2059e99e
 	BTREE_APPEND                          = 0x08
 	BTREE_APPLICATION_ID                  = 8
@@ -2468,14 +2468,14 @@ const (
 	WRC_Prune                             = 1
 	XN_EXPR                               = -2
 	XN_ROWID                              = -1
-	_BITS_UIO_LIM_H                       = 1
-	_FILE_OFFSET_BITS                     = 64
-	_LARGEFILE_SOURCE                     = 1
-	_LARGE_FILE                           = 1
-	_SQLITE_OS_H_                         = 0
-	_SYS_RESOURCE_H                       = 1
-	_XOPEN_LIM_H                          = 1
-	_XOPEN_SOURCE                         = 600
+	X_BITS_UIO_LIM_H                      = 1
+	X_FILE_OFFSET_BITS                    = 64
+	X_LARGEFILE_SOURCE                    = 1
+	X_LARGE_FILE                          = 1
+	X_SQLITE_OS_H_                        = 0
+	X_SYS_RESOURCE_H                      = 1
+	X_XOPEN_LIM_H                         = 1
+	X_XOPEN_SOURCE                        = 600
 	BTCF_AtLast                           = 0x08
 	BTCF_Incrblob                         = 0x10
 	BTCF_Multiple                         = 0x20
@@ -2519,12 +2519,12 @@ const (
 	SCHED_FIFO                            = 1
 	SCHED_OTHER                           = 0
 	SCHED_RR                              = 2
-	_BITS_CPU_SET_H                       = 1
-	_BITS_SCHED_H                         = 1
-	_BITS_SETJMP_H                        = 1
-	_BITS_TYPES_STRUCT_SCHED_PARAM        = 1
-	_PTHREAD_H                            = 1
-	_SCHED_H                              = 1
+	X_BITS_CPU_SET_H                      = 1
+	X_BITS_SCHED_H                        = 1
+	X_BITS_SETJMP_H                       = 1
+	X_BITS_TYPES_STRUCT_SCHED_PARAM       = 1
+	X_PTHREAD_H                           = 1
+	X_SCHED_H                             = 1
 	TCL_THREADS                           = 0
 	MX_CHUNK_NUMBER                       = 299
 	SQLITE_MULTIPLEX_JOURNAL_8_3_OFFSET   = 400
@@ -2543,9 +2543,9 @@ const (
 	NOFILE                                = 256
 	NOGROUP                               = -1
 	SQLITE_DEMOVFS_BUFFERSZ               = 8192
-	_LINUX_PARAM_H                        = 0
-	_SYS_FILE_H                           = 1
-	_SYS_PARAM_H                          = 1
+	X_LINUX_PARAM_H                       = 0
+	X_SYS_FILE_H                          = 1
+	X_SYS_PARAM_H                         = 1
 	DEVSYM_MAX_PATHNAME                   = 512
 	DEVSYM_VFS_NAME                       = "devsym"
 	WRITECRASH_NAME                       = "writecrash"
@@ -2628,7 +2628,7 @@ const (
 	PROT_NONE                             = 0x0
 	PROT_READ                             = 0x1
 	PROT_WRITE                            = 0x2
-	_SYS_MMAN_H                           = 1
+	X_SYS_MMAN_H                          = 1
 	TCLVAR_NAME_EQ                        = 101
 	TCLVAR_NAME_MATCH                     = 109
 	TCLVAR_VALUE_GLOB                     = 103
@@ -2658,6 +2658,1017 @@ const (
 	TESTVFS_TRUNCATE_MASK                 = 0x00002000
 	TESTVFS_UNLOCK_MASK                   = 0x00020000
 	TESTVFS_WRITE_MASK                    = 0x00001000
+)
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard 7.4: Character handling	<ctype.h>
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// These are all the characteristics of characters.
+//   If there get to be more than 16 distinct characteristics,
+//   many things must be changed that use `unsigned short int's.
+//
+//   The characteristics are stored always in network byte order (big
+//   endian).  We define the bit value interpretations here dependent on the
+//   machine's byte order.
+
+// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+const ( /* ctype.h:46:1: */
+	_ISupper  = 256   // UPPERCASE.
+	_ISlower  = 512   // lowercase.
+	_ISalpha  = 1024  // Alphabetic.
+	_ISdigit  = 2048  // Numeric.
+	_ISxdigit = 4096  // Hexadecimal numeric.
+	_ISspace  = 8192  // Whitespace.
+	_ISprint  = 16384 // Printing.
+	_ISgraph  = 32768 // Graphical.
+	_ISblank  = 1     // Blank (usually SPC and TAB).
+	_IScntrl  = 2     // Control character.
+	_ISpunct  = 4     // Punctuation.
+	_ISalnum  = 8
+)
+
+// Inform libc code that these two types are effectively identical.
+
+// These macros extract size information from a `struct dirent *'.
+//   They may evaluate their argument multiple times, so it must not
+//   have side effects.  Each of these may involve a relatively costly
+//   call to `strlen' on some systems, so these values should be cached.
+//
+//   _D_EXACT_NAMLEN (DP)	returns the length of DP->d_name, not including
+//   its terminating null character.
+//
+//   _D_ALLOC_NAMLEN (DP)	returns a size at least (_D_EXACT_NAMLEN (DP) + 1);
+//   that is, the allocation size needed to hold the DP->d_name string.
+//   Use this macro when you don't need the exact length, just an upper bound.
+//   This macro is less likely to require calling `strlen' than _D_EXACT_NAMLEN.
+//
+
+// File types for `d_type'.
+const ( /* dirent.h:97:1: */
+	DT_UNKNOWN = 0
+	DT_FIFO    = 1
+	DT_CHR     = 2
+	DT_DIR     = 4
+	DT_BLK     = 6
+	DT_REG     = 8
+	DT_LNK     = 10
+	DT_SOCK    = 12
+	DT_WHT     = 14
+)
+
+// Read-write lock types.
+const ( /* pthread.h:115:1: */
+	PTHREAD_RWLOCK_PREFER_READER_NP              = 0
+	PTHREAD_RWLOCK_PREFER_WRITER_NP              = 1
+	PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP = 2
+	PTHREAD_RWLOCK_DEFAULT_NP                    = 0
+)
+
+// Define __PTHREAD_RWLOCK_INT_FLAGS_SHARED to 1 if pthread_rwlock_t
+//   has the shared field.  All 64-bit architectures have the shared field
+//   in pthread_rwlock_t.
+
+// Read-write lock initializers.
+
+// Scheduler inheritance.
+const ( /* pthread.h:156:1: */
+	PTHREAD_INHERIT_SCHED  = 0
+	PTHREAD_EXPLICIT_SCHED = 1
+)
+
+// Scope handling.
+const ( /* pthread.h:166:1: */
+	PTHREAD_SCOPE_SYSTEM  = 0
+	PTHREAD_SCOPE_PROCESS = 1
+)
+
+// Process shared or private flag.
+const ( /* pthread.h:176:1: */
+	PTHREAD_PROCESS_PRIVATE = 0
+	PTHREAD_PROCESS_SHARED  = 1
+)
+
+// Cancellation
+const ( /* pthread.h:200:1: */
+	PTHREAD_CANCEL_ENABLE  = 0
+	PTHREAD_CANCEL_DISABLE = 1
+)
+const ( /* pthread.h:207:1: */
+	PTHREAD_CANCEL_DEFERRED     = 0
+	PTHREAD_CANCEL_ASYNCHRONOUS = 1
+)
+
+// Determine the wordsize from the preprocessor defines.
+
+// Both x86-64 and x32 use the 64-bit system call interface.
+// NB: Include guard matches what <linux/time.h> uses.
+
+// Detach state.
+const ( /* pthread.h:33:1: */
+	PTHREAD_CREATE_JOINABLE = 0
+	PTHREAD_CREATE_DETACHED = 1
+)
+
+// Mutex types.
+const ( /* pthread.h:43:1: */
+	PTHREAD_MUTEX_TIMED_NP      = 0
+	PTHREAD_MUTEX_RECURSIVE_NP  = 1
+	PTHREAD_MUTEX_ERRORCHECK_NP = 2
+	PTHREAD_MUTEX_ADAPTIVE_NP   = 3
+	PTHREAD_MUTEX_NORMAL        = 0
+	PTHREAD_MUTEX_RECURSIVE     = 1
+	PTHREAD_MUTEX_ERRORCHECK    = 2
+	PTHREAD_MUTEX_DEFAULT       = 0
+)
+
+// Robust mutex or not flags.
+const ( /* pthread.h:65:1: */
+	PTHREAD_MUTEX_STALLED    = 0
+	PTHREAD_MUTEX_STALLED_NP = 0
+	PTHREAD_MUTEX_ROBUST     = 1
+	PTHREAD_MUTEX_ROBUST_NP  = 1
+)
+
+// Mutex protocols.
+const ( /* pthread.h:77:1: */
+	PTHREAD_PRIO_NONE    = 0
+	PTHREAD_PRIO_INHERIT = 1
+	PTHREAD_PRIO_PROTECT = 2
+)
+
+// Positions to pass to Tcl_QueueEvent:
+
+const ( /* tcl.h:1387:1: */
+	TCL_QUEUE_TAIL = 0
+	TCL_QUEUE_HEAD = 1
+	TCL_QUEUE_MARK = 2
+)
+
+// The following flags determine whether the blockModeProc above should set
+// the channel into blocking or nonblocking mode. They are passed as arguments
+// to the blockModeProc function in the above structure.
+
+//----------------------------------------------------------------------------
+// Enum for different types of file paths.
+
+const ( /* tcl.h:1609:1: */
+	TCL_PATH_ABSOLUTE        = 0
+	TCL_PATH_RELATIVE        = 1
+	TCL_PATH_VOLUME_RELATIVE = 2
+)
+
+//----------------------------------------------------------------------------
+// When a TCL command returns, the interpreter contains a result from the
+// command. Programmers are strongly encouraged to use one of the functions
+// Tcl_GetObjResult() or Tcl_GetStringResult() to read the interpreter's
+// result. See the SetResult man page for details. Besides this result, the
+// command function returns an integer code, which is one of the following:
+//
+// TCL_OK		Command completed normally; the interpreter's result
+//			contains the command's result.
+// TCL_ERROR		The command couldn't be completed successfully; the
+//			interpreter's result describes what went wrong.
+// TCL_RETURN		The command requests that the current function return;
+//			the interpreter's result contains the function's
+//			return value.
+// TCL_BREAK		The command requests that the innermost loop be
+//			exited; the interpreter's result is meaningless.
+// TCL_CONTINUE		Go on to the next iteration of the current loop; the
+//			interpreter's result is meaningless.
+
+//----------------------------------------------------------------------------
+// Flags to control what substitutions are performed by Tcl_SubstObj():
+
+// Argument descriptors for math function callbacks in expressions:
+
+const ( /* tcl.h:690:1: */
+	TCL_INT      = 0
+	TCL_DOUBLE   = 1
+	TCL_EITHER   = 2
+	TCL_WIDE_INT = 3
+)
+
+// Get the `_PC_*' symbols for the NAME argument to `pathconf' and `fpathconf';
+//   the `_SC_*' symbols for the NAME argument to `sysconf';
+//   and the `_CS_*' symbols for the NAME argument to `confstr'.
+// `sysconf', `pathconf', and `confstr' NAME values.  Generic version.
+//   Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Values for the NAME argument to `pathconf' and `fpathconf'.
+const ( /* confname.h:24:1: */
+	_PC_LINK_MAX           = 0
+	_PC_MAX_CANON          = 1
+	_PC_MAX_INPUT          = 2
+	_PC_NAME_MAX           = 3
+	_PC_PATH_MAX           = 4
+	_PC_PIPE_BUF           = 5
+	_PC_CHOWN_RESTRICTED   = 6
+	_PC_NO_TRUNC           = 7
+	_PC_VDISABLE           = 8
+	_PC_SYNC_IO            = 9
+	_PC_ASYNC_IO           = 10
+	_PC_PRIO_IO            = 11
+	_PC_SOCK_MAXBUF        = 12
+	_PC_FILESIZEBITS       = 13
+	_PC_REC_INCR_XFER_SIZE = 14
+	_PC_REC_MAX_XFER_SIZE  = 15
+	_PC_REC_MIN_XFER_SIZE  = 16
+	_PC_REC_XFER_ALIGN     = 17
+	_PC_ALLOC_SIZE_MIN     = 18
+	_PC_SYMLINK_MAX        = 19
+	_PC_2_SYMLINKS         = 20
+)
+
+// Values for the NAME argument to `confstr'.
+const ( /* confname.h:533:1: */
+	_CS_PATH = 0 // The default search path.
+
+	_CS_V6_WIDTH_RESTRICTED_ENVS = 1
+
+	_CS_GNU_LIBC_VERSION       = 2
+	_CS_GNU_LIBPTHREAD_VERSION = 3
+
+	_CS_V5_WIDTH_RESTRICTED_ENVS = 4
+
+	_CS_V7_WIDTH_RESTRICTED_ENVS = 5
+
+	_CS_LFS_CFLAGS      = 1000
+	_CS_LFS_LDFLAGS     = 1001
+	_CS_LFS_LIBS        = 1002
+	_CS_LFS_LINTFLAGS   = 1003
+	_CS_LFS64_CFLAGS    = 1004
+	_CS_LFS64_LDFLAGS   = 1005
+	_CS_LFS64_LIBS      = 1006
+	_CS_LFS64_LINTFLAGS = 1007
+
+	_CS_XBS5_ILP32_OFF32_CFLAGS     = 1100
+	_CS_XBS5_ILP32_OFF32_LDFLAGS    = 1101
+	_CS_XBS5_ILP32_OFF32_LIBS       = 1102
+	_CS_XBS5_ILP32_OFF32_LINTFLAGS  = 1103
+	_CS_XBS5_ILP32_OFFBIG_CFLAGS    = 1104
+	_CS_XBS5_ILP32_OFFBIG_LDFLAGS   = 1105
+	_CS_XBS5_ILP32_OFFBIG_LIBS      = 1106
+	_CS_XBS5_ILP32_OFFBIG_LINTFLAGS = 1107
+	_CS_XBS5_LP64_OFF64_CFLAGS      = 1108
+	_CS_XBS5_LP64_OFF64_LDFLAGS     = 1109
+	_CS_XBS5_LP64_OFF64_LIBS        = 1110
+	_CS_XBS5_LP64_OFF64_LINTFLAGS   = 1111
+	_CS_XBS5_LPBIG_OFFBIG_CFLAGS    = 1112
+	_CS_XBS5_LPBIG_OFFBIG_LDFLAGS   = 1113
+	_CS_XBS5_LPBIG_OFFBIG_LIBS      = 1114
+	_CS_XBS5_LPBIG_OFFBIG_LINTFLAGS = 1115
+
+	_CS_POSIX_V6_ILP32_OFF32_CFLAGS     = 1116
+	_CS_POSIX_V6_ILP32_OFF32_LDFLAGS    = 1117
+	_CS_POSIX_V6_ILP32_OFF32_LIBS       = 1118
+	_CS_POSIX_V6_ILP32_OFF32_LINTFLAGS  = 1119
+	_CS_POSIX_V6_ILP32_OFFBIG_CFLAGS    = 1120
+	_CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS   = 1121
+	_CS_POSIX_V6_ILP32_OFFBIG_LIBS      = 1122
+	_CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS = 1123
+	_CS_POSIX_V6_LP64_OFF64_CFLAGS      = 1124
+	_CS_POSIX_V6_LP64_OFF64_LDFLAGS     = 1125
+	_CS_POSIX_V6_LP64_OFF64_LIBS        = 1126
+	_CS_POSIX_V6_LP64_OFF64_LINTFLAGS   = 1127
+	_CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS    = 1128
+	_CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS   = 1129
+	_CS_POSIX_V6_LPBIG_OFFBIG_LIBS      = 1130
+	_CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS = 1131
+
+	_CS_POSIX_V7_ILP32_OFF32_CFLAGS     = 1132
+	_CS_POSIX_V7_ILP32_OFF32_LDFLAGS    = 1133
+	_CS_POSIX_V7_ILP32_OFF32_LIBS       = 1134
+	_CS_POSIX_V7_ILP32_OFF32_LINTFLAGS  = 1135
+	_CS_POSIX_V7_ILP32_OFFBIG_CFLAGS    = 1136
+	_CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS   = 1137
+	_CS_POSIX_V7_ILP32_OFFBIG_LIBS      = 1138
+	_CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS = 1139
+	_CS_POSIX_V7_LP64_OFF64_CFLAGS      = 1140
+	_CS_POSIX_V7_LP64_OFF64_LDFLAGS     = 1141
+	_CS_POSIX_V7_LP64_OFF64_LIBS        = 1142
+	_CS_POSIX_V7_LP64_OFF64_LINTFLAGS   = 1143
+	_CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS    = 1144
+	_CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS   = 1145
+	_CS_POSIX_V7_LPBIG_OFFBIG_LIBS      = 1146
+	_CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS = 1147
+
+	_CS_V6_ENV = 1148
+	_CS_V7_ENV = 1149
+)
+
+// Values for the argument to `sysconf'.
+const ( /* confname.h:71:1: */
+	_SC_ARG_MAX               = 0
+	_SC_CHILD_MAX             = 1
+	_SC_CLK_TCK               = 2
+	_SC_NGROUPS_MAX           = 3
+	_SC_OPEN_MAX              = 4
+	_SC_STREAM_MAX            = 5
+	_SC_TZNAME_MAX            = 6
+	_SC_JOB_CONTROL           = 7
+	_SC_SAVED_IDS             = 8
+	_SC_REALTIME_SIGNALS      = 9
+	_SC_PRIORITY_SCHEDULING   = 10
+	_SC_TIMERS                = 11
+	_SC_ASYNCHRONOUS_IO       = 12
+	_SC_PRIORITIZED_IO        = 13
+	_SC_SYNCHRONIZED_IO       = 14
+	_SC_FSYNC                 = 15
+	_SC_MAPPED_FILES          = 16
+	_SC_MEMLOCK               = 17
+	_SC_MEMLOCK_RANGE         = 18
+	_SC_MEMORY_PROTECTION     = 19
+	_SC_MESSAGE_PASSING       = 20
+	_SC_SEMAPHORES            = 21
+	_SC_SHARED_MEMORY_OBJECTS = 22
+	_SC_AIO_LISTIO_MAX        = 23
+	_SC_AIO_MAX               = 24
+	_SC_AIO_PRIO_DELTA_MAX    = 25
+	_SC_DELAYTIMER_MAX        = 26
+	_SC_MQ_OPEN_MAX           = 27
+	_SC_MQ_PRIO_MAX           = 28
+	_SC_VERSION               = 29
+	_SC_PAGESIZE              = 30
+	_SC_RTSIG_MAX             = 31
+	_SC_SEM_NSEMS_MAX         = 32
+	_SC_SEM_VALUE_MAX         = 33
+	_SC_SIGQUEUE_MAX          = 34
+	_SC_TIMER_MAX             = 35
+
+	// Values for the argument to `sysconf'
+	//       corresponding to _POSIX2_* symbols.
+	_SC_BC_BASE_MAX        = 36
+	_SC_BC_DIM_MAX         = 37
+	_SC_BC_SCALE_MAX       = 38
+	_SC_BC_STRING_MAX      = 39
+	_SC_COLL_WEIGHTS_MAX   = 40
+	_SC_EQUIV_CLASS_MAX    = 41
+	_SC_EXPR_NEST_MAX      = 42
+	_SC_LINE_MAX           = 43
+	_SC_RE_DUP_MAX         = 44
+	_SC_CHARCLASS_NAME_MAX = 45
+
+	_SC_2_VERSION   = 46
+	_SC_2_C_BIND    = 47
+	_SC_2_C_DEV     = 48
+	_SC_2_FORT_DEV  = 49
+	_SC_2_FORT_RUN  = 50
+	_SC_2_SW_DEV    = 51
+	_SC_2_LOCALEDEF = 52
+
+	_SC_PII                 = 53
+	_SC_PII_XTI             = 54
+	_SC_PII_SOCKET          = 55
+	_SC_PII_INTERNET        = 56
+	_SC_PII_OSI             = 57
+	_SC_POLL                = 58
+	_SC_SELECT              = 59
+	_SC_UIO_MAXIOV          = 60
+	_SC_IOV_MAX             = 60
+	_SC_PII_INTERNET_STREAM = 61
+	_SC_PII_INTERNET_DGRAM  = 62
+	_SC_PII_OSI_COTS        = 63
+	_SC_PII_OSI_CLTS        = 64
+	_SC_PII_OSI_M           = 65
+	_SC_T_IOV_MAX           = 66
+
+	// Values according to POSIX 1003.1c (POSIX threads).
+	_SC_THREADS                      = 67
+	_SC_THREAD_SAFE_FUNCTIONS        = 68
+	_SC_GETGR_R_SIZE_MAX             = 69
+	_SC_GETPW_R_SIZE_MAX             = 70
+	_SC_LOGIN_NAME_MAX               = 71
+	_SC_TTY_NAME_MAX                 = 72
+	_SC_THREAD_DESTRUCTOR_ITERATIONS = 73
+	_SC_THREAD_KEYS_MAX              = 74
+	_SC_THREAD_STACK_MIN             = 75
+	_SC_THREAD_THREADS_MAX           = 76
+	_SC_THREAD_ATTR_STACKADDR        = 77
+	_SC_THREAD_ATTR_STACKSIZE        = 78
+	_SC_THREAD_PRIORITY_SCHEDULING   = 79
+	_SC_THREAD_PRIO_INHERIT          = 80
+	_SC_THREAD_PRIO_PROTECT          = 81
+	_SC_THREAD_PROCESS_SHARED        = 82
+
+	_SC_NPROCESSORS_CONF = 83
+	_SC_NPROCESSORS_ONLN = 84
+	_SC_PHYS_PAGES       = 85
+	_SC_AVPHYS_PAGES     = 86
+	_SC_ATEXIT_MAX       = 87
+	_SC_PASS_MAX         = 88
+
+	_SC_XOPEN_VERSION     = 89
+	_SC_XOPEN_XCU_VERSION = 90
+	_SC_XOPEN_UNIX        = 91
+	_SC_XOPEN_CRYPT       = 92
+	_SC_XOPEN_ENH_I18N    = 93
+	_SC_XOPEN_SHM         = 94
+
+	_SC_2_CHAR_TERM = 95
+	_SC_2_C_VERSION = 96
+	_SC_2_UPE       = 97
+
+	_SC_XOPEN_XPG2 = 98
+	_SC_XOPEN_XPG3 = 99
+	_SC_XOPEN_XPG4 = 100
+
+	_SC_CHAR_BIT   = 101
+	_SC_CHAR_MAX   = 102
+	_SC_CHAR_MIN   = 103
+	_SC_INT_MAX    = 104
+	_SC_INT_MIN    = 105
+	_SC_LONG_BIT   = 106
+	_SC_WORD_BIT   = 107
+	_SC_MB_LEN_MAX = 108
+	_SC_NZERO      = 109
+	_SC_SSIZE_MAX  = 110
+	_SC_SCHAR_MAX  = 111
+	_SC_SCHAR_MIN  = 112
+	_SC_SHRT_MAX   = 113
+	_SC_SHRT_MIN   = 114
+	_SC_UCHAR_MAX  = 115
+	_SC_UINT_MAX   = 116
+	_SC_ULONG_MAX  = 117
+	_SC_USHRT_MAX  = 118
+
+	_SC_NL_ARGMAX  = 119
+	_SC_NL_LANGMAX = 120
+	_SC_NL_MSGMAX  = 121
+	_SC_NL_NMAX    = 122
+	_SC_NL_SETMAX  = 123
+	_SC_NL_TEXTMAX = 124
+
+	_SC_XBS5_ILP32_OFF32  = 125
+	_SC_XBS5_ILP32_OFFBIG = 126
+	_SC_XBS5_LP64_OFF64   = 127
+	_SC_XBS5_LPBIG_OFFBIG = 128
+
+	_SC_XOPEN_LEGACY           = 129
+	_SC_XOPEN_REALTIME         = 130
+	_SC_XOPEN_REALTIME_THREADS = 131
+
+	_SC_ADVISORY_INFO          = 132
+	_SC_BARRIERS               = 133
+	_SC_BASE                   = 134
+	_SC_C_LANG_SUPPORT         = 135
+	_SC_C_LANG_SUPPORT_R       = 136
+	_SC_CLOCK_SELECTION        = 137
+	_SC_CPUTIME                = 138
+	_SC_THREAD_CPUTIME         = 139
+	_SC_DEVICE_IO              = 140
+	_SC_DEVICE_SPECIFIC        = 141
+	_SC_DEVICE_SPECIFIC_R      = 142
+	_SC_FD_MGMT                = 143
+	_SC_FIFO                   = 144
+	_SC_PIPE                   = 145
+	_SC_FILE_ATTRIBUTES        = 146
+	_SC_FILE_LOCKING           = 147
+	_SC_FILE_SYSTEM            = 148
+	_SC_MONOTONIC_CLOCK        = 149
+	_SC_MULTI_PROCESS          = 150
+	_SC_SINGLE_PROCESS         = 151
+	_SC_NETWORKING             = 152
+	_SC_READER_WRITER_LOCKS    = 153
+	_SC_SPIN_LOCKS             = 154
+	_SC_REGEXP                 = 155
+	_SC_REGEX_VERSION          = 156
+	_SC_SHELL                  = 157
+	_SC_SIGNALS                = 158
+	_SC_SPAWN                  = 159
+	_SC_SPORADIC_SERVER        = 160
+	_SC_THREAD_SPORADIC_SERVER = 161
+	_SC_SYSTEM_DATABASE        = 162
+	_SC_SYSTEM_DATABASE_R      = 163
+	_SC_TIMEOUTS               = 164
+	_SC_TYPED_MEMORY_OBJECTS   = 165
+	_SC_USER_GROUPS            = 166
+	_SC_USER_GROUPS_R          = 167
+	_SC_2_PBS                  = 168
+	_SC_2_PBS_ACCOUNTING       = 169
+	_SC_2_PBS_LOCATE           = 170
+	_SC_2_PBS_MESSAGE          = 171
+	_SC_2_PBS_TRACK            = 172
+	_SC_SYMLOOP_MAX            = 173
+	_SC_STREAMS                = 174
+	_SC_2_PBS_CHECKPOINT       = 175
+
+	_SC_V6_ILP32_OFF32  = 176
+	_SC_V6_ILP32_OFFBIG = 177
+	_SC_V6_LP64_OFF64   = 178
+	_SC_V6_LPBIG_OFFBIG = 179
+
+	_SC_HOST_NAME_MAX      = 180
+	_SC_TRACE              = 181
+	_SC_TRACE_EVENT_FILTER = 182
+	_SC_TRACE_INHERIT      = 183
+	_SC_TRACE_LOG          = 184
+
+	_SC_LEVEL1_ICACHE_SIZE     = 185
+	_SC_LEVEL1_ICACHE_ASSOC    = 186
+	_SC_LEVEL1_ICACHE_LINESIZE = 187
+	_SC_LEVEL1_DCACHE_SIZE     = 188
+	_SC_LEVEL1_DCACHE_ASSOC    = 189
+	_SC_LEVEL1_DCACHE_LINESIZE = 190
+	_SC_LEVEL2_CACHE_SIZE      = 191
+	_SC_LEVEL2_CACHE_ASSOC     = 192
+	_SC_LEVEL2_CACHE_LINESIZE  = 193
+	_SC_LEVEL3_CACHE_SIZE      = 194
+	_SC_LEVEL3_CACHE_ASSOC     = 195
+	_SC_LEVEL3_CACHE_LINESIZE  = 196
+	_SC_LEVEL4_CACHE_SIZE      = 197
+	_SC_LEVEL4_CACHE_ASSOC     = 198
+	_SC_LEVEL4_CACHE_LINESIZE  = 199
+	// Leave room here, maybe we need a few more cache levels some day.
+
+	_SC_IPV6        = 235
+	_SC_RAW_SOCKETS = 236
+
+	_SC_V7_ILP32_OFF32  = 237
+	_SC_V7_ILP32_OFFBIG = 238
+	_SC_V7_LP64_OFF64   = 239
+	_SC_V7_LPBIG_OFFBIG = 240
+
+	_SC_SS_REPL_MAX = 241
+
+	_SC_TRACE_EVENT_NAME_MAX = 242
+	_SC_TRACE_NAME_MAX       = 243
+	_SC_TRACE_SYS_MAX        = 244
+	_SC_TRACE_USER_EVENT_MAX = 245
+
+	_SC_XOPEN_STREAMS = 246
+
+	_SC_THREAD_ROBUST_PRIO_INHERIT = 247
+	_SC_THREAD_ROBUST_PRIO_PROTECT = 248
+)
+
+// Whose usage statistics do you want?
+const ( /* resource.h:158:1: */
+	// The calling process.
+	RUSAGE_SELF = 0
+
+	// All of its terminated child processes.
+	RUSAGE_CHILDREN = -1
+)
+
+// Priority limits.
+
+// The type of the WHICH argument to `getpriority' and `setpriority',
+//   indicating what flavor of entity the WHO argument specifies.
+const ( /* resource.h:187:1: */
+	PRIO_PROCESS = 0 // WHO is a process ID.
+	PRIO_PGRP    = 1 // WHO is a process group ID.
+	PRIO_USER    = 2
+)
+
+// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Get the system-dependent definitions of structures and bit values.
+// Bit values & structures for resource limits.  Linux version.
+//   Copyright (C) 1994-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// Transmute defines to enumerations.  The macro re-definitions are
+//   necessary because some programs want to test for operating system
+//   features with #ifdef RUSAGE_SELF.  In ISO C the reflexive
+//   definition is a no-op.
+
+// Kinds of resource limit.
+const ( /* resource.h:31:1: */
+	// Per-process CPU limit, in seconds.
+	RLIMIT_CPU = 0
+
+	// Largest file that can be created, in bytes.
+	RLIMIT_FSIZE = 1
+
+	// Maximum size of data segment, in bytes.
+	RLIMIT_DATA = 2
+
+	// Maximum size of stack segment, in bytes.
+	RLIMIT_STACK = 3
+
+	// Largest core file that can be created, in bytes.
+	RLIMIT_CORE = 4
+
+	// Largest resident set size, in bytes.
+	//     This affects swapping; processes that are exceeding their
+	//     resident set size will be more likely to have physical memory
+	//     taken from them.
+	__RLIMIT_RSS = 5
+
+	// Number of open files.
+	RLIMIT_NOFILE  = 7
+	__RLIMIT_OFILE = 7 // BSD name for same.
+
+	// Address space limit.
+	RLIMIT_AS = 9
+
+	// Number of processes.
+	__RLIMIT_NPROC = 6
+
+	// Locked-in-memory address space.
+	__RLIMIT_MEMLOCK = 8
+
+	// Maximum number of file locks.
+	__RLIMIT_LOCKS = 10
+
+	// Maximum number of pending signals.
+	__RLIMIT_SIGPENDING = 11
+
+	// Maximum bytes in POSIX message queues.
+	__RLIMIT_MSGQUEUE = 12
+
+	// Maximum nice priority allowed to raise to.
+	//     Nice levels 19 .. -20 correspond to 0 .. 39
+	//     values of this resource limit.
+	__RLIMIT_NICE = 13
+
+	// Maximum realtime priority allowed for non-priviledged
+	//     processes.
+	__RLIMIT_RTPRIO = 14
+
+	// Maximum CPU time in µs that a process scheduled under a real-time
+	//     scheduling policy may consume without making a blocking system
+	//     call before being forcibly descheduled.
+	__RLIMIT_RTTIME = 15
+
+	__RLIMIT_NLIMITS = 16
+	__RLIM_NLIMITS   = 16
+)
+
+// POSIX names to access some of the members.
+
+// sigevent constants.  Linux version.
+//   Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// `sigev_notify' values.
+const ( /* sigevent-consts.h:27:1: */
+	SIGEV_SIGNAL = 0 // Notify via signal.
+	SIGEV_NONE   = 1 // Other notification: meaningless.
+	SIGEV_THREAD = 2 // Deliver via thread creation.
+
+	SIGEV_THREAD_ID = 4
+)
+
+// `si_code' values for SIGSEGV signal.
+const ( /* siginfo-consts.h:110:1: */
+	SEGV_MAPERR = 1 // Address not mapped to object.
+	SEGV_ACCERR = 2 // Invalid permissions for mapped object.
+	SEGV_BNDERR = 3 // Bounds checking failure.
+	SEGV_PKUERR = 4
+)
+
+// `si_code' values for SIGBUS signal.
+const ( /* siginfo-consts.h:123:1: */
+	BUS_ADRALN    = 1 // Invalid address alignment.
+	BUS_ADRERR    = 2 // Non-existant physical address.
+	BUS_OBJERR    = 3 // Object specific hardware error.
+	BUS_MCEERR_AR = 4 // Hardware memory error: action required.
+	BUS_MCEERR_AO = 5
+)
+
+// `si_code' values for SIGCHLD signal.
+const ( /* siginfo-consts.h:151:1: */
+	CLD_EXITED    = 1 // Child has exited.
+	CLD_KILLED    = 2 // Child was killed.
+	CLD_DUMPED    = 3 // Child terminated abnormally.
+	CLD_TRAPPED   = 4 // Traced child has trapped.
+	CLD_STOPPED   = 5 // Child has stopped.
+	CLD_CONTINUED = 6
+)
+
+// `si_code' values for SIGPOLL signal.
+const ( /* siginfo-consts.h:168:1: */
+	POLL_IN  = 1 // Data input available.
+	POLL_OUT = 2 // Output buffers available.
+	POLL_MSG = 3 // Input message available.
+	POLL_ERR = 4 // I/O error.
+	POLL_PRI = 5 // High priority input available.
+	POLL_HUP = 6
+)
+
+// X/Open requires some more fields with fixed names.
+
+// siginfo constants.  Linux version.
+//   Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Most of these constants are uniform across all architectures, but there
+//   is one exception.
+// Architecture-specific adjustments to siginfo_t.  x86 version.
+
+// Values for `si_code'.  Positive values are reserved for kernel-generated
+//   signals.
+const ( /* siginfo-consts.h:35:1: */
+	SI_ASYNCNL = -60 // Sent by asynch name lookup completion.
+	SI_TKILL   = -6  // Sent by tkill.
+	SI_SIGIO   = -5  // Sent by queued SIGIO.
+	SI_ASYNCIO = -4  // Sent by AIO completion.
+	SI_MESGQ   = -3  // Sent by real time mesq state change.
+	SI_TIMER   = -2  // Sent by timer expiration.
+	SI_QUEUE   = -1  // Sent by sigqueue.
+	SI_USER    = 0   // Sent by kill, sigsend.
+	SI_KERNEL  = 128
+)
+
+// `si_code' values for SIGILL signal.
+const ( /* siginfo-consts.h:68:1: */
+	ILL_ILLOPC = 1 // Illegal opcode.
+	ILL_ILLOPN = 2 // Illegal operand.
+	ILL_ILLADR = 3 // Illegal addressing mode.
+	ILL_ILLTRP = 4 // Illegal trap.
+	ILL_PRVOPC = 5 // Privileged opcode.
+	ILL_PRVREG = 6 // Privileged register.
+	ILL_COPROC = 7 // Coprocessor error.
+	ILL_BADSTK = 8
+)
+
+// `si_code' values for SIGFPE signal.
+const ( /* siginfo-consts.h:89:1: */
+	FPE_INTDIV = 1 // Integer divide by zero.
+	FPE_INTOVF = 2 // Integer overflow.
+	FPE_FLTDIV = 3 // Floating point divide by zero.
+	FPE_FLTOVF = 4 // Floating point overflow.
+	FPE_FLTUND = 5 // Floating point underflow.
+	FPE_FLTRES = 6 // Floating point inexact result.
+	FPE_FLTINV = 7 // Floating point invalid operation.
+	FPE_FLTSUB = 8
+)
+
+// sigstack, sigaltstack definitions.
+//   Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Minimum stack size for a signal handler.
+
+// System default stack size.
+
+// ss_flags values for stack_t.  Linux version.
+//   Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Possible values for `ss_flags'.
+const ( /* ss_flags.h:27:1: */
+	SS_ONSTACK = 1
+	SS_DISABLE = 2
+)
+
+//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
+//    are already defined.
+//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
+//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
+
+// A null pointer constant.
+
+// XPG requires a few symbols from <sys/wait.h> being defined.
+// Definitions of flag bits for `waitpid' et al.
+//   Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Bits in the third argument to `waitpid'.
+
+// Bits in the fourth argument to `waitid'.
+
+// The following values are used by the `waitid' function.
+
+// The Linux kernel defines these bare, rather than an enum,
+//   which causes a conflict if the include order is reversed.
+
+const ( /* waitflags.h:52:1: */
+	P_ALL  = 0 // Wait for any child.
+	P_PID  = 1 // Wait for specified process.
+	P_PGID = 2
+)
+
+// Values for the first argument to `getitimer' and `setitimer'.
+const ( /* time.h:88:1: */
+	// Timers run in real time.
+	ITIMER_REAL = 0
+	// Timers run only when the process is executing.
+	ITIMER_VIRTUAL = 1
+	// Timers run when the process is executing and when
+	//       the system is executing on behalf of the process.
+	ITIMER_PROF = 2
 )
 
 type ptrdiff_t = int64 /* <builtin>:3:26 */
@@ -8902,6 +9913,11 @@ type Tcl_GlobTypeData1 = struct {
 // glob routines and Tcl_FSMatchInDirectory.
 
 type Tcl_GlobTypeData = Tcl_GlobTypeData1 /* tcl.h:1625:3 */
+// We have to declare the utime structure here.
+type utimbuf = struct {
+	Factime  int64
+	Fmodtime int64
+}
 
 type Tcl_FSVersion = uintptr /* tcl.h:1700:31 */
 
@@ -10635,7 +11651,174 @@ type blksize_t = int64 /* types.h:202:21 */
 // Types from the Large File Support interface.
 type blkcnt_t = int64    /* types.h:209:20 */ // Type to count number of disk blocks.
 type fsblkcnt_t = uint64 /* types.h:213:22 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:217:22 */
+type fsfilcnt_t = uint64 /* types.h:217:22 */ // Type to count file system inodes.
+
+// Now add the thread types.
+// Declaration of common pthread types for all architectures.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// For internal mutex and condition variable definitions.
+// Common threading primitives definitions for both POSIX and C11.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Arch-specific definitions.  Each architecture must define the following
+//   macros to define the expected sizes of pthread data types:
+//
+//   __SIZEOF_PTHREAD_ATTR_T        - size of pthread_attr_t.
+//   __SIZEOF_PTHREAD_MUTEX_T       - size of pthread_mutex_t.
+//   __SIZEOF_PTHREAD_MUTEXATTR_T   - size of pthread_mutexattr_t.
+//   __SIZEOF_PTHREAD_COND_T        - size of pthread_cond_t.
+//   __SIZEOF_PTHREAD_CONDATTR_T    - size of pthread_condattr_t.
+//   __SIZEOF_PTHREAD_RWLOCK_T      - size of pthread_rwlock_t.
+//   __SIZEOF_PTHREAD_RWLOCKATTR_T  - size of pthread_rwlockattr_t.
+//   __SIZEOF_PTHREAD_BARRIER_T     - size of pthread_barrier_t.
+//   __SIZEOF_PTHREAD_BARRIERATTR_T - size of pthread_barrierattr_t.
+//
+//   Also, the following macros must be define for internal pthread_mutex_t
+//   struct definitions (struct __pthread_mutex_s):
+//
+//   __PTHREAD_COMPAT_PADDING_MID   - any additional members after 'kind'
+//				    and before '__spin' (for 64 bits) or
+//				    '__nusers' (for 32 bits).
+//   __PTHREAD_COMPAT_PADDING_END   - any additional members at the end of
+//				    the internal structure.
+//   __PTHREAD_MUTEX_LOCK_ELISION   - 1 if the architecture supports lock
+//				    elision or 0 otherwise.
+//   __PTHREAD_MUTEX_NUSERS_AFTER_KIND - control where to put __nusers.  The
+//				       preferred value for new architectures
+//				       is 0.
+//   __PTHREAD_MUTEX_USE_UNION      - control whether internal __spins and
+//				    __list will be place inside a union for
+//				    linuxthreads compatibility.
+//				    The preferred value for new architectures
+//				    is 0.
+//
+//   For a new port the preferred values for the required defines are:
+//
+//   #define __PTHREAD_COMPAT_PADDING_MID
+//   #define __PTHREAD_COMPAT_PADDING_END
+//   #define __PTHREAD_MUTEX_LOCK_ELISION         0
+//   #define __PTHREAD_MUTEX_NUSERS_AFTER_KIND    0
+//   #define __PTHREAD_MUTEX_USE_UNION            0
+//
+//   __PTHREAD_MUTEX_LOCK_ELISION can be set to 1 if the hardware plans to
+//   eventually support lock elision using transactional memory.
+//
+//   The additional macro defines any constraint for the lock alignment
+//   inside the thread structures:
+//
+//   __LOCK_ALIGNMENT - for internal lock/futex usage.
+//
+//   Same idea but for the once locking primitive:
+//
+//   __ONCE_ALIGNMENT - for pthread_once_t/once_flag definition.
+//
+//   And finally the internal pthread_rwlock_t (struct __pthread_rwlock_arch_t)
+//   must be defined.
+//
+// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Determine the wordsize from the preprocessor defines.
+
+// Both x86-64 and x32 use the 64-bit system call interface.
+
+// Definitions for internal mutex struct.
+
+type __pthread_rwlock_arch_t = struct {
+	F__readers       uint32
+	F__writers       uint32
+	F__wrphase_futex uint32
+	F__writers_futex uint32
+	F__pad3          uint32
+	F__pad4          uint32
+	F__cur_writer    int32
+	F__shared        int32
+	F__rwelision     int8
+	F__pad1          [7]uint8
+	F__pad2          uint64
+	F__flags         uint32
+	_                [4]byte
+}
+
+// Common definition of pthread_mutex_t.
+
+type __pthread_internal_list = struct {
+	F__prev uintptr
+	F__next uintptr
+}
+
+// Lock elision support.
+
+type __pthread_mutex_s = struct {
+	F__lock    int32
+	F__count   uint32
+	F__owner   int32
+	F__nusers  uint32
+	F__kind    int32
+	F__spins   int16
+	F__elision int16
+	F__list    struct {
+		F__prev uintptr
+		F__next uintptr
+	}
+}
+
+// Common definition of pthread_cond_t.
+
+type __pthread_cond_s = struct {
+	F__0            struct{ F__wseq uint64 }
+	F__8            struct{ F__g1_start uint64 }
+	F__g_refs       [2]uint32
+	F__g_size       [2]uint32
+	F__g1_orig_size uint32
+	F__wrefs        uint32
+	F__g_signals    [2]uint32
+}
 
 // Thread identifiers.  The structure of the attribute type is not
 //   exposed on purpose.
@@ -10668,53 +11851,13 @@ type pthread_attr_t1 = struct {
 
 type pthread_attr_t = pthread_attr_t1 /* pthreadtypes.h:62:30 */
 
-type pthread_mutex_t = struct {
-	F__data struct {
-		F__lock    int32
-		F__count   uint32
-		F__owner   int32
-		F__nusers  uint32
-		F__kind    int32
-		F__spins   int16
-		F__elision int16
-		F__list    struct {
-			F__prev uintptr
-			F__next uintptr
-		}
-	}
-} /* pthreadtypes.h:72:3 */
+type pthread_mutex_t = struct{ F__data __pthread_mutex_s } /* pthreadtypes.h:72:3 */
 
-type pthread_cond_t = struct {
-	F__data struct {
-		F__0            struct{ F__wseq uint64 }
-		F__8            struct{ F__g1_start uint64 }
-		F__g_refs       [2]uint32
-		F__g_size       [2]uint32
-		F__g1_orig_size uint32
-		F__wrefs        uint32
-		F__g_signals    [2]uint32
-	}
-} /* pthreadtypes.h:80:3 */
+type pthread_cond_t = struct{ F__data __pthread_cond_s } /* pthreadtypes.h:80:3 */
 
 // Data structure for reader-writer lock variable handling.  The
 //   structure of the attribute type is deliberately not exposed.
-type pthread_rwlock_t = struct {
-	F__data struct {
-		F__readers       uint32
-		F__writers       uint32
-		F__wrphase_futex uint32
-		F__writers_futex uint32
-		F__pad3          uint32
-		F__pad4          uint32
-		F__cur_writer    int32
-		F__shared        int32
-		F__rwelision     int8
-		F__pad1          [7]uint8
-		F__pad2          uint64
-		F__flags         uint32
-		_                [4]byte
-	}
-} /* pthreadtypes.h:91:3 */
+type pthread_rwlock_t = struct{ F__data __pthread_rwlock_arch_t } /* pthreadtypes.h:91:3 */
 
 type pthread_rwlockattr_t = struct {
 	_       [0]uint64
@@ -10735,6 +11878,31 @@ type pthread_barrierattr_t = struct {
 	_       [0]uint32
 	F__size [4]int8
 } /* pthreadtypes.h:118:3 */
+
+// Reentrant versions of the `random' family of functions.
+//   These functions all use the following data structure to contain
+//   state, rather than global state variables.
+
+type random_data = struct {
+	Ffptr      uintptr
+	Frptr      uintptr
+	Fstate     uintptr
+	Frand_type int32
+	Frand_deg  int32
+	Frand_sep  int32
+	Fend_ptr   uintptr
+}
+
+// Data structure for communication with thread safe versions.  This
+//   type is to be regarded as opaque.  It's only exported because users
+//   have to allocate objects of this type.
+type drand48_data = struct {
+	F__x     [3]uint16
+	F__old_x [3]uint16
+	F__c     uint16
+	F__init  uint16
+	F__a     uint64
+}
 
 // Forward declaration of objects used by this implementation
 type amatch_vtab1 = struct {
@@ -11335,13 +12503,13 @@ func amatchValueOfKey(tls *crt.TLS, zKey uintptr, zStr uintptr) uintptr { /* ama
 	if crt.Xmemcmp(tls, zStr, zKey, uint64(nKey)) != 0 {
 		return uintptr(0)
 	}
-	for i = nKey; (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(uint16(8192))) != 0; i++ {
+	for i = nKey; (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(_ISspace)) != 0; i++ {
 	}
 	if int32(*(*int8)(unsafe.Pointer(zStr + uintptr(i)))) != '=' {
 		return uintptr(0)
 	}
 	i++
-	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(uint16(8192))) != 0 {
+	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(_ISspace)) != 0 {
 		i++
 	}
 	return (zStr + uintptr(i))
@@ -12718,13 +13886,13 @@ func closureValueOfKey(tls *crt.TLS, zKey uintptr, zStr uintptr) uintptr { /* cl
 	if crt.Xmemcmp(tls, zStr, zKey, uint64(nKey)) != 0 {
 		return uintptr(0)
 	}
-	for i = nKey; (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(uint16(8192))) != 0; i++ {
+	for i = nKey; (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(_ISspace)) != 0; i++ {
 	}
 	if int32(*(*int8)(unsafe.Pointer(zStr + uintptr(i)))) != '=' {
 		return uintptr(0)
 	}
 	i++
-	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(uint16(8192))) != 0 {
+	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zStr + uintptr(i))))))*2))) & int32(_ISspace)) != 0 {
 		i++
 	}
 	return (zStr + uintptr(i))
@@ -13560,7 +14728,7 @@ func csvtabDisconnect(tls *crt.TLS, pVtab uintptr) int32 { /* csv.c:337:12: */
 // Skip leading whitespace.  Return a pointer to the first non-whitespace
 // character, or to the zero terminator if the string has only whitespace
 func csv_skip_whitespace(tls *crt.TLS, z uintptr) uintptr { /* csv.c:347:19: */
-	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(uint16(8192))) != 0 {
+	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(_ISspace)) != 0 {
 		z++
 	}
 	return z
@@ -13569,7 +14737,7 @@ func csv_skip_whitespace(tls *crt.TLS, z uintptr) uintptr { /* csv.c:347:19: */
 // Remove trailing whitespace from the end of string z[]
 func csv_trim_whitespace(tls *crt.TLS, z uintptr) { /* csv.c:353:13: */
 	var n size_t = crt.Xstrlen(tls, z)
-	for (n > uint64(0)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(n))))))*2))) & int32(uint16(8192))) != 0) {
+	for (n > uint64(0)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(n))))))*2))) & int32(_ISspace)) != 0) {
 		n--
 	}
 	*(*int8)(unsafe.Pointer(z + uintptr(n))) = int8(0)
@@ -14656,6 +15824,96 @@ func sqlite3_explain_init(tls *crt.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 	return rc
 }
 
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+//	POSIX Standard: 6.5 File Control Operations	<fcntl.h>
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// This must be early so <bits/fcntl.h> can define types winningly.
+
+// Get __mode_t, __dev_t and __off_t  .
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// Get the definitions of O_*, F_*, FD_*: all the
+//   numbers and flag bits for `open', `fcntl', et al.
+// O_*, F_*, FD_* bit values for Linux/x86.
+//   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Not necessary, we always have 64-bit offsets.
+
+type flock = struct {
+	Fl_type   int16
+	Fl_whence int16
+	Fl_start  int64
+	Fl_len    int64
+	Fl_pid    int32
+	_         [4]byte
+}
+
 // Define some inlines helping to catch common problems.
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
@@ -15207,6 +16465,136 @@ type dirent = struct {
 	Fd_type   uint8
 	Fd_name   [256]int8
 	_         [5]byte
+}
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// `fd_set' type and related macros, and `select'/`pselect' declarations.
+//   Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+//	POSIX 1003.1g: 6.2 Select from File Descriptor Sets <sys/select.h>
+
+// Structure crudely representing a timezone.
+//   This is obsolete and should never be used.
+type timezone = struct {
+	Ftz_minuteswest int32
+	Ftz_dsttime     int32
+}
+
+// Type of the second argument to `getitimer' and
+//   the second and third arguments `setitimer'.
+type itimerval = struct {
+	Fit_interval struct {
+		Ftv_sec  int64
+		Ftv_usec int64
+	}
+	Fit_value struct {
+		Ftv_sec  int64
+		Ftv_usec int64
+	}
+}
+
+// NB: Include guard matches what <linux/time.h> uses.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// NB: Include guard matches what <linux/time.h> uses.
+
+// POSIX.1b structure for timer start values and intervals.
+type itimerspec = struct {
+	Fit_interval struct {
+		Ftv_sec  int64
+		Ftv_nsec int64
+	}
+	Fit_value struct {
+		Ftv_sec  int64
+		Ftv_nsec int64
+	}
 }
 
 type sigevent = struct {
@@ -22633,7 +24021,7 @@ func spellfix1Dequote(tls *crt.TLS, zIn uintptr) uintptr { /* spellfix.c:2005:13
 	var i int32
 	var j int32
 	var c int8
-	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zIn + uintptr(0))))))*2))) & int32(uint16(8192))) != 0 {
+	for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zIn + uintptr(0))))))*2))) & int32(_ISspace)) != 0 {
 		zIn++
 	}
 	zOut = sqlite3.Xsqlite3_mprintf(tls, ts /* "%s" */, crt.VaList(bp, zIn))
@@ -29380,6 +30768,85 @@ type sigevent_t = sigevent /* sigevent_t.h:42:5 */
 // 4.4 BSD uses the name `sig_t' for this.
 type sig_t = uintptr /* signal.h:190:24 */
 
+// Get the system-specific definitions of `struct sigaction'
+//   and the `SA_*' and `SIG_*'. constants.
+// The proper definitions for Linux's sigaction.
+//   Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Structure describing the action to be taken when a signal arrives.
+type sigaction = struct {
+	F__sigaction_handler struct{ Fsa_handler uintptr }
+	Fsa_mask             struct{ F__val [16]uint64 }
+	Fsa_flags            int32
+	Fsa_restorer         uintptr
+}
+
+// Get machine-dependent `struct sigcontext' and signal subcodes.
+// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+type _fpx_sw_bytes = struct {
+	Fmagic1            uint32
+	Fextended_size     uint32
+	Fxstate_bv         uint64
+	Fxstate_size       uint32
+	F__glibc_reserved1 [7]uint32
+}
+
+type _fpreg = struct {
+	Fsignificand [4]uint16
+	Fexponent    uint16
+}
+
 type _fpxreg = struct {
 	Fsignificand       [4]uint16
 	Fexponent          uint16
@@ -29406,6 +30873,37 @@ type _fpstate = struct {
 	F__glibc_reserved1 [24]uint32
 }
 
+type sigcontext = struct {
+	Fr8          uint64
+	Fr9          uint64
+	Fr10         uint64
+	Fr11         uint64
+	Fr12         uint64
+	Fr13         uint64
+	Fr14         uint64
+	Fr15         uint64
+	Frdi         uint64
+	Frsi         uint64
+	Frbp         uint64
+	Frbx         uint64
+	Frdx         uint64
+	Frax         uint64
+	Frcx         uint64
+	Frsp         uint64
+	Frip         uint64
+	Feflags      uint64
+	Fcs          uint16
+	Fgs          uint16
+	Ffs          uint16
+	F__pad0      uint16
+	Ferr         uint64
+	Ftrapno      uint64
+	Foldmask     uint64
+	Fcr2         uint64
+	F__184       struct{ Ffpstate uintptr }
+	F__reserved1 [8]uint64
+}
+
 type _xsave_hdr = struct {
 	Fxstate_bv         uint64
 	F__glibc_reserved1 [2]uint64
@@ -29413,6 +30911,32 @@ type _xsave_hdr = struct {
 }
 
 type _ymmh_state = struct{ Fymmh_space [64]uint32 }
+
+type _xstate = struct {
+	Ffpstate struct {
+		Fcwd       uint16
+		Fswd       uint16
+		Fftw       uint16
+		Ffop       uint16
+		Frip       uint64
+		Frdp       uint64
+		Fmxcsr     uint32
+		Fmxcr_mask uint32
+		F_st       [8]struct {
+			Fsignificand       [4]uint16
+			Fexponent          uint16
+			F__glibc_reserved1 [3]uint16
+		}
+		F_xmm              [16]struct{ Felement [4]uint32 }
+		F__glibc_reserved1 [24]uint32
+	}
+	Fxstate_hdr struct {
+		Fxstate_bv         uint64
+		F__glibc_reserved1 [2]uint64
+		F__glibc_reserved2 [5]uint64
+	}
+	Fymmh struct{ Fymmh_space [64]uint32 }
+}
 
 // Copyright (C) 1989-2018 Free Software Foundation, Inc.
 //
@@ -29749,6 +31273,31 @@ type ucontext_t1 = struct {
 
 // Userlevel context.
 type ucontext_t = ucontext_t1 /* ucontext.h:151:5 */
+
+// Define struct sigstack.
+//   Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Structure describing a signal stack (obsolete).
+type sigstack = struct {
+	Fss_sp      uintptr
+	Fss_onstack int32
+	_           [4]byte
+}
 
 // Define some macros helping to catch buffer overflows.
 
@@ -31868,7 +33417,7 @@ __2:
 	//
 	// If this method is invoked with no arguments, the current authorization
 	// callback string is returned.
-	case uint32(0):
+	case uint32(0) /* DB_AUTHORIZER */ :
 		goto __4
 
 	// $db backup ?DATABASE? FILENAME
@@ -31876,7 +33425,7 @@ __2:
 	// Open or create a database file named FILENAME.  Transfer the
 	// content of local database DATABASE (default: "main") into the
 	// FILENAME database.
-	case uint32(1):
+	case uint32(1) /* DB_BACKUP */ :
 		goto __5
 
 	// $db bind_fallback ?CALLBACK?
@@ -31896,14 +33445,14 @@ __2:
 	//
 	//     proc bind_error {name} {error "no such variable: $name"}
 	//     db bind_fallback bind_error
-	case uint32(2):
+	case uint32(2) /* DB_BIND_FALLBACK */ :
 		goto __6
 
 	// $db busy ?CALLBACK?
 	//
 	// Invoke the given callback if an SQL statement attempts to open
 	// a locked database file.
-	case uint32(3):
+	case uint32(3) /* DB_BUSY */ :
 		goto __7
 
 	// $db cache flush
@@ -31911,7 +33460,7 @@ __2:
 	//
 	// Flush the prepared statement cache, or set the maximum number of
 	// cached statements.
-	case uint32(4):
+	case uint32(4) /* DB_CACHE */ :
 		goto __8
 
 	// $db changes
@@ -31919,27 +33468,27 @@ __2:
 	// Return the number of rows that were modified, inserted, or deleted by
 	// the most recent INSERT, UPDATE or DELETE statement, not including
 	// any changes made by trigger programs.
-	case uint32(5):
+	case uint32(5) /* DB_CHANGES */ :
 		goto __9
 
 	// $db close
 	//
 	// Shutdown the database
-	case uint32(6):
+	case uint32(6) /* DB_CLOSE */ :
 		goto __10
 
 	//     $db collate NAME SCRIPT
 	//
 	// Create a new SQL collation function called NAME.  Whenever
 	// that function is called, invoke SCRIPT to evaluate the function.
-	case uint32(7):
+	case uint32(7) /* DB_COLLATE */ :
 		goto __11
 
 	//     $db collation_needed SCRIPT
 	//
 	// Create a new SQL collation function called NAME.  Whenever
 	// that function is called, invoke SCRIPT to evaluate the function.
-	case uint32(8):
+	case uint32(8) /* DB_COLLATION_NEEDED */ :
 		goto __12
 
 	// $db commit_hook ?CALLBACK?
@@ -31948,7 +33497,7 @@ __2:
 	// If the callback throws an exception or returns non-zero, then the
 	// transaction is aborted.  If CALLBACK is an empty string, the callback
 	// is disabled.
-	case uint32(9):
+	case uint32(9) /* DB_COMMIT_HOOK */ :
 		goto __13
 
 	// $db complete SQL
@@ -31956,14 +33505,14 @@ __2:
 	// Return TRUE if SQL is a complete SQL statement.  Return FALSE if
 	// additional lines of input are needed.  This is similar to the
 	// built-in "info complete" command of Tcl.
-	case uint32(10):
+	case uint32(10) /* DB_COMPLETE */ :
 		goto __14
 
 	// $db config ?OPTION? ?BOOLEAN?
 	//
 	// Configure the database connection using the sqlite3_db_config()
 	// interface.
-	case uint32(11):
+	case uint32(11) /* DB_CONFIG */ :
 		goto __15
 
 	// $db copy conflict-algorithm table filename ?SEPARATOR? ?NULLINDICATOR?
@@ -31982,27 +33531,27 @@ __2:
 	// This command usage is equivalent to the sqlite2.x COPY statement,
 	// which imports file data into a table using the PostgreSQL COPY file format:
 	//   $db copy $conflit_algo $table_name $filename \t \\N
-	case uint32(12):
+	case uint32(12) /* DB_COPY */ :
 		goto __16
 
 	//     $db deserialize ?-maxsize N? ?-readonly BOOL? ?DATABASE? VALUE
 	//
 	// Reopen DATABASE (default "main") using the content in $VALUE
-	case uint32(13):
+	case uint32(13) /* DB_DESERIALIZE */ :
 		goto __17
 
 	//    $db enable_load_extension BOOLEAN
 	//
 	// Turn the extension loading feature on or off.  It if off by
 	// default.
-	case uint32(14):
+	case uint32(14) /* DB_ENABLE_LOAD_EXTENSION */ :
 		goto __18
 
 	//    $db errorcode
 	//
 	// Return the numeric error code that was returned by the most recent
 	// call to sqlite3_exec().
-	case uint32(15):
+	case uint32(15) /* DB_ERRORCODE */ :
 		goto __19
 
 	//    $db exists $sql
@@ -32010,9 +33559,9 @@ __2:
 	//
 	// The onecolumn method is the equivalent of:
 	//     lindex [$db eval $sql] 0
-	case uint32(17):
+	case uint32(17) /* DB_EXISTS */ :
 		goto __20
-	case uint32(23):
+	case uint32(23) /* DB_ONECOLUMN */ :
 		goto __21
 
 	//    $db eval ?options? $sql ?array? ?{  ...code... }?
@@ -32022,7 +33571,7 @@ __2:
 	// If "array" and "code" are omitted, then no callback is every invoked.
 	// If "array" is an empty string, then the values are placed in variables
 	// that have the same name as the fields extracted by the query.
-	case uint32(16):
+	case uint32(16) /* DB_EVAL */ :
 		goto __22
 
 	//     $db function NAME [OPTIONS] SCRIPT
@@ -32036,18 +33585,18 @@ __2:
 	//         --directonly           Prohibit use inside triggers and views
 	//         --innocuous            Has no side effects or information leaks
 	//         --returntype TYPE      Specify the return type of the function
-	case uint32(18):
+	case uint32(18) /* DB_FUNCTION */ :
 		goto __23
 
 	//     $db incrblob ?-readonly? ?DB? TABLE COLUMN ROWID
-	case uint32(19):
+	case uint32(19) /* DB_INCRBLOB */ :
 		goto __24
 
 	//     $db interrupt
 	//
 	// Interrupt the execution of the inner-most SQL interpreter.  This
 	// causes the SQL statement to return an error of SQLITE_INTERRUPT.
-	case uint32(20):
+	case uint32(20) /* DB_INTERRUPT */ :
 		goto __25
 
 	//     $db nullvalue ?STRING?
@@ -32056,13 +33605,13 @@ __2:
 	// is not present, then the current string used for NULL is returned.
 	// If STRING is present, then STRING is returned.
 	//
-	case uint32(22):
+	case uint32(22) /* DB_NULLVALUE */ :
 		goto __26
 
 	//     $db last_insert_rowid
 	//
 	// Return an integer which is the ROWID for the most recent insert.
-	case uint32(21):
+	case uint32(21) /* DB_LAST_INSERT_ROWID */ :
 		goto __27
 
 	// The DB_ONECOLUMN method is implemented together with DB_EXISTS.
@@ -32071,7 +33620,7 @@ __2:
 	//
 	// Invoke the given callback every N virtual machine opcodes while executing
 	// queries.
-	case uint32(26):
+	case uint32(26) /* DB_PROGRESS */ :
 		goto __28
 
 	// $db profile ?CALLBACK?
@@ -32079,46 +33628,46 @@ __2:
 	// Make arrangements to invoke the CALLBACK routine after each SQL statement
 	// that has run.  The text of the SQL and the amount of elapse time are
 	// appended to CALLBACK before the script is run.
-	case uint32(25):
+	case uint32(25) /* DB_PROFILE */ :
 		goto __29
 
 	//     $db rekey KEY
 	//
 	// Change the encryption key on the currently open database.
-	case uint32(27):
+	case uint32(27) /* DB_REKEY */ :
 		goto __30
 
 	// $db restore ?DATABASE? FILENAME
 	//
 	// Open a database file named FILENAME.  Transfer the content
 	// of FILENAME into the local database DATABASE (default: "main").
-	case uint32(28):
+	case uint32(28) /* DB_RESTORE */ :
 		goto __31
 
 	//     $db serialize ?DATABASE?
 	//
 	// Return a serialization of a database.
-	case uint32(30):
+	case uint32(30) /* DB_SERIALIZE */ :
 		goto __32
 
 	//     $db status (step|sort|autoindex|vmstep)
 	//
 	// Display SQLITE_STMTSTATUS_FULLSCAN_STEP or
 	// SQLITE_STMTSTATUS_SORT for the most recent eval.
-	case uint32(31):
+	case uint32(31) /* DB_STATUS */ :
 		goto __33
 
 	//     $db timeout MILLESECONDS
 	//
 	// Delay for the number of milliseconds specified when a file is locked.
-	case uint32(32):
+	case uint32(32) /* DB_TIMEOUT */ :
 		goto __34
 
 	//     $db total_changes
 	//
 	// Return the number of rows that were modified, inserted, or deleted
 	// since the database handle was created.
-	case uint32(33):
+	case uint32(33) /* DB_TOTAL_CHANGES */ :
 		goto __35
 
 	// $db trace ?CALLBACK?
@@ -32126,7 +33675,7 @@ __2:
 	// Make arrangements to invoke the CALLBACK routine for each SQL statement
 	// that is executed.  The text of the SQL is appended to CALLBACK before
 	// it is executed.
-	case uint32(34):
+	case uint32(34) /* DB_TRACE */ :
 		goto __36
 
 	// $db trace_v2 ?CALLBACK? ?MASK?
@@ -32134,7 +33683,7 @@ __2:
 	// Make arrangements to invoke the CALLBACK routine for each trace event
 	// matching the mask that is generated.  The parameters are appended to
 	// CALLBACK before it is executed.
-	case uint32(35):
+	case uint32(35) /* DB_TRACE_V2 */ :
 		goto __37
 
 	// $db transaction [-deferred|-immediate|-exclusive] SCRIPT
@@ -32147,34 +33696,34 @@ __2:
 	//
 	// This command was inspired by Dave Thomas's talk on Ruby at the
 	// 2005 O'Reilly Open Source Convention (OSCON).
-	case uint32(36):
+	case uint32(36) /* DB_TRANSACTION */ :
 		goto __38
 
 	//    $db unlock_notify ?script?
-	case uint32(37):
+	case uint32(37) /* DB_UNLOCK_NOTIFY */ :
 		goto __39
 
 	//    $db preupdate_hook count
 	//    $db preupdate_hook hook ?SCRIPT?
 	//    $db preupdate_hook new INDEX
 	//    $db preupdate_hook old INDEX
-	case uint32(24):
+	case uint32(24) /* DB_PREUPDATE */ :
 		goto __40
 
 	//    $db wal_hook ?script?
 	//    $db update_hook ?script?
 	//    $db rollback_hook ?script?
-	case uint32(40):
+	case uint32(40) /* DB_WAL_HOOK */ :
 		goto __41
-	case uint32(38):
+	case uint32(38) /* DB_UPDATE_HOOK */ :
 		goto __42
-	case uint32(29):
+	case uint32(29) /* DB_ROLLBACK_HOOK */ :
 		goto __43
 
 	// $db version
 	//
 	// Return the version string for this database.
-	case uint32(39):
+	case uint32(39) /* DB_VERSION */ :
 		goto __44
 	}
 	goto __3
@@ -33194,7 +34743,7 @@ __183:
 
 	dbEvalInit(tls, bp+1168 /* &sEval */, pDb, *(*uintptr)(unsafe.Pointer(objv + uintptr(2)*8)), uintptr(0), 0)
 	rc = dbEvalStep(tls, bp+1168 /* &sEval */)
-	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 23) {
+	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 23 /* DB_ONECOLUMN */) {
 		goto __184
 	}
 	if !(rc == 0) {
@@ -34128,13 +35677,13 @@ __324:
 	goto __322
 __321:
 	switch uint32(*(*int32)(unsafe.Pointer(bp + 1432 /* ttype */))) {
-	case uint32(0):
+	case uint32(0) /* TTYPE_STMT */ :
 		goto __334
-	case uint32(1):
+	case uint32(1) /* TTYPE_PROFILE */ :
 		goto __335
-	case uint32(2):
+	case uint32(2) /* TTYPE_ROW */ :
 		goto __336
-	case uint32(3):
+	case uint32(3) /* TTYPE_CLOSE */ :
 		goto __337
 	}
 	goto __333
@@ -34231,11 +35780,11 @@ __343:
 __345:
 	;
 	switch uint32(*(*int32)(unsafe.Pointer(bp + 1448 /* ttype1 */))) {
-	case uint32(0):
+	case uint32(0) /* TTYPE_DEFERRED */ :
 		goto __347
-	case uint32(1):
+	case uint32(1) /* TTYPE_EXCLUSIVE */ :
 		goto __348
-	case uint32(2):
+	case uint32(2) /* TTYPE_IMMEDIATE */ :
 		goto __349
 	}
 	goto __346
@@ -34363,19 +35912,19 @@ __43:
 	// set ppHook to point at pUpdateHook or pRollbackHook, depending on
 	// whether [$db update_hook] or [$db rollback_hook] was invoked.
 	ppHook = uintptr(0)
-	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 40) {
+	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 40 /* DB_WAL_HOOK */) {
 		goto __362
 	}
 	ppHook = (pDb + 128 /* &.pWalHook */)
 __362:
 	;
-	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 38) {
+	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 38 /* DB_UPDATE_HOOK */) {
 		goto __363
 	}
 	ppHook = (pDb + 104 /* &.pUpdateHook */)
 __363:
 	;
-	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 29) {
+	if !(*(*int32)(unsafe.Pointer(bp + 1016 /* choice */)) == 29 /* DB_ROLLBACK_HOOK */) {
 		goto __364
 	}
 	ppHook = (pDb + 120 /* &.pRollbackHook */)
@@ -43433,6 +44982,11 @@ type rlimit = struct {
 	Frlim_max rlim_t
 }
 
+type rlimit64 = struct {
+	Frlim_cur rlim64_t
+	Frlim_max rlim64_t
+}
+
 // Define struct rusage.
 //   Copyright (C) 1994-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -43511,7 +45065,7 @@ func test_getrusage(tls *crt.TLS, clientData uintptr, interp uintptr, objc int32
 	// var r rusage at bp+48, 144
 
 	crt.Xmemset(tls, bp+48 /* &r */, 0, uint64(unsafe.Sizeof(rusage{})))
-	crt.Xgetrusage(tls, 0, bp+48 /* &r */)
+	crt.Xgetrusage(tls, RUSAGE_SELF, bp+48 /* &r */)
 
 	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([1024]int8{})), bp+192, /* &buf[0] */
 		ts+16171, /* "ru_utime=%d.%06d..." */
@@ -46525,10 +48079,73 @@ var aCmd2 = [14]struct {
 	{FzName: ts + 22599 /* "btree_set_cache_..." */, FxProc: 0},
 } /* test3.c:665:5 */
 
+// Get system specific constant and data structure definitions.
+// Definitions of constants and data structure for POSIX 1003.1b-1993
+//   scheduling interface.
+//   Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Scheduling algorithms.
+
+// Sched parameter structure.  Generic version.
+//   Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library;  if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Data structure to describe a process' schedulability.
+type sched_param = struct{ Fsched_priority int32 }
+
 // Basic access functions.
 
 // Data structure to describe CPU mask.
 type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
+
+// Conditional variable handling.
+
+// Cleanup buffers
+type _pthread_cleanup_buffer = struct {
+	F__routine    uintptr
+	F__arg        uintptr
+	F__canceltype int32
+	F__prev       uintptr
+}
+
+// No special attributes by default.
+
+// Structure to hold the cleanup handler information.
+type __pthread_cleanup_frame = struct {
+	F__cancel_routine uintptr
+	F__cancel_arg     uintptr
+	F__do_it          int32
+	F__cancel_type    int32
+}
 
 // Each thread is controlled by an instance of the following
 // structure.
@@ -46605,7 +48222,7 @@ func parse_thread_id(tls *crt.TLS, interp uintptr, zArg uintptr) int32 { /* test
 	bp := tls.Alloc(16)
 	defer tls.Free(16)
 
-	if (((zArg == uintptr(0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(0)))) == 0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(1)))) != 0)) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zArg + uintptr(0))))))*2))) & int32(uint16(256))) != 0) {
+	if (((zArg == uintptr(0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(0)))) == 0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(1)))) != 0)) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zArg + uintptr(0))))))*2))) & int32(_ISupper)) != 0) {
 		tcl.XTcl_AppendResult(tls, interp, crt.VaList(bp, ts+22620 /* "thread ID must b..." */, 0))
 		return -1
 	}
@@ -47847,6 +49464,9 @@ var CrashFileVtab = sqlite3_io_methods{FiVersion: 2, FxClose: // iVersion
 0, // xShmUnmap
 } /* test6.c:571:33 */
 
+// Application data for the crash VFS
+type crashAppData = struct{ FpOrig uintptr }
+
 // Open a crash-file file handle.
 //
 // The caller will have allocated pVfs->szOsFile bytes of space
@@ -48409,7 +50029,7 @@ func parse_client_id(tls *crt.TLS, interp uintptr, zArg uintptr) int32 { /* test
 	bp := tls.Alloc(16)
 	defer tls.Free(16)
 
-	if (((zArg == uintptr(0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(0)))) == 0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(1)))) != 0)) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zArg + uintptr(0))))))*2))) & int32(uint16(256))) != 0) {
+	if (((zArg == uintptr(0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(0)))) == 0)) || (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(1)))) != 0)) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zArg + uintptr(0))))))*2))) & int32(_ISupper)) != 0) {
 		tcl.XTcl_AppendResult(tls, interp, crt.VaList(bp, ts+22620 /* "thread ID must b..." */, 0))
 		return -1
 	}
@@ -50779,17 +52399,11 @@ func backupTestCmd(tls *crt.TLS, clientData ClientData, interp uintptr, objc int
 	bp := tls.Alloc(196)
 	defer tls.Free(196)
 
-	const ( /* test_backup.c:39:3: */
-		BACKUP_STEP      = 0
-		BACKUP_FINISH    = 1
-		BACKUP_REMAINING = 2
-		BACKUP_PAGECOUNT = 3
-	)
 	*(*[5]BackupSubCommand)(unsafe.Pointer(bp /* aSub */)) = [5]BackupSubCommand{
-		{FzCmd: ts + 10895 /* "step" */, FeCmd: BACKUP_STEP, FnArg: 1, FzArg: ts + 25062 /* "npage" */},
-		{FzCmd: ts + 25068 /* "finish" */, FeCmd: BACKUP_FINISH, FnArg: 0, FzArg: ts + 488 /* "" */},
-		{FzCmd: ts + 25075 /* "remaining" */, FeCmd: BACKUP_REMAINING, FnArg: 0, FzArg: ts + 488 /* "" */},
-		{FzCmd: ts + 25085 /* "pagecount" */, FeCmd: BACKUP_PAGECOUNT, FnArg: 0, FzArg: ts + 488 /* "" */},
+		{FzCmd: ts + 10895 /* "step" */, FeCmd: uint32(0) /* BACKUP_STEP */, FnArg: 1, FzArg: ts + 25062 /* "npage" */},
+		{FzCmd: ts + 25068 /* "finish" */, FeCmd: uint32(1) /* BACKUP_FINISH */, FnArg: 0, FzArg: ts + 488 /* "" */},
+		{FzCmd: ts + 25075 /* "remaining" */, FeCmd: uint32(2) /* BACKUP_REMAINING */, FnArg: 0, FzArg: ts + 488 /* "" */},
+		{FzCmd: ts + 25085 /* "pagecount" */, FeCmd: uint32(3) /* BACKUP_PAGECOUNT */, FnArg: 0, FzArg: ts + 488 /* "" */},
 		{FzCmd: uintptr(0), FeCmd: uint32(0), FnArg: 0, FzArg: uintptr(0)},
 	}
 
@@ -50810,7 +52424,7 @@ func backupTestCmd(tls *crt.TLS, clientData ClientData, interp uintptr, objc int
 
 	switch (*BackupSubCommand)(unsafe.Pointer(bp /* &aSub */ + uintptr(*(*int32)(unsafe.Pointer(bp + 120 /* iCmd */)))*24)).FeCmd {
 
-	case BACKUP_FINISH:
+	case uint32(1) /* BACKUP_FINISH */ :
 		{
 			var zCmdName uintptr
 			// var cmdInfo Tcl_CmdInfo at bp+128, 64
@@ -50826,7 +52440,7 @@ func backupTestCmd(tls *crt.TLS, clientData ClientData, interp uintptr, objc int
 			break
 		}
 
-	case BACKUP_STEP:
+	case uint32(0) /* BACKUP_STEP */ :
 		{
 			// var nPage int32 at bp+192, 4
 
@@ -50838,11 +52452,11 @@ func backupTestCmd(tls *crt.TLS, clientData ClientData, interp uintptr, objc int
 			break
 		}
 
-	case BACKUP_REMAINING:
+	case uint32(2) /* BACKUP_REMAINING */ :
 		tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, sqlite3.Xsqlite3_backup_remaining(tls, p)))
 		break
 
-	case BACKUP_PAGECOUNT:
+	case uint32(3) /* BACKUP_PAGECOUNT */ :
 		tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, sqlite3.Xsqlite3_backup_pagecount(tls, p)))
 		break
 	}
@@ -53292,6 +54906,24 @@ type stat64 = struct {
 	Fst_ctime         int64
 	Fst_ctimensec     uint64
 	F__glibc_reserved [3]int64
+}
+
+type flock64 = struct {
+	Fl_type   int16
+	Fl_whence int16
+	Fl_start  int64
+	Fl_len    int64
+	Fl_pid    int32
+	_         [4]byte
+}
+
+type dirent64 = struct {
+	Fd_ino    uint64
+	Fd_off    int64
+	Fd_reclen uint16
+	Fd_type   uint8
+	Fd_name   [256]int8
+	_         [5]byte
 }
 
 type fs_vtab1 = struct {
@@ -57665,14 +59297,6 @@ func test_memdebug_log(tls *crt.TLS, clientData uintptr, interp uintptr, objc in
 
 	// var iSub int32 at bp, 4
 
-	const ( /* test_malloc.c:830:3: */
-		MB_LOG_START = 0
-		MB_LOG_STOP  = 1
-		MB_LOG_DUMP  = 2
-		MB_LOG_CLEAR = 3
-		MB_LOG_SYNC  = 4
-	)
-
 	if !(isInit != 0) {
 		tcl.XTcl_InitHashTable(tls, uintptr(unsafe.Pointer(&aMallocLog)), (int32(uint64(10) * (func() uint64 {
 			if uint64(unsafe.Sizeof(int32(0))) >= uint64(unsafe.Sizeof(uintptr(0))) {
@@ -57691,13 +59315,13 @@ func test_memdebug_log(tls *crt.TLS, clientData uintptr, interp uintptr, objc in
 	}
 
 	switch uint32(*(*int32)(unsafe.Pointer(bp /* iSub */))) {
-	case MB_LOG_START:
+	case uint32(0) /* MB_LOG_START */ :
 		mallocLogEnabled = 1
 		break
-	case MB_LOG_STOP:
+	case uint32(1) /* MB_LOG_STOP */ :
 		mallocLogEnabled = 0
 		break
-	case MB_LOG_DUMP:
+	case uint32(2) /* MB_LOG_DUMP */ :
 		{
 			// var search Tcl_HashSearch at bp+8, 24
 
@@ -57729,13 +59353,13 @@ func test_memdebug_log(tls *crt.TLS, clientData uintptr, interp uintptr, objc in
 			tcl.XTcl_SetObjResult(tls, interp, pRet)
 			break
 		}
-	case MB_LOG_CLEAR:
+	case uint32(3) /* MB_LOG_CLEAR */ :
 		{
 			test_memdebug_log_clear(tls)
 			break
 		}
 
-	case MB_LOG_SYNC:
+	case uint32(4) /* MB_LOG_SYNC */ :
 		{
 			break
 		}
@@ -62685,12 +64309,6 @@ func test_vfslog(tls *crt.TLS, clientData uintptr, interp uintptr, objc int32, o
 	// var cmdInfo Tcl_CmdInfo at bp+80, 64
 
 	var rc int32 = 1
-	const ( /* test_osinst.c:1128:3: */
-		VL_ANNOTATE = 0
-		VL_FINALIZE = 1
-		VL_NEW      = 2
-		VL_REGISTER = 3
-	)
 	// var iSub int32 at bp+72, 4
 
 	if objc < 2 {
@@ -62702,7 +64320,7 @@ func test_vfslog(tls *crt.TLS, clientData uintptr, interp uintptr, objc int32, o
 	}
 
 	switch uint32(*(*int32)(unsafe.Pointer(bp + 72 /* iSub */))) {
-	case VL_ANNOTATE:
+	case uint32(0) /* VL_ANNOTATE */ :
 		{
 			var zVfs uintptr
 			var zMsg uintptr
@@ -62719,7 +64337,7 @@ func test_vfslog(tls *crt.TLS, clientData uintptr, interp uintptr, objc int32, o
 			}
 			break
 		}
-	case VL_FINALIZE:
+	case uint32(1) /* VL_FINALIZE */ :
 		{
 			var zVfs uintptr
 			if objc != 3 {
@@ -62735,7 +64353,7 @@ func test_vfslog(tls *crt.TLS, clientData uintptr, interp uintptr, objc int32, o
 			break
 		}
 
-	case VL_NEW:
+	case uint32(2) /* VL_NEW */ :
 		{
 			var zVfs uintptr
 			var zParent uintptr
@@ -62758,7 +64376,7 @@ func test_vfslog(tls *crt.TLS, clientData uintptr, interp uintptr, objc int32, o
 			break
 		}
 
-	case VL_REGISTER:
+	case uint32(3) /* VL_REGISTER */ :
 		{
 			var zDb uintptr
 			if objc != 3 {
@@ -65775,46 +67393,7 @@ type ServerState = struct {
 
 // State information about the server is stored in a static variable
 // named "g" as follows:
-var g4 = ServerState{FqueueMutex: pthread_mutex_t{F__data: struct {
-	F__lock    int32
-	F__count   uint32
-	F__owner   int32
-	F__nusers  uint32
-	F__kind    int32
-	F__spins   int16
-	F__elision int16
-	F__list    struct {
-		F__prev uintptr
-		F__next uintptr
-	}
-}{F__lock: 0, F__count: uint32(0), F__owner: 0, F__nusers: uint32(0), F__kind: 0, F__spins: int16(0), F__elision: int16(0), F__list: struct {
-	F__prev uintptr
-	F__next uintptr
-}{F__prev: uintptr(0), F__next: uintptr(0)}}}, FserverMutex: pthread_mutex_t{F__data: struct {
-	F__lock    int32
-	F__count   uint32
-	F__owner   int32
-	F__nusers  uint32
-	F__kind    int32
-	F__spins   int16
-	F__elision int16
-	F__list    struct {
-		F__prev uintptr
-		F__next uintptr
-	}
-}{F__lock: 0, F__count: uint32(0), F__owner: 0, F__nusers: uint32(0), F__kind: 0, F__spins: int16(0), F__elision: int16(0), F__list: struct {
-	F__prev uintptr
-	F__next uintptr
-}{F__prev: uintptr(0), F__next: uintptr(0)}}}, FserverWakeup: pthread_cond_t{F__data: struct {
-	F__0            struct{ F__wseq uint64 }
-	F__8            struct{ F__g1_start uint64 }
-	F__g_refs       [2]uint32
-	F__g_size       [2]uint32
-	F__g1_orig_size uint32
-	F__wrefs        uint32
-	F__g_signals    [2]uint32
-}{F__0: struct{ F__wseq uint64 }{F__wseq: uint64(0)}, F__8: struct{ F__g1_start uint64 }{F__g1_start: uint64(0)}, F__g_refs: [2]uint32{uint32(0), uint32(0)}, F__g_size: [2]uint32{uint32(0), uint32(0)}, F__g1_orig_size: uint32(0), F__wrefs: uint32(0), F__g_signals: [2]uint32{uint32(0), uint32(0)}}},
-} /* test_server.c:259:3 */
+var g4 = ServerState{FqueueMutex: pthread_mutex_t{F__data: __pthread_mutex_s{F__lock: 0, F__count: uint32(0), F__owner: 0, F__nusers: uint32(0), F__kind: 0, F__spins: int16(0), F__elision: int16(0), F__list: __pthread_internal_list{F__prev: uintptr(0), F__next: uintptr(0)}}}, FserverMutex: pthread_mutex_t{F__data: __pthread_mutex_s{F__lock: 0, F__count: uint32(0), F__owner: 0, F__nusers: uint32(0), F__kind: 0, F__spins: int16(0), F__elision: int16(0), F__list: __pthread_internal_list{F__prev: uintptr(0), F__next: uintptr(0)}}}, FserverWakeup: pthread_cond_t{F__data: __pthread_cond_s{F__0: struct{ F__wseq uint64 }{F__wseq: uint64(0)}, F__8: struct{ F__g1_start uint64 }{F__g1_start: uint64(0)}, F__g_refs: [2]uint32{uint32(0), uint32(0)}, F__g_size: [2]uint32{uint32(0), uint32(0)}, F__g1_orig_size: uint32(0), F__wrefs: uint32(0), F__g_signals: [2]uint32{uint32(0), uint32(0)}}}} /* test_server.c:259:3 */
 
 // Send a message to the server.  Block until we get a reply.
 //
@@ -67089,9 +68668,9 @@ func sqlite3TestInit(tls *crt.TLS, interp uintptr) uintptr { /* test_tclsh.c:58:
 	{
 		// var x rlimit at bp, 16
 
-		crt.Xgetrlimit(tls, 4, bp /* &x */)
+		crt.Xgetrlimit(tls, RLIMIT_CORE, bp /* &x */)
 		(*rlimit)(unsafe.Pointer(bp /* &x */)).Frlim_cur = (*rlimit)(unsafe.Pointer(bp /* &x */)).Frlim_max
-		crt.Xsetrlimit(tls, 4, bp /* &x */)
+		crt.Xsetrlimit(tls, RLIMIT_CORE, bp /* &x */)
 	}
 
 	if tcl.XTcl_GetCommandInfo(tls, interp, ts+12119 /* "sqlite3" */, bp+16 /* &cmdInfo */) == 0 {
@@ -67834,7 +69413,7 @@ func postToParent(tls *crt.TLS, p uintptr, pScript uintptr) { /* test_thread.c:9
 	crt.Xmemcpy(tls, (*EvalEvent)(unsafe.Pointer(pEvent)).FzScript, zMsg, (uint64(*(*int32)(unsafe.Pointer(bp /* nMsg */)) + 1)))
 	(*EvalEvent)(unsafe.Pointer(pEvent)).Finterp = (*SqlThread)(unsafe.Pointer(p)).Finterp
 
-	tcl.XTcl_ThreadQueueEvent(tls, (*SqlThread)(unsafe.Pointer(p)).Fparent, pEvent, uint32(0))
+	tcl.XTcl_ThreadQueueEvent(tls, (*SqlThread)(unsafe.Pointer(p)).Fparent, pEvent, TCL_QUEUE_TAIL)
 	tcl.XTcl_ThreadAlert(tls, (*SqlThread)(unsafe.Pointer(p)).Fparent)
 }
 
@@ -67998,7 +69577,7 @@ func sqlthread_parent(tls *crt.TLS, clientData ClientData, interp uintptr, objc 
 	(*EvalEvent)(unsafe.Pointer(pEvent)).FzScript = (pEvent + uintptr(1)*32)
 	crt.Xmemcpy(tls, (*EvalEvent)(unsafe.Pointer(pEvent)).FzScript, zMsg, (uint64(*(*int32)(unsafe.Pointer(bp + 16 /* nMsg */)) + 1)))
 	(*EvalEvent)(unsafe.Pointer(pEvent)).Finterp = (*SqlThread)(unsafe.Pointer(p)).Finterp
-	tcl.XTcl_ThreadQueueEvent(tls, (*SqlThread)(unsafe.Pointer(p)).Fparent, pEvent, uint32(0))
+	tcl.XTcl_ThreadQueueEvent(tls, (*SqlThread)(unsafe.Pointer(p)).Fparent, pEvent, TCL_QUEUE_TAIL)
 	tcl.XTcl_ThreadAlert(tls, (*SqlThread)(unsafe.Pointer(p)).Fparent)
 
 	return 0
@@ -69317,28 +70896,16 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 	defer tls.Free(568)
 
 	var p uintptr = cd
-
-	const ( /* test_vfs.c:1084:3: */
-		CMD_SHM         = 0
-		CMD_DELETE      = 1
-		CMD_FILTER      = 2
-		CMD_IOERR       = 3
-		CMD_SCRIPT      = 4
-		CMD_DEVCHAR     = 5
-		CMD_SECTORSIZE  = 6
-		CMD_FULLERR     = 7
-		CMD_CANTOPENERR = 8
-	)
 	*(*[10]TestvfsSubcmd)(unsafe.Pointer(bp + 96 /* aSubcmd */)) = [10]TestvfsSubcmd{
-		{FzName: ts + 35538 /* "shm" */, FeCmd: CMD_SHM},
-		{FzName: ts + 35542 /* "delete" */, FeCmd: CMD_DELETE},
-		{FzName: ts + 35549 /* "filter" */, FeCmd: CMD_FILTER},
-		{FzName: ts + 35556 /* "ioerr" */, FeCmd: CMD_IOERR},
-		{FzName: ts + 35562 /* "fullerr" */, FeCmd: CMD_FULLERR},
-		{FzName: ts + 35570 /* "cantopenerr" */, FeCmd: CMD_CANTOPENERR},
-		{FzName: ts + 35582 /* "script" */, FeCmd: CMD_SCRIPT},
-		{FzName: ts + 35589 /* "devchar" */, FeCmd: CMD_DEVCHAR},
-		{FzName: ts + 35597 /* "sectorsize" */, FeCmd: CMD_SECTORSIZE},
+		{FzName: ts + 35538 /* "shm" */, FeCmd: uint32(0) /* CMD_SHM */},
+		{FzName: ts + 35542 /* "delete" */, FeCmd: uint32(1) /* CMD_DELETE */},
+		{FzName: ts + 35549 /* "filter" */, FeCmd: uint32(2) /* CMD_FILTER */},
+		{FzName: ts + 35556 /* "ioerr" */, FeCmd: uint32(3) /* CMD_IOERR */},
+		{FzName: ts + 35562 /* "fullerr" */, FeCmd: uint32(7) /* CMD_FULLERR */},
+		{FzName: ts + 35570 /* "cantopenerr" */, FeCmd: uint32(8) /* CMD_CANTOPENERR */},
+		{FzName: ts + 35582 /* "script" */, FeCmd: uint32(4) /* CMD_SCRIPT */},
+		{FzName: ts + 35589 /* "devchar" */, FeCmd: uint32(5) /* CMD_DEVCHAR */},
+		{FzName: ts + 35597 /* "sectorsize" */, FeCmd: uint32(6) /* CMD_SECTORSIZE */},
 		{FzName: uintptr(0), FeCmd: uint32(0)},
 	}
 	// var i int32 at bp+256, 4
@@ -69354,7 +70921,7 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 	tcl.XTcl_ResetResult(tls, interp)
 
 	switch (*TestvfsSubcmd)(unsafe.Pointer(bp + 96 /* &aSubcmd */ + uintptr(*(*int32)(unsafe.Pointer(bp + 256 /* i */)))*16)).FeCmd {
-	case CMD_SHM:
+	case uint32(0) /* CMD_SHM */ :
 		{
 			var pObj uintptr
 			var rc int32
@@ -69417,7 +70984,7 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 	// TESTVFS filter METHOD-LIST
 	//
 	//     Activate special processing for those methods contained in the list
-	case CMD_FILTER:
+	case uint32(2) /* CMD_FILTER */ :
 		{
 			*(*uintptr)(unsafe.Pointer(bp + 272 /* apElem */)) = uintptr(0)
 			*(*int32)(unsafe.Pointer(bp + 264 /* nElem */)) = 0
@@ -69452,7 +71019,7 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 	//
 	//  Query or set the script to be run when filtered VFS events
 	//  occur.
-	case CMD_SCRIPT:
+	case uint32(4) /* CMD_SCRIPT */ :
 		{
 			if objc == 3 {
 				// var nByte int32 at bp+280, 4
@@ -69487,23 +71054,23 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 	// TESTVFS ioerr ?IFAIL PERSIST?
 	//
 	//   Where IFAIL is an integer and PERSIST is boolean.
-	case CMD_CANTOPENERR:
+	case uint32(8) /* CMD_CANTOPENERR */ :
 		fallthrough
-	case CMD_IOERR:
+	case uint32(3) /* CMD_IOERR */ :
 		fallthrough
-	case CMD_FULLERR:
+	case uint32(7) /* CMD_FULLERR */ :
 		{
 			var pTest uintptr = uintptr(0)
 			var iRet int32
 
 			switch (*TestvfsSubcmd)(unsafe.Pointer(bp + 96 /* &aSubcmd */ + uintptr(*(*int32)(unsafe.Pointer(bp + 256 /* i */)))*16)).FeCmd {
-			case CMD_IOERR:
+			case uint32(3) /* CMD_IOERR */ :
 				pTest = (p + 60 /* &.ioerr_err */)
 				break
-			case CMD_FULLERR:
+			case uint32(7) /* CMD_FULLERR */ :
 				pTest = (p + 72 /* &.full_err */)
 				break
-			case CMD_CANTOPENERR:
+			case uint32(8) /* CMD_CANTOPENERR */ :
 				pTest = (p + 84 /* &.cantopen_err */)
 				break
 			default:
@@ -69537,13 +71104,13 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 			break
 		}
 
-	case CMD_DELETE:
+	case uint32(1) /* CMD_DELETE */ :
 		{
 			tcl.XTcl_DeleteCommand(tls, interp, tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + uintptr(0)*8))))
 			break
 		}
 
-	case CMD_DEVCHAR:
+	case uint32(5) /* CMD_DEVCHAR */ :
 		{
 			*(*[16]DeviceFlag)(unsafe.Pointer(bp + 304 /* aFlag */)) = [16]DeviceFlag{
 				{FzName: ts + 35704 /* "default" */, FiValue: -1},
@@ -69608,7 +71175,7 @@ func testvfs_obj_cmd(tls *crt.TLS, cd ClientData, interp uintptr, objc int32, ob
 			break
 		}
 
-	case CMD_SECTORSIZE:
+	case uint32(6) /* CMD_SECTORSIZE */ :
 		{
 			if objc > 3 {
 				tcl.XTcl_WrongNumArgs(tls, interp, 2, objv, ts+35768 /* "?VALUE?" */)

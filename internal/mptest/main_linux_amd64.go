@@ -17,6 +17,558 @@ var _ unsafe.Pointer
 
 func main() { crt.Start(main1) }
 
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// void assert (int expression);
+//
+//   If NDEBUG is defined, do nothing.
+//   If not, and EXPRESSION is zero, print an error message and abort.
+
+// void assert_perror (int errnum);
+//
+//   If NDEBUG is defined, do nothing.  If not, and ERRNUM is not zero, print an
+//   error message with the error text for ERRNUM and abort.
+//   (This is a GNU extension.)
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard 7.4: Character handling	<ctype.h>
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// These are all the characteristics of characters.
+//   If there get to be more than 16 distinct characteristics,
+//   many things must be changed that use `unsigned short int's.
+//
+//   The characteristics are stored always in network byte order (big
+//   endian).  We define the bit value interpretations here dependent on the
+//   machine's byte order.
+
+// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+const ( /* ctype.h:46:1: */
+	_ISupper  = 256   // UPPERCASE.
+	_ISlower  = 512   // lowercase.
+	_ISalpha  = 1024  // Alphabetic.
+	_ISdigit  = 2048  // Numeric.
+	_ISxdigit = 4096  // Hexadecimal numeric.
+	_ISspace  = 8192  // Whitespace.
+	_ISprint  = 16384 // Printing.
+	_ISgraph  = 32768 // Graphical.
+	_ISblank  = 1     // Blank (usually SPC and TAB).
+	_IScntrl  = 2     // Control character.
+	_ISpunct  = 4     // Punctuation.
+	_ISalnum  = 8
+)
+
+// Get the `_PC_*' symbols for the NAME argument to `pathconf' and `fpathconf';
+//   the `_SC_*' symbols for the NAME argument to `sysconf';
+//   and the `_CS_*' symbols for the NAME argument to `confstr'.
+// `sysconf', `pathconf', and `confstr' NAME values.  Generic version.
+//   Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Values for the NAME argument to `pathconf' and `fpathconf'.
+const ( /* confname.h:24:1: */
+	_PC_LINK_MAX           = 0
+	_PC_MAX_CANON          = 1
+	_PC_MAX_INPUT          = 2
+	_PC_NAME_MAX           = 3
+	_PC_PATH_MAX           = 4
+	_PC_PIPE_BUF           = 5
+	_PC_CHOWN_RESTRICTED   = 6
+	_PC_NO_TRUNC           = 7
+	_PC_VDISABLE           = 8
+	_PC_SYNC_IO            = 9
+	_PC_ASYNC_IO           = 10
+	_PC_PRIO_IO            = 11
+	_PC_SOCK_MAXBUF        = 12
+	_PC_FILESIZEBITS       = 13
+	_PC_REC_INCR_XFER_SIZE = 14
+	_PC_REC_MAX_XFER_SIZE  = 15
+	_PC_REC_MIN_XFER_SIZE  = 16
+	_PC_REC_XFER_ALIGN     = 17
+	_PC_ALLOC_SIZE_MIN     = 18
+	_PC_SYMLINK_MAX        = 19
+	_PC_2_SYMLINKS         = 20
+)
+
+// Values for the NAME argument to `confstr'.
+const ( /* confname.h:533:1: */
+	_CS_PATH = 0 // The default search path.
+
+	_CS_V6_WIDTH_RESTRICTED_ENVS = 1
+
+	_CS_GNU_LIBC_VERSION       = 2
+	_CS_GNU_LIBPTHREAD_VERSION = 3
+
+	_CS_V5_WIDTH_RESTRICTED_ENVS = 4
+
+	_CS_V7_WIDTH_RESTRICTED_ENVS = 5
+
+	_CS_LFS_CFLAGS      = 1000
+	_CS_LFS_LDFLAGS     = 1001
+	_CS_LFS_LIBS        = 1002
+	_CS_LFS_LINTFLAGS   = 1003
+	_CS_LFS64_CFLAGS    = 1004
+	_CS_LFS64_LDFLAGS   = 1005
+	_CS_LFS64_LIBS      = 1006
+	_CS_LFS64_LINTFLAGS = 1007
+
+	_CS_XBS5_ILP32_OFF32_CFLAGS     = 1100
+	_CS_XBS5_ILP32_OFF32_LDFLAGS    = 1101
+	_CS_XBS5_ILP32_OFF32_LIBS       = 1102
+	_CS_XBS5_ILP32_OFF32_LINTFLAGS  = 1103
+	_CS_XBS5_ILP32_OFFBIG_CFLAGS    = 1104
+	_CS_XBS5_ILP32_OFFBIG_LDFLAGS   = 1105
+	_CS_XBS5_ILP32_OFFBIG_LIBS      = 1106
+	_CS_XBS5_ILP32_OFFBIG_LINTFLAGS = 1107
+	_CS_XBS5_LP64_OFF64_CFLAGS      = 1108
+	_CS_XBS5_LP64_OFF64_LDFLAGS     = 1109
+	_CS_XBS5_LP64_OFF64_LIBS        = 1110
+	_CS_XBS5_LP64_OFF64_LINTFLAGS   = 1111
+	_CS_XBS5_LPBIG_OFFBIG_CFLAGS    = 1112
+	_CS_XBS5_LPBIG_OFFBIG_LDFLAGS   = 1113
+	_CS_XBS5_LPBIG_OFFBIG_LIBS      = 1114
+	_CS_XBS5_LPBIG_OFFBIG_LINTFLAGS = 1115
+
+	_CS_POSIX_V6_ILP32_OFF32_CFLAGS     = 1116
+	_CS_POSIX_V6_ILP32_OFF32_LDFLAGS    = 1117
+	_CS_POSIX_V6_ILP32_OFF32_LIBS       = 1118
+	_CS_POSIX_V6_ILP32_OFF32_LINTFLAGS  = 1119
+	_CS_POSIX_V6_ILP32_OFFBIG_CFLAGS    = 1120
+	_CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS   = 1121
+	_CS_POSIX_V6_ILP32_OFFBIG_LIBS      = 1122
+	_CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS = 1123
+	_CS_POSIX_V6_LP64_OFF64_CFLAGS      = 1124
+	_CS_POSIX_V6_LP64_OFF64_LDFLAGS     = 1125
+	_CS_POSIX_V6_LP64_OFF64_LIBS        = 1126
+	_CS_POSIX_V6_LP64_OFF64_LINTFLAGS   = 1127
+	_CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS    = 1128
+	_CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS   = 1129
+	_CS_POSIX_V6_LPBIG_OFFBIG_LIBS      = 1130
+	_CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS = 1131
+
+	_CS_POSIX_V7_ILP32_OFF32_CFLAGS     = 1132
+	_CS_POSIX_V7_ILP32_OFF32_LDFLAGS    = 1133
+	_CS_POSIX_V7_ILP32_OFF32_LIBS       = 1134
+	_CS_POSIX_V7_ILP32_OFF32_LINTFLAGS  = 1135
+	_CS_POSIX_V7_ILP32_OFFBIG_CFLAGS    = 1136
+	_CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS   = 1137
+	_CS_POSIX_V7_ILP32_OFFBIG_LIBS      = 1138
+	_CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS = 1139
+	_CS_POSIX_V7_LP64_OFF64_CFLAGS      = 1140
+	_CS_POSIX_V7_LP64_OFF64_LDFLAGS     = 1141
+	_CS_POSIX_V7_LP64_OFF64_LIBS        = 1142
+	_CS_POSIX_V7_LP64_OFF64_LINTFLAGS   = 1143
+	_CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS    = 1144
+	_CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS   = 1145
+	_CS_POSIX_V7_LPBIG_OFFBIG_LIBS      = 1146
+	_CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS = 1147
+
+	_CS_V6_ENV = 1148
+	_CS_V7_ENV = 1149
+)
+
+// Values for the argument to `sysconf'.
+const ( /* confname.h:71:1: */
+	_SC_ARG_MAX               = 0
+	_SC_CHILD_MAX             = 1
+	_SC_CLK_TCK               = 2
+	_SC_NGROUPS_MAX           = 3
+	_SC_OPEN_MAX              = 4
+	_SC_STREAM_MAX            = 5
+	_SC_TZNAME_MAX            = 6
+	_SC_JOB_CONTROL           = 7
+	_SC_SAVED_IDS             = 8
+	_SC_REALTIME_SIGNALS      = 9
+	_SC_PRIORITY_SCHEDULING   = 10
+	_SC_TIMERS                = 11
+	_SC_ASYNCHRONOUS_IO       = 12
+	_SC_PRIORITIZED_IO        = 13
+	_SC_SYNCHRONIZED_IO       = 14
+	_SC_FSYNC                 = 15
+	_SC_MAPPED_FILES          = 16
+	_SC_MEMLOCK               = 17
+	_SC_MEMLOCK_RANGE         = 18
+	_SC_MEMORY_PROTECTION     = 19
+	_SC_MESSAGE_PASSING       = 20
+	_SC_SEMAPHORES            = 21
+	_SC_SHARED_MEMORY_OBJECTS = 22
+	_SC_AIO_LISTIO_MAX        = 23
+	_SC_AIO_MAX               = 24
+	_SC_AIO_PRIO_DELTA_MAX    = 25
+	_SC_DELAYTIMER_MAX        = 26
+	_SC_MQ_OPEN_MAX           = 27
+	_SC_MQ_PRIO_MAX           = 28
+	_SC_VERSION               = 29
+	_SC_PAGESIZE              = 30
+	_SC_RTSIG_MAX             = 31
+	_SC_SEM_NSEMS_MAX         = 32
+	_SC_SEM_VALUE_MAX         = 33
+	_SC_SIGQUEUE_MAX          = 34
+	_SC_TIMER_MAX             = 35
+
+	// Values for the argument to `sysconf'
+	//       corresponding to _POSIX2_* symbols.
+	_SC_BC_BASE_MAX        = 36
+	_SC_BC_DIM_MAX         = 37
+	_SC_BC_SCALE_MAX       = 38
+	_SC_BC_STRING_MAX      = 39
+	_SC_COLL_WEIGHTS_MAX   = 40
+	_SC_EQUIV_CLASS_MAX    = 41
+	_SC_EXPR_NEST_MAX      = 42
+	_SC_LINE_MAX           = 43
+	_SC_RE_DUP_MAX         = 44
+	_SC_CHARCLASS_NAME_MAX = 45
+
+	_SC_2_VERSION   = 46
+	_SC_2_C_BIND    = 47
+	_SC_2_C_DEV     = 48
+	_SC_2_FORT_DEV  = 49
+	_SC_2_FORT_RUN  = 50
+	_SC_2_SW_DEV    = 51
+	_SC_2_LOCALEDEF = 52
+
+	_SC_PII                 = 53
+	_SC_PII_XTI             = 54
+	_SC_PII_SOCKET          = 55
+	_SC_PII_INTERNET        = 56
+	_SC_PII_OSI             = 57
+	_SC_POLL                = 58
+	_SC_SELECT              = 59
+	_SC_UIO_MAXIOV          = 60
+	_SC_IOV_MAX             = 60
+	_SC_PII_INTERNET_STREAM = 61
+	_SC_PII_INTERNET_DGRAM  = 62
+	_SC_PII_OSI_COTS        = 63
+	_SC_PII_OSI_CLTS        = 64
+	_SC_PII_OSI_M           = 65
+	_SC_T_IOV_MAX           = 66
+
+	// Values according to POSIX 1003.1c (POSIX threads).
+	_SC_THREADS                      = 67
+	_SC_THREAD_SAFE_FUNCTIONS        = 68
+	_SC_GETGR_R_SIZE_MAX             = 69
+	_SC_GETPW_R_SIZE_MAX             = 70
+	_SC_LOGIN_NAME_MAX               = 71
+	_SC_TTY_NAME_MAX                 = 72
+	_SC_THREAD_DESTRUCTOR_ITERATIONS = 73
+	_SC_THREAD_KEYS_MAX              = 74
+	_SC_THREAD_STACK_MIN             = 75
+	_SC_THREAD_THREADS_MAX           = 76
+	_SC_THREAD_ATTR_STACKADDR        = 77
+	_SC_THREAD_ATTR_STACKSIZE        = 78
+	_SC_THREAD_PRIORITY_SCHEDULING   = 79
+	_SC_THREAD_PRIO_INHERIT          = 80
+	_SC_THREAD_PRIO_PROTECT          = 81
+	_SC_THREAD_PROCESS_SHARED        = 82
+
+	_SC_NPROCESSORS_CONF = 83
+	_SC_NPROCESSORS_ONLN = 84
+	_SC_PHYS_PAGES       = 85
+	_SC_AVPHYS_PAGES     = 86
+	_SC_ATEXIT_MAX       = 87
+	_SC_PASS_MAX         = 88
+
+	_SC_XOPEN_VERSION     = 89
+	_SC_XOPEN_XCU_VERSION = 90
+	_SC_XOPEN_UNIX        = 91
+	_SC_XOPEN_CRYPT       = 92
+	_SC_XOPEN_ENH_I18N    = 93
+	_SC_XOPEN_SHM         = 94
+
+	_SC_2_CHAR_TERM = 95
+	_SC_2_C_VERSION = 96
+	_SC_2_UPE       = 97
+
+	_SC_XOPEN_XPG2 = 98
+	_SC_XOPEN_XPG3 = 99
+	_SC_XOPEN_XPG4 = 100
+
+	_SC_CHAR_BIT   = 101
+	_SC_CHAR_MAX   = 102
+	_SC_CHAR_MIN   = 103
+	_SC_INT_MAX    = 104
+	_SC_INT_MIN    = 105
+	_SC_LONG_BIT   = 106
+	_SC_WORD_BIT   = 107
+	_SC_MB_LEN_MAX = 108
+	_SC_NZERO      = 109
+	_SC_SSIZE_MAX  = 110
+	_SC_SCHAR_MAX  = 111
+	_SC_SCHAR_MIN  = 112
+	_SC_SHRT_MAX   = 113
+	_SC_SHRT_MIN   = 114
+	_SC_UCHAR_MAX  = 115
+	_SC_UINT_MAX   = 116
+	_SC_ULONG_MAX  = 117
+	_SC_USHRT_MAX  = 118
+
+	_SC_NL_ARGMAX  = 119
+	_SC_NL_LANGMAX = 120
+	_SC_NL_MSGMAX  = 121
+	_SC_NL_NMAX    = 122
+	_SC_NL_SETMAX  = 123
+	_SC_NL_TEXTMAX = 124
+
+	_SC_XBS5_ILP32_OFF32  = 125
+	_SC_XBS5_ILP32_OFFBIG = 126
+	_SC_XBS5_LP64_OFF64   = 127
+	_SC_XBS5_LPBIG_OFFBIG = 128
+
+	_SC_XOPEN_LEGACY           = 129
+	_SC_XOPEN_REALTIME         = 130
+	_SC_XOPEN_REALTIME_THREADS = 131
+
+	_SC_ADVISORY_INFO          = 132
+	_SC_BARRIERS               = 133
+	_SC_BASE                   = 134
+	_SC_C_LANG_SUPPORT         = 135
+	_SC_C_LANG_SUPPORT_R       = 136
+	_SC_CLOCK_SELECTION        = 137
+	_SC_CPUTIME                = 138
+	_SC_THREAD_CPUTIME         = 139
+	_SC_DEVICE_IO              = 140
+	_SC_DEVICE_SPECIFIC        = 141
+	_SC_DEVICE_SPECIFIC_R      = 142
+	_SC_FD_MGMT                = 143
+	_SC_FIFO                   = 144
+	_SC_PIPE                   = 145
+	_SC_FILE_ATTRIBUTES        = 146
+	_SC_FILE_LOCKING           = 147
+	_SC_FILE_SYSTEM            = 148
+	_SC_MONOTONIC_CLOCK        = 149
+	_SC_MULTI_PROCESS          = 150
+	_SC_SINGLE_PROCESS         = 151
+	_SC_NETWORKING             = 152
+	_SC_READER_WRITER_LOCKS    = 153
+	_SC_SPIN_LOCKS             = 154
+	_SC_REGEXP                 = 155
+	_SC_REGEX_VERSION          = 156
+	_SC_SHELL                  = 157
+	_SC_SIGNALS                = 158
+	_SC_SPAWN                  = 159
+	_SC_SPORADIC_SERVER        = 160
+	_SC_THREAD_SPORADIC_SERVER = 161
+	_SC_SYSTEM_DATABASE        = 162
+	_SC_SYSTEM_DATABASE_R      = 163
+	_SC_TIMEOUTS               = 164
+	_SC_TYPED_MEMORY_OBJECTS   = 165
+	_SC_USER_GROUPS            = 166
+	_SC_USER_GROUPS_R          = 167
+	_SC_2_PBS                  = 168
+	_SC_2_PBS_ACCOUNTING       = 169
+	_SC_2_PBS_LOCATE           = 170
+	_SC_2_PBS_MESSAGE          = 171
+	_SC_2_PBS_TRACK            = 172
+	_SC_SYMLOOP_MAX            = 173
+	_SC_STREAMS                = 174
+	_SC_2_PBS_CHECKPOINT       = 175
+
+	_SC_V6_ILP32_OFF32  = 176
+	_SC_V6_ILP32_OFFBIG = 177
+	_SC_V6_LP64_OFF64   = 178
+	_SC_V6_LPBIG_OFFBIG = 179
+
+	_SC_HOST_NAME_MAX      = 180
+	_SC_TRACE              = 181
+	_SC_TRACE_EVENT_FILTER = 182
+	_SC_TRACE_INHERIT      = 183
+	_SC_TRACE_LOG          = 184
+
+	_SC_LEVEL1_ICACHE_SIZE     = 185
+	_SC_LEVEL1_ICACHE_ASSOC    = 186
+	_SC_LEVEL1_ICACHE_LINESIZE = 187
+	_SC_LEVEL1_DCACHE_SIZE     = 188
+	_SC_LEVEL1_DCACHE_ASSOC    = 189
+	_SC_LEVEL1_DCACHE_LINESIZE = 190
+	_SC_LEVEL2_CACHE_SIZE      = 191
+	_SC_LEVEL2_CACHE_ASSOC     = 192
+	_SC_LEVEL2_CACHE_LINESIZE  = 193
+	_SC_LEVEL3_CACHE_SIZE      = 194
+	_SC_LEVEL3_CACHE_ASSOC     = 195
+	_SC_LEVEL3_CACHE_LINESIZE  = 196
+	_SC_LEVEL4_CACHE_SIZE      = 197
+	_SC_LEVEL4_CACHE_ASSOC     = 198
+	_SC_LEVEL4_CACHE_LINESIZE  = 199
+	// Leave room here, maybe we need a few more cache levels some day.
+
+	_SC_IPV6        = 235
+	_SC_RAW_SOCKETS = 236
+
+	_SC_V7_ILP32_OFF32  = 237
+	_SC_V7_ILP32_OFFBIG = 238
+	_SC_V7_LP64_OFF64   = 239
+	_SC_V7_LPBIG_OFFBIG = 240
+
+	_SC_SS_REPL_MAX = 241
+
+	_SC_TRACE_EVENT_NAME_MAX = 242
+	_SC_TRACE_NAME_MAX       = 243
+	_SC_TRACE_SYS_MAX        = 244
+	_SC_TRACE_USER_EVENT_MAX = 245
+
+	_SC_XOPEN_STREAMS = 246
+
+	_SC_THREAD_ROBUST_PRIO_INHERIT = 247
+	_SC_THREAD_ROBUST_PRIO_PROTECT = 248
+)
+
+//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
+//    are already defined.
+//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
+//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
+
+// A null pointer constant.
+
+// XPG requires a few symbols from <sys/wait.h> being defined.
+// Definitions of flag bits for `waitpid' et al.
+//   Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Bits in the third argument to `waitpid'.
+
+// Bits in the fourth argument to `waitid'.
+
+// The following values are used by the `waitid' function.
+
+// The Linux kernel defines these bare, rather than an enum,
+//   which causes a conflict if the include order is reversed.
+
+const ( /* waitflags.h:52:1: */
+	P_ALL  = 0 // Wait for any child.
+	P_PID  = 1 // Wait for specified process.
+	P_PGID = 2
+)
+
 type ptrdiff_t = int64 /* <builtin>:3:26 */
 
 type size_t = uint64 /* <builtin>:9:23 */
@@ -2111,6 +2663,37 @@ type _G_fpos_t = struct {
 	}
 }
 
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// The tag name of this struct is _G_fpos64_t to preserve historic
+//   C++ mangled names for functions taking fpos_t and/or fpos64_t
+//   arguments.  That name should not be used in new code.
+type _G_fpos64_t = struct {
+	__pos   int64
+	__state struct {
+		__count int32
+		__value struct{ __wch uint32 }
+	}
+}
+
 type _IO_FILE = struct {
 	_flags          int32
 	_IO_read_ptr    uintptr
@@ -3012,6 +3595,64 @@ type register_t = int32 /* types.h:169:13 */
 // A set of signals to be blocked, unblocked, or waited for.
 type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
 
+// Get definition of timer specification structures.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// A time value that is accurate to the nearest
+//   microsecond but also has a range of years.
+type timeval = struct {
+	tv_sec  int64
+	tv_usec int64
+}
+
+// NB: Include guard matches what <linux/time.h> uses.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// POSIX.1b structure for a time value.  This is like a `struct timeval' but
+//   has nanoseconds instead of microseconds.
+type timespec = struct {
+	tv_sec  int64
+	tv_nsec int64
+}
+
 type suseconds_t = int64 /* select.h:43:23 */
 
 // Some versions of <linux/posix_types.h> define this macros.
@@ -3032,7 +3673,174 @@ type blksize_t = int64 /* types.h:202:21 */
 // Types from the Large File Support interface.
 type blkcnt_t = int64    /* types.h:209:20 */ // Type to count number of disk blocks.
 type fsblkcnt_t = uint64 /* types.h:213:22 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:217:22 */
+type fsfilcnt_t = uint64 /* types.h:217:22 */ // Type to count file system inodes.
+
+// Now add the thread types.
+// Declaration of common pthread types for all architectures.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// For internal mutex and condition variable definitions.
+// Common threading primitives definitions for both POSIX and C11.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Arch-specific definitions.  Each architecture must define the following
+//   macros to define the expected sizes of pthread data types:
+//
+//   __SIZEOF_PTHREAD_ATTR_T        - size of pthread_attr_t.
+//   __SIZEOF_PTHREAD_MUTEX_T       - size of pthread_mutex_t.
+//   __SIZEOF_PTHREAD_MUTEXATTR_T   - size of pthread_mutexattr_t.
+//   __SIZEOF_PTHREAD_COND_T        - size of pthread_cond_t.
+//   __SIZEOF_PTHREAD_CONDATTR_T    - size of pthread_condattr_t.
+//   __SIZEOF_PTHREAD_RWLOCK_T      - size of pthread_rwlock_t.
+//   __SIZEOF_PTHREAD_RWLOCKATTR_T  - size of pthread_rwlockattr_t.
+//   __SIZEOF_PTHREAD_BARRIER_T     - size of pthread_barrier_t.
+//   __SIZEOF_PTHREAD_BARRIERATTR_T - size of pthread_barrierattr_t.
+//
+//   Also, the following macros must be define for internal pthread_mutex_t
+//   struct definitions (struct __pthread_mutex_s):
+//
+//   __PTHREAD_COMPAT_PADDING_MID   - any additional members after 'kind'
+//				    and before '__spin' (for 64 bits) or
+//				    '__nusers' (for 32 bits).
+//   __PTHREAD_COMPAT_PADDING_END   - any additional members at the end of
+//				    the internal structure.
+//   __PTHREAD_MUTEX_LOCK_ELISION   - 1 if the architecture supports lock
+//				    elision or 0 otherwise.
+//   __PTHREAD_MUTEX_NUSERS_AFTER_KIND - control where to put __nusers.  The
+//				       preferred value for new architectures
+//				       is 0.
+//   __PTHREAD_MUTEX_USE_UNION      - control whether internal __spins and
+//				    __list will be place inside a union for
+//				    linuxthreads compatibility.
+//				    The preferred value for new architectures
+//				    is 0.
+//
+//   For a new port the preferred values for the required defines are:
+//
+//   #define __PTHREAD_COMPAT_PADDING_MID
+//   #define __PTHREAD_COMPAT_PADDING_END
+//   #define __PTHREAD_MUTEX_LOCK_ELISION         0
+//   #define __PTHREAD_MUTEX_NUSERS_AFTER_KIND    0
+//   #define __PTHREAD_MUTEX_USE_UNION            0
+//
+//   __PTHREAD_MUTEX_LOCK_ELISION can be set to 1 if the hardware plans to
+//   eventually support lock elision using transactional memory.
+//
+//   The additional macro defines any constraint for the lock alignment
+//   inside the thread structures:
+//
+//   __LOCK_ALIGNMENT - for internal lock/futex usage.
+//
+//   Same idea but for the once locking primitive:
+//
+//   __ONCE_ALIGNMENT - for pthread_once_t/once_flag definition.
+//
+//   And finally the internal pthread_rwlock_t (struct __pthread_rwlock_arch_t)
+//   must be defined.
+//
+// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Determine the wordsize from the preprocessor defines.
+
+// Both x86-64 and x32 use the 64-bit system call interface.
+
+// Definitions for internal mutex struct.
+
+type __pthread_rwlock_arch_t = struct {
+	__readers       uint32
+	__writers       uint32
+	__wrphase_futex uint32
+	__writers_futex uint32
+	__pad3          uint32
+	__pad4          uint32
+	__cur_writer    int32
+	__shared        int32
+	__rwelision     int8
+	__pad1          [7]uint8
+	__pad2          uint64
+	__flags         uint32
+	_               [4]byte
+}
+
+// Common definition of pthread_mutex_t.
+
+type __pthread_internal_list = struct {
+	__prev uintptr
+	__next uintptr
+}
+
+// Lock elision support.
+
+type __pthread_mutex_s = struct {
+	__lock    int32
+	__count   uint32
+	__owner   int32
+	__nusers  uint32
+	__kind    int32
+	__spins   int16
+	__elision int16
+	__list    struct {
+		__prev uintptr
+		__next uintptr
+	}
+}
+
+// Common definition of pthread_cond_t.
+
+type __pthread_cond_s = struct {
+	__0            struct{ __wseq uint64 }
+	__8            struct{ __g1_start uint64 }
+	__g_refs       [2]uint32
+	__g_size       [2]uint32
+	__g1_orig_size uint32
+	__wrefs        uint32
+	__g_signals    [2]uint32
+}
 
 // Thread identifiers.  The structure of the attribute type is not
 //   exposed on purpose.
@@ -3065,53 +3873,13 @@ type pthread_attr_t1 = struct {
 
 type pthread_attr_t = pthread_attr_t1 /* pthreadtypes.h:62:30 */
 
-type pthread_mutex_t = struct {
-	__data struct {
-		__lock    int32
-		__count   uint32
-		__owner   int32
-		__nusers  uint32
-		__kind    int32
-		__spins   int16
-		__elision int16
-		__list    struct {
-			__prev uintptr
-			__next uintptr
-		}
-	}
-} /* pthreadtypes.h:72:3 */
+type pthread_mutex_t = struct{ __data __pthread_mutex_s } /* pthreadtypes.h:72:3 */
 
-type pthread_cond_t = struct {
-	__data struct {
-		__0            struct{ __wseq uint64 }
-		__8            struct{ __g1_start uint64 }
-		__g_refs       [2]uint32
-		__g_size       [2]uint32
-		__g1_orig_size uint32
-		__wrefs        uint32
-		__g_signals    [2]uint32
-	}
-} /* pthreadtypes.h:80:3 */
+type pthread_cond_t = struct{ __data __pthread_cond_s } /* pthreadtypes.h:80:3 */
 
 // Data structure for reader-writer lock variable handling.  The
 //   structure of the attribute type is deliberately not exposed.
-type pthread_rwlock_t = struct {
-	__data struct {
-		__readers       uint32
-		__writers       uint32
-		__wrphase_futex uint32
-		__writers_futex uint32
-		__pad3          uint32
-		__pad4          uint32
-		__cur_writer    int32
-		__shared        int32
-		__rwelision     int8
-		__pad1          [7]uint8
-		__pad2          uint64
-		__flags         uint32
-		_               [4]byte
-	}
-} /* pthreadtypes.h:91:3 */
+type pthread_rwlock_t = struct{ __data __pthread_rwlock_arch_t } /* pthreadtypes.h:91:3 */
 
 type pthread_rwlockattr_t = struct {
 	_      [0]uint64
@@ -3132,6 +3900,31 @@ type pthread_barrierattr_t = struct {
 	_      [0]uint32
 	__size [4]int8
 } /* pthreadtypes.h:118:3 */
+
+// Reentrant versions of the `random' family of functions.
+//   These functions all use the following data structure to contain
+//   state, rather than global state variables.
+
+type random_data = struct {
+	fptr      uintptr
+	rptr      uintptr
+	state     uintptr
+	rand_type int32
+	rand_deg  int32
+	rand_sep  int32
+	end_ptr   uintptr
+}
+
+// Data structure for communication with thread safe versions.  This
+//   type is to be regarded as opaque.  It's only exported because users
+//   have to allocate objects of this type.
+type drand48_data = struct {
+	__x     [3]uint16
+	__old_x [3]uint16
+	__c     uint16
+	__init  uint16
+	__a     uint64
+}
 
 // POSIX.1-2008 extended locale interface (see locale.h).
 // Definition of locale_t.
@@ -3346,14 +4139,14 @@ func strglob(tls *crt.TLS, zGlob uintptr, z uintptr) int32 { /* mptest.c:136:5: 
 				return 0
 			}
 		} else if c == '#' {
-			if ((int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '-') || (int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '+')) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(1))))))*2))) & int32(uint16(2048))) != 0) {
+			if ((int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '-') || (int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '+')) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(1))))))*2))) & int32(_ISdigit)) != 0) {
 				z++
 			}
-			if !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(uint16(2048))) != 0) {
+			if !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(_ISdigit)) != 0) {
 				return 0
 			}
 			z++
-			for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(uint16(2048))) != 0 {
+			for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(_ISdigit)) != 0 {
 				z++
 			}
 		} else {
@@ -3459,7 +4252,7 @@ func logMessage(tls *crt.TLS, zFormat uintptr, va uintptr) { /* mptest.c:276:13:
 // Return the length of a string omitting trailing whitespace
 func clipLength(tls *crt.TLS, z uintptr) int32 { /* mptest.c:294:12: */
 	var n int32 = int32(crt.Xstrlen(tls, z))
-	for (n > 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n - 1)))))))*2))) & int32(uint16(8192))) != 0) {
+	for (n > 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0) {
 		n--
 	}
 	return n
@@ -3638,7 +4431,7 @@ func stringAppendTerm(tls *crt.TLS, p uintptr, z uintptr) { /* mptest.c:444:13: 
 		stringAppend(tls, p, ts+145 /* "nil" */, 3)
 		return
 	}
-	for i = 0; (*(*int8)(unsafe.Pointer(z + uintptr(i))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(i))))))*2))) & int32(uint16(8192))) != 0); i++ {
+	for i = 0; (*(*int8)(unsafe.Pointer(z + uintptr(i))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(i))))))*2))) & int32(_ISspace)) != 0); i++ {
 	}
 	if (i > 0) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(i)))) == 0) {
 		stringAppend(tls, p, z, i)
@@ -3882,7 +4675,7 @@ func readFile(tls *crt.TLS, zFilename uintptr) uintptr { /* mptest.c:684:13: */
 // Return the length of the next token.
 func tokenLength(tls *crt.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:704:12: */
 	var n int32 = 0
-	if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(uint16(8192))) != 0) || ((int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '/') && (int32(*(*int8)(unsafe.Pointer(z + uintptr(1)))) == '*')) {
+	if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(0))))))*2))) & int32(_ISspace)) != 0) || ((int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '/') && (int32(*(*int8)(unsafe.Pointer(z + uintptr(1)))) == '*')) {
 		var inC int32 = 0
 		var c int32
 		if int32(*(*int8)(unsafe.Pointer(z + uintptr(0)))) == '/' {
@@ -3893,7 +4686,7 @@ func tokenLength(tls *crt.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:70
 			if c == '\n' {
 				(*(*int32)(unsafe.Pointer(pnLine)))++
 			}
-			if (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(uint16(8192))) != 0 {
+			if (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0 {
 				continue
 			}
 			if ((inC != 0) && (c == '*')) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))) == '/') {
@@ -3929,7 +4722,7 @@ func tokenLength(tls *crt.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:70
 		}
 	} else {
 		var c int32
-		for n = 1; (((((crt.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(uint16(8192))) != 0)) && (c != '"')) && (c != '\'')) && (c != ';'); n++ {
+		for n = 1; (((((crt.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0)) && (c != '"')) && (c != '\'')) && (c != ';'); n++ {
 		}
 	}
 	return n
@@ -3942,7 +4735,7 @@ func extractToken(tls *crt.TLS, zIn uintptr, nIn int32, zOut uintptr, nOut int32
 		*(*int8)(unsafe.Pointer(zOut + uintptr(0))) = int8(0)
 		return 0
 	}
-	for i = 0; ((i < nIn) && (i < (nOut - 1))) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zIn + uintptr(i))))))*2))) & int32(uint16(8192))) != 0); i++ {
+	for i = 0; ((i < nIn) && (i < (nOut - 1))) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zIn + uintptr(i))))))*2))) & int32(_ISspace)) != 0); i++ {
 		*(*int8)(unsafe.Pointer(zOut + uintptr(i))) = *(*int8)(unsafe.Pointer(zIn + uintptr(i)))
 	}
 	*(*int8)(unsafe.Pointer(zOut + uintptr(i))) = int8(0)
@@ -3952,7 +4745,7 @@ func extractToken(tls *crt.TLS, zIn uintptr, nIn int32, zOut uintptr, nOut int32
 // Find the number of characters up to the start of the next "--end" token.
 func findEnd(tls *crt.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:763:12: */
 	var n int32 = 0
-	for (*(*int8)(unsafe.Pointer(z + uintptr(n))) != 0) && ((crt.Xstrncmp(tls, (z+uintptr(n)), ts+896 /* "--end" */, uint64(5)) != 0) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 5)))))))*2))) & int32(uint16(8192))) != 0)) {
+	for (*(*int8)(unsafe.Pointer(z + uintptr(n))) != 0) && ((crt.Xstrncmp(tls, (z+uintptr(n)), ts+896 /* "--end" */, uint64(5)) != 0) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 5)))))))*2))) & int32(_ISspace)) != 0)) {
 		n = n + (tokenLength(tls, (z + uintptr(n)), pnLine))
 	}
 	return n
@@ -3965,11 +4758,11 @@ func findEndif(tls *crt.TLS, z uintptr, stopAtElse int32, pnLine uintptr) int32 
 	var n int32 = 0
 	for *(*int8)(unsafe.Pointer(z + uintptr(n))) != 0 {
 		var len int32 = tokenLength(tls, (z + uintptr(n)), pnLine)
-		if ((crt.Xstrncmp(tls, (z+uintptr(n)), ts+902 /* "--endif" */, uint64(7)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 7)))))))*2))) & int32(uint16(8192))) != 0)) ||
-			(((stopAtElse != 0) && (crt.Xstrncmp(tls, (z+uintptr(n)), ts+910 /* "--else" */, uint64(6)) == 0)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 6)))))))*2))) & int32(uint16(8192))) != 0)) {
+		if ((crt.Xstrncmp(tls, (z+uintptr(n)), ts+902 /* "--endif" */, uint64(7)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 7)))))))*2))) & int32(_ISspace)) != 0)) ||
+			(((stopAtElse != 0) && (crt.Xstrncmp(tls, (z+uintptr(n)), ts+910 /* "--else" */, uint64(6)) == 0)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 6)))))))*2))) & int32(_ISspace)) != 0)) {
 			return (n + len)
 		}
-		if (crt.Xstrncmp(tls, (z+uintptr(n)), ts+917 /* "--if" */, uint64(4)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 4)))))))*2))) & int32(uint16(8192))) != 0) {
+		if (crt.Xstrncmp(tls, (z+uintptr(n)), ts+917 /* "--if" */, uint64(4)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 4)))))))*2))) & int32(_ISspace)) != 0) {
 			var skip int32 = findEndif(tls, ((z + uintptr(n)) + uintptr(len)), 0, pnLine)
 			n = n + (skip + len)
 		} else {
@@ -4088,11 +4881,11 @@ func runScript(tls *crt.TLS, iClient int32, taskId int32, zScript uintptr, zFile
 	for (crt.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(zScript + uintptr(ii)))))) != 0 {
 		prevLine = *(*int32)(unsafe.Pointer(bp + 376 /* lineno */))
 		len = tokenLength(tls, (zScript + uintptr(ii)), bp+376 /* &lineno */)
-		if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(uint16(8192))) != 0) || ((c == '/') && (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) == '*')) {
+		if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0) || ((c == '/') && (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) == '*')) {
 			ii = ii + (len)
 			continue
 		}
-		if ((c != '-') || (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) != '-')) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 2))))))*2))) & int32(uint16(1024))) != 0) {
+		if ((c != '-') || (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) != '-')) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 2))))))*2))) & int32(_ISalpha)) != 0) {
 			ii = ii + (len)
 			continue
 		}
@@ -4111,7 +4904,7 @@ func runScript(tls *crt.TLS, iClient int32, taskId int32, zScript uintptr, zFile
 		}
 		n = extractToken(tls, ((zScript + uintptr(ii)) + uintptr(2)), (len - 2), bp+380 /* &zCmd[0] */, int32(unsafe.Sizeof([30]int8{})))
 		for nArg = 0; (n < (len - 2)) && (nArg < 2); nArg++ {
-			for (n < (len - 2)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr(((ii + 2) + n)))))))*2))) & int32(uint16(8192))) != 0) {
+			for (n < (len - 2)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr(((ii + 2) + n)))))))*2))) & int32(_ISspace)) != 0) {
 				n++
 			}
 			if n >= (len - 2) {
@@ -4176,7 +4969,7 @@ func runScript(tls *crt.TLS, iClient int32, taskId int32, zScript uintptr, zFile
 		if crt.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1240 /* "match" */) == 0 {
 			var jj int32
 			var zAns uintptr = (zScript + uintptr(ii))
-			for jj = 7; (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(uint16(8192))) != 0); jj++ {
+			for jj = 7; (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			zAns += uintptr(jj)
 			if (((len - jj) - 1) != (*String)(unsafe.Pointer(bp+360 /* &sResult */)).n) || (crt.Xstrncmp(tls, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z, zAns, (uint64((len-jj)-1))) != 0) {
@@ -4197,7 +4990,7 @@ func runScript(tls *crt.TLS, iClient int32, taskId int32, zScript uintptr, zFile
 			var zAns uintptr = (zScript + uintptr(ii))
 			var zCopy uintptr
 			var isGlob int32 = (crt.Bool32(int32(*(*int8)(unsafe.Pointer(bp + 380 /* &zCmd[0] */ + uintptr(0)))) == 'g'))
-			for jj = (9 - (3 * isGlob)); (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(uint16(8192))) != 0); jj++ {
+			for jj = (9 - (3 * isGlob)); (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			zAns += uintptr(jj)
 			zCopy = sqlite3.Xsqlite3_mprintf(tls, ts+1202 /* "%.*s" */, crt.VaList(bp+88, ((len-jj)-1), zAns))
@@ -4250,7 +5043,7 @@ func runScript(tls *crt.TLS, iClient int32, taskId int32, zScript uintptr, zFile
 		// Output the remainder of the line to the log file
 		if crt.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1405 /* "print" */) == 0 {
 			var jj int32
-			for jj = 7; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(uint16(8192))) != 0); jj++ {
+			for jj = 7; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			logMessage(tls, ts+1202 /* "%.*s" */, crt.VaList(bp+184, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
 		} else
@@ -4262,7 +5055,7 @@ func runScript(tls *crt.TLS, iClient int32, taskId int32, zScript uintptr, zFile
 			var jj int32
 			var rc int32
 			var pStmt uintptr
-			for jj = 4; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(uint16(8192))) != 0); jj++ {
+			for jj = 4; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(crt.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			pStmt = prepareSql(tls, ts+1414 /* "SELECT %.*s" */, crt.VaList(bp+200, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
 			rc = sqlite3.Xsqlite3_step(tls, pStmt)

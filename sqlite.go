@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 //go:generate go run generator.go
-//go:generate gofmt -l -s -w .
+//go:generate go fmt ./...
 
 package sqlite // import "modernc.org/sqlite"
 
