@@ -13,20 +13,20 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"io"
-	"os"
-	"runtime"
-	"strings"
 	"time"
 	"unsafe"
 
-	"modernc.org/crt/v3"
+	"modernc.org/libc"
+	"modernc.org/libc/sys/types"
 	"modernc.org/sqlite/lib"
 )
 
 var (
-	_ driver.Conn    = (*conn)(nil)
-	_ driver.Driver  = (*Driver)(nil)
-	_ driver.Execer  = (*conn)(nil)
+	_ driver.Conn   = (*conn)(nil)
+	_ driver.Driver = (*Driver)(nil)
+	//lint:ignore SA1019 TODO implement ExecerContext
+	_ driver.Execer = (*conn)(nil)
+	//lint:ignore SA1019 TODO implement QueryerContext
 	_ driver.Queryer = (*conn)(nil)
 	_ driver.Result  = (*result)(nil)
 	_ driver.Rows    = (*rows)(nil)
@@ -40,45 +40,6 @@ const (
 	ptrSize                 = unsafe.Sizeof(uintptr(0))
 	sqliteLockedSharedcache = sqlite3.SQLITE_LOCKED | (1 << 8)
 )
-
-func origin(skip int) string {
-	pc, fn, fl, _ := runtime.Caller(skip)
-	f := runtime.FuncForPC(pc)
-	var fns string
-	if f != nil {
-		fns = f.Name()
-		if x := strings.LastIndex(fns, "."); x > 0 {
-			fns = fns[x+1:]
-		}
-	}
-	return fmt.Sprintf("%s:%d:%s", fn, fl, fns)
-}
-
-func todo(s string, args ...interface{}) string { //TODO-
-	switch {
-	case s == "":
-		s = fmt.Sprintf(strings.Repeat("%v ", len(args)), args...)
-	default:
-		s = fmt.Sprintf(s, args...)
-	}
-	r := fmt.Sprintf("%s: TODOTODO %s", origin(2), s) //TODOOK
-	fmt.Fprintf(os.Stdout, "%s\n", r)
-	os.Stdout.Sync()
-	return r
-}
-
-func trc(s string, args ...interface{}) string { //TODO-
-	switch {
-	case s == "":
-		s = fmt.Sprintf(strings.Repeat("%v ", len(args)), args...)
-	default:
-		s = fmt.Sprintf(s, args...)
-	}
-	r := fmt.Sprintf("\n%s: TRC %s", origin(2), s)
-	fmt.Fprintf(os.Stdout, "%s\n", r)
-	os.Stdout.Sync()
-	return r
-}
 
 // Error represents sqlite library error code.
 type Error struct {
@@ -147,24 +108,25 @@ var (
 )
 
 func init() {
-	tls := crt.NewTLS()
+	//TODO configure page size to 4096
+	tls := libc.NewTLS()
 	if sqlite3.Xsqlite3_threadsafe(tls) == 0 {
 		panic(fmt.Errorf("sqlite: thread safety configuration error"))
 	}
 
-	varArgs := crt.Xmalloc(tls, crt.Size_t(ptrSize))
+	varArgs := libc.Xmalloc(tls, types.Size_t(ptrSize))
 	if varArgs == 0 {
 		panic(fmt.Errorf("cannot allocate memory"))
 	}
 
 	// int sqlite3_config(int, ...);
-	if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, crt.VaList(varArgs, uintptr(unsafe.Pointer(&mutexMethods)))); rc != sqlite3.SQLITE_OK {
+	if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, libc.VaList(varArgs, uintptr(unsafe.Pointer(&mutexMethods)))); rc != sqlite3.SQLITE_OK {
 		p := sqlite3.Xsqlite3_errstr(tls, rc)
-		str := crt.GoString(p)
+		str := libc.GoString(p)
 		panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
 	}
 
-	crt.Xfree(tls, varArgs)
+	libc.Xfree(tls, varArgs)
 	tls.Close()
 	sql.Register(driverName, newDriver())
 }
@@ -334,7 +296,7 @@ type stmt struct {
 }
 
 func newStmt(c *conn, sql string) (*stmt, error) {
-	p, err := crt.CString(sql)
+	p, err := libc.CString(sql)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +351,7 @@ func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Res
 		close(donech)
 	}()
 
-	for psql := s.psql; *(*byte)(unsafe.Pointer(uintptr(psql))) != 0; {
+	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0; {
 		if pstmt, err = s.c.prepareV2(&psql); err != nil {
 			return nil, err
 		}
@@ -539,7 +501,7 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 				return s.c.errstr(int32(rc))
 			}
 
-			if *(*byte)(unsafe.Pointer(uintptr(psql))) == 0 {
+			if *(*byte)(unsafe.Pointer(psql)) == 0 {
 				if r, err = newRows(s.c, pstmt, allocs, true); err != nil {
 					return err
 				}
@@ -578,7 +540,7 @@ func (t *tx) Rollback() (err error) {
 }
 
 func (t *tx) exec(ctx context.Context, sql string) (err error) {
-	psql, err := crt.CString(sql)
+	psql, err := libc.CString(sql)
 	if err != nil {
 		return err
 	}
@@ -607,11 +569,11 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 
 type conn struct {
 	db  uintptr // *sqlite3.Xsqlite3
-	tls *crt.TLS
+	tls *libc.TLS
 }
 
 func newConn(name string) (*conn, error) {
-	c := &conn{tls: crt.NewTLS()}
+	c := &conn{tls: libc.NewTLS()}
 	db, err := c.openV2(
 		name,
 		sqlite3.SQLITE_OPEN_READWRITE|sqlite3.SQLITE_OPEN_CREATE|
@@ -645,7 +607,7 @@ func (c *conn) columnBlob(pstmt uintptr, iCol int) (v []byte, err error) {
 	}
 
 	v = make([]byte, len)
-	copy(v, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
+	copy(v, (*libc.RawMem)(unsafe.Pointer(p))[:len:len])
 	return v, nil
 }
 
@@ -668,7 +630,7 @@ func (c *conn) columnText(pstmt uintptr, iCol int) (v string, err error) {
 	}
 
 	b := make([]byte, len)
-	copy(b, (*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len])
+	copy(b, (*libc.RawMem)(unsafe.Pointer(p))[:len:len])
 	return string(b), nil
 }
 
@@ -693,7 +655,7 @@ func (c *conn) columnType(pstmt uintptr, iCol int) (_ int, err error) {
 // const char *sqlite3_column_name(sqlite3_stmt*, int N);
 func (c *conn) columnName(pstmt uintptr, n int) (string, error) {
 	p := sqlite3.Xsqlite3_column_name(c.tls, pstmt, int32(n))
-	return crt.GoString(p), nil
+	return libc.GoString(p), nil
 }
 
 // int sqlite3_column_count(sqlite3_stmt *pStmt);
@@ -729,23 +691,23 @@ func (c *conn) step(pstmt uintptr) (int, error) {
 
 func (c *conn) retry(pstmt uintptr) error {
 	mu := mutexAlloc(c.tls, sqlite3.SQLITE_MUTEX_FAST)
-	(*mutex)(unsafe.Pointer(uintptr(mu))).enter(c.tls.ID) // Block
+	(*mutex)(unsafe.Pointer(mu)).enter(c.tls.ID) // Block
 	rc := sqlite3.Xsqlite3_unlock_notify(
 		c.tls,
 		c.db,
 		*(*uintptr)(unsafe.Pointer(&struct {
-			f func(*crt.TLS, crt.Intptr, int32)
+			f func(*libc.TLS, uintptr, int32)
 		}{unlockNotify})),
 		mu,
 	)
 	if rc == sqlite3.SQLITE_LOCKED { // Deadlock, see https://www.sqlite.org/c3ref/unlock_notify.html
-		(*mutex)(unsafe.Pointer(uintptr(mu))).leave(c.tls.ID) // Clear
+		(*mutex)(unsafe.Pointer(mu)).leave(c.tls.ID) // Clear
 		mutexFree(c.tls, mu)
 		return c.errstr(rc)
 	}
 
-	(*mutex)(unsafe.Pointer(uintptr(mu))).enter(c.tls.ID) // Wait
-	(*mutex)(unsafe.Pointer(uintptr(mu))).leave(c.tls.ID) // Clear
+	(*mutex)(unsafe.Pointer(mu)).enter(c.tls.ID) // Wait
+	(*mutex)(unsafe.Pointer(mu)).leave(c.tls.ID) // Clear
 	mutexFree(c.tls, mu)
 	if pstmt != 0 {
 		sqlite3.Xsqlite3_reset(c.tls, pstmt)
@@ -753,11 +715,11 @@ func (c *conn) retry(pstmt uintptr) error {
 	return nil
 }
 
-func unlockNotify(t *crt.TLS, ppArg crt.Intptr, nArg int32) {
+func unlockNotify(t *libc.TLS, ppArg uintptr, nArg int32) {
 	for i := int32(0); i < nArg; i++ {
-		mu := *(*crt.Intptr)(unsafe.Pointer(uintptr(ppArg)))
-		(*mutex)(unsafe.Pointer(uintptr(mu))).leave(t.ID) // Signal
-		ppArg += crt.Intptr(ptrSize)
+		mu := *(*uintptr)(unsafe.Pointer(ppArg))
+		(*mutex)(unsafe.Pointer(mu)).leave(t.ID) // Signal
+		ppArg += ptrSize
 	}
 }
 
@@ -847,7 +809,7 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 
 // int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
 func (c *conn) bindText(pstmt uintptr, idx1 int, value string) (uintptr, error) {
-	p, err := crt.CString(value)
+	p, err := libc.CString(value)
 	if err != nil {
 		return 0, err
 	}
@@ -867,7 +829,7 @@ func (c *conn) bindBlob(pstmt uintptr, idx1 int, value []byte) (uintptr, error) 
 		return 0, err
 	}
 
-	copy((*crt.RawMem)(unsafe.Pointer(uintptr(p)))[:len(value)], value)
+	copy((*libc.RawMem)(unsafe.Pointer(p))[:len(value):len(value)], value)
 	if rc := sqlite3.Xsqlite3_bind_blob(c.tls, pstmt, int32(idx1), p, int32(len(value)), 0); rc != sqlite3.SQLITE_OK {
 		c.free(p)
 		return 0, c.errstr(rc)
@@ -906,7 +868,7 @@ func (c *conn) bindInt64(pstmt uintptr, idx1 int, value int64) (err error) {
 // const char *sqlite3_bind_parameter_name(sqlite3_stmt*, int);
 func (c *conn) bindParameterName(pstmt uintptr, i int) (string, error) {
 	p := sqlite3.Xsqlite3_bind_parameter_name(c.tls, pstmt, int32(i))
-	return crt.GoString(p), nil
+	return libc.GoString(p), nil
 }
 
 // int sqlite3_bind_parameter_count(sqlite3_stmt*);
@@ -970,7 +932,7 @@ func (c *conn) interrupt(pdb uintptr) (err error) {
 
 // int sqlite3_extended_result_codes(sqlite3*, int onoff);
 func (c *conn) extendedResultCodes(on bool) error {
-	if rc := sqlite3.Xsqlite3_extended_result_codes(c.tls, c.db, crt.Bool32(on)); rc != sqlite3.SQLITE_OK {
+	if rc := sqlite3.Xsqlite3_extended_result_codes(c.tls, c.db, libc.Bool32(on)); rc != sqlite3.SQLITE_OK {
 		return c.errstr(rc)
 	}
 
@@ -1000,7 +962,7 @@ func (c *conn) openV2(name string, flags int32) (uintptr, error) {
 		return 0, err
 	}
 
-	if s, err = crt.CString(name); err != nil {
+	if s, err = libc.CString(name); err != nil {
 		return 0, err
 	}
 
@@ -1008,11 +970,11 @@ func (c *conn) openV2(name string, flags int32) (uintptr, error) {
 		return 0, c.errstr(rc)
 	}
 
-	return *(*uintptr)(unsafe.Pointer(uintptr(p))), nil
+	return *(*uintptr)(unsafe.Pointer(p)), nil
 }
 
 func (c *conn) malloc(n int) (uintptr, error) {
-	if p := crt.Xmalloc(c.tls, crt.Size_t(n)); p != 0 {
+	if p := libc.Xmalloc(c.tls, types.Size_t(n)); p != 0 {
 		return p, nil
 	}
 
@@ -1021,16 +983,16 @@ func (c *conn) malloc(n int) (uintptr, error) {
 
 func (c *conn) free(p uintptr) {
 	if p != 0 {
-		crt.Xfree(c.tls, p)
+		libc.Xfree(c.tls, p)
 	}
 }
 
 // const char *sqlite3_errstr(int);
 func (c *conn) errstr(rc int32) error {
 	p := sqlite3.Xsqlite3_errstr(c.tls, rc)
-	str := crt.GoString(p)
+	str := libc.GoString(p)
 	p = sqlite3.Xsqlite3_errmsg(c.tls, c.db)
-	switch msg := crt.GoString(p); {
+	switch msg := libc.GoString(p); {
 	case msg == str:
 		return &Error{msg: fmt.Sprintf("%s (%v)", str, rc), code: int(rc)}
 	default:

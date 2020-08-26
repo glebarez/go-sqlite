@@ -20,46 +20,184 @@ import (
 	"strings"
 )
 
+//	gcc
+//	-g
+//	-O2
+//	-DSQLITE_OS_UNIX=1
+//	-I.
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/rtree
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/icu
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/fts3
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/async
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/session
+//	-I/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/userauth
+//	-D_HAVE_SQLITE_CONFIG_H
+//	-DBUILD_sqlite
+//	-DNDEBUG
+//	-I/usr/include/tcl8.6
+//	-DSQLITE_THREADSAFE=1
+//	-DSQLITE_HAVE_ZLIB=1
+//	-DSQLITE_NO_SYNC=1
+//	-DSQLITE_TEMP_STORE=1
+//	-DSQLITE_TEST=1
+//	-DSQLITE_CRASH_TEST=1
+//	-DTCLSH_INIT_PROC=sqlite3TestInit
+//	-DSQLITE_SERVER=1
+//	-DSQLITE_PRIVATE=
+//	-DSQLITE_CORE
+//	-DBUILD_sqlite
+//	-DSQLITE_SERIES_CONSTRAINT_VERIFY=1
+//	-DSQLITE_DEFAULT_PAGE_SIZE=1024
+//	-DSQLITE_ENABLE_STMTVTAB
+//	-DSQLITE_ENABLE_DBPAGE_VTAB
+//	-DSQLITE_ENABLE_BYTECODE_VTAB
+//	-DSQLITE_ENABLE_DESERIALIZE
+//	-o testfixture
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test1.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test2.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test3.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test4.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test5.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test6.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test7.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test8.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test9.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_autoext.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_async.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_backup.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_bestindex.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_blob.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_btree.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_config.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_delete.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_demovfs.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_devsym.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_fs.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_func.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_hexio.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_init.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_intarray.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_journal.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_malloc.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_md5.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_multiplex.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_mutex.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_onefile.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_osinst.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_pcache.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_quota.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_rtree.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_schema.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_server.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_superlock.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_syscall.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_tclsh.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_tclvar.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_thread.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_vdbecov.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_vfs.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_windirent.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_window.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/test_wsd.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/fts3/fts3_term.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/fts3/fts3_test.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/session/test_session.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/rbu/test_rbu.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/expert/sqlite3expert.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/expert/test_expert.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/amatch.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/carray.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/closure.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/csv.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/decimal.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/eval.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/explain.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/fileio.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/fuzzer.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/fts5/fts5_tcl.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/fts5/fts5_test_mi.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/fts5/fts5_test_tok.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/ieee754.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/mmapwarm.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/nextchar.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/normalize.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/percentile.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/prefixes.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/regexp.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/remember.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/series.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/spellfix.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/totype.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/unionvtab.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/wholenumber.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/misc/zipfile.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/ext/userauth/userauth.c
+//	/home/jnml/src/modernc.org/sqlite/testdata/SQLite-3c5e63c2/src/tclsqlite.c
+//	sqlite3.c
+//	-L/usr/lib/x86_64-linux-gnu
+//	-ltcl8.6
+//	-ldl
+//	-lz
+//	-lpthread
+
 var (
 	config = []string{
 		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
-		"-DNDEBUG",
-		"-DSQLITE_CORE", // testfixture
-		"-DSQLITE_DEFAULT_MEMSTATUS=0",
+		"-DSQLITE_CORE",                   // testfixture
+		"-DSQLITE_DEFAULT_MEMSTATUS=0",    // bug reported https://sqlite.org/forum/info/d8dfd4771689be35, fixed in https://sqlite.org/src/info/3c5e63c22ffbfeb6
 		"-DSQLITE_DEFAULT_PAGE_SIZE=1024", // testfixture, hardcoded. See file_pages in autovacuum.test.
-		"-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1",
-		"-DSQLITE_DQS=0",
-		"-DSQLITE_ENABLE_BYTECODE_VTAB", // testfixture
-		"-DSQLITE_ENABLE_DBPAGE_VTAB",   // testfixture
-		"-DSQLITE_ENABLE_DESERIALIZE",   // testfixture
+		"-DSQLITE_ENABLE_BYTECODE_VTAB",   // testfixture
+		"-DSQLITE_ENABLE_COLUMN_METADATA",
+		"-DSQLITE_ENABLE_DBPAGE_VTAB", // testfixture
+		"-DSQLITE_ENABLE_DBSTAT_VTAB",
+		"-DSQLITE_ENABLE_DESERIALIZE", // testfixture
+		"-DSQLITE_ENABLE_EXPLAIN_COMMENTS",
+		"-DSQLITE_ENABLE_FTS5",
+		"-DSQLITE_ENABLE_GEOPOLY",
+		"-DSQLITE_ENABLE_JSON1",
+		"-DSQLITE_ENABLE_MEMORY_MANAGEMENT",
+		"-DSQLITE_ENABLE_OFFSET_SQL_FUNC",
+		"-DSQLITE_ENABLE_PREUPDATE_HOOK",
+		"-DSQLITE_ENABLE_RBU",
+		"-DSQLITE_ENABLE_RTREE",
+		"-DSQLITE_ENABLE_SNAPSHOT",
+		"-DSQLITE_ENABLE_STAT4",
 		"-DSQLITE_ENABLE_STMTVTAB",      // testfixture
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
 		"-DSQLITE_HAVE_ZLIB=1",          // testfixture
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
-		"-DSQLITE_MAX_EXPR_DEPTH=0",
-		"-DSQLITE_MAX_MMAP_SIZE=8589934592", // testfixture
 		"-DSQLITE_MUTEX_APPDEF=1",
 		"-DSQLITE_MUTEX_NOOP",
-		"-DSQLITE_NO_SYNC=1",                  // testfixture
-		"-DSQLITE_OS_UNIX=1",                  // testfixture //TODO adjust for non unix OS
-		"-DSQLITE_SERIES_CONSTRAINT_VERIFY=1", // testfixture
-		"-DSQLITE_SERVER=1",                   // testfixture
-		"-DSQLITE_TEMP_STORE=1",               // testfixture
+		"-DSQLITE_OS_UNIX=1", // testfixture //TODO adjust for non unix OS
+		"-DSQLITE_SOUNDEX",
+		"-DSQLITE_TEMP_STORE=1", // testfixture
 		"-DSQLITE_TEST",
 		"-DSQLITE_THREADSAFE=1",
 		"-ccgo-long-double-is-double",
-		// "-DSQLITE_OMIT_DECLTYPE", // testfixture
-		// "-DSQLITE_OMIT_DEPRECATED", // mptest
-		// "-DSQLITE_OMIT_LOAD_EXTENSION", // mptest
-		// "-DSQLITE_OMIT_SHARED_CACHE",
-		// "-DSQLITE_USE_ALLOCA",
+		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
+		//DONT "-DSQLITE_DQS=0", // testfixture
+		//DONT "-DSQLITE_ENABLE_SESSION", // Needs UTF16
+		//DONT "-DSQLITE_NO_SYNC=1",
+		//DONT "-DSQLITE_OMIT_DECLTYPE", // testfixture
+		//DONT "-DSQLITE_OMIT_DEPRECATED", // mptest
+		//DONT "-DSQLITE_OMIT_LOAD_EXTENSION", // mptest
+		//DONT "-DSQLITE_OMIT_SHARED_CACHE",
+		//DONT "-DSQLITE_USE_ALLOCA",
 		//TODO "-DHAVE_MALLOC_USABLE_SIZE"
+		//TODO "-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1", //TODO report bug
+		//TODO "-DSQLITE_ENABLE_FTS3",
+		//TODO "-DSQLITE_ENABLE_FTS3_PARENTHESIS",
+		//TODO "-DSQLITE_ENABLE_FTS3_TOKENIZER",
+		//TODO "-DSQLITE_ENABLE_FTS4",
+		//TODO "-DSQLITE_ENABLE_ICU",
+		//TODO "-DSQLITE_MAX_EXPR_DEPTH=0", // bug reported https://sqlite.org/forum/forumpost/87b9262f66, fixed in https://sqlite.org/src/info/5f58dd3a19605b6f
+		//TODO "-DSQLITE_MAX_MMAP_SIZE=8589934592", // testfixture, bug reported https://sqlite.org/forum/forumpost/34380589f7, fixed in https://sqlite.org/src/info/d8e47382160e98be
 		//TODO 386 "-DSQLITE_MAX_MMAP_SIZE=0", // mmap somehow fails on linux/386
-		//TODO- "-DSQLITE_DEBUG", //TODO-
-		//TODO- "-DSQLITE_ENABLE_API_ARMOR",     //TODO-
-		//TODO- "-DSQLITE_MEMDEBUG", //TODO-
-		//TODO- "-ccgo-verify-structs", //TODO-
+		//TODO- "-DSQLITE_DEBUG",
+		//TODO- "-DSQLITE_ENABLE_API_ARMOR",
+		//TODO- "-DSQLITE_MEMDEBUG",
 	}
 
 	downloads = []struct {
@@ -67,12 +205,12 @@ var (
 		sz       int
 		dev      bool
 	}{
-		{sqliteDir, "https://www.sqlite.org/2020/sqlite-amalgamation-3320300.zip", 2240, false},
-		{sqliteSrcDir, "https://www.sqlite.org/2020/sqlite-src-3320300.zip", 12060, false},
+		{sqliteDir, "https://www.sqlite.org/2020/sqlite-amalgamation-3330000.zip", 2420, false},
+		{sqliteSrcDir, "https://www.sqlite.org/2020/sqlite-src-3330000.zip", 12060, false},
 	}
 
-	sqliteDir    = filepath.FromSlash("testdata/sqlite-amalgamation-3320300")
-	sqliteSrcDir = filepath.FromSlash("testdata/sqlite-src-3320300")
+	sqliteDir    = filepath.FromSlash("testdata/sqlite-amalgamation-3330000")
+	sqliteSrcDir = filepath.FromSlash("testdata/sqlite-src-3330000")
 )
 
 func download() {
@@ -187,11 +325,23 @@ func fail(s string, args ...interface{}) {
 }
 
 func main() {
+	env := os.Getenv("GO_GENERATE")
+	var more []string
+	if env != "" {
+		more = strings.Split(env, ",")
+	}
+	ndebug := []string{"-DNDEBUG"}
+	for _, v := range more {
+		if v == "-DSQLITE_DEBUG" {
+			ndebug = nil
+		}
+	}
+	more = append(more, ndebug...)
 	download()
-	makeSqlite()
-	makeMpTest()
-	makeSpeedTest()
-	makeTestfixture()
+	makeSqlite(more)
+	makeMpTest(more)
+	makeSpeedTest(more)
+	makeTestfixture(more)
 
 	dst := filepath.FromSlash("testdata/tcl")
 	if err := os.MkdirAll(dst, 0770); err != nil {
@@ -208,7 +358,7 @@ func main() {
 		fail("cannot glob *.tcl: %v", err)
 	}
 
-	m = append(m, m2...)
+	m = join(m, m2)
 	for _, v := range m {
 		f, err := ioutil.ReadFile(v)
 		if err != nil {
@@ -256,143 +406,167 @@ func newCmd(bin string, args ...string) *exec.Cmd {
 	return r
 }
 
-func makeTestfixture() {
+func makeTestfixture(more []string) {
 	dir := filepath.FromSlash(fmt.Sprintf("internal/testfixture"))
+	files := []string{
+		"ext/expert/sqlite3expert.c",
+		"ext/expert/test_expert.c",
+		"ext/fts3/fts3_term.c",
+		"ext/fts3/fts3_test.c",
+		"ext/fts5/fts5_tcl.c",
+		"ext/fts5/fts5_test_mi.c",
+		"ext/fts5/fts5_test_tok.c",
+		"ext/misc/amatch.c",
+		"ext/misc/carray.c",
+		"ext/misc/closure.c",
+		"ext/misc/csv.c",
+		"ext/misc/decimal.c",
+		"ext/misc/eval.c",
+		"ext/misc/explain.c",
+		"ext/misc/fileio.c",
+		"ext/misc/fuzzer.c",
+		"ext/misc/ieee754.c",
+		"ext/misc/mmapwarm.c",
+		"ext/misc/nextchar.c",
+		"ext/misc/normalize.c",
+		"ext/misc/percentile.c",
+		"ext/misc/prefixes.c",
+		"ext/misc/regexp.c",
+		"ext/misc/remember.c",
+		"ext/misc/series.c",
+		"ext/misc/spellfix.c",
+		"ext/misc/totype.c",
+		"ext/misc/unionvtab.c",
+		"ext/misc/wholenumber.c",
+		"ext/misc/zipfile.c",
+		"ext/rbu/test_rbu.c",
+		// "ext/session/test_session.c", // Needs UTF16
+		"ext/userauth/userauth.c",
+		"src/tclsqlite.c",
+		"src/test1.c",
+		"src/test2.c",
+		"src/test3.c",
+		"src/test4.c",
+		"src/test5.c",
+		"src/test6.c",
+		"src/test7.c",
+		"src/test8.c",
+		"src/test9.c",
+		"src/test_async.c",
+		"src/test_autoext.c",
+		"src/test_backup.c",
+		"src/test_bestindex.c",
+		"src/test_blob.c",
+		"src/test_btree.c",
+		"src/test_config.c",
+		"src/test_delete.c",
+		"src/test_demovfs.c",
+		"src/test_devsym.c",
+		"src/test_fs.c",
+		"src/test_func.c",
+		"src/test_hexio.c",
+		"src/test_init.c",
+		"src/test_intarray.c",
+		"src/test_journal.c",
+		"src/test_malloc.c",
+		"src/test_md5.c",
+		"src/test_multiplex.c",
+		"src/test_mutex.c",
+		"src/test_onefile.c",
+		"src/test_osinst.c",
+		"src/test_pcache.c",
+		"src/test_quota.c",
+		"src/test_rtree.c",
+		"src/test_schema.c",
+		"src/test_server.c",
+		"src/test_superlock.c",
+		"src/test_syscall.c",
+		"src/test_tclsh.c",
+		"src/test_tclvar.c",
+		"src/test_thread.c",
+		"src/test_vdbecov.c",
+		"src/test_vfs.c",
+		"src/test_windirent.c",
+		"src/test_window.c",
+		"src/test_wsd.c",
+	}
+	for i, v := range files {
+		files[i] = filepath.Join(sqliteSrcDir, filepath.FromSlash(v))
+	}
 	configure()
 	cmd := newCmd(
 		"ccgo",
-		append(
+		join(
 			[]string{
 				"-DSQLITE_OMIT_LOAD_EXTENSION",
+				"-DSQLITE_SERIES_CONSTRAINT_VERIFY=1",
+				"-DSQLITE_SERVER=1",
 				"-DTCLSH_INIT_PROC=sqlite3TestInit",
-				"-I/usr/include/tcl8.6",
+				"-D_HAVE_SQLITE_CONFIG_H",
+				"-I/usr/include/tcl8.6", //TODO should not be hardcoded
 				"-ccgo-export-defines", "",
 				"-ccgo-export-fields", "F",
-				"-ccgo-pkgname", "testfixture",
-				"-l", "modernc.org/tcl/lib,modernc.org/sqlite/internal/crt2,modernc.org/sqlite/lib",
+				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/lib",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
-				//TODO- "-ccgo-watch-instrumentation", //TODO-
-				filepath.Join(sqliteSrcDir, "ext", "expert", "sqlite3expert.c"),
-				filepath.Join(sqliteSrcDir, "ext", "expert", "test_expert.c"),
-				filepath.Join(sqliteSrcDir, "ext", "fts5", "fts5_tcl.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "amatch.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "carray.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "closure.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "csv.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "eval.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "explain.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "fileio.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "fuzzer.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "ieee754.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "mmapwarm.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "nextchar.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "normalize.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "percentile.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "prefixes.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "regexp.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "remember.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "series.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "spellfix.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "totype.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "unionvtab.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "wholenumber.c"),
-				filepath.Join(sqliteSrcDir, "ext", "misc", "zipfile.c"),
-				filepath.Join(sqliteSrcDir, "ext", "rbu", "sqlite3rbu.c"),
-				filepath.Join(sqliteSrcDir, "ext", "rbu", "test_rbu.c"),
-				filepath.Join(sqliteSrcDir, "src", "tclsqlite.c"),
-				filepath.Join(sqliteSrcDir, "src", "test1.c"),
-				filepath.Join(sqliteSrcDir, "src", "test2.c"),
-				filepath.Join(sqliteSrcDir, "src", "test3.c"),
-				filepath.Join(sqliteSrcDir, "src", "test4.c"),
-				filepath.Join(sqliteSrcDir, "src", "test5.c"),
-				filepath.Join(sqliteSrcDir, "src", "test6.c"),
-				filepath.Join(sqliteSrcDir, "src", "test7.c"),
-				filepath.Join(sqliteSrcDir, "src", "test8.c"),
-				filepath.Join(sqliteSrcDir, "src", "test9.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_async.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_autoext.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_backup.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_bestindex.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_blob.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_btree.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_config.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_delete.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_demovfs.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_devsym.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_fs.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_func.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_hexio.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_init.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_intarray.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_journal.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_malloc.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_md5.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_multiplex.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_mutex.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_onefile.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_osinst.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_pcache.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_quota.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_rtree.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_schema.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_server.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_superlock.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_syscall.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_tclsh.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_tclvar.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_thread.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_vdbecov.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_vfs.c"),
-				filepath.Join(sqliteSrcDir, "src", "test_window.c"),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/fts3"))),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/icu"))),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/rtree"))),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/session"))),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/userauth"))),
+				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("src"))),
 				fmt.Sprintf("-I%s", sqliteDir),
 				fmt.Sprintf("-I%s", sqliteSrcDir),
 			},
-			config...)...,
+			files,
+			more,
+			config)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
 	}
-	os.Remove(filepath.Join(dir, fmt.Sprintf("capi_%s_%s.go", runtime.GOOS, runtime.GOARCH)))
 }
 
-func makeSpeedTest() {
+func makeSpeedTest(more []string) {
 	cmd := newCmd(
 		"ccgo",
-		append(
+		join(
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
 			},
-			config...)...,
+			more,
+			config)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
-func makeMpTest() {
+func makeMpTest(more []string) {
 	cmd := newCmd(
 		"ccgo",
-		append(
+		join(
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
 			},
-			config...)...,
+			more,
+			config)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
-func makeSqlite() {
+func makeSqlite(more []string) {
 	cmd := newCmd(
 		"ccgo",
-		append(
+		join(
 			[]string{
 				"-DSQLITE_PRIVATE=",
 				"-ccgo-export-defines", "",
@@ -405,9 +579,22 @@ func makeSqlite() {
 				//TODO "-ccgo-volatile", "sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_search_count,sqlite3_sort_count",
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
-			config...)...,
+			more,
+			config)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
 	}
+}
+
+func join(a ...[]string) (r []string) {
+	n := 0
+	for _, v := range a {
+		n += len(v)
+	}
+	r = make([]string, 0, n)
+	for _, v := range a {
+		r = append(r, v...)
+	}
+	return r
 }

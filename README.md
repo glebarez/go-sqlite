@@ -1,6 +1,6 @@
 # sqlite
 
-Package sqlite is an in-process implementation of a self-contained, serverless, zero-configuration, transactional SQL database engine. (Work In Progress)
+Package sqlite is an in-process implementation of a self-contained, serverless, zero-configuration, transactional SQL database engine.
 
 Installation
 

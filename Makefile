@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-.PHONY:	all clean cover cpu editor internalError later mem nuke todo edit tcl
+.PHONY:	all clean cover cpu editor internalError later mem nuke todo edit tcl extraquick full
 
 grep=--include=*.go --include=*.l --include=*.y --include=*.yy
 ngrep='TODOOK\|internal\/vfs\|internal\/bin\|internal\/mptest\|.*stringer.*\.go'
@@ -13,23 +13,30 @@ all: editor
 	./unconvert.sh
 	gofmt -l -s -w *.go
 	go test -i
-	go test 2>&1 -timeout 1h | tee -a log
-	#TODO GOOS=linux GOARCH=arm go build
-	#TODO GOOS=linux GOARCH=arm64 go build
-	#TODO GOOS=linux GOARCH=386 go build
-	GOOS=linux GOARCH=amd64 go build
-	#TODO GOOS=windows GOARCH=386 go build
-	#TODO GOOS=windows GOARCH=amd64 go build
-	go vet 2>&1 | grep -v $(ngrep) || true
+	go test -v 2>&1 -timeout 1h | tee -a log
+	go run speedtest1/main_$(shell go env GOOS)_$(shell go env GOARCH).go
+	#TODO GOOS=linux GOARCH=arm go build -v ./...
+	#TODO GOOS=linux GOARCH=arm64 go build -v ./...
+	#TODO GOOS=linux GOARCH=386 go build -v ./...
+	GOOS=linux GOARCH=amd64 go build -v ./...
+	#TODO GOOS=windows GOARCH=386 go build -v ./...
+	#TODO GOOS=windows GOARCH=amd64 go build -v ./...
 	golint 2>&1 | grep -v $(ngrep) || true
-	make todo
 	misspell *.go
-	staticcheck | grep -v 'lexer\.go\|parser\.go' || true
+	staticcheck || true
 	maligned || true
 	git diff --unified=0 testdata *.golden
 	grep -n 'FAIL\|PASS' log 
 	go version
 	date 2>&1 | tee -a log
+
+extraquick:
+	go test -timeout 24h -v -run Tcl -suite extraquick -maxerror 1 2>&1 | tee log-extraquick
+	date
+
+full:
+	go test -timeout 24h -v -run Tcl -suite full 2>&1 | tee log-full
+	date
 
 clean:
 	go clean

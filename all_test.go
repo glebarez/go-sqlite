@@ -21,13 +21,10 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"sync/atomic"
 	"testing"
 	"time"
 
 	"modernc.org/mathutil"
-	"modernc.org/sqlite/internal/testfixture"
-	"modernc.org/tcl"
 )
 
 func caller(s string, va ...interface{}) {
@@ -55,54 +52,63 @@ func dbg(s string, va ...interface{}) {
 	os.Stderr.Sync()
 }
 
-var traceLevel int32
-
-func trace() func() {
-	return func() {}
-	n := atomic.AddInt32(&traceLevel, 1)
-	pc, file, line, _ := runtime.Caller(1)
-	s := strings.Repeat("· ", int(n)-1)
-	fn := runtime.FuncForPC(pc)
-	fmt.Fprintf(os.Stderr, "%s# trace %s:%d:%s: in\n", s, path.Base(file), line, fn.Name())
-	os.Stderr.Sync()
-	return func() {
-		atomic.AddInt32(&traceLevel, -1)
-		fmt.Fprintf(os.Stderr, "%s# trace %s:%d:%s: out\n", s, path.Base(file), line, fn.Name())
-		os.Stderr.Sync()
-	}
-}
-
-func TODO(...interface{}) string { //TODOOK
-	_, fn, fl, _ := runtime.Caller(1)
-	return fmt.Sprintf("# TODO: %s:%d:\n", path.Base(fn), fl) //TODOOK
-}
-
 func stack() string { return string(debug.Stack()) }
 
 func use(...interface{}) {}
 
 func init() {
-	use(caller, dbg, TODO, trace, stack) //TODOOK
+	use(caller, dbg, stack, todo, trc) //TODOOK
+}
+
+func origin(skip int) string {
+	pc, fn, fl, _ := runtime.Caller(skip)
+	f := runtime.FuncForPC(pc)
+	var fns string
+	if f != nil {
+		fns = f.Name()
+		if x := strings.LastIndex(fns, "."); x > 0 {
+			fns = fns[x+1:]
+		}
+	}
+	return fmt.Sprintf("%s:%d:%s", fn, fl, fns)
+}
+
+func todo(s string, args ...interface{}) string { //TODO-
+	switch {
+	case s == "":
+		s = fmt.Sprintf(strings.Repeat("%v ", len(args)), args...)
+	default:
+		s = fmt.Sprintf(s, args...)
+	}
+	r := fmt.Sprintf("%s: TODOTODO %s", origin(2), s) //TODOOK
+	fmt.Fprintf(os.Stdout, "%s\n", r)
+	os.Stdout.Sync()
+	return r
+}
+
+func trc(s string, args ...interface{}) string { //TODO-
+	switch {
+	case s == "":
+		s = fmt.Sprintf(strings.Repeat("%v ", len(args)), args...)
+	default:
+		s = fmt.Sprintf(s, args...)
+	}
+	r := fmt.Sprintf("\n%s: TRC %s", origin(2), s)
+	fmt.Fprintf(os.Stdout, "%s\n", r)
+	os.Stdout.Sync()
+	return r
 }
 
 // ============================================================================
 
 var (
-	oMaxError   = flag.Uint("maxerror", 0, "argument of -maxerror passed to the Tcl test suite")
-	oStart      = flag.String("start", "", "argument of -start passed to the Tcl test suite (--start=[$permutation:]$testfile)")
-	oTcl        = flag.Bool("tcl", true, "enable Tcl tests")
-	oVerbose    = flag.String("verbose", "0", "argument of -verbose passed to the Tcl test suite, must be set to a boolean (0, 1) or to \"file\"")
 	oRecsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
+	oXTags      = flag.String("xtags", "", "passed to go build of testfixture in TestTclTest")
 )
 
 func TestMain(m *testing.M) {
-	oTestFixture := flag.Bool("testfixture", false, "emulate running the testfixture binary produced by sqlite3 '$ make tcltest'")
 	flag.Parse()
-	if !*oTestFixture {
-		os.Exit(m.Run())
-	}
-
-	tclTestMain()
+	os.Exit(m.Run())
 }
 
 func tempDB(t testing.TB) (string, *sql.DB) {
@@ -527,7 +533,12 @@ func TestConcurrentProcesses(t *testing.T) {
 		}
 	}
 
-	out, err := exec.Command("go", "build", "-o", filepath.Join(dir, "mptest"), "modernc.org/sqlite/internal/mptest").CombinedOutput()
+	args := []string{"build", "-o", filepath.Join(dir, "mptest")}
+	if s := *oXTags; s != "" {
+		args = append(args, "-tags", s)
+	}
+	args = append(args, "modernc.org/sqlite/internal/mptest")
+	out, err := exec.Command("go", args...).CombinedOutput()
 	if err != nil {
 		t.Fatalf("%s\n%v", out, err)
 	}
@@ -785,154 +796,4 @@ func TestNoRows(t *testing.T) {
 	if _, err := stmt.Query(); err != nil {
 		t.Fatal(err)
 	}
-}
-
-func TestTclTest(t *testing.T) {
-	if !*oTcl {
-		t.Skip("Not enabled")
-	}
-
-	blacklist := []string{
-		//TODO crashers
-		"misc1.test",
-		"quota2.test",
-		"zipfile.test",
-
-		//TODO needs fork
-		"exists.test",
-		"multiplex2.test",
-		"pager1.test",
-		"rowallock.test",
-		"savepoint.test",
-		"schema3.test",
-		"shared2.test",
-		"superlock.test",
-		"syscall.test",
-		"tkt-5d863f876e.test",
-		"tkt-fc62af4523.test",
-		"unixexcl.test",
-		"wal.test",
-		"wal5.test",
-		"walro.test",
-		"walro2.test",
-		"walsetlk.test",
-
-		//TODO exits tests
-		"index.test",
-
-		//TODO OOM
-		"csv01.test",
-	}
-	if testing.Short() {
-		blacklist = append(blacklist, []string{
-			"altermalloc.test",
-			"altermalloc2.test",
-			"attachmalloc.test",
-			"backup_ioerr.test",
-			"backup_malloc.test",
-			"corruptC.test",
-			"e_walckpt.test",
-			"fkey_malloc.test",
-			"fuzz.test",
-			"fuzz3.test",
-			"incrvacuum_ioerr.test",
-			"pagerfault2.test",
-			"savepoint6.test",
-			"savepointfault.test",
-			"securedel2.test",
-			"shared_err.test",
-			"sort3.test",
-			"tempfault.test",
-			"vacuum3.test",
-			"vtab_err.test",
-			"walprotocol.test",
-		}...)
-	}
-
-	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	dir, err := ioutil.TempDir("", "sqlite-test-")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer os.RemoveAll(dir)
-
-	wd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer os.Chdir(wd)
-
-	if err := os.Chdir(dir); err != nil {
-		t.Fatal(err)
-	}
-
-	blacklisted := map[string]struct{}{}
-	for _, v := range blacklist {
-		blacklisted[v] = struct{}{}
-	}
-	for _, v := range m {
-		if _, ok := blacklisted[filepath.Base(v)]; ok {
-			continue
-		}
-
-		s := filepath.Join(wd, v)
-		d := filepath.Join(dir, filepath.Base(v))
-		f, err := ioutil.ReadFile(s)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := ioutil.WriteFile(d, f, 0660); err != nil {
-			t.Fatal(err)
-		}
-	}
-
-	library := filepath.Join(dir, "library")
-	if err := tcl.Library(library); err != nil {
-		t.Fatal(err)
-	}
-
-	os.Setenv("TCL_LIBRARY", library)
-	//TODO f, err := os.Create(filepath.Join(wd, "testdata", filepath.Join("testdata", fmt.Sprintf("testfixture_%s_%s.golden", runtime.GOOS, runtime.GOARCH))))
-	//TODO if err != nil {
-	//TODO 	t.Fatal(err)
-	//TODO }
-
-	//TODO defer f.Close()
-
-	//TODO args := []string{"-testfixture", "all.test"}
-	args := []string{"-testfixture", "permutations.test", "extraquick"}
-	if *oVerbose != "" {
-		args = append(args, fmt.Sprintf("-verbose=%s", *oVerbose))
-	}
-	if *oMaxError != 0 {
-		args = append(args, fmt.Sprintf("-maxerror=%d", *oMaxError))
-	}
-	if *oStart != "" {
-		args = append(args, fmt.Sprintf("-start=%s", *oStart))
-	}
-	cmd := exec.Command(os.Args[0], args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
-		t.Fatal(err)
-	}
-}
-
-func tclTestMain() {
-	var argv []string
-	for _, v := range os.Args {
-		if !strings.HasPrefix(v, "-test.") && v != "-testfixture" {
-			argv = append(argv, v)
-		}
-	}
-	os.Args = argv
-	fmt.Printf("testfixture %q\n", os.Args)
-	testfixture.Main()
-	panic("unreachable")
 }

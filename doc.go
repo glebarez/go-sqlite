@@ -3,9 +3,30 @@
 // license that can be found in the LICENSE file.
 
 // Package sqlite is an in-process implementation of a self-contained,
-// serverless, zero-configuration, transactional SQL database engine. (Work In Progress)
+// serverless, zero-configuration, transactional SQL database engine.
 //
 // Changelog
+//
+// 2020-08-26 v1.4.0:
+//
+// First stable release for linux/amd64.  The database/sql driver and its tests
+// are CGo free.  Tests of the translated sqlite3.c library still require CGo.
+//
+//	$ make full
+//
+//	...
+//
+//	SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+//	0 errors out of 928271 tests on 3900x Linux 64-bit little-endian
+//	WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+//	All memory allocations freed - no leaks
+//	Maximum memory usage: 9156360 bytes
+//	Current memory usage: 0 bytes
+//	Number of malloc()  : -1 calls
+//	--- PASS: TestTclTest (1785.04s)
+//	PASS
+//	ok  	modernc.org/sqlite	1785.041s
+//	$
 //
 // 2020-07-26 v1.4.0-beta1:
 //
@@ -56,8 +77,9 @@
 //
 //	...
 //
-//
 // Supported platforms and architectures
+//
+// These combinations of GOOS and GOARCH are currently supported
 //
 // 	linux	amd64
 //
@@ -68,6 +90,21 @@
 // 	linux	arm64
 // 	windows	386
 // 	windows	amd64
+//
+// Debug and development versions
+//
+// A comma separated list of options can be passed to `go generate` via the
+// environment variable GO_GENERATE. Some useful options include for example:
+//
+//	-DSQLITE_DEBUG
+//	-DSQLITE_MEM_DEBUG
+//	-ccgo-verify-structs
+//
+// To create a debug/development version, issue for example:
+//
+//	$ GO_GENERATE=-DSQLITE_DEBUG,-DSQLITE_MEM_DEBUG go generate
+//
+// Note: To run `go generate` you need to have modernc.org/ccgo/v3 installed.
 //
 // Sqlite documentation
 //
