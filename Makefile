@@ -26,7 +26,7 @@ all: editor
 	staticcheck || true
 	maligned || true
 	git diff --unified=0 testdata *.golden
-	grep -n 'FAIL\|PASS' log 
+	grep -n --color=always 'FAIL\|PASS' log 
 	go version
 	date 2>&1 | tee -a log
 
