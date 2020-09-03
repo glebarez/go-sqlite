@@ -7,6 +7,10 @@
 //
 // Changelog
 //
+// 2020-09-03 v1.5.0:
+//
+// This project is now completely CGo-free, including the Tcl tests.
+//
 // 2020-08-26 v1.4.0:
 //
 // First stable release for linux/amd64.  The database/sql driver and its tests
