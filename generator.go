@@ -326,6 +326,14 @@ func fail(s string, args ...interface{}) {
 
 func main() {
 	env := os.Getenv("GO_GENERATE")
+	goarch := runtime.GOARCH
+	goos := runtime.GOOS
+	if s := os.Getenv("TARGET_GOOS"); s != "" {
+		goos = s
+	}
+	if s := os.Getenv("TARGET_GOARCH"); s != "" {
+		goarch = s
+	}
 	var more []string
 	if env != "" {
 		more = strings.Split(env, ",")
@@ -338,10 +346,10 @@ func main() {
 	}
 	more = append(more, ndebug...)
 	download()
-	makeSqlite(more)
-	makeMpTest(more)
-	makeSpeedTest(more)
-	makeTestfixture(more)
+	makeSqlite(goos, goarch, more)
+	makeMpTest(goos, goarch, more)
+	makeSpeedTest(goos, goarch, more)
+	makeTestfixture(goos, goarch, more)
 
 	dst := filepath.FromSlash("testdata/tcl")
 	if err := os.MkdirAll(dst, 0770); err != nil {
@@ -406,7 +414,7 @@ func newCmd(bin string, args ...string) *exec.Cmd {
 	return r
 }
 
-func makeTestfixture(more []string) {
+func makeTestfixture(goos, goarch string, more []string) {
 	dir := filepath.FromSlash(fmt.Sprintf("internal/testfixture"))
 	files := []string{
 		"ext/expert/sqlite3expert.c",
@@ -507,7 +515,7 @@ func makeTestfixture(more []string) {
 				"-ccgo-export-defines", "",
 				"-ccgo-export-fields", "F",
 				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/lib",
-				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
+				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/fts3"))),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/icu"))),
@@ -527,12 +535,12 @@ func makeTestfixture(more []string) {
 	}
 }
 
-func makeSpeedTest(more []string) {
+func makeSpeedTest(goos, goarch string, more []string) {
 	cmd := newCmd(
 		"ccgo",
 		join(
 			[]string{
-				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
+				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
@@ -545,12 +553,12 @@ func makeSpeedTest(more []string) {
 	}
 }
 
-func makeMpTest(more []string) {
+func makeMpTest(goos, goarch string, more []string) {
 	cmd := newCmd(
 		"ccgo",
 		join(
 			[]string{
-				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
+				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
@@ -563,7 +571,7 @@ func makeMpTest(more []string) {
 	}
 }
 
-func makeSqlite(more []string) {
+func makeSqlite(goos, goarch string, more []string) {
 	cmd := newCmd(
 		"ccgo",
 		join(
@@ -575,7 +583,7 @@ func makeSqlite(more []string) {
 				"-ccgo-export-fields", "F",
 				"-ccgo-export-typedefs", "",
 				"-ccgo-pkgname", "sqlite3",
-				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", runtime.GOOS, runtime.GOARCH)),
+				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", goos, goarch)),
 				//TODO "-ccgo-volatile", "sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_search_count,sqlite3_sort_count",
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},

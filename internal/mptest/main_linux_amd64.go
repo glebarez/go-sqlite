@@ -728,7 +728,7 @@ type sqlite3_callback = uintptr /* sqlite3.h:338:13 */
 // for their own use.  The pMethods entry is a pointer to an
 // [sqlite3_io_methods] object that defines methods for performing
 // I/O operations on the open file.
-type sqlite3_file1 = struct{ pMethods uintptr }
+type sqlite3_file1 = struct{ pMethods uintptr } /* sqlite3.h:683:9 */
 
 // CAPI3REF: Result Codes
 // KEYWORDS: {result code definitions}
@@ -860,7 +860,7 @@ type sqlite3_io_methods1 = struct {
 	xShmUnmap              uintptr
 	xFetch                 uintptr
 	xUnfetch               uintptr
-}
+} /* sqlite3.h:683:9 */
 
 // CAPI3REF: OS Interface File Virtual Methods Object
 //
@@ -1146,7 +1146,7 @@ type sqlite3_vfs1 = struct {
 	xSetSystemCall    uintptr
 	xGetSystemCall    uintptr
 	xNextSystemCall   uintptr
-}
+} /* sqlite3.h:1367:9 */
 
 // CAPI3REF: OS Interface Object
 //
@@ -1388,7 +1388,7 @@ type sqlite3_mem_methods1 = struct {
 	xInit     uintptr
 	xShutdown uintptr
 	pAppData  uintptr
-}
+} /* sqlite3.h:1665:9 */
 
 // CAPI3REF: Memory Allocation Routines
 //
@@ -1479,7 +1479,7 @@ type sqlite3_vtab1 = struct {
 	pModule uintptr
 	nRef    int32
 	zErrMsg uintptr
-}
+} /* sqlite3.h:6689:9 */
 
 // The interface to the virtual-table mechanism is currently considered
 // to be experimental.  The interface might change in incompatible ways.
@@ -1504,10 +1504,10 @@ type sqlite3_index_info1 = struct {
 	estimatedRows    sqlite3_int64
 	idxFlags         int32
 	colUsed          sqlite3_uint64
-}
+} /* sqlite3.h:6690:9 */
 
-type sqlite3_index_info = sqlite3_index_info1 /* sqlite3.h:6690:35 */
-type sqlite3_vtab_cursor1 = struct{ pVtab uintptr }
+type sqlite3_index_info = sqlite3_index_info1       /* sqlite3.h:6690:35 */
+type sqlite3_vtab_cursor1 = struct{ pVtab uintptr } /* sqlite3.h:6691:9 */
 
 type sqlite3_vtab_cursor = sqlite3_vtab_cursor1 /* sqlite3.h:6691:36 */
 type sqlite3_module1 = struct {
@@ -1535,7 +1535,7 @@ type sqlite3_module1 = struct {
 	xRelease      uintptr
 	xRollbackTo   uintptr
 	xShadowName   uintptr
-}
+} /* sqlite3.h:6689:9 */
 
 type sqlite3_module = sqlite3_module1 /* sqlite3.h:6692:31 */
 
@@ -1644,7 +1644,7 @@ type sqlite3_index_constraint = struct {
 	op          uint8
 	usable      uint8
 	iTermOffset int32
-}
+} /* sqlite3.h:6690:9 */
 
 // CAPI3REF: Virtual Table Indexing Information
 // KEYWORDS: sqlite3_index_info
@@ -1750,7 +1750,7 @@ type sqlite3_index_orderby = struct {
 	iColumn int32
 	desc    uint8
 	_       [3]byte
-}
+} /* sqlite3.h:6690:9 */
 
 // CAPI3REF: Virtual Table Indexing Information
 // KEYWORDS: sqlite3_index_info
@@ -1856,7 +1856,7 @@ type sqlite3_index_constraint_usage = struct {
 	argvIndex int32
 	omit      uint8
 	_         [3]byte
-}
+} /* sqlite3.h:6690:9 */
 
 // CAPI3REF: Mutex Methods Object
 //
@@ -1931,7 +1931,7 @@ type sqlite3_mutex_methods1 = struct {
 	xMutexLeave   uintptr
 	xMutexHeld    uintptr
 	xMutexNotheld uintptr
-}
+} /* sqlite3.h:7524:9 */
 
 // CAPI3REF: Mutex Methods Object
 //
@@ -2009,7 +2009,7 @@ type sqlite3_mutex_methods = sqlite3_mutex_methods1 /* sqlite3.h:7524:38 */
 type sqlite3_pcache_page1 = struct {
 	pBuf   uintptr
 	pExtra uintptr
-}
+} /* sqlite3.h:8277:9 */
 
 // CAPI3REF: Custom Page Cache Object
 //
@@ -2192,7 +2192,7 @@ type sqlite3_pcache_methods21 = struct {
 	xTruncate  uintptr
 	xDestroy   uintptr
 	xShrink    uintptr
-}
+} /* sqlite3.h:8442:9 */
 
 // CAPI3REF: Application Defined Page Cache.
 // KEYWORDS: {page cache}
@@ -2368,7 +2368,7 @@ type sqlite3_pcache_methods1 = struct {
 	xRekey     uintptr
 	xTruncate  uintptr
 	xDestroy   uintptr
-}
+} /* sqlite3.h:8465:9 */
 
 // This is the obsolete pcache_methods object that has now been replaced
 // by sqlite3_pcache_methods2.  This object is not used by SQLite.  It is
@@ -2393,7 +2393,7 @@ type sqlite3_pcache_methods = sqlite3_pcache_methods1 /* sqlite3.h:8465:39 */
 // version of the database file so that it is possible to later open a new read
 // transaction that sees that historical version of the database rather than
 // the most recent version.
-type sqlite3_snapshot1 = struct{ hidden [48]uint8 }
+type sqlite3_snapshot1 = struct{ hidden [48]uint8 } /* sqlite3.h:9512:9 */
 
 // CAPI3REF: Database Snapshot
 // KEYWORDS: {snapshot} {sqlite3_snapshot}
@@ -2456,7 +2456,7 @@ type sqlite3_rtree_geometry1 = struct {
 	aParam   uintptr
 	pUser    uintptr
 	xDelUser uintptr
-}
+} /* sqlite3.h:9839:9 */
 
 // CAPI3REF: Flags for sqlite3_deserialize()
 //
@@ -2511,7 +2511,7 @@ type sqlite3_rtree_query_info1 = struct {
 	eWithin       int32
 	rScore        sqlite3_rtree_dbl
 	apSqlParam    uintptr
-}
+} /* sqlite3.h:9840:9 */
 
 type sqlite3_rtree_query_info = sqlite3_rtree_query_info1 /* sqlite3.h:9840:41 */
 
@@ -2571,7 +2571,7 @@ type Fts5ExtensionApi1 = struct {
 	xPhraseNext        uintptr
 	xPhraseFirstColumn uintptr
 	xPhraseNextColumn  uintptr
-}
+} /* sqlite3.h:11634:9 */
 
 // Allowed values for sqlite3_rtree_query.eWithin and .eParentWithin.
 
@@ -2608,7 +2608,7 @@ type Fts5ExtensionApi = Fts5ExtensionApi1 /* sqlite3.h:11634:33 */
 type Fts5PhraseIter1 = struct {
 	a uintptr
 	b uintptr
-}
+} /* sqlite3.h:11636:9 */
 
 type Fts5PhraseIter = Fts5PhraseIter1 /* sqlite3.h:11636:31 */
 
@@ -2617,7 +2617,7 @@ type fts5_tokenizer1 = struct {
 	xCreate   uintptr
 	xDelete   uintptr
 	xTokenize uintptr
-}
+} /* sqlite3.h:12097:9 */
 
 type fts5_tokenizer = fts5_tokenizer1 /* sqlite3.h:12097:31 */
 
@@ -2638,7 +2638,7 @@ type fts5_api1 = struct {
 	xCreateTokenizer uintptr
 	xFindTokenizer   uintptr
 	xCreateFunction  uintptr
-}
+} /* sqlite3.h:12133:9 */
 
 // Flags that may be passed as the third argument to xTokenize()
 
@@ -2663,7 +2663,7 @@ type _G_fpos_t = struct {
 		__count int32
 		__value struct{ __wch uint32 }
 	}
-}
+} /* __fpos_t.h:10:9 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
 //   Copyright (C) 2002-2018 Free Software Foundation, Inc.
@@ -2694,7 +2694,7 @@ type _G_fpos64_t = struct {
 		__count int32
 		__value struct{ __wch uint32 }
 	}
-}
+} /* __fpos64_t.h:10:9 */
 
 type _IO_FILE = struct {
 	_flags          int32
@@ -2726,7 +2726,7 @@ type _IO_FILE = struct {
 	__pad5          size_t
 	_mode           int32
 	_unused2        [20]int8
-}
+} /* __FILE.h:4:1 */
 
 // The opaque type of streams.  This is the definition used elsewhere.
 type FILE = _IO_FILE /* FILE.h:7:25 */
@@ -2760,12 +2760,14 @@ type FILE = _IO_FILE /* FILE.h:7:25 */
 
 // ISO C Standard:  7.15  Variable arguments  <stdarg.h>
 
-type off_t = int64 /* stdio.h:63:17 */
+type off_t = int64   /* stdio.h:65:19 */
+type off64_t = int64 /* stdio.h:70:19 */
 
 type ssize_t = int64 /* stdio.h:77:19 */
 
 // The type of the second argument to `fgetpos' and `fsetpos'.
-type fpos_t = _G_fpos_t /* stdio.h:84:18 */
+type fpos_t = _G_fpos64_t   /* stdio.h:86:20 */
+type fpos64_t = _G_fpos64_t /* stdio.h:89:20 */
 
 // If we are compiling with optimizing read this file.  It contains
 //   several optimizing inline functions and macros.
@@ -3347,7 +3349,8 @@ type u_quad_t = uint64                 /* types.h:38:20 */
 type fsid_t = struct{ __val [2]int32 } /* types.h:39:18 */
 type loff_t = int64                    /* types.h:42:18 */
 
-type ino_t = uint64 /* types.h:47:17 */
+type ino_t = uint64   /* types.h:49:19 */
+type ino64_t = uint64 /* types.h:54:19 */
 
 type dev_t = uint64 /* types.h:59:17 */
 
@@ -3624,7 +3627,7 @@ type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
 type timeval = struct {
 	tv_sec  int64
 	tv_usec int64
-}
+} /* struct_timeval.h:8:1 */
 
 // NB: Include guard matches what <linux/time.h> uses.
 
@@ -3653,7 +3656,7 @@ type timeval = struct {
 type timespec = struct {
 	tv_sec  int64
 	tv_nsec int64
-}
+} /* struct_timespec.h:9:1 */
 
 type suseconds_t = int64 /* select.h:43:23 */
 
@@ -3673,9 +3676,13 @@ type fd_mask = int64 /* select.h:77:19 */
 type blksize_t = int64 /* types.h:202:21 */
 
 // Types from the Large File Support interface.
-type blkcnt_t = int64    /* types.h:209:20 */ // Type to count number of disk blocks.
-type fsblkcnt_t = uint64 /* types.h:213:22 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:217:22 */ // Type to count file system inodes.
+type blkcnt_t = int64    /* types.h:222:22 */ // Type to count number of disk blocks.
+type fsblkcnt_t = uint64 /* types.h:226:24 */ // Type to count file system blocks.
+type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inodes.
+
+type blkcnt64_t = int64    /* types.h:236:22 */ // Type to count number of disk blocks.
+type fsblkcnt64_t = uint64 /* types.h:237:24 */ // Type to count file system blocks.
+type fsfilcnt64_t = uint64 /* types.h:238:24 */ // Type to count file system inodes.
 
 // Now add the thread types.
 // Declaration of common pthread types for all architectures.
@@ -3807,14 +3814,14 @@ type __pthread_rwlock_arch_t = struct {
 	__pad2          uint64
 	__flags         uint32
 	_               [4]byte
-}
+} /* pthreadtypes-arch.h:65:1 */
 
 // Common definition of pthread_mutex_t.
 
 type __pthread_internal_list = struct {
 	__prev uintptr
 	__next uintptr
-}
+} /* thread-shared-types.h:82:9 */
 
 // Lock elision support.
 
@@ -3830,7 +3837,7 @@ type __pthread_mutex_s = struct {
 		__prev uintptr
 		__next uintptr
 	}
-}
+} /* thread-shared-types.h:118:1 */
 
 // Common definition of pthread_cond_t.
 
@@ -3842,7 +3849,7 @@ type __pthread_cond_s = struct {
 	__g1_orig_size uint32
 	__wrefs        uint32
 	__g_signals    [2]uint32
-}
+} /* thread-shared-types.h:171:1 */
 
 // Thread identifiers.  The structure of the attribute type is not
 //   exposed on purpose.
@@ -3871,7 +3878,7 @@ type pthread_once_t = int32 /* pthreadtypes.h:53:30 */
 type pthread_attr_t1 = struct {
 	_      [0]uint64
 	__size [56]int8
-}
+} /* pthreadtypes.h:56:1 */
 
 type pthread_attr_t = pthread_attr_t1 /* pthreadtypes.h:62:30 */
 
@@ -3915,7 +3922,7 @@ type random_data = struct {
 	rand_deg  int32
 	rand_sep  int32
 	end_ptr   uintptr
-}
+} /* stdlib.h:423:1 */
 
 // Data structure for communication with thread safe versions.  This
 //   type is to be regarded as opaque.  It's only exported because users
@@ -3926,7 +3933,7 @@ type drand48_data = struct {
 	__c     uint16
 	__init  uint16
 	__a     uint64
-}
+} /* stdlib.h:490:1 */
 
 // POSIX.1-2008 extended locale interface (see locale.h).
 // Definition of locale_t.
@@ -3977,7 +3984,7 @@ type __locale_struct = struct {
 	__ctype_tolower uintptr
 	__ctype_toupper uintptr
 	__names         [13]uintptr
-}
+} /* __locale_t.h:28:1 */
 
 type locale_t = uintptr /* locale_t.h:24:20 */
 
@@ -4006,7 +4013,7 @@ type Global = struct {
 	nTest            int32
 	iTimeout         int32
 	bSync            int32
-}
+} /* mptest.c:72:8 */
 
 // The suffix to append to the child command lines, if any
 
@@ -4382,7 +4389,7 @@ type String1 = struct {
 	z      uintptr
 	n      int32
 	nAlloc int32
-}
+} /* mptest.c:408:9 */
 
 // Structure for holding an arbitrary length string
 type String = String1 /* mptest.c:408:23 */
@@ -4658,7 +4665,7 @@ func readFile(tls *libc.TLS, zFilename uintptr) uintptr { /* mptest.c:684:13: */
 	bp := tls.Alloc(8)
 	defer tls.Free(8)
 
-	var in uintptr = libc.Xfopen(tls, zFilename, ts+864 /* "rb" */)
+	var in uintptr = libc.Xfopen64(tls, zFilename, ts+864 /* "rb" */)
 	var sz int64
 	var z uintptr
 	if in == uintptr(0) {
@@ -5326,12 +5333,12 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	g.bSqlTrace = (libc.Bool32(findOption(tls, (argv+uintptr(2)*8), bp+232 /* &n */, ts+2548 /* "sqltrace" */, 0) != uintptr(0)))
 	g.bSync = (libc.Bool32(findOption(tls, (argv+uintptr(2)*8), bp+232 /* &n */, ts+2557 /* "sync" */, 0) != uintptr(0)))
 	if g.zErrLog != 0 {
-		g.pErrLog = libc.Xfopen(tls, g.zErrLog, ts+2562 /* "a" */)
+		g.pErrLog = libc.Xfopen64(tls, g.zErrLog, ts+2562 /* "a" */)
 	} else {
 		g.pErrLog = libc.Xstderr
 	}
 	if g.zLog != 0 {
-		g.pLog = libc.Xfopen(tls, g.zLog, ts+2562 /* "a" */)
+		g.pLog = libc.Xfopen64(tls, g.zLog, ts+2562 /* "a" */)
 	} else {
 		g.pLog = libc.Xstdout
 	}

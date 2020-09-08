@@ -537,6 +537,7 @@ const (
 	X_BSD_SIZE_T_DEFINED_                 = 0
 	X_DEFAULT_SOURCE                      = 1
 	X_FEATURES_H                          = 1
+	X_FILE_OFFSET_BITS                    = 64
 	X_FTS5_H                              = 0
 	X_GCC_SIZE_T                          = 0
 	X_HAVE_SQLITE_CONFIG_H                = 1
@@ -1159,6 +1160,7 @@ const (
 	O_DSYNC                               = 4096
 	O_EXCL                                = 0200
 	O_FSYNC                               = 1052672
+	O_LARGEFILE                           = 0
 	O_NDELAY                              = 2048
 	O_NOCTTY                              = 0400
 	O_NOFOLLOW                            = 131072
@@ -1521,6 +1523,7 @@ const (
 	Z_TREES                               = 6
 	Z_UNKNOWN                             = 2
 	Z_VERSION_ERROR                       = -6
+	Z_WANT64                              = 0
 	X_ANSI_STDDEF_H                       = 0
 	X_BSD_PTRDIFF_T_                      = 0
 	X_GCC_MAX_ALIGN_T                     = 0
@@ -2656,7 +2659,6 @@ const (
 	XN_ROWID                              = -1
 	X_BITS_STDINT_UINTN_H                 = 1
 	X_BITS_WCHAR_H                        = 1
-	X_FILE_OFFSET_BITS                    = 64
 	X_GCC_WRAP_STDINT_H                   = 0
 	X_INTTYPES_H                          = 1
 	X_LARGEFILE_SOURCE                    = 1
@@ -2738,7 +2740,6 @@ const (
 	DEVSYM_MAX_PATHNAME                   = 512
 	DEVSYM_VFS_NAME                       = "devsym"
 	WRITECRASH_NAME                       = "writecrash"
-	O_LARGEFILE                           = 0
 	SQLITE_INTARRAY_H                     = 0
 	JT_MAX_PATHNAME                       = 512
 	JT_VFS_NAME                           = "jt"
@@ -2885,24 +2886,6 @@ const (
 	TESTVFS_UNLOCK_MASK                   = 0x00020000
 	TESTVFS_WRITE_MASK                    = 0x00001000
 )
-
-// Definitions for POSIX 1003.1b-1993 (aka POSIX.4) scheduling interface.
-//   Copyright (C) 1996-2018 Free Software Foundation, Inc.
-//   This file is part of the GNU C Library.
-//
-//   The GNU C Library is free software; you can redistribute it and/or
-//   modify it under the terms of the GNU Lesser General Public
-//   License as published by the Free Software Foundation; either
-//   version 2.1 of the License, or (at your option) any later version.
-//
-//   The GNU C Library is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//   Lesser General Public License for more details.
-//
-//   You should have received a copy of the GNU Lesser General Public
-//   License along with the GNU C Library; if not, see
-//   <http://www.gnu.org/licenses/>.
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -3548,15 +3531,9 @@ const ( /* resource.h:187:1: */
 	PRIO_USER    = 2
 )
 
-// end block for C++
+// Convenience macros for operations on timevals.
+//   NOTE: `timercmp' does not work for >= or <=.
 
-// Local Variables:
-// mode: c
-// c-basic-offset: 4
-// fill-column: 78
-// End:
-
-// Needed for the setrlimit() system call on unix
 // Copyright (C) 1992-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
 //
@@ -4066,7 +4043,7 @@ type sqlite32 = struct {
 	FpUnlockArg          uintptr
 	FxUnlockNotify       uintptr
 	FpNextBlocked        uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // CAPI3REF: 64-Bit Integer Types
 // KEYWORDS: sqlite_int64 sqlite_uint64
@@ -4201,7 +4178,7 @@ type sqlite3_callback = uintptr /* sqlite3.h:338:13 */
 // for their own use.  The pMethods entry is a pointer to an
 // [sqlite3_io_methods] object that defines methods for performing
 // I/O operations on the open file.
-type sqlite3_file1 = struct{ FpMethods uintptr }
+type sqlite3_file1 = struct{ FpMethods uintptr } /* sqlite3.h:683:9 */
 
 // CAPI3REF: Result Codes
 // KEYWORDS: {result code definitions}
@@ -4333,7 +4310,7 @@ type sqlite3_io_methods1 = struct {
 	FxShmUnmap              uintptr
 	FxFetch                 uintptr
 	FxUnfetch               uintptr
-}
+} /* sqlite3.h:683:9 */
 
 // CAPI3REF: OS Interface File Virtual Methods Object
 //
@@ -4764,7 +4741,7 @@ type sqlite3_mutex1 = struct {
 	FpReal uintptr
 	FeType int32
 	_      [4]byte
-}
+} /* sqlite3.h:1186:9 */
 
 // CAPI3REF: Loadable Extension Thunk
 //
@@ -5025,7 +5002,7 @@ type sqlite3_api_routines1 = struct {
 	Fcreate_filename        uintptr
 	Ffree_filename          uintptr
 	Fdatabase_file_object   uintptr
-}
+} /* sqlite3.h:1196:9 */
 
 // CAPI3REF: OS Interface Object
 //
@@ -5217,7 +5194,7 @@ type sqlite3_vfs1 = struct {
 	FxSetSystemCall    uintptr
 	FxGetSystemCall    uintptr
 	FxNextSystemCall   uintptr
-}
+} /* sqlite3.h:1367:9 */
 
 // CAPI3REF: OS Interface Object
 //
@@ -5459,7 +5436,7 @@ type sqlite3_mem_methods1 = struct {
 	FxInit     uintptr
 	FxShutdown uintptr
 	FpAppData  uintptr
-}
+} /* sqlite3.h:1665:9 */
 
 // CAPI3REF: Memory Allocation Routines
 //
@@ -5574,7 +5551,7 @@ type sqlite3_value1 = struct {
 	FuTemp    u322
 	Fdb       uintptr
 	FxDel     uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // CAPI3REF: SQL Function Context Object
 //
@@ -5596,7 +5573,7 @@ type sqlite3_context1 = struct {
 	FskipFlag u8
 	Fargc     u8
 	Fargv     [1]uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // CAPI3REF: Constants Defining Special Destructor Behavior
 //
@@ -5624,7 +5601,7 @@ type sqlite3_vtab1 = struct {
 	FpModule uintptr
 	FnRef    int32
 	FzErrMsg uintptr
-}
+} /* sqlite3.h:6689:9 */
 
 // The interface to the virtual-table mechanism is currently considered
 // to be experimental.  The interface might change in incompatible ways.
@@ -5649,10 +5626,10 @@ type sqlite3_index_info1 = struct {
 	FestimatedRows    sqlite3_int64
 	FidxFlags         int32
 	FcolUsed          sqlite3_uint64
-}
+} /* sqlite3.h:6690:9 */
 
-type sqlite3_index_info = sqlite3_index_info1 /* sqlite3.h:6690:35 */
-type sqlite3_vtab_cursor1 = struct{ FpVtab uintptr }
+type sqlite3_index_info = sqlite3_index_info1        /* sqlite3.h:6690:35 */
+type sqlite3_vtab_cursor1 = struct{ FpVtab uintptr } /* sqlite3.h:6691:9 */
 
 type sqlite3_vtab_cursor = sqlite3_vtab_cursor1 /* sqlite3.h:6691:36 */
 type sqlite3_module1 = struct {
@@ -5680,7 +5657,7 @@ type sqlite3_module1 = struct {
 	FxRelease      uintptr
 	FxRollbackTo   uintptr
 	FxShadowName   uintptr
-}
+} /* sqlite3.h:6689:9 */
 
 type sqlite3_module = sqlite3_module1 /* sqlite3.h:6692:31 */
 
@@ -5789,7 +5766,7 @@ type sqlite3_index_constraint = struct {
 	Fop          uint8
 	Fusable      uint8
 	FiTermOffset int32
-}
+} /* sqlite3.h:6690:9 */
 
 // CAPI3REF: Virtual Table Indexing Information
 // KEYWORDS: sqlite3_index_info
@@ -5895,7 +5872,7 @@ type sqlite3_index_orderby = struct {
 	FiColumn int32
 	Fdesc    uint8
 	_        [3]byte
-}
+} /* sqlite3.h:6690:9 */
 
 // CAPI3REF: Virtual Table Indexing Information
 // KEYWORDS: sqlite3_index_info
@@ -6001,7 +5978,7 @@ type sqlite3_index_constraint_usage = struct {
 	FargvIndex int32
 	Fomit      uint8
 	_          [3]byte
-}
+} /* sqlite3.h:6690:9 */
 
 // CAPI3REF: Mutex Methods Object
 //
@@ -6076,7 +6053,7 @@ type sqlite3_mutex_methods1 = struct {
 	FxMutexLeave   uintptr
 	FxMutexHeld    uintptr
 	FxMutexNotheld uintptr
-}
+} /* sqlite3.h:7524:9 */
 
 // CAPI3REF: Mutex Methods Object
 //
@@ -6166,7 +6143,7 @@ type sqlite3_str1 = struct {
 	FaccError    u8
 	FprintfFlags u8
 	_            [2]byte
-}
+} /* sqlite3.h:7784:9 */
 
 // CAPI3REF: Custom Page Cache Object
 //
@@ -6179,7 +6156,7 @@ type sqlite3_str1 = struct {
 type sqlite3_pcache_page1 = struct {
 	FpBuf   uintptr
 	FpExtra uintptr
-}
+} /* sqlite3.h:8277:9 */
 
 // CAPI3REF: Custom Page Cache Object
 //
@@ -6362,7 +6339,7 @@ type sqlite3_pcache_methods21 = struct {
 	FxTruncate  uintptr
 	FxDestroy   uintptr
 	FxShrink    uintptr
-}
+} /* sqlite3.h:8442:9 */
 
 // CAPI3REF: Application Defined Page Cache.
 // KEYWORDS: {page cache}
@@ -6538,7 +6515,7 @@ type sqlite3_pcache_methods1 = struct {
 	FxRekey     uintptr
 	FxTruncate  uintptr
 	FxDestroy   uintptr
-}
+} /* sqlite3.h:8465:9 */
 
 // This is the obsolete pcache_methods object that has now been replaced
 // by sqlite3_pcache_methods2.  This object is not used by SQLite.  It is
@@ -6563,7 +6540,7 @@ type sqlite3_pcache_methods = sqlite3_pcache_methods1 /* sqlite3.h:8465:39 */
 // version of the database file so that it is possible to later open a new read
 // transaction that sees that historical version of the database rather than
 // the most recent version.
-type sqlite3_snapshot1 = struct{ Fhidden [48]uint8 }
+type sqlite3_snapshot1 = struct{ Fhidden [48]uint8 } /* sqlite3.h:9512:9 */
 
 // CAPI3REF: Database Snapshot
 // KEYWORDS: {snapshot} {sqlite3_snapshot}
@@ -6626,7 +6603,7 @@ type sqlite3_rtree_geometry1 = struct {
 	FaParam   uintptr
 	FpUser    uintptr
 	FxDelUser uintptr
-}
+} /* sqlite3.h:9839:9 */
 
 // CAPI3REF: Flags for sqlite3_deserialize()
 //
@@ -6681,7 +6658,7 @@ type sqlite3_rtree_query_info1 = struct {
 	FeWithin       int32
 	FrScore        sqlite3_rtree_dbl
 	FapSqlParam    uintptr
-}
+} /* sqlite3.h:9840:9 */
 
 type sqlite3_rtree_query_info = sqlite3_rtree_query_info1 /* sqlite3.h:9840:41 */
 
@@ -6741,7 +6718,7 @@ type Fts5ExtensionApi1 = struct {
 	FxPhraseNext        uintptr
 	FxPhraseFirstColumn uintptr
 	FxPhraseNextColumn  uintptr
-}
+} /* sqlite3.h:11634:9 */
 
 // Allowed values for sqlite3_rtree_query.eWithin and .eParentWithin.
 
@@ -6778,7 +6755,7 @@ type Fts5ExtensionApi = Fts5ExtensionApi1 /* sqlite3.h:11634:33 */
 type Fts5PhraseIter1 = struct {
 	Fa uintptr
 	Fb uintptr
-}
+} /* sqlite3.h:11636:9 */
 
 type Fts5PhraseIter = Fts5PhraseIter1 /* sqlite3.h:11636:31 */
 
@@ -6787,7 +6764,7 @@ type fts5_tokenizer1 = struct {
 	FxCreate   uintptr
 	FxDelete   uintptr
 	FxTokenize uintptr
-}
+} /* sqlite3.h:12097:9 */
 
 type fts5_tokenizer = fts5_tokenizer1 /* sqlite3.h:12097:31 */
 
@@ -6808,7 +6785,7 @@ type fts5_api1 = struct {
 	FxCreateTokenizer uintptr
 	FxFindTokenizer   uintptr
 	FxCreateFunction  uintptr
-}
+} /* sqlite3.h:12133:9 */
 
 // Flags that may be passed as the third argument to xTokenize()
 
@@ -6844,7 +6821,7 @@ type sqlite3expert1 = struct {
 	Frc          int32
 	FhIdx        IdxHash
 	FzCandidates uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 //
 // END OF REGISTRATION API
@@ -6903,7 +6880,7 @@ type __locale_struct = struct {
 	F__ctype_tolower uintptr
 	F__ctype_toupper uintptr
 	F__names         [13]uintptr
-}
+} /* __locale_t.h:28:1 */
 
 type locale_t = uintptr /* locale_t.h:24:20 */
 
@@ -6916,7 +6893,7 @@ type _G_fpos_t = struct {
 		F__count int32
 		F__value struct{ F__wch uint32 }
 	}
-}
+} /* __fpos_t.h:10:9 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
 //   Copyright (C) 2002-2018 Free Software Foundation, Inc.
@@ -6947,7 +6924,7 @@ type _G_fpos64_t = struct {
 		F__count int32
 		F__value struct{ F__wch uint32 }
 	}
-}
+} /* __fpos64_t.h:10:9 */
 
 type _IO_FILE = struct {
 	F_flags          int32
@@ -6979,7 +6956,7 @@ type _IO_FILE = struct {
 	F__pad5          size_t
 	F_mode           int32
 	F_unused2        [20]int8
-}
+} /* __FILE.h:4:1 */
 
 // The opaque type of streams.  This is the definition used elsewhere.
 type FILE = _IO_FILE /* FILE.h:7:25 */
@@ -7013,12 +6990,14 @@ type FILE = _IO_FILE /* FILE.h:7:25 */
 
 // ISO C Standard:  7.15  Variable arguments  <stdarg.h>
 
-type off_t = int64 /* stdio.h:63:17 */
+type off_t = int64   /* stdio.h:65:19 */
+type off64_t = int64 /* stdio.h:70:19 */
 
 type ssize_t = int64 /* stdio.h:77:19 */
 
 // The type of the second argument to `fgetpos' and `fsetpos'.
-type fpos_t = _G_fpos_t /* stdio.h:84:18 */
+type fpos_t = _G_fpos64_t   /* stdio.h:86:20 */
+type fpos64_t = _G_fpos64_t /* stdio.h:89:20 */
 
 // If we are compiling with optimizing read this file.  It contains
 //   several optimizing inline functions and macros.
@@ -7031,7 +7010,7 @@ type IdxColumn1 = struct {
 	FzColl uintptr
 	FiPk   int32
 	_      [4]byte
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxColumn = IdxColumn1 /* sqlite3expert.c:23:26 */
 type IdxConstraint1 = struct {
@@ -7042,7 +7021,7 @@ type IdxConstraint1 = struct {
 	FbDesc  int32
 	FpNext  uintptr
 	FpLink  uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxConstraint = IdxConstraint1 /* sqlite3expert.c:24:30 */
 type IdxScan1 = struct {
@@ -7053,7 +7032,7 @@ type IdxScan1 = struct {
 	FpEq       uintptr
 	FpRange    uintptr
 	FpNextScan uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxScan = IdxScan1 /* sqlite3expert.c:25:24 */
 type IdxStatement1 = struct {
@@ -7062,7 +7041,7 @@ type IdxStatement1 = struct {
 	FzIdx  uintptr
 	FzEQP  uintptr
 	FpNext uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxStatement = IdxStatement1 /* sqlite3expert.c:26:29 */
 type IdxTable1 = struct {
@@ -7070,14 +7049,14 @@ type IdxTable1 = struct {
 	FzName uintptr
 	FaCol  uintptr
 	FpNext uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxTable = IdxTable1 /* sqlite3expert.c:27:25 */
 type IdxWrite1 = struct {
 	FpTab  uintptr
 	FeOp   int32
 	FpNext uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxWrite = IdxWrite1 /* sqlite3expert.c:28:25 */
 
@@ -7094,7 +7073,7 @@ type IdxHashEntry1 = struct {
 	FzVal2     uintptr
 	FpHashNext uintptr
 	FpNext     uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 // A hash table for storing strings. With space for a payload string
 // with each entry. Methods are:
@@ -7107,7 +7086,7 @@ type IdxHashEntry = IdxHashEntry1 /* sqlite3expert.c:120:29 */
 type IdxHash1 = struct {
 	FpFirst uintptr
 	FaHash  [1023]uintptr
-}
+} /* sqlite3expert.h:17:9 */
 
 type IdxHash = IdxHash1 /* sqlite3expert.c:121:24 */
 
@@ -7280,7 +7259,7 @@ type ExpertVtab1 = struct {
 	Fbase    sqlite3_vtab
 	FpTab    uintptr
 	FpExpert uintptr
-}
+} /* sqlite3expert.c:350:9 */
 
 // ************************************************************************
 //
@@ -7290,7 +7269,7 @@ type ExpertVtab = ExpertVtab1 /* sqlite3expert.c:350:27 */
 type ExpertCsr1 = struct {
 	Fbase  sqlite3_vtab_cursor
 	FpData uintptr
-}
+} /* sqlite3expert.c:357:9 */
 
 type ExpertCsr = ExpertCsr1 /* sqlite3expert.c:357:26 */
 
@@ -8351,7 +8330,7 @@ type IdxSampleCtx = struct {
 	Ftarget  float64
 	FnRow    float64
 	FnRet    float64
-}
+} /* sqlite3expert.c:1376:1 */
 
 func idxSampleFunc(tls *libc.TLS, pCtx uintptr, argc int32, argv uintptr) { /* sqlite3expert.c:1383:13: */
 	bp := tls.Alloc(2)
@@ -8389,7 +8368,7 @@ type IdxRemCtx = struct {
 		Fn     int32
 		Fz     uintptr
 	}
-}
+} /* sqlite3expert.c:1409:1 */
 
 type IdxRemSlot = struct {
 	FeType int32
@@ -8398,7 +8377,7 @@ type IdxRemSlot = struct {
 	FnByte int32
 	Fn     int32
 	Fz     uintptr
-}
+} /* sqlite3expert.c:1409:1 */
 
 // Implementation of scalar function rem().
 func idxRemFunc(tls *libc.TLS, pCtx uintptr, argc int32, argv uintptr) { /* sqlite3expert.c:1424:13: */
@@ -9540,7 +9519,7 @@ type stat = struct {
 		Ftv_nsec int64
 	}
 	F__glibc_reserved [3]int64
-}
+} /* stat.h:46:1 */
 
 //----------------------------------------------------------------------------
 // Data structures defined opaquely in this module. The definitions below just
@@ -9565,7 +9544,7 @@ type Tcl_Interp1 = struct {
 	FfreeProcDontUse  uintptr
 	FerrorLineDontUse int32
 	_                 [4]byte
-}
+} /* tcl.h:493:9 */
 
 //----------------------------------------------------------------------------
 // Data structures defined opaquely in this module. The definitions below just
@@ -9598,7 +9577,7 @@ type Tcl_Encoding = uintptr           /* tcl.h:534:30 */
 type Tcl_Event1 = struct {
 	Fproc    uintptr
 	FnextPtr uintptr
-}
+} /* tcl.h:535:9 */
 
 type Tcl_Event = Tcl_Event1      /* tcl.h:535:26 */
 type Tcl_InterpState = uintptr   /* tcl.h:536:33 */
@@ -9633,7 +9612,7 @@ type Tcl_ZlibStream = uintptr    /* tcl.h:546:32 */
 type Tcl_RegExpIndices1 = struct {
 	Fstart int64
 	Fend   int64
-}
+} /* tcl.h:623:9 */
 
 // Threading function return types used for abstracting away platform
 // differences when writing a Tcl_ThreadCreateProc. See the NewThread function
@@ -9659,7 +9638,7 @@ type Tcl_RegExpInfo1 = struct {
 	Fmatches     uintptr
 	FextendStart int64
 	Freserved    int64
-}
+} /* tcl.h:630:9 */
 
 type Tcl_RegExpInfo = Tcl_RegExpInfo1 /* tcl.h:637:3 */
 
@@ -9700,7 +9679,7 @@ type Tcl_Value1 = struct {
 	FintValue    int64
 	FdoubleValue float64
 	FwideValue   Tcl_WideInt
-}
+} /* tcl.h:694:9 */
 
 type Tcl_Value = Tcl_Value1 /* tcl.h:700:3 */
 
@@ -9716,7 +9695,7 @@ type Tcl_Obj1 = struct {
 		FlongValue int64
 		_          [8]byte
 	}
-}
+} /* tcl.h:707:1 */
 
 //----------------------------------------------------------------------------
 // The following structure represents a type of object, which is a particular
@@ -9729,7 +9708,7 @@ type Tcl_ObjType1 = struct {
 	FdupIntRepProc    uintptr
 	FupdateStringProc uintptr
 	FsetFromAnyProc   uintptr
-}
+} /* tcl.h:707:1 */
 
 //----------------------------------------------------------------------------
 // The following structure represents a type of object, which is a particular
@@ -9758,7 +9737,7 @@ type Tcl_SavedResult1 = struct {
 	FappendUsed   int32
 	FresultSpace  [201]int8
 	_             [7]byte
-}
+} /* tcl.h:864:9 */
 
 //----------------------------------------------------------------------------
 // The following structure contains the state needed by Tcl_SaveResult. No-one
@@ -9778,7 +9757,7 @@ type Tcl_Namespace1 = struct {
 	FclientData ClientData
 	FdeleteProc uintptr
 	FparentPtr  uintptr
-}
+} /* tcl.h:881:9 */
 
 //----------------------------------------------------------------------------
 // The following definitions support Tcl's namespace facility. Note: the first
@@ -9823,7 +9802,7 @@ type Tcl_CallFrame1 = struct {
 	Fdummy11 uintptr
 	Fdummy12 uintptr
 	Fdummy13 uintptr
-}
+} /* tcl.h:922:9 */
 
 //----------------------------------------------------------------------------
 // The following structure represents a call frame, or activation record. A
@@ -9870,7 +9849,7 @@ type Tcl_CmdInfo1 = struct {
 	FdeleteProc         uintptr
 	FdeleteData         ClientData
 	FnamespacePtr       uintptr
-}
+} /* tcl.h:954:9 */
 
 //----------------------------------------------------------------------------
 // Information about commands that is returned by Tcl_GetCommandInfo and
@@ -9897,7 +9876,7 @@ type Tcl_DString1 = struct {
 	Flength      int32
 	FspaceAvl    int32
 	FstaticSpace [200]int8
-}
+} /* tcl.h:983:9 */
 
 //----------------------------------------------------------------------------
 // The structure defined below is used to hold dynamic strings. The only
@@ -9976,7 +9955,7 @@ type Tcl_HashKeyType1 = struct {
 	FcompareKeysProc uintptr
 	FallocEntryProc  uintptr
 	FfreeEntryProc   uintptr
-}
+} /* tcl.h:1152:9 */
 
 // Definitions for the maximum number of digits of precision that may be
 // specified in the "tcl_precision" variable, and the number of bytes of
@@ -10054,7 +10033,7 @@ type Tcl_HashTable1 = struct {
 	FfindProc      uintptr
 	FcreateProc    uintptr
 	FtypePtr       uintptr
-}
+} /* tcl.h:1153:9 */
 
 type Tcl_HashTable = Tcl_HashTable1 /* tcl.h:1153:30 */
 type Tcl_HashEntry1 = struct {
@@ -10063,7 +10042,7 @@ type Tcl_HashEntry1 = struct {
 	Fhash       uintptr
 	FclientData ClientData
 	Fkey        struct{ FoneWordValue uintptr }
-}
+} /* tcl.h:1153:9 */
 
 type Tcl_HashEntry = Tcl_HashEntry1 /* tcl.h:1154:30 */
 
@@ -10074,7 +10053,7 @@ type Tcl_HashSearch1 = struct {
 	FtablePtr     uintptr
 	FnextIndex    int32
 	FnextEntryPtr uintptr
-}
+} /* tcl.h:1308:9 */
 
 // Structure definition for information used to keep track of searches through
 // hash tables:
@@ -10124,7 +10103,7 @@ type Tcl_QueuePosition = uint32 /* tcl.h:1389:3 */
 type Tcl_Time1 = struct {
 	Fsec  int64
 	Fusec int64
-}
+} /* tcl.h:1405:9 */
 
 // Values to pass to Tcl_SetServiceMode to specify the behavior of notifier
 // event routines.
@@ -10162,7 +10141,7 @@ type Tcl_ChannelType1 = struct {
 	FwideSeekProc     uintptr
 	FthreadActionProc uintptr
 	FtruncateProc     uintptr
-}
+} /* tcl.h:1524:9 */
 
 // struct Tcl_ChannelType:
 //
@@ -10192,7 +10171,7 @@ type Tcl_GlobTypeData1 = struct {
 	Fperm       int32
 	FmacType    uintptr
 	FmacCreator uintptr
-}
+} /* tcl.h:1620:9 */
 
 // The following structure is used to pass glob type data amongst the various
 // glob routines and Tcl_FSMatchInDirectory.
@@ -10202,7 +10181,7 @@ type Tcl_GlobTypeData = Tcl_GlobTypeData1 /* tcl.h:1625:3 */
 type utimbuf = struct {
 	Factime  int64
 	Fmodtime int64
-}
+} /* utime.h:36:1 */
 
 type Tcl_FSVersion = uintptr /* tcl.h:1700:31 */
 
@@ -10254,7 +10233,7 @@ type Tcl_Filesystem1 = struct {
 	FloadFileProc             uintptr
 	FgetCwdProc               uintptr
 	FchdirProc                uintptr
-}
+} /* tcl.h:1726:9 */
 
 //----------------------------------------------------------------------------
 // Data structures related to hooking into the filesystem
@@ -10295,7 +10274,7 @@ type Tcl_NotifierProcs1 = struct {
 	FfinalizeNotifierProc  uintptr
 	FalertNotifierProc     uintptr
 	FserviceModeHookProc   uintptr
-}
+} /* tcl.h:1894:9 */
 
 // The following definitions are used as values for the 'linkAction' flag to
 // Tcl_FSLink, or the linkProc of any filesystem. Any combination of flags can
@@ -10323,7 +10302,7 @@ type Tcl_Token1 = struct {
 	Fstart         uintptr
 	Fsize          int32
 	FnumComponents int32
-}
+} /* tcl.h:1914:9 */
 
 //----------------------------------------------------------------------------
 // The following data structures and declarations are for the new Tcl parser.
@@ -10425,7 +10404,7 @@ type Tcl_Parse1 = struct {
 	Fterm            uintptr
 	Fincomplete      int32
 	FstaticTokens    [20]Tcl_Token
-}
+} /* tcl.h:2030:9 */
 
 // Type values defined for Tcl_Token structures. These values are defined as
 // mask bits so that it's easy to check for collections of types.
@@ -10516,7 +10495,7 @@ type Tcl_EncodingType1 = struct {
 	FclientData   ClientData
 	FnullSize     int32
 	_             [4]byte
-}
+} /* tcl.h:2091:9 */
 
 //----------------------------------------------------------------------------
 // The following structure represents a user-defined encoding. It collects
@@ -10613,7 +10592,7 @@ type Tcl_UniChar = uint16 /* tcl.h:2228:24 */
 type Tcl_Config1 = struct {
 	Fkey   uintptr
 	Fvalue uintptr
-}
+} /* tcl.h:2237:9 */
 
 //----------------------------------------------------------------------------
 // TIP #59: The following structure is used in calls 'Tcl_RegisterConfig' to
@@ -10639,7 +10618,7 @@ type Tcl_ArgvInfo = struct {
 type TclPlatStubs1 = struct {
 	Fmagic int32
 	Fhooks uintptr
-}
+} /* tclDecls.h:1821:11 */
 
 type TclStubHooks = struct {
 	FtclPlatStubs    uintptr
@@ -10647,7 +10626,7 @@ type TclStubHooks = struct {
 	FtclIntPlatStubs uintptr
 } /* tclDecls.h:1824:3 */
 
-type TclStubs1 = struct {
+type TclStubs = struct {
 	Fmagic                                  int32
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
@@ -11281,9 +11260,7 @@ type TclStubs1 = struct {
 	Ftcl_FindSymbol                         uintptr
 	Ftcl_FSUnloadFile                       uintptr
 	Ftcl_ZlibStreamSetCompressionDictionary uintptr
-}
-
-type TclStubs = TclStubs1 /* tclDecls.h:2485:3 */
+} /* tclDecls.h:2485:3 */
 
 // !END!: Do not edit above this line.
 
@@ -11439,7 +11416,7 @@ type Subcmd = struct {
 	FzSub uintptr
 	FnArg int32
 	FzMsg uintptr
-}
+} /* test_expert.c:62:3 */
 
 func testExpertDel(tls *libc.TLS, clientData uintptr) { /* test_expert.c:150:27: */
 	var pExpert uintptr = clientData
@@ -11651,7 +11628,7 @@ func f5tResultToErrorCode(tls *libc.TLS, zRes uintptr) int32 { /* fts5_tcl.c:67:
 type ErrorCode = struct {
 	Frc     int32
 	FzError uintptr
-}
+} /* fts5_tcl.c:68:3 */
 
 func f5tDbAndApi(tls *libc.TLS, interp uintptr, pObj uintptr, ppDb uintptr, ppApi uintptr) int32 { /* fts5_tcl.c:88:26: */
 	bp := tls.Alloc(72)
@@ -11688,14 +11665,14 @@ func f5tDbAndApi(tls *libc.TLS, interp uintptr, pObj uintptr, ppDb uintptr, ppAp
 type F5tFunction1 = struct {
 	Finterp  uintptr
 	FpScript uintptr
-}
+} /* fts5_tcl.c:122:9 */
 
 type F5tFunction = F5tFunction1 /* fts5_tcl.c:122:28 */
 
 type F5tApi1 = struct {
 	FpApi uintptr
 	FpFts uintptr
-}
+} /* fts5_tcl.c:128:9 */
 
 type F5tApi = F5tApi1 /* fts5_tcl.c:128:23 */
 
@@ -11705,7 +11682,7 @@ type F5tApi = F5tApi1 /* fts5_tcl.c:128:23 */
 // tcl object, the code in this file wraps it in an sqlite3_malloc'd
 // instance of the following struct so that if the destructor is not
 // correctly invoked it will be reported as an SQLite memory leak.
-type F5tAuxData1 = struct{ FpObj uintptr }
+type F5tAuxData1 = struct{ FpObj uintptr } /* fts5_tcl.c:142:9 */
 
 // An object of this type is used with the xSetAuxdata() and xGetAuxdata()
 // API test wrappers. The tcl interface allows a single tcl value to be
@@ -12153,7 +12130,7 @@ type Sub = struct {
 	FzName uintptr
 	FnArg  int32
 	FzMsg  uintptr
-}
+} /* fts5_tcl.c:222:3 */
 
 func xF5tFunction(tls *libc.TLS, pApi uintptr, pFts uintptr, pCtx uintptr, nVal int32, apVal uintptr) { /* fts5_tcl.c:515:13: */
 	bp := tls.Alloc(112)
@@ -12306,7 +12283,7 @@ type F5tTokenizeCtx1 = struct {
 	FpRet   uintptr
 	FbSubst int32
 	FzInput uintptr
-}
+} /* fts5_tcl.c:646:9 */
 
 type F5tTokenizeCtx = F5tTokenizeCtx1 /* fts5_tcl.c:646:31 */
 
@@ -12424,7 +12401,7 @@ func f5tTokenize(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 type F5tTokenizerContext1 = struct {
 	FpCtx   uintptr
 	FxToken uintptr
-}
+} /* fts5_tcl.c:759:9 */
 
 // ************************************************************************
 //
@@ -12435,14 +12412,14 @@ type F5tTokenizerModule1 = struct {
 	Finterp   uintptr
 	FpScript  uintptr
 	FpContext uintptr
-}
+} /* fts5_tcl.c:761:9 */
 
 type F5tTokenizerModule = F5tTokenizerModule1 /* fts5_tcl.c:761:35 */
 type F5tTokenizerInstance1 = struct {
 	Finterp   uintptr
 	FpScript  uintptr
 	FpContext uintptr
-}
+} /* fts5_tcl.c:762:9 */
 
 type F5tTokenizerInstance = F5tTokenizerInstance1 /* fts5_tcl.c:762:37 */
 
@@ -12869,7 +12846,7 @@ type Fts5MatchinfoCtx1 = struct {
 	FzArg    uintptr
 	FnRet    int32
 	FaRet    uintptr
-}
+} /* fts5_test_mi.c:50:9 */
 
 type Fts5MatchinfoCtx = Fts5MatchinfoCtx1 /* fts5_test_mi.c:50:33 */
 
@@ -13328,7 +13305,7 @@ type Fts5tokTable1 = struct {
 	Fbase sqlite3_vtab
 	Ftok  fts5_tokenizer
 	FpTok uintptr
-}
+} /* fts5_test_tok.c:47:9 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -13384,7 +13361,7 @@ type Fts5tokCursor1 = struct {
 	FzInput uintptr
 	FnRow   int32
 	FaRow   uintptr
-}
+} /* fts5_test_tok.c:48:9 */
 
 type Fts5tokCursor = Fts5tokCursor1 /* fts5_test_tok.c:48:30 */
 type Fts5tokRow1 = struct {
@@ -13393,7 +13370,7 @@ type Fts5tokRow1 = struct {
 	FiEnd   int32
 	FiPos   int32
 	_       [4]byte
-}
+} /* fts5_test_tok.c:48:9 */
 
 type Fts5tokRow = Fts5tokRow1 /* fts5_test_tok.c:49:27 */
 
@@ -13838,7 +13815,8 @@ type u_quad_t = uint64                  /* types.h:38:20 */
 type fsid_t = struct{ F__val [2]int32 } /* types.h:39:18 */
 type loff_t = int64                     /* types.h:42:18 */
 
-type ino_t = uint64 /* types.h:47:17 */
+type ino_t = uint64   /* types.h:49:19 */
+type ino64_t = uint64 /* types.h:54:19 */
 
 type dev_t = uint64 /* types.h:59:17 */
 
@@ -14121,7 +14099,7 @@ type sigset_t = struct{ F__val [16]uint64 } /* sigset_t.h:7:20 */
 type timeval = struct {
 	Ftv_sec  int64
 	Ftv_usec int64
-}
+} /* struct_timeval.h:8:1 */
 
 // NB: Include guard matches what <linux/time.h> uses.
 
@@ -14150,7 +14128,7 @@ type timeval = struct {
 type timespec = struct {
 	Ftv_sec  int64
 	Ftv_nsec int64
-}
+} /* struct_timespec.h:9:1 */
 
 type suseconds_t = int64 /* select.h:43:23 */
 
@@ -14170,9 +14148,13 @@ type fd_mask = int64 /* select.h:77:19 */
 type blksize_t = int64 /* types.h:202:21 */
 
 // Types from the Large File Support interface.
-type blkcnt_t = int64    /* types.h:209:20 */ // Type to count number of disk blocks.
-type fsblkcnt_t = uint64 /* types.h:213:22 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:217:22 */ // Type to count file system inodes.
+type blkcnt_t = int64    /* types.h:222:22 */ // Type to count number of disk blocks.
+type fsblkcnt_t = uint64 /* types.h:226:24 */ // Type to count file system blocks.
+type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inodes.
+
+type blkcnt64_t = int64    /* types.h:236:22 */ // Type to count number of disk blocks.
+type fsblkcnt64_t = uint64 /* types.h:237:24 */ // Type to count file system blocks.
+type fsfilcnt64_t = uint64 /* types.h:238:24 */ // Type to count file system inodes.
 
 // Now add the thread types.
 // Declaration of common pthread types for all architectures.
@@ -14304,14 +14286,14 @@ type __pthread_rwlock_arch_t = struct {
 	F__pad2          uint64
 	F__flags         uint32
 	_                [4]byte
-}
+} /* pthreadtypes-arch.h:65:1 */
 
 // Common definition of pthread_mutex_t.
 
 type __pthread_internal_list = struct {
 	F__prev uintptr
 	F__next uintptr
-}
+} /* thread-shared-types.h:82:9 */
 
 // Lock elision support.
 
@@ -14327,7 +14309,7 @@ type __pthread_mutex_s = struct {
 		F__prev uintptr
 		F__next uintptr
 	}
-}
+} /* thread-shared-types.h:118:1 */
 
 // Common definition of pthread_cond_t.
 
@@ -14339,7 +14321,7 @@ type __pthread_cond_s = struct {
 	F__g1_orig_size uint32
 	F__wrefs        uint32
 	F__g_signals    [2]uint32
-}
+} /* thread-shared-types.h:171:1 */
 
 // Thread identifiers.  The structure of the attribute type is not
 //   exposed on purpose.
@@ -14368,7 +14350,7 @@ type pthread_once_t = int32 /* pthreadtypes.h:53:30 */
 type pthread_attr_t1 = struct {
 	_       [0]uint64
 	F__size [56]int8
-}
+} /* pthreadtypes.h:56:1 */
 
 type pthread_attr_t = pthread_attr_t1 /* pthreadtypes.h:62:30 */
 
@@ -14412,7 +14394,7 @@ type random_data = struct {
 	Frand_deg  int32
 	Frand_sep  int32
 	Fend_ptr   uintptr
-}
+} /* stdlib.h:423:1 */
 
 // Data structure for communication with thread safe versions.  This
 //   type is to be regarded as opaque.  It's only exported because users
@@ -14423,7 +14405,7 @@ type drand48_data = struct {
 	F__c     uint16
 	F__init  uint16
 	F__a     uint64
-}
+} /* stdlib.h:490:1 */
 
 // Forward declaration of objects used by this implementation
 type amatch_vtab1 = struct {
@@ -14443,7 +14425,7 @@ type amatch_vtab1 = struct {
 	FpVCheck    uintptr
 	FnCursor    int32
 	_           [4]byte
-}
+} /* amatch.c:172:9 */
 
 // Forward declaration of objects used by this implementation
 type amatch_vtab = amatch_vtab1 /* amatch.c:172:28 */
@@ -14462,7 +14444,7 @@ type amatch_cursor1 = struct {
 	FpCurrent  uintptr
 	FpCost     uintptr
 	FpWord     uintptr
-}
+} /* amatch.c:173:9 */
 
 type amatch_cursor = amatch_cursor1 /* amatch.c:173:30 */
 type amatch_rule1 = struct {
@@ -14474,7 +14456,7 @@ type amatch_rule1 = struct {
 	FnTo   amatch_len
 	FzTo   [4]int8
 	_      [2]byte
-}
+} /* amatch.c:172:9 */
 
 type amatch_rule = amatch_rule1 /* amatch.c:174:28 */
 type amatch_word1 = struct {
@@ -14486,7 +14468,7 @@ type amatch_word1 = struct {
 	FzCost  [10]int8
 	FnMatch int16
 	FzWord  [4]int8
-}
+} /* amatch.c:173:9 */
 
 type amatch_word = amatch_word1 /* amatch.c:175:28 */
 type amatch_avl1 = struct {
@@ -14498,7 +14480,7 @@ type amatch_avl1 = struct {
 	Fheight    int16
 	Fimbalance int16
 	_          [4]byte
-}
+} /* amatch.c:173:9 */
 
 type amatch_avl = amatch_avl1 /* amatch.c:176:27 */
 
@@ -15762,7 +15744,7 @@ type carray_cursor1 = struct {
 	FiCnt   sqlite3_int64
 	FeType  uint8
 	_       [7]byte
-}
+} /* carray.c:80:9 */
 
 // carray_cursor is a subclass of sqlite3_vtab_cursor which will
 // serve as the underlying representation of a cursor that scans
@@ -16081,7 +16063,7 @@ type closure_vtab1 = struct {
 	Fdb            uintptr
 	FnCursor       int32
 	_              [4]byte
-}
+} /* closure.c:156:9 */
 
 // Forward declaration of objects used by this implementation
 type closure_vtab = closure_vtab1 /* closure.c:156:29 */
@@ -16093,13 +16075,13 @@ type closure_cursor1 = struct {
 	FzParentColumn uintptr
 	FpCurrent      uintptr
 	FpClosure      uintptr
-}
+} /* closure.c:157:9 */
 
 type closure_cursor = closure_cursor1 /* closure.c:157:31 */
 type closure_queue1 = struct {
 	FpFirst uintptr
 	FpLast  uintptr
-}
+} /* closure.c:158:9 */
 
 type closure_queue = closure_queue1 /* closure.c:158:30 */
 type closure_avl1 = struct {
@@ -16112,7 +16094,7 @@ type closure_avl1 = struct {
 	Fheight      int16
 	Fimbalance   int16
 	_            [4]byte
-}
+} /* closure.c:157:9 */
 
 type closure_avl = closure_avl1 /* closure.c:159:28 */
 
@@ -16965,7 +16947,7 @@ type CsvReader1 = struct {
 	FnIn       size_t
 	FzIn       uintptr
 	FzErr      [200]int8
-}
+} /* csv.c:73:9 */
 
 // If we are compiling with optimizing read this file.  It contains
 //   several optimizing inline functions and macros.
@@ -17024,7 +17006,7 @@ func csv_reader_open(tls *libc.TLS, p uintptr, zFilename uintptr, zData uintptr)
 			csv_errmsg(tls, p, ts+1929 /* "out of memory" */, 0)
 			return 1
 		}
-		(*CsvReader)(unsafe.Pointer(p)).Fin = libc.Xfopen(tls, zFilename, ts+4086 /* "rb" */)
+		(*CsvReader)(unsafe.Pointer(p)).Fin = libc.Xfopen64(tls, zFilename, ts+4086 /* "rb" */)
 		if (*CsvReader)(unsafe.Pointer(p)).Fin == uintptr(0) {
 			sqlite3.Xsqlite3_free(tls, (*CsvReader)(unsafe.Pointer(p)).FzIn)
 			csv_reader_reset(tls, p)
@@ -17207,7 +17189,7 @@ type CsvTable1 = struct {
 	FiStart    int64
 	FnCol      int32
 	FtstFlags  uint32
-}
+} /* csv.c:307:9 */
 
 // An instance of the CSV virtual table
 type CsvTable = CsvTable1 /* csv.c:314:3 */
@@ -17221,7 +17203,7 @@ type CsvCursor1 = struct {
 	FazVal  uintptr
 	FaLen   uintptr
 	FiRowid sqlite3_int64
-}
+} /* csv.c:320:9 */
 
 // Allowed values for tstFlags
 
@@ -18016,7 +17998,7 @@ type Decimal1 = struct {
 	FnDigit int32
 	FnFrac  int32
 	Fa      uintptr
-}
+} /* decimal.c:32:9 */
 
 // Floating-point inline functions for stdlib.h.
 //   Copyright (C) 2012-2018 Free Software Foundation, Inc.
@@ -18835,7 +18817,7 @@ type EvalResult = struct {
 	FszSep  int32
 	FnAlloc sqlite3_int64
 	FnUsed  sqlite3_int64
-}
+} /* eval.c:23:1 */
 
 // Callback from sqlite_exec() for the eval() function.
 func callback(tls *libc.TLS, pCtx uintptr, argc int32, argv uintptr, colnames uintptr) int32 { /* eval.c:34:12: */
@@ -18947,7 +18929,7 @@ func sqlite3_eval_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintptr
 type explain_vtab1 = struct {
 	Fbase sqlite3_vtab
 	Fdb   uintptr
-}
+} /* explain.c:38:9 */
 
 // explain_vtab is a subclass of sqlite3_vtab which will
 // serve as the underlying representation of a explain virtual table
@@ -18963,7 +18945,7 @@ type explain_cursor1 = struct {
 	FpExplain uintptr
 	Frc       int32
 	_         [4]byte
-}
+} /* explain.c:48:9 */
 
 // explain_cursor is a subclass of sqlite3_vtab_cursor which will
 // serve as the underlying representation of a cursor that scans
@@ -19189,6 +19171,34 @@ func sqlite3_explain_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 	return rc
 }
 
+// Note stat64 has the same shape as stat for x86-64.
+type stat64 = struct {
+	Fst_dev     uint64
+	Fst_ino     uint64
+	Fst_nlink   uint64
+	Fst_mode    uint32
+	Fst_uid     uint32
+	Fst_gid     uint32
+	F__pad0     int32
+	Fst_rdev    uint64
+	Fst_size    int64
+	Fst_blksize int64
+	Fst_blocks  int64
+	Fst_atim    struct {
+		Ftv_sec  int64
+		Ftv_nsec int64
+	}
+	Fst_mtim struct {
+		Ftv_sec  int64
+		Ftv_nsec int64
+	}
+	Fst_ctim struct {
+		Ftv_sec  int64
+		Ftv_nsec int64
+	}
+	F__glibc_reserved [3]int64
+} /* stat.h:119:1 */
+
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
 //
@@ -19277,7 +19287,16 @@ type flock = struct {
 	Fl_len    int64
 	Fl_pid    int32
 	_         [4]byte
-}
+} /* fcntl.h:35:1 */
+
+type flock64 = struct {
+	Fl_type   int16
+	Fl_whence int16
+	Fl_start  int64
+	Fl_len    int64
+	Fl_pid    int32
+	_         [4]byte
+} /* fcntl.h:50:1 */
 
 // Define some inlines helping to catch common problems.
 
@@ -19830,7 +19849,16 @@ type dirent = struct {
 	Fd_type   uint8
 	Fd_name   [256]int8
 	_         [5]byte
-}
+} /* dirent.h:22:1 */
+
+type dirent64 = struct {
+	Fd_ino    uint64
+	Fd_off    int64
+	Fd_reclen uint16
+	Fd_type   uint8
+	Fd_name   [256]int8
+	_         [5]byte
+} /* dirent.h:37:1 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -19911,7 +19939,7 @@ type dirent = struct {
 type timezone = struct {
 	Ftz_minuteswest int32
 	Ftz_dsttime     int32
-}
+} /* time.h:52:1 */
 
 // Type of the second argument to `getitimer' and
 //   the second and third arguments `setitimer'.
@@ -19924,7 +19952,7 @@ type itimerval = struct {
 		Ftv_sec  int64
 		Ftv_usec int64
 	}
-}
+} /* time.h:104:1 */
 
 // Convenience macros for operations on timevals.
 //   NOTE: `timercmp' does not work for >= or <=.
@@ -20146,7 +20174,7 @@ type tm = struct {
 	Ftm_isdst  int32
 	Ftm_gmtoff int64
 	Ftm_zone   uintptr
-}
+} /* struct_tm.h:7:1 */
 
 // NB: Include guard matches what <linux/time.h> uses.
 
@@ -20182,7 +20210,7 @@ type itimerspec = struct {
 		Ftv_sec  int64
 		Ftv_nsec int64
 	}
-}
+} /* struct_itimerspec.h:8:1 */
 
 type sigevent = struct {
 	Fsigev_value struct {
@@ -20196,7 +20224,7 @@ type sigevent = struct {
 		_     [0]uint64
 		F_pad [12]int32
 	}
-}
+} /* sigevent_t.h:22:9 */
 
 // Structure of the fsdir() table-valued function
 //    0    1    2     3    4           5
@@ -20217,7 +20245,7 @@ func readFileContents(tls *libc.TLS, ctx uintptr, zName uintptr) { /* fileio.c:1
 	var db uintptr
 	var mxBlob int32
 
-	in = libc.Xfopen(tls, zName, ts+4086 /* "rb" */)
+	in = libc.Xfopen64(tls, zName, ts+4086 /* "rb" */)
 	if in == uintptr(0) {
 		// File does not exist or is unreadable. Leave the result set to NULL.
 		return
@@ -20282,14 +20310,14 @@ func ctxErrorMsg(tls *libc.TLS, ctx uintptr, zFmt uintptr, va uintptr) { /* file
 // is required in order for the included time to be returned as UTC.  On all
 // other systems, this function simply calls stat().
 func fileStat(tls *libc.TLS, zPath uintptr, pStatBuf uintptr) int32 { /* fileio.c:261:12: */
-	return libc.Xstat(tls, zPath, pStatBuf)
+	return libc.Xstat64(tls, zPath, pStatBuf)
 }
 
 // This function is used in place of lstat().  On Windows, special handling
 // is required in order for the included time to be returned as UTC.  On all
 // other systems, this function simply calls lstat().
 func fileLinkStat(tls *libc.TLS, zPath uintptr, pStatBuf uintptr) int32 { /* fileio.c:279:12: */
-	return libc.Xlstat(tls, zPath, pStatBuf)
+	return libc.Xlstat64(tls, zPath, pStatBuf)
 }
 
 // Argument zFile is the name of a file that will be created and/or written
@@ -20315,7 +20343,7 @@ func makeDirectory(tls *libc.TLS, zFile uintptr) int32 { /* fileio.c:303:12: */
 		var i int32 = 1
 
 		for rc == 0 {
-			// var sStat stat at bp+8, 144
+			// var sStat stat64 at bp+8, 144
 
 			var rc2 int32
 
@@ -20332,7 +20360,7 @@ func makeDirectory(tls *libc.TLS, zFile uintptr) int32 { /* fileio.c:303:12: */
 					rc = 1
 				}
 			} else {
-				if !((((*stat)(unsafe.Pointer(bp + 8 /* &sStat */)).Fst_mode) & uint32(0170000)) == (uint32(0040000))) {
+				if !((((*stat64)(unsafe.Pointer(bp + 8 /* &sStat */)).Fst_mode) & uint32(0170000)) == (uint32(0040000))) {
 					rc = 1
 				}
 			}
@@ -20364,12 +20392,12 @@ func writeFile(tls *libc.TLS, pCtx uintptr, zFile uintptr, pData uintptr, mode m
 				// be an error though - if there is already a directory at the same
 				// path and either the permissions already match or can be changed
 				// to do so using chmod(), it is not an error.
-				// var sStat stat at bp, 144
+				// var sStat stat64 at bp, 144
 
 				if ((((*(*int32)(unsafe.Pointer(libc.X__errno_location(tls)))) != 17) ||
 					(0 != fileStat(tls, zFile, bp /* &sStat */))) ||
-					!((((*stat)(unsafe.Pointer(bp /* &sStat */)).Fst_mode) & uint32(0170000)) == (uint32(0040000)))) ||
-					((((*stat)(unsafe.Pointer(bp /* &sStat */)).Fst_mode & uint32(0777)) != (mode & mode_t(0777))) && (0 != libc.Xchmod(tls, zFile, (mode&mode_t(0777))))) {
+					!((((*stat64)(unsafe.Pointer(bp /* &sStat */)).Fst_mode) & uint32(0170000)) == (uint32(0040000)))) ||
+					((((*stat64)(unsafe.Pointer(bp /* &sStat */)).Fst_mode & uint32(0777)) != (mode & mode_t(0777))) && (0 != libc.Xchmod(tls, zFile, (mode&mode_t(0777))))) {
 					return 1
 				}
 			}
@@ -20377,7 +20405,7 @@ func writeFile(tls *libc.TLS, pCtx uintptr, zFile uintptr, pData uintptr, mode m
 			var nWrite sqlite3_int64 = int64(0)
 			var z uintptr
 			var rc int32 = 0
-			var out uintptr = libc.Xfopen(tls, zFile, ts+4673 /* "wb" */)
+			var out uintptr = libc.Xfopen64(tls, zFile, ts+4673 /* "wb" */)
 			if out == uintptr(0) {
 				return 1
 			}
@@ -20545,18 +20573,18 @@ type fsdir_cursor1 = struct {
 	}
 	FzPath  uintptr
 	FiRowid sqlite3_int64
-}
+} /* fileio.c:541:9 */
 
 // Cursor type for recursively iterating through a directory structure.
 type fsdir_cursor = fsdir_cursor1 /* fileio.c:541:29 */
 type FsdirLevel1 = struct {
 	FpDir uintptr
 	FzDir uintptr
-}
+} /* fileio.c:541:9 */
 
 type FsdirLevel = FsdirLevel1 /* fileio.c:542:27 */
 
-type fsdir_tab1 = struct{ Fbase sqlite3_vtab }
+type fsdir_tab1 = struct{ Fbase sqlite3_vtab } /* fileio.c:564:9 */
 
 type fsdir_tab = fsdir_tab1 /* fileio.c:564:26 */
 
@@ -20680,7 +20708,7 @@ func fsdirNext(tls *libc.TLS, cur uintptr) int32 { /* fileio.c:666:12: */
 
 	for (*fsdir_cursor)(unsafe.Pointer(pCur)).FiLvl >= 0 {
 		var pLvl uintptr = ((*fsdir_cursor)(unsafe.Pointer(pCur)).FaLvl + uintptr((*fsdir_cursor)(unsafe.Pointer(pCur)).FiLvl)*16)
-		var pEntry uintptr = libc.Xreaddir(tls, (*FsdirLevel)(unsafe.Pointer(pLvl)).FpDir)
+		var pEntry uintptr = libc.Xreaddir64(tls, (*FsdirLevel)(unsafe.Pointer(pLvl)).FpDir)
 		if pEntry != 0 {
 			if int32(*(*int8)(unsafe.Pointer((pEntry + 19 /* &.d_name */) + uintptr(0)))) == '.' {
 				if (int32(*(*int8)(unsafe.Pointer((pEntry + 19 /* &.d_name */) + uintptr(1)))) == '.') && (int32(*(*int8)(unsafe.Pointer((pEntry + 19 /* &.d_name */) + uintptr(2)))) == 0) {
@@ -21006,7 +21034,7 @@ type fuzzer_vtab1 = struct {
 	FpRule      uintptr
 	FnCursor    int32
 	_           [4]byte
-}
+} /* fuzzer.c:162:9 */
 
 // If we are compiling with optimizing read this file.  It contains
 //   several optimizing inline functions and macros.
@@ -21028,7 +21056,7 @@ type fuzzer_cursor1 = struct {
 	FiRuleset int32
 	FnullRule fuzzer_rule
 	FapHash   [4001]uintptr
-}
+} /* fuzzer.c:163:9 */
 
 type fuzzer_cursor = fuzzer_cursor1 /* fuzzer.c:163:30 */
 type fuzzer_rule1 = struct {
@@ -21039,7 +21067,7 @@ type fuzzer_rule1 = struct {
 	FnTo      fuzzer_len
 	FiRuleset fuzzer_ruleid
 	FzTo      [4]int8
-}
+} /* fuzzer.c:162:9 */
 
 type fuzzer_rule = fuzzer_rule1 /* fuzzer.c:164:28 */
 type fuzzer_stem1 = struct {
@@ -21052,7 +21080,7 @@ type fuzzer_stem1 = struct {
 	FnBasis    fuzzer_len
 	Fn         fuzzer_len
 	_          [6]byte
-}
+} /* fuzzer.c:163:9 */
 
 type fuzzer_stem = fuzzer_stem1 /* fuzzer.c:166:28 */
 
@@ -22269,7 +22297,7 @@ type nextCharContext1 = struct {
 	FaResult      uintptr
 	FmallocFailed int32
 	FotherError   int32
-}
+} /* nextchar.c:63:9 */
 
 // A structure to hold context of the next_char() computation across
 // nested function calls.
@@ -23137,7 +23165,7 @@ type Percentile1 = struct {
 	FnUsed  uint32
 	FrPct   float64
 	Fa      uintptr
-}
+} /* percentile.c:71:9 */
 
 // Floating-point inline functions for stdlib.h.
 //   Copyright (C) 2012-2018 Free Software Foundation, Inc.
@@ -23365,7 +23393,7 @@ func sqlite3_percentile_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi u
 
 // prefixes_vtab is a subclass of sqlite3_vtab which is
 // underlying representation of the virtual table
-type prefixes_vtab1 = struct{ Fbase sqlite3_vtab }
+type prefixes_vtab1 = struct{ Fbase sqlite3_vtab } /* prefixes.c:33:9 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -23427,7 +23455,7 @@ type prefixes_cursor1 = struct {
 	FzStr   uintptr
 	FnStr   int32
 	_       [4]byte
-}
+} /* prefixes.c:43:9 */
 
 // prefixes_cursor is a subclass of sqlite3_vtab_cursor which will
 // serve as the underlying representation of a cursor that scans
@@ -23720,7 +23748,7 @@ type ReStateNumber = uint16 /* regexp.c:98:24 */
 type ReStateSet1 = struct {
 	FnState uint32
 	FaState uintptr
-}
+} /* regexp.c:105:9 */
 
 // Because this is an NFA and not a DFA, multiple states can be active at
 // once.  An instance of the following object records all active states in
@@ -23733,7 +23761,7 @@ type ReInput1 = struct {
 	Fz  uintptr
 	Fi  int32
 	Fmx int32
-}
+} /* regexp.c:112:9 */
 
 // An input string read one character at a time.
 type ReInput = ReInput1 /* regexp.c:112:24 */
@@ -23750,7 +23778,7 @@ type ReCompiled1 = struct {
 	FnInit     int32
 	FnState    uint32
 	FnAlloc    uint32
-}
+} /* regexp.c:122:9 */
 
 // A compiled NFA (or an NFA that is in the process of being compiled) is
 // an instance of the following object.
@@ -25103,7 +25131,7 @@ type series_cursor1 = struct {
 	FmnValue sqlite3_int64
 	FmxValue sqlite3_int64
 	FiStep   sqlite3_int64
-}
+} /* series.c:83:9 */
 
 // series_cursor is a subclass of sqlite3_vtab_cursor which will
 // serve as the underlying representation of a cursor that scans
@@ -26007,7 +26035,7 @@ type EditDist3Cost1 = struct {
 	FnTo   u8
 	FiCost u16
 	Fa     [4]int8
-}
+} /* spellfix.c:546:9 */
 
 // End of the fixed-cost edit distance implementation
 //
@@ -26018,7 +26046,7 @@ type EditDist3Cost = EditDist3Cost1 /* spellfix.c:546:30 */
 type EditDist3Config1 = struct {
 	FnLang int32
 	Fa     uintptr
-}
+} /* spellfix.c:547:9 */
 
 type EditDist3Config = EditDist3Config1 /* spellfix.c:547:32 */
 type EditDist3From1 = struct {
@@ -26027,7 +26055,7 @@ type EditDist3From1 = struct {
 	FnByte   int32
 	FapSubst uintptr
 	FapDel   uintptr
-}
+} /* spellfix.c:549:9 */
 
 type EditDist3From = EditDist3From1 /* spellfix.c:549:30 */
 type EditDist3FromString1 = struct {
@@ -26035,21 +26063,21 @@ type EditDist3FromString1 = struct {
 	Fn        int32
 	FisPrefix int32
 	Fa        uintptr
-}
+} /* spellfix.c:550:9 */
 
 type EditDist3FromString = EditDist3FromString1 /* spellfix.c:550:36 */
 type EditDist3To1 = struct {
 	FnIns  int32
 	FnByte int32
 	FapIns uintptr
-}
+} /* spellfix.c:551:9 */
 
 type EditDist3To = EditDist3To1 /* spellfix.c:551:28 */
 type EditDist3ToString1 = struct {
 	Fz uintptr
 	Fn int32
 	Fa uintptr
-}
+} /* spellfix.c:552:9 */
 
 type EditDist3ToString = EditDist3ToString1 /* spellfix.c:552:34 */
 type EditDist3Lang1 = struct {
@@ -26058,7 +26086,7 @@ type EditDist3Lang1 = struct {
 	FiDelCost int32
 	FiSubCost int32
 	FpCost    uintptr
-}
+} /* spellfix.c:547:9 */
 
 type EditDist3Lang = EditDist3Lang1 /* spellfix.c:553:30 */
 
@@ -26921,7 +26949,7 @@ type Transliteration1 = struct {
 	FcTo1  uint8
 	FcTo2  uint8
 	FcTo3  uint8
-}
+} /* spellfix.c:1294:9 */
 
 type Transliteration = Transliteration1 /* spellfix.c:1294:32 */
 
@@ -27547,7 +27575,7 @@ type spellfix1_vtab1 = struct {
 	FzTableName uintptr
 	FzCostTable uintptr
 	FpConfig3   uintptr
-}
+} /* spellfix.c:1910:9 */
 
 // End transliterate
 //
@@ -27573,7 +27601,7 @@ type spellfix1_cursor1 = struct {
 	FnSearch   int32
 	FpFullScan uintptr
 	Fa         uintptr
-}
+} /* spellfix.c:1911:9 */
 
 type spellfix1_cursor = spellfix1_cursor1 /* spellfix.c:1911:33 */
 
@@ -27586,7 +27614,7 @@ type spellfix1_row = struct {
 	FiScore    int32
 	FiMatchlen int32
 	FzHash     [32]int8
-}
+} /* spellfix.c:1911:9 */
 
 // Construct one or more SQL statements from the format string given
 // and then evaluate those statements. The success code is written
@@ -27980,7 +28008,7 @@ type MatchQuery1 = struct {
 	FnRun       int32
 	FazPrior    [1][32]int8
 	_           [4]byte
-}
+} /* spellfix.c:2366:9 */
 
 // A structure used to pass information from spellfix1FilterForMatch()
 // into spellfix1RunQuery().
@@ -29443,7 +29471,7 @@ type UnionCsr1 = struct {
 	FiMaxRowid sqlite3_int64
 	FiTab      int32
 	_          [4]byte
-}
+} /* unionvtab.c:181:9 */
 
 // Floating-point inline functions for stdlib.h.
 //   Copyright (C) 2012-2018 Free Software Foundation, Inc.
@@ -29490,7 +29518,7 @@ type UnionTab1 = struct {
 	FpClosable   uintptr
 	FnOpen       int32
 	FnMaxOpen    int32
-}
+} /* unionvtab.c:182:9 */
 
 type UnionTab = UnionTab1 /* unionvtab.c:182:25 */
 type UnionSrc1 = struct {
@@ -29503,7 +29531,7 @@ type UnionSrc1 = struct {
 	FnUser         int32
 	Fdb            uintptr
 	FpNextClosable uintptr
-}
+} /* unionvtab.c:182:9 */
 
 type UnionSrc = UnionSrc1 /* unionvtab.c:183:25 */
 
@@ -30624,7 +30652,7 @@ type wholenumber_cursor1 = struct {
 	Fbase    sqlite3_vtab_cursor
 	FiValue  sqlite3_int64
 	FmxValue sqlite3_int64
-}
+} /* wholenumber.c:34:9 */
 
 // A wholenumber cursor object
 type wholenumber_cursor = wholenumber_cursor1 /* wholenumber.c:34:35 */
@@ -31379,7 +31407,7 @@ type z_stream_s = struct {
 	Fdata_type int32
 	Fadler     uLong
 	Freserved  uLong
-}
+} /* zlib.h:86:9 */
 
 type z_stream = z_stream_s /* zlib.h:106:3 */
 
@@ -31403,7 +31431,7 @@ type gz_header_s = struct {
 	Fhcrc      int32
 	Fdone      int32
 	_          [4]byte
-}
+} /* zlib.h:114:9 */
 
 //
 //     gzip header information passed to and from zlib routines.  See RFC 1952
@@ -31488,7 +31516,7 @@ type gzFile_s = struct {
 	Fhave uint32
 	Fnext uintptr
 	Fpos  off_t
-}
+} /* zlib.h:1300:9 */
 
 //
 //     Same as uncompress, except that sourceLen is a pointer, where the
@@ -31567,7 +31595,7 @@ type ZipfileEOCD1 = struct {
 	FnEntryTotal u16
 	FnSize       u321
 	FiOffset     u321
-}
+} /* zipfile.c:153:9 */
 
 // Magic numbers used to read and write zip files.
 //
@@ -31654,7 +31682,7 @@ type ZipfileCDS1 = struct {
 	FiExternalAttr   u321
 	FiOffset         u321
 	FzFile           uintptr
-}
+} /* zipfile.c:186:9 */
 
 // 4.3.12  Central directory structure:
 //
@@ -31705,7 +31733,7 @@ type ZipfileLFH1 = struct {
 	FnFile           u16
 	FnExtra          u16
 	_                [4]byte
-}
+} /* zipfile.c:223:9 */
 
 // 4.3.7  Local file header:
 //
@@ -31730,7 +31758,7 @@ type ZipfileEntry1 = struct {
 	FiDataOff  i64
 	FaData     uintptr
 	FpNext     uintptr
-}
+} /* zipfile.c:237:9 */
 
 type ZipfileEntry = ZipfileEntry1 /* zipfile.c:237:29 */
 
@@ -31746,7 +31774,7 @@ type ZipfileCsr1 = struct {
 	FpFreeEntry uintptr
 	FpCurrent   uintptr
 	FpCsrNext   uintptr
-}
+} /* zipfile.c:250:9 */
 
 // Cursor type for zipfile tables.
 type ZipfileCsr = ZipfileCsr1 /* zipfile.c:250:27 */
@@ -31763,7 +31791,7 @@ type ZipfileTab1 = struct {
 	FpWriteFd    uintptr
 	FszCurrent   i64
 	FszOrig      i64
-}
+} /* zipfile.c:267:9 */
 
 type ZipfileTab = ZipfileTab1 /* zipfile.c:267:27 */
 
@@ -32681,7 +32709,7 @@ func zipfileFilter(tls *libc.TLS, cur uintptr, idxNum int32, idxStr uintptr, arg
 	}
 
 	if (uintptr(0) == (*ZipfileTab)(unsafe.Pointer(pTab)).FpWriteFd) && (0 == bInMemory) {
-		(*ZipfileCsr)(unsafe.Pointer(pCsr)).FpFile = libc.Xfopen(tls, zFile, ts+4086 /* "rb" */)
+		(*ZipfileCsr)(unsafe.Pointer(pCsr)).FpFile = libc.Xfopen64(tls, zFile, ts+4086 /* "rb" */)
 		if (*ZipfileCsr)(unsafe.Pointer(pCsr)).FpFile == uintptr(0) {
 			zipfileCursorErr(tls, pCsr, ts+9155 /* "cannot open file..." */, libc.VaList(bp, zFile))
 			rc = 1
@@ -32996,7 +33024,7 @@ func zipfileBegin(tls *libc.TLS, pVtab uintptr) int32 { /* zipfile.c:1443:12: */
 	// structure into memory. During the transaction any new file data is
 	// appended to the archive file, but the central directory is accumulated
 	// in main-memory until the transaction is committed.
-	(*ZipfileTab)(unsafe.Pointer(pTab)).FpWriteFd = libc.Xfopen(tls, (*ZipfileTab)(unsafe.Pointer(pTab)).FzFile, ts+9280 /* "ab+" */)
+	(*ZipfileTab)(unsafe.Pointer(pTab)).FpWriteFd = libc.Xfopen64(tls, (*ZipfileTab)(unsafe.Pointer(pTab)).FzFile, ts+9280 /* "ab+" */)
 	if (*ZipfileTab)(unsafe.Pointer(pTab)).FpWriteFd == uintptr(0) {
 		(*ZipfileTab)(unsafe.Pointer(pTab)).Fbase.FzErrMsg = sqlite3.Xsqlite3_mprintf(tls,
 			ts+9284 /* "zipfile: failed ..." */, libc.VaList(bp, (*ZipfileTab)(unsafe.Pointer(pTab)).FzFile))
@@ -33674,7 +33702,7 @@ type ZipfileBuffer1 = struct {
 	Fa      uintptr
 	Fn      int32
 	FnAlloc int32
-}
+} /* zipfile.c:1893:9 */
 
 type ZipfileBuffer = ZipfileBuffer1 /* zipfile.c:1893:30 */
 
@@ -33682,7 +33710,7 @@ type ZipfileCtx1 = struct {
 	FnEntry int32
 	Fbody   ZipfileBuffer
 	Fcds    ZipfileBuffer
-}
+} /* zipfile.c:1900:9 */
 
 type ZipfileCtx = ZipfileCtx1 /* zipfile.c:1900:27 */
 
@@ -34306,7 +34334,7 @@ type RbuCmd = struct {
 	FzName  uintptr
 	FnArg   int32
 	FzUsage uintptr
-}
+} /* test_rbu.c:67:3 */
 
 // Tclcmd: sqlite3rbu CMD <target-db> <rbu-db> ?<state-db>?
 func test_sqlite3rbu(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32, objv uintptr) int32 { /* test_rbu.c:228:26: */
@@ -34674,7 +34702,7 @@ type sigval = struct {
 	_          [0]uint64
 	Fsival_int int32
 	_          [4]byte
-}
+} /* __sigval_t.h:24:1 */
 
 // Some fields of siginfo_t have architecture-specific variations.
 // Architecture-specific adjustments to siginfo_t.  x86 version.
@@ -34795,7 +34823,7 @@ type sigaction = struct {
 	Fsa_mask             struct{ F__val [16]uint64 }
 	Fsa_flags            int32
 	Fsa_restorer         uintptr
-}
+} /* sigaction.h:27:1 */
 
 // Get machine-dependent `struct sigcontext' and signal subcodes.
 // Copyright (C) 2002-2018 Free Software Foundation, Inc.
@@ -34841,20 +34869,20 @@ type _fpx_sw_bytes = struct {
 	Fxstate_bv         uint64
 	Fxstate_size       uint32
 	F__glibc_reserved1 [7]uint32
-}
+} /* sigcontext.h:31:1 */
 
 type _fpreg = struct {
 	Fsignificand [4]uint16
 	Fexponent    uint16
-}
+} /* sigcontext.h:40:1 */
 
 type _fpxreg = struct {
 	Fsignificand       [4]uint16
 	Fexponent          uint16
 	F__glibc_reserved1 [3]uint16
-}
+} /* sigcontext.h:46:1 */
 
-type _xmmreg = struct{ Felement [4]uint32 }
+type _xmmreg = struct{ Felement [4]uint32 } /* sigcontext.h:53:1 */
 
 type _fpstate = struct {
 	Fcwd       uint16
@@ -34872,7 +34900,7 @@ type _fpstate = struct {
 	}
 	F_xmm              [16]struct{ Felement [4]uint32 }
 	F__glibc_reserved1 [24]uint32
-}
+} /* sigcontext.h:123:1 */
 
 type sigcontext = struct {
 	Fr8          uint64
@@ -34903,15 +34931,15 @@ type sigcontext = struct {
 	Fcr2         uint64
 	F__184       struct{ Ffpstate uintptr }
 	F__reserved1 [8]uint64
-}
+} /* sigcontext.h:139:1 */
 
 type _xsave_hdr = struct {
 	Fxstate_bv         uint64
 	F__glibc_reserved1 [2]uint64
 	F__glibc_reserved2 [5]uint64
-}
+} /* sigcontext.h:177:1 */
 
-type _ymmh_state = struct{ Fymmh_space [64]uint32 }
+type _ymmh_state = struct{ Fymmh_space [64]uint32 } /* sigcontext.h:184:1 */
 
 type _xstate = struct {
 	Ffpstate struct {
@@ -34937,7 +34965,7 @@ type _xstate = struct {
 		F__glibc_reserved2 [5]uint64
 	}
 	Fymmh struct{ Fymmh_space [64]uint32 }
-}
+} /* sigcontext.h:189:1 */
 
 // Copyright (C) 1989-2018 Free Software Foundation, Inc.
 //
@@ -35213,9 +35241,9 @@ type _libc_fpxreg = struct {
 	Fsignificand       [4]uint16
 	Fexponent          uint16
 	F__glibc_reserved1 [3]uint16
-}
+} /* ucontext.h:101:1 */
 
-type _libc_xmmreg = struct{ Felement [4]uint32 }
+type _libc_xmmreg = struct{ Felement [4]uint32 } /* ucontext.h:108:1 */
 
 type _libc_fpstate = struct {
 	Fcwd       uint16
@@ -35233,7 +35261,7 @@ type _libc_fpstate = struct {
 	}
 	F_xmm              [16]struct{ Felement [4]uint32 }
 	F__glibc_reserved1 [24]uint32
-}
+} /* ucontext.h:113:1 */
 
 // Structure to describe FPU registers.
 type fpregset_t = uintptr /* ucontext.h:130:30 */
@@ -35270,7 +35298,7 @@ type ucontext_t1 = struct {
 		F__glibc_reserved1 [24]uint32
 	}
 	F__ssp [4]uint64
-}
+} /* ucontext.h:142:9 */
 
 // Userlevel context.
 type ucontext_t = ucontext_t1 /* ucontext.h:151:5 */
@@ -35298,7 +35326,7 @@ type sigstack = struct {
 	Fss_sp      uintptr
 	Fss_onstack int32
 	_           [4]byte
-}
+} /* struct_sigstack.h:23:1 */
 
 // Define some macros helping to catch buffer overflows.
 
@@ -35361,7 +35389,7 @@ type SqlFunc1 = struct {
 	FeType       int32
 	FzName       uintptr
 	FpNext       uintptr
-}
+} /* tclsqlite.c:105:9 */
 
 // New SQL functions can be created as TCL scripts.  Each such function
 // is described by an instance of the following structure.
@@ -35381,7 +35409,7 @@ type SqlCollate1 = struct {
 	Finterp  uintptr
 	FzScript uintptr
 	FpNext   uintptr
-}
+} /* tclsqlite.c:120:9 */
 
 // New collation sequences function can be created as TCL scripts.  Each such
 // function is described by an instance of the following structure.
@@ -35397,7 +35425,7 @@ type SqlPreparedStmt1 = struct {
 	FzSql   uintptr
 	FnParm  int32
 	FapParm uintptr
-}
+} /* tclsqlite.c:131:9 */
 
 // Prepared statements are cached for faster execution.  Each prepared
 // statement is described by an instance of the following structure.
@@ -35410,7 +35438,7 @@ type IncrblobChannel1 = struct {
 	Fchannel Tcl_Channel
 	FpNext   uintptr
 	FpPrev   uintptr
-}
+} /* tclsqlite.c:142:9 */
 
 type IncrblobChannel = IncrblobChannel1 /* tclsqlite.c:142:32 */
 
@@ -36827,7 +36855,7 @@ type DbEvalContext1 = struct {
 	FevalFlags int32
 	FpArray    uintptr
 	FapColName uintptr
-}
+} /* tclsqlite.c:1523:9 */
 
 // Structure used with dbEvalXXX() functions:
 //
@@ -38509,7 +38537,7 @@ __146:
 	return 1
 __147:
 	;
-	in = libc.Xfopen(tls, zFile, ts+4086 /* "rb" */)
+	in = libc.Xfopen64(tls, zFile, ts+4086 /* "rb" */)
 	if !(in == uintptr(0)) {
 		goto __148
 	}
@@ -40165,7 +40193,7 @@ type DbConfigChoices = struct {
 	FzName uintptr
 	Fop    int32
 	_      [4]byte
-}
+} /* tclsqlite.c:2340:18 */
 
 var DB_strs = [42]uintptr{
 	ts + 12865 /* "authorizer" */, ts + 12876 /* "backup" */, ts + 12883, /* "bind_fallback" */
@@ -40790,7 +40818,7 @@ type Hash1 = struct {
 	Fcount  uint32
 	Ffirst  uintptr
 	Fht     uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // Is the sqlite3ErrName() function needed in the build?  Currently,
 // it is needed by "mutex_w32.c" (when debugging), "os_win.c" (when
@@ -40829,7 +40857,7 @@ type HashElem1 = struct {
 	Fprev uintptr
 	Fdata uintptr
 	FpKey uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type HashElem = HashElem1 /* hash.h:20:25 */
 
@@ -40856,18 +40884,12 @@ type HashElem = HashElem1 /* hash.h:20:25 */
 type _ht = struct {
 	Fcount uint32
 	Fchain uintptr
-}
+} /* sqlite3.h:249:9 */
 
-type off64_t = int64        /* stdio.h:70:19 */
-type fpos64_t = _G_fpos64_t /* stdio.h:89:20 */
-type ino64_t = uint64       /* types.h:54:19 */ // Type to count file system inodes.
-
-type blkcnt64_t = int64    /* types.h:236:22 */     // Type to count number of disk blocks.
-type fsblkcnt64_t = uint64 /* types.h:237:24 */     // Type to count file system blocks.
-type fsfilcnt64_t = uint64 /* types.h:238:24 */     // 8-byte unsigned integer
-type u322 = uint32_t       /* sqliteInt.h:780:21 */ // 2-byte unsigned integer
-type i16 = int16_t         /* sqliteInt.h:782:20 */ // 1-byte unsigned integer
-type i8 = int8_t           /* sqliteInt.h:784:19 */ // 1-byte signed integer
+// 8-byte unsigned integer
+type u322 = uint32_t /* sqliteInt.h:780:21 */ // 2-byte unsigned integer
+type i16 = int16_t   /* sqliteInt.h:782:20 */ // 1-byte unsigned integer
+type i8 = int8_t     /* sqliteInt.h:784:19 */ // 1-byte signed integer
 
 // SQLITE_MAX_U32 is a u64 constant that is the maximum u64 value
 // that can be stored in a u32 without loss of data.  The value
@@ -40963,7 +40985,7 @@ type BusyHandler1 = struct {
 	FpBusyArg     uintptr
 	FnBusy        int32
 	_             [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 // The SQLITE_WITHIN(P,S,E) macro checks to see if pointer P points to
 // something between S (inclusive) and E (exclusive).
@@ -41080,7 +41102,7 @@ type AggInfo1 = struct {
 	FnFunc          int32
 	FselId          u322
 	FpNext          uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // Name of table that holds the database schema.
 
@@ -41133,7 +41155,7 @@ type AggInfo = AggInfo1 /* sqliteInt.h:1108:24 */
 type AuthContext1 = struct {
 	FzAuthContext uintptr
 	FpParse       uintptr
-}
+} /* sqliteInt.h:1109:9 */
 
 type AuthContext = AuthContext1 /* sqliteInt.h:1109:28 */
 type AutoincInfo1 = struct {
@@ -41141,7 +41163,7 @@ type AutoincInfo1 = struct {
 	FpTab   uintptr
 	FiDb    int32
 	FregCtr int32
-}
+} /* sqlite3.h:249:9 */
 
 type AutoincInfo = AutoincInfo1 /* sqliteInt.h:1110:28 */
 type CollSeq1 = struct {
@@ -41150,7 +41172,7 @@ type CollSeq1 = struct {
 	FpUser uintptr
 	FxCmp  uintptr
 	FxDel  uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type CollSeq = CollSeq1 /* sqliteInt.h:1112:24 */
 type Column1 = struct {
@@ -41163,7 +41185,7 @@ type Column1 = struct {
 	FhName    u8
 	FcolFlags u16
 	_         [2]byte
-}
+} /* sqlite3.h:249:9 */
 
 type Column = Column1 /* sqliteInt.h:1113:23 */
 type Db1 = struct {
@@ -41172,7 +41194,7 @@ type Db1 = struct {
 	Fsafety_level u8
 	FbSyncSet     u8
 	FpSchema      uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type Db = Db1 /* sqliteInt.h:1114:19 */
 type Schema1 = struct {
@@ -41187,7 +41209,7 @@ type Schema1 = struct {
 	Fenc           u8
 	FschemaFlags   u16
 	Fcache_size    int32
-}
+} /* sqlite3.h:249:9 */
 
 type Schema = Schema1 /* sqliteInt.h:1115:23 */
 type Expr1 = struct {
@@ -41206,7 +41228,7 @@ type Expr1 = struct {
 	FiRightJoinTable i16
 	FpAggInfo        uintptr
 	Fy               struct{ FpTab uintptr }
-}
+} /* sqlite3.h:249:9 */
 
 type Expr = Expr1 /* sqliteInt.h:1116:21 */
 type ExprList1 = struct {
@@ -41226,7 +41248,7 @@ type ExprList1 = struct {
 		}
 		_ [4]byte
 	}
-}
+} /* sqlite3.h:249:9 */
 
 type ExprList = ExprList1 /* sqliteInt.h:1117:25 */
 type FKey1 = struct {
@@ -41243,14 +41265,14 @@ type FKey1 = struct {
 		FiFrom int32
 		FzCol  uintptr
 	}
-}
+} /* sqlite3.h:249:9 */
 
 type FKey = FKey1 /* sqliteInt.h:1118:21 */
 type FuncDestructor1 = struct {
 	FnRef      int32
 	FxDestroy  uintptr
 	FpUserData uintptr
-}
+} /* sqliteInt.h:1119:9 */
 
 type FuncDestructor = FuncDestructor1 /* sqliteInt.h:1119:31 */
 type FuncDef1 = struct {
@@ -41264,17 +41286,17 @@ type FuncDef1 = struct {
 	FxInverse  uintptr
 	FzName     uintptr
 	Fu         struct{ FpHash uintptr }
-}
+} /* sqlite3.h:249:9 */
 
-type FuncDef = FuncDef1 /* sqliteInt.h:1120:24 */
-type FuncDefHash1 = struct{ Fa [23]uintptr }
+type FuncDef = FuncDef1                      /* sqliteInt.h:1120:24 */
+type FuncDefHash1 = struct{ Fa [23]uintptr } /* sqliteInt.h:1121:9 */
 
 type FuncDefHash = FuncDefHash1 /* sqliteInt.h:1121:28 */
 type IdList1 = struct {
 	Fa   uintptr
 	FnId int32
 	_    [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 type IdList = IdList1 /* sqliteInt.h:1122:23 */
 type Index1 = struct {
@@ -41302,7 +41324,7 @@ type Index1 = struct {
 	FaiRowEst      uintptr
 	FnRowEst0      tRowcnt
 	FcolNotIdxed   Bitmask
-}
+} /* sqlite3.h:249:9 */
 
 type Index = Index1 /* sqliteInt.h:1123:22 */
 type IndexSample1 = struct {
@@ -41311,7 +41333,7 @@ type IndexSample1 = struct {
 	FanEq  uintptr
 	FanLt  uintptr
 	FanDLt uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type IndexSample = IndexSample1 /* sqliteInt.h:1124:28 */
 type KeyInfo1 = struct {
@@ -41322,7 +41344,7 @@ type KeyInfo1 = struct {
 	Fdb         uintptr
 	FaSortFlags uintptr
 	FaColl      [1]uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type KeyInfo = KeyInfo1 /* sqliteInt.h:1126:24 */
 type Lookaside1 = struct {
@@ -41339,10 +41361,10 @@ type Lookaside1 = struct {
 	FpMiddle    uintptr
 	FpStart     uintptr
 	FpEnd       uintptr
-}
+} /* sqlite3.h:249:9 */
 
-type Lookaside = Lookaside1 /* sqliteInt.h:1127:26 */
-type LookasideSlot1 = struct{ FpNext uintptr }
+type Lookaside = Lookaside1                    /* sqliteInt.h:1127:26 */
+type LookasideSlot1 = struct{ FpNext uintptr } /* sqlite3.h:249:9 */
 
 type LookasideSlot = LookasideSlot1 /* sqliteInt.h:1128:30 */
 type Module1 = struct {
@@ -41352,7 +41374,7 @@ type Module1 = struct {
 	FpAux       uintptr
 	FxDestroy   uintptr
 	FpEpoTab    uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type Module = Module1 /* sqliteInt.h:1129:23 */
 type NameContext1 = struct {
@@ -41364,7 +41386,7 @@ type NameContext1 = struct {
 	FnErr       int32
 	FncFlags    int32
 	FpWinSelect uintptr
-}
+} /* sqliteInt.h:1130:9 */
 
 type NameContext = NameContext1 /* sqliteInt.h:1130:28 */
 type Parse1 = struct {
@@ -41438,7 +41460,7 @@ type Parse1 = struct {
 	FpWith            uintptr
 	FpWithToFree      uintptr
 	FpRename          uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type Parse = Parse1 /* sqliteInt.h:1131:22 */
 type PreUpdate1 = struct {
@@ -41455,14 +41477,14 @@ type PreUpdate1 = struct {
 	FaNew         uintptr
 	FpTab         uintptr
 	FpPk          uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type PreUpdate = PreUpdate1 /* sqliteInt.h:1132:26 */
 type PrintfArguments1 = struct {
 	FnArg  int32
 	FnUsed int32
 	FapArg uintptr
-}
+} /* sqliteInt.h:1133:9 */
 
 type PrintfArguments = PrintfArguments1 /* sqliteInt.h:1133:32 */
 type Savepoint1 = struct {
@@ -41470,7 +41492,7 @@ type Savepoint1 = struct {
 	FnDeferredCons    i64
 	FnDeferredImmCons i64
 	FpNext            uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type Savepoint = Savepoint1 /* sqliteInt.h:1136:26 */
 type Select1 = struct {
@@ -41493,7 +41515,7 @@ type Select1 = struct {
 	FpWith        uintptr
 	FpWin         uintptr
 	FpWinDefn     uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type Select = Select1 /* sqliteInt.h:1137:23 */
 type SelectDest1 = struct {
@@ -41504,7 +41526,7 @@ type SelectDest1 = struct {
 	FnSdst    int32
 	FzAffSdst uintptr
 	FpOrderBy uintptr
-}
+} /* sqliteInt.h:1139:9 */
 
 type SelectDest = SelectDest1 /* sqliteInt.h:1139:27 */
 type SrcList1 = struct {
@@ -41534,7 +41556,7 @@ type SrcList1 = struct {
 		Fu1       struct{ FzIndexedBy uintptr }
 		FpIBIndex uintptr
 	}
-}
+} /* sqlite3.h:249:9 */
 
 type SrcList = SrcList1      /* sqliteInt.h:1140:24 */
 type StrAccum = sqlite3_str1 /* sqliteInt.h:1141:28 */ // Internal alias for sqlite3_str
@@ -41562,7 +41584,7 @@ type Table1 = struct {
 	FpTrigger     uintptr
 	FpSchema      uintptr
 	FpNextZombie  uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // Internal alias for sqlite3_str
 type Table = Table1 /* sqliteInt.h:1142:22 */
@@ -41570,7 +41592,7 @@ type Token1 = struct {
 	Fz uintptr
 	Fn uint32
 	_  [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 type Token = Token1 /* sqliteInt.h:1144:22 */
 type Trigger1 = struct {
@@ -41584,7 +41606,7 @@ type Trigger1 = struct {
 	FpTabSchema uintptr
 	Fstep_list  uintptr
 	FpNext      uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type Trigger = Trigger1 /* sqliteInt.h:1146:24 */
 type TriggerPrg1 = struct {
@@ -41594,7 +41616,7 @@ type TriggerPrg1 = struct {
 	Forconf   int32
 	FaColmask [2]u322
 	_         [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 type TriggerPrg = TriggerPrg1 /* sqliteInt.h:1147:27 */
 type TriggerStep1 = struct {
@@ -41611,7 +41633,7 @@ type TriggerStep1 = struct {
 	FzSpan     uintptr
 	FpNext     uintptr
 	FpLast     uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type TriggerStep = TriggerStep1 /* sqliteInt.h:1148:28 */
 type UnpackedRecord1 = struct {
@@ -41624,7 +41646,7 @@ type UnpackedRecord1 = struct {
 	Fr2         i8
 	FeqSeen     u8
 	_           [1]byte
-}
+} /* sqlite3.h:249:9 */
 
 type UnpackedRecord = UnpackedRecord1 /* sqliteInt.h:1149:31 */
 type Upsert1 = struct {
@@ -41638,7 +41660,7 @@ type Upsert1 = struct {
 	FiDataCur           int32
 	FiIdxCur            int32
 	_                   [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 type Upsert = Upsert1 /* sqliteInt.h:1150:23 */
 type VTable1 = struct {
@@ -41650,7 +41672,7 @@ type VTable1 = struct {
 	FeVtabRisk   u8
 	FiSavepoint  int32
 	FpNext       uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type VTable = VTable1 /* sqliteInt.h:1151:23 */
 type Walker1 = struct {
@@ -41661,7 +41683,7 @@ type Walker1 = struct {
 	FwalkerDepth      int32
 	FeCode            u16
 	Fu                struct{ FpNC uintptr }
-}
+} /* sqliteInt.h:1153:9 */
 
 type Walker = Walker1 /* sqliteInt.h:1153:23 */
 type Window1 = struct {
@@ -41694,7 +41716,7 @@ type Window1 = struct {
 	FregEndRowid    int32
 	FbExprArgs      u8
 	_               [3]byte
-}
+} /* sqlite3.h:249:9 */
 
 type Window = Window1 /* sqliteInt.h:1155:23 */
 type With1 = struct {
@@ -41706,7 +41728,7 @@ type With1 = struct {
 		FpSelect uintptr
 		FzCteErr uintptr
 	}
-}
+} /* sqlite3.h:249:9 */
 
 type With = With1 /* sqliteInt.h:1156:21 */
 
@@ -41766,7 +41788,7 @@ type PgHdr1 = struct {
 	FnRef       i16
 	FpDirtyNext uintptr
 	FpDirtyPrev uintptr
-}
+} /* pager.h:43:9 */
 
 // Handle type for pages.
 type DbPage = PgHdr1 /* pager.h:43:22 */
@@ -41805,7 +41827,7 @@ type Btree1 = struct {
 	FpNext          uintptr
 	FpPrev          uintptr
 	Flock           BtLock
-}
+} /* btree.h:39:9 */
 
 type BtCursor1 = struct {
 	FeState        u8
@@ -41828,7 +41850,7 @@ type BtCursor1 = struct {
 	FpKeyInfo      uintptr
 	FpPage         uintptr
 	FapPage        [19]uintptr
-}
+} /* btree.h:39:9 */
 
 type BtShared1 = struct {
 	FpPager          uintptr
@@ -41860,7 +41882,7 @@ type BtShared1 = struct {
 	FpLock           uintptr
 	FpWriter         uintptr
 	FpTmpSpace       uintptr
-}
+} /* btree.h:39:9 */
 
 type BtreePayload1 = struct {
 	FpKey  uintptr
@@ -41871,7 +41893,7 @@ type BtreePayload1 = struct {
 	FnData int32
 	FnZero int32
 	_      [4]byte
-}
+} /* btree.h:42:9 */
 
 type BtreePayload = BtreePayload1 /* btree.h:42:29 */
 
@@ -41961,7 +41983,7 @@ type Vdbe1 = struct {
 	Fexpmask            u322
 	FpProgram           uintptr
 	FpAuxData           uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // 2001 September 15
 //
@@ -42014,7 +42036,7 @@ type SubProgram1 = struct {
 	FaOnce uintptr
 	Ftoken uintptr
 	FpNext uintptr
-}
+} /* sqlite3.h:249:9 */
 
 type SubProgram = SubProgram1 /* vdbe.h:34:27 */
 
@@ -42034,7 +42056,7 @@ type VdbeOp1 = struct {
 		_  [4]byte
 	}
 	FzComment uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // A single instruction of the virtual machine has an opcode
 // and as many as three operands.  The instruction is recorded
@@ -42043,7 +42065,7 @@ type p4union = struct {
 	_  [0]uint64
 	Fi int32
 	_  [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 type VdbeOp = VdbeOp1 /* vdbe.h:80:23 */
 
@@ -42054,7 +42076,7 @@ type VdbeOpList1 = struct {
 	Fp1     int8
 	Fp2     int8
 	Fp3     int8
-}
+} /* vdbe.h:100:1 */
 
 type VdbeOpList = VdbeOpList1 /* vdbe.h:106:27 */
 
@@ -42128,7 +42150,7 @@ type sqlite3InitInfo = struct {
 	_              [2]byte
 	ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
 	FazInit        uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // Allowed values for Table.tabFlags.
 //
@@ -42183,7 +42205,7 @@ type sqlite3InitInfo = struct {
 type sColMap = struct {
 	FiFrom int32
 	FzCol  uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // An instance of this structure contains information needed to generate
 // code for a SELECT that contains aggregate functions.
@@ -42204,7 +42226,7 @@ type AggInfo_col = struct {
 	FiColumn       i16
 	FiSorterColumn i16
 	_              [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 // An instance of this structure contains information needed to generate
 // code for a SELECT that contains aggregate functions.
@@ -42222,7 +42244,7 @@ type AggInfo_func = struct {
 	FpFunc     uintptr
 	FiMem      int32
 	FiDistinct int32
-}
+} /* sqlite3.h:249:9 */
 
 // The datatype ynVar is a signed integer, either 16-bit or 32-bit.
 // Usually it is 16-bits.  But if SQLITE_MAX_VARIABLE_NUMBER is greater
@@ -42298,7 +42320,7 @@ type ExprList_item = struct {
 		}
 	}
 	_ [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 // Allowed values for Expr.a.eEName
 
@@ -42319,7 +42341,7 @@ type IdList_item = struct {
 	FzName uintptr
 	Fidx   int32
 	_      [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 // The following structure describes the FROM clause of a SELECT statement.
 // Each table or subquery in the FROM clause is a separate element of
@@ -42361,7 +42383,7 @@ type SrcList_item = struct {
 	FcolUsed  Bitmask
 	Fu1       struct{ FzIndexedBy uintptr }
 	FpIBIndex uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // The yDbMask datatype for the bitmask of all attached databases.
 type yDbMask = uint32 /* sqliteInt.h:3297:24 */
@@ -42376,7 +42398,7 @@ type DbFixer1 = struct {
 	FzDb     uintptr
 	FzType   uintptr
 	FpName   uintptr
-}
+} /* sqliteInt.h:3596:9 */
 
 // The following structure contains information used by the sqliteFix...
 // routines as they walk the parse tree to make database references
@@ -42444,7 +42466,7 @@ type Sqlite3Config = struct {
 	FiOnceResetThreshold int32
 	FszSorterRef         u322
 	FiPrngSeed           uint32
-}
+} /* sqliteInt.h:3650:1 */
 
 // Return code from the parse-tree walking primitives and their
 // callbacks.
@@ -42456,7 +42478,7 @@ type Cte = struct {
 	FpCols   uintptr
 	FpSelect uintptr
 	FzCteErr uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // 2003 September 6
 //
@@ -42495,7 +42517,7 @@ type AuxData1 = struct {
 	FpAux       uintptr
 	FxDeleteAux uintptr
 	FpNextAux   uintptr
-}
+} /* sqlite3.h:249:9 */
 
 // Elements of the linked list at Vdbe.pAuxData
 type AuxData = AuxData1 /* vdbeInt.h:57:24 */
@@ -42537,7 +42559,7 @@ type VdbeCursor1 = struct {
 	FszRow          u322
 	FaType          [1]u322
 	_               [4]byte
-}
+} /* sqlite3.h:249:9 */
 
 // Types of VDBE cursors
 
@@ -42591,7 +42613,7 @@ type VdbeFrame1 = struct {
 	FnChildCsr int32
 	FnChange   int32
 	FnDbChange int32
-}
+} /* sqlite3.h:249:9 */
 
 // A value for VdbeCursor.cacheStatus that means the cache is always invalid.
 
@@ -42624,7 +42646,7 @@ type VdbeFrame = VdbeFrame1 /* vdbeInt.h:161:26 */
 // Internally, the vdbe manipulates nearly all SQL values as Mem
 // structures. Each Mem struct may cache multiple representations (string,
 // integer etc.) of the same value.
-type MemValue = struct{ Fr float64 }
+type MemValue = struct{ Fr float64 } /* sqlite3.h:249:9 */
 
 // A bitfield type for use inside of structures.  Always follow with :N where
 // N is the number of bits.
@@ -42639,7 +42661,7 @@ type ScanStatus1 = struct {
 	FiSelectID   int32
 	FnEst        LogEst
 	FzName       uintptr
-}
+} /* vdbeInt.h:349:9 */
 
 // Bit Field Type
 
@@ -42656,7 +42678,7 @@ type ScanStatus = ScanStatus1 /* vdbeInt.h:349:27 */
 type DblquoteStr1 = struct {
 	FpNextStr uintptr
 	Fz        [8]int8
-}
+} /* vdbeInt.h:366:9 */
 
 // The DblquoteStr object holds the text of a double-quoted
 // string for a prepared statement.  A linked list of these objects
@@ -43376,7 +43398,7 @@ type dstr = struct {
 	FnAlloc int32
 	FnUsed  int32
 	Fz      uintptr
-}
+} /* test1.c:776:1 */
 
 // Append text to a dstr
 func dstrAppend(tls *libc.TLS, p uintptr, z uintptr, divider int32) { /* test1.c:785:13: */
@@ -43708,7 +43730,7 @@ func test_drop_modules(tls *libc.TLS, NotUsed uintptr, interp uintptr, argc int3
 // on the step function.  If x_count(41) is seen, then a UTF-16 error
 // is reported on the step function.  If the total count is 42, then
 // a UTF-8 error is reported on the finalize function.
-type t1CountCtx1 = struct{ Fn int32 }
+type t1CountCtx1 = struct{ Fn int32 } /* test1.c:1123:9 */
 
 // Routines to implement the x_count() aggregate function.
 //
@@ -44314,7 +44336,7 @@ type TestCollationX1 = struct {
 	Finterp uintptr
 	FpCmp   uintptr
 	FpDel   uintptr
-}
+} /* test1.c:1715:1 */
 
 type TestCollationX = TestCollationX1 /* test1.c:1720:31 */
 func testCreateCollationDel(tls *libc.TLS, pCtx uintptr) { /* test1.c:1721:13: */
@@ -44418,7 +44440,7 @@ type CreateFunctionV21 = struct {
 	FpStep    uintptr
 	FpFinal   uintptr
 	FpDestroy uintptr
-}
+} /* test1.c:1804:9 */
 
 // USAGE: sqlite3_create_function_v2 DB NAME NARG ENC ?SWITCHES?
 //
@@ -44612,7 +44634,7 @@ type EncTable = struct {
 	FzEnc uintptr
 	Fenc  int32
 	_     [4]byte
-}
+} /* test1.c:1846:3 */
 
 // Usage: sqlite3_load_extension DB-HANDLE FILE ?PROC?
 func test_load_extension(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:1920:26: */
@@ -47479,7 +47501,7 @@ type OpenFlag = struct {
 	FzFlag uintptr
 	Fflag  int32
 	_      [4]byte
-}
+} /* test1.c:4617:5 */
 
 // Usage: sqlite3_open16 filename options
 func test_open16(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:4658:26: */
@@ -49226,7 +49248,7 @@ func test_wal_autocheckpoint(tls *libc.TLS, clientData ClientData, interp uintpt
 type LogCallback = struct {
 	FpInterp uintptr
 	FpObj    uintptr
-}
+} /* test1.c:6704:8 */
 
 // tclcmd:  test_sqlite3_log ?SCRIPT?
 var logcallback = LogCallback{FpInterp: uintptr(0), FpObj: uintptr(0)} /* test1.c:6707:3 */
@@ -49481,7 +49503,7 @@ type Verb = struct {
 	FzName uintptr
 	Fi     int32
 	_      [4]byte
-}
+} /* test1.c:6846:3 */
 
 // Value to indicate that there is no limit.
 
@@ -49494,12 +49516,12 @@ type rlim64_t = uint64 /* resource.h:136:20 */
 type rlimit = struct {
 	Frlim_cur rlim_t
 	Frlim_max rlim_t
-}
+} /* resource.h:139:1 */
 
 type rlimit64 = struct {
 	Frlim_cur rlim64_t
 	Frlim_max rlim64_t
-}
+} /* resource.h:148:1 */
 
 // Define struct rusage.
 //   Copyright (C) 1994-2018 Free Software Foundation, Inc.
@@ -49568,7 +49590,7 @@ type rusage = struct {
 	F__120 struct{ Fru_nsignals int64 }
 	F__128 struct{ Fru_nvcsw int64 }
 	F__136 struct{ Fru_nivcsw int64 }
-}
+} /* struct_rusage.h:31:1 */
 
 func test_getrusage(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:6930:26: */
 	bp := tls.Alloc(1216)
@@ -51528,7 +51550,7 @@ type MemPage1 = struct {
 	FpDbPage         uintptr
 	FxCellSize       uintptr
 	FxParseCell      uintptr
-}
+} /* btree.h:39:9 */
 
 // 2004 April 6
 //
@@ -51771,7 +51793,7 @@ type BtLock1 = struct {
 	FiTable Pgno
 	FeLock  u8
 	FpNext  uintptr
-}
+} /* btree.h:39:9 */
 
 type BtLock = BtLock1 /* btreeInt.h:233:23 */
 type CellInfo1 = struct {
@@ -51780,7 +51802,7 @@ type CellInfo1 = struct {
 	FnPayload u322
 	FnLocal   u16
 	FnSize    u16
-}
+} /* btree.h:39:9 */
 
 type CellInfo = CellInfo1 /* btreeInt.h:234:25 */
 
@@ -51892,7 +51914,7 @@ type IntegrityCk1 = struct {
 	FerrMsg    StrAccum
 	Fheap      uintptr
 	Fdb        uintptr
-}
+} /* btreeInt.h:674:9 */
 
 // Legal values for BtCursor.curFlags
 
@@ -52923,7 +52945,7 @@ var aCmd3 = [14]struct {
 //   <http://www.gnu.org/licenses/>.
 
 // Data structure to describe a process' schedulability.
-type sched_param = struct{ Fsched_priority int32 }
+type sched_param = struct{ Fsched_priority int32 } /* struct_sched_param.h:23:1 */
 
 // Basic access functions.
 
@@ -52938,7 +52960,7 @@ type _pthread_cleanup_buffer = struct {
 	F__arg        uintptr
 	F__canceltype int32
 	F__prev       uintptr
-}
+} /* pthread.h:191:1 */
 
 // No special attributes by default.
 
@@ -52948,7 +52970,7 @@ type __pthread_cleanup_frame = struct {
 	F__cancel_arg     uintptr
 	F__do_it          int32
 	F__cancel_type    int32
-}
+} /* pthread.h:541:1 */
 
 // Each thread is controlled by an instance of the following
 // structure.
@@ -53749,7 +53771,7 @@ type EncName = struct {
 	FzName uintptr
 	Fenc   u8
 	_      [7]byte
-}
+} /* test5.c:95:3 */
 
 // Usage:   test_translate <string/blob> <from enc> <to enc> ?<transient>?
 //
@@ -53860,7 +53882,7 @@ type CrashFile1 = struct {
 	FzData     uintptr
 	FnData     int32
 	FiSize     i64
-}
+} /* test6.c:29:9 */
 
 // end block for C++
 
@@ -53880,7 +53902,7 @@ type CrashGlobal1 = struct {
 	FiDeviceCharacteristics int32
 	FiCrash                 int32
 	FzCrashFile             [500]int8
-}
+} /* test6.c:30:9 */
 
 type CrashGlobal = CrashGlobal1 /* test6.c:30:28 */
 type WriteBuffer1 = struct {
@@ -53889,7 +53911,7 @@ type WriteBuffer1 = struct {
 	FzBuf    uintptr
 	FpFile   uintptr
 	FpNext   uintptr
-}
+} /* test6.c:30:9 */
 
 type WriteBuffer = WriteBuffer1 /* test6.c:31:28 */
 
@@ -54268,7 +54290,7 @@ var CrashFileVtab = sqlite3_io_methods{FiVersion: 2, FxClose: // iVersion
 } /* test6.c:571:33 */
 
 // Application data for the crash VFS
-type crashAppData = struct{ FpOrig uintptr }
+type crashAppData = struct{ FpOrig uintptr } /* test6.c:594:1 */
 
 // Open a crash-file file handle.
 //
@@ -54472,7 +54494,7 @@ type DeviceFlag = struct {
 	FzName  uintptr
 	FiValue int32
 	_       [4]byte
-}
+} /* test6.c:723:3 */
 
 // tclcmd:   sqlite3_crash_now
 //
@@ -55441,7 +55463,7 @@ type echo_vtab1 = struct {
 	FnCol          int32
 	FaIndex        uintptr
 	FaCol          uintptr
-}
+} /* test8.c:27:9 */
 
 // end block for C++
 
@@ -55492,7 +55514,7 @@ type echo_vtab = echo_vtab1 /* test8.c:27:26 */
 type echo_cursor1 = struct {
 	Fbase  sqlite3_vtab_cursor
 	FpStmt uintptr
-}
+} /* test8.c:28:9 */
 
 type echo_cursor = echo_cursor1 /* test8.c:28:28 */
 
@@ -55869,7 +55891,7 @@ func echoDestructor(tls *libc.TLS, pVtab uintptr) int32 { /* test8.c:378:12: */
 	return 0
 }
 
-type EchoModule1 = struct{ Finterp uintptr }
+type EchoModule1 = struct{ Finterp uintptr } /* test8.c:389:9 */
 
 type EchoModule = EchoModule1 /* test8.c:389:27 */
 
@@ -57272,7 +57294,7 @@ type BackupSubCommand = struct {
 	FeCmd uint32
 	FnArg int32
 	FzArg uintptr
-}
+} /* test_backup.c:42:3 */
 
 func backupTestFinish(tls *libc.TLS, clientData ClientData) { /* test_backup.c:108:27: */
 	var pBackup uintptr = clientData
@@ -57339,7 +57361,7 @@ type tcl_vtab1 = struct {
 	Finterp uintptr
 	FpCmd   uintptr
 	Fdb     uintptr
-}
+} /* test_bestindex.c:104:9 */
 
 // end block for C++
 
@@ -57353,7 +57375,7 @@ type tcl_vtab = tcl_vtab1 /* test_bestindex.c:104:25 */
 type tcl_cursor1 = struct {
 	Fbase  sqlite3_vtab_cursor
 	FpStmt uintptr
-}
+} /* test_bestindex.c:105:9 */
 
 type tcl_cursor = tcl_cursor1 /* test_bestindex.c:105:27 */
 
@@ -58780,7 +58802,7 @@ type MFile = struct {
 	FzFmt    uintptr
 	FiOffset int32
 	Fb83     int32
-}
+} /* test_delete.c:105:3 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -58813,7 +58835,7 @@ type DemoFile1 = struct {
 	FaBuffer     uintptr
 	FnBuffer     int32
 	FiBufferOfst sqlite3_int64
-}
+} /* test_demovfs.c:147:9 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -58848,7 +58870,7 @@ func demoDirectWrite(tls *libc.TLS, p uintptr, zBuf uintptr, iAmt int32, iOfst s
 	var ofst off_t    // Return value from lseek()
 	var nWrite size_t // Return value from write()
 
-	ofst = libc.Xlseek(tls, (*DemoFile)(unsafe.Pointer(p)).Ffd, int64(iOfst), 0)
+	ofst = libc.Xlseek64(tls, (*DemoFile)(unsafe.Pointer(p)).Ffd, int64(iOfst), 0)
 	if sqlite_int64(ofst) != iOfst {
 		return (10 | (int32(3) << 8))
 	}
@@ -58900,7 +58922,7 @@ func demoRead(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqli
 		return rc
 	}
 
-	ofst = libc.Xlseek(tls, (*DemoFile)(unsafe.Pointer(p)).Ffd, int64(iOfst), 0)
+	ofst = libc.Xlseek64(tls, (*DemoFile)(unsafe.Pointer(p)).Ffd, int64(iOfst), 0)
 	if sqlite_int64(ofst) != iOfst {
 		return (10 | (int32(1) << 8))
 	}
@@ -58993,7 +59015,7 @@ func demoFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* test_d
 
 	var p uintptr = pFile
 	var rc int32 // Return code from fstat() call
-	// var sStat stat at bp, 144
+	// var sStat stat64 at bp, 144
 	// Output of fstat() call
 
 	// Flush the contents of the buffer to disk. As with the flush in the
@@ -59005,11 +59027,11 @@ func demoFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* test_d
 		return rc
 	}
 
-	rc = libc.Xfstat(tls, (*DemoFile)(unsafe.Pointer(p)).Ffd, bp /* &sStat */)
+	rc = libc.Xfstat64(tls, (*DemoFile)(unsafe.Pointer(p)).Ffd, bp /* &sStat */)
 	if rc != 0 {
 		return (10 | (int32(7) << 8))
 	}
-	*(*sqlite_int64)(unsafe.Pointer(pSize)) = sqlite_int64((*stat)(unsafe.Pointer(bp /* &sStat */)).Fst_size)
+	*(*sqlite_int64)(unsafe.Pointer(pSize)) = sqlite_int64((*stat64)(unsafe.Pointer(bp /* &sStat */)).Fst_size)
 	return 0
 }
 
@@ -59077,7 +59099,7 @@ func demoOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pFile uintptr, flags i
 	}
 
 	libc.Xmemset(tls, p, 0, uint64(unsafe.Sizeof(DemoFile{})))
-	(*DemoFile)(unsafe.Pointer(p)).Ffd = libc.Xopen(tls, zName, oflags, libc.VaList(bp, 0600))
+	(*DemoFile)(unsafe.Pointer(p)).Ffd = libc.Xopen64(tls, zName, oflags, libc.VaList(bp, 0600))
 	if (*DemoFile)(unsafe.Pointer(p)).Ffd < 0 {
 		sqlite3.Xsqlite3_free(tls, aBuf)
 		return 14
@@ -59134,7 +59156,7 @@ func demoDelete(tls *libc.TLS, pVfs uintptr, zPath uintptr, dirSync int32) int32
 		*(*int8)(unsafe.Pointer(bp + 16 /* &zDir[0] */ + uintptr(i))) = int8(0)
 
 		// Open a file-descriptor on the directory. Sync. Close.
-		dfd = libc.Xopen(tls, bp+16 /* &zDir[0] */, 00, libc.VaList(bp+8, 0))
+		dfd = libc.Xopen64(tls, bp+16 /* &zDir[0] */, 00, libc.VaList(bp+8, 0))
 		if dfd < 0 {
 			rc = -1
 		} else {
@@ -59278,7 +59300,644 @@ uintptr(0), FxOpen:// pAppData
 0, // xCurrentTime
 } /* test_demovfs.c:620:22 */
 
-type Tcl_StatBuf = stat /* tcl.h:470:25 */
+type Tcl_StatBuf = stat64    /* tcl.h:470:25 */
+type Tcl_OldStat_1 = uintptr /* tcl.h:645:21 */
+
+type TclStubs1 = struct {
+	Fmagic                                  int32
+	Fhooks                                  uintptr
+	Ftcl_PkgProvideEx                       uintptr
+	Ftcl_PkgRequireEx                       uintptr
+	Ftcl_Panic                              uintptr
+	Ftcl_Alloc                              uintptr
+	Ftcl_Free                               uintptr
+	Ftcl_Realloc                            uintptr
+	Ftcl_DbCkalloc                          uintptr
+	Ftcl_DbCkfree                           uintptr
+	Ftcl_DbCkrealloc                        uintptr
+	Ftcl_CreateFileHandler                  uintptr
+	Ftcl_DeleteFileHandler                  uintptr
+	Ftcl_SetTimer                           uintptr
+	Ftcl_Sleep                              uintptr
+	Ftcl_WaitForEvent                       uintptr
+	Ftcl_AppendAllObjTypes                  uintptr
+	Ftcl_AppendStringsToObj                 uintptr
+	Ftcl_AppendToObj                        uintptr
+	Ftcl_ConcatObj                          uintptr
+	Ftcl_ConvertToType                      uintptr
+	Ftcl_DbDecrRefCount                     uintptr
+	Ftcl_DbIncrRefCount                     uintptr
+	Ftcl_DbIsShared                         uintptr
+	Ftcl_DbNewBooleanObj                    uintptr
+	Ftcl_DbNewByteArrayObj                  uintptr
+	Ftcl_DbNewDoubleObj                     uintptr
+	Ftcl_DbNewListObj                       uintptr
+	Ftcl_DbNewLongObj                       uintptr
+	Ftcl_DbNewObj                           uintptr
+	Ftcl_DbNewStringObj                     uintptr
+	Ftcl_DuplicateObj                       uintptr
+	FtclFreeObj                             uintptr
+	Ftcl_GetBoolean                         uintptr
+	Ftcl_GetBooleanFromObj                  uintptr
+	Ftcl_GetByteArrayFromObj                uintptr
+	Ftcl_GetDouble                          uintptr
+	Ftcl_GetDoubleFromObj                   uintptr
+	Ftcl_GetIndexFromObj                    uintptr
+	Ftcl_GetInt                             uintptr
+	Ftcl_GetIntFromObj                      uintptr
+	Ftcl_GetLongFromObj                     uintptr
+	Ftcl_GetObjType                         uintptr
+	Ftcl_GetStringFromObj                   uintptr
+	Ftcl_InvalidateStringRep                uintptr
+	Ftcl_ListObjAppendList                  uintptr
+	Ftcl_ListObjAppendElement               uintptr
+	Ftcl_ListObjGetElements                 uintptr
+	Ftcl_ListObjIndex                       uintptr
+	Ftcl_ListObjLength                      uintptr
+	Ftcl_ListObjReplace                     uintptr
+	Ftcl_NewBooleanObj                      uintptr
+	Ftcl_NewByteArrayObj                    uintptr
+	Ftcl_NewDoubleObj                       uintptr
+	Ftcl_NewIntObj                          uintptr
+	Ftcl_NewListObj                         uintptr
+	Ftcl_NewLongObj                         uintptr
+	Ftcl_NewObj                             uintptr
+	Ftcl_NewStringObj                       uintptr
+	Ftcl_SetBooleanObj                      uintptr
+	Ftcl_SetByteArrayLength                 uintptr
+	Ftcl_SetByteArrayObj                    uintptr
+	Ftcl_SetDoubleObj                       uintptr
+	Ftcl_SetIntObj                          uintptr
+	Ftcl_SetListObj                         uintptr
+	Ftcl_SetLongObj                         uintptr
+	Ftcl_SetObjLength                       uintptr
+	Ftcl_SetStringObj                       uintptr
+	Ftcl_AddErrorInfo                       uintptr
+	Ftcl_AddObjErrorInfo                    uintptr
+	Ftcl_AllowExceptions                    uintptr
+	Ftcl_AppendElement                      uintptr
+	Ftcl_AppendResult                       uintptr
+	Ftcl_AsyncCreate                        uintptr
+	Ftcl_AsyncDelete                        uintptr
+	Ftcl_AsyncInvoke                        uintptr
+	Ftcl_AsyncMark                          uintptr
+	Ftcl_AsyncReady                         uintptr
+	Ftcl_BackgroundError                    uintptr
+	Ftcl_Backslash                          uintptr
+	Ftcl_BadChannelOption                   uintptr
+	Ftcl_CallWhenDeleted                    uintptr
+	Ftcl_CancelIdleCall                     uintptr
+	Ftcl_Close                              uintptr
+	Ftcl_CommandComplete                    uintptr
+	Ftcl_Concat                             uintptr
+	Ftcl_ConvertElement                     uintptr
+	Ftcl_ConvertCountedElement              uintptr
+	Ftcl_CreateAlias                        uintptr
+	Ftcl_CreateAliasObj                     uintptr
+	Ftcl_CreateChannel                      uintptr
+	Ftcl_CreateChannelHandler               uintptr
+	Ftcl_CreateCloseHandler                 uintptr
+	Ftcl_CreateCommand                      uintptr
+	Ftcl_CreateEventSource                  uintptr
+	Ftcl_CreateExitHandler                  uintptr
+	Ftcl_CreateInterp                       uintptr
+	Ftcl_CreateMathFunc                     uintptr
+	Ftcl_CreateObjCommand                   uintptr
+	Ftcl_CreateSlave                        uintptr
+	Ftcl_CreateTimerHandler                 uintptr
+	Ftcl_CreateTrace                        uintptr
+	Ftcl_DeleteAssocData                    uintptr
+	Ftcl_DeleteChannelHandler               uintptr
+	Ftcl_DeleteCloseHandler                 uintptr
+	Ftcl_DeleteCommand                      uintptr
+	Ftcl_DeleteCommandFromToken             uintptr
+	Ftcl_DeleteEvents                       uintptr
+	Ftcl_DeleteEventSource                  uintptr
+	Ftcl_DeleteExitHandler                  uintptr
+	Ftcl_DeleteHashEntry                    uintptr
+	Ftcl_DeleteHashTable                    uintptr
+	Ftcl_DeleteInterp                       uintptr
+	Ftcl_DetachPids                         uintptr
+	Ftcl_DeleteTimerHandler                 uintptr
+	Ftcl_DeleteTrace                        uintptr
+	Ftcl_DontCallWhenDeleted                uintptr
+	Ftcl_DoOneEvent                         uintptr
+	Ftcl_DoWhenIdle                         uintptr
+	Ftcl_DStringAppend                      uintptr
+	Ftcl_DStringAppendElement               uintptr
+	Ftcl_DStringEndSublist                  uintptr
+	Ftcl_DStringFree                        uintptr
+	Ftcl_DStringGetResult                   uintptr
+	Ftcl_DStringInit                        uintptr
+	Ftcl_DStringResult                      uintptr
+	Ftcl_DStringSetLength                   uintptr
+	Ftcl_DStringStartSublist                uintptr
+	Ftcl_Eof                                uintptr
+	Ftcl_ErrnoId                            uintptr
+	Ftcl_ErrnoMsg                           uintptr
+	Ftcl_Eval                               uintptr
+	Ftcl_EvalFile                           uintptr
+	Ftcl_EvalObj                            uintptr
+	Ftcl_EventuallyFree                     uintptr
+	Ftcl_Exit                               uintptr
+	Ftcl_ExposeCommand                      uintptr
+	Ftcl_ExprBoolean                        uintptr
+	Ftcl_ExprBooleanObj                     uintptr
+	Ftcl_ExprDouble                         uintptr
+	Ftcl_ExprDoubleObj                      uintptr
+	Ftcl_ExprLong                           uintptr
+	Ftcl_ExprLongObj                        uintptr
+	Ftcl_ExprObj                            uintptr
+	Ftcl_ExprString                         uintptr
+	Ftcl_Finalize                           uintptr
+	Ftcl_FindExecutable                     uintptr
+	Ftcl_FirstHashEntry                     uintptr
+	Ftcl_Flush                              uintptr
+	Ftcl_FreeResult                         uintptr
+	Ftcl_GetAlias                           uintptr
+	Ftcl_GetAliasObj                        uintptr
+	Ftcl_GetAssocData                       uintptr
+	Ftcl_GetChannel                         uintptr
+	Ftcl_GetChannelBufferSize               uintptr
+	Ftcl_GetChannelHandle                   uintptr
+	Ftcl_GetChannelInstanceData             uintptr
+	Ftcl_GetChannelMode                     uintptr
+	Ftcl_GetChannelName                     uintptr
+	Ftcl_GetChannelOption                   uintptr
+	Ftcl_GetChannelType                     uintptr
+	Ftcl_GetCommandInfo                     uintptr
+	Ftcl_GetCommandName                     uintptr
+	Ftcl_GetErrno                           uintptr
+	Ftcl_GetHostName                        uintptr
+	Ftcl_GetInterpPath                      uintptr
+	Ftcl_GetMaster                          uintptr
+	Ftcl_GetNameOfExecutable                uintptr
+	Ftcl_GetObjResult                       uintptr
+	Ftcl_GetOpenFile                        uintptr
+	Ftcl_GetPathType                        uintptr
+	Ftcl_Gets                               uintptr
+	Ftcl_GetsObj                            uintptr
+	Ftcl_GetServiceMode                     uintptr
+	Ftcl_GetSlave                           uintptr
+	Ftcl_GetStdChannel                      uintptr
+	Ftcl_GetStringResult                    uintptr
+	Ftcl_GetVar                             uintptr
+	Ftcl_GetVar2                            uintptr
+	Ftcl_GlobalEval                         uintptr
+	Ftcl_GlobalEvalObj                      uintptr
+	Ftcl_HideCommand                        uintptr
+	Ftcl_Init                               uintptr
+	Ftcl_InitHashTable                      uintptr
+	Ftcl_InputBlocked                       uintptr
+	Ftcl_InputBuffered                      uintptr
+	Ftcl_InterpDeleted                      uintptr
+	Ftcl_IsSafe                             uintptr
+	Ftcl_JoinPath                           uintptr
+	Ftcl_LinkVar                            uintptr
+	Freserved188                            uintptr
+	Ftcl_MakeFileChannel                    uintptr
+	Ftcl_MakeSafe                           uintptr
+	Ftcl_MakeTcpClientChannel               uintptr
+	Ftcl_Merge                              uintptr
+	Ftcl_NextHashEntry                      uintptr
+	Ftcl_NotifyChannel                      uintptr
+	Ftcl_ObjGetVar2                         uintptr
+	Ftcl_ObjSetVar2                         uintptr
+	Ftcl_OpenCommandChannel                 uintptr
+	Ftcl_OpenFileChannel                    uintptr
+	Ftcl_OpenTcpClient                      uintptr
+	Ftcl_OpenTcpServer                      uintptr
+	Ftcl_Preserve                           uintptr
+	Ftcl_PrintDouble                        uintptr
+	Ftcl_PutEnv                             uintptr
+	Ftcl_PosixError                         uintptr
+	Ftcl_QueueEvent                         uintptr
+	Ftcl_Read                               uintptr
+	Ftcl_ReapDetachedProcs                  uintptr
+	Ftcl_RecordAndEval                      uintptr
+	Ftcl_RecordAndEvalObj                   uintptr
+	Ftcl_RegisterChannel                    uintptr
+	Ftcl_RegisterObjType                    uintptr
+	Ftcl_RegExpCompile                      uintptr
+	Ftcl_RegExpExec                         uintptr
+	Ftcl_RegExpMatch                        uintptr
+	Ftcl_RegExpRange                        uintptr
+	Ftcl_Release                            uintptr
+	Ftcl_ResetResult                        uintptr
+	Ftcl_ScanElement                        uintptr
+	Ftcl_ScanCountedElement                 uintptr
+	Ftcl_SeekOld                            uintptr
+	Ftcl_ServiceAll                         uintptr
+	Ftcl_ServiceEvent                       uintptr
+	Ftcl_SetAssocData                       uintptr
+	Ftcl_SetChannelBufferSize               uintptr
+	Ftcl_SetChannelOption                   uintptr
+	Ftcl_SetCommandInfo                     uintptr
+	Ftcl_SetErrno                           uintptr
+	Ftcl_SetErrorCode                       uintptr
+	Ftcl_SetMaxBlockTime                    uintptr
+	Ftcl_SetPanicProc                       uintptr
+	Ftcl_SetRecursionLimit                  uintptr
+	Ftcl_SetResult                          uintptr
+	Ftcl_SetServiceMode                     uintptr
+	Ftcl_SetObjErrorCode                    uintptr
+	Ftcl_SetObjResult                       uintptr
+	Ftcl_SetStdChannel                      uintptr
+	Ftcl_SetVar                             uintptr
+	Ftcl_SetVar2                            uintptr
+	Ftcl_SignalId                           uintptr
+	Ftcl_SignalMsg                          uintptr
+	Ftcl_SourceRCFile                       uintptr
+	Ftcl_SplitList                          uintptr
+	Ftcl_SplitPath                          uintptr
+	Ftcl_StaticPackage                      uintptr
+	Ftcl_StringMatch                        uintptr
+	Ftcl_TellOld                            uintptr
+	Ftcl_TraceVar                           uintptr
+	Ftcl_TraceVar2                          uintptr
+	Ftcl_TranslateFileName                  uintptr
+	Ftcl_Ungets                             uintptr
+	Ftcl_UnlinkVar                          uintptr
+	Ftcl_UnregisterChannel                  uintptr
+	Ftcl_UnsetVar                           uintptr
+	Ftcl_UnsetVar2                          uintptr
+	Ftcl_UntraceVar                         uintptr
+	Ftcl_UntraceVar2                        uintptr
+	Ftcl_UpdateLinkedVar                    uintptr
+	Ftcl_UpVar                              uintptr
+	Ftcl_UpVar2                             uintptr
+	Ftcl_VarEval                            uintptr
+	Ftcl_VarTraceInfo                       uintptr
+	Ftcl_VarTraceInfo2                      uintptr
+	Ftcl_Write                              uintptr
+	Ftcl_WrongNumArgs                       uintptr
+	Ftcl_DumpActiveMemory                   uintptr
+	Ftcl_ValidateAllMemory                  uintptr
+	Ftcl_AppendResultVA                     uintptr
+	Ftcl_AppendStringsToObjVA               uintptr
+	Ftcl_HashStats                          uintptr
+	Ftcl_ParseVar                           uintptr
+	Ftcl_PkgPresent                         uintptr
+	Ftcl_PkgPresentEx                       uintptr
+	Ftcl_PkgProvide                         uintptr
+	Ftcl_PkgRequire                         uintptr
+	Ftcl_SetErrorCodeVA                     uintptr
+	Ftcl_VarEvalVA                          uintptr
+	Ftcl_WaitPid                            uintptr
+	Ftcl_PanicVA                            uintptr
+	Ftcl_GetVersion                         uintptr
+	Ftcl_InitMemory                         uintptr
+	Ftcl_StackChannel                       uintptr
+	Ftcl_UnstackChannel                     uintptr
+	Ftcl_GetStackedChannel                  uintptr
+	Ftcl_SetMainLoop                        uintptr
+	Freserved285                            uintptr
+	Ftcl_AppendObjToObj                     uintptr
+	Ftcl_CreateEncoding                     uintptr
+	Ftcl_CreateThreadExitHandler            uintptr
+	Ftcl_DeleteThreadExitHandler            uintptr
+	Ftcl_DiscardResult                      uintptr
+	Ftcl_EvalEx                             uintptr
+	Ftcl_EvalObjv                           uintptr
+	Ftcl_EvalObjEx                          uintptr
+	Ftcl_ExitThread                         uintptr
+	Ftcl_ExternalToUtf                      uintptr
+	Ftcl_ExternalToUtfDString               uintptr
+	Ftcl_FinalizeThread                     uintptr
+	Ftcl_FinalizeNotifier                   uintptr
+	Ftcl_FreeEncoding                       uintptr
+	Ftcl_GetCurrentThread                   uintptr
+	Ftcl_GetEncoding                        uintptr
+	Ftcl_GetEncodingName                    uintptr
+	Ftcl_GetEncodingNames                   uintptr
+	Ftcl_GetIndexFromObjStruct              uintptr
+	Ftcl_GetThreadData                      uintptr
+	Ftcl_GetVar2Ex                          uintptr
+	Ftcl_InitNotifier                       uintptr
+	Ftcl_MutexLock                          uintptr
+	Ftcl_MutexUnlock                        uintptr
+	Ftcl_ConditionNotify                    uintptr
+	Ftcl_ConditionWait                      uintptr
+	Ftcl_NumUtfChars                        uintptr
+	Ftcl_ReadChars                          uintptr
+	Ftcl_RestoreResult                      uintptr
+	Ftcl_SaveResult                         uintptr
+	Ftcl_SetSystemEncoding                  uintptr
+	Ftcl_SetVar2Ex                          uintptr
+	Ftcl_ThreadAlert                        uintptr
+	Ftcl_ThreadQueueEvent                   uintptr
+	Ftcl_UniCharAtIndex                     uintptr
+	Ftcl_UniCharToLower                     uintptr
+	Ftcl_UniCharToTitle                     uintptr
+	Ftcl_UniCharToUpper                     uintptr
+	Ftcl_UniCharToUtf                       uintptr
+	Ftcl_UtfAtIndex                         uintptr
+	Ftcl_UtfCharComplete                    uintptr
+	Ftcl_UtfBackslash                       uintptr
+	Ftcl_UtfFindFirst                       uintptr
+	Ftcl_UtfFindLast                        uintptr
+	Ftcl_UtfNext                            uintptr
+	Ftcl_UtfPrev                            uintptr
+	Ftcl_UtfToExternal                      uintptr
+	Ftcl_UtfToExternalDString               uintptr
+	Ftcl_UtfToLower                         uintptr
+	Ftcl_UtfToTitle                         uintptr
+	Ftcl_UtfToUniChar                       uintptr
+	Ftcl_UtfToUpper                         uintptr
+	Ftcl_WriteChars                         uintptr
+	Ftcl_WriteObj                           uintptr
+	Ftcl_GetString                          uintptr
+	Ftcl_GetDefaultEncodingDir              uintptr
+	Ftcl_SetDefaultEncodingDir              uintptr
+	Ftcl_AlertNotifier                      uintptr
+	Ftcl_ServiceModeHook                    uintptr
+	Ftcl_UniCharIsAlnum                     uintptr
+	Ftcl_UniCharIsAlpha                     uintptr
+	Ftcl_UniCharIsDigit                     uintptr
+	Ftcl_UniCharIsLower                     uintptr
+	Ftcl_UniCharIsSpace                     uintptr
+	Ftcl_UniCharIsUpper                     uintptr
+	Ftcl_UniCharIsWordChar                  uintptr
+	Ftcl_UniCharLen                         uintptr
+	Ftcl_UniCharNcmp                        uintptr
+	Ftcl_UniCharToUtfDString                uintptr
+	Ftcl_UtfToUniCharDString                uintptr
+	Ftcl_GetRegExpFromObj                   uintptr
+	Ftcl_EvalTokens                         uintptr
+	Ftcl_FreeParse                          uintptr
+	Ftcl_LogCommandInfo                     uintptr
+	Ftcl_ParseBraces                        uintptr
+	Ftcl_ParseCommand                       uintptr
+	Ftcl_ParseExpr                          uintptr
+	Ftcl_ParseQuotedString                  uintptr
+	Ftcl_ParseVarName                       uintptr
+	Ftcl_GetCwd                             uintptr
+	Ftcl_Chdir                              uintptr
+	Ftcl_Access                             uintptr
+	Ftcl_Stat                               uintptr
+	Ftcl_UtfNcmp                            uintptr
+	Ftcl_UtfNcasecmp                        uintptr
+	Ftcl_StringCaseMatch                    uintptr
+	Ftcl_UniCharIsControl                   uintptr
+	Ftcl_UniCharIsGraph                     uintptr
+	Ftcl_UniCharIsPrint                     uintptr
+	Ftcl_UniCharIsPunct                     uintptr
+	Ftcl_RegExpExecObj                      uintptr
+	Ftcl_RegExpGetInfo                      uintptr
+	Ftcl_NewUnicodeObj                      uintptr
+	Ftcl_SetUnicodeObj                      uintptr
+	Ftcl_GetCharLength                      uintptr
+	Ftcl_GetUniChar                         uintptr
+	Ftcl_GetUnicode                         uintptr
+	Ftcl_GetRange                           uintptr
+	Ftcl_AppendUnicodeToObj                 uintptr
+	Ftcl_RegExpMatchObj                     uintptr
+	Ftcl_SetNotifier                        uintptr
+	Ftcl_GetAllocMutex                      uintptr
+	Ftcl_GetChannelNames                    uintptr
+	Ftcl_GetChannelNamesEx                  uintptr
+	Ftcl_ProcObjCmd                         uintptr
+	Ftcl_ConditionFinalize                  uintptr
+	Ftcl_MutexFinalize                      uintptr
+	Ftcl_CreateThread                       uintptr
+	Ftcl_ReadRaw                            uintptr
+	Ftcl_WriteRaw                           uintptr
+	Ftcl_GetTopChannel                      uintptr
+	Ftcl_ChannelBuffered                    uintptr
+	Ftcl_ChannelName                        uintptr
+	Ftcl_ChannelVersion                     uintptr
+	Ftcl_ChannelBlockModeProc               uintptr
+	Ftcl_ChannelCloseProc                   uintptr
+	Ftcl_ChannelClose2Proc                  uintptr
+	Ftcl_ChannelInputProc                   uintptr
+	Ftcl_ChannelOutputProc                  uintptr
+	Ftcl_ChannelSeekProc                    uintptr
+	Ftcl_ChannelSetOptionProc               uintptr
+	Ftcl_ChannelGetOptionProc               uintptr
+	Ftcl_ChannelWatchProc                   uintptr
+	Ftcl_ChannelGetHandleProc               uintptr
+	Ftcl_ChannelFlushProc                   uintptr
+	Ftcl_ChannelHandlerProc                 uintptr
+	Ftcl_JoinThread                         uintptr
+	Ftcl_IsChannelShared                    uintptr
+	Ftcl_IsChannelRegistered                uintptr
+	Ftcl_CutChannel                         uintptr
+	Ftcl_SpliceChannel                      uintptr
+	Ftcl_ClearChannelHandlers               uintptr
+	Ftcl_IsChannelExisting                  uintptr
+	Ftcl_UniCharNcasecmp                    uintptr
+	Ftcl_UniCharCaseMatch                   uintptr
+	Ftcl_FindHashEntry                      uintptr
+	Ftcl_CreateHashEntry                    uintptr
+	Ftcl_InitCustomHashTable                uintptr
+	Ftcl_InitObjHashTable                   uintptr
+	Ftcl_CommandTraceInfo                   uintptr
+	Ftcl_TraceCommand                       uintptr
+	Ftcl_UntraceCommand                     uintptr
+	Ftcl_AttemptAlloc                       uintptr
+	Ftcl_AttemptDbCkalloc                   uintptr
+	Ftcl_AttemptRealloc                     uintptr
+	Ftcl_AttemptDbCkrealloc                 uintptr
+	Ftcl_AttemptSetObjLength                uintptr
+	Ftcl_GetChannelThread                   uintptr
+	Ftcl_GetUnicodeFromObj                  uintptr
+	Ftcl_GetMathFuncInfo                    uintptr
+	Ftcl_ListMathFuncs                      uintptr
+	Ftcl_SubstObj                           uintptr
+	Ftcl_DetachChannel                      uintptr
+	Ftcl_IsStandardChannel                  uintptr
+	Ftcl_FSCopyFile                         uintptr
+	Ftcl_FSCopyDirectory                    uintptr
+	Ftcl_FSCreateDirectory                  uintptr
+	Ftcl_FSDeleteFile                       uintptr
+	Ftcl_FSLoadFile                         uintptr
+	Ftcl_FSMatchInDirectory                 uintptr
+	Ftcl_FSLink                             uintptr
+	Ftcl_FSRemoveDirectory                  uintptr
+	Ftcl_FSRenameFile                       uintptr
+	Ftcl_FSLstat                            uintptr
+	Ftcl_FSUtime                            uintptr
+	Ftcl_FSFileAttrsGet                     uintptr
+	Ftcl_FSFileAttrsSet                     uintptr
+	Ftcl_FSFileAttrStrings                  uintptr
+	Ftcl_FSStat                             uintptr
+	Ftcl_FSAccess                           uintptr
+	Ftcl_FSOpenFileChannel                  uintptr
+	Ftcl_FSGetCwd                           uintptr
+	Ftcl_FSChdir                            uintptr
+	Ftcl_FSConvertToPathType                uintptr
+	Ftcl_FSJoinPath                         uintptr
+	Ftcl_FSSplitPath                        uintptr
+	Ftcl_FSEqualPaths                       uintptr
+	Ftcl_FSGetNormalizedPath                uintptr
+	Ftcl_FSJoinToPath                       uintptr
+	Ftcl_FSGetInternalRep                   uintptr
+	Ftcl_FSGetTranslatedPath                uintptr
+	Ftcl_FSEvalFile                         uintptr
+	Ftcl_FSNewNativePath                    uintptr
+	Ftcl_FSGetNativePath                    uintptr
+	Ftcl_FSFileSystemInfo                   uintptr
+	Ftcl_FSPathSeparator                    uintptr
+	Ftcl_FSListVolumes                      uintptr
+	Ftcl_FSRegister                         uintptr
+	Ftcl_FSUnregister                       uintptr
+	Ftcl_FSData                             uintptr
+	Ftcl_FSGetTranslatedStringPath          uintptr
+	Ftcl_FSGetFileSystemForPath             uintptr
+	Ftcl_FSGetPathType                      uintptr
+	Ftcl_OutputBuffered                     uintptr
+	Ftcl_FSMountsChanged                    uintptr
+	Ftcl_EvalTokensStandard                 uintptr
+	Ftcl_GetTime                            uintptr
+	Ftcl_CreateObjTrace                     uintptr
+	Ftcl_GetCommandInfoFromToken            uintptr
+	Ftcl_SetCommandInfoFromToken            uintptr
+	Ftcl_DbNewWideIntObj                    uintptr
+	Ftcl_GetWideIntFromObj                  uintptr
+	Ftcl_NewWideIntObj                      uintptr
+	Ftcl_SetWideIntObj                      uintptr
+	Ftcl_AllocStatBuf                       uintptr
+	Ftcl_Seek                               uintptr
+	Ftcl_Tell                               uintptr
+	Ftcl_ChannelWideSeekProc                uintptr
+	Ftcl_DictObjPut                         uintptr
+	Ftcl_DictObjGet                         uintptr
+	Ftcl_DictObjRemove                      uintptr
+	Ftcl_DictObjSize                        uintptr
+	Ftcl_DictObjFirst                       uintptr
+	Ftcl_DictObjNext                        uintptr
+	Ftcl_DictObjDone                        uintptr
+	Ftcl_DictObjPutKeyList                  uintptr
+	Ftcl_DictObjRemoveKeyList               uintptr
+	Ftcl_NewDictObj                         uintptr
+	Ftcl_DbNewDictObj                       uintptr
+	Ftcl_RegisterConfig                     uintptr
+	Ftcl_CreateNamespace                    uintptr
+	Ftcl_DeleteNamespace                    uintptr
+	Ftcl_AppendExportList                   uintptr
+	Ftcl_Export                             uintptr
+	Ftcl_Import                             uintptr
+	Ftcl_ForgetImport                       uintptr
+	Ftcl_GetCurrentNamespace                uintptr
+	Ftcl_GetGlobalNamespace                 uintptr
+	Ftcl_FindNamespace                      uintptr
+	Ftcl_FindCommand                        uintptr
+	Ftcl_GetCommandFromObj                  uintptr
+	Ftcl_GetCommandFullName                 uintptr
+	Ftcl_FSEvalFileEx                       uintptr
+	Ftcl_SetExitProc                        uintptr
+	Ftcl_LimitAddHandler                    uintptr
+	Ftcl_LimitRemoveHandler                 uintptr
+	Ftcl_LimitReady                         uintptr
+	Ftcl_LimitCheck                         uintptr
+	Ftcl_LimitExceeded                      uintptr
+	Ftcl_LimitSetCommands                   uintptr
+	Ftcl_LimitSetTime                       uintptr
+	Ftcl_LimitSetGranularity                uintptr
+	Ftcl_LimitTypeEnabled                   uintptr
+	Ftcl_LimitTypeExceeded                  uintptr
+	Ftcl_LimitTypeSet                       uintptr
+	Ftcl_LimitTypeReset                     uintptr
+	Ftcl_LimitGetCommands                   uintptr
+	Ftcl_LimitGetTime                       uintptr
+	Ftcl_LimitGetGranularity                uintptr
+	Ftcl_SaveInterpState                    uintptr
+	Ftcl_RestoreInterpState                 uintptr
+	Ftcl_DiscardInterpState                 uintptr
+	Ftcl_SetReturnOptions                   uintptr
+	Ftcl_GetReturnOptions                   uintptr
+	Ftcl_IsEnsemble                         uintptr
+	Ftcl_CreateEnsemble                     uintptr
+	Ftcl_FindEnsemble                       uintptr
+	Ftcl_SetEnsembleSubcommandList          uintptr
+	Ftcl_SetEnsembleMappingDict             uintptr
+	Ftcl_SetEnsembleUnknownHandler          uintptr
+	Ftcl_SetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleSubcommandList          uintptr
+	Ftcl_GetEnsembleMappingDict             uintptr
+	Ftcl_GetEnsembleUnknownHandler          uintptr
+	Ftcl_GetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleNamespace               uintptr
+	Ftcl_SetTimeProc                        uintptr
+	Ftcl_QueryTimeProc                      uintptr
+	Ftcl_ChannelThreadActionProc            uintptr
+	Ftcl_NewBignumObj                       uintptr
+	Ftcl_DbNewBignumObj                     uintptr
+	Ftcl_SetBignumObj                       uintptr
+	Ftcl_GetBignumFromObj                   uintptr
+	Ftcl_TakeBignumFromObj                  uintptr
+	Ftcl_TruncateChannel                    uintptr
+	Ftcl_ChannelTruncateProc                uintptr
+	Ftcl_SetChannelErrorInterp              uintptr
+	Ftcl_GetChannelErrorInterp              uintptr
+	Ftcl_SetChannelError                    uintptr
+	Ftcl_GetChannelError                    uintptr
+	Ftcl_InitBignumFromDouble               uintptr
+	Ftcl_GetNamespaceUnknownHandler         uintptr
+	Ftcl_SetNamespaceUnknownHandler         uintptr
+	Ftcl_GetEncodingFromObj                 uintptr
+	Ftcl_GetEncodingSearchPath              uintptr
+	Ftcl_SetEncodingSearchPath              uintptr
+	Ftcl_GetEncodingNameFromEnvironment     uintptr
+	Ftcl_PkgRequireProc                     uintptr
+	Ftcl_AppendObjToErrorInfo               uintptr
+	Ftcl_AppendLimitedToObj                 uintptr
+	Ftcl_Format                             uintptr
+	Ftcl_AppendFormatToObj                  uintptr
+	Ftcl_ObjPrintf                          uintptr
+	Ftcl_AppendPrintfToObj                  uintptr
+	Ftcl_CancelEval                         uintptr
+	Ftcl_Canceled                           uintptr
+	Ftcl_CreatePipe                         uintptr
+	Ftcl_NRCreateCommand                    uintptr
+	Ftcl_NREvalObj                          uintptr
+	Ftcl_NREvalObjv                         uintptr
+	Ftcl_NRCmdSwap                          uintptr
+	Ftcl_NRAddCallback                      uintptr
+	Ftcl_NRCallObjProc                      uintptr
+	Ftcl_GetFSDeviceFromStat                uintptr
+	Ftcl_GetFSInodeFromStat                 uintptr
+	Ftcl_GetModeFromStat                    uintptr
+	Ftcl_GetLinkCountFromStat               uintptr
+	Ftcl_GetUserIdFromStat                  uintptr
+	Ftcl_GetGroupIdFromStat                 uintptr
+	Ftcl_GetDeviceTypeFromStat              uintptr
+	Ftcl_GetAccessTimeFromStat              uintptr
+	Ftcl_GetModificationTimeFromStat        uintptr
+	Ftcl_GetChangeTimeFromStat              uintptr
+	Ftcl_GetSizeFromStat                    uintptr
+	Ftcl_GetBlocksFromStat                  uintptr
+	Ftcl_GetBlockSizeFromStat               uintptr
+	Ftcl_SetEnsembleParameterList           uintptr
+	Ftcl_GetEnsembleParameterList           uintptr
+	Ftcl_ParseArgsObjv                      uintptr
+	Ftcl_GetErrorLine                       uintptr
+	Ftcl_SetErrorLine                       uintptr
+	Ftcl_TransferResult                     uintptr
+	Ftcl_InterpActive                       uintptr
+	Ftcl_BackgroundException                uintptr
+	Ftcl_ZlibDeflate                        uintptr
+	Ftcl_ZlibInflate                        uintptr
+	Ftcl_ZlibCRC32                          uintptr
+	Ftcl_ZlibAdler32                        uintptr
+	Ftcl_ZlibStreamInit                     uintptr
+	Ftcl_ZlibStreamGetCommandName           uintptr
+	Ftcl_ZlibStreamEof                      uintptr
+	Ftcl_ZlibStreamChecksum                 uintptr
+	Ftcl_ZlibStreamPut                      uintptr
+	Ftcl_ZlibStreamGet                      uintptr
+	Ftcl_ZlibStreamClose                    uintptr
+	Ftcl_ZlibStreamReset                    uintptr
+	Ftcl_SetStartupScript                   uintptr
+	Ftcl_GetStartupScript                   uintptr
+	Ftcl_CloseEx                            uintptr
+	Ftcl_NRExprObj                          uintptr
+	Ftcl_NRSubstObj                         uintptr
+	Ftcl_LoadFile                           uintptr
+	Ftcl_FindSymbol                         uintptr
+	Ftcl_FSUnloadFile                       uintptr
+	Ftcl_ZlibStreamSetCompressionDictionary uintptr
+} /* tclDecls.h:2485:3 */
 
 // end block for C++
 
@@ -59315,7 +59974,7 @@ func Sqlitetest_demovfs_Init(tls *libc.TLS, interp uintptr) int32 { /* test_demo
 type devsym_file1 = struct {
 	Fbase  sqlite3_file
 	FpReal uintptr
-}
+} /* test_devsym.c:33:9 */
 
 // Maximum pathname length supported by the devsym backend.
 
@@ -59329,7 +59988,7 @@ type DevsymGlobal = struct {
 	FiSectorSize int32
 	FnWriteCrash int32
 	_            [4]byte
-}
+} /* test_devsym.c:76:1 */
 
 var g1 = DevsymGlobal{FpVfs: uintptr(0), FiDeviceChar: 0, FiSectorSize: 512, FnWriteCrash: 0} /* test_devsym.c:82:21 */
 
@@ -59630,58 +60289,650 @@ func devsym_crash_on_write(tls *libc.TLS, nWrite int32) { /* test_devsym.c:514:6
 	g1.FnWriteCrash = nWrite
 }
 
-// Note stat64 has the same shape as stat for x86-64.
-type stat64 = struct {
-	Fst_dev     uint64
-	Fst_ino     uint64
-	Fst_nlink   uint64
-	Fst_mode    uint32
-	Fst_uid     uint32
-	Fst_gid     uint32
-	F__pad0     int32
-	Fst_rdev    uint64
-	Fst_size    int64
-	Fst_blksize int64
-	Fst_blocks  int64
-	Fst_atim    struct {
-		Ftv_sec  int64
-		Ftv_nsec int64
-	}
-	Fst_mtim struct {
-		Ftv_sec  int64
-		Ftv_nsec int64
-	}
-	Fst_ctim struct {
-		Ftv_sec  int64
-		Ftv_nsec int64
-	}
-	F__glibc_reserved [3]int64
-}
+type Tcl_OldStat_2 = uintptr /* tcl.h:645:21 */
 
-type flock64 = struct {
-	Fl_type   int16
-	Fl_whence int16
-	Fl_start  int64
-	Fl_len    int64
-	Fl_pid    int32
-	_         [4]byte
-}
-
-type dirent64 = struct {
-	Fd_ino    uint64
-	Fd_off    int64
-	Fd_reclen uint16
-	Fd_type   uint8
-	Fd_name   [256]int8
-	_         [5]byte
-}
+type TclStubs2 = struct {
+	Fmagic                                  int32
+	Fhooks                                  uintptr
+	Ftcl_PkgProvideEx                       uintptr
+	Ftcl_PkgRequireEx                       uintptr
+	Ftcl_Panic                              uintptr
+	Ftcl_Alloc                              uintptr
+	Ftcl_Free                               uintptr
+	Ftcl_Realloc                            uintptr
+	Ftcl_DbCkalloc                          uintptr
+	Ftcl_DbCkfree                           uintptr
+	Ftcl_DbCkrealloc                        uintptr
+	Ftcl_CreateFileHandler                  uintptr
+	Ftcl_DeleteFileHandler                  uintptr
+	Ftcl_SetTimer                           uintptr
+	Ftcl_Sleep                              uintptr
+	Ftcl_WaitForEvent                       uintptr
+	Ftcl_AppendAllObjTypes                  uintptr
+	Ftcl_AppendStringsToObj                 uintptr
+	Ftcl_AppendToObj                        uintptr
+	Ftcl_ConcatObj                          uintptr
+	Ftcl_ConvertToType                      uintptr
+	Ftcl_DbDecrRefCount                     uintptr
+	Ftcl_DbIncrRefCount                     uintptr
+	Ftcl_DbIsShared                         uintptr
+	Ftcl_DbNewBooleanObj                    uintptr
+	Ftcl_DbNewByteArrayObj                  uintptr
+	Ftcl_DbNewDoubleObj                     uintptr
+	Ftcl_DbNewListObj                       uintptr
+	Ftcl_DbNewLongObj                       uintptr
+	Ftcl_DbNewObj                           uintptr
+	Ftcl_DbNewStringObj                     uintptr
+	Ftcl_DuplicateObj                       uintptr
+	FtclFreeObj                             uintptr
+	Ftcl_GetBoolean                         uintptr
+	Ftcl_GetBooleanFromObj                  uintptr
+	Ftcl_GetByteArrayFromObj                uintptr
+	Ftcl_GetDouble                          uintptr
+	Ftcl_GetDoubleFromObj                   uintptr
+	Ftcl_GetIndexFromObj                    uintptr
+	Ftcl_GetInt                             uintptr
+	Ftcl_GetIntFromObj                      uintptr
+	Ftcl_GetLongFromObj                     uintptr
+	Ftcl_GetObjType                         uintptr
+	Ftcl_GetStringFromObj                   uintptr
+	Ftcl_InvalidateStringRep                uintptr
+	Ftcl_ListObjAppendList                  uintptr
+	Ftcl_ListObjAppendElement               uintptr
+	Ftcl_ListObjGetElements                 uintptr
+	Ftcl_ListObjIndex                       uintptr
+	Ftcl_ListObjLength                      uintptr
+	Ftcl_ListObjReplace                     uintptr
+	Ftcl_NewBooleanObj                      uintptr
+	Ftcl_NewByteArrayObj                    uintptr
+	Ftcl_NewDoubleObj                       uintptr
+	Ftcl_NewIntObj                          uintptr
+	Ftcl_NewListObj                         uintptr
+	Ftcl_NewLongObj                         uintptr
+	Ftcl_NewObj                             uintptr
+	Ftcl_NewStringObj                       uintptr
+	Ftcl_SetBooleanObj                      uintptr
+	Ftcl_SetByteArrayLength                 uintptr
+	Ftcl_SetByteArrayObj                    uintptr
+	Ftcl_SetDoubleObj                       uintptr
+	Ftcl_SetIntObj                          uintptr
+	Ftcl_SetListObj                         uintptr
+	Ftcl_SetLongObj                         uintptr
+	Ftcl_SetObjLength                       uintptr
+	Ftcl_SetStringObj                       uintptr
+	Ftcl_AddErrorInfo                       uintptr
+	Ftcl_AddObjErrorInfo                    uintptr
+	Ftcl_AllowExceptions                    uintptr
+	Ftcl_AppendElement                      uintptr
+	Ftcl_AppendResult                       uintptr
+	Ftcl_AsyncCreate                        uintptr
+	Ftcl_AsyncDelete                        uintptr
+	Ftcl_AsyncInvoke                        uintptr
+	Ftcl_AsyncMark                          uintptr
+	Ftcl_AsyncReady                         uintptr
+	Ftcl_BackgroundError                    uintptr
+	Ftcl_Backslash                          uintptr
+	Ftcl_BadChannelOption                   uintptr
+	Ftcl_CallWhenDeleted                    uintptr
+	Ftcl_CancelIdleCall                     uintptr
+	Ftcl_Close                              uintptr
+	Ftcl_CommandComplete                    uintptr
+	Ftcl_Concat                             uintptr
+	Ftcl_ConvertElement                     uintptr
+	Ftcl_ConvertCountedElement              uintptr
+	Ftcl_CreateAlias                        uintptr
+	Ftcl_CreateAliasObj                     uintptr
+	Ftcl_CreateChannel                      uintptr
+	Ftcl_CreateChannelHandler               uintptr
+	Ftcl_CreateCloseHandler                 uintptr
+	Ftcl_CreateCommand                      uintptr
+	Ftcl_CreateEventSource                  uintptr
+	Ftcl_CreateExitHandler                  uintptr
+	Ftcl_CreateInterp                       uintptr
+	Ftcl_CreateMathFunc                     uintptr
+	Ftcl_CreateObjCommand                   uintptr
+	Ftcl_CreateSlave                        uintptr
+	Ftcl_CreateTimerHandler                 uintptr
+	Ftcl_CreateTrace                        uintptr
+	Ftcl_DeleteAssocData                    uintptr
+	Ftcl_DeleteChannelHandler               uintptr
+	Ftcl_DeleteCloseHandler                 uintptr
+	Ftcl_DeleteCommand                      uintptr
+	Ftcl_DeleteCommandFromToken             uintptr
+	Ftcl_DeleteEvents                       uintptr
+	Ftcl_DeleteEventSource                  uintptr
+	Ftcl_DeleteExitHandler                  uintptr
+	Ftcl_DeleteHashEntry                    uintptr
+	Ftcl_DeleteHashTable                    uintptr
+	Ftcl_DeleteInterp                       uintptr
+	Ftcl_DetachPids                         uintptr
+	Ftcl_DeleteTimerHandler                 uintptr
+	Ftcl_DeleteTrace                        uintptr
+	Ftcl_DontCallWhenDeleted                uintptr
+	Ftcl_DoOneEvent                         uintptr
+	Ftcl_DoWhenIdle                         uintptr
+	Ftcl_DStringAppend                      uintptr
+	Ftcl_DStringAppendElement               uintptr
+	Ftcl_DStringEndSublist                  uintptr
+	Ftcl_DStringFree                        uintptr
+	Ftcl_DStringGetResult                   uintptr
+	Ftcl_DStringInit                        uintptr
+	Ftcl_DStringResult                      uintptr
+	Ftcl_DStringSetLength                   uintptr
+	Ftcl_DStringStartSublist                uintptr
+	Ftcl_Eof                                uintptr
+	Ftcl_ErrnoId                            uintptr
+	Ftcl_ErrnoMsg                           uintptr
+	Ftcl_Eval                               uintptr
+	Ftcl_EvalFile                           uintptr
+	Ftcl_EvalObj                            uintptr
+	Ftcl_EventuallyFree                     uintptr
+	Ftcl_Exit                               uintptr
+	Ftcl_ExposeCommand                      uintptr
+	Ftcl_ExprBoolean                        uintptr
+	Ftcl_ExprBooleanObj                     uintptr
+	Ftcl_ExprDouble                         uintptr
+	Ftcl_ExprDoubleObj                      uintptr
+	Ftcl_ExprLong                           uintptr
+	Ftcl_ExprLongObj                        uintptr
+	Ftcl_ExprObj                            uintptr
+	Ftcl_ExprString                         uintptr
+	Ftcl_Finalize                           uintptr
+	Ftcl_FindExecutable                     uintptr
+	Ftcl_FirstHashEntry                     uintptr
+	Ftcl_Flush                              uintptr
+	Ftcl_FreeResult                         uintptr
+	Ftcl_GetAlias                           uintptr
+	Ftcl_GetAliasObj                        uintptr
+	Ftcl_GetAssocData                       uintptr
+	Ftcl_GetChannel                         uintptr
+	Ftcl_GetChannelBufferSize               uintptr
+	Ftcl_GetChannelHandle                   uintptr
+	Ftcl_GetChannelInstanceData             uintptr
+	Ftcl_GetChannelMode                     uintptr
+	Ftcl_GetChannelName                     uintptr
+	Ftcl_GetChannelOption                   uintptr
+	Ftcl_GetChannelType                     uintptr
+	Ftcl_GetCommandInfo                     uintptr
+	Ftcl_GetCommandName                     uintptr
+	Ftcl_GetErrno                           uintptr
+	Ftcl_GetHostName                        uintptr
+	Ftcl_GetInterpPath                      uintptr
+	Ftcl_GetMaster                          uintptr
+	Ftcl_GetNameOfExecutable                uintptr
+	Ftcl_GetObjResult                       uintptr
+	Ftcl_GetOpenFile                        uintptr
+	Ftcl_GetPathType                        uintptr
+	Ftcl_Gets                               uintptr
+	Ftcl_GetsObj                            uintptr
+	Ftcl_GetServiceMode                     uintptr
+	Ftcl_GetSlave                           uintptr
+	Ftcl_GetStdChannel                      uintptr
+	Ftcl_GetStringResult                    uintptr
+	Ftcl_GetVar                             uintptr
+	Ftcl_GetVar2                            uintptr
+	Ftcl_GlobalEval                         uintptr
+	Ftcl_GlobalEvalObj                      uintptr
+	Ftcl_HideCommand                        uintptr
+	Ftcl_Init                               uintptr
+	Ftcl_InitHashTable                      uintptr
+	Ftcl_InputBlocked                       uintptr
+	Ftcl_InputBuffered                      uintptr
+	Ftcl_InterpDeleted                      uintptr
+	Ftcl_IsSafe                             uintptr
+	Ftcl_JoinPath                           uintptr
+	Ftcl_LinkVar                            uintptr
+	Freserved188                            uintptr
+	Ftcl_MakeFileChannel                    uintptr
+	Ftcl_MakeSafe                           uintptr
+	Ftcl_MakeTcpClientChannel               uintptr
+	Ftcl_Merge                              uintptr
+	Ftcl_NextHashEntry                      uintptr
+	Ftcl_NotifyChannel                      uintptr
+	Ftcl_ObjGetVar2                         uintptr
+	Ftcl_ObjSetVar2                         uintptr
+	Ftcl_OpenCommandChannel                 uintptr
+	Ftcl_OpenFileChannel                    uintptr
+	Ftcl_OpenTcpClient                      uintptr
+	Ftcl_OpenTcpServer                      uintptr
+	Ftcl_Preserve                           uintptr
+	Ftcl_PrintDouble                        uintptr
+	Ftcl_PutEnv                             uintptr
+	Ftcl_PosixError                         uintptr
+	Ftcl_QueueEvent                         uintptr
+	Ftcl_Read                               uintptr
+	Ftcl_ReapDetachedProcs                  uintptr
+	Ftcl_RecordAndEval                      uintptr
+	Ftcl_RecordAndEvalObj                   uintptr
+	Ftcl_RegisterChannel                    uintptr
+	Ftcl_RegisterObjType                    uintptr
+	Ftcl_RegExpCompile                      uintptr
+	Ftcl_RegExpExec                         uintptr
+	Ftcl_RegExpMatch                        uintptr
+	Ftcl_RegExpRange                        uintptr
+	Ftcl_Release                            uintptr
+	Ftcl_ResetResult                        uintptr
+	Ftcl_ScanElement                        uintptr
+	Ftcl_ScanCountedElement                 uintptr
+	Ftcl_SeekOld                            uintptr
+	Ftcl_ServiceAll                         uintptr
+	Ftcl_ServiceEvent                       uintptr
+	Ftcl_SetAssocData                       uintptr
+	Ftcl_SetChannelBufferSize               uintptr
+	Ftcl_SetChannelOption                   uintptr
+	Ftcl_SetCommandInfo                     uintptr
+	Ftcl_SetErrno                           uintptr
+	Ftcl_SetErrorCode                       uintptr
+	Ftcl_SetMaxBlockTime                    uintptr
+	Ftcl_SetPanicProc                       uintptr
+	Ftcl_SetRecursionLimit                  uintptr
+	Ftcl_SetResult                          uintptr
+	Ftcl_SetServiceMode                     uintptr
+	Ftcl_SetObjErrorCode                    uintptr
+	Ftcl_SetObjResult                       uintptr
+	Ftcl_SetStdChannel                      uintptr
+	Ftcl_SetVar                             uintptr
+	Ftcl_SetVar2                            uintptr
+	Ftcl_SignalId                           uintptr
+	Ftcl_SignalMsg                          uintptr
+	Ftcl_SourceRCFile                       uintptr
+	Ftcl_SplitList                          uintptr
+	Ftcl_SplitPath                          uintptr
+	Ftcl_StaticPackage                      uintptr
+	Ftcl_StringMatch                        uintptr
+	Ftcl_TellOld                            uintptr
+	Ftcl_TraceVar                           uintptr
+	Ftcl_TraceVar2                          uintptr
+	Ftcl_TranslateFileName                  uintptr
+	Ftcl_Ungets                             uintptr
+	Ftcl_UnlinkVar                          uintptr
+	Ftcl_UnregisterChannel                  uintptr
+	Ftcl_UnsetVar                           uintptr
+	Ftcl_UnsetVar2                          uintptr
+	Ftcl_UntraceVar                         uintptr
+	Ftcl_UntraceVar2                        uintptr
+	Ftcl_UpdateLinkedVar                    uintptr
+	Ftcl_UpVar                              uintptr
+	Ftcl_UpVar2                             uintptr
+	Ftcl_VarEval                            uintptr
+	Ftcl_VarTraceInfo                       uintptr
+	Ftcl_VarTraceInfo2                      uintptr
+	Ftcl_Write                              uintptr
+	Ftcl_WrongNumArgs                       uintptr
+	Ftcl_DumpActiveMemory                   uintptr
+	Ftcl_ValidateAllMemory                  uintptr
+	Ftcl_AppendResultVA                     uintptr
+	Ftcl_AppendStringsToObjVA               uintptr
+	Ftcl_HashStats                          uintptr
+	Ftcl_ParseVar                           uintptr
+	Ftcl_PkgPresent                         uintptr
+	Ftcl_PkgPresentEx                       uintptr
+	Ftcl_PkgProvide                         uintptr
+	Ftcl_PkgRequire                         uintptr
+	Ftcl_SetErrorCodeVA                     uintptr
+	Ftcl_VarEvalVA                          uintptr
+	Ftcl_WaitPid                            uintptr
+	Ftcl_PanicVA                            uintptr
+	Ftcl_GetVersion                         uintptr
+	Ftcl_InitMemory                         uintptr
+	Ftcl_StackChannel                       uintptr
+	Ftcl_UnstackChannel                     uintptr
+	Ftcl_GetStackedChannel                  uintptr
+	Ftcl_SetMainLoop                        uintptr
+	Freserved285                            uintptr
+	Ftcl_AppendObjToObj                     uintptr
+	Ftcl_CreateEncoding                     uintptr
+	Ftcl_CreateThreadExitHandler            uintptr
+	Ftcl_DeleteThreadExitHandler            uintptr
+	Ftcl_DiscardResult                      uintptr
+	Ftcl_EvalEx                             uintptr
+	Ftcl_EvalObjv                           uintptr
+	Ftcl_EvalObjEx                          uintptr
+	Ftcl_ExitThread                         uintptr
+	Ftcl_ExternalToUtf                      uintptr
+	Ftcl_ExternalToUtfDString               uintptr
+	Ftcl_FinalizeThread                     uintptr
+	Ftcl_FinalizeNotifier                   uintptr
+	Ftcl_FreeEncoding                       uintptr
+	Ftcl_GetCurrentThread                   uintptr
+	Ftcl_GetEncoding                        uintptr
+	Ftcl_GetEncodingName                    uintptr
+	Ftcl_GetEncodingNames                   uintptr
+	Ftcl_GetIndexFromObjStruct              uintptr
+	Ftcl_GetThreadData                      uintptr
+	Ftcl_GetVar2Ex                          uintptr
+	Ftcl_InitNotifier                       uintptr
+	Ftcl_MutexLock                          uintptr
+	Ftcl_MutexUnlock                        uintptr
+	Ftcl_ConditionNotify                    uintptr
+	Ftcl_ConditionWait                      uintptr
+	Ftcl_NumUtfChars                        uintptr
+	Ftcl_ReadChars                          uintptr
+	Ftcl_RestoreResult                      uintptr
+	Ftcl_SaveResult                         uintptr
+	Ftcl_SetSystemEncoding                  uintptr
+	Ftcl_SetVar2Ex                          uintptr
+	Ftcl_ThreadAlert                        uintptr
+	Ftcl_ThreadQueueEvent                   uintptr
+	Ftcl_UniCharAtIndex                     uintptr
+	Ftcl_UniCharToLower                     uintptr
+	Ftcl_UniCharToTitle                     uintptr
+	Ftcl_UniCharToUpper                     uintptr
+	Ftcl_UniCharToUtf                       uintptr
+	Ftcl_UtfAtIndex                         uintptr
+	Ftcl_UtfCharComplete                    uintptr
+	Ftcl_UtfBackslash                       uintptr
+	Ftcl_UtfFindFirst                       uintptr
+	Ftcl_UtfFindLast                        uintptr
+	Ftcl_UtfNext                            uintptr
+	Ftcl_UtfPrev                            uintptr
+	Ftcl_UtfToExternal                      uintptr
+	Ftcl_UtfToExternalDString               uintptr
+	Ftcl_UtfToLower                         uintptr
+	Ftcl_UtfToTitle                         uintptr
+	Ftcl_UtfToUniChar                       uintptr
+	Ftcl_UtfToUpper                         uintptr
+	Ftcl_WriteChars                         uintptr
+	Ftcl_WriteObj                           uintptr
+	Ftcl_GetString                          uintptr
+	Ftcl_GetDefaultEncodingDir              uintptr
+	Ftcl_SetDefaultEncodingDir              uintptr
+	Ftcl_AlertNotifier                      uintptr
+	Ftcl_ServiceModeHook                    uintptr
+	Ftcl_UniCharIsAlnum                     uintptr
+	Ftcl_UniCharIsAlpha                     uintptr
+	Ftcl_UniCharIsDigit                     uintptr
+	Ftcl_UniCharIsLower                     uintptr
+	Ftcl_UniCharIsSpace                     uintptr
+	Ftcl_UniCharIsUpper                     uintptr
+	Ftcl_UniCharIsWordChar                  uintptr
+	Ftcl_UniCharLen                         uintptr
+	Ftcl_UniCharNcmp                        uintptr
+	Ftcl_UniCharToUtfDString                uintptr
+	Ftcl_UtfToUniCharDString                uintptr
+	Ftcl_GetRegExpFromObj                   uintptr
+	Ftcl_EvalTokens                         uintptr
+	Ftcl_FreeParse                          uintptr
+	Ftcl_LogCommandInfo                     uintptr
+	Ftcl_ParseBraces                        uintptr
+	Ftcl_ParseCommand                       uintptr
+	Ftcl_ParseExpr                          uintptr
+	Ftcl_ParseQuotedString                  uintptr
+	Ftcl_ParseVarName                       uintptr
+	Ftcl_GetCwd                             uintptr
+	Ftcl_Chdir                              uintptr
+	Ftcl_Access                             uintptr
+	Ftcl_Stat                               uintptr
+	Ftcl_UtfNcmp                            uintptr
+	Ftcl_UtfNcasecmp                        uintptr
+	Ftcl_StringCaseMatch                    uintptr
+	Ftcl_UniCharIsControl                   uintptr
+	Ftcl_UniCharIsGraph                     uintptr
+	Ftcl_UniCharIsPrint                     uintptr
+	Ftcl_UniCharIsPunct                     uintptr
+	Ftcl_RegExpExecObj                      uintptr
+	Ftcl_RegExpGetInfo                      uintptr
+	Ftcl_NewUnicodeObj                      uintptr
+	Ftcl_SetUnicodeObj                      uintptr
+	Ftcl_GetCharLength                      uintptr
+	Ftcl_GetUniChar                         uintptr
+	Ftcl_GetUnicode                         uintptr
+	Ftcl_GetRange                           uintptr
+	Ftcl_AppendUnicodeToObj                 uintptr
+	Ftcl_RegExpMatchObj                     uintptr
+	Ftcl_SetNotifier                        uintptr
+	Ftcl_GetAllocMutex                      uintptr
+	Ftcl_GetChannelNames                    uintptr
+	Ftcl_GetChannelNamesEx                  uintptr
+	Ftcl_ProcObjCmd                         uintptr
+	Ftcl_ConditionFinalize                  uintptr
+	Ftcl_MutexFinalize                      uintptr
+	Ftcl_CreateThread                       uintptr
+	Ftcl_ReadRaw                            uintptr
+	Ftcl_WriteRaw                           uintptr
+	Ftcl_GetTopChannel                      uintptr
+	Ftcl_ChannelBuffered                    uintptr
+	Ftcl_ChannelName                        uintptr
+	Ftcl_ChannelVersion                     uintptr
+	Ftcl_ChannelBlockModeProc               uintptr
+	Ftcl_ChannelCloseProc                   uintptr
+	Ftcl_ChannelClose2Proc                  uintptr
+	Ftcl_ChannelInputProc                   uintptr
+	Ftcl_ChannelOutputProc                  uintptr
+	Ftcl_ChannelSeekProc                    uintptr
+	Ftcl_ChannelSetOptionProc               uintptr
+	Ftcl_ChannelGetOptionProc               uintptr
+	Ftcl_ChannelWatchProc                   uintptr
+	Ftcl_ChannelGetHandleProc               uintptr
+	Ftcl_ChannelFlushProc                   uintptr
+	Ftcl_ChannelHandlerProc                 uintptr
+	Ftcl_JoinThread                         uintptr
+	Ftcl_IsChannelShared                    uintptr
+	Ftcl_IsChannelRegistered                uintptr
+	Ftcl_CutChannel                         uintptr
+	Ftcl_SpliceChannel                      uintptr
+	Ftcl_ClearChannelHandlers               uintptr
+	Ftcl_IsChannelExisting                  uintptr
+	Ftcl_UniCharNcasecmp                    uintptr
+	Ftcl_UniCharCaseMatch                   uintptr
+	Ftcl_FindHashEntry                      uintptr
+	Ftcl_CreateHashEntry                    uintptr
+	Ftcl_InitCustomHashTable                uintptr
+	Ftcl_InitObjHashTable                   uintptr
+	Ftcl_CommandTraceInfo                   uintptr
+	Ftcl_TraceCommand                       uintptr
+	Ftcl_UntraceCommand                     uintptr
+	Ftcl_AttemptAlloc                       uintptr
+	Ftcl_AttemptDbCkalloc                   uintptr
+	Ftcl_AttemptRealloc                     uintptr
+	Ftcl_AttemptDbCkrealloc                 uintptr
+	Ftcl_AttemptSetObjLength                uintptr
+	Ftcl_GetChannelThread                   uintptr
+	Ftcl_GetUnicodeFromObj                  uintptr
+	Ftcl_GetMathFuncInfo                    uintptr
+	Ftcl_ListMathFuncs                      uintptr
+	Ftcl_SubstObj                           uintptr
+	Ftcl_DetachChannel                      uintptr
+	Ftcl_IsStandardChannel                  uintptr
+	Ftcl_FSCopyFile                         uintptr
+	Ftcl_FSCopyDirectory                    uintptr
+	Ftcl_FSCreateDirectory                  uintptr
+	Ftcl_FSDeleteFile                       uintptr
+	Ftcl_FSLoadFile                         uintptr
+	Ftcl_FSMatchInDirectory                 uintptr
+	Ftcl_FSLink                             uintptr
+	Ftcl_FSRemoveDirectory                  uintptr
+	Ftcl_FSRenameFile                       uintptr
+	Ftcl_FSLstat                            uintptr
+	Ftcl_FSUtime                            uintptr
+	Ftcl_FSFileAttrsGet                     uintptr
+	Ftcl_FSFileAttrsSet                     uintptr
+	Ftcl_FSFileAttrStrings                  uintptr
+	Ftcl_FSStat                             uintptr
+	Ftcl_FSAccess                           uintptr
+	Ftcl_FSOpenFileChannel                  uintptr
+	Ftcl_FSGetCwd                           uintptr
+	Ftcl_FSChdir                            uintptr
+	Ftcl_FSConvertToPathType                uintptr
+	Ftcl_FSJoinPath                         uintptr
+	Ftcl_FSSplitPath                        uintptr
+	Ftcl_FSEqualPaths                       uintptr
+	Ftcl_FSGetNormalizedPath                uintptr
+	Ftcl_FSJoinToPath                       uintptr
+	Ftcl_FSGetInternalRep                   uintptr
+	Ftcl_FSGetTranslatedPath                uintptr
+	Ftcl_FSEvalFile                         uintptr
+	Ftcl_FSNewNativePath                    uintptr
+	Ftcl_FSGetNativePath                    uintptr
+	Ftcl_FSFileSystemInfo                   uintptr
+	Ftcl_FSPathSeparator                    uintptr
+	Ftcl_FSListVolumes                      uintptr
+	Ftcl_FSRegister                         uintptr
+	Ftcl_FSUnregister                       uintptr
+	Ftcl_FSData                             uintptr
+	Ftcl_FSGetTranslatedStringPath          uintptr
+	Ftcl_FSGetFileSystemForPath             uintptr
+	Ftcl_FSGetPathType                      uintptr
+	Ftcl_OutputBuffered                     uintptr
+	Ftcl_FSMountsChanged                    uintptr
+	Ftcl_EvalTokensStandard                 uintptr
+	Ftcl_GetTime                            uintptr
+	Ftcl_CreateObjTrace                     uintptr
+	Ftcl_GetCommandInfoFromToken            uintptr
+	Ftcl_SetCommandInfoFromToken            uintptr
+	Ftcl_DbNewWideIntObj                    uintptr
+	Ftcl_GetWideIntFromObj                  uintptr
+	Ftcl_NewWideIntObj                      uintptr
+	Ftcl_SetWideIntObj                      uintptr
+	Ftcl_AllocStatBuf                       uintptr
+	Ftcl_Seek                               uintptr
+	Ftcl_Tell                               uintptr
+	Ftcl_ChannelWideSeekProc                uintptr
+	Ftcl_DictObjPut                         uintptr
+	Ftcl_DictObjGet                         uintptr
+	Ftcl_DictObjRemove                      uintptr
+	Ftcl_DictObjSize                        uintptr
+	Ftcl_DictObjFirst                       uintptr
+	Ftcl_DictObjNext                        uintptr
+	Ftcl_DictObjDone                        uintptr
+	Ftcl_DictObjPutKeyList                  uintptr
+	Ftcl_DictObjRemoveKeyList               uintptr
+	Ftcl_NewDictObj                         uintptr
+	Ftcl_DbNewDictObj                       uintptr
+	Ftcl_RegisterConfig                     uintptr
+	Ftcl_CreateNamespace                    uintptr
+	Ftcl_DeleteNamespace                    uintptr
+	Ftcl_AppendExportList                   uintptr
+	Ftcl_Export                             uintptr
+	Ftcl_Import                             uintptr
+	Ftcl_ForgetImport                       uintptr
+	Ftcl_GetCurrentNamespace                uintptr
+	Ftcl_GetGlobalNamespace                 uintptr
+	Ftcl_FindNamespace                      uintptr
+	Ftcl_FindCommand                        uintptr
+	Ftcl_GetCommandFromObj                  uintptr
+	Ftcl_GetCommandFullName                 uintptr
+	Ftcl_FSEvalFileEx                       uintptr
+	Ftcl_SetExitProc                        uintptr
+	Ftcl_LimitAddHandler                    uintptr
+	Ftcl_LimitRemoveHandler                 uintptr
+	Ftcl_LimitReady                         uintptr
+	Ftcl_LimitCheck                         uintptr
+	Ftcl_LimitExceeded                      uintptr
+	Ftcl_LimitSetCommands                   uintptr
+	Ftcl_LimitSetTime                       uintptr
+	Ftcl_LimitSetGranularity                uintptr
+	Ftcl_LimitTypeEnabled                   uintptr
+	Ftcl_LimitTypeExceeded                  uintptr
+	Ftcl_LimitTypeSet                       uintptr
+	Ftcl_LimitTypeReset                     uintptr
+	Ftcl_LimitGetCommands                   uintptr
+	Ftcl_LimitGetTime                       uintptr
+	Ftcl_LimitGetGranularity                uintptr
+	Ftcl_SaveInterpState                    uintptr
+	Ftcl_RestoreInterpState                 uintptr
+	Ftcl_DiscardInterpState                 uintptr
+	Ftcl_SetReturnOptions                   uintptr
+	Ftcl_GetReturnOptions                   uintptr
+	Ftcl_IsEnsemble                         uintptr
+	Ftcl_CreateEnsemble                     uintptr
+	Ftcl_FindEnsemble                       uintptr
+	Ftcl_SetEnsembleSubcommandList          uintptr
+	Ftcl_SetEnsembleMappingDict             uintptr
+	Ftcl_SetEnsembleUnknownHandler          uintptr
+	Ftcl_SetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleSubcommandList          uintptr
+	Ftcl_GetEnsembleMappingDict             uintptr
+	Ftcl_GetEnsembleUnknownHandler          uintptr
+	Ftcl_GetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleNamespace               uintptr
+	Ftcl_SetTimeProc                        uintptr
+	Ftcl_QueryTimeProc                      uintptr
+	Ftcl_ChannelThreadActionProc            uintptr
+	Ftcl_NewBignumObj                       uintptr
+	Ftcl_DbNewBignumObj                     uintptr
+	Ftcl_SetBignumObj                       uintptr
+	Ftcl_GetBignumFromObj                   uintptr
+	Ftcl_TakeBignumFromObj                  uintptr
+	Ftcl_TruncateChannel                    uintptr
+	Ftcl_ChannelTruncateProc                uintptr
+	Ftcl_SetChannelErrorInterp              uintptr
+	Ftcl_GetChannelErrorInterp              uintptr
+	Ftcl_SetChannelError                    uintptr
+	Ftcl_GetChannelError                    uintptr
+	Ftcl_InitBignumFromDouble               uintptr
+	Ftcl_GetNamespaceUnknownHandler         uintptr
+	Ftcl_SetNamespaceUnknownHandler         uintptr
+	Ftcl_GetEncodingFromObj                 uintptr
+	Ftcl_GetEncodingSearchPath              uintptr
+	Ftcl_SetEncodingSearchPath              uintptr
+	Ftcl_GetEncodingNameFromEnvironment     uintptr
+	Ftcl_PkgRequireProc                     uintptr
+	Ftcl_AppendObjToErrorInfo               uintptr
+	Ftcl_AppendLimitedToObj                 uintptr
+	Ftcl_Format                             uintptr
+	Ftcl_AppendFormatToObj                  uintptr
+	Ftcl_ObjPrintf                          uintptr
+	Ftcl_AppendPrintfToObj                  uintptr
+	Ftcl_CancelEval                         uintptr
+	Ftcl_Canceled                           uintptr
+	Ftcl_CreatePipe                         uintptr
+	Ftcl_NRCreateCommand                    uintptr
+	Ftcl_NREvalObj                          uintptr
+	Ftcl_NREvalObjv                         uintptr
+	Ftcl_NRCmdSwap                          uintptr
+	Ftcl_NRAddCallback                      uintptr
+	Ftcl_NRCallObjProc                      uintptr
+	Ftcl_GetFSDeviceFromStat                uintptr
+	Ftcl_GetFSInodeFromStat                 uintptr
+	Ftcl_GetModeFromStat                    uintptr
+	Ftcl_GetLinkCountFromStat               uintptr
+	Ftcl_GetUserIdFromStat                  uintptr
+	Ftcl_GetGroupIdFromStat                 uintptr
+	Ftcl_GetDeviceTypeFromStat              uintptr
+	Ftcl_GetAccessTimeFromStat              uintptr
+	Ftcl_GetModificationTimeFromStat        uintptr
+	Ftcl_GetChangeTimeFromStat              uintptr
+	Ftcl_GetSizeFromStat                    uintptr
+	Ftcl_GetBlocksFromStat                  uintptr
+	Ftcl_GetBlockSizeFromStat               uintptr
+	Ftcl_SetEnsembleParameterList           uintptr
+	Ftcl_GetEnsembleParameterList           uintptr
+	Ftcl_ParseArgsObjv                      uintptr
+	Ftcl_GetErrorLine                       uintptr
+	Ftcl_SetErrorLine                       uintptr
+	Ftcl_TransferResult                     uintptr
+	Ftcl_InterpActive                       uintptr
+	Ftcl_BackgroundException                uintptr
+	Ftcl_ZlibDeflate                        uintptr
+	Ftcl_ZlibInflate                        uintptr
+	Ftcl_ZlibCRC32                          uintptr
+	Ftcl_ZlibAdler32                        uintptr
+	Ftcl_ZlibStreamInit                     uintptr
+	Ftcl_ZlibStreamGetCommandName           uintptr
+	Ftcl_ZlibStreamEof                      uintptr
+	Ftcl_ZlibStreamChecksum                 uintptr
+	Ftcl_ZlibStreamPut                      uintptr
+	Ftcl_ZlibStreamGet                      uintptr
+	Ftcl_ZlibStreamClose                    uintptr
+	Ftcl_ZlibStreamReset                    uintptr
+	Ftcl_SetStartupScript                   uintptr
+	Ftcl_GetStartupScript                   uintptr
+	Ftcl_CloseEx                            uintptr
+	Ftcl_NRExprObj                          uintptr
+	Ftcl_NRSubstObj                         uintptr
+	Ftcl_LoadFile                           uintptr
+	Ftcl_FindSymbol                         uintptr
+	Ftcl_FSUnloadFile                       uintptr
+	Ftcl_ZlibStreamSetCompressionDictionary uintptr
+} /* tclDecls.h:2485:3 */
 
 type fs_vtab1 = struct {
 	Fbase sqlite3_vtab
 	Fdb   uintptr
 	FzDb  uintptr
 	FzTbl uintptr
-}
+} /* test_fs.c:96:9 */
 
 type fs_vtab = fs_vtab1 /* test_fs.c:96:24 */
 type fs_cursor1 = struct {
@@ -59690,14 +60941,14 @@ type fs_cursor1 = struct {
 	FzBuf   uintptr
 	FnBuf   int32
 	FnAlloc int32
-}
+} /* test_fs.c:97:9 */
 
 type fs_cursor = fs_cursor1 /* test_fs.c:97:26 */
 
 // ************************************************************************
 //
 // Start of fsdir implementation.
-type FsdirVtab1 = struct{ Fbase sqlite3_vtab }
+type FsdirVtab1 = struct{ Fbase sqlite3_vtab } /* test_fs.c:121:9 */
 
 // ************************************************************************
 //
@@ -59709,7 +60960,7 @@ type FsdirCsr1 = struct {
 	FpDir   uintptr
 	FiRowid sqlite3_int64
 	FpEntry uintptr
-}
+} /* test_fs.c:122:9 */
 
 type FsdirCsr = FsdirCsr1 /* test_fs.c:122:25 */
 
@@ -59886,7 +61137,7 @@ func fsdirRowid1(tls *libc.TLS, cur uintptr, pRowid uintptr) int32 { /* test_fs.
 type FstreeVtab1 = struct {
 	Fbase sqlite3_vtab
 	Fdb   uintptr
-}
+} /* test_fs.c:328:9 */
 
 //
 // End of fsdir implementation.
@@ -59901,7 +61152,7 @@ type FstreeCsr1 = struct {
 	FpStmt uintptr
 	Ffd    int32
 	_      [4]byte
-}
+} /* test_fs.c:329:9 */
 
 type FstreeCsr = FstreeCsr1 /* test_fs.c:329:26 */
 
@@ -61905,7 +63156,7 @@ type Wrapped = struct {
 	Fmutex_fail  int32
 	Fpcache_init int32
 	Fpcache_fail int32
-}
+} /* test_init.c:36:8 */
 
 // end block for C++
 
@@ -62194,7 +63445,7 @@ type sqlite3_intarray1 = struct {
 	Fn     int32
 	Fa     uintptr
 	FxFree uintptr
-}
+} /* test_intarray.h:99:9 */
 
 //
 // END OF REGISTRATION API
@@ -62212,7 +63463,7 @@ type sqlite3_intarray = sqlite3_intarray1 /* test_intarray.h:99:33 */
 type intarray_vtab1 = struct {
 	Fbase     sqlite3_vtab
 	FpContent uintptr
-}
+} /* test_intarray.c:41:9 */
 
 // Objects used internally by the virtual table implementation
 type intarray_vtab = intarray_vtab1 /* test_intarray.c:41:30 */
@@ -62220,7 +63471,7 @@ type intarray_cursor1 = struct {
 	Fbase sqlite3_vtab_cursor
 	Fi    int32
 	_     [4]byte
-}
+} /* test_intarray.c:42:9 */
 
 type intarray_cursor = intarray_cursor1 /* test_intarray.c:42:32 */
 
@@ -62500,7 +63751,7 @@ type jt_file1 = struct {
 	FiMaxOff   sqlite3_int64
 	FpNext     uintptr
 	FpReal     uintptr
-}
+} /* test_journal.c:111:9 */
 
 // Maximum pathname length supported by the jt backend.
 
@@ -62547,7 +63798,7 @@ var jt_io_methods = sqlite3_io_methods{FiVersion: 1, FxClose: // iVersion
 type JtGlobal = struct {
 	FpVfs  uintptr
 	FpList uintptr
-}
+} /* test_journal.c:203:1 */
 
 var g2 = JtGlobal{FpVfs: uintptr(0), FpList: uintptr(0)} /* test_journal.c:207:24 */
 
@@ -63288,7 +64539,7 @@ type MemFault = struct {
 	FisInstalled  int32
 	FisBenignMode int32
 	Fm            sqlite3_mem_methods
-}
+} /* test_malloc.c:30:8 */
 
 // end block for C++
 
@@ -64009,7 +65260,7 @@ var mallocLogEnabled int32 = 0 /* test_malloc.c:733:12 */
 type MallocLog1 = struct {
 	FnCall int32
 	FnByte int32
-}
+} /* test_malloc.c:735:9 */
 
 type MallocLog = MallocLog1 /* test_malloc.c:735:26 */
 
@@ -64800,7 +66051,7 @@ type MD5Context1 = struct {
 	Fbuf    [4]uint32
 	Fbits   [2]uint32
 	Fin     [64]uint8
-}
+} /* test_md5.c:57:1 */
 
 type MD5Context = MD5Context1 /* test_md5.c:63:27 */
 
@@ -65227,7 +66478,7 @@ func md5file_cmd(tls *libc.TLS, cd uintptr, interp uintptr, argc int32, argv uin
 		ofst = 0
 		amt = 2147483647
 	}
-	in = libc.Xfopen(tls, *(*uintptr)(unsafe.Pointer(argv + uintptr(1)*8)), ts+4086 /* "rb" */)
+	in = libc.Xfopen64(tls, *(*uintptr)(unsafe.Pointer(argv + uintptr(1)*8)), ts+4086 /* "rb" */)
 	if in == uintptr(0) {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+32, ts+33439 /* "unable to open f..." */, *(*uintptr)(unsafe.Pointer(argv + uintptr(1)*8)),
 			ts+33461 /* "\" for reading" */, uintptr(0)))
@@ -65379,7 +66630,7 @@ type multiplexGroup1 = struct {
 	FbEnabled  uint8
 	FbTruncate uint8
 	_          [2]byte
-}
+} /* test_multiplex.c:106:9 */
 
 // The following macros redefine the API routines so that they are
 // redirected through the global sqlite3_api structure.
@@ -65422,7 +66673,7 @@ type multiplexGroup = multiplexGroup1 /* test_multiplex.c:106:31 */
 type multiplexConn1 = struct {
 	Fbase   sqlite3_file
 	FpGroup uintptr
-}
+} /* test_multiplex.c:107:9 */
 
 type multiplexConn = multiplexConn1 /* test_multiplex.c:107:30 */
 
@@ -65435,7 +66686,7 @@ type multiplexConn = multiplexConn1 /* test_multiplex.c:107:30 */
 type multiplexReal = struct {
 	Fp uintptr
 	Fz uintptr
-}
+} /* test_multiplex.c:106:9 */
 
 //************************ Global Variables *********************************
 // All global variables used by this file are containing within the following
@@ -66981,7 +68232,7 @@ type test_mutex_globals = struct {
 	Fm           sqlite3_mutex_methods
 	FaCounter    [14]int32
 	FaStatic     [12]sqlite3_mutex
-}
+} /* test_mutex.c:46:8 */
 
 // State variables
 var g3 = test_mutex_globals{FisInstalled: 0} /* test_mutex.c:54:3 */
@@ -67262,7 +68513,7 @@ type ConfigOption = struct {
 	FzName  uintptr
 	FiValue int32
 	_       [4]byte
-}
+} /* test_mutex.c:348:3 */
 
 func getDbPointer1(tls *libc.TLS, pInterp uintptr, pObj uintptr) uintptr { /* test_mutex.c:379:16: */
 	bp := tls.Alloc(64)
@@ -67399,7 +68650,7 @@ type fs_real_file1 = struct {
 	FnRef      int32
 	FpNext     uintptr
 	FppThis    uintptr
-}
+} /* test_onefile.c:97:9 */
 
 // Maximum pathname length supported by the fs backend.
 
@@ -67411,7 +68662,7 @@ type fs_file1 = struct {
 	Fbase  sqlite3_file
 	FeType int32
 	FpReal uintptr
-}
+} /* test_onefile.c:109:9 */
 
 type fs_file = fs_file1 /* test_onefile.c:109:24 */
 
@@ -67420,7 +68671,7 @@ type tmp_file1 = struct {
 	FnSize  int32
 	FnAlloc int32
 	FzAlloc uintptr
-}
+} /* test_onefile.c:116:9 */
 
 type tmp_file = tmp_file1 /* test_onefile.c:116:25 */
 
@@ -67428,7 +68679,7 @@ type fs_vfs_t1 = struct {
 	Fbase      sqlite3_vfs
 	FpFileList uintptr
 	FpParent   uintptr
-}
+} /* test_onefile.c:176:9 */
 
 type fs_vfs_t = fs_vfs_t1 /* test_onefile.c:176:25 */
 
@@ -68143,7 +69394,7 @@ type VfslogVfs1 = struct {
 	FnBuf        int32
 	FaBuf        [8192]int8
 	_            [4]byte
-}
+} /* test_osinst.c:117:9 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -68201,7 +69452,7 @@ type VfslogFile1 = struct {
 	FpVfslog uintptr
 	FiFileId int32
 	_        [4]byte
-}
+} /* test_osinst.c:118:9 */
 
 type VfslogFile = VfslogFile1 /* test_osinst.c:118:27 */
 
@@ -68780,7 +70031,7 @@ type VfslogVtab1 = struct {
 	FpFd   uintptr
 	FnByte sqlite3_int64
 	FzFile uintptr
-}
+} /* test_osinst.c:804:9 */
 
 type VfslogVtab = VfslogVtab1 /* test_osinst.c:804:27 */
 type VfslogCsr1 = struct {
@@ -68791,7 +70042,7 @@ type VfslogCsr1 = struct {
 	FnFile      int32
 	FazFile     uintptr
 	FaBuf       [1024]uint8
-}
+} /* test_osinst.c:805:9 */
 
 type VfslogCsr = VfslogCsr1 /* test_osinst.c:805:26 */
 
@@ -69221,7 +70472,7 @@ type testpcacheGlobalType1 = struct {
 	FdiscardChance uint32
 	FprngSeed      uint32
 	FhighStress    uint32
-}
+} /* test_pcache.c:33:9 */
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
@@ -69327,7 +70578,7 @@ type testpcache1 = struct {
 		Fkey      uint32
 		FisPinned int32
 	}
-}
+} /* test_pcache.c:100:9 */
 
 // Number of pages in a cache.
 //
@@ -69345,7 +70596,7 @@ type testpcachePage = struct {
 	Fpage     sqlite3_pcache_page
 	Fkey      uint32
 	FisPinned int32
-}
+} /* test_pcache.c:100:9 */
 
 // Get a random number using the PRNG in the given page cache.
 func testpcacheRandom(tls *libc.TLS, p uintptr) uint32 { /* test_pcache.c:119:17: */
@@ -69664,7 +70915,7 @@ type quota_FILE1 = struct {
 	Ff     uintptr
 	FiOfst sqlite3_int64
 	FpFile uintptr
-}
+} /* test_quota.h:145:9 */
 
 // The following object serves the same role as FILE in the standard C
 // library.  It represents an open connection to a file on disk for I/O.
@@ -69689,7 +70940,7 @@ type quotaGroup1 = struct {
 	FpNext     uintptr
 	FppPrev    uintptr
 	FpFiles    uintptr
-}
+} /* test_quota.h:145:9 */
 
 // Define some macros helping to catch buffer overflows.
 
@@ -69700,7 +70951,7 @@ type quotaGroup = quotaGroup1 /* test_quota.c:61:27 */
 type quotaConn1 = struct {
 	Fbase  sqlite3_file
 	FpFile uintptr
-}
+} /* test_quota.c:62:9 */
 
 type quotaConn = quotaConn1 /* test_quota.c:62:26 */
 type quotaFile1 = struct {
@@ -69711,7 +70962,7 @@ type quotaFile1 = struct {
 	FdeleteOnClose int32
 	FpNext         uintptr
 	FppPrev        uintptr
-}
+} /* test_quota.h:145:9 */
 
 type quotaFile = quotaFile1 /* test_quota.c:63:26 */
 
@@ -70490,7 +71741,7 @@ __3:
 	goto quota_fopen_error
 __4:
 	;
-	(*quota_FILE)(unsafe.Pointer(p)).Ff = libc.Xfopen(tls, zFullTranslated, zMode)
+	(*quota_FILE)(unsafe.Pointer(p)).Ff = libc.Xfopen64(tls, zFullTranslated, zMode)
 	if !((*quota_FILE)(unsafe.Pointer(p)).Ff == uintptr(0)) {
 		goto __5
 	}
@@ -70657,7 +71908,7 @@ func sqlite3_quota_ftruncate(tls *libc.TLS, p uintptr, szNew sqlite3_int64) int3
 		*(*sqlite3_int64)(unsafe.Pointer(pGroup + 16 /* &.iSize */)) += (szNew - (*quotaFile)(unsafe.Pointer(pFile)).FiSize)
 		quotaLeave(tls)
 	}
-	rc = libc.Xftruncate(tls, libc.Xfileno(tls, (*quota_FILE)(unsafe.Pointer(p)).Ff), int64(szNew))
+	rc = libc.Xftruncate64(tls, libc.Xfileno(tls, (*quota_FILE)(unsafe.Pointer(p)).Ff), int64(szNew))
 	if (pFile != 0) && (rc == 0) {
 		var pGroup uintptr = (*quotaFile)(unsafe.Pointer(pFile)).FpGroup
 		quotaEnter(tls)
@@ -70676,11 +71927,11 @@ func sqlite3_quota_file_mtime(tls *libc.TLS, p uintptr, pTime uintptr) int32 { /
 	defer tls.Free(144)
 
 	var rc int32
-	// var buf stat at bp, 144
+	// var buf stat64 at bp, 144
 
-	rc = libc.Xfstat(tls, libc.Xfileno(tls, (*quota_FILE)(unsafe.Pointer(p)).Ff), bp /* &buf */)
+	rc = libc.Xfstat64(tls, libc.Xfileno(tls, (*quota_FILE)(unsafe.Pointer(p)).Ff), bp /* &buf */)
 	if rc == 0 {
-		*(*time_t)(unsafe.Pointer(pTime)) = (*stat)(unsafe.Pointer(bp /* &buf */)).Fst_mtim.Ftv_sec
+		*(*time_t)(unsafe.Pointer(pTime)) = (*stat64)(unsafe.Pointer(bp /* &buf */)).Fst_mtim.Ftv_sec
 	}
 	return rc
 }
@@ -70692,11 +71943,11 @@ func sqlite3_quota_file_truesize(tls *libc.TLS, p uintptr) sqlite3_int64 { /* te
 	defer tls.Free(144)
 
 	var rc int32
-	// var buf stat at bp, 144
+	// var buf stat64 at bp, 144
 
-	rc = libc.Xfstat(tls, libc.Xfileno(tls, (*quota_FILE)(unsafe.Pointer(p)).Ff), bp /* &buf */)
+	rc = libc.Xfstat64(tls, libc.Xfileno(tls, (*quota_FILE)(unsafe.Pointer(p)).Ff), bp /* &buf */)
 	if rc == 0 {
-		return int64((*stat)(unsafe.Pointer(bp /* &buf */)).Fst_size)
+		return int64((*stat64)(unsafe.Pointer(bp /* &buf */)).Fst_size)
 	}
 	return int64(-1)
 }
@@ -70787,6 +72038,644 @@ func sqlite3_quota_remove(tls *libc.TLS, zFilename uintptr) int32 { /* test_quot
 	return rc
 }
 
+type Tcl_OldStat_3 = uintptr /* tcl.h:645:21 */
+
+type TclStubs3 = struct {
+	Fmagic                                  int32
+	Fhooks                                  uintptr
+	Ftcl_PkgProvideEx                       uintptr
+	Ftcl_PkgRequireEx                       uintptr
+	Ftcl_Panic                              uintptr
+	Ftcl_Alloc                              uintptr
+	Ftcl_Free                               uintptr
+	Ftcl_Realloc                            uintptr
+	Ftcl_DbCkalloc                          uintptr
+	Ftcl_DbCkfree                           uintptr
+	Ftcl_DbCkrealloc                        uintptr
+	Ftcl_CreateFileHandler                  uintptr
+	Ftcl_DeleteFileHandler                  uintptr
+	Ftcl_SetTimer                           uintptr
+	Ftcl_Sleep                              uintptr
+	Ftcl_WaitForEvent                       uintptr
+	Ftcl_AppendAllObjTypes                  uintptr
+	Ftcl_AppendStringsToObj                 uintptr
+	Ftcl_AppendToObj                        uintptr
+	Ftcl_ConcatObj                          uintptr
+	Ftcl_ConvertToType                      uintptr
+	Ftcl_DbDecrRefCount                     uintptr
+	Ftcl_DbIncrRefCount                     uintptr
+	Ftcl_DbIsShared                         uintptr
+	Ftcl_DbNewBooleanObj                    uintptr
+	Ftcl_DbNewByteArrayObj                  uintptr
+	Ftcl_DbNewDoubleObj                     uintptr
+	Ftcl_DbNewListObj                       uintptr
+	Ftcl_DbNewLongObj                       uintptr
+	Ftcl_DbNewObj                           uintptr
+	Ftcl_DbNewStringObj                     uintptr
+	Ftcl_DuplicateObj                       uintptr
+	FtclFreeObj                             uintptr
+	Ftcl_GetBoolean                         uintptr
+	Ftcl_GetBooleanFromObj                  uintptr
+	Ftcl_GetByteArrayFromObj                uintptr
+	Ftcl_GetDouble                          uintptr
+	Ftcl_GetDoubleFromObj                   uintptr
+	Ftcl_GetIndexFromObj                    uintptr
+	Ftcl_GetInt                             uintptr
+	Ftcl_GetIntFromObj                      uintptr
+	Ftcl_GetLongFromObj                     uintptr
+	Ftcl_GetObjType                         uintptr
+	Ftcl_GetStringFromObj                   uintptr
+	Ftcl_InvalidateStringRep                uintptr
+	Ftcl_ListObjAppendList                  uintptr
+	Ftcl_ListObjAppendElement               uintptr
+	Ftcl_ListObjGetElements                 uintptr
+	Ftcl_ListObjIndex                       uintptr
+	Ftcl_ListObjLength                      uintptr
+	Ftcl_ListObjReplace                     uintptr
+	Ftcl_NewBooleanObj                      uintptr
+	Ftcl_NewByteArrayObj                    uintptr
+	Ftcl_NewDoubleObj                       uintptr
+	Ftcl_NewIntObj                          uintptr
+	Ftcl_NewListObj                         uintptr
+	Ftcl_NewLongObj                         uintptr
+	Ftcl_NewObj                             uintptr
+	Ftcl_NewStringObj                       uintptr
+	Ftcl_SetBooleanObj                      uintptr
+	Ftcl_SetByteArrayLength                 uintptr
+	Ftcl_SetByteArrayObj                    uintptr
+	Ftcl_SetDoubleObj                       uintptr
+	Ftcl_SetIntObj                          uintptr
+	Ftcl_SetListObj                         uintptr
+	Ftcl_SetLongObj                         uintptr
+	Ftcl_SetObjLength                       uintptr
+	Ftcl_SetStringObj                       uintptr
+	Ftcl_AddErrorInfo                       uintptr
+	Ftcl_AddObjErrorInfo                    uintptr
+	Ftcl_AllowExceptions                    uintptr
+	Ftcl_AppendElement                      uintptr
+	Ftcl_AppendResult                       uintptr
+	Ftcl_AsyncCreate                        uintptr
+	Ftcl_AsyncDelete                        uintptr
+	Ftcl_AsyncInvoke                        uintptr
+	Ftcl_AsyncMark                          uintptr
+	Ftcl_AsyncReady                         uintptr
+	Ftcl_BackgroundError                    uintptr
+	Ftcl_Backslash                          uintptr
+	Ftcl_BadChannelOption                   uintptr
+	Ftcl_CallWhenDeleted                    uintptr
+	Ftcl_CancelIdleCall                     uintptr
+	Ftcl_Close                              uintptr
+	Ftcl_CommandComplete                    uintptr
+	Ftcl_Concat                             uintptr
+	Ftcl_ConvertElement                     uintptr
+	Ftcl_ConvertCountedElement              uintptr
+	Ftcl_CreateAlias                        uintptr
+	Ftcl_CreateAliasObj                     uintptr
+	Ftcl_CreateChannel                      uintptr
+	Ftcl_CreateChannelHandler               uintptr
+	Ftcl_CreateCloseHandler                 uintptr
+	Ftcl_CreateCommand                      uintptr
+	Ftcl_CreateEventSource                  uintptr
+	Ftcl_CreateExitHandler                  uintptr
+	Ftcl_CreateInterp                       uintptr
+	Ftcl_CreateMathFunc                     uintptr
+	Ftcl_CreateObjCommand                   uintptr
+	Ftcl_CreateSlave                        uintptr
+	Ftcl_CreateTimerHandler                 uintptr
+	Ftcl_CreateTrace                        uintptr
+	Ftcl_DeleteAssocData                    uintptr
+	Ftcl_DeleteChannelHandler               uintptr
+	Ftcl_DeleteCloseHandler                 uintptr
+	Ftcl_DeleteCommand                      uintptr
+	Ftcl_DeleteCommandFromToken             uintptr
+	Ftcl_DeleteEvents                       uintptr
+	Ftcl_DeleteEventSource                  uintptr
+	Ftcl_DeleteExitHandler                  uintptr
+	Ftcl_DeleteHashEntry                    uintptr
+	Ftcl_DeleteHashTable                    uintptr
+	Ftcl_DeleteInterp                       uintptr
+	Ftcl_DetachPids                         uintptr
+	Ftcl_DeleteTimerHandler                 uintptr
+	Ftcl_DeleteTrace                        uintptr
+	Ftcl_DontCallWhenDeleted                uintptr
+	Ftcl_DoOneEvent                         uintptr
+	Ftcl_DoWhenIdle                         uintptr
+	Ftcl_DStringAppend                      uintptr
+	Ftcl_DStringAppendElement               uintptr
+	Ftcl_DStringEndSublist                  uintptr
+	Ftcl_DStringFree                        uintptr
+	Ftcl_DStringGetResult                   uintptr
+	Ftcl_DStringInit                        uintptr
+	Ftcl_DStringResult                      uintptr
+	Ftcl_DStringSetLength                   uintptr
+	Ftcl_DStringStartSublist                uintptr
+	Ftcl_Eof                                uintptr
+	Ftcl_ErrnoId                            uintptr
+	Ftcl_ErrnoMsg                           uintptr
+	Ftcl_Eval                               uintptr
+	Ftcl_EvalFile                           uintptr
+	Ftcl_EvalObj                            uintptr
+	Ftcl_EventuallyFree                     uintptr
+	Ftcl_Exit                               uintptr
+	Ftcl_ExposeCommand                      uintptr
+	Ftcl_ExprBoolean                        uintptr
+	Ftcl_ExprBooleanObj                     uintptr
+	Ftcl_ExprDouble                         uintptr
+	Ftcl_ExprDoubleObj                      uintptr
+	Ftcl_ExprLong                           uintptr
+	Ftcl_ExprLongObj                        uintptr
+	Ftcl_ExprObj                            uintptr
+	Ftcl_ExprString                         uintptr
+	Ftcl_Finalize                           uintptr
+	Ftcl_FindExecutable                     uintptr
+	Ftcl_FirstHashEntry                     uintptr
+	Ftcl_Flush                              uintptr
+	Ftcl_FreeResult                         uintptr
+	Ftcl_GetAlias                           uintptr
+	Ftcl_GetAliasObj                        uintptr
+	Ftcl_GetAssocData                       uintptr
+	Ftcl_GetChannel                         uintptr
+	Ftcl_GetChannelBufferSize               uintptr
+	Ftcl_GetChannelHandle                   uintptr
+	Ftcl_GetChannelInstanceData             uintptr
+	Ftcl_GetChannelMode                     uintptr
+	Ftcl_GetChannelName                     uintptr
+	Ftcl_GetChannelOption                   uintptr
+	Ftcl_GetChannelType                     uintptr
+	Ftcl_GetCommandInfo                     uintptr
+	Ftcl_GetCommandName                     uintptr
+	Ftcl_GetErrno                           uintptr
+	Ftcl_GetHostName                        uintptr
+	Ftcl_GetInterpPath                      uintptr
+	Ftcl_GetMaster                          uintptr
+	Ftcl_GetNameOfExecutable                uintptr
+	Ftcl_GetObjResult                       uintptr
+	Ftcl_GetOpenFile                        uintptr
+	Ftcl_GetPathType                        uintptr
+	Ftcl_Gets                               uintptr
+	Ftcl_GetsObj                            uintptr
+	Ftcl_GetServiceMode                     uintptr
+	Ftcl_GetSlave                           uintptr
+	Ftcl_GetStdChannel                      uintptr
+	Ftcl_GetStringResult                    uintptr
+	Ftcl_GetVar                             uintptr
+	Ftcl_GetVar2                            uintptr
+	Ftcl_GlobalEval                         uintptr
+	Ftcl_GlobalEvalObj                      uintptr
+	Ftcl_HideCommand                        uintptr
+	Ftcl_Init                               uintptr
+	Ftcl_InitHashTable                      uintptr
+	Ftcl_InputBlocked                       uintptr
+	Ftcl_InputBuffered                      uintptr
+	Ftcl_InterpDeleted                      uintptr
+	Ftcl_IsSafe                             uintptr
+	Ftcl_JoinPath                           uintptr
+	Ftcl_LinkVar                            uintptr
+	Freserved188                            uintptr
+	Ftcl_MakeFileChannel                    uintptr
+	Ftcl_MakeSafe                           uintptr
+	Ftcl_MakeTcpClientChannel               uintptr
+	Ftcl_Merge                              uintptr
+	Ftcl_NextHashEntry                      uintptr
+	Ftcl_NotifyChannel                      uintptr
+	Ftcl_ObjGetVar2                         uintptr
+	Ftcl_ObjSetVar2                         uintptr
+	Ftcl_OpenCommandChannel                 uintptr
+	Ftcl_OpenFileChannel                    uintptr
+	Ftcl_OpenTcpClient                      uintptr
+	Ftcl_OpenTcpServer                      uintptr
+	Ftcl_Preserve                           uintptr
+	Ftcl_PrintDouble                        uintptr
+	Ftcl_PutEnv                             uintptr
+	Ftcl_PosixError                         uintptr
+	Ftcl_QueueEvent                         uintptr
+	Ftcl_Read                               uintptr
+	Ftcl_ReapDetachedProcs                  uintptr
+	Ftcl_RecordAndEval                      uintptr
+	Ftcl_RecordAndEvalObj                   uintptr
+	Ftcl_RegisterChannel                    uintptr
+	Ftcl_RegisterObjType                    uintptr
+	Ftcl_RegExpCompile                      uintptr
+	Ftcl_RegExpExec                         uintptr
+	Ftcl_RegExpMatch                        uintptr
+	Ftcl_RegExpRange                        uintptr
+	Ftcl_Release                            uintptr
+	Ftcl_ResetResult                        uintptr
+	Ftcl_ScanElement                        uintptr
+	Ftcl_ScanCountedElement                 uintptr
+	Ftcl_SeekOld                            uintptr
+	Ftcl_ServiceAll                         uintptr
+	Ftcl_ServiceEvent                       uintptr
+	Ftcl_SetAssocData                       uintptr
+	Ftcl_SetChannelBufferSize               uintptr
+	Ftcl_SetChannelOption                   uintptr
+	Ftcl_SetCommandInfo                     uintptr
+	Ftcl_SetErrno                           uintptr
+	Ftcl_SetErrorCode                       uintptr
+	Ftcl_SetMaxBlockTime                    uintptr
+	Ftcl_SetPanicProc                       uintptr
+	Ftcl_SetRecursionLimit                  uintptr
+	Ftcl_SetResult                          uintptr
+	Ftcl_SetServiceMode                     uintptr
+	Ftcl_SetObjErrorCode                    uintptr
+	Ftcl_SetObjResult                       uintptr
+	Ftcl_SetStdChannel                      uintptr
+	Ftcl_SetVar                             uintptr
+	Ftcl_SetVar2                            uintptr
+	Ftcl_SignalId                           uintptr
+	Ftcl_SignalMsg                          uintptr
+	Ftcl_SourceRCFile                       uintptr
+	Ftcl_SplitList                          uintptr
+	Ftcl_SplitPath                          uintptr
+	Ftcl_StaticPackage                      uintptr
+	Ftcl_StringMatch                        uintptr
+	Ftcl_TellOld                            uintptr
+	Ftcl_TraceVar                           uintptr
+	Ftcl_TraceVar2                          uintptr
+	Ftcl_TranslateFileName                  uintptr
+	Ftcl_Ungets                             uintptr
+	Ftcl_UnlinkVar                          uintptr
+	Ftcl_UnregisterChannel                  uintptr
+	Ftcl_UnsetVar                           uintptr
+	Ftcl_UnsetVar2                          uintptr
+	Ftcl_UntraceVar                         uintptr
+	Ftcl_UntraceVar2                        uintptr
+	Ftcl_UpdateLinkedVar                    uintptr
+	Ftcl_UpVar                              uintptr
+	Ftcl_UpVar2                             uintptr
+	Ftcl_VarEval                            uintptr
+	Ftcl_VarTraceInfo                       uintptr
+	Ftcl_VarTraceInfo2                      uintptr
+	Ftcl_Write                              uintptr
+	Ftcl_WrongNumArgs                       uintptr
+	Ftcl_DumpActiveMemory                   uintptr
+	Ftcl_ValidateAllMemory                  uintptr
+	Ftcl_AppendResultVA                     uintptr
+	Ftcl_AppendStringsToObjVA               uintptr
+	Ftcl_HashStats                          uintptr
+	Ftcl_ParseVar                           uintptr
+	Ftcl_PkgPresent                         uintptr
+	Ftcl_PkgPresentEx                       uintptr
+	Ftcl_PkgProvide                         uintptr
+	Ftcl_PkgRequire                         uintptr
+	Ftcl_SetErrorCodeVA                     uintptr
+	Ftcl_VarEvalVA                          uintptr
+	Ftcl_WaitPid                            uintptr
+	Ftcl_PanicVA                            uintptr
+	Ftcl_GetVersion                         uintptr
+	Ftcl_InitMemory                         uintptr
+	Ftcl_StackChannel                       uintptr
+	Ftcl_UnstackChannel                     uintptr
+	Ftcl_GetStackedChannel                  uintptr
+	Ftcl_SetMainLoop                        uintptr
+	Freserved285                            uintptr
+	Ftcl_AppendObjToObj                     uintptr
+	Ftcl_CreateEncoding                     uintptr
+	Ftcl_CreateThreadExitHandler            uintptr
+	Ftcl_DeleteThreadExitHandler            uintptr
+	Ftcl_DiscardResult                      uintptr
+	Ftcl_EvalEx                             uintptr
+	Ftcl_EvalObjv                           uintptr
+	Ftcl_EvalObjEx                          uintptr
+	Ftcl_ExitThread                         uintptr
+	Ftcl_ExternalToUtf                      uintptr
+	Ftcl_ExternalToUtfDString               uintptr
+	Ftcl_FinalizeThread                     uintptr
+	Ftcl_FinalizeNotifier                   uintptr
+	Ftcl_FreeEncoding                       uintptr
+	Ftcl_GetCurrentThread                   uintptr
+	Ftcl_GetEncoding                        uintptr
+	Ftcl_GetEncodingName                    uintptr
+	Ftcl_GetEncodingNames                   uintptr
+	Ftcl_GetIndexFromObjStruct              uintptr
+	Ftcl_GetThreadData                      uintptr
+	Ftcl_GetVar2Ex                          uintptr
+	Ftcl_InitNotifier                       uintptr
+	Ftcl_MutexLock                          uintptr
+	Ftcl_MutexUnlock                        uintptr
+	Ftcl_ConditionNotify                    uintptr
+	Ftcl_ConditionWait                      uintptr
+	Ftcl_NumUtfChars                        uintptr
+	Ftcl_ReadChars                          uintptr
+	Ftcl_RestoreResult                      uintptr
+	Ftcl_SaveResult                         uintptr
+	Ftcl_SetSystemEncoding                  uintptr
+	Ftcl_SetVar2Ex                          uintptr
+	Ftcl_ThreadAlert                        uintptr
+	Ftcl_ThreadQueueEvent                   uintptr
+	Ftcl_UniCharAtIndex                     uintptr
+	Ftcl_UniCharToLower                     uintptr
+	Ftcl_UniCharToTitle                     uintptr
+	Ftcl_UniCharToUpper                     uintptr
+	Ftcl_UniCharToUtf                       uintptr
+	Ftcl_UtfAtIndex                         uintptr
+	Ftcl_UtfCharComplete                    uintptr
+	Ftcl_UtfBackslash                       uintptr
+	Ftcl_UtfFindFirst                       uintptr
+	Ftcl_UtfFindLast                        uintptr
+	Ftcl_UtfNext                            uintptr
+	Ftcl_UtfPrev                            uintptr
+	Ftcl_UtfToExternal                      uintptr
+	Ftcl_UtfToExternalDString               uintptr
+	Ftcl_UtfToLower                         uintptr
+	Ftcl_UtfToTitle                         uintptr
+	Ftcl_UtfToUniChar                       uintptr
+	Ftcl_UtfToUpper                         uintptr
+	Ftcl_WriteChars                         uintptr
+	Ftcl_WriteObj                           uintptr
+	Ftcl_GetString                          uintptr
+	Ftcl_GetDefaultEncodingDir              uintptr
+	Ftcl_SetDefaultEncodingDir              uintptr
+	Ftcl_AlertNotifier                      uintptr
+	Ftcl_ServiceModeHook                    uintptr
+	Ftcl_UniCharIsAlnum                     uintptr
+	Ftcl_UniCharIsAlpha                     uintptr
+	Ftcl_UniCharIsDigit                     uintptr
+	Ftcl_UniCharIsLower                     uintptr
+	Ftcl_UniCharIsSpace                     uintptr
+	Ftcl_UniCharIsUpper                     uintptr
+	Ftcl_UniCharIsWordChar                  uintptr
+	Ftcl_UniCharLen                         uintptr
+	Ftcl_UniCharNcmp                        uintptr
+	Ftcl_UniCharToUtfDString                uintptr
+	Ftcl_UtfToUniCharDString                uintptr
+	Ftcl_GetRegExpFromObj                   uintptr
+	Ftcl_EvalTokens                         uintptr
+	Ftcl_FreeParse                          uintptr
+	Ftcl_LogCommandInfo                     uintptr
+	Ftcl_ParseBraces                        uintptr
+	Ftcl_ParseCommand                       uintptr
+	Ftcl_ParseExpr                          uintptr
+	Ftcl_ParseQuotedString                  uintptr
+	Ftcl_ParseVarName                       uintptr
+	Ftcl_GetCwd                             uintptr
+	Ftcl_Chdir                              uintptr
+	Ftcl_Access                             uintptr
+	Ftcl_Stat                               uintptr
+	Ftcl_UtfNcmp                            uintptr
+	Ftcl_UtfNcasecmp                        uintptr
+	Ftcl_StringCaseMatch                    uintptr
+	Ftcl_UniCharIsControl                   uintptr
+	Ftcl_UniCharIsGraph                     uintptr
+	Ftcl_UniCharIsPrint                     uintptr
+	Ftcl_UniCharIsPunct                     uintptr
+	Ftcl_RegExpExecObj                      uintptr
+	Ftcl_RegExpGetInfo                      uintptr
+	Ftcl_NewUnicodeObj                      uintptr
+	Ftcl_SetUnicodeObj                      uintptr
+	Ftcl_GetCharLength                      uintptr
+	Ftcl_GetUniChar                         uintptr
+	Ftcl_GetUnicode                         uintptr
+	Ftcl_GetRange                           uintptr
+	Ftcl_AppendUnicodeToObj                 uintptr
+	Ftcl_RegExpMatchObj                     uintptr
+	Ftcl_SetNotifier                        uintptr
+	Ftcl_GetAllocMutex                      uintptr
+	Ftcl_GetChannelNames                    uintptr
+	Ftcl_GetChannelNamesEx                  uintptr
+	Ftcl_ProcObjCmd                         uintptr
+	Ftcl_ConditionFinalize                  uintptr
+	Ftcl_MutexFinalize                      uintptr
+	Ftcl_CreateThread                       uintptr
+	Ftcl_ReadRaw                            uintptr
+	Ftcl_WriteRaw                           uintptr
+	Ftcl_GetTopChannel                      uintptr
+	Ftcl_ChannelBuffered                    uintptr
+	Ftcl_ChannelName                        uintptr
+	Ftcl_ChannelVersion                     uintptr
+	Ftcl_ChannelBlockModeProc               uintptr
+	Ftcl_ChannelCloseProc                   uintptr
+	Ftcl_ChannelClose2Proc                  uintptr
+	Ftcl_ChannelInputProc                   uintptr
+	Ftcl_ChannelOutputProc                  uintptr
+	Ftcl_ChannelSeekProc                    uintptr
+	Ftcl_ChannelSetOptionProc               uintptr
+	Ftcl_ChannelGetOptionProc               uintptr
+	Ftcl_ChannelWatchProc                   uintptr
+	Ftcl_ChannelGetHandleProc               uintptr
+	Ftcl_ChannelFlushProc                   uintptr
+	Ftcl_ChannelHandlerProc                 uintptr
+	Ftcl_JoinThread                         uintptr
+	Ftcl_IsChannelShared                    uintptr
+	Ftcl_IsChannelRegistered                uintptr
+	Ftcl_CutChannel                         uintptr
+	Ftcl_SpliceChannel                      uintptr
+	Ftcl_ClearChannelHandlers               uintptr
+	Ftcl_IsChannelExisting                  uintptr
+	Ftcl_UniCharNcasecmp                    uintptr
+	Ftcl_UniCharCaseMatch                   uintptr
+	Ftcl_FindHashEntry                      uintptr
+	Ftcl_CreateHashEntry                    uintptr
+	Ftcl_InitCustomHashTable                uintptr
+	Ftcl_InitObjHashTable                   uintptr
+	Ftcl_CommandTraceInfo                   uintptr
+	Ftcl_TraceCommand                       uintptr
+	Ftcl_UntraceCommand                     uintptr
+	Ftcl_AttemptAlloc                       uintptr
+	Ftcl_AttemptDbCkalloc                   uintptr
+	Ftcl_AttemptRealloc                     uintptr
+	Ftcl_AttemptDbCkrealloc                 uintptr
+	Ftcl_AttemptSetObjLength                uintptr
+	Ftcl_GetChannelThread                   uintptr
+	Ftcl_GetUnicodeFromObj                  uintptr
+	Ftcl_GetMathFuncInfo                    uintptr
+	Ftcl_ListMathFuncs                      uintptr
+	Ftcl_SubstObj                           uintptr
+	Ftcl_DetachChannel                      uintptr
+	Ftcl_IsStandardChannel                  uintptr
+	Ftcl_FSCopyFile                         uintptr
+	Ftcl_FSCopyDirectory                    uintptr
+	Ftcl_FSCreateDirectory                  uintptr
+	Ftcl_FSDeleteFile                       uintptr
+	Ftcl_FSLoadFile                         uintptr
+	Ftcl_FSMatchInDirectory                 uintptr
+	Ftcl_FSLink                             uintptr
+	Ftcl_FSRemoveDirectory                  uintptr
+	Ftcl_FSRenameFile                       uintptr
+	Ftcl_FSLstat                            uintptr
+	Ftcl_FSUtime                            uintptr
+	Ftcl_FSFileAttrsGet                     uintptr
+	Ftcl_FSFileAttrsSet                     uintptr
+	Ftcl_FSFileAttrStrings                  uintptr
+	Ftcl_FSStat                             uintptr
+	Ftcl_FSAccess                           uintptr
+	Ftcl_FSOpenFileChannel                  uintptr
+	Ftcl_FSGetCwd                           uintptr
+	Ftcl_FSChdir                            uintptr
+	Ftcl_FSConvertToPathType                uintptr
+	Ftcl_FSJoinPath                         uintptr
+	Ftcl_FSSplitPath                        uintptr
+	Ftcl_FSEqualPaths                       uintptr
+	Ftcl_FSGetNormalizedPath                uintptr
+	Ftcl_FSJoinToPath                       uintptr
+	Ftcl_FSGetInternalRep                   uintptr
+	Ftcl_FSGetTranslatedPath                uintptr
+	Ftcl_FSEvalFile                         uintptr
+	Ftcl_FSNewNativePath                    uintptr
+	Ftcl_FSGetNativePath                    uintptr
+	Ftcl_FSFileSystemInfo                   uintptr
+	Ftcl_FSPathSeparator                    uintptr
+	Ftcl_FSListVolumes                      uintptr
+	Ftcl_FSRegister                         uintptr
+	Ftcl_FSUnregister                       uintptr
+	Ftcl_FSData                             uintptr
+	Ftcl_FSGetTranslatedStringPath          uintptr
+	Ftcl_FSGetFileSystemForPath             uintptr
+	Ftcl_FSGetPathType                      uintptr
+	Ftcl_OutputBuffered                     uintptr
+	Ftcl_FSMountsChanged                    uintptr
+	Ftcl_EvalTokensStandard                 uintptr
+	Ftcl_GetTime                            uintptr
+	Ftcl_CreateObjTrace                     uintptr
+	Ftcl_GetCommandInfoFromToken            uintptr
+	Ftcl_SetCommandInfoFromToken            uintptr
+	Ftcl_DbNewWideIntObj                    uintptr
+	Ftcl_GetWideIntFromObj                  uintptr
+	Ftcl_NewWideIntObj                      uintptr
+	Ftcl_SetWideIntObj                      uintptr
+	Ftcl_AllocStatBuf                       uintptr
+	Ftcl_Seek                               uintptr
+	Ftcl_Tell                               uintptr
+	Ftcl_ChannelWideSeekProc                uintptr
+	Ftcl_DictObjPut                         uintptr
+	Ftcl_DictObjGet                         uintptr
+	Ftcl_DictObjRemove                      uintptr
+	Ftcl_DictObjSize                        uintptr
+	Ftcl_DictObjFirst                       uintptr
+	Ftcl_DictObjNext                        uintptr
+	Ftcl_DictObjDone                        uintptr
+	Ftcl_DictObjPutKeyList                  uintptr
+	Ftcl_DictObjRemoveKeyList               uintptr
+	Ftcl_NewDictObj                         uintptr
+	Ftcl_DbNewDictObj                       uintptr
+	Ftcl_RegisterConfig                     uintptr
+	Ftcl_CreateNamespace                    uintptr
+	Ftcl_DeleteNamespace                    uintptr
+	Ftcl_AppendExportList                   uintptr
+	Ftcl_Export                             uintptr
+	Ftcl_Import                             uintptr
+	Ftcl_ForgetImport                       uintptr
+	Ftcl_GetCurrentNamespace                uintptr
+	Ftcl_GetGlobalNamespace                 uintptr
+	Ftcl_FindNamespace                      uintptr
+	Ftcl_FindCommand                        uintptr
+	Ftcl_GetCommandFromObj                  uintptr
+	Ftcl_GetCommandFullName                 uintptr
+	Ftcl_FSEvalFileEx                       uintptr
+	Ftcl_SetExitProc                        uintptr
+	Ftcl_LimitAddHandler                    uintptr
+	Ftcl_LimitRemoveHandler                 uintptr
+	Ftcl_LimitReady                         uintptr
+	Ftcl_LimitCheck                         uintptr
+	Ftcl_LimitExceeded                      uintptr
+	Ftcl_LimitSetCommands                   uintptr
+	Ftcl_LimitSetTime                       uintptr
+	Ftcl_LimitSetGranularity                uintptr
+	Ftcl_LimitTypeEnabled                   uintptr
+	Ftcl_LimitTypeExceeded                  uintptr
+	Ftcl_LimitTypeSet                       uintptr
+	Ftcl_LimitTypeReset                     uintptr
+	Ftcl_LimitGetCommands                   uintptr
+	Ftcl_LimitGetTime                       uintptr
+	Ftcl_LimitGetGranularity                uintptr
+	Ftcl_SaveInterpState                    uintptr
+	Ftcl_RestoreInterpState                 uintptr
+	Ftcl_DiscardInterpState                 uintptr
+	Ftcl_SetReturnOptions                   uintptr
+	Ftcl_GetReturnOptions                   uintptr
+	Ftcl_IsEnsemble                         uintptr
+	Ftcl_CreateEnsemble                     uintptr
+	Ftcl_FindEnsemble                       uintptr
+	Ftcl_SetEnsembleSubcommandList          uintptr
+	Ftcl_SetEnsembleMappingDict             uintptr
+	Ftcl_SetEnsembleUnknownHandler          uintptr
+	Ftcl_SetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleSubcommandList          uintptr
+	Ftcl_GetEnsembleMappingDict             uintptr
+	Ftcl_GetEnsembleUnknownHandler          uintptr
+	Ftcl_GetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleNamespace               uintptr
+	Ftcl_SetTimeProc                        uintptr
+	Ftcl_QueryTimeProc                      uintptr
+	Ftcl_ChannelThreadActionProc            uintptr
+	Ftcl_NewBignumObj                       uintptr
+	Ftcl_DbNewBignumObj                     uintptr
+	Ftcl_SetBignumObj                       uintptr
+	Ftcl_GetBignumFromObj                   uintptr
+	Ftcl_TakeBignumFromObj                  uintptr
+	Ftcl_TruncateChannel                    uintptr
+	Ftcl_ChannelTruncateProc                uintptr
+	Ftcl_SetChannelErrorInterp              uintptr
+	Ftcl_GetChannelErrorInterp              uintptr
+	Ftcl_SetChannelError                    uintptr
+	Ftcl_GetChannelError                    uintptr
+	Ftcl_InitBignumFromDouble               uintptr
+	Ftcl_GetNamespaceUnknownHandler         uintptr
+	Ftcl_SetNamespaceUnknownHandler         uintptr
+	Ftcl_GetEncodingFromObj                 uintptr
+	Ftcl_GetEncodingSearchPath              uintptr
+	Ftcl_SetEncodingSearchPath              uintptr
+	Ftcl_GetEncodingNameFromEnvironment     uintptr
+	Ftcl_PkgRequireProc                     uintptr
+	Ftcl_AppendObjToErrorInfo               uintptr
+	Ftcl_AppendLimitedToObj                 uintptr
+	Ftcl_Format                             uintptr
+	Ftcl_AppendFormatToObj                  uintptr
+	Ftcl_ObjPrintf                          uintptr
+	Ftcl_AppendPrintfToObj                  uintptr
+	Ftcl_CancelEval                         uintptr
+	Ftcl_Canceled                           uintptr
+	Ftcl_CreatePipe                         uintptr
+	Ftcl_NRCreateCommand                    uintptr
+	Ftcl_NREvalObj                          uintptr
+	Ftcl_NREvalObjv                         uintptr
+	Ftcl_NRCmdSwap                          uintptr
+	Ftcl_NRAddCallback                      uintptr
+	Ftcl_NRCallObjProc                      uintptr
+	Ftcl_GetFSDeviceFromStat                uintptr
+	Ftcl_GetFSInodeFromStat                 uintptr
+	Ftcl_GetModeFromStat                    uintptr
+	Ftcl_GetLinkCountFromStat               uintptr
+	Ftcl_GetUserIdFromStat                  uintptr
+	Ftcl_GetGroupIdFromStat                 uintptr
+	Ftcl_GetDeviceTypeFromStat              uintptr
+	Ftcl_GetAccessTimeFromStat              uintptr
+	Ftcl_GetModificationTimeFromStat        uintptr
+	Ftcl_GetChangeTimeFromStat              uintptr
+	Ftcl_GetSizeFromStat                    uintptr
+	Ftcl_GetBlocksFromStat                  uintptr
+	Ftcl_GetBlockSizeFromStat               uintptr
+	Ftcl_SetEnsembleParameterList           uintptr
+	Ftcl_GetEnsembleParameterList           uintptr
+	Ftcl_ParseArgsObjv                      uintptr
+	Ftcl_GetErrorLine                       uintptr
+	Ftcl_SetErrorLine                       uintptr
+	Ftcl_TransferResult                     uintptr
+	Ftcl_InterpActive                       uintptr
+	Ftcl_BackgroundException                uintptr
+	Ftcl_ZlibDeflate                        uintptr
+	Ftcl_ZlibInflate                        uintptr
+	Ftcl_ZlibCRC32                          uintptr
+	Ftcl_ZlibAdler32                        uintptr
+	Ftcl_ZlibStreamInit                     uintptr
+	Ftcl_ZlibStreamGetCommandName           uintptr
+	Ftcl_ZlibStreamEof                      uintptr
+	Ftcl_ZlibStreamChecksum                 uintptr
+	Ftcl_ZlibStreamPut                      uintptr
+	Ftcl_ZlibStreamGet                      uintptr
+	Ftcl_ZlibStreamClose                    uintptr
+	Ftcl_ZlibStreamReset                    uintptr
+	Ftcl_SetStartupScript                   uintptr
+	Ftcl_GetStartupScript                   uintptr
+	Ftcl_CloseEx                            uintptr
+	Ftcl_NRExprObj                          uintptr
+	Ftcl_NRSubstObj                         uintptr
+	Ftcl_LoadFile                           uintptr
+	Ftcl_FindSymbol                         uintptr
+	Ftcl_FSUnloadFile                       uintptr
+	Ftcl_ZlibStreamSetCompressionDictionary uintptr
+} /* tclDecls.h:2485:3 */
+
 // end block for C++
 
 // Local Variables:
@@ -70799,7 +72688,7 @@ func sqlite3_quota_remove(tls *libc.TLS, zFilename uintptr) int32 { /* test_quot
 type TclQuotaCallback1 = struct {
 	Finterp  uintptr
 	FpScript uintptr
-}
+} /* test_quota.c:1293:9 */
 
 // end block for C++
 
@@ -71424,6 +73313,644 @@ var aCmd9 = [21]struct {
 	{FzName: ts + 35443 /* "sqlite3_quota_fe..." */, FxProc: 0},
 } /* test_quota.c:1948:5 */
 
+type Tcl_OldStat_4 = uintptr /* tcl.h:645:21 */
+
+type TclStubs4 = struct {
+	Fmagic                                  int32
+	Fhooks                                  uintptr
+	Ftcl_PkgProvideEx                       uintptr
+	Ftcl_PkgRequireEx                       uintptr
+	Ftcl_Panic                              uintptr
+	Ftcl_Alloc                              uintptr
+	Ftcl_Free                               uintptr
+	Ftcl_Realloc                            uintptr
+	Ftcl_DbCkalloc                          uintptr
+	Ftcl_DbCkfree                           uintptr
+	Ftcl_DbCkrealloc                        uintptr
+	Ftcl_CreateFileHandler                  uintptr
+	Ftcl_DeleteFileHandler                  uintptr
+	Ftcl_SetTimer                           uintptr
+	Ftcl_Sleep                              uintptr
+	Ftcl_WaitForEvent                       uintptr
+	Ftcl_AppendAllObjTypes                  uintptr
+	Ftcl_AppendStringsToObj                 uintptr
+	Ftcl_AppendToObj                        uintptr
+	Ftcl_ConcatObj                          uintptr
+	Ftcl_ConvertToType                      uintptr
+	Ftcl_DbDecrRefCount                     uintptr
+	Ftcl_DbIncrRefCount                     uintptr
+	Ftcl_DbIsShared                         uintptr
+	Ftcl_DbNewBooleanObj                    uintptr
+	Ftcl_DbNewByteArrayObj                  uintptr
+	Ftcl_DbNewDoubleObj                     uintptr
+	Ftcl_DbNewListObj                       uintptr
+	Ftcl_DbNewLongObj                       uintptr
+	Ftcl_DbNewObj                           uintptr
+	Ftcl_DbNewStringObj                     uintptr
+	Ftcl_DuplicateObj                       uintptr
+	FtclFreeObj                             uintptr
+	Ftcl_GetBoolean                         uintptr
+	Ftcl_GetBooleanFromObj                  uintptr
+	Ftcl_GetByteArrayFromObj                uintptr
+	Ftcl_GetDouble                          uintptr
+	Ftcl_GetDoubleFromObj                   uintptr
+	Ftcl_GetIndexFromObj                    uintptr
+	Ftcl_GetInt                             uintptr
+	Ftcl_GetIntFromObj                      uintptr
+	Ftcl_GetLongFromObj                     uintptr
+	Ftcl_GetObjType                         uintptr
+	Ftcl_GetStringFromObj                   uintptr
+	Ftcl_InvalidateStringRep                uintptr
+	Ftcl_ListObjAppendList                  uintptr
+	Ftcl_ListObjAppendElement               uintptr
+	Ftcl_ListObjGetElements                 uintptr
+	Ftcl_ListObjIndex                       uintptr
+	Ftcl_ListObjLength                      uintptr
+	Ftcl_ListObjReplace                     uintptr
+	Ftcl_NewBooleanObj                      uintptr
+	Ftcl_NewByteArrayObj                    uintptr
+	Ftcl_NewDoubleObj                       uintptr
+	Ftcl_NewIntObj                          uintptr
+	Ftcl_NewListObj                         uintptr
+	Ftcl_NewLongObj                         uintptr
+	Ftcl_NewObj                             uintptr
+	Ftcl_NewStringObj                       uintptr
+	Ftcl_SetBooleanObj                      uintptr
+	Ftcl_SetByteArrayLength                 uintptr
+	Ftcl_SetByteArrayObj                    uintptr
+	Ftcl_SetDoubleObj                       uintptr
+	Ftcl_SetIntObj                          uintptr
+	Ftcl_SetListObj                         uintptr
+	Ftcl_SetLongObj                         uintptr
+	Ftcl_SetObjLength                       uintptr
+	Ftcl_SetStringObj                       uintptr
+	Ftcl_AddErrorInfo                       uintptr
+	Ftcl_AddObjErrorInfo                    uintptr
+	Ftcl_AllowExceptions                    uintptr
+	Ftcl_AppendElement                      uintptr
+	Ftcl_AppendResult                       uintptr
+	Ftcl_AsyncCreate                        uintptr
+	Ftcl_AsyncDelete                        uintptr
+	Ftcl_AsyncInvoke                        uintptr
+	Ftcl_AsyncMark                          uintptr
+	Ftcl_AsyncReady                         uintptr
+	Ftcl_BackgroundError                    uintptr
+	Ftcl_Backslash                          uintptr
+	Ftcl_BadChannelOption                   uintptr
+	Ftcl_CallWhenDeleted                    uintptr
+	Ftcl_CancelIdleCall                     uintptr
+	Ftcl_Close                              uintptr
+	Ftcl_CommandComplete                    uintptr
+	Ftcl_Concat                             uintptr
+	Ftcl_ConvertElement                     uintptr
+	Ftcl_ConvertCountedElement              uintptr
+	Ftcl_CreateAlias                        uintptr
+	Ftcl_CreateAliasObj                     uintptr
+	Ftcl_CreateChannel                      uintptr
+	Ftcl_CreateChannelHandler               uintptr
+	Ftcl_CreateCloseHandler                 uintptr
+	Ftcl_CreateCommand                      uintptr
+	Ftcl_CreateEventSource                  uintptr
+	Ftcl_CreateExitHandler                  uintptr
+	Ftcl_CreateInterp                       uintptr
+	Ftcl_CreateMathFunc                     uintptr
+	Ftcl_CreateObjCommand                   uintptr
+	Ftcl_CreateSlave                        uintptr
+	Ftcl_CreateTimerHandler                 uintptr
+	Ftcl_CreateTrace                        uintptr
+	Ftcl_DeleteAssocData                    uintptr
+	Ftcl_DeleteChannelHandler               uintptr
+	Ftcl_DeleteCloseHandler                 uintptr
+	Ftcl_DeleteCommand                      uintptr
+	Ftcl_DeleteCommandFromToken             uintptr
+	Ftcl_DeleteEvents                       uintptr
+	Ftcl_DeleteEventSource                  uintptr
+	Ftcl_DeleteExitHandler                  uintptr
+	Ftcl_DeleteHashEntry                    uintptr
+	Ftcl_DeleteHashTable                    uintptr
+	Ftcl_DeleteInterp                       uintptr
+	Ftcl_DetachPids                         uintptr
+	Ftcl_DeleteTimerHandler                 uintptr
+	Ftcl_DeleteTrace                        uintptr
+	Ftcl_DontCallWhenDeleted                uintptr
+	Ftcl_DoOneEvent                         uintptr
+	Ftcl_DoWhenIdle                         uintptr
+	Ftcl_DStringAppend                      uintptr
+	Ftcl_DStringAppendElement               uintptr
+	Ftcl_DStringEndSublist                  uintptr
+	Ftcl_DStringFree                        uintptr
+	Ftcl_DStringGetResult                   uintptr
+	Ftcl_DStringInit                        uintptr
+	Ftcl_DStringResult                      uintptr
+	Ftcl_DStringSetLength                   uintptr
+	Ftcl_DStringStartSublist                uintptr
+	Ftcl_Eof                                uintptr
+	Ftcl_ErrnoId                            uintptr
+	Ftcl_ErrnoMsg                           uintptr
+	Ftcl_Eval                               uintptr
+	Ftcl_EvalFile                           uintptr
+	Ftcl_EvalObj                            uintptr
+	Ftcl_EventuallyFree                     uintptr
+	Ftcl_Exit                               uintptr
+	Ftcl_ExposeCommand                      uintptr
+	Ftcl_ExprBoolean                        uintptr
+	Ftcl_ExprBooleanObj                     uintptr
+	Ftcl_ExprDouble                         uintptr
+	Ftcl_ExprDoubleObj                      uintptr
+	Ftcl_ExprLong                           uintptr
+	Ftcl_ExprLongObj                        uintptr
+	Ftcl_ExprObj                            uintptr
+	Ftcl_ExprString                         uintptr
+	Ftcl_Finalize                           uintptr
+	Ftcl_FindExecutable                     uintptr
+	Ftcl_FirstHashEntry                     uintptr
+	Ftcl_Flush                              uintptr
+	Ftcl_FreeResult                         uintptr
+	Ftcl_GetAlias                           uintptr
+	Ftcl_GetAliasObj                        uintptr
+	Ftcl_GetAssocData                       uintptr
+	Ftcl_GetChannel                         uintptr
+	Ftcl_GetChannelBufferSize               uintptr
+	Ftcl_GetChannelHandle                   uintptr
+	Ftcl_GetChannelInstanceData             uintptr
+	Ftcl_GetChannelMode                     uintptr
+	Ftcl_GetChannelName                     uintptr
+	Ftcl_GetChannelOption                   uintptr
+	Ftcl_GetChannelType                     uintptr
+	Ftcl_GetCommandInfo                     uintptr
+	Ftcl_GetCommandName                     uintptr
+	Ftcl_GetErrno                           uintptr
+	Ftcl_GetHostName                        uintptr
+	Ftcl_GetInterpPath                      uintptr
+	Ftcl_GetMaster                          uintptr
+	Ftcl_GetNameOfExecutable                uintptr
+	Ftcl_GetObjResult                       uintptr
+	Ftcl_GetOpenFile                        uintptr
+	Ftcl_GetPathType                        uintptr
+	Ftcl_Gets                               uintptr
+	Ftcl_GetsObj                            uintptr
+	Ftcl_GetServiceMode                     uintptr
+	Ftcl_GetSlave                           uintptr
+	Ftcl_GetStdChannel                      uintptr
+	Ftcl_GetStringResult                    uintptr
+	Ftcl_GetVar                             uintptr
+	Ftcl_GetVar2                            uintptr
+	Ftcl_GlobalEval                         uintptr
+	Ftcl_GlobalEvalObj                      uintptr
+	Ftcl_HideCommand                        uintptr
+	Ftcl_Init                               uintptr
+	Ftcl_InitHashTable                      uintptr
+	Ftcl_InputBlocked                       uintptr
+	Ftcl_InputBuffered                      uintptr
+	Ftcl_InterpDeleted                      uintptr
+	Ftcl_IsSafe                             uintptr
+	Ftcl_JoinPath                           uintptr
+	Ftcl_LinkVar                            uintptr
+	Freserved188                            uintptr
+	Ftcl_MakeFileChannel                    uintptr
+	Ftcl_MakeSafe                           uintptr
+	Ftcl_MakeTcpClientChannel               uintptr
+	Ftcl_Merge                              uintptr
+	Ftcl_NextHashEntry                      uintptr
+	Ftcl_NotifyChannel                      uintptr
+	Ftcl_ObjGetVar2                         uintptr
+	Ftcl_ObjSetVar2                         uintptr
+	Ftcl_OpenCommandChannel                 uintptr
+	Ftcl_OpenFileChannel                    uintptr
+	Ftcl_OpenTcpClient                      uintptr
+	Ftcl_OpenTcpServer                      uintptr
+	Ftcl_Preserve                           uintptr
+	Ftcl_PrintDouble                        uintptr
+	Ftcl_PutEnv                             uintptr
+	Ftcl_PosixError                         uintptr
+	Ftcl_QueueEvent                         uintptr
+	Ftcl_Read                               uintptr
+	Ftcl_ReapDetachedProcs                  uintptr
+	Ftcl_RecordAndEval                      uintptr
+	Ftcl_RecordAndEvalObj                   uintptr
+	Ftcl_RegisterChannel                    uintptr
+	Ftcl_RegisterObjType                    uintptr
+	Ftcl_RegExpCompile                      uintptr
+	Ftcl_RegExpExec                         uintptr
+	Ftcl_RegExpMatch                        uintptr
+	Ftcl_RegExpRange                        uintptr
+	Ftcl_Release                            uintptr
+	Ftcl_ResetResult                        uintptr
+	Ftcl_ScanElement                        uintptr
+	Ftcl_ScanCountedElement                 uintptr
+	Ftcl_SeekOld                            uintptr
+	Ftcl_ServiceAll                         uintptr
+	Ftcl_ServiceEvent                       uintptr
+	Ftcl_SetAssocData                       uintptr
+	Ftcl_SetChannelBufferSize               uintptr
+	Ftcl_SetChannelOption                   uintptr
+	Ftcl_SetCommandInfo                     uintptr
+	Ftcl_SetErrno                           uintptr
+	Ftcl_SetErrorCode                       uintptr
+	Ftcl_SetMaxBlockTime                    uintptr
+	Ftcl_SetPanicProc                       uintptr
+	Ftcl_SetRecursionLimit                  uintptr
+	Ftcl_SetResult                          uintptr
+	Ftcl_SetServiceMode                     uintptr
+	Ftcl_SetObjErrorCode                    uintptr
+	Ftcl_SetObjResult                       uintptr
+	Ftcl_SetStdChannel                      uintptr
+	Ftcl_SetVar                             uintptr
+	Ftcl_SetVar2                            uintptr
+	Ftcl_SignalId                           uintptr
+	Ftcl_SignalMsg                          uintptr
+	Ftcl_SourceRCFile                       uintptr
+	Ftcl_SplitList                          uintptr
+	Ftcl_SplitPath                          uintptr
+	Ftcl_StaticPackage                      uintptr
+	Ftcl_StringMatch                        uintptr
+	Ftcl_TellOld                            uintptr
+	Ftcl_TraceVar                           uintptr
+	Ftcl_TraceVar2                          uintptr
+	Ftcl_TranslateFileName                  uintptr
+	Ftcl_Ungets                             uintptr
+	Ftcl_UnlinkVar                          uintptr
+	Ftcl_UnregisterChannel                  uintptr
+	Ftcl_UnsetVar                           uintptr
+	Ftcl_UnsetVar2                          uintptr
+	Ftcl_UntraceVar                         uintptr
+	Ftcl_UntraceVar2                        uintptr
+	Ftcl_UpdateLinkedVar                    uintptr
+	Ftcl_UpVar                              uintptr
+	Ftcl_UpVar2                             uintptr
+	Ftcl_VarEval                            uintptr
+	Ftcl_VarTraceInfo                       uintptr
+	Ftcl_VarTraceInfo2                      uintptr
+	Ftcl_Write                              uintptr
+	Ftcl_WrongNumArgs                       uintptr
+	Ftcl_DumpActiveMemory                   uintptr
+	Ftcl_ValidateAllMemory                  uintptr
+	Ftcl_AppendResultVA                     uintptr
+	Ftcl_AppendStringsToObjVA               uintptr
+	Ftcl_HashStats                          uintptr
+	Ftcl_ParseVar                           uintptr
+	Ftcl_PkgPresent                         uintptr
+	Ftcl_PkgPresentEx                       uintptr
+	Ftcl_PkgProvide                         uintptr
+	Ftcl_PkgRequire                         uintptr
+	Ftcl_SetErrorCodeVA                     uintptr
+	Ftcl_VarEvalVA                          uintptr
+	Ftcl_WaitPid                            uintptr
+	Ftcl_PanicVA                            uintptr
+	Ftcl_GetVersion                         uintptr
+	Ftcl_InitMemory                         uintptr
+	Ftcl_StackChannel                       uintptr
+	Ftcl_UnstackChannel                     uintptr
+	Ftcl_GetStackedChannel                  uintptr
+	Ftcl_SetMainLoop                        uintptr
+	Freserved285                            uintptr
+	Ftcl_AppendObjToObj                     uintptr
+	Ftcl_CreateEncoding                     uintptr
+	Ftcl_CreateThreadExitHandler            uintptr
+	Ftcl_DeleteThreadExitHandler            uintptr
+	Ftcl_DiscardResult                      uintptr
+	Ftcl_EvalEx                             uintptr
+	Ftcl_EvalObjv                           uintptr
+	Ftcl_EvalObjEx                          uintptr
+	Ftcl_ExitThread                         uintptr
+	Ftcl_ExternalToUtf                      uintptr
+	Ftcl_ExternalToUtfDString               uintptr
+	Ftcl_FinalizeThread                     uintptr
+	Ftcl_FinalizeNotifier                   uintptr
+	Ftcl_FreeEncoding                       uintptr
+	Ftcl_GetCurrentThread                   uintptr
+	Ftcl_GetEncoding                        uintptr
+	Ftcl_GetEncodingName                    uintptr
+	Ftcl_GetEncodingNames                   uintptr
+	Ftcl_GetIndexFromObjStruct              uintptr
+	Ftcl_GetThreadData                      uintptr
+	Ftcl_GetVar2Ex                          uintptr
+	Ftcl_InitNotifier                       uintptr
+	Ftcl_MutexLock                          uintptr
+	Ftcl_MutexUnlock                        uintptr
+	Ftcl_ConditionNotify                    uintptr
+	Ftcl_ConditionWait                      uintptr
+	Ftcl_NumUtfChars                        uintptr
+	Ftcl_ReadChars                          uintptr
+	Ftcl_RestoreResult                      uintptr
+	Ftcl_SaveResult                         uintptr
+	Ftcl_SetSystemEncoding                  uintptr
+	Ftcl_SetVar2Ex                          uintptr
+	Ftcl_ThreadAlert                        uintptr
+	Ftcl_ThreadQueueEvent                   uintptr
+	Ftcl_UniCharAtIndex                     uintptr
+	Ftcl_UniCharToLower                     uintptr
+	Ftcl_UniCharToTitle                     uintptr
+	Ftcl_UniCharToUpper                     uintptr
+	Ftcl_UniCharToUtf                       uintptr
+	Ftcl_UtfAtIndex                         uintptr
+	Ftcl_UtfCharComplete                    uintptr
+	Ftcl_UtfBackslash                       uintptr
+	Ftcl_UtfFindFirst                       uintptr
+	Ftcl_UtfFindLast                        uintptr
+	Ftcl_UtfNext                            uintptr
+	Ftcl_UtfPrev                            uintptr
+	Ftcl_UtfToExternal                      uintptr
+	Ftcl_UtfToExternalDString               uintptr
+	Ftcl_UtfToLower                         uintptr
+	Ftcl_UtfToTitle                         uintptr
+	Ftcl_UtfToUniChar                       uintptr
+	Ftcl_UtfToUpper                         uintptr
+	Ftcl_WriteChars                         uintptr
+	Ftcl_WriteObj                           uintptr
+	Ftcl_GetString                          uintptr
+	Ftcl_GetDefaultEncodingDir              uintptr
+	Ftcl_SetDefaultEncodingDir              uintptr
+	Ftcl_AlertNotifier                      uintptr
+	Ftcl_ServiceModeHook                    uintptr
+	Ftcl_UniCharIsAlnum                     uintptr
+	Ftcl_UniCharIsAlpha                     uintptr
+	Ftcl_UniCharIsDigit                     uintptr
+	Ftcl_UniCharIsLower                     uintptr
+	Ftcl_UniCharIsSpace                     uintptr
+	Ftcl_UniCharIsUpper                     uintptr
+	Ftcl_UniCharIsWordChar                  uintptr
+	Ftcl_UniCharLen                         uintptr
+	Ftcl_UniCharNcmp                        uintptr
+	Ftcl_UniCharToUtfDString                uintptr
+	Ftcl_UtfToUniCharDString                uintptr
+	Ftcl_GetRegExpFromObj                   uintptr
+	Ftcl_EvalTokens                         uintptr
+	Ftcl_FreeParse                          uintptr
+	Ftcl_LogCommandInfo                     uintptr
+	Ftcl_ParseBraces                        uintptr
+	Ftcl_ParseCommand                       uintptr
+	Ftcl_ParseExpr                          uintptr
+	Ftcl_ParseQuotedString                  uintptr
+	Ftcl_ParseVarName                       uintptr
+	Ftcl_GetCwd                             uintptr
+	Ftcl_Chdir                              uintptr
+	Ftcl_Access                             uintptr
+	Ftcl_Stat                               uintptr
+	Ftcl_UtfNcmp                            uintptr
+	Ftcl_UtfNcasecmp                        uintptr
+	Ftcl_StringCaseMatch                    uintptr
+	Ftcl_UniCharIsControl                   uintptr
+	Ftcl_UniCharIsGraph                     uintptr
+	Ftcl_UniCharIsPrint                     uintptr
+	Ftcl_UniCharIsPunct                     uintptr
+	Ftcl_RegExpExecObj                      uintptr
+	Ftcl_RegExpGetInfo                      uintptr
+	Ftcl_NewUnicodeObj                      uintptr
+	Ftcl_SetUnicodeObj                      uintptr
+	Ftcl_GetCharLength                      uintptr
+	Ftcl_GetUniChar                         uintptr
+	Ftcl_GetUnicode                         uintptr
+	Ftcl_GetRange                           uintptr
+	Ftcl_AppendUnicodeToObj                 uintptr
+	Ftcl_RegExpMatchObj                     uintptr
+	Ftcl_SetNotifier                        uintptr
+	Ftcl_GetAllocMutex                      uintptr
+	Ftcl_GetChannelNames                    uintptr
+	Ftcl_GetChannelNamesEx                  uintptr
+	Ftcl_ProcObjCmd                         uintptr
+	Ftcl_ConditionFinalize                  uintptr
+	Ftcl_MutexFinalize                      uintptr
+	Ftcl_CreateThread                       uintptr
+	Ftcl_ReadRaw                            uintptr
+	Ftcl_WriteRaw                           uintptr
+	Ftcl_GetTopChannel                      uintptr
+	Ftcl_ChannelBuffered                    uintptr
+	Ftcl_ChannelName                        uintptr
+	Ftcl_ChannelVersion                     uintptr
+	Ftcl_ChannelBlockModeProc               uintptr
+	Ftcl_ChannelCloseProc                   uintptr
+	Ftcl_ChannelClose2Proc                  uintptr
+	Ftcl_ChannelInputProc                   uintptr
+	Ftcl_ChannelOutputProc                  uintptr
+	Ftcl_ChannelSeekProc                    uintptr
+	Ftcl_ChannelSetOptionProc               uintptr
+	Ftcl_ChannelGetOptionProc               uintptr
+	Ftcl_ChannelWatchProc                   uintptr
+	Ftcl_ChannelGetHandleProc               uintptr
+	Ftcl_ChannelFlushProc                   uintptr
+	Ftcl_ChannelHandlerProc                 uintptr
+	Ftcl_JoinThread                         uintptr
+	Ftcl_IsChannelShared                    uintptr
+	Ftcl_IsChannelRegistered                uintptr
+	Ftcl_CutChannel                         uintptr
+	Ftcl_SpliceChannel                      uintptr
+	Ftcl_ClearChannelHandlers               uintptr
+	Ftcl_IsChannelExisting                  uintptr
+	Ftcl_UniCharNcasecmp                    uintptr
+	Ftcl_UniCharCaseMatch                   uintptr
+	Ftcl_FindHashEntry                      uintptr
+	Ftcl_CreateHashEntry                    uintptr
+	Ftcl_InitCustomHashTable                uintptr
+	Ftcl_InitObjHashTable                   uintptr
+	Ftcl_CommandTraceInfo                   uintptr
+	Ftcl_TraceCommand                       uintptr
+	Ftcl_UntraceCommand                     uintptr
+	Ftcl_AttemptAlloc                       uintptr
+	Ftcl_AttemptDbCkalloc                   uintptr
+	Ftcl_AttemptRealloc                     uintptr
+	Ftcl_AttemptDbCkrealloc                 uintptr
+	Ftcl_AttemptSetObjLength                uintptr
+	Ftcl_GetChannelThread                   uintptr
+	Ftcl_GetUnicodeFromObj                  uintptr
+	Ftcl_GetMathFuncInfo                    uintptr
+	Ftcl_ListMathFuncs                      uintptr
+	Ftcl_SubstObj                           uintptr
+	Ftcl_DetachChannel                      uintptr
+	Ftcl_IsStandardChannel                  uintptr
+	Ftcl_FSCopyFile                         uintptr
+	Ftcl_FSCopyDirectory                    uintptr
+	Ftcl_FSCreateDirectory                  uintptr
+	Ftcl_FSDeleteFile                       uintptr
+	Ftcl_FSLoadFile                         uintptr
+	Ftcl_FSMatchInDirectory                 uintptr
+	Ftcl_FSLink                             uintptr
+	Ftcl_FSRemoveDirectory                  uintptr
+	Ftcl_FSRenameFile                       uintptr
+	Ftcl_FSLstat                            uintptr
+	Ftcl_FSUtime                            uintptr
+	Ftcl_FSFileAttrsGet                     uintptr
+	Ftcl_FSFileAttrsSet                     uintptr
+	Ftcl_FSFileAttrStrings                  uintptr
+	Ftcl_FSStat                             uintptr
+	Ftcl_FSAccess                           uintptr
+	Ftcl_FSOpenFileChannel                  uintptr
+	Ftcl_FSGetCwd                           uintptr
+	Ftcl_FSChdir                            uintptr
+	Ftcl_FSConvertToPathType                uintptr
+	Ftcl_FSJoinPath                         uintptr
+	Ftcl_FSSplitPath                        uintptr
+	Ftcl_FSEqualPaths                       uintptr
+	Ftcl_FSGetNormalizedPath                uintptr
+	Ftcl_FSJoinToPath                       uintptr
+	Ftcl_FSGetInternalRep                   uintptr
+	Ftcl_FSGetTranslatedPath                uintptr
+	Ftcl_FSEvalFile                         uintptr
+	Ftcl_FSNewNativePath                    uintptr
+	Ftcl_FSGetNativePath                    uintptr
+	Ftcl_FSFileSystemInfo                   uintptr
+	Ftcl_FSPathSeparator                    uintptr
+	Ftcl_FSListVolumes                      uintptr
+	Ftcl_FSRegister                         uintptr
+	Ftcl_FSUnregister                       uintptr
+	Ftcl_FSData                             uintptr
+	Ftcl_FSGetTranslatedStringPath          uintptr
+	Ftcl_FSGetFileSystemForPath             uintptr
+	Ftcl_FSGetPathType                      uintptr
+	Ftcl_OutputBuffered                     uintptr
+	Ftcl_FSMountsChanged                    uintptr
+	Ftcl_EvalTokensStandard                 uintptr
+	Ftcl_GetTime                            uintptr
+	Ftcl_CreateObjTrace                     uintptr
+	Ftcl_GetCommandInfoFromToken            uintptr
+	Ftcl_SetCommandInfoFromToken            uintptr
+	Ftcl_DbNewWideIntObj                    uintptr
+	Ftcl_GetWideIntFromObj                  uintptr
+	Ftcl_NewWideIntObj                      uintptr
+	Ftcl_SetWideIntObj                      uintptr
+	Ftcl_AllocStatBuf                       uintptr
+	Ftcl_Seek                               uintptr
+	Ftcl_Tell                               uintptr
+	Ftcl_ChannelWideSeekProc                uintptr
+	Ftcl_DictObjPut                         uintptr
+	Ftcl_DictObjGet                         uintptr
+	Ftcl_DictObjRemove                      uintptr
+	Ftcl_DictObjSize                        uintptr
+	Ftcl_DictObjFirst                       uintptr
+	Ftcl_DictObjNext                        uintptr
+	Ftcl_DictObjDone                        uintptr
+	Ftcl_DictObjPutKeyList                  uintptr
+	Ftcl_DictObjRemoveKeyList               uintptr
+	Ftcl_NewDictObj                         uintptr
+	Ftcl_DbNewDictObj                       uintptr
+	Ftcl_RegisterConfig                     uintptr
+	Ftcl_CreateNamespace                    uintptr
+	Ftcl_DeleteNamespace                    uintptr
+	Ftcl_AppendExportList                   uintptr
+	Ftcl_Export                             uintptr
+	Ftcl_Import                             uintptr
+	Ftcl_ForgetImport                       uintptr
+	Ftcl_GetCurrentNamespace                uintptr
+	Ftcl_GetGlobalNamespace                 uintptr
+	Ftcl_FindNamespace                      uintptr
+	Ftcl_FindCommand                        uintptr
+	Ftcl_GetCommandFromObj                  uintptr
+	Ftcl_GetCommandFullName                 uintptr
+	Ftcl_FSEvalFileEx                       uintptr
+	Ftcl_SetExitProc                        uintptr
+	Ftcl_LimitAddHandler                    uintptr
+	Ftcl_LimitRemoveHandler                 uintptr
+	Ftcl_LimitReady                         uintptr
+	Ftcl_LimitCheck                         uintptr
+	Ftcl_LimitExceeded                      uintptr
+	Ftcl_LimitSetCommands                   uintptr
+	Ftcl_LimitSetTime                       uintptr
+	Ftcl_LimitSetGranularity                uintptr
+	Ftcl_LimitTypeEnabled                   uintptr
+	Ftcl_LimitTypeExceeded                  uintptr
+	Ftcl_LimitTypeSet                       uintptr
+	Ftcl_LimitTypeReset                     uintptr
+	Ftcl_LimitGetCommands                   uintptr
+	Ftcl_LimitGetTime                       uintptr
+	Ftcl_LimitGetGranularity                uintptr
+	Ftcl_SaveInterpState                    uintptr
+	Ftcl_RestoreInterpState                 uintptr
+	Ftcl_DiscardInterpState                 uintptr
+	Ftcl_SetReturnOptions                   uintptr
+	Ftcl_GetReturnOptions                   uintptr
+	Ftcl_IsEnsemble                         uintptr
+	Ftcl_CreateEnsemble                     uintptr
+	Ftcl_FindEnsemble                       uintptr
+	Ftcl_SetEnsembleSubcommandList          uintptr
+	Ftcl_SetEnsembleMappingDict             uintptr
+	Ftcl_SetEnsembleUnknownHandler          uintptr
+	Ftcl_SetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleSubcommandList          uintptr
+	Ftcl_GetEnsembleMappingDict             uintptr
+	Ftcl_GetEnsembleUnknownHandler          uintptr
+	Ftcl_GetEnsembleFlags                   uintptr
+	Ftcl_GetEnsembleNamespace               uintptr
+	Ftcl_SetTimeProc                        uintptr
+	Ftcl_QueryTimeProc                      uintptr
+	Ftcl_ChannelThreadActionProc            uintptr
+	Ftcl_NewBignumObj                       uintptr
+	Ftcl_DbNewBignumObj                     uintptr
+	Ftcl_SetBignumObj                       uintptr
+	Ftcl_GetBignumFromObj                   uintptr
+	Ftcl_TakeBignumFromObj                  uintptr
+	Ftcl_TruncateChannel                    uintptr
+	Ftcl_ChannelTruncateProc                uintptr
+	Ftcl_SetChannelErrorInterp              uintptr
+	Ftcl_GetChannelErrorInterp              uintptr
+	Ftcl_SetChannelError                    uintptr
+	Ftcl_GetChannelError                    uintptr
+	Ftcl_InitBignumFromDouble               uintptr
+	Ftcl_GetNamespaceUnknownHandler         uintptr
+	Ftcl_SetNamespaceUnknownHandler         uintptr
+	Ftcl_GetEncodingFromObj                 uintptr
+	Ftcl_GetEncodingSearchPath              uintptr
+	Ftcl_SetEncodingSearchPath              uintptr
+	Ftcl_GetEncodingNameFromEnvironment     uintptr
+	Ftcl_PkgRequireProc                     uintptr
+	Ftcl_AppendObjToErrorInfo               uintptr
+	Ftcl_AppendLimitedToObj                 uintptr
+	Ftcl_Format                             uintptr
+	Ftcl_AppendFormatToObj                  uintptr
+	Ftcl_ObjPrintf                          uintptr
+	Ftcl_AppendPrintfToObj                  uintptr
+	Ftcl_CancelEval                         uintptr
+	Ftcl_Canceled                           uintptr
+	Ftcl_CreatePipe                         uintptr
+	Ftcl_NRCreateCommand                    uintptr
+	Ftcl_NREvalObj                          uintptr
+	Ftcl_NREvalObjv                         uintptr
+	Ftcl_NRCmdSwap                          uintptr
+	Ftcl_NRAddCallback                      uintptr
+	Ftcl_NRCallObjProc                      uintptr
+	Ftcl_GetFSDeviceFromStat                uintptr
+	Ftcl_GetFSInodeFromStat                 uintptr
+	Ftcl_GetModeFromStat                    uintptr
+	Ftcl_GetLinkCountFromStat               uintptr
+	Ftcl_GetUserIdFromStat                  uintptr
+	Ftcl_GetGroupIdFromStat                 uintptr
+	Ftcl_GetDeviceTypeFromStat              uintptr
+	Ftcl_GetAccessTimeFromStat              uintptr
+	Ftcl_GetModificationTimeFromStat        uintptr
+	Ftcl_GetChangeTimeFromStat              uintptr
+	Ftcl_GetSizeFromStat                    uintptr
+	Ftcl_GetBlocksFromStat                  uintptr
+	Ftcl_GetBlockSizeFromStat               uintptr
+	Ftcl_SetEnsembleParameterList           uintptr
+	Ftcl_GetEnsembleParameterList           uintptr
+	Ftcl_ParseArgsObjv                      uintptr
+	Ftcl_GetErrorLine                       uintptr
+	Ftcl_SetErrorLine                       uintptr
+	Ftcl_TransferResult                     uintptr
+	Ftcl_InterpActive                       uintptr
+	Ftcl_BackgroundException                uintptr
+	Ftcl_ZlibDeflate                        uintptr
+	Ftcl_ZlibInflate                        uintptr
+	Ftcl_ZlibCRC32                          uintptr
+	Ftcl_ZlibAdler32                        uintptr
+	Ftcl_ZlibStreamInit                     uintptr
+	Ftcl_ZlibStreamGetCommandName           uintptr
+	Ftcl_ZlibStreamEof                      uintptr
+	Ftcl_ZlibStreamChecksum                 uintptr
+	Ftcl_ZlibStreamPut                      uintptr
+	Ftcl_ZlibStreamGet                      uintptr
+	Ftcl_ZlibStreamClose                    uintptr
+	Ftcl_ZlibStreamReset                    uintptr
+	Ftcl_SetStartupScript                   uintptr
+	Ftcl_GetStartupScript                   uintptr
+	Ftcl_CloseEx                            uintptr
+	Ftcl_NRExprObj                          uintptr
+	Ftcl_NRSubstObj                         uintptr
+	Ftcl_LoadFile                           uintptr
+	Ftcl_FindSymbol                         uintptr
+	Ftcl_FSUnloadFile                       uintptr
+	Ftcl_ZlibStreamSetCompressionDictionary uintptr
+} /* tclDecls.h:2485:3 */
+
 // Type used to cache parameter information for the "circle" r-tree geometry
 // callback.
 type Circle1 = struct {
@@ -71439,7 +73966,7 @@ type Circle1 = struct {
 	FmxArea     float64
 	FeScoreType int32
 	_           [4]byte
-}
+} /* test_rtree.c:31:9 */
 
 // Type used to cache parameter information for the "circle" r-tree geometry
 // callback.
@@ -71449,7 +73976,7 @@ type Box = struct {
 	Fxmax float64
 	Fymin float64
 	Fymax float64
-}
+} /* test_rtree.c:31:9 */
 
 // Destructor function for Circle objects allocated by circle_geom().
 func circle_del(tls *libc.TLS, p uintptr) { /* test_rtree.c:49:13: */
@@ -71877,7 +74404,7 @@ type Cube1 = struct {
 	Fwidth  float64
 	Fheight float64
 	Fdepth  float64
-}
+} /* test_rtree.c:366:9 */
 
 // END of implementation of "circle" geometry callback.
 //
@@ -72166,7 +74693,7 @@ func Sqlitetestrtree_Init(tls *libc.TLS, interp uintptr) int32 { /* test_rtree.c
 type schema_vtab1 = struct {
 	Fbase sqlite3_vtab
 	Fdb   uintptr
-}
+} /* test_schema.c:53:9 */
 
 // end block for C++
 
@@ -72269,7 +74796,7 @@ type schema_cursor1 = struct {
 	FpColumnList uintptr
 	Frowid       int32
 	_            [4]byte
-}
+} /* test_schema.c:54:9 */
 
 type schema_cursor = schema_cursor1 /* test_schema.c:54:30 */
 
@@ -72636,7 +75163,7 @@ type SqlMessage1 = struct {
 	FpPrev        uintptr
 	FclientMutex  pthread_mutex_t
 	FclientWakeup pthread_cond_t
-}
+} /* test_server.c:221:9 */
 
 // 2001-09-15
 //
@@ -72720,7 +75247,7 @@ type ServerState = struct {
 	FserverHalt   int32
 	FpQueueHead   uintptr
 	FpQueueTail   uintptr
-}
+} /* test_server.c:252:8 */
 
 // Legal values for SqlMessage.op
 
@@ -73051,7 +75578,7 @@ type SuperlockBusy1 = struct {
 	FpBusyArg uintptr
 	FnBusy    int32
 	_         [4]byte
-}
+} /* test_superlock.c:29:1 */
 
 type SuperlockBusy = SuperlockBusy1 /* test_superlock.c:34:30 */
 
@@ -73062,7 +75589,7 @@ type Superlock1 = struct {
 	Fdb   uintptr
 	FbWal int32
 	_     [4]byte
-}
+} /* test_superlock.c:41:1 */
 
 type Superlock = Superlock1 /* test_superlock.c:45:26 */
 
@@ -73275,7 +75802,7 @@ func sqlite3demo_superlock(tls *libc.TLS, zPath uintptr, zVfs uintptr, xBusy uin
 type InterpAndScript1 = struct {
 	Finterp  uintptr
 	FpScript uintptr
-}
+} /* test_superlock.c:268:1 */
 
 type InterpAndScript = InterpAndScript1 /* test_superlock.c:272:32 */
 
@@ -73379,7 +75906,7 @@ type TestSyscallGlobal = struct {
 	FnFail            int32
 	Fpgsz             int32
 	Forig_getpagesize sqlite3_syscall_ptr
-}
+} /* test_syscall.c:97:8 */
 
 var gSyscall = TestSyscallGlobal{FbPersist: 0, FnCount: 0, FnFail: 0, Fpgsz: 0, Forig_getpagesize: uintptr(0)} /* test_syscall.c:103:3 */
 
@@ -73389,7 +75916,7 @@ type TestSyscallArray = struct {
 	FxOrig         sqlite3_syscall_ptr
 	Fdefault_errno int32
 	Fcustom_errno  int32
-}
+} /* test_syscall.c:127:1 */
 
 var aSyscall = [19]TestSyscallArray{
 	/*  0 */ {FzName: ts + 35880 /* "open" */, FxTest: 0, FxOrig: uintptr(0), Fdefault_errno: 13, Fcustom_errno: 0},
@@ -73822,7 +76349,7 @@ type Errno = struct {
 	Fz uintptr
 	Fi int32
 	_  [4]byte
-}
+} /* test_syscall.c:583:3 */
 
 func test_syscall_list(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test_syscall.c:619:26: */
 	var zSys uintptr
@@ -73960,7 +76487,7 @@ func test_syscall(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32,
 type SyscallCmd = struct {
 	FzName uintptr
 	FxCmd  uintptr
-}
+} /* test_syscall.c:712:3 */
 
 func SqlitetestSyscall_Init(tls *libc.TLS, interp uintptr) int32 { /* test_syscall.c:747:5: */
 	bp := tls.Alloc(16)
@@ -74001,9 +76528,9 @@ func sqlite3TestInit(tls *libc.TLS, interp uintptr) uintptr { /* test_tclsh.c:58
 	{
 		// var x rlimit at bp, 16
 
-		libc.Xgetrlimit(tls, RLIMIT_CORE, bp /* &x */)
+		libc.Xgetrlimit64(tls, RLIMIT_CORE, bp /* &x */)
 		(*rlimit)(unsafe.Pointer(bp /* &x */)).Frlim_cur = (*rlimit)(unsafe.Pointer(bp /* &x */)).Frlim_max
-		libc.Xsetrlimit(tls, RLIMIT_CORE, bp /* &x */)
+		libc.Xsetrlimit64(tls, RLIMIT_CORE, bp /* &x */)
 	}
 
 	if tcl.XTcl_GetCommandInfo(tls, interp, ts+13769 /* "sqlite3" */, bp+16 /* &cmdInfo */) == 0 {
@@ -74125,7 +76652,7 @@ func load_testfixture_extensions(tls *libc.TLS, cd ClientData, interp uintptr, o
 type tclvar_vtab1 = struct {
 	Fbase   sqlite3_vtab
 	Finterp uintptr
-}
+} /* test_tclvar.c:58:9 */
 
 // end block for C++
 
@@ -74181,7 +76708,7 @@ type tclvar_cursor1 = struct {
 	FpList2 uintptr
 	Fi1     int32
 	Fi2     int32
-}
+} /* test_tclvar.c:59:9 */
 
 type tclvar_cursor = tclvar_cursor1 /* test_tclvar.c:59:30 */
 
@@ -74675,7 +77202,7 @@ type SqlThread1 = struct {
 	Finterp   uintptr
 	FzScript  uintptr
 	FzVarname uintptr
-}
+} /* test_thread.c:36:9 */
 
 // Define some macros helping to catch buffer overflows.
 
@@ -74691,7 +77218,7 @@ type EvalEvent1 = struct {
 	Fbase    Tcl_Event
 	FzScript uintptr
 	Finterp  uintptr
-}
+} /* test_thread.c:51:9 */
 
 // A custom Tcl_Event type used by this module. When the event is
 // handled, script zScript is evaluated in interpreter interp. If
@@ -75049,7 +77576,7 @@ type UnlockNotification1 = struct {
 	Ffired int32
 	Fcond  pthread_cond_t
 	Fmutex pthread_mutex_t
-}
+} /* test_thread.c:410:9 */
 
 // A pointer to an instance of this structure is passed as the user-context
 // pointer when registering for an unlock-notify callback.
@@ -75300,7 +77827,7 @@ type Testvfs1 = struct {
 	Fcantopen_err TestFaultInject
 	FiDevchar     int32
 	FiSectorsize  int32
-}
+} /* test_vfs.c:37:9 */
 
 // end block for C++
 
@@ -75317,13 +77844,13 @@ type TestvfsBuffer1 = struct {
 	FaPage [1024]uintptr
 	FpFile uintptr
 	FpNext uintptr
-}
+} /* test_vfs.c:37:9 */
 
 type TestvfsBuffer = TestvfsBuffer1 /* test_vfs.c:39:30 */
 type TestvfsFile1 = struct {
 	Fbase sqlite3_file
 	FpFd  uintptr
-}
+} /* test_vfs.c:40:9 */
 
 type TestvfsFile = TestvfsFile1 /* test_vfs.c:40:28 */
 type TestvfsFd1 = struct {
@@ -75335,7 +77862,7 @@ type TestvfsFd1 = struct {
 	Fexcllock   u322
 	Fsharedlock u322
 	FpNext      uintptr
-}
+} /* test_vfs.c:37:9 */
 
 type TestvfsFd = TestvfsFd1 /* test_vfs.c:41:26 */
 
@@ -75343,7 +77870,7 @@ type TestFaultInject1 = struct {
 	FiCnt   int32
 	FeFault int32
 	FnFail  int32
-}
+} /* test_vfs.c:37:9 */
 
 type TestFaultInject = TestFaultInject1 /* test_vfs.c:69:32 */
 
@@ -75399,7 +77926,7 @@ func tvfsResultCode(tls *libc.TLS, p uintptr, pRc uintptr) int32 { /* test_vfs.c
 type errcode = struct {
 	FeCode int32
 	FzCode uintptr
-}
+} /* test_vfs.c:227:3 */
 
 func tvfsInjectFault(tls *libc.TLS, p uintptr) int32 { /* test_vfs.c:256:12: */
 	var ret int32 = 0
@@ -75727,7 +78254,7 @@ func tvfsFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 type Fcntl = struct {
 	FiFnctl int32
 	FzFnctl uintptr
-}
+} /* test_vfs.c:550:5 */
 
 // Return the sector-size in bytes for an tvfs-file.
 func tvfsSectorSize(tls *libc.TLS, pFile uintptr) int32 { /* test_vfs.c:579:12: */
@@ -76519,13 +79046,13 @@ type TestvfsSubcmd = struct {
 	FzName uintptr
 	FeCmd  uint32
 	_      [4]byte
-}
+} /* test_vfs.c:1088:3 */
 
 type VfsMethod = struct {
 	FzName uintptr
 	Fmask  int32
 	_      [4]byte
-}
+} /* test_vfs.c:1175:14 */
 
 var vfsmethod = [18]VfsMethod{
 	{FzName: ts + 37577 /* "xShmOpen" */, Fmask: 0x00000001},
@@ -76956,11 +79483,11 @@ type TestWindow1 = struct {
 	FxValue   uintptr
 	FxInverse uintptr
 	Finterp   uintptr
-}
+} /* test_window.c:24:9 */
 
 type TestWindow = TestWindow1 /* test_window.c:24:27 */
 
-type TestWindowCtx1 = struct{ FpVal uintptr }
+type TestWindowCtx1 = struct{ FpVal uintptr } /* test_window.c:33:9 */
 
 type TestWindowCtx = TestWindowCtx1 /* test_window.c:33:30 */
 

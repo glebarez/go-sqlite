@@ -7,6 +7,6 @@ All memory allocations freed - no leaks
 Maximum memory usage: 9156360 bytes
 Current memory usage: 0 bytes
 Number of malloc()  : -1 calls
---- PASS: TestTclTest (141.36s)
+--- PASS: TestTclTest (141.05s)
 PASS
-ok  	modernc.org/sqlite	141.361s
+ok  	modernc.org/sqlite	141.055s

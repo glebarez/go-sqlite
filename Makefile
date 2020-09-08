@@ -6,18 +6,19 @@
 
 grep=--include=*.go --include=*.l --include=*.y --include=*.yy
 ngrep='TODOOK\|internal\/vfs\|internal\/bin\|internal\/mptest\|.*stringer.*\.go'
+log=log-$(shell go env GOOS)-$(shell go env GOARCH)
 
 all: editor
 	date
-	go version 2>&1 | tee log
+	go version 2>&1 | tee $(log)
 	./unconvert.sh
 	gofmt -l -s -w *.go
 	go test -i
-	go test -v 2>&1 -timeout 1h | tee -a log
+	go test -v 2>&1 -timeout 24h | tee -a $(log)
 	go run speedtest1/main_$(shell go env GOOS)_$(shell go env GOARCH).go
 	#TODO GOOS=linux GOARCH=arm go build -v ./...
 	#TODO GOOS=linux GOARCH=arm64 go build -v ./...
-	#TODO GOOS=linux GOARCH=386 go build -v ./...
+	GOOS=linux GOARCH=386 go build -v ./...
 	GOOS=linux GOARCH=amd64 go build -v ./...
 	#TODO GOOS=windows GOARCH=386 go build -v ./...
 	#TODO GOOS=windows GOARCH=amd64 go build -v ./...
@@ -26,9 +27,19 @@ all: editor
 	staticcheck || true
 	maligned || true
 	git diff --unified=0 testdata *.golden
-	grep -n --color=always 'FAIL\|PASS' log 
+	grep -n --color=always 'FAIL\|PASS' $(log)
 	go version
-	date 2>&1 | tee -a log
+	date 2>&1 | tee -a $(log)
+
+linux_386:
+	CCGO_CPP=i686-linux-gnu-cpp TARGET_GOARCH=386 TARGET_GOOS=linux \
+		go generate 2>&1 | tee /tmp/log-generate-tcl-linux-386
+	GOOS=linux GOARCH=386 go build -v ./...
+
+linux_amd64:
+	TARGET_GOOS=linux TARGET_GOARCH=amd64 \
+		go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-amd64
+	GOOS=linux GOARCH=amd64 go build -v ./...
 
 extraquick:
 	go test -timeout 24h -v -run Tcl -suite extraquick -maxerror 1 2>&1 | tee log-extraquick

@@ -27,6 +27,13 @@ var (
 
 func TestTclTest(t *testing.T) {
 	blacklist := map[string]struct{}{}
+	switch runtime.GOARCH {
+	case "386":
+		// # This test causes thrashing on machines with smaller amounts of
+		// # memory.  Make sure the host has at least 8GB available before running
+		// # this test.
+		blacklist["bigsort.test"] = struct{}{}
+	}
 	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
 	if err != nil {
 		t.Fatal(err)

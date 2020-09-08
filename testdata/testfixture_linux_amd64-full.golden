@@ -1,12 +1,10 @@
-$ make full
-
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-0 errors out of 928250 tests on 3900x Linux 64-bit little-endian
+0 errors out of 928256 tests on 3900x Linux 64-bit little-endian
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 All memory allocations freed - no leaks
 Maximum memory usage: 9156360 bytes
 Current memory usage: 0 bytes
 Number of malloc()  : -1 calls
---- PASS: TestTclTest (1753.56s)
+--- PASS: TestTclTest (1576.09s)
 PASS
-ok  	modernc.org/sqlite	1753.561s
+ok  	modernc.org/sqlite	1602.667s
