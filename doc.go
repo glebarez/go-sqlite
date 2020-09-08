@@ -7,6 +7,10 @@
 //
 // Changelog
 //
+// 2020-09-03 v1.6.0:
+//
+// Support linux/386.
+//
 // 2020-09-03 v1.5.0:
 //
 // This project is now completely CGo-free, including the Tcl tests.
@@ -85,11 +89,11 @@
 //
 // These combinations of GOOS and GOARCH are currently supported
 //
+// 	linux	386
 // 	linux	amd64
 //
 // Planned platforms and architectures
 //
-// 	linux	386
 // 	linux	arm
 // 	linux	arm64
 // 	windows	386
