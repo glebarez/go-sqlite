@@ -2887,6 +2887,9 @@ const (
 	TESTVFS_WRITE_MASK                    = 0x00001000
 )
 
+// If we are compiling with optimizing read this file.  It contains
+//   several optimizing inline functions and macros.
+
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
 //
@@ -3969,6 +3972,7 @@ type sqlite32 = struct {
 	FmTrace                 u8
 	FnoSharedCache          u8
 	FnSqlExec               u8
+	_                       [1]byte
 	FnextPagesize           int32
 	Fmagic                  u322
 	FnChange                int32
@@ -3981,6 +3985,7 @@ type sqlite32 = struct {
 		Fbusy          u8
 		_              [2]byte
 		ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
+		_              [7]byte
 		FazInit        uintptr
 	}
 	FnVdbeActive        int32
@@ -4292,6 +4297,7 @@ type sqlite3_file1 = struct{ FpMethods uintptr } /* sqlite3.h:683:9 */
 type sqlite3_file = sqlite3_file1 /* sqlite3.h:683:29 */
 type sqlite3_io_methods1 = struct {
 	FiVersion               int32
+	_                       [4]byte
 	FxClose                 uintptr
 	FxRead                  uintptr
 	FxWrite                 uintptr
@@ -5175,6 +5181,7 @@ type sqlite3_vfs1 = struct {
 	FiVersion          int32
 	FszOsFile          int32
 	FmxPathname        int32
+	_                  [4]byte
 	FpNext             uintptr
 	FzName             uintptr
 	FpAppData          uintptr
@@ -5572,6 +5579,7 @@ type sqlite3_context1 = struct {
 	FisError  int32
 	FskipFlag u8
 	Fargc     u8
+	_         [6]byte
 	Fargv     [1]uintptr
 } /* sqlite3.h:249:9 */
 
@@ -5600,6 +5608,7 @@ type sqlite3_destructor_type = uintptr /* sqlite3.h:5621:14 */
 type sqlite3_vtab1 = struct {
 	FpModule uintptr
 	FnRef    int32
+	_        [4]byte
 	FzErrMsg uintptr
 } /* sqlite3.h:6689:9 */
 
@@ -5614,17 +5623,21 @@ type sqlite3_vtab1 = struct {
 type sqlite3_vtab = sqlite3_vtab1 /* sqlite3.h:6689:29 */
 type sqlite3_index_info1 = struct {
 	FnConstraint      int32
+	_                 [4]byte
 	FaConstraint      uintptr
 	FnOrderBy         int32
+	_                 [4]byte
 	FaOrderBy         uintptr
 	FaConstraintUsage uintptr
 	FidxNum           int32
+	_                 [4]byte
 	FidxStr           uintptr
 	FneedToFreeIdxStr int32
 	ForderByConsumed  int32
 	FestimatedCost    float64
 	FestimatedRows    sqlite3_int64
 	FidxFlags         int32
+	_                 [4]byte
 	FcolUsed          sqlite3_uint64
 } /* sqlite3.h:6690:9 */
 
@@ -5634,6 +5647,7 @@ type sqlite3_vtab_cursor1 = struct{ FpVtab uintptr } /* sqlite3.h:6691:9 */
 type sqlite3_vtab_cursor = sqlite3_vtab_cursor1 /* sqlite3.h:6691:36 */
 type sqlite3_module1 = struct {
 	FiVersion      int32
+	_              [4]byte
 	FxCreate       uintptr
 	FxConnect      uintptr
 	FxBestIndex    uintptr
@@ -5765,6 +5779,7 @@ type sqlite3_index_constraint = struct {
 	FiColumn     int32
 	Fop          uint8
 	Fusable      uint8
+	_            [2]byte
 	FiTermOffset int32
 } /* sqlite3.h:6690:9 */
 
@@ -6327,6 +6342,7 @@ type sqlite3_pcache_page = sqlite3_pcache_page1 /* sqlite3.h:8277:36 */
 // do their best.
 type sqlite3_pcache_methods21 = struct {
 	FiVersion   int32
+	_           [4]byte
 	FpArg       uintptr
 	FxInit      uintptr
 	FxShutdown  uintptr
@@ -6600,6 +6616,7 @@ type sqlite3_snapshot = sqlite3_snapshot1 /* sqlite3.h:9514:3 */
 type sqlite3_rtree_geometry1 = struct {
 	FpContext uintptr
 	FnParam   int32
+	_         [4]byte
 	FaParam   uintptr
 	FpUser    uintptr
 	FxDelUser uintptr
@@ -6644,6 +6661,7 @@ type sqlite3_rtree_geometry = sqlite3_rtree_geometry1 /* sqlite3.h:9839:39 */
 type sqlite3_rtree_query_info1 = struct {
 	FpContext      uintptr
 	FnParam        int32
+	_              [4]byte
 	FaParam        uintptr
 	FpUser         uintptr
 	FxDelUser      uintptr
@@ -6652,6 +6670,7 @@ type sqlite3_rtree_query_info1 = struct {
 	FnCoord        int32
 	FiLevel        int32
 	FmxLevel       int32
+	_              [4]byte
 	FiRowid        sqlite3_int64
 	FrParentScore  sqlite3_rtree_dbl
 	FeParentWithin int32
@@ -6699,6 +6718,7 @@ type sqlite3_rtree_dbl = float64 /* sqlite3.h:9848:18 */
 
 type Fts5ExtensionApi1 = struct {
 	FiVersion           int32
+	_                   [4]byte
 	FxUserData          uintptr
 	FxColumnCount       uintptr
 	FxRowCount          uintptr
@@ -6782,6 +6802,7 @@ type fts5_tokenizer = fts5_tokenizer1 /* sqlite3.h:12097:31 */
 // FTS5 EXTENSION REGISTRATION API
 type fts5_api1 = struct {
 	FiVersion         int32
+	_                 [4]byte
 	FxCreateTokenizer uintptr
 	FxFindTokenizer   uintptr
 	FxCreateFunction  uintptr
@@ -6809,6 +6830,7 @@ type fts5_api = fts5_api1 /* sqlite3.h:12133:25 */
 
 type sqlite3expert1 = struct {
 	FiSample     int32
+	_            [4]byte
 	Fdb          uintptr
 	Fdbm         uintptr
 	Fdbv         uintptr
@@ -6817,8 +6839,10 @@ type sqlite3expert1 = struct {
 	FpWrite      uintptr
 	FpStatement  uintptr
 	FbRun        int32
+	_            [4]byte
 	FpzErrmsg    uintptr
 	Frc          int32
+	_            [4]byte
 	FhIdx        IdxHash
 	FzCandidates uintptr
 } /* sqlite3expert.h:17:9 */
@@ -6928,6 +6952,7 @@ type _G_fpos64_t = struct {
 
 type _IO_FILE = struct {
 	F_flags          int32
+	_                [4]byte
 	F_IO_read_ptr    uintptr
 	F_IO_read_end    uintptr
 	F_IO_read_base   uintptr
@@ -6947,6 +6972,7 @@ type _IO_FILE = struct {
 	F_cur_column     uint16
 	F_vtable_offset  int8
 	F_shortbuf       [1]int8
+	_                [4]byte
 	F_lock           uintptr
 	F_offset         int64
 	F_codecvt        uintptr
@@ -7027,6 +7053,7 @@ type IdxConstraint = IdxConstraint1 /* sqlite3expert.c:24:30 */
 type IdxScan1 = struct {
 	FpTab      uintptr
 	FiDb       int32
+	_          [4]byte
 	Fcovering  i64
 	FpOrder    uintptr
 	FpEq       uintptr
@@ -7037,6 +7064,7 @@ type IdxScan1 = struct {
 type IdxScan = IdxScan1 /* sqlite3expert.c:25:24 */
 type IdxStatement1 = struct {
 	FiId   int32
+	_      [4]byte
 	FzSql  uintptr
 	FzIdx  uintptr
 	FzEQP  uintptr
@@ -7046,6 +7074,7 @@ type IdxStatement1 = struct {
 type IdxStatement = IdxStatement1 /* sqlite3expert.c:26:29 */
 type IdxTable1 = struct {
 	FnCol  int32
+	_      [4]byte
 	FzName uintptr
 	FaCol  uintptr
 	FpNext uintptr
@@ -7055,6 +7084,7 @@ type IdxTable = IdxTable1 /* sqlite3expert.c:27:25 */
 type IdxWrite1 = struct {
 	FpTab  uintptr
 	FeOp   int32
+	_      [4]byte
 	FpNext uintptr
 } /* sqlite3expert.h:17:9 */
 
@@ -8327,6 +8357,7 @@ func idxCreateVtabSchema(tls *libc.TLS, p uintptr, pzErrmsg uintptr) int32 { /* 
 
 type IdxSampleCtx = struct {
 	FiTarget int32
+	_        [4]byte
 	Ftarget  float64
 	FnRow    float64
 	FnRet    float64
@@ -8360,8 +8391,10 @@ func idxSampleFunc(tls *libc.TLS, pCtx uintptr, argc int32, argv uintptr) { /* s
 
 type IdxRemCtx = struct {
 	FnSlot int32
+	_      [4]byte
 	FaSlot [1]struct {
 		FeType int32
+		_      [4]byte
 		FiVal  i64
 		FrVal  float64
 		FnByte int32
@@ -8372,6 +8405,7 @@ type IdxRemCtx = struct {
 
 type IdxRemSlot = struct {
 	FeType int32
+	_      [4]byte
 	FiVal  i64
 	FrVal  float64
 	FnByte int32
@@ -9635,6 +9669,7 @@ type Tcl_RegExpIndices = Tcl_RegExpIndices1 /* tcl.h:628:3 */
 
 type Tcl_RegExpInfo1 = struct {
 	Fnsubs       int32
+	_            [4]byte
 	Fmatches     uintptr
 	FextendStart int64
 	Freserved    int64
@@ -9676,6 +9711,7 @@ type Tcl_ValueType = uint32 /* tcl.h:692:3 */
 
 type Tcl_Value1 = struct {
 	Ftype        Tcl_ValueType
+	_            [4]byte
 	FintValue    int64
 	FdoubleValue float64
 	FwideValue   Tcl_WideInt
@@ -9688,8 +9724,10 @@ type Tcl_Value = Tcl_Value1 /* tcl.h:700:3 */
 
 type Tcl_Obj1 = struct {
 	FrefCount    int32
+	_            [4]byte
 	Fbytes       uintptr
 	Flength      int32
+	_            [4]byte
 	FtypePtr     uintptr
 	FinternalRep struct {
 		FlongValue int64
@@ -9795,9 +9833,11 @@ type Tcl_CallFrame1 = struct {
 	Fdummy4  uintptr
 	Fdummy5  uintptr
 	Fdummy6  int32
+	_        [4]byte
 	Fdummy7  uintptr
 	Fdummy8  uintptr
 	Fdummy9  int32
+	_        [4]byte
 	Fdummy10 uintptr
 	Fdummy11 uintptr
 	Fdummy12 uintptr
@@ -9842,6 +9882,7 @@ type Tcl_CallFrame = Tcl_CallFrame1 /* tcl.h:937:3 */
 
 type Tcl_CmdInfo1 = struct {
 	FisNativeObjectProc int32
+	_                   [4]byte
 	FobjProc            uintptr
 	FobjClientData      ClientData
 	Fproc               uintptr
@@ -10052,6 +10093,7 @@ type Tcl_HashEntry = Tcl_HashEntry1 /* tcl.h:1154:30 */
 type Tcl_HashSearch1 = struct {
 	FtablePtr     uintptr
 	FnextIndex    int32
+	_             [4]byte
 	FnextEntryPtr uintptr
 } /* tcl.h:1308:9 */
 
@@ -10086,6 +10128,7 @@ type Tcl_HashSearch = Tcl_HashSearch1 /* tcl.h:1314:3 */
 type Tcl_DictSearch = struct {
 	Fnext          uintptr
 	Fepoch         int32
+	_              [4]byte
 	FdictionaryPtr Tcl_Dict
 } /* tcl.h:1354:3 */
 
@@ -10204,6 +10247,7 @@ type Tcl_FSVersion = uintptr /* tcl.h:1700:31 */
 type Tcl_Filesystem1 = struct {
 	FtypeName                 uintptr
 	FstructureLength          int32
+	_                         [4]byte
 	Fversion                  Tcl_FSVersion
 	FpathInFilesystemProc     uintptr
 	FdupInternalRepProc       uintptr
@@ -10299,6 +10343,7 @@ type Tcl_NotifierProcs = Tcl_NotifierProcs1 /* tcl.h:1903:3 */
 
 type Tcl_Token1 = struct {
 	Ftype          int32
+	_              [4]byte
 	Fstart         uintptr
 	Fsize          int32
 	FnumComponents int32
@@ -10391,6 +10436,7 @@ type Tcl_Token = Tcl_Token1 /* tcl.h:1924:3 */
 type Tcl_Parse1 = struct {
 	FcommentStart    uintptr
 	FcommentSize     int32
+	_                [4]byte
 	FcommandStart    uintptr
 	FcommandSize     int32
 	FnumWords        int32
@@ -10398,11 +10444,13 @@ type Tcl_Parse1 = struct {
 	FnumTokens       int32
 	FtokensAvailable int32
 	FerrorType       int32
+	_                [4]byte
 	Fstring          uintptr
 	Fend             uintptr
 	Finterp          uintptr
 	Fterm            uintptr
 	Fincomplete      int32
+	_                [4]byte
 	FstaticTokens    [20]Tcl_Token
 } /* tcl.h:2030:9 */
 
@@ -10608,6 +10656,7 @@ type mp_digit = uint32        /* tcl.h:2268:22 */
 
 type Tcl_ArgvInfo = struct {
 	Ftype       int32
+	_           [4]byte
 	FkeyStr     uintptr
 	FsrcPtr     uintptr
 	FdstPtr     uintptr
@@ -10617,6 +10666,7 @@ type Tcl_ArgvInfo = struct {
 
 type TclPlatStubs1 = struct {
 	Fmagic int32
+	_      [4]byte
 	Fhooks uintptr
 } /* tclDecls.h:1821:11 */
 
@@ -10628,6 +10678,7 @@ type TclStubHooks = struct {
 
 type TclStubs = struct {
 	Fmagic                                  int32
+	_                                       [4]byte
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
 	Ftcl_PkgRequireEx                       uintptr
@@ -11415,6 +11466,7 @@ func testExpertCmd(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32
 type Subcmd = struct {
 	FzSub uintptr
 	FnArg int32
+	_     [4]byte
 	FzMsg uintptr
 } /* test_expert.c:62:3 */
 
@@ -11627,6 +11679,7 @@ func f5tResultToErrorCode(tls *libc.TLS, zRes uintptr) int32 { /* fts5_tcl.c:67:
 
 type ErrorCode = struct {
 	Frc     int32
+	_       [4]byte
 	FzError uintptr
 } /* fts5_tcl.c:68:3 */
 
@@ -12129,6 +12182,7 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 type Sub = struct {
 	FzName uintptr
 	FnArg  int32
+	_      [4]byte
 	FzMsg  uintptr
 } /* fts5_tcl.c:222:3 */
 
@@ -12282,6 +12336,7 @@ func f5tCreateFunction(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 type F5tTokenizeCtx1 = struct {
 	FpRet   uintptr
 	FbSubst int32
+	_       [4]byte
 	FzInput uintptr
 } /* fts5_tcl.c:646:9 */
 
@@ -12845,6 +12900,7 @@ type Fts5MatchinfoCtx1 = struct {
 	FnPhrase int32
 	FzArg    uintptr
 	FnRet    int32
+	_        [4]byte
 	FaRet    uintptr
 } /* fts5_test_mi.c:50:9 */
 
@@ -13358,8 +13414,10 @@ type Fts5tokTable = Fts5tokTable1 /* fts5_test_tok.c:47:29 */
 type Fts5tokCursor1 = struct {
 	Fbase   sqlite3_vtab_cursor
 	FiRowid int32
+	_       [4]byte
 	FzInput uintptr
 	FnRow   int32
+	_       [4]byte
 	FaRow   uintptr
 } /* fts5_test_tok.c:48:9 */
 
@@ -13787,6 +13845,218 @@ type sqlite3_loadext_entry = uintptr /* sqlite3ext.h:344:13 */
 //   which causes a conflict if the include order is reversed.
 
 type idtype_t = uint32 /* waitflags.h:57:3 */
+// Definitions of status bits for `wait' et al.
+//   Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Everything extant so far uses these same bits.
+
+// If WIFEXITED(STATUS), the low-order 8 bits of the status.
+
+// If WIFSIGNALED(STATUS), the terminating signal.
+
+// If WIFSTOPPED(STATUS), the signal that stopped the child.
+
+// Nonzero if STATUS indicates normal termination.
+
+// Nonzero if STATUS indicates termination by a signal.
+
+// Nonzero if STATUS indicates the child is stopped.
+
+// Nonzero if STATUS indicates the child continued after a stop.  We only
+//   define this if <bits/waitflags.h> provides the WCONTINUED flag bit.
+
+// Nonzero if STATUS indicates the child dumped core.
+
+// Macros for constructing status values.
+
+// Define the macros <sys/wait.h> also would define this way.
+
+// _FloatN API tests for enablement.
+// Macros to control TS 18661-3 glibc features on x86.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Defined to 1 if the current compiler invocation provides a
+//   floating-point type with the IEEE 754 binary128 format, and this
+//   glibc includes corresponding *f128 interfaces for it.  The required
+//   libgcc support was added some time after the basic compiler
+//   support, for x86_64 and x86.
+
+// Defined to 1 if __HAVE_FLOAT128 is 1 and the type is ABI-distinct
+//   from the default float, double and long double types in this glibc.
+
+// Defined to 1 if the current compiler invocation provides a
+//   floating-point type with the right format for _Float64x, and this
+//   glibc includes corresponding *f64x interfaces for it.
+
+// Defined to 1 if __HAVE_FLOAT64X is 1 and _Float64x has the format
+//   of long double.  Otherwise, if __HAVE_FLOAT64X is 1, _Float64x has
+//   the format of _Float128, which must be different from that of long
+//   double.
+
+// Defined to concatenate the literal suffix to be used with _Float128
+//   types, if __HAVE_FLOAT128 is 1.
+
+// Defined to a complex binary128 type if __HAVE_FLOAT128 is 1.
+
+// The remaining of this file provides support for older compilers.
+
+// Macros to control TS 18661-3 glibc features where the same
+//   definitions are appropriate for all platforms.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Properties of long double type.  ldbl-96 version.
+//   Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License  published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// long double is distinct from double, so there is nothing to
+//   define here.
+
+// This header should be included at the bottom of each bits/floatn.h.
+//   It defines the following macros for each _FloatN and _FloatNx type,
+//   where the same definitions, or definitions based only on the macros
+//   in bits/floatn.h, are appropriate for all glibc configurations.
+
+// Defined to 1 if the current compiler invocation provides a
+//   floating-point type with the right format for this type, and this
+//   glibc includes corresponding *fN or *fNx interfaces for it.
+
+// Defined to 1 if the corresponding __HAVE_<type> macro is 1 and the
+//   type is the first with its format in the sequence of (the default
+//   choices for) float, double, long double, _Float16, _Float32,
+//   _Float64, _Float128, _Float32x, _Float64x, _Float128x for this
+//   glibc; that is, if functions present once per floating-point format
+//   rather than once per type are present for this type.
+//
+//   All configurations supported by glibc have _Float32 the same format
+//   as float, _Float64 and _Float32x the same format as double, the
+//   _Float64x the same format as either long double or _Float128.  No
+//   configurations support _Float128x or, as of GCC 7, have compiler
+//   support for a type meeting the requirements for _Float128x.
+
+// Defined to 1 if the corresponding _FloatN type is not binary compatible
+//   with the corresponding ISO C type in the current compilation unit as
+//   opposed to __HAVE_DISTINCT_FLOATN, which indicates the default types built
+//   in glibc.
+
+// Defined to 1 if any _FloatN or _FloatNx types that are not
+//   ABI-distinct are however distinct types at the C language level (so
+//   for the purposes of __builtin_types_compatible_p and _Generic).
+
+// Defined to concatenate the literal suffix to be used with _FloatN
+//   or _FloatNx types, if __HAVE_<type> is 1.  The corresponding
+//   literal suffixes exist since GCC 7, for C only.
+
+// Defined to a complex type if __HAVE_<type> is 1.
+
+// The remaining of this file provides support for older compilers.
+
+type _Float32 = float32 /* floatn-common.h:214:15 */
+
+// If double, long double and _Float64 all have the same set of
+//   values, TS 18661-3 requires the usual arithmetic conversions on
+//   long double and _Float64 to produce _Float64.  For this to be the
+//   case when building with a compiler without a distinct _Float64
+//   type, _Float64 must be a typedef for long double, not for
+//   double.
+
+type _Float64 = float64 /* floatn-common.h:251:16 */
+
+type _Float32x = float64 /* floatn-common.h:268:16 */
+
+type _Float64x = float64 /* floatn-common.h:285:21 */
 
 // Returned by `div'.
 type div_t = struct {
@@ -14393,6 +14663,7 @@ type random_data = struct {
 	Frand_type int32
 	Frand_deg  int32
 	Frand_sep  int32
+	_          [4]byte
 	Fend_ptr   uintptr
 } /* stdlib.h:423:1 */
 
@@ -14421,6 +14692,7 @@ type amatch_vtab1 = struct {
 	FrIns       amatch_cost
 	FrDel       amatch_cost
 	FrSub       amatch_cost
+	_           [4]byte
 	Fdb         uintptr
 	FpVCheck    uintptr
 	FnCursor    int32
@@ -14437,6 +14709,7 @@ type amatch_cursor1 = struct {
 	FnBuf      int32
 	FoomErr    int32
 	FnWord     int32
+	_          [4]byte
 	FzBuf      uintptr
 	FzInput    uintptr
 	FpVtab     uintptr
@@ -16087,6 +16360,7 @@ type closure_queue = closure_queue1 /* closure.c:158:30 */
 type closure_avl1 = struct {
 	Fid          sqlite3_int64
 	FiGeneration int32
+	_            [4]byte
 	FpList       uintptr
 	FpBefore     uintptr
 	FpAfter      uintptr
@@ -16943,6 +17217,7 @@ type CsvReader1 = struct {
 	FnLine     int32
 	FbNotFirst int32
 	FcTerm     int32
+	_          [4]byte
 	FiIn       size_t
 	FnIn       size_t
 	FzIn       uintptr
@@ -17997,6 +18272,7 @@ type Decimal1 = struct {
 	FisInit int8
 	FnDigit int32
 	FnFrac  int32
+	_       [4]byte
 	Fa      uintptr
 } /* decimal.c:32:9 */
 
@@ -18773,6 +19049,7 @@ func sqlite3_decimal_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 	for i = uint32(0); (uint64(i) < (uint64(unsafe.Sizeof(aFunc)) / uint64(unsafe.Sizeof(struct {
 		FzFuncName uintptr
 		FnArg      int32
+		_          [4]byte
 		FxFunc     uintptr
 	}{})))) && (rc == 0); i++ {
 		rc = sqlite3.Xsqlite3_create_function(tls, db, aFunc[i].FzFuncName, aFunc[i].FnArg,
@@ -18801,6 +19078,7 @@ func sqlite3_decimal_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 var aFunc = [5]struct {
 	FzFuncName uintptr
 	FnArg      int32
+	_          [4]byte
 	FxFunc     uintptr
 }{
 	{FzFuncName: ts + 4529 /* "decimal" */, FnArg: 1, FxFunc: 0},
@@ -18815,6 +19093,7 @@ type EvalResult = struct {
 	Fz      uintptr
 	FzSep   uintptr
 	FszSep  int32
+	_       [4]byte
 	FnAlloc sqlite3_int64
 	FnUsed  sqlite3_int64
 } /* eval.c:23:1 */
@@ -19283,6 +19562,7 @@ type stat64 = struct {
 type flock = struct {
 	Fl_type   int16
 	Fl_whence int16
+	_         [4]byte
 	Fl_start  int64
 	Fl_len    int64
 	Fl_pid    int32
@@ -19292,6 +19572,7 @@ type flock = struct {
 type flock64 = struct {
 	Fl_type   int16
 	Fl_whence int16
+	_         [4]byte
 	Fl_start  int64
 	Fl_len    int64
 	Fl_pid    int32
@@ -20172,6 +20453,7 @@ type tm = struct {
 	Ftm_wday   int32
 	Ftm_yday   int32
 	Ftm_isdst  int32
+	_          [4]byte
 	Ftm_gmtoff int64
 	Ftm_zone   uintptr
 } /* struct_tm.h:7:1 */
@@ -20545,6 +20827,7 @@ type fsdir_cursor1 = struct {
 	FaLvl  uintptr
 	FzBase uintptr
 	FnBase int32
+	_      [4]byte
 	FsStat struct {
 		Fst_dev     uint64
 		Fst_ino     uint64
@@ -21046,14 +21329,17 @@ type fuzzer_cursor1 = struct {
 	FiRowid   sqlite3_int64
 	FpVtab    uintptr
 	FrLimit   fuzzer_cost
+	_         [4]byte
 	FpStem    uintptr
 	FpDone    uintptr
 	FaQueue   [20]uintptr
 	FmxQueue  int32
+	_         [4]byte
 	FzBuf     uintptr
 	FnBuf     int32
 	FnStem    int32
 	FiRuleset int32
+	_         [4]byte
 	FnullRule fuzzer_rule
 	FapHash   [4001]uintptr
 } /* fuzzer.c:163:9 */
@@ -21065,6 +21351,7 @@ type fuzzer_rule1 = struct {
 	FrCost    fuzzer_cost
 	FnFrom    fuzzer_len
 	FnTo      fuzzer_len
+	_         [2]byte
 	FiRuleset fuzzer_ruleid
 	FzTo      [4]int8
 } /* fuzzer.c:162:9 */
@@ -22294,6 +22581,7 @@ type nextCharContext1 = struct {
 	FnPrefix      int32
 	FnAlloc       int32
 	FnUsed        int32
+	_             [4]byte
 	FaResult      uintptr
 	FmallocFailed int32
 	FotherError   int32
@@ -23747,6 +24035,7 @@ type ReStateNumber = uint16 /* regexp.c:98:24 */
 // number of actives states is small.
 type ReStateSet1 = struct {
 	FnState uint32
+	_       [4]byte
 	FaState uintptr
 } /* regexp.c:105:9 */
 
@@ -25126,6 +25415,7 @@ func sqlite3_remember_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uin
 type series_cursor1 = struct {
 	Fbase    sqlite3_vtab_cursor
 	FisDesc  int32
+	_        [4]byte
 	FiRowid  sqlite3_int64
 	FiValue  sqlite3_int64
 	FmnValue sqlite3_int64
@@ -26045,6 +26335,7 @@ type EditDist3Cost1 = struct {
 type EditDist3Cost = EditDist3Cost1 /* spellfix.c:546:30 */
 type EditDist3Config1 = struct {
 	FnLang int32
+	_      [4]byte
 	Fa     uintptr
 } /* spellfix.c:547:9 */
 
@@ -26053,6 +26344,7 @@ type EditDist3From1 = struct {
 	FnSubst  int32
 	FnDel    int32
 	FnByte   int32
+	_        [4]byte
 	FapSubst uintptr
 	FapDel   uintptr
 } /* spellfix.c:549:9 */
@@ -26076,6 +26368,7 @@ type EditDist3To = EditDist3To1 /* spellfix.c:551:28 */
 type EditDist3ToString1 = struct {
 	Fz uintptr
 	Fn int32
+	_  [4]byte
 	Fa uintptr
 } /* spellfix.c:552:9 */
 
@@ -27998,6 +28291,7 @@ type MatchQuery1 = struct {
 	FzHash      [32]int8
 	FzPattern   uintptr
 	FnPattern   int32
+	_           [4]byte
 	FpMatchStr3 uintptr
 	FpConfig3   uintptr
 	FpLang      uintptr
@@ -29510,8 +29804,10 @@ type UnionTab1 = struct {
 	FbSwarm      int32
 	FiPK         int32
 	FnSrc        int32
+	_            [4]byte
 	FaSrc        uintptr
 	FbHasContext int32
+	_            [4]byte
 	FzSourceStr  uintptr
 	FpNotFound   uintptr
 	FpOpenClose  uintptr
@@ -29529,6 +29825,7 @@ type UnionSrc1 = struct {
 	FzFile         uintptr
 	FzContext      uintptr
 	FnUser         int32
+	_              [4]byte
 	Fdb            uintptr
 	FpNextClosable uintptr
 } /* unionvtab.c:182:9 */
@@ -31395,9 +31692,11 @@ type free_func = uintptr  /* zlib.h:82:16 */
 type z_stream_s = struct {
 	Fnext_in   uintptr
 	Favail_in  uInt
+	_          [4]byte
 	Ftotal_in  uLong
 	Fnext_out  uintptr
 	Favail_out uInt
+	_          [4]byte
 	Ftotal_out uLong
 	Fmsg       uintptr
 	Fstate     uintptr
@@ -31405,6 +31704,7 @@ type z_stream_s = struct {
 	Fzfree     free_func
 	Fopaque    voidpf
 	Fdata_type int32
+	_          [4]byte
 	Fadler     uLong
 	Freserved  uLong
 } /* zlib.h:86:9 */
@@ -31418,6 +31718,7 @@ type z_streamp = uintptr /* zlib.h:108:22 */
 //  for more details on the meanings of these fields.
 type gz_header_s = struct {
 	Ftext      int32
+	_          [4]byte
 	Ftime      uLong
 	Fxflags    int32
 	Fos        int32
@@ -31426,6 +31727,7 @@ type gz_header_s = struct {
 	Fextra_max uInt
 	Fname      uintptr
 	Fname_max  uInt
+	_          [4]byte
 	Fcomment   uintptr
 	Fcomm_max  uInt
 	Fhcrc      int32
@@ -31514,6 +31816,7 @@ type out_func = uintptr /* zlib.h:1094:13 */
 
 type gzFile_s = struct {
 	Fhave uint32
+	_     [4]byte
 	Fnext uintptr
 	Fpos  off_t
 } /* zlib.h:1300:9 */
@@ -31671,6 +31974,7 @@ type ZipfileCDS1 = struct {
 	FiCompression    u16
 	FmTime           u16
 	FmDate           u16
+	_                [4]byte
 	Fcrc32           u321
 	FszCompressed    u321
 	FszUncompressed  u321
@@ -31679,6 +31983,7 @@ type ZipfileCDS1 = struct {
 	FnComment        u16
 	FiDiskStart      u16
 	FiInternalAttr   u16
+	_                [6]byte
 	FiExternalAttr   u321
 	FiOffset         u321
 	FzFile           uintptr
@@ -31727,6 +32032,7 @@ type ZipfileLFH1 = struct {
 	FiCompression    u16
 	FmTime           u16
 	FmDate           u16
+	_                [6]byte
 	Fcrc32           u321
 	FszCompressed    u321
 	FszUncompressed  u321
@@ -31768,6 +32074,7 @@ type ZipfileCsr1 = struct {
 	FiId        i64
 	FbEof       u8
 	FbNoop      u8
+	_           [6]byte
 	FpFile      uintptr
 	FiNextOff   i64
 	Feocd       ZipfileEOCD
@@ -33708,6 +34015,7 @@ type ZipfileBuffer = ZipfileBuffer1 /* zipfile.c:1893:30 */
 
 type ZipfileCtx1 = struct {
 	FnEntry int32
+	_       [4]byte
 	Fbody   ZipfileBuffer
 	Fcds    ZipfileBuffer
 } /* zipfile.c:1900:9 */
@@ -34333,6 +34641,7 @@ func test_sqlite3rbu_cmd(tls *libc.TLS, clientData ClientData, interp uintptr, o
 type RbuCmd = struct {
 	FzName  uintptr
 	FnArg   int32
+	_       [4]byte
 	FzUsage uintptr
 } /* test_rbu.c:67:3 */
 
@@ -34822,6 +35131,7 @@ type sigaction = struct {
 	F__sigaction_handler struct{ Fsa_handler uintptr }
 	Fsa_mask             struct{ F__val [16]uint64 }
 	Fsa_flags            int32
+	_                    [4]byte
 	Fsa_restorer         uintptr
 } /* sigaction.h:27:1 */
 
@@ -35153,6 +35463,7 @@ type _xstate = struct {
 type stack_t = struct {
 	Fss_sp    uintptr
 	Fss_flags int32
+	_         [4]byte
 	Fss_size  size_t
 } /* stack_t.h:31:5 */
 
@@ -35346,6 +35657,7 @@ type SqliteDb = struct {
 	FzBindFallback  uintptr
 	FzAuth          uintptr
 	FdisableAuth    int32
+	_               [4]byte
 	FzNull          uintptr
 	FpFunc          uintptr
 	FpUpdateHook    uintptr
@@ -35355,6 +35667,7 @@ type SqliteDb = struct {
 	FpUnlockNotify  uintptr
 	FpCollate       uintptr
 	Frc             int32
+	_               [4]byte
 	FpCollateNeeded uintptr
 	FstmtList       uintptr
 	FstmtLast       uintptr
@@ -35422,8 +35735,10 @@ type SqlPreparedStmt1 = struct {
 	FpPrev  uintptr
 	FpStmt  uintptr
 	FnSql   int32
+	_       [4]byte
 	FzSql   uintptr
 	FnParm  int32
+	_       [4]byte
 	FapParm uintptr
 } /* tclsqlite.c:131:9 */
 
@@ -35435,6 +35750,7 @@ type IncrblobChannel1 = struct {
 	FpBlob   uintptr
 	FpDb     uintptr
 	FiSeek   int32
+	_        [4]byte
 	Fchannel Tcl_Channel
 	FpNext   uintptr
 	FpPrev   uintptr
@@ -40883,6 +41199,7 @@ type HashElem = HashElem1 /* hash.h:20:25 */
 // the hash table.
 type _ht = struct {
 	Fcount uint32
+	_      [4]byte
 	Fchain uintptr
 } /* sqlite3.h:249:9 */
 
@@ -41089,6 +41406,7 @@ type BusyHandler = BusyHandler1 /* sqliteInt.h:1012:28 */
 type AggInfo1 = struct {
 	FdirectMode     u8
 	FuseSortingIdx  u8
+	_               [2]byte
 	FsortingIdx     int32
 	FsortingIdxPTab int32
 	FnSortingColumn int32
@@ -41169,6 +41487,7 @@ type AutoincInfo = AutoincInfo1 /* sqliteInt.h:1110:28 */
 type CollSeq1 = struct {
 	FzName uintptr
 	Fenc   u8
+	_      [7]byte
 	FpUser uintptr
 	FxCmp  uintptr
 	FxDel  uintptr
@@ -41193,6 +41512,7 @@ type Db1 = struct {
 	FpBt          uintptr
 	Fsafety_level u8
 	FbSyncSet     u8
+	_             [6]byte
 	FpSchema      uintptr
 } /* sqlite3.h:249:9 */
 
@@ -41216,6 +41536,7 @@ type Expr1 = struct {
 	Fop              u8
 	FaffExpr         int8
 	Fop2             u8
+	_                [1]byte
 	Fflags           u322
 	Fu               struct{ FzToken uintptr }
 	FpLeft           uintptr
@@ -41226,6 +41547,7 @@ type Expr1 = struct {
 	FiColumn         ynVar
 	FiAgg            i16
 	FiRightJoinTable i16
+	_                [2]byte
 	FpAggInfo        uintptr
 	Fy               struct{ FpTab uintptr }
 } /* sqlite3.h:249:9 */
@@ -41233,12 +41555,14 @@ type Expr1 = struct {
 type Expr = Expr1 /* sqliteInt.h:1116:21 */
 type ExprList1 = struct {
 	FnExpr int32
+	_      [4]byte
 	Fa     [1]struct {
 		FpExpr     uintptr
 		FzEName    uintptr
 		FsortFlags u8
 		_          [3]byte
 		FeEName    uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
+		_          [3]byte
 		Fu         struct {
 			_  [0]uint32
 			Fx struct {
@@ -41260,9 +41584,11 @@ type FKey1 = struct {
 	FnCol       int32
 	FisDeferred u8
 	FaAction    [2]u8
+	_           [1]byte
 	FapTrigger  [2]uintptr
 	FaCol       [1]struct {
 		FiFrom int32
+		_      [4]byte
 		FzCol  uintptr
 	}
 } /* sqlite3.h:249:9 */
@@ -41270,6 +41596,7 @@ type FKey1 = struct {
 type FKey = FKey1 /* sqliteInt.h:1118:21 */
 type FuncDestructor1 = struct {
 	FnRef      int32
+	_          [4]byte
 	FxDestroy  uintptr
 	FpUserData uintptr
 } /* sqliteInt.h:1119:9 */
@@ -41277,6 +41604,7 @@ type FuncDestructor1 = struct {
 type FuncDestructor = FuncDestructor1 /* sqliteInt.h:1119:31 */
 type FuncDef1 = struct {
 	FnArg      i8
+	_          [3]byte
 	FfuncFlags u322
 	FpUserData uintptr
 	FpNext     uintptr
@@ -41316,13 +41644,16 @@ type Index1 = struct {
 	FnKeyCol       u16
 	FnColumn       u16
 	FonError       u8
+	_              [1]byte
 	FidxType       uint16 /* unsigned idxType: 2, unsigned bUnordered: 1, unsigned uniqNotNull: 1, unsigned isResized: 1, unsigned isCovering: 1, unsigned noSkipScan: 1, unsigned hasStat1: 1, unsigned bNoQuery: 1, unsigned bAscKeyBug: 1, unsigned bHasVCol: 1 */
+	_              [2]byte
 	FnSample       int32
 	FnSampleCol    int32
 	FaAvgEq        uintptr
 	FaSample       uintptr
 	FaiRowEst      uintptr
 	FnRowEst0      tRowcnt
+	_              [4]byte
 	FcolNotIdxed   Bitmask
 } /* sqlite3.h:249:9 */
 
@@ -41330,6 +41661,7 @@ type Index = Index1 /* sqliteInt.h:1123:22 */
 type IndexSample1 = struct {
 	Fp     uintptr
 	Fn     int32
+	_      [4]byte
 	FanEq  uintptr
 	FanLt  uintptr
 	FanDLt uintptr
@@ -41339,8 +41671,10 @@ type IndexSample = IndexSample1 /* sqliteInt.h:1124:28 */
 type KeyInfo1 = struct {
 	FnRef       u322
 	Fenc        u8
+	_           [1]byte
 	FnKeyField  u16
 	FnAllField  u16
+	_           [6]byte
 	Fdb         uintptr
 	FaSortFlags uintptr
 	FaColl      [1]uintptr
@@ -41352,8 +41686,10 @@ type Lookaside1 = struct {
 	Fsz         u16
 	FszTrue     u16
 	FbMalloced  u8
+	_           [3]byte
 	FnSlot      u322
 	FanStat     [3]u322
+	_           [4]byte
 	FpInit      uintptr
 	FpFree      uintptr
 	FpSmallInit uintptr
@@ -41371,6 +41707,7 @@ type Module1 = struct {
 	FpModule    uintptr
 	FzName      uintptr
 	FnRefModule int32
+	_           [4]byte
 	FpAux       uintptr
 	FxDestroy   uintptr
 	FpEpoTab    uintptr
@@ -41385,6 +41722,7 @@ type NameContext1 = struct {
 	FnRef       int32
 	FnErr       int32
 	FncFlags    int32
+	_           [4]byte
 	FpWinSelect uintptr
 } /* sqliteInt.h:1130:9 */
 
@@ -41404,6 +41742,7 @@ type Parse1 = struct {
 	FokConstFactor    u8
 	FdisableLookaside u8
 	FdisableVtab      u8
+	_                 [2]byte
 	FnRangeReg        int32
 	FiRangeReg        int32
 	FnErr             int32
@@ -41413,6 +41752,7 @@ type Parse1 = struct {
 	FiSelfTab         int32
 	FnLabel           int32
 	FnLabelAlloc      int32
+	_                 [4]byte
 	FaLabel           uintptr
 	FpConstExpr       uintptr
 	FconstraintName   Token
@@ -41423,6 +41763,7 @@ type Parse1 = struct {
 	FnMaxArg          int32
 	FnSelect          int32
 	FnTableLock       int32
+	_                 [4]byte
 	FaTableLock       uintptr
 	FpAinc            uintptr
 	FpToplevel        uintptr
@@ -41436,16 +41777,20 @@ type Parse1 = struct {
 	FeTriggerOp       u8
 	FeOrconf          u8
 	FdisableTriggers  u8
+	_                 [1]byte
 	FaTempReg         [8]int32
+	_                 [4]byte
 	FsNameToken       Token
 	FsLastToken       Token
 	FnVar             ynVar
 	FiPkSortOrder     u8
 	Fexplain          u8
 	FeParseMode       u8
+	_                 [3]byte
 	FnVtabLock        int32
 	FnHeight          int32
 	FaddrExplain      int32
+	_                 [4]byte
 	FpVList           uintptr
 	FpReprepare       uintptr
 	FzTail            uintptr
@@ -41467,11 +41812,13 @@ type PreUpdate1 = struct {
 	Fv            uintptr
 	FpCsr         uintptr
 	Fop           int32
+	_             [4]byte
 	FaRecord      uintptr
 	Fkeyinfo      KeyInfo
 	FpUnpacked    uintptr
 	FpNewUnpacked uintptr
 	FiNewReg      int32
+	_             [4]byte
 	FiKey1        i64
 	FiKey2        i64
 	FaNew         uintptr
@@ -41497,12 +41844,14 @@ type Savepoint1 = struct {
 type Savepoint = Savepoint1 /* sqliteInt.h:1136:26 */
 type Select1 = struct {
 	Fop           u8
+	_             [1]byte
 	FnSelectRow   LogEst
 	FselFlags     u322
 	FiLimit       int32
 	FiOffset      int32
 	FselId        u322
 	FaddrOpenEphm [2]int32
+	_             [4]byte
 	FpEList       uintptr
 	FpSrc         uintptr
 	FpWhere       uintptr
@@ -41520,10 +41869,12 @@ type Select1 = struct {
 type Select = Select1 /* sqliteInt.h:1137:23 */
 type SelectDest1 = struct {
 	FeDest    u8
+	_         [3]byte
 	FiSDParm  int32
 	FiSDParm2 int32
 	FiSdst    int32
 	FnSdst    int32
+	_         [4]byte
 	FzAffSdst uintptr
 	FpOrderBy uintptr
 } /* sqliteInt.h:1139:9 */
@@ -41577,6 +41928,7 @@ type Table1 = struct {
 	FnRowLogEst   LogEst
 	FszTabRow     LogEst
 	FkeyConf      u8
+	_             [1]byte
 	FaddColOffset int32
 	FnModuleArg   int32
 	FazModuleArg  uintptr
@@ -41600,6 +41952,7 @@ type Trigger1 = struct {
 	Ftable      uintptr
 	Fop         u8
 	Ftr_tm      u8
+	_           [6]byte
 	FpWhen      uintptr
 	FpColumns   uintptr
 	FpSchema    uintptr
@@ -41622,6 +41975,7 @@ type TriggerPrg = TriggerPrg1 /* sqliteInt.h:1147:27 */
 type TriggerStep1 = struct {
 	Fop        u8
 	Forconf    u8
+	_          [6]byte
 	FpTrig     uintptr
 	FpSelect   uintptr
 	FzTarget   uintptr
@@ -41670,7 +42024,9 @@ type VTable1 = struct {
 	FnRef        int32
 	FbConstraint u8
 	FeVtabRisk   u8
+	_            [2]byte
 	FiSavepoint  int32
+	_            [4]byte
 	FpNext       uintptr
 } /* sqlite3.h:249:9 */
 
@@ -41682,6 +42038,7 @@ type Walker1 = struct {
 	FxSelectCallback2 uintptr
 	FwalkerDepth      int32
 	FeCode            u16
+	_                 [2]byte
 	Fu                struct{ FpNC uintptr }
 } /* sqliteInt.h:1153:9 */
 
@@ -41696,6 +42053,7 @@ type Window1 = struct {
 	FeEnd           u8
 	FbImplicitFrame u8
 	FeExclude       u8
+	_               [3]byte
 	FpStart         uintptr
 	FpEnd           uintptr
 	FppThis         uintptr
@@ -41721,6 +42079,7 @@ type Window1 = struct {
 type Window = Window1 /* sqliteInt.h:1155:23 */
 type With1 = struct {
 	FnCte   int32
+	_       [4]byte
 	FpOuter uintptr
 	Fa      [1]struct {
 		FzName   uintptr
@@ -41847,6 +42206,7 @@ type BtCursor1 = struct {
 	FcurIntKey     u8
 	Fix            u16
 	FaiIdx         [19]u16
+	_              [2]byte
 	FpKeyInfo      uintptr
 	FpPage         uintptr
 	FapPage        [19]uintptr
@@ -41864,20 +42224,24 @@ type BtShared1 = struct {
 	FinTransaction   u8
 	Fmax1bytePayload u8
 	FnReserveWanted  u8
+	_                [1]byte
 	FbtsFlags        u16
 	FmaxLocal        u16
 	FminLocal        u16
 	FmaxLeaf         u16
 	FminLeaf         u16
+	_                [2]byte
 	FpageSize        u322
 	FusableSize      u322
 	FnTransaction    int32
 	FnPage           u322
+	_                [4]byte
 	FpSchema         uintptr
 	FxFreeSchema     uintptr
 	Fmutex           uintptr
 	FpHasContent     uintptr
 	FnRef            int32
+	_                [4]byte
 	FpNext           uintptr
 	FpLock           uintptr
 	FpWriter         uintptr
@@ -41890,6 +42254,7 @@ type BtreePayload1 = struct {
 	FpData uintptr
 	FaMem  uintptr
 	FnMem  u16
+	_      [2]byte
 	FnData int32
 	FnZero int32
 	_      [4]byte
@@ -41941,6 +42306,7 @@ type Vdbe1 = struct {
 	FpNext              uintptr
 	FpParse             uintptr
 	FnVar               ynVar
+	_                   [2]byte
 	Fmagic              u322
 	FnMem               int32
 	FnCursor            int32
@@ -41949,6 +42315,7 @@ type Vdbe1 = struct {
 	Frc                 int32
 	FnChange            int32
 	FiStatement         int32
+	_                   [4]byte
 	FiCurrentTime       i64
 	FnFkConstraint      i64
 	FnStmtDefCons       i64
@@ -41972,6 +42339,7 @@ type Vdbe1 = struct {
 	FdoingRerun         u8
 	_                   [2]byte
 	Fexpired            uint16 /* bft expired: 2, bft explain: 2, bft changeCntOn: 1, bft runOnlyOnce: 1, bft usesStmtJournal: 1, bft readOnly: 1, bft bIsReader: 1 */
+	_                   [2]byte
 	FbtreeMask          yDbMask
 	FlockMask           yDbMask
 	FaCounter           [7]u322
@@ -42033,6 +42401,7 @@ type SubProgram1 = struct {
 	FnOp   int32
 	FnMem  int32
 	FnCsr  int32
+	_      [4]byte
 	FaOnce uintptr
 	Ftoken uintptr
 	FpNext uintptr
@@ -42149,6 +42518,7 @@ type sqlite3InitInfo = struct {
 	Fbusy          u8
 	_              [2]byte
 	ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
+	_              [7]byte
 	FazInit        uintptr
 } /* sqlite3.h:249:9 */
 
@@ -42204,6 +42574,7 @@ type sqlite3InitInfo = struct {
 // is held in Schema.fkeyHash with a hash key of Z.
 type sColMap = struct {
 	FiFrom int32
+	_      [4]byte
 	FzCol  uintptr
 } /* sqlite3.h:249:9 */
 
@@ -42312,6 +42683,7 @@ type ExprList_item = struct {
 	FsortFlags u8
 	_          [3]byte
 	FeEName    uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
+	_          [3]byte
 	Fu         struct {
 		_  [0]uint32
 		Fx struct {
@@ -42395,6 +42767,7 @@ type DbFixer1 = struct {
 	FpParse  uintptr
 	FpSchema uintptr
 	FbTemp   u8
+	_        [7]byte
 	FzDb     uintptr
 	FzType   uintptr
 	FpName   uintptr
@@ -42431,6 +42804,7 @@ type Sqlite3Config = struct {
 	FbUseCis             u8
 	FbSmallMalloc        u8
 	FbExtraSchemaChecks  u8
+	_                    [2]byte
 	FmxStrlen            int32
 	FneverCorrupt        int32
 	FszLookaside         int32
@@ -42443,6 +42817,7 @@ type Sqlite3Config = struct {
 	FnHeap               int32
 	FmnReq               int32
 	FmxReq               int32
+	_                    [4]byte
 	FszMmap              sqlite3_int64
 	FmxMmap              sqlite3_int64
 	FpPage               uintptr
@@ -42457,6 +42832,7 @@ type Sqlite3Config = struct {
 	FisMallocInit        int32
 	FisPCacheInit        int32
 	FnRefInitMutex       int32
+	_                    [4]byte
 	FpInitMutex          uintptr
 	FxLog                uintptr
 	FpLogArg             uintptr
@@ -42540,6 +42916,7 @@ type VdbeCursor1 = struct {
 	FisTable        u8
 	_               [3]byte
 	FisEphemeral    uint8 /* Bool isEphemeral: 1, Bool useRandomRowid: 1, Bool isOrdered: 1, Bool seekHit: 1 */
+	_               [7]byte
 	FpBtx           uintptr
 	FseqCount       i64
 	FaAltMap        uintptr
@@ -42552,6 +42929,7 @@ type VdbeCursor1 = struct {
 	FpgnoRoot       Pgno
 	FnField         i16
 	FnHdrParsed     u16
+	_               [4]byte
 	FmovetoTarget   i64
 	FaOffset        uintptr
 	FaRow           uintptr
@@ -42660,6 +43038,7 @@ type ScanStatus1 = struct {
 	FaddrVisit   int32
 	FiSelectID   int32
 	FnEst        LogEst
+	_            [6]byte
 	FzName       uintptr
 } /* vdbeInt.h:349:9 */
 
@@ -51534,6 +51913,7 @@ type MemPage1 = struct {
 	FchildPtrSize    u8
 	Fmax1bytePayload u8
 	FnOverflow       u8
+	_                [1]byte
 	FmaxLocal        u16
 	FminLocal        u16
 	FcellOffset      u16
@@ -51541,6 +51921,7 @@ type MemPage1 = struct {
 	FnCell           u16
 	FmaskPage        u16
 	FaiOvfl          [4]u16
+	_                [4]byte
 	FapOvfl          [4]uintptr
 	FpBt             uintptr
 	FaData           uintptr
@@ -51792,6 +52173,7 @@ type BtLock1 = struct {
 	FpBtree uintptr
 	FiTable Pgno
 	FeLock  u8
+	_       [3]byte
 	FpNext  uintptr
 } /* btree.h:39:9 */
 
@@ -52959,6 +53341,7 @@ type _pthread_cleanup_buffer = struct {
 	F__routine    uintptr
 	F__arg        uintptr
 	F__canceltype int32
+	_             [4]byte
 	F__prev       uintptr
 } /* pthread.h:191:1 */
 
@@ -52981,6 +53364,7 @@ type Thread = struct {
 	Fopnum      int32
 	Fbusy       int32
 	Fcompleted  int32
+	_           [4]byte
 	Fdb         uintptr
 	FpStmt      uintptr
 	FzErr       uintptr
@@ -53879,8 +54263,10 @@ type CrashFile1 = struct {
 	FpRealFile uintptr
 	FzName     uintptr
 	Fflags     int32
+	_          [4]byte
 	FzData     uintptr
 	FnData     int32
+	_          [4]byte
 	FiSize     i64
 } /* test6.c:29:9 */
 
@@ -53908,6 +54294,7 @@ type CrashGlobal = CrashGlobal1 /* test6.c:30:28 */
 type WriteBuffer1 = struct {
 	FiOffset i64
 	FnBuf    int32
+	_        [4]byte
 	FzBuf    uintptr
 	FpFile   uintptr
 	FpNext   uintptr
@@ -54786,6 +55173,7 @@ type Thread1 = struct {
 	Fopnum      int32
 	Fbusy       int32
 	Fcompleted  int32
+	_           [4]byte
 	Fdb         uintptr
 	FpStmt      uintptr
 	FzErr       uintptr
@@ -55461,6 +55849,7 @@ type echo_vtab1 = struct {
 	FzTableName    uintptr
 	FzLogName      uintptr
 	FnCol          int32
+	_              [4]byte
 	FaIndex        uintptr
 	FaCol          uintptr
 } /* test8.c:27:9 */
@@ -58832,8 +59221,10 @@ type MFile = struct {
 type DemoFile1 = struct {
 	Fbase        sqlite3_file
 	Ffd          int32
+	_            [4]byte
 	FaBuffer     uintptr
 	FnBuffer     int32
+	_            [4]byte
 	FiBufferOfst sqlite3_int64
 } /* test_demovfs.c:147:9 */
 
@@ -59305,6 +59696,7 @@ type Tcl_OldStat_1 = uintptr /* tcl.h:645:21 */
 
 type TclStubs1 = struct {
 	Fmagic                                  int32
+	_                                       [4]byte
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
 	Ftcl_PkgRequireEx                       uintptr
@@ -60293,6 +60685,7 @@ type Tcl_OldStat_2 = uintptr /* tcl.h:645:21 */
 
 type TclStubs2 = struct {
 	Fmagic                                  int32
+	_                                       [4]byte
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
 	Ftcl_PkgRequireEx                       uintptr
@@ -62232,6 +62625,7 @@ func registerTestFunctions(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk u
 	for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aFuncs)) / uint64(unsafe.Sizeof(struct {
 		FzName    uintptr
 		FnArg     int8
+		_         [3]byte
 		FeTextRep uint32
 		FxFunc    uintptr
 	}{}))); i++ {
@@ -62250,6 +62644,7 @@ func registerTestFunctions(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk u
 var aFuncs = [20]struct {
 	FzName    uintptr
 	FnArg     int8
+	_         [3]byte
 	FeTextRep uint32
 	FxFunc    uintptr
 }{
@@ -63443,6 +63838,7 @@ var aObjCmd9 = [4]struct {
 // an integer array.
 type sqlite3_intarray1 = struct {
 	Fn     int32
+	_      [4]byte
 	Fa     uintptr
 	FxFree uintptr
 } /* test_intarray.h:99:9 */
@@ -63748,6 +64144,7 @@ type jt_file1 = struct {
 	FpWritable uintptr
 	FaCksum    uintptr
 	FnSync     int32
+	_          [4]byte
 	FiMaxOff   sqlite3_int64
 	FpNext     uintptr
 	FpReal     uintptr
@@ -64536,8 +64933,10 @@ type MemFault = struct {
 	FnOkBefore    int32
 	FnOkAfter     int32
 	Fenable       u8
+	_             [3]byte
 	FisInstalled  int32
 	FisBenignMode int32
+	_             [4]byte
 	Fm            sqlite3_mem_methods
 } /* test_malloc.c:30:8 */
 
@@ -66623,6 +67022,7 @@ func Md5_Register(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk uintptr) i
 type multiplexGroup1 = struct {
 	FaReal     uintptr
 	FnReal     int32
+	_          [4]byte
 	FzName     uintptr
 	FnName     int32
 	Fflags     int32
@@ -68661,6 +69061,7 @@ type fs_real_file = fs_real_file1 /* test_onefile.c:97:29 */
 type fs_file1 = struct {
 	Fbase  sqlite3_file
 	FeType int32
+	_      [4]byte
 	FpReal uintptr
 } /* test_onefile.c:109:9 */
 
@@ -69389,6 +69790,7 @@ type VfslogVfs1 = struct {
 	Fbase        sqlite3_vfs
 	FpVfs        uintptr
 	FiNextFileId int32
+	_            [4]byte
 	FpLog        uintptr
 	FiOffset     sqlite3_int64
 	FnBuf        int32
@@ -70040,6 +70442,7 @@ type VfslogCsr1 = struct {
 	FiOffset    sqlite3_int64
 	FzTransient uintptr
 	FnFile      int32
+	_           [4]byte
 	FazFile     uintptr
 	FaBuf       [1024]uint8
 } /* test_osinst.c:805:9 */
@@ -70573,6 +70976,7 @@ type testpcache1 = struct {
 	FnPinned    int32
 	FiRand      uint32
 	FiMagic     uint32
+	_           [4]byte
 	Fa          [217]struct {
 		Fpage     sqlite3_pcache_page
 		Fkey      uint32
@@ -70975,6 +71379,7 @@ var gQuota struct {
 	FsIoMethodsV1  sqlite3_io_methods
 	FsIoMethodsV2  sqlite3_io_methods
 	FisInitialized int32
+	_              [4]byte
 	FpMutex        uintptr
 	FpGroup        uintptr
 } /* test_quota.c:183:3: */
@@ -72042,6 +72447,7 @@ type Tcl_OldStat_3 = uintptr /* tcl.h:645:21 */
 
 type TclStubs3 = struct {
 	Fmagic                                  int32
+	_                                       [4]byte
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
 	Ftcl_PkgRequireEx                       uintptr
@@ -73317,6 +73723,7 @@ type Tcl_OldStat_4 = uintptr /* tcl.h:645:21 */
 
 type TclStubs4 = struct {
 	Fmagic                                  int32
+	_                                       [4]byte
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
 	Ftcl_PkgRequireEx                       uintptr
@@ -75153,11 +75560,14 @@ var aObjCmd12 = [1]struct {
 // instances of the following structure.
 type SqlMessage1 = struct {
 	Fop           int32
+	_             [4]byte
 	FpDb          uintptr
 	FpStmt        uintptr
 	FerrCode      int32
+	_             [4]byte
 	FzIn          uintptr
 	FnByte        int32
+	_             [4]byte
 	FzOut         uintptr
 	FpNext        uintptr
 	FpPrev        uintptr
@@ -75245,6 +75655,7 @@ type ServerState = struct {
 	FserverMutex  pthread_mutex_t
 	FserverWakeup pthread_cond_t
 	FserverHalt   int32
+	_             [4]byte
 	FpQueueHead   uintptr
 	FpQueueTail   uintptr
 } /* test_server.c:252:8 */
@@ -77489,11 +77900,13 @@ func sqlthread_proc(tls *libc.TLS, clientData ClientData, interp uintptr, objc i
 		FzName  uintptr
 		FxProc  uintptr
 		FnArg   int32
+		_       [4]byte
 		FzUsage uintptr
 	})(unsafe.Pointer(bp /* aSub */)) = [5]struct {
 		FzName  uintptr
 		FxProc  uintptr
 		FnArg   int32
+		_       [4]byte
 		FzUsage uintptr
 	}{
 		{FzName: ts + 37263 /* "parent" */, FxProc: *(*uintptr)(unsafe.Pointer(&struct {
@@ -77524,6 +77937,7 @@ func sqlthread_proc(tls *libc.TLS, clientData ClientData, interp uintptr, objc i
 			FzName  uintptr
 			FxProc  uintptr
 			FnArg   int32
+			_       [4]byte
 			FzUsage uintptr
 		}{})), ts+1874 /* "sub-command" */, 0, bp+160 /* &iIndex */)
 	if rc != 0 {
@@ -77535,12 +77949,14 @@ func sqlthread_proc(tls *libc.TLS, clientData ClientData, interp uintptr, objc i
 		FzName  uintptr
 		FxProc  uintptr
 		FnArg   int32
+		_       [4]byte
 		FzUsage uintptr
 	})(unsafe.Pointer(pSub)).FnArg + 2) {
 		tcl.XTcl_WrongNumArgs(tls, interp, 2, objv, (*struct {
 			FzName  uintptr
 			FxProc  uintptr
 			FnArg   int32
+			_       [4]byte
 			FzUsage uintptr
 		})(unsafe.Pointer(pSub)).FzUsage)
 		return 1
@@ -77574,6 +77990,7 @@ func clock_seconds_proc(tls *libc.TLS, clientData ClientData, interp uintptr, ob
 // pointer when registering for an unlock-notify callback.
 type UnlockNotification1 = struct {
 	Ffired int32
+	_      [4]byte
 	Fcond  pthread_cond_t
 	Fmutex pthread_mutex_t
 } /* test_thread.c:410:9 */
@@ -77841,6 +78258,7 @@ type Testvfs = Testvfs1 /* test_vfs.c:37:24 */
 type TestvfsBuffer1 = struct {
 	FzFile uintptr
 	Fpgsz  int32
+	_      [4]byte
 	FaPage [1024]uintptr
 	FpFile uintptr
 	FpNext uintptr
@@ -77925,6 +78343,7 @@ func tvfsResultCode(tls *libc.TLS, p uintptr, pRc uintptr) int32 { /* test_vfs.c
 
 type errcode = struct {
 	FeCode int32
+	_      [4]byte
 	FzCode uintptr
 } /* test_vfs.c:227:3 */
 
@@ -78253,6 +78672,7 @@ func tvfsFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 
 type Fcntl = struct {
 	FiFnctl int32
+	_       [4]byte
 	FzFnctl uintptr
 } /* test_vfs.c:550:5 */
 

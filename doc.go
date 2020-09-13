@@ -7,6 +7,10 @@
 //
 // Changelog
 //
+// 2020-09-08 v1.7.0:
+//
+// Support linux/arm and linux/arm64.
+//
 // 2020-09-08 v1.6.0:
 //
 // Support linux/386.
@@ -91,11 +95,11 @@
 //
 // 	linux	386
 // 	linux	amd64
+// 	linux	arm
+// 	linux	arm64
 //
 // Planned platforms and architectures
 //
-// 	linux	arm
-// 	linux	arm64
 // 	windows	386
 // 	windows	amd64
 //

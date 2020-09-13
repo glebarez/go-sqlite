@@ -20,7 +20,7 @@ import (
 
 var (
 	oMaxError = flag.Uint("maxerror", 0, "argument of -maxerror passed to the Tcl test suite")
-	oStart    = flag.String("start", "", "argument of -start passed to the Tcl test suite (--start=[$permutation:]$testfile)")
+	oStart    = flag.String("start", "", "argument of -start passed to the Tcl test suite (-start=[$permutation:]$testfile)")
 	oTclSuite = flag.String("suite", "full", "Tcl test suite [test-file] to run")
 	oVerbose  = flag.String("verbose", "0", "argument of -verbose passed to the Tcl test suite, must be set to a boolean (0, 1) or to \"file\"")
 )
@@ -28,7 +28,7 @@ var (
 func TestTclTest(t *testing.T) {
 	blacklist := map[string]struct{}{}
 	switch runtime.GOARCH {
-	case "386":
+	case "386", "arm":
 		// # This test causes thrashing on machines with smaller amounts of
 		// # memory.  Make sure the host has at least 8GB available before running
 		// # this test.

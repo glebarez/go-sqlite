@@ -3277,15 +3277,9 @@ const ( /* resource.h:187:1: */
 	PRIO_USER    = 2
 )
 
-// end block for C++
+// Convenience macros for operations on timevals.
+//   NOTE: `timercmp' does not work for >= or <=.
 
-// Local Variables:
-// mode: c
-// c-basic-offset: 4
-// fill-column: 78
-// End:
-
-// Needed for the setrlimit() system call on unix
 // Copyright (C) 1992-2018 Free Software Foundation, Inc.
 //   This file is part of the GNU C Library.
 //
@@ -3642,6 +3636,90 @@ const ( /* waitflags.h:52:1: */
 	P_PGID = 2
 )
 
+// If we are compiling with optimizing read this file.  It contains
+//   several optimizing inline functions and macros.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard 7.4: Character handling	<ctype.h>
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//   Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// These are all the characteristics of characters.
+//   If there get to be more than 16 distinct characteristics,
+//   many things must be changed that use `unsigned short int's.
+//
+//   The characteristics are stored always in network byte order (big
+//   endian).  We define the bit value interpretations here dependent on the
+//   machine's byte order.
+
+// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
 const ( /* ctype.h:46:1: */
 	_ISupper  = 256   // UPPERCASE.
 	_ISlower  = 512   // lowercase.
@@ -3894,6 +3972,7 @@ type sqlite32 = struct {
 	FmTrace                 u8
 	FnoSharedCache          u8
 	FnSqlExec               u8
+	_                       [1]byte
 	FnextPagesize           int32
 	Fmagic                  u32
 	FnChange                int32
@@ -3906,6 +3985,7 @@ type sqlite32 = struct {
 		Fbusy          u8
 		_              [2]byte
 		ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
+		_              [3]byte
 		FazInit        uintptr
 	}
 	FnVdbeActive        int32
@@ -5495,6 +5575,7 @@ type sqlite3_context1 = struct {
 	FisError  int32
 	FskipFlag u8
 	Fargc     u8
+	_         [2]byte
 	Fargv     [1]uintptr
 } /* sqlite3.h:249:9 */
 
@@ -5688,6 +5769,7 @@ type sqlite3_index_constraint = struct {
 	FiColumn     int32
 	Fop          uint8
 	Fusable      uint8
+	_            [2]byte
 	FiTermOffset int32
 } /* sqlite3.h:6690:9 */
 
@@ -9418,6 +9500,7 @@ type Tcl_WideUInt = uint64 /* tcl.h:416:36 */
 type stat = struct {
 	Fst_dev     uint64
 	F__pad1     uint16
+	_           [2]byte
 	F__st_ino   uint32
 	Fst_mode    uint32
 	Fst_nlink   uint32
@@ -9425,6 +9508,7 @@ type stat = struct {
 	Fst_gid     uint32
 	Fst_rdev    uint64
 	F__pad2     uint16
+	_           [2]byte
 	Fst_size    int64
 	Fst_blksize int32
 	Fst_blocks  int64
@@ -13701,6 +13785,218 @@ type sqlite3_loadext_entry = uintptr /* sqlite3ext.h:344:13 */
 //   which causes a conflict if the include order is reversed.
 
 type idtype_t = uint32 /* waitflags.h:57:3 */
+// Definitions of status bits for `wait' et al.
+//   Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Everything extant so far uses these same bits.
+
+// If WIFEXITED(STATUS), the low-order 8 bits of the status.
+
+// If WIFSIGNALED(STATUS), the terminating signal.
+
+// If WIFSTOPPED(STATUS), the signal that stopped the child.
+
+// Nonzero if STATUS indicates normal termination.
+
+// Nonzero if STATUS indicates termination by a signal.
+
+// Nonzero if STATUS indicates the child is stopped.
+
+// Nonzero if STATUS indicates the child continued after a stop.  We only
+//   define this if <bits/waitflags.h> provides the WCONTINUED flag bit.
+
+// Nonzero if STATUS indicates the child dumped core.
+
+// Macros for constructing status values.
+
+// Define the macros <sys/wait.h> also would define this way.
+
+// _FloatN API tests for enablement.
+// Macros to control TS 18661-3 glibc features on x86.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Defined to 1 if the current compiler invocation provides a
+//   floating-point type with the IEEE 754 binary128 format, and this
+//   glibc includes corresponding *f128 interfaces for it.  The required
+//   libgcc support was added some time after the basic compiler
+//   support, for x86_64 and x86.
+
+// Defined to 1 if __HAVE_FLOAT128 is 1 and the type is ABI-distinct
+//   from the default float, double and long double types in this glibc.
+
+// Defined to 1 if the current compiler invocation provides a
+//   floating-point type with the right format for _Float64x, and this
+//   glibc includes corresponding *f64x interfaces for it.
+
+// Defined to 1 if __HAVE_FLOAT64X is 1 and _Float64x has the format
+//   of long double.  Otherwise, if __HAVE_FLOAT64X is 1, _Float64x has
+//   the format of _Float128, which must be different from that of long
+//   double.
+
+// Defined to concatenate the literal suffix to be used with _Float128
+//   types, if __HAVE_FLOAT128 is 1.
+
+// Defined to a complex binary128 type if __HAVE_FLOAT128 is 1.
+
+// The remaining of this file provides support for older compilers.
+
+// Macros to control TS 18661-3 glibc features where the same
+//   definitions are appropriate for all platforms.
+//   Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License as published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// Properties of long double type.  ldbl-96 version.
+//   Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//   This file is part of the GNU C Library.
+//
+//   The GNU C Library is free software; you can redistribute it and/or
+//   modify it under the terms of the GNU Lesser General Public
+//   License  published by the Free Software Foundation; either
+//   version 2.1 of the License, or (at your option) any later version.
+//
+//   The GNU C Library is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//   Lesser General Public License for more details.
+//
+//   You should have received a copy of the GNU Lesser General Public
+//   License along with the GNU C Library; if not, see
+//   <http://www.gnu.org/licenses/>.
+
+// long double is distinct from double, so there is nothing to
+//   define here.
+
+// This header should be included at the bottom of each bits/floatn.h.
+//   It defines the following macros for each _FloatN and _FloatNx type,
+//   where the same definitions, or definitions based only on the macros
+//   in bits/floatn.h, are appropriate for all glibc configurations.
+
+// Defined to 1 if the current compiler invocation provides a
+//   floating-point type with the right format for this type, and this
+//   glibc includes corresponding *fN or *fNx interfaces for it.
+
+// Defined to 1 if the corresponding __HAVE_<type> macro is 1 and the
+//   type is the first with its format in the sequence of (the default
+//   choices for) float, double, long double, _Float16, _Float32,
+//   _Float64, _Float128, _Float32x, _Float64x, _Float128x for this
+//   glibc; that is, if functions present once per floating-point format
+//   rather than once per type are present for this type.
+//
+//   All configurations supported by glibc have _Float32 the same format
+//   as float, _Float64 and _Float32x the same format as double, the
+//   _Float64x the same format as either long double or _Float128.  No
+//   configurations support _Float128x or, as of GCC 7, have compiler
+//   support for a type meeting the requirements for _Float128x.
+
+// Defined to 1 if the corresponding _FloatN type is not binary compatible
+//   with the corresponding ISO C type in the current compilation unit as
+//   opposed to __HAVE_DISTINCT_FLOATN, which indicates the default types built
+//   in glibc.
+
+// Defined to 1 if any _FloatN or _FloatNx types that are not
+//   ABI-distinct are however distinct types at the C language level (so
+//   for the purposes of __builtin_types_compatible_p and _Generic).
+
+// Defined to concatenate the literal suffix to be used with _FloatN
+//   or _FloatNx types, if __HAVE_<type> is 1.  The corresponding
+//   literal suffixes exist since GCC 7, for C only.
+
+// Defined to a complex type if __HAVE_<type> is 1.
+
+// The remaining of this file provides support for older compilers.
+
+type _Float32 = float32 /* floatn-common.h:214:15 */
+
+// If double, long double and _Float64 all have the same set of
+//   values, TS 18661-3 requires the usual arithmetic conversions on
+//   long double and _Float64 to produce _Float64.  For this to be the
+//   case when building with a compiler without a distinct _Float64
+//   type, _Float64 must be a typedef for long double, not for
+//   double.
+
+type _Float64 = float64 /* floatn-common.h:251:16 */
+
+type _Float32x = float64 /* floatn-common.h:268:16 */
+
+type _Float64x = float64 /* floatn-common.h:285:21 */
 
 // Returned by `div'.
 type div_t = struct {
@@ -20961,6 +21257,7 @@ type fuzzer_rule1 = struct {
 	FrCost    fuzzer_cost
 	FnFrom    fuzzer_len
 	FnTo      fuzzer_len
+	_         [2]byte
 	FiRuleset fuzzer_ruleid
 	FzTo      [4]int8
 } /* fuzzer.c:162:9 */
@@ -31566,6 +31863,7 @@ type ZipfileCDS1 = struct {
 	FnComment        u16
 	FiDiskStart      u16
 	FiInternalAttr   u16
+	_                [2]byte
 	FiExternalAttr   u32
 	FiOffset         u32
 	FzFile           uintptr
@@ -31614,6 +31912,7 @@ type ZipfileLFH1 = struct {
 	FiCompression    u16
 	FmTime           u16
 	FmDate           u16
+	_                [2]byte
 	Fcrc32           u32
 	FszCompressed    u32
 	FszUncompressed  u32
@@ -31654,6 +31953,7 @@ type ZipfileCsr1 = struct {
 	FiId        i64
 	FbEof       u8
 	FbNoop      u8
+	_           [2]byte
 	FpFile      uintptr
 	FiNextOff   i64
 	Feocd       ZipfileEOCD
@@ -40976,6 +41276,7 @@ type BusyHandler = BusyHandler1 /* sqliteInt.h:1012:28 */
 type AggInfo1 = struct {
 	FdirectMode     u8
 	FuseSortingIdx  u8
+	_               [2]byte
 	FsortingIdx     int32
 	FsortingIdxPTab int32
 	FnSortingColumn int32
@@ -41056,6 +41357,7 @@ type AutoincInfo = AutoincInfo1 /* sqliteInt.h:1110:28 */
 type CollSeq1 = struct {
 	FzName uintptr
 	Fenc   u8
+	_      [3]byte
 	FpUser uintptr
 	FxCmp  uintptr
 	FxDel  uintptr
@@ -41080,6 +41382,7 @@ type Db1 = struct {
 	FpBt          uintptr
 	Fsafety_level u8
 	FbSyncSet     u8
+	_             [2]byte
 	FpSchema      uintptr
 } /* sqlite3.h:249:9 */
 
@@ -41103,6 +41406,7 @@ type Expr1 = struct {
 	Fop              u8
 	FaffExpr         int8
 	Fop2             u8
+	_                [1]byte
 	Fflags           u32
 	Fu               struct{ FzToken uintptr }
 	FpLeft           uintptr
@@ -41113,6 +41417,7 @@ type Expr1 = struct {
 	FiColumn         ynVar
 	FiAgg            i16
 	FiRightJoinTable i16
+	_                [2]byte
 	FpAggInfo        uintptr
 	Fy               struct {
 		FpTab uintptr
@@ -41129,6 +41434,7 @@ type ExprList1 = struct {
 		FsortFlags u8
 		_          [3]byte
 		FeEName    uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
+		_          [3]byte
 		Fu         struct {
 			_  [0]uint32
 			Fx struct {
@@ -41149,6 +41455,7 @@ type FKey1 = struct {
 	FnCol       int32
 	FisDeferred u8
 	FaAction    [2]u8
+	_           [1]byte
 	FapTrigger  [2]uintptr
 	FaCol       [1]struct {
 		FiFrom int32
@@ -41166,6 +41473,7 @@ type FuncDestructor1 = struct {
 type FuncDestructor = FuncDestructor1 /* sqliteInt.h:1119:31 */
 type FuncDef1 = struct {
 	FnArg      i8
+	_          [3]byte
 	FfuncFlags u32
 	FpUserData uintptr
 	FpNext     uintptr
@@ -41204,7 +41512,9 @@ type Index1 = struct {
 	FnKeyCol       u16
 	FnColumn       u16
 	FonError       u8
+	_              [1]byte
 	FidxType       uint16 /* unsigned idxType: 2, unsigned bUnordered: 1, unsigned uniqNotNull: 1, unsigned isResized: 1, unsigned isCovering: 1, unsigned noSkipScan: 1, unsigned hasStat1: 1, unsigned bNoQuery: 1, unsigned bAscKeyBug: 1, unsigned bHasVCol: 1 */
+	_              [2]byte
 	FnSample       int32
 	FnSampleCol    int32
 	FaAvgEq        uintptr
@@ -41227,8 +41537,10 @@ type IndexSample = IndexSample1 /* sqliteInt.h:1124:28 */
 type KeyInfo1 = struct {
 	FnRef       u32
 	Fenc        u8
+	_           [1]byte
 	FnKeyField  u16
 	FnAllField  u16
+	_           [2]byte
 	Fdb         uintptr
 	FaSortFlags uintptr
 	FaColl      [1]uintptr
@@ -41240,6 +41552,7 @@ type Lookaside1 = struct {
 	Fsz         u16
 	FszTrue     u16
 	FbMalloced  u8
+	_           [3]byte
 	FnSlot      u32
 	FanStat     [3]u32
 	FpInit      uintptr
@@ -41292,6 +41605,7 @@ type Parse1 = struct {
 	FokConstFactor    u8
 	FdisableLookaside u8
 	FdisableVtab      u8
+	_                 [2]byte
 	FnRangeReg        int32
 	FiRangeReg        int32
 	FnErr             int32
@@ -41324,6 +41638,7 @@ type Parse1 = struct {
 	FeTriggerOp       u8
 	FeOrconf          u8
 	FdisableTriggers  u8
+	_                 [1]byte
 	FaTempReg         [8]int32
 	FsNameToken       Token
 	FsLastToken       Token
@@ -41331,6 +41646,7 @@ type Parse1 = struct {
 	FiPkSortOrder     u8
 	Fexplain          u8
 	FeParseMode       u8
+	_                 [3]byte
 	FnVtabLock        int32
 	FnHeight          int32
 	FaddrExplain      int32
@@ -41385,6 +41701,7 @@ type Savepoint1 = struct {
 type Savepoint = Savepoint1 /* sqliteInt.h:1136:26 */
 type Select1 = struct {
 	Fop           u8
+	_             [1]byte
 	FnSelectRow   LogEst
 	FselFlags     u32
 	FiLimit       int32
@@ -41408,6 +41725,7 @@ type Select1 = struct {
 type Select = Select1 /* sqliteInt.h:1137:23 */
 type SelectDest1 = struct {
 	FeDest    u8
+	_         [3]byte
 	FiSDParm  int32
 	FiSDParm2 int32
 	FiSdst    int32
@@ -41465,6 +41783,7 @@ type Table1 = struct {
 	FnRowLogEst   LogEst
 	FszTabRow     LogEst
 	FkeyConf      u8
+	_             [1]byte
 	FaddColOffset int32
 	FnModuleArg   int32
 	FazModuleArg  uintptr
@@ -41487,6 +41806,7 @@ type Trigger1 = struct {
 	Ftable      uintptr
 	Fop         u8
 	Ftr_tm      u8
+	_           [2]byte
 	FpWhen      uintptr
 	FpColumns   uintptr
 	FpSchema    uintptr
@@ -41508,6 +41828,7 @@ type TriggerPrg = TriggerPrg1 /* sqliteInt.h:1147:27 */
 type TriggerStep1 = struct {
 	Fop        u8
 	Forconf    u8
+	_          [2]byte
 	FpTrig     uintptr
 	FpSelect   uintptr
 	FzTarget   uintptr
@@ -41555,6 +41876,7 @@ type VTable1 = struct {
 	FnRef        int32
 	FbConstraint u8
 	FeVtabRisk   u8
+	_            [2]byte
 	FiSavepoint  int32
 	FpNext       uintptr
 } /* sqlite3.h:249:9 */
@@ -41567,6 +41889,7 @@ type Walker1 = struct {
 	FxSelectCallback2 uintptr
 	FwalkerDepth      int32
 	FeCode            u16
+	_                 [2]byte
 	Fu                struct{ FpNC uintptr }
 } /* sqliteInt.h:1153:9 */
 
@@ -41581,6 +41904,7 @@ type Window1 = struct {
 	FeEnd           u8
 	FbImplicitFrame u8
 	FeExclude       u8
+	_               [3]byte
 	FpStart         uintptr
 	FpEnd           uintptr
 	FppThis         uintptr
@@ -41732,6 +42056,7 @@ type BtCursor1 = struct {
 	FcurIntKey     u8
 	Fix            u16
 	FaiIdx         [19]u16
+	_              [2]byte
 	FpKeyInfo      uintptr
 	FpPage         uintptr
 	FapPage        [19]uintptr
@@ -41749,11 +42074,13 @@ type BtShared1 = struct {
 	FinTransaction   u8
 	Fmax1bytePayload u8
 	FnReserveWanted  u8
+	_                [1]byte
 	FbtsFlags        u16
 	FmaxLocal        u16
 	FminLocal        u16
 	FmaxLeaf         u16
 	FminLeaf         u16
+	_                [2]byte
 	FpageSize        u32
 	FusableSize      u32
 	FnTransaction    int32
@@ -41775,6 +42102,7 @@ type BtreePayload1 = struct {
 	FpData uintptr
 	FaMem  uintptr
 	FnMem  u16
+	_      [2]byte
 	FnData int32
 	FnZero int32
 } /* btree.h:42:9 */
@@ -41825,6 +42153,7 @@ type Vdbe1 = struct {
 	FpNext              uintptr
 	FpParse             uintptr
 	FnVar               ynVar
+	_                   [2]byte
 	Fmagic              u32
 	FnMem               int32
 	FnCursor            int32
@@ -41856,6 +42185,7 @@ type Vdbe1 = struct {
 	FdoingRerun         u8
 	_                   [2]byte
 	Fexpired            uint16 /* bft expired: 2, bft explain: 2, bft changeCntOn: 1, bft runOnlyOnce: 1, bft usesStmtJournal: 1, bft readOnly: 1, bft bIsReader: 1 */
+	_                   [2]byte
 	FbtreeMask          yDbMask
 	FlockMask           yDbMask
 	FaCounter           [7]u32
@@ -42025,6 +42355,7 @@ type sqlite3InitInfo = struct {
 	Fbusy          u8
 	_              [2]byte
 	ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
+	_              [3]byte
 	FazInit        uintptr
 } /* sqlite3.h:249:9 */
 
@@ -42187,6 +42518,7 @@ type ExprList_item = struct {
 	FsortFlags u8
 	_          [3]byte
 	FeEName    uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
+	_          [3]byte
 	Fu         struct {
 		_  [0]uint32
 		Fx struct {
@@ -42268,6 +42600,7 @@ type DbFixer1 = struct {
 	FpParse  uintptr
 	FpSchema uintptr
 	FbTemp   u8
+	_        [3]byte
 	FzDb     uintptr
 	FzType   uintptr
 	FpName   uintptr
@@ -42303,6 +42636,7 @@ type Sqlite3Config = struct {
 	FbUseCis             u8
 	FbSmallMalloc        u8
 	FbExtraSchemaChecks  u8
+	_                    [2]byte
 	FmxStrlen            int32
 	FneverCorrupt        int32
 	FszLookaside         int32
@@ -42412,6 +42746,7 @@ type VdbeCursor1 = struct {
 	FisTable        u8
 	_               [3]byte
 	FisEphemeral    uint8 /* Bool isEphemeral: 1, Bool useRandomRowid: 1, Bool isOrdered: 1, Bool seekHit: 1 */
+	_               [3]byte
 	FpBtx           uintptr
 	FseqCount       i64
 	FaAltMap        uintptr
@@ -42531,6 +42866,7 @@ type ScanStatus1 = struct {
 	FaddrVisit   int32
 	FiSelectID   int32
 	FnEst        LogEst
+	_            [2]byte
 	FzName       uintptr
 } /* vdbeInt.h:349:9 */
 
@@ -51389,6 +51725,7 @@ type MemPage1 = struct {
 	FchildPtrSize    u8
 	Fmax1bytePayload u8
 	FnOverflow       u8
+	_                [1]byte
 	FmaxLocal        u16
 	FminLocal        u16
 	FcellOffset      u16
@@ -51647,6 +51984,7 @@ type BtLock1 = struct {
 	FpBtree uintptr
 	FiTable Pgno
 	FeLock  u8
+	_       [3]byte
 	FpNext  uintptr
 } /* btree.h:39:9 */
 
@@ -62090,6 +62428,7 @@ func registerTestFunctions(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk u
 	for i = 0; uint32(i) < (uint32(unsafe.Sizeof(aFuncs)) / uint32(unsafe.Sizeof(struct {
 		FzName    uintptr
 		FnArg     int8
+		_         [3]byte
 		FeTextRep uint32
 		FxFunc    uintptr
 	}{}))); i++ {
@@ -62108,6 +62447,7 @@ func registerTestFunctions(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk u
 var aFuncs = [20]struct {
 	FzName    uintptr
 	FnArg     int8
+	_         [3]byte
 	FeTextRep uint32
 	FxFunc    uintptr
 }{
@@ -64393,6 +64733,7 @@ type MemFault = struct {
 	FnOkBefore    int32
 	FnOkAfter     int32
 	Fenable       u8
+	_             [3]byte
 	FisInstalled  int32
 	FisBenignMode int32
 	Fm            sqlite3_mem_methods

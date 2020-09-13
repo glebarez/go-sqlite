@@ -107,6 +107,8 @@ var (
 )
 
 func TestMain(m *testing.M) {
+	fmt.Printf("test binary compiled for %s/%s\n", runtime.GOOS, runtime.GOARCH)
+
 	flag.Parse()
 	os.Exit(m.Run())
 }

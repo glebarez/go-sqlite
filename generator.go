@@ -194,7 +194,6 @@ var (
 		//TODO "-DSQLITE_ENABLE_ICU",
 		//TODO "-DSQLITE_MAX_EXPR_DEPTH=0", // bug reported https://sqlite.org/forum/forumpost/87b9262f66, fixed in https://sqlite.org/src/info/5f58dd3a19605b6f
 		//TODO "-DSQLITE_MAX_MMAP_SIZE=8589934592", // testfixture, bug reported https://sqlite.org/forum/forumpost/34380589f7, fixed in https://sqlite.org/src/info/d8e47382160e98be
-		//TODO 386 "-DSQLITE_MAX_MMAP_SIZE=0", // mmap somehow fails on linux/386
 		//TODO- "-DSQLITE_DEBUG",
 		//TODO- "-DSQLITE_ENABLE_API_ARMOR",
 		//TODO- "-DSQLITE_MEMDEBUG",
