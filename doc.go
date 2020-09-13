@@ -7,7 +7,7 @@
 //
 // Changelog
 //
-// 2020-09-08 v1.7.0:
+// 2020-09-13 v1.7.0:
 //
 // Support linux/arm and linux/arm64.
 //
