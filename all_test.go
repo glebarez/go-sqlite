@@ -799,3 +799,30 @@ func TestNoRows(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+// https://gitlab.com/cznic/sqlite/-/issues/28
+func TestIssue28(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(tempDir)
+
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "test.db"))
+	if err != nil {
+		t.Fatalf("test.db open fail: %v", err)
+	}
+
+	defer db.Close()
+
+	if _, err := db.Exec(`CREATE TABLE test (foo TEXT)`); err != nil {
+		t.Fatal(err)
+	}
+
+	row := db.QueryRow(`SELECT foo FROM test`)
+	var foo string
+	if err = row.Scan(&foo); err != sql.ErrNoRows {
+		t.Fatalf("got %T(%[1]v), expected %T(%[2]v)", err, sql.ErrNoRows)
+	}
+}

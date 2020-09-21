@@ -29,6 +29,7 @@ var (
 	//lint:ignore SA1019 TODO implement QueryerContext
 	_ driver.Queryer = (*conn)(nil)
 	_ driver.Result  = (*result)(nil)
+	_ driver.Rows    = noRows{}
 	_ driver.Rows    = (*rows)(nil)
 	_ driver.Stmt    = (*stmt)(nil)
 	_ driver.Tx      = (*tx)(nil)
@@ -496,6 +497,11 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 				pstmt = 0
 				return nil
 			case sqlite3.SQLITE_DONE:
+				if r == nil {
+					pstmt = 0
+					r = noRows{}
+					return nil
+				}
 				// nop
 			default:
 				return s.c.errstr(int32(rc))
@@ -515,6 +521,12 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 	}
 	return r, err
 }
+
+type noRows struct{}
+
+func (noRows) Columns() []string         { return nil }
+func (noRows) Close() error              { return nil }
+func (noRows) Next([]driver.Value) error { return sql.ErrNoRows }
 
 type tx struct {
 	c *conn
