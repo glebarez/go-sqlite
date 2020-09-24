@@ -9,11 +9,11 @@ honnef.co/go/netdb v0.0.0-20150201073656-a416d700ae39 h1:Oyv66NRkI9fnsvTlaB9foJo
 honnef.co/go/netdb v0.0.0-20150201073656-a416d700ae39/go.mod h1:rbNo0ST5hSazCG4rGfpHrwnwvzP1QX62WbhzD+ghGzs=
 modernc.org/httpfs v1.0.0 h1:LtuKNg6JMiaBKVQHKd6Phhvk+2GFp+pUcmDQgRjrds0=
 modernc.org/httpfs v1.0.0/go.mod h1:BSkfoMUcahSijQD5J/Vu4UMOxzmEf5SNRwyXC4PJBEw=
-modernc.org/libc v1.3.0 h1:QDzrcLTipZqFjG6D3qJuLic8xBUDMrOOo4RzF6z54D0=
-modernc.org/libc v1.3.0/go.mod h1:f8sp9GAfEyGYh3lsRIKtBh/XwACdFvGznxm6GJmQvXk=
+modernc.org/libc v1.3.1 h1:ZAAaxQZtb94hXvlPMEQybXBLLxEtJlQtVfvLkKOPZ5w=
+modernc.org/libc v1.3.1/go.mod h1:f8sp9GAfEyGYh3lsRIKtBh/XwACdFvGznxm6GJmQvXk=
 modernc.org/mathutil v1.1.1 h1:FeylZSVX8S+58VsyJlkEj2bcpdytmp9MmDKZkKx8OIE=
 modernc.org/mathutil v1.1.1/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
 modernc.org/memory v1.0.1 h1:bhVo78NAdgvRD4N+b2hGnAwL5RP2+QyiEJDsX3jpeDA=
 modernc.org/memory v1.0.1/go.mod h1:NSjvC08+g3MLOpcAxQbdctcThAEX4YlJ20WWHYEhvRg=
-modernc.org/tcl v1.4.0 h1:miuC1xUpcdrmSZKVDiq1xxymcEZ2X9rp0JV7yvs03Rs=
-modernc.org/tcl v1.4.0/go.mod h1:dEwJsUYh2dOuBmEJWp8uVWBRhJ+qZp7B5ABAPzYpsuk=
+modernc.org/tcl v1.4.1 h1:8ERwg+o+EFtrXmXDOVuGGmo+EkEh8Bkokb/ybI3kXPQ=
+modernc.org/tcl v1.4.1/go.mod h1:8YCvzidU9SIwkz7RZwlCWK61mhV8X9UwfkRDRp7y5e0=
