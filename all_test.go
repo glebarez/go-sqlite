@@ -826,3 +826,67 @@ func TestIssue28(t *testing.T) {
 		t.Fatalf("got %T(%[1]v), expected %T(%[2]v)", err, sql.ErrNoRows)
 	}
 }
+
+// https://gitlab.com/cznic/sqlite/-/issues/30
+func TestIssue30(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.RemoveAll(tempDir)
+
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "test.db"))
+	if err != nil {
+		t.Fatalf("test.db open fail: %v", err)
+	}
+
+	defer db.Close()
+
+	_, err = db.Query("CREATE TABLE IF NOT EXISTS `userinfo` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT,`username` VARCHAR(64) NULL, `departname` VARCHAR(64) NULL, `created` DATE NULL);")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	insertStatement := `INSERT INTO userinfo(username, departname, created) values("astaxie", "研发部门", "2012-12-09")`
+	_, err = db.Query(insertStatement)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rows2, err := db.Query("SELECT * FROM userinfo")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	columnTypes, _ := rows2.ColumnTypes()
+	var b strings.Builder
+	for rows2.Next() {
+		for index, value := range columnTypes {
+			precision, scale, precisionOk := value.DecimalSize()
+			length, lengthOk := value.Length()
+			nullable, nullableOk := value.Nullable()
+			fmt.Fprintf(&b, "Col %d: DatabaseTypeName %q, DecimalSize %v %v %v, Length %v %v, Name %q, Nullable %v %v, ScanType %q\n",
+				index,
+				value.DatabaseTypeName(),
+				precision, scale, precisionOk,
+				length, lengthOk,
+				value.Name(),
+				nullable, nullableOk,
+				value.ScanType(),
+			)
+		}
+	}
+	if err := rows2.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	if g, e := b.String(), `Col 0: DatabaseTypeName "INTEGER", DecimalSize 0 0 false, Length 0 false, Name "uid", Nullable true true, ScanType "int64"
+Col 1: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "username", Nullable true true, ScanType "string"
+Col 2: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "departname", Nullable true true, ScanType "string"
+Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "created", Nullable true true, ScanType "string"
+`; g != e {
+		t.Fatalf("---- got\n%s\n----expected\n%s", g, e)
+	}
+	t.Log(b.String())
+}
