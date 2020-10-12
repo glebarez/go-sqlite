@@ -916,6 +916,10 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 			if p, err = c.bindText(pstmt, i, x.String()); err != nil {
 				return allocs, err
 			}
+		case nil:
+			if p, err = c.bindNull(pstmt, i); err != nil {
+				return allocs, err
+			}
 		default:
 			return allocs, fmt.Errorf("sqlite: invalid driver.Value type %T", x)
 		}
@@ -924,6 +928,15 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 		}
 	}
 	return allocs, nil
+}
+
+// int sqlite3_bind_null(sqlite3_stmt*, int);
+func (c *conn) bindNull(pstmt uintptr, idx1 int) (uintptr, error) {
+	if rc := sqlite3.Xsqlite3_bind_null(c.tls, pstmt, int32(idx1)); rc != sqlite3.SQLITE_OK {
+		return 0, c.errstr(rc)
+	}
+
+	return 0, nil
 }
 
 // int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));
