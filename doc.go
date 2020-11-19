@@ -5,6 +5,12 @@
 // Package sqlite is an in-process implementation of a self-contained,
 // serverless, zero-configuration, transactional SQL database engine.
 //
+// Builders
+//
+// Test results available at
+//
+//	https://modern-c.appspot.com/-/builder/?importpath=modernc.org%2fsqlite
+//
 // Changelog
 //
 // 2020-09-13 v1.7.0:

@@ -7,3 +7,5 @@ Installation
     $ go get modernc.org/sqlite
 
 Documentation: [godoc.org/modernc.org/sqlite](http://godoc.org/modernc.org/sqlite)
+
+Builders: [modern-c.appspot.com/-/builder/?importpath=modernc.org%2fsqlite](https://modern-c.appspot.com/-/builder/?importpath=modernc.org%2fsqlite)
