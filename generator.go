@@ -175,7 +175,6 @@ var (
 		"-DSQLITE_TEMP_STORE=1", // testfixture
 		"-DSQLITE_TEST",
 		"-DSQLITE_THREADSAFE=1",
-		"-ccgo-long-double-is-double",
 		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
 		//DONT "-DSQLITE_DQS=0", // testfixture
 		//DONT "-DSQLITE_ENABLE_SESSION", // Needs UTF16
@@ -511,8 +510,8 @@ func makeTestfixture(goos, goarch string, more []string) {
 				"-DTCLSH_INIT_PROC=sqlite3TestInit",
 				"-D_HAVE_SQLITE_CONFIG_H",
 				"-I/usr/include/tcl8.6", //TODO should not be hardcoded
-				"-ccgo-export-defines", "",
-				"-ccgo-export-fields", "F",
+				"-export-defines", "",
+				"-export-fields", "F",
 				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/lib",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
@@ -576,14 +575,14 @@ func makeSqlite(goos, goarch string, more []string) {
 		join(
 			[]string{
 				"-DSQLITE_PRIVATE=",
-				"-ccgo-export-defines", "",
-				"-ccgo-export-enums", "",
-				"-ccgo-export-externs", "X",
-				"-ccgo-export-fields", "F",
-				"-ccgo-export-typedefs", "",
-				"-ccgo-pkgname", "sqlite3",
+				"-export-defines", "",
+				"-export-enums", "",
+				"-export-externs", "X",
+				"-export-fields", "F",
+				"-export-typedefs", "",
+				"-pkgname", "sqlite3",
 				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", goos, goarch)),
-				//TODO "-ccgo-volatile", "sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_search_count,sqlite3_sort_count",
+				//TODO "-volatile", "sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_search_count,sqlite3_sort_count",
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
 			more,
