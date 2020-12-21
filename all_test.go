@@ -535,7 +535,11 @@ func TestConcurrentProcesses(t *testing.T) {
 		}
 	}
 
-	args := []string{"build", "-o", filepath.Join(dir, "mptest")}
+	bin := "./mptest"
+	if runtime.GOOS == "windows" {
+		bin += "mptest.exe"
+	}
+	args := []string{"build", "-o", filepath.Join(dir, bin)}
 	if s := *oXTags; s != "" {
 		args = append(args, "-tags", s)
 	}
@@ -563,7 +567,7 @@ outer:
 			continue
 		}
 
-		out, err := exec.Command(filepath.FromSlash("./mptest"), "db", "--trace", "2", script).CombinedOutput()
+		out, err := exec.Command(filepath.FromSlash(bin), "db", "--trace", "2", script).CombinedOutput()
 		if err != nil {
 			t.Fatalf("%s\n%v", out, err)
 		}

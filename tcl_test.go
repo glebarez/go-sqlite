@@ -46,7 +46,11 @@ func TestTclTest(t *testing.T) {
 
 	defer os.RemoveAll(dir)
 
-	testfixture := filepath.Join(dir, "testfixture")
+	bin := "testfixture"
+	if runtime.GOOS == "windows" {
+		bin += ".exe"
+	}
+	testfixture := filepath.Join(dir, bin)
 	args0 := []string{"build", "-o", testfixture}
 	tags := "-tags=libc.nofsync"
 	if s := *oXTags; s != "" {
@@ -108,13 +112,8 @@ func TestTclTest(t *testing.T) {
 	if *oStart != "" {
 		args = append(args, fmt.Sprintf("-start=%s", *oStart))
 	}
-	switch runtime.GOOS {
-	case "windows":
-		panic(todo(""))
-	default:
-		os.Setenv("PATH", fmt.Sprintf("%s:%s", dir, os.Getenv("PATH")))
-	}
-	cmd = exec.Command(testfixture, args...)
+	os.Setenv("PATH", fmt.Sprintf("%s%c%s", dir, os.PathListSeparator, os.Getenv("PATH")))
+	cmd = exec.Command(bin, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {

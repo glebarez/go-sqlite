@@ -170,7 +170,6 @@ var (
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MUTEX_APPDEF=1",
 		"-DSQLITE_MUTEX_NOOP",
-		"-DSQLITE_OS_UNIX=1", // testfixture //TODO adjust for non unix OS
 		"-DSQLITE_SOUNDEX",
 		"-DSQLITE_TEMP_STORE=1", // testfixture
 		"-DSQLITE_TEST",
@@ -344,6 +343,17 @@ func main() {
 	}
 	more = append(more, ndebug...)
 	download()
+	switch goos {
+	case "linux":
+		config = append(config, "-DSQLITE_OS_UNIX=1")
+	case "windows":
+		config = append(config,
+			"-DSQLITE_OS_WIN=1",
+			"-D_MSC_VER=1900",
+		)
+	default:
+		fail("unknows/unsupported os: %s\n", goos)
+	}
 	makeSqlite(goos, goarch, more)
 	makeMpTest(goos, goarch, more)
 	makeSpeedTest(goos, goarch, more)
@@ -378,7 +388,7 @@ func main() {
 	}
 }
 
-func configure() {
+func configure(goos, goarch string) {
 	wd, err := os.Getwd()
 	if err != nil {
 		fail("%s", err)
@@ -390,7 +400,25 @@ func configure() {
 		fail("%s", err)
 	}
 
-	cmd := newCmd("./configure")
+	cmd := newCmd("make", "distclean")
+	cmd.Run()
+	var args []string
+	switch goos {
+	case "linux":
+		// nop
+	case "windows":
+		switch goarch {
+		case "amd64":
+			args = append(args, "--host=x86_64-w64-mingw32")
+		case "386":
+			args = append(args, "--host=i686-w64-mingw32")
+		default:
+			fail("unknown/unsupported os/arch: %s/%s\n", goos, goarch)
+		}
+	default:
+		fail("unknown/unsupported os/arch: %s/%s\n", goos, goarch)
+	}
+	cmd = newCmd("./configure", args...)
 	if err = cmd.Run(); err != nil {
 		fail("%s\n", err)
 	}
@@ -499,7 +527,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 	for i, v := range files {
 		files[i] = filepath.Join(sqliteSrcDir, filepath.FromSlash(v))
 	}
-	configure()
+	configure(goos, goarch)
 	cmd := newCmd(
 		"ccgo",
 		join(
@@ -512,6 +540,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 				"-I/usr/include/tcl8.6", //TODO should not be hardcoded
 				"-export-defines", "",
 				"-export-fields", "F",
+				"-trace-translation-units",
 				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/lib",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
@@ -539,6 +568,7 @@ func makeSpeedTest(goos, goarch string, more []string) {
 		join(
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
+				"-trace-translation-units",
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
@@ -557,6 +587,7 @@ func makeMpTest(goos, goarch string, more []string) {
 		join(
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
+				"-trace-translation-units",
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
@@ -582,6 +613,7 @@ func makeSqlite(goos, goarch string, more []string) {
 				"-export-typedefs", "",
 				"-pkgname", "sqlite3",
 				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", goos, goarch)),
+				"-trace-translation-units",
 				//TODO "-volatile", "sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_search_count,sqlite3_sort_count",
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
