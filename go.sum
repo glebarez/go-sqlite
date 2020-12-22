@@ -15,5 +15,5 @@ modernc.org/mathutil v1.2.1 h1:PSIN4RdyeB6MbFsNLSkFCzDjnEVEMS3H/hFHcJtAJ9g=
 modernc.org/mathutil v1.2.1/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
 modernc.org/memory v1.0.1 h1:bhVo78NAdgvRD4N+b2hGnAwL5RP2+QyiEJDsX3jpeDA=
 modernc.org/memory v1.0.1/go.mod h1:NSjvC08+g3MLOpcAxQbdctcThAEX4YlJ20WWHYEhvRg=
-modernc.org/tcl v0.0.0-20201221200705-343a236b1106 h1:mP/e8LgLPfqr6b1fNyq03hy6hwu/BqcseG6K04TW8Eo=
-modernc.org/tcl v0.0.0-20201221200705-343a236b1106/go.mod h1:3IN9CNEjF/IlYfSWpipyFojaYY4c1mSTDJTn3W1W5jg=
+modernc.org/tcl v0.0.0-20201222160935-1e2cd05a3470 h1:A4pHRpTtrMPcyP2Xo0IDkS0aVKaa9ONITFxPvApFY1I=
+modernc.org/tcl v0.0.0-20201222160935-1e2cd05a3470/go.mod h1:3IN9CNEjF/IlYfSWpipyFojaYY4c1mSTDJTn3W1W5jg=
