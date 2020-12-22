@@ -1126,7 +1126,7 @@ type size_t = uint64 /* <builtin>:9:23 */
 
 type wchar_t = uint16 /* <builtin>:15:24 */
 
-type va_list = uintptr /* <builtin>:46:27 */
+type va_list = uintptr /* <builtin>:48:27 */
 
 // CAPI3REF: 64-Bit Integer Types
 // KEYWORDS: sqlite_int64 sqlite_uint64
