@@ -2,76 +2,76 @@ go version go1.15.6 linux/amd64
 Linux 3900x 4.19.0-12-amd64 #1 SMP Debian 4.19.152-1 (2020-10-18) x86_64 GNU/Linux
 test binary compiled for linux/amd64
 === RUN   TestScalar
---- PASS: TestScalar (0.00s)
+--- PASS: TestScalar (0.01s)
 === RUN   TestBlob
---- PASS: TestBlob (0.00s)
+--- PASS: TestBlob (0.01s)
 === RUN   TestIssue11
---- PASS: TestIssue11 (0.05s)
+--- PASS: TestIssue11 (0.06s)
 === RUN   TestMemDB
---- PASS: TestMemDB (2.16s)
+--- PASS: TestMemDB (2.34s)
 === RUN   TestConcurrentGoroutines
-    all_test.go:507: 8 goroutines concurrently inserted 40000 rows in 345.411621ms
---- PASS: TestConcurrentGoroutines (0.38s)
+    all_test.go:507: 8 goroutines concurrently inserted 40000 rows in 354.552597ms
+--- PASS: TestConcurrentGoroutines (0.39s)
 === RUN   TestConcurrentProcesses
     all_test.go:592: config01.test: Summary: 0 errors out of 163 tests
     all_test.go:592: config02.test: Summary: 0 errors out of 627 tests
     all_test.go:592: crash01.test: Summary: 0 errors out of 94 tests
     all_test.go:592: multiwrite01.test: Summary: 0 errors out of 81 tests
---- PASS: TestConcurrentProcesses (18.02s)
+--- PASS: TestConcurrentProcesses (18.24s)
 === RUN   TestIssue19
---- PASS: TestIssue19 (0.01s)
+--- PASS: TestIssue19 (0.03s)
 === RUN   TestIssue20
---- PASS: TestIssue20 (5.99s)
+--- PASS: TestIssue20 (9.30s)
 === RUN   TestNoRows
 --- PASS: TestNoRows (0.00s)
 === RUN   TestIssue28
---- PASS: TestIssue28 (0.00s)
+--- PASS: TestIssue28 (0.01s)
 === RUN   TestIssue30
     all_test.go:895: Col 0: DatabaseTypeName "INTEGER", DecimalSize 0 0 false, Length 0 false, Name "uid", Nullable true true, ScanType "int64"
         Col 1: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "username", Nullable true true, ScanType "string"
         Col 2: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "departname", Nullable true true, ScanType "string"
         Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "created", Nullable true true, ScanType "string"
         
---- PASS: TestIssue30 (0.00s)
+--- PASS: TestIssue30 (0.01s)
 === RUN   TestNullBinding
 --- PASS: TestNullBinding (0.00s)
 === RUN   TestNamedParameters
---- PASS: TestNamedParameters (0.00s)
+--- PASS: TestNamedParameters (0.01s)
 === RUN   TestTclTest
 Time: 8_3_names.test 6 ms
 Time: affinity2.test 9 ms
 Time: affinity3.test 8 ms
 Time: aggerror.test 7 ms
-Time: aggnested.test 13 ms
+Time: aggnested.test 12 ms
 Time: alias.test 5 ms
-Time: alter.test 35 ms
-Time: alter2.test 15 ms
-Time: alter3.test 33 ms
+Time: alter.test 34 ms
+Time: alter2.test 14 ms
+Time: alter3.test 32 ms
 Time: alter4.test 26 ms
 Time: alterauth.test 7 ms
 Time: alterauth2.test 7 ms
-Time: altercol.test 68 ms
-Time: alterlegacy.test 30 ms
-Time: altermalloc.test 24479 ms
-Time: altermalloc2.test 2997 ms
-Time: altertab.test 38 ms
+Time: altercol.test 67 ms
+Time: alterlegacy.test 29 ms
+Time: altermalloc.test 24790 ms
+Time: altermalloc2.test 3055 ms
+Time: altertab.test 39 ms
 Time: altertab2.test 29 ms
-Time: altertab3.test 30 ms
+Time: altertab3.test 31 ms
 Time: amatch1.test 5 ms
 Time: analyze.test 18 ms
-Time: analyze3.test 51 ms
+Time: analyze3.test 55 ms
 Time: analyze4.test 12 ms
 Time: analyze5.test 107 ms
 Time: analyze6.test 10 ms
 Time: analyze7.test 8 ms
-Time: analyze8.test 77 ms
- (nByte=3631 nByte2=4631)Time: analyze9.test 474 ms
+Time: analyze8.test 68 ms
+ (nByte=3631 nByte2=4631)Time: analyze9.test 480 ms
 Time: analyzeC.test 10 ms
-Time: analyzeD.test 58 ms
-Time: analyzeE.test 16 ms
-Time: analyzeF.test 38 ms
+Time: analyzeD.test 57 ms
+Time: analyzeE.test 17 ms
+Time: analyzeF.test 39 ms
 Time: analyzeG.test 7 ms
-analyzer1 cannot run because /tmp/sqlite-test-401429706/sqlite3_analyzer is not available
+analyzer1 cannot run because /tmp/sqlite-test-709538402/sqlite3_analyzer is not available
 Time: analyzer1.test 5 ms
 Skipping async2 tests: not compiled with required features
 Time: async2.test 5 ms
@@ -84,14 +84,14 @@ No f2fs atomic-batch-write support. Skipping tests...
 Time: atomic.test 5 ms
 No f2fs atomic-batch-write support. Skipping tests...
 Time: atomic2.test 6 ms
-Time: attach.test 21 ms
+Time: attach.test 20 ms
 Time: attach2.test 11 ms
 Time: attach3.test 10 ms
 Testing with SQLITE_MAX_ATTACHED=10
 Time: attach4.test 11 ms
-Time: attachmalloc.test 2328 ms
+Time: attachmalloc.test 2312 ms
 Time: auth.test 38 ms
-Time: auth2.test 12 ms
+Time: auth2.test 7 ms
 Time: auth3.test 7 ms
 Time: autoanalyze1.test 5 ms
 Time: autoinc.test 24 ms
@@ -100,24 +100,24 @@ Time: autoindex2.test 10 ms
 Time: autoindex3.test 8 ms
 Time: autoindex4.test 7 ms
 Time: autoindex5.test 10 ms
-Time: autovacuum.test 249 ms
-Time: autovacuum_ioerr2.test 921 ms
-Time: avtrans.test 3862 ms
+Time: autovacuum.test 232 ms
+Time: autovacuum_ioerr2.test 906 ms
+Time: avtrans.test 3838 ms
 WARNING: No historical binaries to test against.
 WARNING: Omitting backwards-compatibility tests
 Time: backcompat.test 7 ms
 Time: backup.test 843 ms
 Time: backup2.test 316 ms
-Time: backup4.test 9 ms
+Time: backup4.test 11 ms
 Time: backup5.test 6 ms
-Time: backup_ioerr.test 201169 ms
-Time: backup_malloc.test 9430 ms
+Time: backup_ioerr.test 202963 ms
+Time: backup_malloc.test 9462 ms
 Time: badutf.test 7 ms
 Time: badutf2.test 8 ms
-Time: bestindex1.test 13 ms
+Time: bestindex1.test 11 ms
 Time: bestindex2.test 7 ms
 Time: bestindex3.test 9 ms
-Time: bestindex4.test 183 ms
+Time: bestindex4.test 179 ms
 Time: bestindex5.test 10 ms
 Time: bestindex6.test 7 ms
 Time: bestindex7.test 7 ms
@@ -126,43 +126,43 @@ Time: bigfile.test 9 ms
 Time: bigfile2.test 7 ms
 Skipping bigmmap.test - requires SQLITE_MAX_MMAP_SIZE >= 8G
 Time: bigmmap.test 5 ms
-Time: bigrow.test 109 ms
-Time: bigsort.test 48881 ms
-Time: bind.test 600 ms
+Time: bigrow.test 111 ms
+Time: bigsort.test 46914 ms
+Time: bind.test 416 ms
 Time: bindxfer.test 6 ms
-Time: bitvec.test 1225 ms
-Time: blob.test 8 ms
-Time: boundary1.test 105 ms
+Time: bitvec.test 1236 ms
+Time: blob.test 7 ms
+Time: boundary1.test 101 ms
 Time: boundary2.test 226 ms
-Time: boundary3.test 184 ms
-Time: boundary4.test 16 ms
-Time: btree01.test 350 ms
+Time: boundary3.test 177 ms
+Time: boundary4.test 15 ms
+Time: btree01.test 344 ms
 Time: btree02.test 8 ms
-Time: btreefault.test 325 ms
+Time: btreefault.test 309 ms
 Time: busy.test 6 ms
-Time: busy2.test 6061 ms
+Time: busy2.test 6056 ms
 Time: cache.test 17 ms
 Time: cacheflush.test 14 ms
 Time: cachespill.test 10 ms
 Time: capi2.test 14 ms
-Time: capi3.test 104 ms
+Time: capi3.test 103 ms
 Time: capi3b.test 9 ms
 Time: capi3c.test 107 ms
-Time: capi3d.test 164 ms
+Time: capi3d.test 167 ms
 Time: capi3e.test 11 ms
 Time: cast.test 10 ms
-Time: cffault.test 504 ms
+Time: cffault.test 496 ms
 Time: check.test 18 ms
 Time: checkfault.test 21 ms
 Time: chunksize.test 6 ms
 Time: close.test 7 ms
-Time: closure01.test 804 ms
+Time: closure01.test 792 ms
 Time: coalesce.test 7 ms
-Time: collate1.test 15 ms
-Time: collate2.test 17 ms
+Time: collate1.test 14 ms
+Time: collate2.test 16 ms
 Time: collate3.test 14 ms
 Time: collate4.test 21 ms
-Time: collate5.test 72 ms
+Time: collate5.test 67 ms
 Time: collate6.test 8 ms
 Time: collate7.test 6 ms
 Time: collate8.test 7 ms
@@ -170,14 +170,14 @@ Time: collate9.test 7 ms
 Time: collateA.test 9 ms
 Time: collateB.test 8 ms
 Time: colmeta.test 12 ms
-Time: colname.test 14 ms
-Time: conflict.test 50 ms
+Time: colname.test 13 ms
+Time: conflict.test 49 ms
 Time: conflict2.test 50 ms
-Time: conflict3.test 16 ms
+Time: conflict3.test 15 ms
 Time: contrib01.test 7 ms
-Time: corrupt.test 3343 ms
-Time: corrupt2.test 30 ms
-Time: corrupt3.test 6 ms
+Time: corrupt.test 3412 ms
+Time: corrupt2.test 32 ms
+Time: corrupt3.test 7 ms
 Time: corrupt4.test 6 ms
 Time: corrupt5.test 6 ms
 Time: corrupt6.test 9 ms
@@ -185,114 +185,114 @@ Time: corrupt7.test 6 ms
 Time: corrupt8.test 37 ms
 Time: corrupt9.test 11 ms
 Time: corruptA.test 7 ms
-Time: corruptB.test 76 ms
-Time: corruptC.test 10884 ms
+Time: corruptB.test 77 ms
+Time: corruptC.test 11075 ms
 Time: corruptD.test 9 ms
-Time: corruptE.test 13 ms
-Time: corruptF.test 99 ms
-Time: corruptG.test 6 ms
+Time: corruptE.test 14 ms
+Time: corruptF.test 102 ms
+Time: corruptG.test 7 ms
 Time: corruptH.test 9 ms
 Time: corruptI.test 13 ms
-Time: corruptJ.test 7 ms
-Time: corruptK.test 10 ms
-Time: corruptL.test 32 ms
+Time: corruptJ.test 8 ms
+Time: corruptK.test 11 ms
+Time: corruptL.test 41 ms
 Time: corruptM.test 10 ms
 Time: cost.test 20 ms
-Time: count.test 185 ms
+Time: count.test 188 ms
 Time: countofview.test 7 ms
 Time: coveridxscan.test 8 ms
-Time: crash.test 8592 ms
-Time: crash2.test 2579 ms
-Time: crash3.test 6823 ms
-Time: crash4.test 4100 ms
-Time: crash5.test 3351 ms
-Time: crash6.test 3606 ms
-Time: crash7.test 8829 ms
-Time: crash8.test 358 ms
-Time: crashM.test 6 ms
+Time: crash.test 8291 ms
+Time: crash2.test 2608 ms
+Time: crash3.test 6541 ms
+Time: crash4.test 3937 ms
+Time: crash5.test 3327 ms
+Time: crash6.test 3675 ms
+Time: crash7.test 8831 ms
+Time: crash8.test 353 ms
+Time: crashM.test 8 ms
 Time: createtab.test 41 ms
-Time: cse.test 31 ms
-Time: csv01.test 9 ms
+Time: cse.test 30 ms
+Time: csv01.test 10 ms
 Time: ctime.test 8 ms
 Time: cursorhint.test 5 ms
 Time: cursorhint2.test 5 ms
 Time: dataversion1.test 6 ms
-Time: date.test 301 ms
+Time: date.test 303 ms
 Time: date2.test 18 ms
 Time: dbdata.test 5 ms
-Time: dbfuzz001.test 15 ms
+Time: dbfuzz001.test 11 ms
 Time: dbpage.test 8 ms
-Time: dbstatus.test 10 ms
-Time: dbstatus2.test 12 ms
-Time: decimal.test 28 ms
-Time: default.test 15 ms
-Time: delete.test 76 ms
+Time: dbstatus.test 8 ms
+Time: dbstatus2.test 7 ms
+Time: decimal.test 38 ms
+Time: default.test 8 ms
+Time: delete.test 79 ms
 Time: delete2.test 7 ms
-Time: delete3.test 571 ms
-Time: delete4.test 16 ms
-Time: delete_db.test 16 ms
-Time: descidx1.test 12 ms
-Time: descidx2.test 7 ms
-Time: descidx3.test 7 ms
-Time: diskfull.test 542 ms
-Time: distinct.test 19 ms
-Time: distinct2.test 17 ms
+Time: delete3.test 598 ms
+Time: delete4.test 17 ms
+Time: delete_db.test 17 ms
+Time: descidx1.test 13 ms
+Time: descidx2.test 8 ms
+Time: descidx3.test 8 ms
+Time: diskfull.test 570 ms
+Time: distinct.test 20 ms
+Time: distinct2.test 18 ms
 Time: distinctagg.test 6 ms
-Time: e_blobbytes.test 378 ms
-Time: e_blobclose.test 11 ms
-Time: e_blobopen.test 16 ms
+Time: e_blobbytes.test 416 ms
+Time: e_blobclose.test 12 ms
+Time: e_blobopen.test 17 ms
 Time: e_blobwrite.test 9 ms
-Time: e_changes.test 21 ms
-Time: e_createtable.test 188 ms
+Time: e_changes.test 22 ms
+Time: e_createtable.test 192 ms
 Time: e_delete.test 13 ms
-Time: e_droptrigger.test 83 ms
-Time: e_dropview.test 30 ms
-Time: e_expr.test 918 ms
-Time: e_fkey.test 2474 ms
+Time: e_droptrigger.test 85 ms
+Time: e_dropview.test 31 ms
+Time: e_expr.test 975 ms
+Time: e_fkey.test 2631 ms
 Time: e_fts3.test 6 ms
-Time: e_insert.test 23 ms
+Time: e_insert.test 24 ms
 Time: e_reindex.test 19 ms
-Time: e_resolve.test 13 ms
-Time: e_select.test 72 ms
-Time: e_select2.test 101 ms
-Time: e_totalchanges.test 16 ms
-Time: e_update.test 18 ms
-Time: e_uri.test 20 ms
-Time: e_vacuum.test 91 ms
-Time: e_wal.test 9 ms
-Time: e_walauto.test 668 ms
-Time: e_walckpt.test 100 ms
-Time: e_walhook.test 7 ms
-Time: emptytable.test 7 ms
-Time: enc.test 28 ms
-Time: enc2.test 18 ms
+Time: e_resolve.test 14 ms
+Time: e_select.test 76 ms
+Time: e_select2.test 108 ms
+Time: e_totalchanges.test 17 ms
+Time: e_update.test 20 ms
+Time: e_uri.test 21 ms
+Time: e_vacuum.test 96 ms
+Time: e_wal.test 10 ms
+Time: e_walauto.test 699 ms
+Time: e_walckpt.test 110 ms
+Time: e_walhook.test 8 ms
+Time: emptytable.test 8 ms
+Time: enc.test 37 ms
+Time: enc2.test 19 ms
 Time: enc3.test 7 ms
 Time: enc4.test 57 ms
-Time: eqp.test 15 ms
+Time: eqp.test 16 ms
 Time: errmsg.test 7 ms
-Time: eval.test 7 ms
-Time: exclusive.test 11 ms
+Time: eval.test 8 ms
+Time: exclusive.test 12 ms
 Time: exclusive2.test 10 ms
 Time: exec.test 6 ms
-Time: exists.test 149 ms
-Time: expr.test 73 ms
+Time: exists.test 150 ms
+Time: expr.test 71 ms
 Time: expr2.test 6 ms
 Time: extension01.test 6 ms
-Time: fallocate.test 23 ms
+Time: fallocate.test 22 ms
 Time: filectrl.test 6 ms
 Time: filefmt.test 14 ms
-Time: filter1.test 12 ms
-Time: filter2.test 8 ms
-Time: filterfault.test 78 ms
+Time: filter1.test 11 ms
+Time: filter2.test 7 ms
+Time: filterfault.test 70 ms
 Time: fkey1.test 11 ms
-Time: fkey2.test 120 ms
+Time: fkey2.test 118 ms
 Time: fkey3.test 11 ms
 Time: fkey4.test 6 ms
-Time: fkey5.test 18 ms
+Time: fkey5.test 17 ms
 Time: fkey6.test 10 ms
 Time: fkey7.test 9 ms
-Time: fkey8.test 19 ms
-Time: fkey_malloc.test 3473 ms
+Time: fkey8.test 18 ms
+Time: fkey_malloc.test 3439 ms
 Time: fordelete.test 12 ms
 Time: format4.test 6 ms
 Time: fts-9fd058691.test 5 ms
@@ -303,35 +303,35 @@ Time: fts1d.test 5 ms
 Time: fts1e.test 5 ms
 Time: fts1f.test 5 ms
 Time: fts1i.test 5 ms
-Time: fts1j.test 5 ms
+Time: fts1j.test 7 ms
 Time: fts1k.test 5 ms
 Time: fts1l.test 5 ms
 Time: fts1m.test 5 ms
 Time: fts1n.test 5 ms
 Time: fts1o.test 5 ms
-Time: fts1porter.test 12 ms
-Time: fts2.test 5 ms
-Time: fts2a.test 5 ms
+Time: fts1porter.test 18 ms
+Time: fts2.test 8 ms
+Time: fts2a.test 9 ms
 Time: fts2b.test 5 ms
 Time: fts2c.test 5 ms
 Time: fts2d.test 5 ms
-Time: fts2e.test 10 ms
-Time: fts2f.test 7 ms
+Time: fts2e.test 5 ms
+Time: fts2f.test 5 ms
 Time: fts2g.test 5 ms
 Time: fts2h.test 5 ms
 Time: fts2i.test 5 ms
 Time: fts2j.test 5 ms
-Time: fts2k.test 6 ms
+Time: fts2k.test 5 ms
 Time: fts2l.test 5 ms
-Time: fts2m.test 5 ms
-Time: fts2n.test 5 ms
-Time: fts2o.test 6 ms
-Time: fts2p.test 6 ms
+Time: fts2m.test 6 ms
+Time: fts2n.test 7 ms
+Time: fts2o.test 5 ms
+Time: fts2p.test 5 ms
 Time: fts2q.test 5 ms
 Time: fts2r.test 5 ms
 Time: fts2token.test 5 ms
-Time: fts3aa.test 5 ms
-Time: fts3ab.test 6 ms
+Time: fts3aa.test 6 ms
+Time: fts3ab.test 7 ms
 Time: fts3ac.test 6 ms
 Time: fts3ad.test 5 ms
 Time: fts3ae.test 5 ms
@@ -350,7 +350,7 @@ Time: fts3auto.test 5 ms
 Time: fts3aux1.test 5 ms
 Time: fts3aux2.test 5 ms
 Time: fts3b.test 5 ms
-Time: fts3c.test 5 ms
+Time: fts3c.test 6 ms
 Time: fts3comp1.test 5 ms
 Time: fts3conf.test 5 ms
 Time: fts3corrupt.test 5 ms
@@ -368,7 +368,7 @@ Time: fts3drop.test 5 ms
 Time: fts3e.test 5 ms
 Time: fts3expr.test 5 ms
 Time: fts3expr2.test 5 ms
-Time: fts3expr3.test 5 ms
+Time: fts3expr3.test 6 ms
 Time: fts3expr4.test 5 ms
 Time: fts3expr5.test 5 ms
 Time: fts3fault.test 5 ms
@@ -394,8 +394,8 @@ Time: fts3sort.test 5 ms
 Time: fts3tok1.test 5 ms
 Time: fts3tok_err.test 5 ms
 Time: fts3varint.test 5 ms
-Time: fts4aa.test 11 ms
-Time: fts4check.test 6 ms
+Time: fts4aa.test 5 ms
+Time: fts4check.test 5 ms
 Time: fts4content.test 5 ms
 Time: fts4docid.test 5 ms
 Time: fts4growth.test 5 ms
@@ -411,29 +411,29 @@ Time: fts4merge5.test 5 ms
 Time: fts4min.test 5 ms
 Time: fts4noti.test 5 ms
 Time: fts4onepass.test 5 ms
-Time: fts4opt.test 6 ms
+Time: fts4opt.test 5 ms
 Time: fts4record.test 5 ms
-Time: fts4rename.test 5 ms
+Time: fts4rename.test 6 ms
 Time: fts4umlaut.test 5 ms
 Time: fts4unicode.test 5 ms
 Time: fts4upfrom.test 5 ms
-Time: func.test 516 ms
+Time: func.test 519 ms
 Time: func2.test 10 ms
 Time: func3.test 7 ms
 Time: func4.test 17 ms
 Time: func5.test 6 ms
 Time: func6.test 25 ms
-Time: fuzz-oss1.test 40 ms
-Time: fuzz.test 189710 ms
+Time: fuzz-oss1.test 44 ms
+Time: fuzz.test 190429 ms
 Time: fuzz2.test 7 ms
-Time: fuzz3.test 17330 ms
+Time: fuzz3.test 17218 ms
 Time: fuzz4.test 8 ms
-Time: fuzz_malloc.test 4080 ms
-Time: fuzzer1.test 83 ms
+Time: fuzz_malloc.test 4105 ms
+Time: fuzzer1.test 85 ms
 This test is slow - perhaps around 7 seconds on an average pc
-Time: fuzzer2.test 3307 ms
-Time: fuzzerfault.test 921 ms
-Time: gcfault.test 38 ms
+Time: fuzzer2.test 3344 ms
+Time: fuzzerfault.test 885 ms
+Time: gcfault.test 39 ms
 Time: gencol1.test 28 ms
 Time: having.test 12 ms
 Time: hexlit.test 11 ms
@@ -441,24 +441,24 @@ Time: hidden.test 5 ms
 Time: hook.test 28 ms
 Time: hook2.test 10 ms
 Time: icu.test 5 ms
-Time: ieee754.test 6 ms
+Time: ieee754.test 7 ms
 Time: imposter1.test 8 ms
 Time: in.test 19 ms
-Time: in2.test 5080 ms
-Time: in3.test 17 ms
+Time: in2.test 5228 ms
+Time: in3.test 18 ms
 Time: in4.test 14 ms
-Time: in5.test 12 ms
+Time: in5.test 13 ms
 Time: in6.test 8 ms
-Time: incrblob.test 23 ms
-Time: incrblob2.test 45 ms
-Time: incrblob3.test 16 ms
+Time: incrblob.test 24 ms
+Time: incrblob2.test 46 ms
+Time: incrblob3.test 17 ms
 Time: incrblob4.test 11 ms
-Time: incrblob_err.test 10525 ms
-Time: incrblobfault.test 37 ms
+Time: incrblob_err.test 10684 ms
+Time: incrblobfault.test 38 ms
 Time: incrcorrupt.test 8 ms
-Time: incrvacuum.test 145 ms
-Time: incrvacuum2.test 278 ms
-Time: incrvacuum3.test 327 ms
+Time: incrvacuum.test 149 ms
+Time: incrvacuum2.test 284 ms
+Time: incrvacuum3.test 330 ms
 nFree=21 nPage=24
 nFree=21 nPage=24
 nFree=21 nPage=24
@@ -502,76 +502,76 @@ nFree=6 nPage=9
 nFree=6 nPage=9
 nFree=6 nPage=9
 nFree=1 nPage=4
-Time: incrvacuum_ioerr.test 4183 ms
+Time: incrvacuum_ioerr.test 4186 ms
 Time: index.test 43 ms
-Time: index2.test 240 ms
+Time: index2.test 241 ms
 Time: index3.test 8 ms
-Time: index4.test 1260 ms
-Time: index5.test 4034 ms
-Time: index6.test 29 ms
-Time: index7.test 24 ms
-Time: index8.test 6 ms
+Time: index4.test 1304 ms
+Time: index5.test 4207 ms
+Time: index6.test 31 ms
+Time: index7.test 25 ms
+Time: index8.test 7 ms
 Time: index9.test 9 ms
-Time: indexedby.test 14 ms
-Time: indexexpr1.test 22 ms
-Time: indexexpr2.test 18 ms
-Time: indexfault.test 7081 ms
-Time: init.test 8 ms
+Time: indexedby.test 15 ms
+Time: indexexpr1.test 23 ms
+Time: indexexpr2.test 19 ms
+Time: indexfault.test 7209 ms
+Time: init.test 9 ms
 Time: insert.test 21 ms
-Time: insert2.test 12 ms
-Time: insert3.test 72 ms
+Time: insert2.test 13 ms
+Time: insert3.test 77 ms
 Time: insert4.test 29 ms
 Time: insert5.test 7 ms
 Time: insertfault.test 41 ms
 Time: instr.test 12 ms
 Time: instrfault.test 19 ms
 Time: intarray.test 62 ms
-Time: interrupt.test 457 ms
+Time: interrupt.test 475 ms
 Time: interrupt2.test 14 ms
-Time: intpkey.test 14 ms
+Time: intpkey.test 15 ms
 Time: intreal.test 7 ms
-Time: io.test 46 ms
-Time: ioerr.test 3785 ms
-Time: ioerr2.test 2822 ms
+Time: io.test 47 ms
+Time: ioerr.test 3913 ms
+Time: ioerr2.test 2874 ms
 Time: ioerr3.test 98 ms
-Time: ioerr4.test 31 ms
-Time: ioerr5.test 27 ms
+Time: ioerr4.test 32 ms
+Time: ioerr5.test 29 ms
 skipping tests - not compiled with SQLITE_ENABLE_ATOMIC_WRITE...
-Time: ioerr6.test 5 ms
-Time: istrue.test 14 ms
-Time: join.test 29 ms
-Time: join2.test 14 ms
-Time: join3.test 92 ms
-Time: join4.test 14 ms
-Time: join5.test 301 ms
-Time: join6.test 9 ms
+Time: ioerr6.test 6 ms
+Time: istrue.test 12 ms
+Time: join.test 30 ms
+Time: join2.test 17 ms
+Time: join3.test 97 ms
+Time: join4.test 6 ms
+Time: join5.test 315 ms
+Time: join6.test 15 ms
 Time: journal1.test 6 ms
 Time: journal2.test 15 ms
 Time: journal3.test 8 ms
-Time: jrnlmode.test 20 ms
+Time: jrnlmode.test 18 ms
 Time: jrnlmode2.test 7 ms
-Time: jrnlmode3.test 19 ms
-Time: json101.test 17 ms
+Time: jrnlmode3.test 20 ms
+Time: json101.test 18 ms
 Time: json102.test 13 ms
-Time: json103.test 7 ms
+Time: json103.test 8 ms
 Time: json104.test 7 ms
 Time: json105.test 9 ms
-Time: keyword1.test 38 ms
+Time: keyword1.test 39 ms
 Time: lastinsert.test 11 ms
-Time: laststmtchanges.test 10 ms
- (13 ms - want less than 1000)  (14 ms - want less than 1000) Time: like.test 30 ms
+Time: laststmtchanges.test 13 ms
+ (14 ms - want less than 1000)  (16 ms - want less than 1000) Time: like.test 34 ms
 Time: like2.test 28 ms
 Time: like3.test 5 ms
-Time: limit.test 41 ms
+Time: limit.test 42 ms
 Time: limit2.test 18 ms
 Time: loadext.test 5 ms
 Time: loadext2.test 5 ms
 Time: lock.test 817 ms
-Time: lock2.test 19 ms
+Time: lock2.test 20 ms
 Time: lock3.test 11 ms
-Time: lock4.test 52 ms
-Time: lock5.test 11 ms
-Time: lock6.test 6 ms
+Time: lock4.test 53 ms
+Time: lock5.test 12 ms
+Time: lock6.test 5 ms
 Time: lock7.test 6 ms
 Time: lookaside.test 7 ms
 VERSION: 3.33.0 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
@@ -579,136 +579,136 @@ Time: main.test 9 ms
 This is a test.  Ignore the error that follows:
 Memory dump to file memdump.txt...
 open-file-count=0
-Time: malloc.test 19817 ms
-Time: malloc3.test 1822 ms
+Time: malloc.test 20256 ms
+Time: malloc3.test 1886 ms
 Time: malloc4.test 7 ms
 Highwater mark: 4691200
  (Highwater mark: 1708136)  (Highwater mark: 87832) Time: malloc5.test 119 ms
-Time: malloc6.test 408 ms
+Time: malloc6.test 425 ms
 open-file-count=0
-Time: malloc7.test 92 ms
-Time: malloc8.test 417 ms
-Time: malloc9.test 119 ms
-Time: mallocA.test 7290 ms
-Time: mallocB.test 139 ms
-Time: mallocC.test 707 ms
-Time: mallocD.test 641 ms
-Time: mallocE.test 266 ms
+Time: malloc7.test 84 ms
+Time: malloc8.test 410 ms
+Time: malloc9.test 115 ms
+Time: mallocA.test 7406 ms
+Time: mallocB.test 137 ms
+Time: mallocC.test 700 ms
+Time: mallocD.test 637 ms
+Time: mallocE.test 264 ms
 Time: mallocF.test 413 ms
-Time: mallocG.test 413 ms
-Time: mallocH.test 338 ms
-Time: mallocI.test 600 ms
-Time: mallocJ.test 345 ms
-Time: mallocK.test 6074 ms
-Time: mallocL.test 800 ms
+Time: mallocG.test 418 ms
+Time: mallocH.test 344 ms
+Time: mallocI.test 639 ms
+Time: mallocJ.test 353 ms
+Time: mallocK.test 6124 ms
+Time: mallocL.test 807 ms
 Time: mallocM.test 21 ms
-Time: manydb.test 234 ms
+Time: manydb.test 244 ms
 Time: mem5.test 5 ms
-Time: memdb.test 174 ms
+Time: memdb.test 177 ms
 Time: memdb1.test 35 ms
-Time: memsubsys1.test 107 ms
+Time: memsubsys1.test 113 ms
 Time: memsubsys2.test 6 ms
 Time: minmax.test 17 ms
 Time: minmax2.test 13 ms
-Time: minmax3.test 13 ms
+Time: minmax3.test 12 ms
 Time: minmax4.test 12 ms
 Time: misc1.test 127 ms
-Time: misc2.test 16 ms
+Time: misc2.test 24 ms
 Time: misc3.test 14 ms
 Time: misc4.test 10 ms
-Time: misc5.test 56 ms
+Time: misc5.test 53 ms
 Time: misc6.test 5 ms
-Time: misc7.test 2971 ms
+Time: misc7.test 2983 ms
 Time: misc8.test 10 ms
 Time: misuse.test 8 ms
 Time: mjournal.test 7 ms
-Time: mmap1.test 236 ms
-Time: mmap2.test 171 ms
+Time: mmap1.test 240 ms
+Time: mmap2.test 167 ms
 Time: mmap3.test 15 ms
-Time: mmap4.test 10863 ms
-Time: mmapfault.test 550 ms
-Time: mmapwarm.test 48 ms
-Time: multiplex.test 578 ms
-Time: multiplex2.test 141 ms
+Time: mmap4.test 10645 ms
+Time: mmapfault.test 570 ms
+Time: mmapwarm.test 50 ms
+Time: multiplex.test 594 ms
+Time: multiplex2.test 137 ms
 SQLite compiled without SQLITE_ENABLE_8_3_NAMES. Skipping tests multiplex3-*.
 Time: multiplex3.test 6 ms
-Time: multiplex4.test 11 ms
-Time: mutex1.test 7 ms
+Time: multiplex4.test 12 ms
+Time: mutex1.test 8 ms
 Time: mutex2.test 6 ms
-Time: nan.test 13 ms
+Time: nan.test 14 ms
 Time: nockpt.test 9 ms
-Time: nolock.test 9 ms
-Time: normalize.test 5 ms
-Time: notify1.test 286 ms
+Time: nolock.test 10 ms
+Time: normalize.test 6 ms
+Time: notify1.test 290 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 Time: notify2.test 5 ms
-Time: notify3.test 9 ms
+Time: notify3.test 10 ms
 Time: notnull.test 21 ms
 Time: null.test 9 ms
-Time: nulls1.test 16 ms
+Time: nulls1.test 17 ms
 Time: numcast.test 7 ms
-Time: numindex1.test 8 ms
-Time: offset1.test 7 ms
+Time: numindex1.test 9 ms
+Time: offset1.test 8 ms
 Time: openv2.test 6 ms
-Time: orderby1.test 166 ms
-Time: orderby2.test 9 ms
+Time: orderby1.test 170 ms
+Time: orderby2.test 8 ms
 Time: orderby3.test 7 ms
 Time: orderby4.test 7 ms
 Time: orderby5.test 10 ms
-Time: orderby6.test 84 ms
+Time: orderby6.test 81 ms
 Time: orderby7.test 5 ms
-Time: orderby8.test 122 ms
+Time: orderby8.test 118 ms
 Time: orderby9.test 7 ms
-Time: orderbyA.test 15 ms
-Time: oserror.test 89 ms
-Time: ovfl.test 51 ms
-Time: pager1.test 1108 ms
-Time: pager2.test 1832 ms
+Time: orderbyA.test 16 ms
+Time: oserror.test 92 ms
+Time: ovfl.test 49 ms
+Time: pager1.test 1133 ms
+Time: pager2.test 1835 ms
 Time: pager3.test 7 ms
 Time: pager4.test 7 ms
-Time: pagerfault.test 31298 ms
-Time: pagerfault2.test 42132 ms
+Time: pagerfault.test 30932 ms
+Time: pagerfault2.test 41617 ms
 Time: pagerfault3.test 30 ms
 Time: pageropt.test 8 ms
-Time: pagesize.test 78 ms
+Time: pagesize.test 79 ms
 Time: parser1.test 7 ms
 Time: pcache.test 8 ms
 Time: pcache2.test 7 ms
-Time: percentile.test 1529 ms
+Time: percentile.test 1493 ms
 Time: pragma.test 55 ms
 Time: pragma2.test 16 ms
 Time: pragma3.test 15 ms
 Time: pragma4.test 71 ms
 Time: pragma5.test 6 ms
-Time: pragmafault.test 112 ms
+Time: pragmafault.test 115 ms
 Time: prefixes.test 6 ms
-Time: printf.test 284 ms
+Time: printf.test 293 ms
 Time: printf2.test 8 ms
 Time: progress.test 8 ms
 Time: ptrchng.test 7 ms
 Time: pushdown.test 7 ms
 Time: queryonly.test 6 ms
 Time: quota-glob.test 8 ms
-Time: quota.test 259 ms
+Time: quota.test 254 ms
 Time: quota2.test 9 ms
 Time: quote.test 8 ms
-Time: randexpr1.test 488 ms
+Time: randexpr1.test 489 ms
 Time: rdonly.test 6 ms
 Time: recover.test 5 ms
-Time: regexp1.test 9 ms
+Time: regexp1.test 8 ms
 Time: regexp2.test 8 ms
 Time: reindex.test 10 ms
 Time: resetdb.test 12 ms
-Time: resolver01.test 8 ms
-Time: rollback.test 7 ms
+Time: resolver01.test 12 ms
+Time: rollback.test 10 ms
 Time: rollback2.test 34 ms
-Time: rollbackfault.test 25 ms
-Time: round1.test 4187 ms
-Time: rowallock.test 27 ms
-Time: rowhash.test 1171 ms
-Time: rowid.test 44 ms
-Time: rowvalue.test 30 ms
-Time: rowvalue2.test 551 ms
+Time: rollbackfault.test 29 ms
+Time: round1.test 4249 ms
+Time: rowallock.test 25 ms
+Time: rowhash.test 1187 ms
+Time: rowid.test 45 ms
+Time: rowvalue.test 31 ms
+Time: rowvalue2.test 567 ms
 Time: rowvalue3.test 20 ms
 Time: rowvalue4.test 41 ms
 Time: rowvalue5.test 7 ms
@@ -718,46 +718,46 @@ Time: rowvalue8.test 6 ms
 Time: rowvalue9.test 18 ms
 Time: rowvaluefault.test 27 ms
 Time: rowvaluevtab.test 25 ms
-Time: savepoint.test 146 ms
-Time: savepoint2.test 823 ms
-Time: savepoint4.test 29152 ms
-Time: savepoint5.test 10 ms
-Time: savepoint6.test 88223 ms
+Time: savepoint.test 142 ms
+Time: savepoint2.test 805 ms
+Time: savepoint4.test 28806 ms
+Time: savepoint5.test 9 ms
+Time: savepoint6.test 87403 ms
 Time: savepoint7.test 45 ms
-Time: savepointfault.test 3269 ms
+Time: savepointfault.test 3246 ms
 Time: scanstatus.test 5 ms
 Time: schema.test 10 ms
-Time: schema2.test 9 ms
-Time: schema3.test 48 ms
+Time: schema2.test 12 ms
+Time: schema3.test 49 ms
 Time: schema4.test 12 ms
 Time: schema5.test 7 ms
 Time: schema6.test 15 ms
 Time: schemafault.test 9 ms
 Time: securedel.test 6 ms
-Time: securedel2.test 14982 ms
-Time: select1.test 28 ms
-time with cache: 101828 microseconds per iteration
-time without cache: 256135 microseconds per iteration
-Time: select2.test 388 ms
-Time: select3.test 23 ms
-Time: select4.test 20 ms
+Time: securedel2.test 15444 ms
+Time: select1.test 29 ms
+time with cache: 100803 microseconds per iteration
+time without cache: 253554 microseconds per iteration
+Time: select2.test 385 ms
+Time: select3.test 24 ms
+Time: select4.test 21 ms
 Time: select5.test 10 ms
 Time: select6.test 15 ms
 Time: select7.test 12 ms
 Time: select8.test 6 ms
-Time: select9.test 3157 ms
-Time: selectA.test 34 ms
-Time: selectB.test 29 ms
+Time: select9.test 3249 ms
+Time: selectA.test 35 ms
+Time: selectB.test 30 ms
 Time: selectC.test 10 ms
 Time: selectD.test 11 ms
-Time: selectE.test 6 ms
+Time: selectE.test 7 ms
 Time: selectF.test 6 ms
-Time: selectG.test 570 ms
+Time: selectG.test 569 ms
 Time: server1.test 5 ms
-Time: shared.test 140 ms
+Time: shared.test 143 ms
 Time: shared2.test 25 ms
-Time: shared3.test 15 ms
-Time: shared4.test 8 ms
+Time: shared3.test 12 ms
+Time: shared4.test 9 ms
 Time: shared6.test 9 ms
 Time: shared7.test 6 ms
 Time: shared8.test 7 ms
@@ -765,212 +765,212 @@ Time: shared9.test 16 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 Time: sharedA.test 10 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
-Time: sharedB.test 7 ms
-Time: shared_err.test 21873 ms
+Time: sharedB.test 5 ms
+Time: shared_err.test 21955 ms
 Time: sharedlock.test 7 ms
 Time: shell1.test 6 ms
 Time: shell2.test 5 ms
 Time: shell3.test 5 ms
 Time: shell4.test 5 ms
-Time: shell5.test 7 ms
+Time: shell5.test 5 ms
 Time: shell6.test 5 ms
 Time: shell7.test 5 ms
 Time: shell8.test 5 ms
-Time: shmlock.test 987 ms
+Time: shmlock.test 982 ms
 Time: shortread1.test 6 ms
-Time: shrink.test 19 ms
-Time: sidedelete.test 118 ms
+Time: shrink.test 20 ms
+Time: sidedelete.test 119 ms
 Time: skipscan1.test 18 ms
-Time: skipscan2.test 63 ms
-Time: skipscan3.test 13 ms
-Time: skipscan5.test 57 ms
+Time: skipscan2.test 58 ms
+Time: skipscan3.test 12 ms
+Time: skipscan5.test 51 ms
 Time: skipscan6.test 13 ms
 Time: snapshot.test 18 ms
-Time: snapshot2.test 11 ms
-Time: snapshot3.test 7 ms
-Time: snapshot4.test 9 ms
-Time: snapshot_fault.test 1597 ms
+Time: snapshot2.test 10 ms
+Time: snapshot3.test 6 ms
+Time: snapshot4.test 7 ms
+Time: snapshot_fault.test 1557 ms
 Time: snapshot_up.test 8 ms
-Time: softheap1.test 6 ms
-Time: sort.test 780 ms
-Time: sort2.test 8065 ms
-Time: sort3.test 44527 ms
-Time: sort4.test 11060 ms
-Time: sort5.test 329 ms
+Time: softheap1.test 7 ms
+Time: sort.test 767 ms
+Time: sort2.test 7742 ms
+Time: sort3.test 45090 ms
+Time: sort4.test 11185 ms
+Time: sort5.test 330 ms
 Time: sorterref.test 7 ms
 singlethread
 singlethread
 singlethread
 singlethread
-Time: sortfault.test 131278 ms
+Time: sortfault.test 133352 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-speed1-insert1...           240866 uS         207584.29998 row/s
-speed1-insert2...           419599 uS         119161.38980 row/s
-speed1-select1...           274213 uS        9117000.28810 row/s
-speed1-select2...          1088338 uS        2297080.50256 row/s
-speed1-createidx...         123635 uS        1213248.67554 row/s
-speed1-select3...           126939 uS          39388.99787 stmt/s
-speed1-select4...           575475 uS         173769.49477 row/s
-speed1-select5...           810760 uS         123341.06271 row/s
-speed1-select6...           408395 uS         122430.49009 row/s
-speed1-vacuum...            194290 uS         514694.52880 row/s
-speed1-update1...            86345 uS          57907.23261 stmt/s
-speed1-update2...           569856 uS          87741.46451 row/s
-speed1-update3...           176271 uS         283654.14617 row/s
-speed1-update4...           734761 uS          68049.33849 row/s
-speed1-delete1...             8168 uS        6121449.55926 row/s
-speed1-copy1...             253807 uS         197000.08274 row/s
-speed1-delete2...           177758 uS         281281.29254 row/s
-speed1-copy2...             254125 uS         196753.56616 row/s
-speed1-drop1...               8445 uS        5920663.11427 row/s
-speed1-copy3...              24492 uS        2041482.93320 row/s
-speed1-random1...            60857 uS         821598.17277 row/s
-speed1-random-del1...        96842 uS         206521.96361 row/s
-speed1-random-del2...        77693 uS         257423.44870 row/s
-speed1                     6791930 uS TOTAL
-Time: speed1.test 8645 ms
+speed1-insert1...           245037 uS         204050.81682 row/s
+speed1-insert2...           422128 uS         118447.48512 row/s
+speed1-select1...           275815 uS        9064046.55294 row/s
+speed1-select2...          1115120 uS        2241911.18445 row/s
+speed1-createidx...         125362 uS        1196534.83512 row/s
+speed1-select3...           132793 uS          37652.58711 stmt/s
+speed1-select4...           592076 uS         168897.23617 row/s
+speed1-select5...           843672 uS         118529.47591 row/s
+speed1-select6...           427225 uS         117034.34958 row/s
+speed1-vacuum...            209062 uS         478327.00347 row/s
+speed1-update1...            89921 uS          55604.36383 stmt/s
+speed1-update2...           587437 uS          85115.51026 row/s
+speed1-update3...           180669 uS         276749.19328 row/s
+speed1-update4...           749786 uS          66685.69432 row/s
+speed1-delete1...             8522 uS        5867167.33161 row/s
+speed1-copy1...             257495 uS         194178.52774 row/s
+speed1-delete2...           179719 uS         278212.09777 row/s
+speed1-copy2...             266821 uS         187391.54714 row/s
+speed1-drop1...               8758 uS        5709065.99680 row/s
+speed1-copy3...              24754 uS        2019875.57566 row/s
+speed1-random1...            62429 uS         800909.83357 row/s
+speed1-random-del1...        99651 uS         200700.44455 row/s
+speed1-random-del2...        82443 uS         242591.85134 row/s
+speed1                     6986695 uS TOTAL
+Time: speed1.test 8851 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-speed1p-insert1...          201108 uS         248622.63063 row/s
-speed1p-insert2...          322569 uS         155005.59570 row/s
-speed1p-select1...          353917 uS        7063803.09508 row/s
-speed1p-select2...         1208636 uS        2068447.40683 row/s
-speed1p-createidx...        147920 uS        1014061.65495 row/s
-speed1p-select3...          103085 uS          48503.66203 stmt/s
-speed1p-select4...          350367 uS         285415.00769 row/s
-speed1p-select5...          482694 uS         207170.58841 row/s
-speed1p-select6...          224975 uS         222246.91632 row/s
-speed1p-vacuum...           187897 uS         532206.47482 row/s
-speed1p-update1...           65714 uS          76087.28734 stmt/s
-speed1p-update2...          441466 uS         113259.00522 row/s
-speed1p-update3...          277713 uS         180041.98579 row/s
-speed1p-update4...          603204 uS          82890.69701 row/s
-speed1p-delete1...            9601 uS        5207790.85512 row/s
-speed1p-copy1...            421795 uS         118540.99740 row/s
-speed1p-delete2...          357275 uS         139948.21916 row/s
-speed1p-copy2...            417162 uS         119857.51339 row/s
-speed1p-drop1...             10070 uS        4965243.29692 row/s
-speed1p-copy3...             23480 uS        2129471.89097 row/s
-speed1p-random1...           62851 uS         795532.29066 row/s
-speed1p-random-del1..       100824 uS         198365.46854 row/s
-speed1p-random-del2..        78199 uS         255757.74626 row/s
-speed1                     6452522 uS TOTAL
-Time: speed1p.test 8248 ms
+speed1p-insert1...          206238 uS         242438.34793 row/s
+speed1p-insert2...          333187 uS         150065.87892 row/s
+speed1p-select1...          361677 uS        6912244.90360 row/s
+speed1p-select2...         1212751 uS        2061428.93306 row/s
+speed1p-createidx...        159939 uS         937857.55819 row/s
+speed1p-select3...           99010 uS          50499.94950 stmt/s
+speed1p-select4...          358725 uS         278765.07074 row/s
+speed1p-select5...          507539 uS         197029.19382 row/s
+speed1p-select6...          235555 uS         212264.65157 row/s
+speed1p-vacuum...           195171 uS         512371.20269 row/s
+speed1p-update1...           70235 uS          71189.57785 stmt/s
+speed1p-update2...          449428 uS         111252.52543 row/s
+speed1p-update3...          286222 uS         174689.57662 row/s
+speed1p-update4...          642707 uS          77795.94745 row/s
+speed1p-delete1...            9923 uS        5038798.75038 row/s
+speed1p-copy1...            425204 uS         117590.61533 row/s
+speed1p-delete2...          366474 uS         136435.32693 row/s
+speed1p-copy2...            437004 uS         114415.42869 row/s
+speed1p-drop1...             10712 uS        4667662.43465 row/s
+speed1p-copy3...             24183 uS        2067568.12637 row/s
+speed1p-random1...           70758 uS         706633.87885 row/s
+speed1p-random-del1..       110716 uS         180642.36425 row/s
+speed1p-random-del2..        79018 uS         253106.88704 row/s
+speed1                     6652376 uS TOTAL
+Time: speed1p.test 8486 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-speed2-insert1...           262584 uS         190415.25759 row/s
-speed2-insert2...           448111 uS         111579.49704 row/s
-speed2-select1a...          271519 uS        9207458.77821 row/s
-speed2-select2a...         1136791 uS        2199172.93504 row/s
-speed2-vacuum1...           100015 uS         999850.02250 row/s
-speed2-select1b...          271400 uS        9211495.94694 row/s
-speed2-select2b...         1157342 uS        2160122.07282 row/s
-speed2-createidx...         128108 uS        1170887.06404 row/s
-speed2-select3a...          137768 uS          36292.89821 stmt/s
-speed2-select4a...          752259 uS         132932.93932 row/s
-speed2-select5a...          952193 uS         105020.72584 row/s
-speed2-select6a...          472277 uS         105870.07201 row/s
-speed2-vacuum2...           188601 uS         530219.88219 row/s
-speed2-select3b...          141404 uS          35359.67865 stmt/s
-speed2-select4b...          759821 uS         131609.94497 row/s
-speed2-select5b...          930203 uS         107503.41592 row/s
-speed2-select6b...          482021 uS         103729.92048 row/s
-speed2-update1...            89595 uS          55806.68564 stmt/s
-speed2-update2...           597971 uS          83616.09509 row/s
-speed2-update3...           176843 uS         282736.66473 row/s
-speed2-update4...           767267 uS          65166.36321 row/s
-speed2-delete1...             8292 uS        6029908.34539 row/s
-speed2-copy1...             258567 uS         193373.47767 row/s
-speed2-delete2...           177105 uS         282318.39869 row/s
-speed2-copy2...             255770 uS         195488.13387 row/s
-speed2-drop1...               8534 uS        5858917.27209 row/s
-speed2-copy3...              23773 uS        2103226.34922 row/s
-speed2-random1...            61073 uS         818692.38452 row/s
-speed2-random-del1...        96194 uS         207913.17546 row/s
-speed2-random-del2...        75154 uS         266120.23312 row/s
-speed2                    11188555 uS TOTAL
-Time: speed2.test 13593 ms
+speed2-insert1...           263816 uS         189526.03330 row/s
+speed2-insert2...           472265 uS         105872.76211 row/s
+speed2-select1a...          277926 uS        8995200.16119 row/s
+speed2-select2a...         1134480 uS        2203652.77484 row/s
+speed2-vacuum1...           103710 uS         964227.17192 row/s
+speed2-select1b...          280901 uS        8899932.71651 row/s
+speed2-select2b...         1130643 uS        2211131.18818 row/s
+speed2-createidx...         126823 uS        1182750.76287 row/s
+speed2-select3a...          140581 uS          35566.68398 stmt/s
+speed2-select4a...          761068 uS         131394.30379 row/s
+speed2-select5a...          943752 uS         105960.04035 row/s
+speed2-select6a...          476386 uS         104956.90469 row/s
+speed2-vacuum2...           187186 uS         534227.98714 row/s
+speed2-select3b...          138871 uS          36004.63740 stmt/s
+speed2-select4b...          748122 uS         133668.03810 row/s
+speed2-select5b...          927539 uS         107812.17825 row/s
+speed2-select6b...          466518 uS         107177.00067 row/s
+speed2-update1...            90085 uS          55503.13593 stmt/s
+speed2-update2...           594605 uS          84089.43753 row/s
+speed2-update3...           175017 uS         285686.53331 row/s
+speed2-update4...           753366 uS          66368.80348 row/s
+speed2-delete1...             8196 uS        6100536.84724 row/s
+speed2-copy1...             255473 uS         195715.39850 row/s
+speed2-delete2...           176936 uS         282588.05444 row/s
+speed2-copy2...             255873 uS         195409.44140 row/s
+speed2-drop1...               8449 uS        5917860.10179 row/s
+speed2-copy3...              23907 uS        2091437.65424 row/s
+speed2-random1...            61468 uS         813431.37893 row/s
+speed2-random-del1...       102409 uS         195295.33537 row/s
+speed2-random-del2...        75424 uS         265167.58591 row/s
+speed2                    11161795 uS TOTAL
+Time: speed2.test 13512 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-speed3-1.incrvacuum..         7542 uS         132590.82471 row/s
-speed3-1.normal...           10540 uS          94876.66034 row/s
+speed3-1.incrvacuum..         7256 uS         137816.97905 row/s
+speed3-1.normal...           10521 uS          95047.99924 row/s
 Incrvacuum: Read 1098, wrote 94
 Normal    : Read 9014, wrote 43
-speed3-2.incrvacuum..         5027 uS         198925.80068 row/s
-speed3-2.normal...            8572 uS         116658.88941 row/s
+speed3-2.incrvacuum..         4770 uS         209643.60587 row/s
+speed3-2.normal...            8728 uS         114573.78552 row/s
 Incrvacuum: Read 2841, wrote 1
 Normal    : Read 9993, wrote 0
-Time: speed3.test 271 ms
+Time: speed3.test 270 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-speed4-join1...              39246 uS        1274015.18626 row/s
-speed4-join2...             294225 uS         169937.97264 row/s
-speed4-view1...             149057 uS          67088.42926 stmt/s
-speed4-table1...            105833 uS          94488.48658 stmt/s
-speed4-subselect1...        262371 uS          38113.96839 stmt/s
-speed4-trigger1...          242225 uS          41283.93023 stmt/s
-speed4-trigger2...          125338 uS          79784.26335 stmt/s
-speed4-trigger3...          113730 uS          87927.54770 stmt/s
-speed4-notrigger1...         53623 uS         186487.14171 stmt/s
-speed4-notrigger2...         59779 uS         167282.82507 stmt/s
-speed4-notrigger3...         42003 uS         238078.23251 stmt/s
-speed4                     1487430 uS TOTAL
-Time: speed4.test 4011 ms
+speed4-join1...              39604 uS        1262498.73750 row/s
+speed4-join2...             297183 uS         168246.50131 row/s
+speed4-view1...             147459 uS          67815.46057 stmt/s
+speed4-table1...            104407 uS          95779.01865 stmt/s
+speed4-subselect1...        255935 uS          39072.42073 stmt/s
+speed4-trigger1...          221134 uS          45221.44944 stmt/s
+speed4-trigger2...          125896 uS          79430.64116 stmt/s
+speed4-trigger3...          114319 uS          87474.52305 stmt/s
+speed4-notrigger1...         54044 uS         185034.41640 stmt/s
+speed4-notrigger2...         59831 uS         167137.43711 stmt/s
+speed4-notrigger3...         41703 uS         239790.90233 stmt/s
+speed4                     1461515 uS TOTAL
+Time: speed4.test 3945 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-speed4p-join1...             39997 uS        1250093.75703 row/s
-speed4p-join2...            245028 uS         204058.31170 row/s
-speed4p-view1...             54886 uS         182195.82407 stmt/s
-speed4p-table1...            50074 uS         199704.43743 stmt/s
-speed4p-subselect1...        63146 uS         158363.15839 stmt/s
-speed4p-rowid-update.        32395 uS         308689.61259 stmt/s
-speed4p-insert-ignore       104222 uS         479745.15937 row/s
-speed4p-unique-update       139242 uS         226153.02854 stmt/s
-speed4p-trigger1...          62136 uS         160937.29883 stmt/s
-speed4p-trigger2...          49972 uS         200112.06276 stmt/s
-speed4p-trigger3...          33194 uS         301259.26372 stmt/s
-speed4p-notrigger1...        31451 uS         317954.91399 stmt/s
-speed4p-notrigger2...        42432 uS         235671.19155 stmt/s
-speed4p-notrigger3...        25140 uS         397772.47414 stmt/s
-speed4                      973315 uS TOTAL
-Time: speed4p.test 3480 ms
-Time: spellfix.test 68 ms
+speed4p-join1...             41785 uS        1196601.65131 row/s
+speed4p-join2...            250318 uS         199745.92319 row/s
+speed4p-view1...             55315 uS         180782.78948 stmt/s
+speed4p-table1...            52931 uS         188925.20451 stmt/s
+speed4p-subselect1...        63105 uS         158466.04865 stmt/s
+speed4p-rowid-update.        32500 uS         307692.30769 stmt/s
+speed4p-insert-ignore       105165 uS         475443.35092 row/s
+speed4p-unique-update       139632 uS         225521.37046 stmt/s
+speed4p-trigger1...          62921 uS         158929.45122 stmt/s
+speed4p-trigger2...          50474 uS         198121.80529 stmt/s
+speed4p-trigger3...          33368 uS         299688.32414 stmt/s
+speed4p-notrigger1...        31222 uS         320286.97713 stmt/s
+speed4p-notrigger2...        42153 uS         237231.03931 stmt/s
+speed4p-notrigger3...        25103 uS         398358.76190 stmt/s
+speed4                      985992 uS TOTAL
+Time: speed4p.test 3499 ms
+Time: spellfix.test 67 ms
 Time: spellfix2.test 9 ms
 Time: spellfix3.test 6 ms
-Time: spellfix4.test 157 ms
+Time: spellfix4.test 158 ms
 Time: sqldiff1.test 5 ms
-Time: sqllimits1.test 916 ms
+Time: sqllimits1.test 934 ms
 Time: sqllog.test 6 ms
-Time: stat.test 16 ms
-Time: statfault.test 236 ms
+Time: stat.test 24 ms
+Time: statfault.test 254 ms
 Time: stmt.test 7 ms
-Time: stmtvtab1.test 7 ms
-Time: subjournal.test 18 ms
-Time: subquery.test 17 ms
+Time: stmtvtab1.test 8 ms
+Time: subjournal.test 27 ms
+Time: subquery.test 14 ms
 Time: subquery2.test 10 ms
-Time: subselect.test 9 ms
-Time: substr.test 19 ms
-Time: subtype1.test 7 ms
-Time: superlock.test 39 ms
-Time: swarmvtab.test 1327 ms
-Time: swarmvtab2.test 14 ms
-Time: swarmvtab3.test 171 ms
-Time: swarmvtabfault.test 1381 ms
-Time: symlink.test 16 ms
-Time: symlink2.test 8 ms
+Time: subselect.test 8 ms
+Time: substr.test 14 ms
+Time: subtype1.test 6 ms
+Time: superlock.test 40 ms
+Time: swarmvtab.test 1303 ms
+Time: swarmvtab2.test 15 ms
+Time: swarmvtab3.test 173 ms
+Time: swarmvtabfault.test 1369 ms
+Time: symlink.test 15 ms
+Time: symlink2.test 5 ms
 Time: sync.test 6 ms
 Time: sync2.test 7 ms
-Time: syscall.test 77 ms
-Time: sysfault.test 765 ms
+Time: syscall.test 71 ms
+Time: sysfault.test 769 ms
 Time: tabfunc01.test 10 ms
-Time: table.test 747 ms
-Time: tableapi.test 125 ms
+Time: table.test 729 ms
+Time: tableapi.test 127 ms
 Time: tableopts.test 7 ms
 Time: tclsqlite.test 16 ms
 Time: tempdb.test 7 ms
 Time: tempdb2.test 10 ms
-Time: tempfault.test 16994 ms
-Time: temptable.test 12 ms
-Time: temptable2.test 3770 ms
+Time: tempfault.test 17147 ms
+Time: temptable.test 13 ms
+Time: temptable2.test 3805 ms
 Time: temptable3.test 6 ms
-Time: temptrigger.test 15 ms
+Time: temptrigger.test 11 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
-Time: thread001.test 7 ms
+Time: thread001.test 5 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 Time: thread002.test 5 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
@@ -978,7 +978,7 @@ Time: thread003.test 5 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 Time: thread004.test 5 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
-Time: thread005.test 5 ms
+Time: thread005.test 7 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 Time: thread1.test 5 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
@@ -987,252 +987,252 @@ Time: tkt-02a8e81d44.test 6 ms
 Time: tkt-18458b1a.test 7 ms
 Time: tkt-26ff0c2d1e.test 5 ms
 Time: tkt-2a5629202f.test 7 ms
-Time: tkt-2d1a5c67d.test 49 ms
+Time: tkt-2d1a5c67d.test 48 ms
 Time: tkt-2ea2425d34.test 6 ms
 Time: tkt-31338dca7e.test 10 ms
-Time: tkt-313723c356.test 34 ms
+Time: tkt-313723c356.test 33 ms
 Time: tkt-385a5b56b9.test 7 ms
 Time: tkt-38cb5df375.test 22 ms
 Time: tkt-3998683a16.test 6 ms
-Time: tkt-3a77c9714e.test 10 ms
-Time: tkt-3fe897352e.test 8 ms
+Time: tkt-3a77c9714e.test 7 ms
+Time: tkt-3fe897352e.test 6 ms
 Time: tkt-4a03edc4c8.test 6 ms
-Time: tkt-4c86b126f2.test 7 ms
+Time: tkt-4c86b126f2.test 6 ms
 Time: tkt-4dd95f6943.test 35 ms
 Time: tkt-4ef7e3cfca.test 7 ms
 Time: tkt-54844eea3f.test 7 ms
-Time: tkt-5d863f876e.test 27 ms
-Time: tkt-5e10420e8d.test 13 ms
+Time: tkt-5d863f876e.test 28 ms
+Time: tkt-5e10420e8d.test 11 ms
 Time: tkt-5ee23731f.test 6 ms
-Time: tkt-6bfb98dfc0.test 7 ms
-Time: tkt-752e1646fc.test 6 ms
+Time: tkt-6bfb98dfc0.test 12 ms
+Time: tkt-752e1646fc.test 7 ms
 Time: tkt-78e04e52ea.test 6 ms
 Time: tkt-7a31705a7e6.test 6 ms
 Time: tkt-7bbfb7d442.test 8 ms
-Time: tkt-80ba201079.test 9 ms
+Time: tkt-80ba201079.test 10 ms
 Time: tkt-80e031a00f.test 15 ms
 Time: tkt-8454a207b9.test 7 ms
 Time: tkt-868145d012.test 6 ms
 Time: tkt-8c63ff0ec.test 6 ms
 Time: tkt-91e2e8ba6f.test 6 ms
 Time: tkt-94c04eaadb.test 5 ms
-Time: tkt-9a8b09f8e6.test 9 ms
-Time: tkt-9d68c883.test 50 ms
-Time: tkt-9f2eb3abac.test 95 ms
-Time: tkt-a7b7803e.test 6 ms
-Time: tkt-a7debbe0.test 11 ms
+Time: tkt-9a8b09f8e6.test 8 ms
+Time: tkt-9d68c883.test 49 ms
+Time: tkt-9f2eb3abac.test 97 ms
+Time: tkt-a7b7803e.test 8 ms
+Time: tkt-a7debbe0.test 10 ms
 Time: tkt-a8a0d2996a.test 7 ms
 Time: tkt-b1d3a2e531.test 9 ms
-Time: tkt-b351d95f9.test 6 ms
+Time: tkt-b351d95f9.test 7 ms
 Time: tkt-b72787b1.test 6 ms
 Time: tkt-b75a9ca6b0.test 7 ms
-Time: tkt-ba7cbfaedc.test 9 ms
-Time: tkt-bd484a090c.test 6 ms
+Time: tkt-ba7cbfaedc.test 8 ms
+Time: tkt-bd484a090c.test 5 ms
 Time: tkt-bdc6bbbb38.test 5 ms
 Time: tkt-c48d99d690.test 6 ms
-Time: tkt-c694113d5.test 6 ms
+Time: tkt-c694113d5.test 5 ms
 Time: tkt-cbd054fa6b.test 8 ms
-Time: tkt-d11f09d36e.test 119 ms
+Time: tkt-d11f09d36e.test 122 ms
 Time: tkt-d635236375.test 6 ms
-Time: tkt-d82e3f3721.test 7 ms
+Time: tkt-d82e3f3721.test 8 ms
 Time: tkt-f3e5abed55.test 8 ms
 Time: tkt-f67b41381a.test 9 ms
 Time: tkt-f777251dc7a.test 8 ms
 Time: tkt-f7b4edec.test 6 ms
 Time: tkt-f973c7ac31.test 7 ms
 Time: tkt-fa7bf5ec.test 6 ms
-Time: tkt-fc62af4523.test 227 ms
+Time: tkt-fc62af4523.test 222 ms
 Time: tkt-fc7bd6358f.test 12 ms
-Time: tkt1435.test 6 ms
-Time: tkt1443.test 6 ms
+Time: tkt1435.test 7 ms
+Time: tkt1443.test 7 ms
 Time: tkt1444.test 6 ms
 Time: tkt1449.test 14 ms
-Time: tkt1473.test 11 ms
+Time: tkt1473.test 12 ms
 Time: tkt1501.test 6 ms
 Time: tkt1512.test 6 ms
-Time: tkt1514.test 5 ms
+Time: tkt1514.test 6 ms
 Time: tkt1536.test 6 ms
 Time: tkt1537.test 8 ms
 Time: tkt1567.test 22 ms
 Time: tkt1644.test 7 ms
 Time: tkt1667.test 163 ms
 Time: tkt1873.test 6 ms
-Time: tkt2141.test 6 ms
-Time: tkt2192.test 8 ms
+Time: tkt2141.test 7 ms
+Time: tkt2192.test 9 ms
 Time: tkt2213.test 5 ms
 Time: tkt2251.test 7 ms
 Time: tkt2285.test 6 ms
-Time: tkt2332.test 40 ms
+Time: tkt2332.test 41 ms
 Time: tkt2339.test 7 ms
 Time: tkt2391.test 6 ms
-Time: tkt2409.test 193 ms
+Time: tkt2409.test 199 ms
 Time: tkt2450.test 6 ms
 Time: tkt2565.test 13 ms
 Time: tkt2640.test 7 ms
 Time: tkt2643.test 6 ms
-Time: tkt2686.test 2565 ms
-Time: tkt2767.test 6 ms
+Time: tkt2686.test 2675 ms
+Time: tkt2767.test 7 ms
 Time: tkt2817.test 7 ms
 Time: tkt2820.test 8 ms
 Time: tkt2822.test 9 ms
 Time: tkt2832.test 7 ms
 Time: tkt2854.test 7 ms
-Time: tkt2920.test 6 ms
+Time: tkt2920.test 7 ms
 Time: tkt2927.test 12 ms
 Time: tkt2942.test 6 ms
 Time: tkt3080.test 7 ms
 Time: tkt3093.test 6 ms
 Time: tkt3121.test 6 ms
 Time: tkt3201.test 7 ms
-Time: tkt3292.test 6 ms
+Time: tkt3292.test 7 ms
 Time: tkt3298.test 7 ms
-Time: tkt3334.test 6 ms
+Time: tkt3334.test 7 ms
 Time: tkt3346.test 6 ms
 Time: tkt3357.test 6 ms
-Time: tkt3419.test 6 ms
+Time: tkt3419.test 7 ms
 Time: tkt3424.test 6 ms
 Time: tkt3442.test 6 ms
-Time: tkt3457.test 6 ms
+Time: tkt3457.test 7 ms
 Time: tkt3461.test 6 ms
-Time: tkt3493.test 7 ms
-Time: tkt3508.test 5 ms
+Time: tkt3493.test 8 ms
+Time: tkt3508.test 6 ms
 Time: tkt3522.test 6 ms
 Time: tkt3527.test 7 ms
-Time: tkt3541.test 5 ms
+Time: tkt3541.test 6 ms
 Time: tkt3554.test 6 ms
 Time: tkt3581.test 6 ms
-Time: tkt35xx.test 7 ms
+Time: tkt35xx.test 8 ms
 Time: tkt3630.test 6 ms
-Time: tkt3718.test 15 ms
+Time: tkt3718.test 16 ms
 Time: tkt3731.test 6 ms
 Time: tkt3757.test 6 ms
 Time: tkt3761.test 6 ms
 Time: tkt3762.test 12 ms
 Time: tkt3773.test 6 ms
-Time: tkt3791.test 5 ms
+Time: tkt3791.test 6 ms
 Time: tkt3793.test 14 ms
 Time: tkt3810.test 7 ms
-Time: tkt3824.test 7 ms
+Time: tkt3824.test 8 ms
 Time: tkt3832.test 6 ms
 Time: tkt3838.test 7 ms
 Time: tkt3841.test 6 ms
 Time: tkt3871.test 9 ms
 Time: tkt3879.test 6 ms
-Time: tkt3911.test 6 ms
+Time: tkt3911.test 7 ms
 Time: tkt3918.test 7 ms
-Time: tkt3922.test 6 ms
-Time: tkt3929.test 11 ms
+Time: tkt3922.test 7 ms
+Time: tkt3929.test 12 ms
 Time: tkt3935.test 6 ms
 Time: tkt3992.test 7 ms
 Time: tkt3997.test 6 ms
-Time: tkt4018.test 555 ms
-Time: tokenize.test 9 ms
+Time: tkt4018.test 571 ms
+Time: tokenize.test 12 ms
 Time: tpch01.test 11 ms
-Time: trace.test 10 ms
+Time: trace.test 9 ms
 Time: trace2.test 6 ms
 Time: trace3.test 9 ms
-Time: trans.test 3681 ms
-Time: trans2.test 8516 ms
+Time: trans.test 3595 ms
+Time: trans2.test 8324 ms
 Time: trans3.test 7 ms
 Time: transitive1.test 18 ms
 Time: trigger1.test 22 ms
-Time: trigger2.test 73 ms
+Time: trigger2.test 75 ms
 Time: trigger3.test 9 ms
-Time: trigger4.test 11 ms
+Time: trigger4.test 12 ms
 Time: trigger5.test 6 ms
-Time: trigger6.test 7 ms
+Time: trigger6.test 6 ms
 Time: trigger7.test 8 ms
 Time: trigger8.test 6 ms
-Time: trigger9.test 11 ms
-Time: triggerA.test 226 ms
-Time: triggerB.test 66 ms
-Time: triggerC.test 1463 ms
+Time: trigger9.test 12 ms
+Time: triggerA.test 231 ms
+Time: triggerB.test 65 ms
+Time: triggerC.test 1344 ms
 Time: triggerD.test 10 ms
 Time: triggerE.test 8 ms
-Time: triggerF.test 10 ms
+Time: triggerF.test 9 ms
 Time: triggerG.test 8 ms
-Time: triggerupfrom.test 11 ms
+Time: triggerupfrom.test 10 ms
 Time: trustschema1.test 12 ms
-Time: types.test 37 ms
-Time: types2.test 34 ms
+Time: types.test 36 ms
+Time: types2.test 33 ms
 Time: types3.test 6 ms
-Time: unionvtab.test 29 ms
-Time: unionvtabfault.test 1346 ms
+Time: unionvtab.test 28 ms
+Time: unionvtabfault.test 1284 ms
 Time: unique.test 10 ms
 Time: unique2.test 11 ms
-Time: unixexcl.test 56 ms
-Time: unordered.test 11 ms
-Time: update.test 72 ms
-Time: update2.test 16 ms
-Time: upfrom1.test 11 ms
-Time: upfrom2.test 20 ms
-Time: upfrom3.test 18 ms
-Time: upfromfault.test 720 ms
-Time: upsert1.test 14 ms
-Time: upsert2.test 10 ms
-Time: upsert3.test 6 ms
+Time: unixexcl.test 49 ms
+Time: unordered.test 12 ms
+Time: update.test 75 ms
+Time: update2.test 17 ms
+Time: upfrom1.test 12 ms
+Time: upfrom2.test 25 ms
+Time: upfrom3.test 25 ms
+Time: upfromfault.test 777 ms
+Time: upsert1.test 15 ms
+Time: upsert2.test 11 ms
+Time: upsert3.test 7 ms
 Time: upsert4.test 26 ms
-Time: upsertfault.test 73 ms
-Time: uri.test 22 ms
+Time: upsertfault.test 89 ms
+Time: uri.test 24 ms
 Time: uri2.test 5 ms
-Time: userauth01.test 5 ms
-Time: utf16align.test 7 ms
-Time: vacuum-into.test 13 ms
-Time: vacuum.test 34 ms
-Time: vacuum2.test 13 ms
-Time: vacuum3.test 9430 ms
+Time: userauth01.test 7 ms
+Time: utf16align.test 8 ms
+Time: vacuum-into.test 18 ms
+Time: vacuum.test 39 ms
+Time: vacuum2.test 14 ms
+Time: vacuum3.test 9800 ms
 Time: vacuum4.test 7 ms
-Time: vacuum5.test 49 ms
+Time: vacuum5.test 50 ms
 Time: vacuummem.test 5 ms
-Time: varint.test 79 ms
-Time: view.test 1127 ms
-Time: vtab1.test 154 ms
+Time: varint.test 80 ms
+Time: view.test 1165 ms
+Time: vtab1.test 164 ms
 Time: vtab2.test 8 ms
-Time: vtab3.test 7 ms
+Time: vtab3.test 8 ms
 Time: vtab4.test 8 ms
 Time: vtab5.test 9 ms
-Time: vtab6.test 460 ms
-Time: vtab7.test 11 ms
-Time: vtab8.test 11 ms
-Time: vtab9.test 6 ms
-Time: vtabA.test 10 ms
-Time: vtabB.test 6 ms
-Time: vtabC.test 1349 ms
-Time: vtabD.test 959 ms
+Time: vtab6.test 476 ms
+Time: vtab7.test 9 ms
+Time: vtab8.test 7 ms
+Time: vtab9.test 7 ms
+Time: vtabA.test 11 ms
+Time: vtabB.test 7 ms
+Time: vtabC.test 1403 ms
+Time: vtabD.test 982 ms
 Time: vtabE.test 7 ms
 Time: vtabF.test 7 ms
-Time: vtabH.test 19 ms
+Time: vtabH.test 18 ms
 Time: vtabI.test 9 ms
 Time: vtabJ.test 9 ms
-Time: vtab_alter.test 8 ms
-Time: vtab_err.test 28025 ms
+Time: vtab_alter.test 9 ms
+Time: vtab_err.test 28682 ms
 Time: vtab_shared.test 16 ms
 Time: vtabdrop.test 9 ms
-Time: wal.test 707 ms
-Time: wal2.test 139 ms
-Time: wal3.test 3180 ms
-Time: wal4.test 106 ms
-Time: wal5.test 780 ms
-Time: wal6.test 15 ms
-Time: wal64k.test 305 ms
+Time: wal.test 706 ms
+Time: wal2.test 136 ms
+Time: wal3.test 3142 ms
+Time: wal4.test 103 ms
+Time: wal5.test 765 ms
+Time: wal6.test 14 ms
+Time: wal64k.test 327 ms
 Time: wal7.test 14 ms
 Time: wal8.test 8 ms
-Time: wal9.test 339 ms
-Time: walbak.test 31 ms
-Time: walbig.test 7 ms
+Time: wal9.test 355 ms
+Time: walbak.test 32 ms
+Time: walbig.test 8 ms
 Time: walblock.test 5 ms
-Time: walcksum.test 41 ms
-Time: walcrash.test 6422 ms
-Time: walcrash2.test 6564 ms
-Time: walcrash3.test 114999 ms
-Time: walcrash4.test 1410 ms
-Time: walfault.test 9211 ms
-Time: walfault2.test 876 ms
-Time: walhook.test 8 ms
+Time: walcksum.test 49 ms
+Time: walcrash.test 6286 ms
+Time: walcrash2.test 6589 ms
+Time: walcrash3.test 113817 ms
+Time: walcrash4.test 1377 ms
+Time: walfault.test 9650 ms
+Time: walfault2.test 875 ms
+Time: walhook.test 7 ms
 Time: walmode.test 17 ms
 Time: walnoshm.test 9 ms
-Time: waloverwrite.test 39 ms
-Time: walpersist.test 21 ms
+Time: waloverwrite.test 41 ms
+Time: walpersist.test 20 ms
 # Warning: This next test case causes SQLite to call xSleep(1) 100 times.
 # Normally this equates to a delay of roughly 10 seconds, but if SQLite
 # is built on unix without HAVE_USLEEP defined, it may be much longer.
@@ -1241,39 +1241,39 @@ Time: walpersist.test 21 ms
 # Warning: Another slow test!
 # Warning: Last one!
 Time: walprotocol.test 19961 ms
-Time: walprotocol2.test 12 ms
-Time: walro.test 50 ms
-Time: walro2.test 83 ms
-Time: walrofault.test 134 ms
-Time: walsetlk.test 26078 ms
-Time: walshared.test 13 ms
-Time: walslow.test 11494 ms
+Time: walprotocol2.test 15 ms
+Time: walro.test 47 ms
+Time: walro2.test 87 ms
+Time: walrofault.test 141 ms
+Time: walsetlk.test 26075 ms
+Time: walshared.test 12 ms
+Time: walslow.test 11617 ms
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
-Time: walthread.test 8 ms
+Time: walthread.test 9 ms
 # WARNING: This next test takes around 12 seconds
-Time: walvfs.test 9994 ms
-Time: where.test 42 ms
-Time: where2.test 29 ms
-Time: where3.test 22 ms
+Time: walvfs.test 9990 ms
+Time: where.test 49 ms
+Time: where2.test 30 ms
+Time: where3.test 23 ms
 Time: where4.test 11 ms
 Time: where5.test 8 ms
 Time: where6.test 8 ms
-Time: where7.test 303 ms
-Time: where8.test 2172 ms
-Time: where9.test 34 ms
-Time: whereA.test 9 ms
+Time: where7.test 322 ms
+Time: where8.test 2256 ms
+Time: where9.test 30 ms
+Time: whereA.test 14 ms
 Time: whereB.test 15 ms
 Time: whereC.test 10 ms
 Time: whereD.test 20 ms
 Time: whereE.test 21 ms
 Time: whereF.test 15 ms
 Time: whereG.test 20 ms
-Time: whereH.test 11 ms
+Time: whereH.test 10 ms
 Time: whereI.test 8 ms
-Time: whereJ.test 120 ms
+Time: whereJ.test 110 ms
 Time: whereK.test 7 ms
 Time: whereL.test 10 ms
-Time: wherefault.test 2734 ms
+Time: wherefault.test 2699 ms
 Time: wherelfault.test 6 ms
 Time: wherelimit.test 5 ms
 Time: wherelimit2.test 5 ms
@@ -1281,45 +1281,45 @@ Time: win32heap.test 1 ms
 Time: win32lock.test 2 ms
 Time: win32longpath.test 2 ms
 Time: win32nolock.test 1 ms
-Time: window1.test 69 ms
-Time: window2.test 31 ms
-Time: window3.test 1528 ms
+Time: window1.test 71 ms
+Time: window2.test 25 ms
+Time: window3.test 1537 ms
 Time: window4.test 42 ms
 Time: window5.test 7 ms
 Time: window6.test 18 ms
 Time: window7.test 9 ms
-Time: window8.test 395 ms
+Time: window8.test 402 ms
 Time: window9.test 12 ms
-Time: windowA.test 8 ms
+Time: windowA.test 9 ms
 Time: windowB.test 14 ms
 Time: windowerr.test 7 ms
-Time: windowfault.test 2309 ms
-Time: with1.test 1779 ms
-Time: with2.test 24 ms
+Time: windowfault.test 2323 ms
+Time: with1.test 1820 ms
+Time: with2.test 25 ms
 Time: with3.test 11 ms
 Time: with4.test 6 ms
-Time: withM.test 79 ms
-Time: without_rowid1.test 22 ms
+Time: withM.test 81 ms
+Time: without_rowid1.test 23 ms
 Time: without_rowid2.test 8 ms
-Time: without_rowid3.test 122 ms
-Time: without_rowid4.test 68 ms
+Time: without_rowid3.test 120 ms
+Time: without_rowid4.test 75 ms
 Time: without_rowid5.test 9 ms
-Time: without_rowid6.test 13 ms
-Time: without_rowid7.test 6 ms
-Time: writecrash.test 27775 ms
-Time: zeroblob.test 17 ms
+Time: without_rowid6.test 14 ms
+Time: without_rowid7.test 7 ms
+Time: writecrash.test 21110 ms
+Time: zeroblob.test 18 ms
 Time: zerodamage.test 8 ms
-Time: zipfile.test 190 ms
+Time: zipfile.test 195 ms
 Time: zipfile2.test 11 ms
-Time: zipfilefault.test 349 ms
+Time: zipfilefault.test 326 ms
 SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-0 errors out of 927693 tests on 3900x Linux 64-bit little-endian
+0 errors out of 927690 tests on 3900x Linux 64-bit little-endian
 WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
 All memory allocations freed - no leaks
 Maximum memory usage: 9156360 bytes
 Current memory usage: 0 bytes
 Number of malloc()  : -1 calls
---- PASS: TestTclTest (1526.09s)
+--- PASS: TestTclTest (1525.07s)
 PASS
-ok  	modernc.org/sqlite	1552.723s
-Tue Dec 22 22:08:17 CET 2020
+ok  	modernc.org/sqlite	1555.503s
+Sat Dec 26 19:57:16 CET 2020

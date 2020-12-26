@@ -34,6 +34,10 @@ all: editor
 	go version
 	date 2>&1 | tee -a log
 
+darwin_amd64:
+	TARGET_GOOS=darwin TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-darwin-amd64
+	GOOS=darwin GOARCH=amd64 go build -v ./...
+
 linux_amd64:
 	TARGET_GOOS=linux TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-amd64
 	GOOS=linux GOARCH=amd64 go build -v ./...
@@ -69,6 +73,9 @@ test:
 	grep -ni fail $(testlog) | tee -a $(testlog) || true
 	LC_ALL=C date | tee -a $(testlog)
 	grep -ni --color=always fail $(testlog) || true
+
+test_darwin_amd64:
+	GOOS=darwin GOARCH=amd64 make test
 
 test_linux_amd64:
 	GOOS=linux GOARCH=amd64 make test

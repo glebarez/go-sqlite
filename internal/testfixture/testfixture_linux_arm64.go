@@ -3532,10 +3532,6 @@ const ( /* resource.h:158:1: */
 
 	// All of its terminated child processes.
 	RUSAGE_CHILDREN = -1
-)
-
-// Whose usage statistics do you want?
-const ( /* resource.h:158:1: */
 	// The calling thread.
 	RUSAGE_THREAD = 1
 )
@@ -3908,6 +3904,90 @@ const ( /* waitflags.h:52:1: */
 	P_PID  = 1 // Wait for specified process.
 	P_PGID = 2
 )
+
+// If we are compiling with optimizing read this file.  It contains
+//    several optimizing inline functions and macros.
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard 7.4: Character handling	<ctype.h>
+
+// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// These are all the characteristics of characters.
+//    If there get to be more than 16 distinct characteristics,
+//    many things must be changed that use `unsigned short int's.
+//
+//    The characteristics are stored always in network byte order (big
+//    endian).  We define the bit value interpretations here dependent on the
+//    machine's byte order.
+
+// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
 
 const ( /* ctype.h:46:1: */
 	_ISupper  = 256   // UPPERCASE.

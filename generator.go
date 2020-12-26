@@ -346,6 +346,11 @@ func main() {
 	switch goos {
 	case "linux":
 		config = append(config, "-DSQLITE_OS_UNIX=1")
+	case "darwin":
+		config = append(config,
+			"-DSQLITE_OS_UNIX=1",
+			"-DSQLITE_WITHOUT_ZONEMALLOC",
+		)
 	case "windows":
 		config = append(config,
 			"-DSQLITE_OS_WIN=1",
@@ -406,6 +411,8 @@ func configure(goos, goarch string) {
 	switch goos {
 	case "linux":
 		// nop
+	case "darwin":
+		args = append(args, "--with-tcl=/Library/Frameworks/Tcl.framework")
 	case "windows":
 		switch goarch {
 		case "amd64":

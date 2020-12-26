@@ -1,0 +1,124 @@
+go version go1.15.6 darwin/amd64
+Darwin darwin64.local 19.6.0 Darwin Kernel Version 19.6.0: Thu Oct 29 22:56:45 PDT 2020; root:xnu-6153.141.2.2~1/RELEASE_X86_64 x86_64
+test binary compiled for darwin/amd64
+=== RUN   TestScalar
+--- PASS: TestScalar (0.01s)
+=== RUN   TestBlob
+--- PASS: TestBlob (0.00s)
+=== RUN   TestIssue11
+--- PASS: TestIssue11 (0.05s)
+=== RUN   TestMemDB
+--- PASS: TestMemDB (4.87s)
+=== RUN   TestConcurrentGoroutines
+    all_test.go:507: 8 goroutines concurrently inserted 40000 rows in 266.450255ms
+--- PASS: TestConcurrentGoroutines (0.32s)
+=== RUN   TestConcurrentProcesses
+    all_test.go:572: BEGIN: ./mptest db config01.test 2 config01.test
+        With SQLite 3.33.0 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+        -DSQLITE_COMPILER=gcc-10.2.0
+        -DSQLITE_DEFAULT_PAGE_SIZE=1024
+        -DSQLITE_ENABLE_BYTECODE_VTAB
+        -DSQLITE_ENABLE_COLUMN_METADATA
+        -DSQLITE_ENABLE_DBSTAT_VTAB
+        -DSQLITE_ENABLE_FTS5
+        -DSQLITE_ENABLE_GEOPOLY
+        -DSQLITE_ENABLE_JSON1
+        -DSQLITE_ENABLE_MEMORY_MANAGEMENT
+        -DSQLITE_ENABLE_PREUPDATE_HOOK
+        -DSQLITE_ENABLE_RBU
+        -DSQLITE_ENABLE_RTREE
+        -DSQLITE_ENABLE_SNAPSHOT
+        -DSQLITE_ENABLE_STAT4
+        -DSQLITE_ENABLE_STMTVTAB
+        -DSQLITE_ENABLE_UNLOCK_NOTIFY
+        -DSQLITE_LIKE_DOESNT_MATCH_BLOBS
+        -DSQLITE_MUTEX_NOOP
+        -DSQLITE_SOUNDEX
+        -DSQLITE_TEMP_STORE=1
+        -DSQLITE_TEST
+        -DSQLITE_THREADSAFE=1
+        libc_darwin.go:1533:Xfflush: TODOTODO 
+        goroutine 1 [running, locked to thread]:
+        runtime/debug.Stack(0x133c1a0, 0xc00000e018, 0x12d74cb)
+        	/usr/local/go/src/runtime/debug/stack.go:24 +0x9f
+        modernc.org/libc.todo(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x8d00120)
+        	/Users/jnml/src/modernc.org/libc/etc.go:91 +0x245
+        modernc.org/libc.Xfflush(...)
+        	/Users/jnml/src/modernc.org/libc/libc_darwin.go:1533
+        main.main1(0xc00001c150, 0xc000000005, 0x8e00020, 0x0)
+        	/Users/jnml/src/modernc.org/sqlite/internal/mptest/main_darwin_amd64.go:12186 +0x2155
+        modernc.org/libc.Start(0x12f73d8)
+        	/Users/jnml/src/modernc.org/libc/libc.go:80 +0x1b8
+        main.main()
+        	/Users/jnml/src/modernc.org/sqlite/internal/mptest/main_darwin_amd64.go:18 +0x2d
+        
+        
+        exit status 1
+--- FAIL: TestConcurrentProcesses (0.51s)
+=== RUN   TestIssue19
+--- PASS: TestIssue19 (0.01s)
+=== RUN   TestIssue20
+--- PASS: TestIssue20 (35.35s)
+=== RUN   TestNoRows
+--- PASS: TestNoRows (0.00s)
+=== RUN   TestIssue28
+--- PASS: TestIssue28 (0.00s)
+=== RUN   TestIssue30
+    all_test.go:895: Col 0: DatabaseTypeName "INTEGER", DecimalSize 0 0 false, Length 0 false, Name "uid", Nullable true true, ScanType "int64"
+        Col 1: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "username", Nullable true true, ScanType "string"
+        Col 2: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "departname", Nullable true true, ScanType "string"
+        Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "created", Nullable true true, ScanType "string"
+        
+--- PASS: TestIssue30 (0.00s)
+=== RUN   TestNullBinding
+--- PASS: TestNullBinding (0.00s)
+=== RUN   TestNamedParameters
+--- PASS: TestNamedParameters (0.00s)
+=== RUN   TestTclTest
+libc_darwin.go:664:Xumask: TODOTODO 
+goroutine 1 [running, locked to thread]:
+runtime/debug.Stack(0x17f3d80, 0xc0000ac008, 0x171136d)
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x9f
+modernc.org/libc.todo(0x0, 0x0, 0x0, 0x0, 0x0, 0x1b4b3c8, 0x9d408e0)
+	/Users/jnml/src/modernc.org/libc/etc.go:91 +0x245
+modernc.org/libc.Xumask(...)
+	/Users/jnml/src/modernc.org/libc/libc_darwin.go:664
+modernc.org/tcl/lib.sDoCreateDirectory(0xc0000aa030, 0x960ae70, 0x1b55880)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:404293 +0x37
+modernc.org/tcl/lib.XTclpObjCreateDirectory(0xc0000aa030, 0x9d408c0, 0x1b55880)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:404287 +0x5d
+modernc.org/tcl/lib.XTcl_FSCreateDirectory(0xc0000aa030, 0x9d408c0, 0x9a000d8)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:325952 +0x98
+modernc.org/tcl/lib.XTclFileMakeDirsCmd(0xc0000aa030, 0x0, 0x9e00020, 0x2, 0x9f00600, 0xc000000000)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:287613 +0x130
+modernc.org/tcl/lib.sDispatch(0xc0000aa030, 0x9d46f88, 0x9e00020, 0x0, 0xc000000000)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:113462 +0x76
+modernc.org/tcl/lib.XTclNRRunCallbacks(0xc0000aa030, 0x9e00020, 0x400000000, 0x0, 0x200010)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:113487 +0xd2
+modernc.org/tcl/lib.XTcl_EvalObjv(0xc0000aa030, 0x9e00020, 0x5, 0x9f00300, 0x200010, 0xc000000005)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:113046 +0x99
+modernc.org/tcl/lib.XTclEvalEx(0xc0000aa030, 0x9e00020, 0x1bbd9a0, 0xffffffff, 0x1, 0x0, 0x1bbd9a0, 0x0)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:114675 +0xc95
+modernc.org/tcl/lib.XTcl_EvalEx(...)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:114153
+modernc.org/tcl/lib.XTcl_Eval(0xc0000aa030, 0x9e00020, 0x1bbd9a0, 0xc0000aa030)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:115305 +0x65
+modernc.org/tcl/lib.XTcl_GlobalEval(0xc0000aa030, 0x9e00020, 0x1bbd9a0, 0x9600050)
+	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:116398 +0x5c
+main.main1(0xc0000aa030, 0xc000000004, 0x9700020, 0x0)
+	/Users/jnml/src/modernc.org/sqlite/internal/testfixture/testfixture_darwin_amd64.go:58189 +0x37d
+modernc.org/libc.Start(0x17541a8)
+	/Users/jnml/src/modernc.org/libc/libc.go:80 +0x1b8
+main.main()
+	/Users/jnml/src/modernc.org/sqlite/internal/testfixture/testfixture_darwin_amd64.go:20 +0x2d
+
+    tcl_test.go:120: exit status 1
+--- FAIL: TestTclTest (1.26s)
+FAIL
+exit status 1
+FAIL	modernc.org/sqlite	42.403s
+57:--- FAIL: TestConcurrentProcesses (0.51s)
+116:--- FAIL: TestTclTest (1.26s)
+117:FAIL
+119:FAIL	modernc.org/sqlite	42.403s
+Sat Dec 26 20:50:34 CET 2020
