@@ -7,13 +7,13 @@ golang.org/x/sys v0.0.0-20201126233918-771906719818 h1:f1CIuDlJhwANEC2MM87MBEVMr
 golang.org/x/sys v0.0.0-20201126233918-771906719818/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 modernc.org/httpfs v1.0.2 h1:4aw8F68gTwx7FWL/vEMjm/XaPwPL16MItkF/P9ziEPY=
 modernc.org/httpfs v1.0.2/go.mod h1:7dosgurJGp0sPaRanU53W4xZYKh14wfzX420oZADeHM=
-modernc.org/libc v0.0.0-20201226183002-ad4fe8567bad h1:s37W/x9ENL0v762RSoX9r3QpA3qa8Jf6HKz9um80p0k=
-modernc.org/libc v0.0.0-20201226183002-ad4fe8567bad/go.mod h1:IR66laG5b3bONN1tfix3Gpy8xk/6WDf+Rtc4NqNczls=
+modernc.org/libc v0.0.0-20201227215836-b48462471824 h1:AS9ekcjTE92Qit2pAZzMx1fgPfTXhV9a3dcqYQ+dqaU=
+modernc.org/libc v0.0.0-20201227215836-b48462471824/go.mod h1:IR66laG5b3bONN1tfix3Gpy8xk/6WDf+Rtc4NqNczls=
 modernc.org/mathutil v1.1.1 h1:FeylZSVX8S+58VsyJlkEj2bcpdytmp9MmDKZkKx8OIE=
 modernc.org/mathutil v1.1.1/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
 modernc.org/mathutil v1.2.1 h1:PSIN4RdyeB6MbFsNLSkFCzDjnEVEMS3H/hFHcJtAJ9g=
 modernc.org/mathutil v1.2.1/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
 modernc.org/memory v1.0.1 h1:bhVo78NAdgvRD4N+b2hGnAwL5RP2+QyiEJDsX3jpeDA=
 modernc.org/memory v1.0.1/go.mod h1:NSjvC08+g3MLOpcAxQbdctcThAEX4YlJ20WWHYEhvRg=
-modernc.org/tcl v0.0.0-20201226194153-5a97e159af8c h1:vIpM9T/ZW/q+eDqFOTTc06X0jxN95XwFNfxfr3+Bq7s=
-modernc.org/tcl v0.0.0-20201226194153-5a97e159af8c/go.mod h1:RO4M9uTW5rOm9k5uTOHGGHTDWzAiNuueiEqubo+dx58=
+modernc.org/tcl v0.0.0-20201227221959-0bfd8c559738 h1:Qjf/4fbLao10gaNWglq0YfnY5WCMAQfHF7606Fo7R5c=
+modernc.org/tcl v0.0.0-20201227221959-0bfd8c559738/go.mod h1:Tkyphk28fityVsfZYDap67Z4oVCcI1C8Inp1wZW8uWE=
