@@ -3531,9 +3531,15 @@ const ( /* resource.h:187:1: */
 	PRIO_USER    = 2
 )
 
-// Convenience macros for operations on timevals.
-//    NOTE: `timercmp' does not work for >= or <=.
+// end block for C++
 
+// Local Variables:
+// mode: c
+// c-basic-offset: 4
+// fill-column: 78
+// End:
+
+// Needed for the setrlimit() system call on unix
 // Copyright (C) 1992-2018 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
@@ -3890,8 +3896,8 @@ const ( /* waitflags.h:52:1: */
 	P_PGID = 2
 )
 
-// Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+// Definitions for POSIX 1003.1b-1993 (aka POSIX.4) scheduling interface.
+//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3907,80 +3913,6 @@ const ( /* waitflags.h:52:1: */
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
-
-// Define some macros helping to catch buffer overflows.
-
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-//	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
-
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// void assert (int expression);
-//
-//    If NDEBUG is defined, do nothing.
-//    If not, and EXPRESSION is zero, print an error message and abort.
-
-// void assert_perror (int errnum);
-//
-//    If NDEBUG is defined, do nothing.  If not, and ERRNUM is not zero, print an
-//    error message with the error text for ERRNUM and abort.
-//    (This is a GNU extension.)
-
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
-//
-// This file is part of GCC.
-//
-// GCC is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 3, or (at your option)
-// any later version.
-//
-// GCC is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// Under Section 7 of GPL version 3, you are granted additional
-// permissions described in the GCC Runtime Library Exception, version
-// 3.1, as published by the Free Software Foundation.
-//
-// You should have received a copy of the GNU General Public License and
-// a copy of the GCC Runtime Library Exception along with this program;
-// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
-// <http://www.gnu.org/licenses/>.
-
-// ISO C Standard:  7.15  Variable arguments  <stdarg.h>
 
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
