@@ -34,6 +34,47 @@ func TestTclTest(t *testing.T) {
 		// # this test.
 		blacklist["bigsort.test"] = struct{}{}
 	}
+	switch runtime.GOOS {
+	case "darwin":
+		for _, v := range []string{
+			"avtrans.test",
+			"busy2.test",
+			"crash5.test",
+			"exists.test",
+			"lock2.test",
+			"mmap1.test",
+			"mmap4.test",
+			"multiplex2.test",
+			"pager1.test",
+			"pagerfault.test",
+			"pragma3.test",
+			"rowallock.test",
+			"rtree.test",
+			"savepoint.test",
+			"schema3.test",
+			"shared2.test",
+			"shared9.test",
+			"superlock.test",
+			"symlink.test",
+			"syscall.test",
+			"tkt-5d863f876e.test",
+			"tkt-fc62af4523.test",
+			"tkt4018.test",
+			"unixexcl.test",
+			"wal.test",
+			"wal3.test",
+			"wal5.test",
+			"walcrash2.test",
+			"walro.test",
+			"walro2.test",
+			"walsetlk.test",
+			"walslow.test",
+			"writecrash.test",
+		} {
+			blacklist[v] = struct{}{}
+			t.Errorf("%v: crashes, disabled", v)
+		}
+	}
 	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
 	if err != nil {
 		t.Fatal(err)
@@ -84,6 +125,7 @@ func TestTclTest(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+
 		if err := ioutil.WriteFile(d, f, 0660); err != nil {
 			t.Fatal(err)
 		}

@@ -1,64 +1,27 @@
 go version go1.15.6 darwin/amd64
-Darwin darwin64.local 19.6.0 Darwin Kernel Version 19.6.0: Thu Oct 29 22:56:45 PDT 2020; root:xnu-6153.141.2.2~1/RELEASE_X86_64 x86_64
+Darwin darwin.local 19.6.0 Darwin Kernel Version 19.6.0: Thu Oct 29 22:56:45 PDT 2020; root:xnu-6153.141.2.2~1/RELEASE_X86_64 x86_64
 test binary compiled for darwin/amd64
 === RUN   TestScalar
---- PASS: TestScalar (0.01s)
+--- PASS: TestScalar (0.00s)
 === RUN   TestBlob
 --- PASS: TestBlob (0.00s)
 === RUN   TestIssue11
 --- PASS: TestIssue11 (0.05s)
 === RUN   TestMemDB
---- PASS: TestMemDB (4.87s)
+--- PASS: TestMemDB (4.89s)
 === RUN   TestConcurrentGoroutines
-    all_test.go:507: 8 goroutines concurrently inserted 40000 rows in 266.450255ms
---- PASS: TestConcurrentGoroutines (0.32s)
+    all_test.go:507: 8 goroutines concurrently inserted 40000 rows in 269.435082ms
+--- PASS: TestConcurrentGoroutines (0.30s)
 === RUN   TestConcurrentProcesses
-    all_test.go:572: BEGIN: ./mptest db config01.test 2 config01.test
-        With SQLite 3.33.0 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
-        -DSQLITE_COMPILER=gcc-10.2.0
-        -DSQLITE_DEFAULT_PAGE_SIZE=1024
-        -DSQLITE_ENABLE_BYTECODE_VTAB
-        -DSQLITE_ENABLE_COLUMN_METADATA
-        -DSQLITE_ENABLE_DBSTAT_VTAB
-        -DSQLITE_ENABLE_FTS5
-        -DSQLITE_ENABLE_GEOPOLY
-        -DSQLITE_ENABLE_JSON1
-        -DSQLITE_ENABLE_MEMORY_MANAGEMENT
-        -DSQLITE_ENABLE_PREUPDATE_HOOK
-        -DSQLITE_ENABLE_RBU
-        -DSQLITE_ENABLE_RTREE
-        -DSQLITE_ENABLE_SNAPSHOT
-        -DSQLITE_ENABLE_STAT4
-        -DSQLITE_ENABLE_STMTVTAB
-        -DSQLITE_ENABLE_UNLOCK_NOTIFY
-        -DSQLITE_LIKE_DOESNT_MATCH_BLOBS
-        -DSQLITE_MUTEX_NOOP
-        -DSQLITE_SOUNDEX
-        -DSQLITE_TEMP_STORE=1
-        -DSQLITE_TEST
-        -DSQLITE_THREADSAFE=1
-        libc_darwin.go:1533:Xfflush: TODOTODO 
-        goroutine 1 [running, locked to thread]:
-        runtime/debug.Stack(0x133c1a0, 0xc00000e018, 0x12d74cb)
-        	/usr/local/go/src/runtime/debug/stack.go:24 +0x9f
-        modernc.org/libc.todo(0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x8d00120)
-        	/Users/jnml/src/modernc.org/libc/etc.go:91 +0x245
-        modernc.org/libc.Xfflush(...)
-        	/Users/jnml/src/modernc.org/libc/libc_darwin.go:1533
-        main.main1(0xc00001c150, 0xc000000005, 0x8e00020, 0x0)
-        	/Users/jnml/src/modernc.org/sqlite/internal/mptest/main_darwin_amd64.go:12186 +0x2155
-        modernc.org/libc.Start(0x12f73d8)
-        	/Users/jnml/src/modernc.org/libc/libc.go:80 +0x1b8
-        main.main()
-        	/Users/jnml/src/modernc.org/sqlite/internal/mptest/main_darwin_amd64.go:18 +0x2d
-        
-        
-        exit status 1
---- FAIL: TestConcurrentProcesses (0.51s)
+    all_test.go:592: config01.test: Summary: 0 errors out of 163 tests
+    all_test.go:592: config02.test: Summary: 0 errors out of 627 tests
+    all_test.go:592: crash01.test: Summary: 0 errors out of 94 tests
+    all_test.go:592: multiwrite01.test: Summary: 0 errors out of 81 tests
+--- PASS: TestConcurrentProcesses (30.20s)
 === RUN   TestIssue19
 --- PASS: TestIssue19 (0.01s)
 === RUN   TestIssue20
---- PASS: TestIssue20 (35.35s)
+--- PASS: TestIssue20 (44.35s)
 === RUN   TestNoRows
 --- PASS: TestNoRows (0.00s)
 === RUN   TestIssue28
@@ -75,50 +38,1275 @@ test binary compiled for darwin/amd64
 === RUN   TestNamedParameters
 --- PASS: TestNamedParameters (0.00s)
 === RUN   TestTclTest
-libc_darwin.go:664:Xumask: TODOTODO 
-goroutine 1 [running, locked to thread]:
-runtime/debug.Stack(0x17f3d80, 0xc0000ac008, 0x171136d)
-	/usr/local/go/src/runtime/debug/stack.go:24 +0x9f
-modernc.org/libc.todo(0x0, 0x0, 0x0, 0x0, 0x0, 0x1b4b3c8, 0x9d408e0)
-	/Users/jnml/src/modernc.org/libc/etc.go:91 +0x245
-modernc.org/libc.Xumask(...)
-	/Users/jnml/src/modernc.org/libc/libc_darwin.go:664
-modernc.org/tcl/lib.sDoCreateDirectory(0xc0000aa030, 0x960ae70, 0x1b55880)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:404293 +0x37
-modernc.org/tcl/lib.XTclpObjCreateDirectory(0xc0000aa030, 0x9d408c0, 0x1b55880)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:404287 +0x5d
-modernc.org/tcl/lib.XTcl_FSCreateDirectory(0xc0000aa030, 0x9d408c0, 0x9a000d8)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:325952 +0x98
-modernc.org/tcl/lib.XTclFileMakeDirsCmd(0xc0000aa030, 0x0, 0x9e00020, 0x2, 0x9f00600, 0xc000000000)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:287613 +0x130
-modernc.org/tcl/lib.sDispatch(0xc0000aa030, 0x9d46f88, 0x9e00020, 0x0, 0xc000000000)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:113462 +0x76
-modernc.org/tcl/lib.XTclNRRunCallbacks(0xc0000aa030, 0x9e00020, 0x400000000, 0x0, 0x200010)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:113487 +0xd2
-modernc.org/tcl/lib.XTcl_EvalObjv(0xc0000aa030, 0x9e00020, 0x5, 0x9f00300, 0x200010, 0xc000000005)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:113046 +0x99
-modernc.org/tcl/lib.XTclEvalEx(0xc0000aa030, 0x9e00020, 0x1bbd9a0, 0xffffffff, 0x1, 0x0, 0x1bbd9a0, 0x0)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:114675 +0xc95
-modernc.org/tcl/lib.XTcl_EvalEx(...)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:114153
-modernc.org/tcl/lib.XTcl_Eval(0xc0000aa030, 0x9e00020, 0x1bbd9a0, 0xc0000aa030)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:115305 +0x65
-modernc.org/tcl/lib.XTcl_GlobalEval(0xc0000aa030, 0x9e00020, 0x1bbd9a0, 0x9600050)
-	/Users/jnml/src/modernc.org/tcl/lib/tcl_darwin_amd64.go:116398 +0x5c
-main.main1(0xc0000aa030, 0xc000000004, 0x9700020, 0x0)
-	/Users/jnml/src/modernc.org/sqlite/internal/testfixture/testfixture_darwin_amd64.go:58189 +0x37d
-modernc.org/libc.Start(0x17541a8)
-	/Users/jnml/src/modernc.org/libc/libc.go:80 +0x1b8
-main.main()
-	/Users/jnml/src/modernc.org/sqlite/internal/testfixture/testfixture_darwin_amd64.go:20 +0x2d
-
-    tcl_test.go:120: exit status 1
---- FAIL: TestTclTest (1.26s)
+    tcl_test.go:75: avtrans.test: crashes, disabled
+    tcl_test.go:75: busy2.test: crashes, disabled
+    tcl_test.go:75: crash5.test: crashes, disabled
+    tcl_test.go:75: exists.test: crashes, disabled
+    tcl_test.go:75: lock2.test: crashes, disabled
+    tcl_test.go:75: mmap1.test: crashes, disabled
+    tcl_test.go:75: mmap4.test: crashes, disabled
+    tcl_test.go:75: multiplex2.test: crashes, disabled
+    tcl_test.go:75: pager1.test: crashes, disabled
+    tcl_test.go:75: pagerfault.test: crashes, disabled
+    tcl_test.go:75: pragma3.test: crashes, disabled
+    tcl_test.go:75: rowallock.test: crashes, disabled
+    tcl_test.go:75: rtree.test: crashes, disabled
+    tcl_test.go:75: savepoint.test: crashes, disabled
+    tcl_test.go:75: schema3.test: crashes, disabled
+    tcl_test.go:75: shared2.test: crashes, disabled
+    tcl_test.go:75: shared9.test: crashes, disabled
+    tcl_test.go:75: superlock.test: crashes, disabled
+    tcl_test.go:75: symlink.test: crashes, disabled
+    tcl_test.go:75: syscall.test: crashes, disabled
+    tcl_test.go:75: tkt-5d863f876e.test: crashes, disabled
+    tcl_test.go:75: tkt-fc62af4523.test: crashes, disabled
+    tcl_test.go:75: tkt4018.test: crashes, disabled
+    tcl_test.go:75: unixexcl.test: crashes, disabled
+    tcl_test.go:75: wal.test: crashes, disabled
+    tcl_test.go:75: wal3.test: crashes, disabled
+    tcl_test.go:75: wal5.test: crashes, disabled
+    tcl_test.go:75: walcrash2.test: crashes, disabled
+    tcl_test.go:75: walro.test: crashes, disabled
+    tcl_test.go:75: walro2.test: crashes, disabled
+    tcl_test.go:75: walsetlk.test: crashes, disabled
+    tcl_test.go:75: walslow.test: crashes, disabled
+    tcl_test.go:75: writecrash.test: crashes, disabled
+Time: 8_3_names.test 11 ms
+Time: affinity2.test 28 ms
+Time: affinity3.test 22 ms
+Time: aggerror.test 20 ms
+Time: aggnested.test 42 ms
+Time: alias.test 12 ms
+Time: alter.test 117 ms
+Time: alter2.test 50 ms
+Time: alter3.test 125 ms
+Time: alter4.test 55 ms
+Time: alterauth.test 11 ms
+Time: alterauth2.test 16 ms
+Time: altercol.test 246 ms
+Time: alterlegacy.test 91 ms
+Time: altermalloc.test 45598 ms
+Time: altermalloc2.test 13138 ms
+Time: altertab.test 135 ms
+Time: altertab2.test 90 ms
+Time: altertab3.test 159 ms
+Time: amatch1.test 10 ms
+Time: analyze.test 68 ms
+Time: analyze3.test 83 ms
+Time: analyze4.test 31 ms
+Time: analyze5.test 558 ms
+Time: analyze6.test 35 ms
+Time: analyze7.test 16 ms
+Time: analyze8.test 562 ms
+ (nByte=3631 nByte2=4631)Time: analyze9.test 2127 ms
+Time: analyzeC.test 30 ms
+Time: analyzeD.test 585 ms
+Time: analyzeE.test 26 ms
+Time: analyzeF.test 63 ms
+Time: analyzeG.test 10 ms
+analyzer1 cannot run because /private/var/folders/1n/1z36z1gn6z300_hb4k7glvy40000gn/T/sqlite-test-190628997/sqlite3_analyzer is not available
+Time: analyzer1.test 7 ms
+Skipping async2 tests: not compiled with required features
+Time: async2.test 6 ms
+Skipping async3 tests: not compiled with required features
+Time: async3.test 6 ms
+Time: async4.test 7 ms
+Time: async5.test 6 ms
+Time: atof1.test 6 ms
+No f2fs atomic-batch-write support. Skipping tests...
+Time: atomic.test 9 ms
+No f2fs atomic-batch-write support. Skipping tests...
+Time: atomic2.test 13 ms
+Time: attach.test 64 ms
+Time: attach2.test 29 ms
+Time: attach3.test 27 ms
+Testing with SQLITE_MAX_ATTACHED=10
+Time: attach4.test 41 ms
+Time: attachmalloc.test 8051 ms
+Time: auth.test 96 ms
+Time: auth2.test 13 ms
+Time: auth3.test 19 ms
+Time: autoanalyze1.test 11 ms
+Time: autoinc.test 102 ms
+Time: autoindex1.test 148 ms
+Time: autoindex2.test 46 ms
+Time: autoindex3.test 24 ms
+Time: autoindex4.test 13 ms
+Time: autoindex5.test 27 ms
+Time: autovacuum.test 568 ms
+Time: autovacuum_ioerr2.test 2197 ms
+WARNING: No historical binaries to test against.
+WARNING: Omitting backwards-compatibility tests
+Time: backcompat.test 21 ms
+Time: backup.test 5353 ms
+Time: backup2.test 352 ms
+Time: backup4.test 23 ms
+Time: backup5.test 14 ms
+Time: backup_ioerr.test 324666 ms
+Time: backup_malloc.test 26092 ms
+Time: badutf.test 11 ms
+Time: badutf2.test 13 ms
+Time: bestindex1.test 27 ms
+Time: bestindex2.test 16 ms
+Time: bestindex3.test 29 ms
+Time: bestindex4.test 642 ms
+Time: bestindex5.test 23 ms
+Time: bestindex6.test 17 ms
+Time: bestindex7.test 11 ms
+Time: between.test 17 ms
+Time: bigfile.test 2 ms
+Time: bigfile2.test 2 ms
+Time: bigmmap.test 2 ms
+Time: bigrow.test 221 ms
+Time: bigsort.test 34 ms
+Time: bind.test 41 ms
+Time: bindxfer.test 8 ms
+Time: bitvec.test 1454 ms
+Time: blob.test 14 ms
+Time: boundary1.test 241 ms
+Time: boundary2.test 442 ms
+Time: boundary3.test 361 ms
+Time: boundary4.test 60 ms
+Time: btree01.test 1084 ms
+Time: btree02.test 29 ms
+Time: btreefault.test 1237 ms
+Time: busy.test 17 ms
+Time: cache.test 26 ms
+Time: cacheflush.test 50 ms
+Time: cachespill.test 25 ms
+Time: capi2.test 32 ms
+Time: capi3.test 132 ms
+Time: capi3b.test 22 ms
+Time: capi3c.test 142 ms
+Time: capi3d.test 244 ms
+Time: capi3e.test 26 ms
+Time: cast.test 14 ms
+Time: cffault.test 2191 ms
+Time: check.test 69 ms
+Time: checkfault.test 74 ms
+Time: chunksize.test 17 ms
+Time: close.test 11 ms
+Time: closure01.test 991 ms
+Time: coalesce.test 18 ms
+Time: collate1.test 120 ms
+Time: collate2.test 38 ms
+Time: collate3.test 46 ms
+Time: collate4.test 108 ms
+Time: collate5.test 121 ms
+Time: collate6.test 24 ms
+Time: collate7.test 8 ms
+Time: collate8.test 17 ms
+Time: collate9.test 16 ms
+Time: collateA.test 22 ms
+Time: collateB.test 21 ms
+Time: colmeta.test 33 ms
+Time: colname.test 37 ms
+Time: conflict.test 264 ms
+Time: conflict2.test 250 ms
+Time: conflict3.test 69 ms
+Time: contrib01.test 30 ms
+Time: corrupt.test 12147 ms
+Time: corrupt2.test 218 ms
+Time: corrupt3.test 19 ms
+Time: corrupt4.test 17 ms
+Time: corrupt5.test 16 ms
+Time: corrupt6.test 23 ms
+Time: corrupt7.test 20 ms
+Time: corrupt8.test 96 ms
+Time: corrupt9.test 37 ms
+Time: corruptA.test 16 ms
+Time: corruptB.test 157 ms
+Time: corruptC.test 37443 ms
+Time: corruptD.test 42 ms
+Time: corruptE.test 40 ms
+Time: corruptF.test 589 ms
+Time: corruptG.test 14 ms
+Time: corruptH.test 31 ms
+Time: corruptI.test 48 ms
+Time: corruptJ.test 21 ms
+Time: corruptK.test 32 ms
+Time: corruptL.test 68 ms
+Time: corruptM.test 37 ms
+Time: cost.test 115 ms
+Time: count.test 288 ms
+Time: countofview.test 23 ms
+Time: coveridxscan.test 23 ms
+Time: crash.test 14855 ms
+Time: crash2.test 4227 ms
+Time: crash3.test 25524 ms
+Time: crash4.test 16391 ms
+Time: crash6.test 5827 ms
+Time: crash7.test 20674 ms
+Time: crash8.test 1059 ms
+Time: crashM.test 13 ms
+Time: createtab.test 80 ms
+Time: cse.test 56 ms
+Time: csv01.test 20 ms
+Time: ctime.test 9 ms
+Time: cursorhint.test 6 ms
+Time: cursorhint2.test 12 ms
+Time: dataversion1.test 20 ms
+Time: date.test 402 ms
+Time: date2.test 33 ms
+Time: dbdata.test 9 ms
+Time: dbfuzz001.test 24 ms
+Time: dbpage.test 16 ms
+Time: dbstatus.test 264 ms
+Time: dbstatus2.test 17 ms
+Time: decimal.test 46 ms
+Time: default.test 23 ms
+Time: delete.test 170 ms
+Time: delete2.test 12 ms
+Time: delete3.test 813 ms
+Time: delete4.test 73 ms
+Time: delete_db.test 61 ms
+Time: descidx1.test 43 ms
+Time: descidx2.test 23 ms
+Time: descidx3.test 20 ms
+Time: diskfull.test 1617 ms
+Time: distinct.test 52 ms
+Time: distinct2.test 55 ms
+Time: distinctagg.test 17 ms
+Time: e_blobbytes.test 728 ms
+Time: e_blobclose.test 20 ms
+Time: e_blobopen.test 67 ms
+Time: e_blobwrite.test 23 ms
+Time: e_changes.test 101 ms
+Time: e_createtable.test 676 ms
+Time: e_delete.test 56 ms
+Time: e_droptrigger.test 461 ms
+Time: e_dropview.test 134 ms
+Time: e_expr.test 1254 ms
+Time: e_fkey.test 6395 ms
+Time: e_fts3.test 7 ms
+Time: e_insert.test 88 ms
+Time: e_reindex.test 65 ms
+Time: e_resolve.test 58 ms
+Time: e_select.test 240 ms
+Time: e_select2.test 162 ms
+Time: e_totalchanges.test 55 ms
+Time: e_update.test 68 ms
+Time: e_uri.test 70 ms
+Time: e_vacuum.test 340 ms
+Time: e_wal.test 23 ms
+Time: e_walauto.test 2065 ms
+Time: e_walckpt.test 350 ms
+Time: e_walhook.test 16 ms
+Time: emptytable.test 10 ms
+Time: enc.test 36 ms
+Time: enc2.test 60 ms
+Time: enc3.test 19 ms
+Time: enc4.test 94 ms
+Time: eqp.test 44 ms
+Time: errmsg.test 22 ms
+Time: eval.test 25 ms
+Time: exclusive.test 29 ms
+Time: exclusive2.test 24 ms
+Time: exec.test 10 ms
+Time: expr.test 316 ms
+Time: expr2.test 13 ms
+Time: extension01.test 16 ms
+Time: fallocate.test 100 ms
+Time: filectrl.test 8 ms
+Time: filefmt.test 55 ms
+Time: filter1.test 45 ms
+Time: filter2.test 17 ms
+Time: filterfault.test 910 ms
+Time: fkey1.test 39 ms
+Time: fkey2.test 523 ms
+Time: fkey3.test 47 ms
+Time: fkey4.test 12 ms
+Time: fkey5.test 78 ms
+Time: fkey6.test 30 ms
+Time: fkey7.test 24 ms
+Time: fkey8.test 81 ms
+Time: fkey_malloc.test 15488 ms
+Time: fordelete.test 28 ms
+Time: format4.test 13 ms
+Time: fts-9fd058691.test 6 ms
+Time: fts1a.test 6 ms
+Time: fts1b.test 9 ms
+Time: fts1c.test 15 ms
+Time: fts1d.test 10 ms
+Time: fts1e.test 12 ms
+Time: fts1f.test 9 ms
+Time: fts1i.test 11 ms
+Time: fts1j.test 10 ms
+Time: fts1k.test 6 ms
+Time: fts1l.test 7 ms
+Time: fts1m.test 6 ms
+Time: fts1n.test 10 ms
+Time: fts1o.test 12 ms
+Time: fts1porter.test 16 ms
+Time: fts2.test 9 ms
+Time: fts2a.test 11 ms
+Time: fts2b.test 10 ms
+Time: fts2c.test 10 ms
+Time: fts2d.test 12 ms
+Time: fts2e.test 10 ms
+Time: fts2f.test 12 ms
+Time: fts2g.test 9 ms
+Time: fts2h.test 12 ms
+Time: fts2i.test 9 ms
+Time: fts2j.test 6 ms
+Time: fts2k.test 6 ms
+Time: fts2l.test 7 ms
+Time: fts2m.test 10 ms
+Time: fts2n.test 12 ms
+Time: fts2o.test 10 ms
+Time: fts2p.test 9 ms
+Time: fts2q.test 12 ms
+Time: fts2r.test 10 ms
+Time: fts2token.test 9 ms
+Time: fts3aa.test 10 ms
+Time: fts3ab.test 7 ms
+Time: fts3ac.test 13 ms
+Time: fts3ad.test 6 ms
+Time: fts3ae.test 9 ms
+Time: fts3af.test 8 ms
+Time: fts3ag.test 11 ms
+Time: fts3ah.test 9 ms
+Time: fts3ai.test 7 ms
+Time: fts3aj.test 9 ms
+Time: fts3ak.test 11 ms
+Time: fts3al.test 11 ms
+Time: fts3am.test 7 ms
+Time: fts3an.test 11 ms
+Time: fts3ao.test 9 ms
+Time: fts3atoken.test 7 ms
+Time: fts3auto.test 11 ms
+Time: fts3aux1.test 12 ms
+Time: fts3aux2.test 10 ms
+Time: fts3b.test 8 ms
+Time: fts3c.test 13 ms
+Time: fts3comp1.test 10 ms
+Time: fts3conf.test 6 ms
+Time: fts3corrupt.test 9 ms
+Time: fts3corrupt2.test 11 ms
+Time: fts3corrupt3.test 12 ms
+Time: fts3corrupt4.test 24 ms
+Time: fts3corrupt5.test 8 ms
+Time: fts3corrupt6.test 7 ms
+Time: fts3cov.test 6 ms
+Time: fts3d.test 10 ms
+Time: fts3defer.test 11 ms
+Time: fts3defer2.test 7 ms
+Time: fts3defer3.test 14 ms
+Time: fts3drop.test 7 ms
+Time: fts3e.test 6 ms
+Time: fts3expr.test 11 ms
+Time: fts3expr2.test 6 ms
+Time: fts3expr3.test 11 ms
+Time: fts3expr4.test 10 ms
+Time: fts3expr5.test 10 ms
+Time: fts3fault.test 8 ms
+Time: fts3fault2.test 6 ms
+Time: fts3first.test 8 ms
+Time: fts3fuzz001.test 6 ms
+Time: fts3join.test 11 ms
+Time: fts3malloc.test 6 ms
+Time: fts3matchinfo.test 14 ms
+Time: fts3matchinfo2.test 6 ms
+Time: fts3misc.test 11 ms
+Time: fts3near.test 8 ms
+Time: fts3offsets.test 11 ms
+Time: fts3prefix.test 8 ms
+Time: fts3prefix2.test 7 ms
+Time: fts3query.test 6 ms
+Time: fts3rank.test 7 ms
+Time: fts3rnd.test 11 ms
+Time: fts3shared.test 11 ms
+Time: fts3snippet.test 10 ms
+Time: fts3snippet2.test 10 ms
+Time: fts3sort.test 6 ms
+Time: fts3tok1.test 11 ms
+Time: fts3tok_err.test 10 ms
+Time: fts3varint.test 12 ms
+Time: fts4aa.test 10 ms
+Time: fts4check.test 10 ms
+Time: fts4content.test 13 ms
+Time: fts4docid.test 7 ms
+Time: fts4growth.test 7 ms
+Time: fts4growth2.test 6 ms
+Time: fts4incr.test 12 ms
+Time: fts4langid.test 8 ms
+Time: fts4lastrowid.test 9 ms
+Time: fts4merge.test 9 ms
+Time: fts4merge2.test 8 ms
+Time: fts4merge3.test 13 ms
+Time: fts4merge4.test 11 ms
+Time: fts4merge5.test 9 ms
+Time: fts4min.test 13 ms
+Time: fts4noti.test 11 ms
+Time: fts4onepass.test 11 ms
+Time: fts4opt.test 10 ms
+Time: fts4record.test 7 ms
+Time: fts4rename.test 7 ms
+Time: fts4umlaut.test 6 ms
+Time: fts4unicode.test 9 ms
+Time: fts4upfrom.test 11 ms
+Time: func.test 762 ms
+Time: func2.test 17 ms
+Time: func3.test 10 ms
+Time: func4.test 30 ms
+Time: func5.test 20 ms
+Time: func6.test 41 ms
+Time: fuzz-oss1.test 184 ms
+Time: fuzz.test 240404 ms
+Time: fuzz2.test 17 ms
+Time: fuzz3.test 31983 ms
+Time: fuzz4.test 22 ms
+Time: fuzz_malloc.test 5461 ms
+Time: fuzzer1.test 170 ms
+This test is slow - perhaps around 7 seconds on an average pc
+Time: fuzzer2.test 4402 ms
+Time: fuzzerfault.test 5244 ms
+Time: gcfault.test 66 ms
+Time: gencol1.test 62 ms
+Time: having.test 20 ms
+Time: hexlit.test 21 ms
+Time: hidden.test 7 ms
+Time: hook.test 126 ms
+Time: hook2.test 27 ms
+Time: icu.test 9 ms
+Time: ieee754.test 12 ms
+Time: imposter1.test 19 ms
+Time: in.test 73 ms
+Time: in2.test 6168 ms
+Time: in3.test 84 ms
+Time: in4.test 46 ms
+Time: in5.test 40 ms
+Time: in6.test 21 ms
+Time: incrblob.test 54 ms
+Time: incrblob2.test 126 ms
+Time: incrblob3.test 103 ms
+Time: incrblob4.test 56 ms
+Time: incrblob_err.test 13854 ms
+Time: incrblobfault.test 94 ms
+Time: incrcorrupt.test 19 ms
+Time: incrvacuum.test 391 ms
+Time: incrvacuum2.test 1466 ms
+Time: incrvacuum3.test 718 ms
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=21 nPage=24
+nFree=16 nPage=19
+nFree=11 nPage=14
+nFree=6 nPage=9
+nFree=6 nPage=9
+nFree=6 nPage=9
+nFree=6 nPage=9
+nFree=6 nPage=9
+nFree=6 nPage=9
+nFree=1 nPage=4
+Time: incrvacuum_ioerr.test 9465 ms
+Time: index.test 185 ms
+Time: index2.test 279 ms
+Time: index3.test 20 ms
+Time: index4.test 3072 ms
+Time: index5.test 5376 ms
+Time: index6.test 96 ms
+Time: index7.test 65 ms
+Time: index8.test 11 ms
+Time: index9.test 13 ms
+Time: indexedby.test 41 ms
+Time: indexexpr1.test 89 ms
+Time: indexexpr2.test 53 ms
+Time: indexfault.test 25370 ms
+Time: init.test 11 ms
+Time: insert.test 67 ms
+Time: insert2.test 43 ms
+Time: insert3.test 208 ms
+Time: insert4.test 165 ms
+Time: insert5.test 19 ms
+Time: insertfault.test 151 ms
+Time: instr.test 29 ms
+Time: instrfault.test 43 ms
+Time: intarray.test 513 ms
+Time: interrupt.test 761 ms
+Time: interrupt2.test 41 ms
+Time: intpkey.test 58 ms
+Time: intreal.test 18 ms
+Time: io.test 104 ms
+Time: ioerr.test 7502 ms
+Time: ioerr2.test 8345 ms
+Time: ioerr3.test 180 ms
+Time: ioerr4.test 93 ms
+Time: ioerr5.test 79 ms
+skipping tests - not compiled with SQLITE_ENABLE_ATOMIC_WRITE...
+Time: ioerr6.test 9 ms
+Time: istrue.test 30 ms
+Time: join.test 97 ms
+Time: join2.test 49 ms
+Time: join3.test 199 ms
+Time: join4.test 12 ms
+Time: join5.test 454 ms
+Time: join6.test 27 ms
+Time: journal1.test 15 ms
+Time: journal2.test 33 ms
+Time: journal3.test 17 ms
+Time: jrnlmode.test 49 ms
+Time: jrnlmode2.test 10 ms
+Time: jrnlmode3.test 70 ms
+Time: json101.test 37 ms
+Time: json102.test 25 ms
+Time: json103.test 18 ms
+Time: json104.test 16 ms
+Time: json105.test 18 ms
+Time: keyword1.test 208 ms
+Time: lastinsert.test 40 ms
+Time: laststmtchanges.test 39 ms
+ (17 ms - want less than 1000)  (17 ms - want less than 1000) Time: like.test 82 ms
+Time: like2.test 104 ms
+Time: like3.test 6 ms
+Time: limit.test 65 ms
+Time: limit2.test 63 ms
+Time: loadext.test 10 ms
+Time: loadext2.test 6 ms
+Time: lock.test 858 ms
+Time: lock3.test 14 ms
+Time: lock4.test 103 ms
+Time: lock5.test 21 ms
+Time: lock6.test 12 ms
+Time: lock7.test 15 ms
+Time: lookaside.test 11 ms
+VERSION: 3.33.0 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+Time: main.test 21 ms
+This is a test.  Ignore the error that follows:
+Memory dump to file memdump.txt...
+open-file-count=0
+Time: malloc.test 71999 ms
+Time: malloc3.test 5676 ms
+Time: malloc4.test 10 ms
+Highwater mark: 4691416
+ (Highwater mark: 1708328)  (Highwater mark: 88024) Time: malloc5.test 151 ms
+Time: malloc6.test 1096 ms
+open-file-count=0
+Time: malloc7.test 291 ms
+Time: malloc8.test 1493 ms
+Time: malloc9.test 272 ms
+Time: mallocA.test 17325 ms
+Time: mallocB.test 364 ms
+Time: mallocC.test 1662 ms
+Time: mallocD.test 2508 ms
+Time: mallocE.test 1014 ms
+Time: mallocF.test 1864 ms
+Time: mallocG.test 1514 ms
+Time: mallocH.test 1164 ms
+Time: mallocI.test 2444 ms
+Time: mallocJ.test 1346 ms
+Time: mallocK.test 14275 ms
+Time: mallocL.test 1029 ms
+Time: mallocM.test 24 ms
+Time: manydb.test 122 ms
+Time: mem5.test 9 ms
+Time: memdb.test 239 ms
+Time: memdb1.test 56 ms
+Time: memsubsys1.test 292 ms
+Time: memsubsys2.test 16 ms
+Time: minmax.test 57 ms
+Time: minmax2.test 44 ms
+Time: minmax3.test 51 ms
+Time: minmax4.test 33 ms
+Time: misc1.test 180 ms
+Time: misc2.test 64 ms
+Time: misc3.test 40 ms
+Time: misc4.test 25 ms
+Time: misc5.test 399 ms
+Time: misc6.test 7 ms
+Time: misc7.test 5480 ms
+Time: misc8.test 34 ms
+Time: misuse.test 12 ms
+Time: mjournal.test 16 ms
+Time: mmap2.test 463 ms
+Time: mmap3.test 25 ms
+Time: mmapfault.test 1870 ms
+Time: mmapwarm.test 89 ms
+Time: multiplex.test 1904 ms
+SQLite compiled without SQLITE_ENABLE_8_3_NAMES. Skipping tests multiplex3-*.
+Time: multiplex3.test 8 ms
+Time: multiplex4.test 21 ms
+Time: mutex1.test 15 ms
+Time: mutex2.test 7 ms
+Time: nan.test 63 ms
+Time: nockpt.test 24 ms
+Time: nolock.test 29 ms
+Time: normalize.test 13 ms
+Time: notify1.test 574 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: notify2.test 9 ms
+Time: notify3.test 23 ms
+Time: notnull.test 103 ms
+Time: null.test 20 ms
+Time: nulls1.test 52 ms
+Time: numcast.test 16 ms
+Time: numindex1.test 31 ms
+Time: offset1.test 13 ms
+Time: openv2.test 13 ms
+Time: orderby1.test 392 ms
+Time: orderby2.test 18 ms
+Time: orderby3.test 18 ms
+Time: orderby4.test 13 ms
+Time: orderby5.test 28 ms
+Time: orderby6.test 119 ms
+Time: orderby7.test 10 ms
+Time: orderby8.test 161 ms
+Time: orderby9.test 10 ms
+Time: orderbyA.test 42 ms
+Time: oserror.test 60 ms
+Time: ovfl.test 144 ms
+Time: pager2.test 4263 ms
+Time: pager3.test 16 ms
+Time: pager4.test 14 ms
+Time: pagerfault2.test 134673 ms
+Time: pagerfault3.test 86 ms
+Time: pageropt.test 29 ms
+Time: pagesize.test 221 ms
+Time: parser1.test 18 ms
+Time: pcache.test 15 ms
+Time: pcache2.test 19 ms
+Time: percentile.test 1940 ms
+Time: pragma.test 150 ms
+Time: pragma2.test 48 ms
+Time: pragma4.test 185 ms
+Time: pragma5.test 9 ms
+Time: pragmafault.test 595 ms
+Time: prefixes.test 16 ms
+Time: printf.test 388 ms
+Time: printf2.test 16 ms
+Time: progress.test 19 ms
+Time: ptrchng.test 19 ms
+Time: pushdown.test 14 ms
+Time: queryonly.test 14 ms
+Time: quota-glob.test 13 ms
+Time: quota.test 1016 ms
+Time: quota2.test 13 ms
+Time: quote.test 22 ms
+Time: randexpr1.test 726 ms
+Time: rdonly.test 12 ms
+Time: recover.test 6 ms
+Time: regexp1.test 17 ms
+Time: regexp2.test 31 ms
+Time: reindex.test 24 ms
+Time: resetdb.test 32 ms
+Time: resolver01.test 28 ms
+Time: rollback.test 25 ms
+Time: rollback2.test 113 ms
+Time: rollbackfault.test 68 ms
+Time: round1.test 5594 ms
+Time: rowhash.test 1692 ms
+Time: rowid.test 253 ms
+Time: rowvalue.test 88 ms
+Time: rowvalue2.test 1005 ms
+Time: rowvalue3.test 58 ms
+Time: rowvalue4.test 126 ms
+Time: rowvalue5.test 17 ms
+Time: rowvalue6.test 16 ms
+Time: rowvalue7.test 18 ms
+Time: rowvalue8.test 11 ms
+Time: rowvalue9.test 68 ms
+Time: rowvaluefault.test 44 ms
+Time: rowvaluevtab.test 43 ms
+Time: savepoint2.test 1946 ms
+Time: savepoint4.test 82349 ms
+Time: savepoint5.test 7 ms
+Time: savepoint6.test 167849 ms
+Time: savepoint7.test 116 ms
+Time: savepointfault.test 10042 ms
+Time: scanstatus.test 11 ms
+Time: schema.test 26 ms
+Time: schema2.test 23 ms
+Time: schema4.test 44 ms
+Time: schema5.test 18 ms
+Time: schema6.test 48 ms
+Time: schemafault.test 21 ms
+Time: securedel.test 9 ms
+Time: securedel2.test 17324 ms
+Time: select1.test 80 ms
+time with cache: 124082 microseconds per iteration
+time without cache: 301364 microseconds per iteration
+Time: select2.test 475 ms
+Time: select3.test 98 ms
+Time: select4.test 48 ms
+Time: select5.test 34 ms
+Time: select6.test 42 ms
+Time: select7.test 29 ms
+Time: select8.test 12 ms
+Time: select9.test 5446 ms
+Time: selectA.test 90 ms
+Time: selectB.test 56 ms
+Time: selectC.test 40 ms
+Time: selectD.test 33 ms
+Time: selectE.test 16 ms
+Time: selectF.test 13 ms
+Time: selectG.test 768 ms
+Time: server1.test 7 ms
+Time: shared.test 343 ms
+Time: shared3.test 23 ms
+Time: shared4.test 28 ms
+Time: shared6.test 24 ms
+Time: shared7.test 9 ms
+Time: shared8.test 18 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: sharedA.test 8 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: sharedB.test 13 ms
+Time: shared_err.test 53545 ms
+Time: sharedlock.test 17 ms
+Time: shell1.test 16 ms
+Time: shell2.test 6 ms
+Time: shell3.test 10 ms
+Time: shell4.test 10 ms
+Time: shell5.test 11 ms
+Time: shell6.test 12 ms
+Time: shell7.test 12 ms
+Time: shell8.test 13 ms
+Time: shmlock.test 1470 ms
+Time: shortread1.test 10 ms
+Time: shrink.test 46 ms
+Time: sidedelete.test 588 ms
+Time: skipscan1.test 66 ms
+Time: skipscan2.test 500 ms
+Time: skipscan3.test 26 ms
+Time: skipscan5.test 275 ms
+Time: skipscan6.test 56 ms
+Time: snapshot.test 54 ms
+Time: snapshot2.test 32 ms
+Time: snapshot3.test 13 ms
+Time: snapshot4.test 11 ms
+Time: snapshot_fault.test 7199 ms
+Time: snapshot_up.test 24 ms
+Time: softheap1.test 15 ms
+Time: sort.test 1047 ms
+Time: sort2.test 11538 ms
+Time: sort3.test 66392 ms
+Time: sort4.test 19878 ms
+Time: sort5.test 523 ms
+Time: sorterref.test 16 ms
+singlethread
+singlethread
+singlethread
+singlethread
+Time: sortfault.test 223849 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+speed1-insert1...           295568 uS         169165.80956 row/s
+speed1-insert2...           554882 uS          90109.24845 row/s
+speed1-select1...           346538 uS        7214216.04557 row/s
+speed1-select2...          1691477 uS        1477998.22285 row/s
+speed1-createidx...         146494 uS        1023932.72079 row/s
+speed1-select3...           145809 uS          34291.43606 stmt/s
+speed1-select4...           777428 uS         128629.27499 row/s
+speed1-select5...           990260 uS         100983.58007 row/s
+speed1-select6...           534098 uS          93615.77838 row/s
+speed1-vacuum...            469442 uS         213018.86069 row/s
+speed1-update1...           136206 uS          36709.10239 stmt/s
+speed1-update2...           792240 uS          63112.18823 row/s
+speed1-update3...           335787 uS         148903.91826 row/s
+speed1-update4...           998990 uS          50050.55106 row/s
+speed1-delete1...            10786 uS        4635638.79103 row/s
+speed1-copy1...             376770 uS         132706.95650 row/s
+speed1-delete2...           290792 uS         171944.20754 row/s
+speed1-copy2...             356419 uS         140284.32828 row/s
+speed1-drop1...               9542 uS        5239991.61601 row/s
+speed1-copy3...              52966 uS         944001.81248 row/s
+speed1-random1...            85845 uS         582445.10455 row/s
+speed1-random-del1...       156145 uS         128086.07384 row/s
+speed1-random-del2...       114974 uS         173952.37184 row/s
+speed1                     9669458 uS TOTAL
+Time: speed1.test 12185 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+speed1p-insert1...          279803 uS         178697.15478 row/s
+speed1p-insert2...          478600 uS         104471.37484 row/s
+speed1p-select1...          674593 uS        3705938.24721 row/s
+speed1p-select2...         2325213 uS        1075170.31773 row/s
+speed1p-createidx...        244958 uS         612349.87222 row/s
+speed1p-select3...          107588 uS          46473.58441 stmt/s
+speed1p-select4...          856432 uS         116763.50253 row/s
+speed1p-select5...         1009930 uS          99016.76354 row/s
+speed1p-select6...          447100 uS         111831.80497 row/s
+speed1p-vacuum...           493359 uS         202692.15723 row/s
+speed1p-update1...          144411 uS          34623.40126 stmt/s
+speed1p-update2...         1011296 uS          49441.50872 row/s
+speed1p-update3...          802618 uS          62296.13590 row/s
+speed1p-update4...         1332154 uS          37533.19811 row/s
+speed1p-delete1...           21829 uS        2290530.94507 row/s
+speed1p-copy1...           1110165 uS          45038.35016 row/s
+speed1p-delete2...         1032110 uS          48444.44875 row/s
+speed1p-copy2...           1044079 uS          47889.09651 row/s
+speed1p-drop1...             27700 uS        1805054.15162 row/s
+speed1p-copy3...             52381 uS         954544.58678 row/s
+speed1p-random1...           91773 uS         544822.55130 row/s
+speed1p-random-del1..       201232 uS          99387.77133 row/s
+speed1p-random-del2..       145686 uS         137281.55073 row/s
+speed1                    13935010 uS TOTAL
+Time: speed1p.test 16433 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+speed2-insert1...           315176 uS         158641.52093 row/s
+speed2-insert2...           612559 uS          81624.79043 row/s
+speed2-select1a...          344952 uS        7247385.14344 row/s
+speed2-select2a...         1697073 uS        1473124.60925 row/s
+speed2-vacuum1...           202439 uS         493975.96313 row/s
+speed2-select1b...          320572 uS        7798560.07387 row/s
+speed2-select2b...         1750370 uS        1428269.45160 row/s
+speed2-createidx...         138642 uS        1081923.22673 row/s
+speed2-select3a...          168670 uS          29643.68293 stmt/s
+speed2-select4a...          977488 uS         102303.04618 row/s
+speed2-select5a...         1233237 uS          81087.41467 row/s
+speed2-select6a...          599347 uS          83424.12659 row/s
+speed2-vacuum2...           449637 uS         222401.62620 row/s
+speed2-select3b...          202020 uS          24750.02475 stmt/s
+speed2-select4b...          955702 uS         104635.12685 row/s
+speed2-select5b...         1189368 uS          84078.26678 row/s
+speed2-select6b...          653855 uS          76469.55365 row/s
+speed2-update1...           148152 uS          33749.12252 stmt/s
+speed2-update2...           824738 uS          60625.31374 row/s
+speed2-update3...           295507 uS         169200.72959 row/s
+speed2-update4...          1071209 uS          46676.23218 row/s
+speed2-delete1...            10082 uS        4959333.46558 row/s
+speed2-copy1...             425349 uS         117550.52909 row/s
+speed2-delete2...           335897 uS         148855.15500 row/s
+speed2-copy2...             383721 uS         130303.00661 row/s
+speed2-drop1...               9744 uS        5131362.88998 row/s
+speed2-copy3...              44512 uS        1123292.59526 row/s
+speed2-random1...            75533 uS         661962.32110 row/s
+speed2-random-del1...       170454 uS         117333.70880 row/s
+speed2-random-del2...       111197 uS         179860.96747 row/s
+speed2                    15717202 uS TOTAL
+Time: speed2.test 18758 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+speed3-1.incrvacuum..        17693 uS          56519.52750 row/s
+speed3-1.normal...           32910 uS          30385.90094 row/s
+Incrvacuum: Read 1098, wrote 94
+Normal    : Read 9014, wrote 43
+speed3-2.incrvacuum..        10363 uS          96497.15333 row/s
+speed3-2.normal...           27793 uS          35980.28281 row/s
+Incrvacuum: Read 2841, wrote 1
+Normal    : Read 9993, wrote 0
+Time: speed3.test 560 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+speed4-join1...              65009 uS         769124.27510 row/s
+speed4-join2...             652631 uS          76612.97119 row/s
+speed4-view1...             519523 uS          19248.42596 stmt/s
+speed4-table1...            422099 uS          23691.12459 stmt/s
+speed4-subselect1...        557836 uS          17926.41565 stmt/s
+speed4-trigger1...          311066 uS          32147.51853 stmt/s
+speed4-trigger2...          177169 uS          56443.28297 stmt/s
+speed4-trigger3...          125995 uS          79368.22890 stmt/s
+speed4-notrigger1...         65125 uS         153550.86372 stmt/s
+speed4-notrigger2...         80100 uS         124843.94507 stmt/s
+speed4-notrigger3...         44738 uS         223523.62645 stmt/s
+speed4                     3021291 uS TOTAL
+Time: speed4.test 6627 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+speed4p-join1...             62417 uS         801063.81274 row/s
+speed4p-join2...            358673 uS         139402.74289 row/s
+speed4p-view1...             94993 uS         105270.91470 stmt/s
+speed4p-table1...            52608 uS         190085.15815 stmt/s
+speed4p-subselect1...        92643 uS         107941.23679 stmt/s
+speed4p-rowid-update.        50918 uS         196394.20244 stmt/s
+speed4p-insert-ignore       154620 uS         323373.43164 row/s
+speed4p-unique-update       192789 uS         163339.19466 stmt/s
+speed4p-trigger1...          89436 uS         111811.79838 stmt/s
+speed4p-trigger2...          52702 uS         189746.11969 stmt/s
+speed4p-trigger3...          40776 uS         245242.29939 stmt/s
+speed4p-notrigger1...        36122 uS         276839.59914 stmt/s
+speed4p-notrigger2...        49121 uS         203578.91737 stmt/s
+speed4p-notrigger3...        26915 uS         371540.03344 stmt/s
+speed4                     1354733 uS TOTAL
+Time: speed4p.test 5043 ms
+Time: spellfix.test 414 ms
+Time: spellfix2.test 37 ms
+Time: spellfix3.test 9 ms
+Time: spellfix4.test 201 ms
+Time: sqldiff1.test 7 ms
+Time: sqllimits1.test 1337 ms
+Time: sqllog.test 12 ms
+Time: stat.test 45 ms
+Time: statfault.test 1152 ms
+Time: stmt.test 15 ms
+Time: stmtvtab1.test 15 ms
+Time: subjournal.test 56 ms
+Time: subquery.test 56 ms
+Time: subquery2.test 37 ms
+Time: subselect.test 22 ms
+Time: substr.test 64 ms
+Time: subtype1.test 12 ms
+Time: swarmvtab.test 3384 ms
+Time: swarmvtab2.test 29 ms
+Time: swarmvtab3.test 807 ms
+Time: swarmvtabfault.test 4902 ms
+Time: symlink2.test 10 ms
+Time: sync.test 18 ms
+Time: sync2.test 20 ms
+Time: sysfault.test 4056 ms
+Time: tabfunc01.test 20 ms
+Time: table.test 1110 ms
+Time: tableapi.test 618 ms
+Time: tableopts.test 17 ms
+Time: tclsqlite.test 44 ms
+Time: tempdb.test 18 ms
+Time: tempdb2.test 17 ms
+Time: tempfault.test 35984 ms
+Time: temptable.test 34 ms
+Time: temptable2.test 10890 ms
+Time: temptable3.test 17 ms
+Time: temptrigger.test 35 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread001.test 13 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread002.test 9 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread003.test 10 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread004.test 11 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread005.test 9 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread1.test 6 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: thread2.test 6 ms
+Time: tkt-02a8e81d44.test 9 ms
+Time: tkt-18458b1a.test 11 ms
+Time: tkt-26ff0c2d1e.test 10 ms
+Time: tkt-2a5629202f.test 15 ms
+Time: tkt-2d1a5c67d.test 159 ms
+Time: tkt-2ea2425d34.test 9 ms
+Time: tkt-31338dca7e.test 32 ms
+Time: tkt-313723c356.test 167 ms
+Time: tkt-385a5b56b9.test 16 ms
+Time: tkt-38cb5df375.test 52 ms
+Time: tkt-3998683a16.test 19 ms
+Time: tkt-3a77c9714e.test 23 ms
+Time: tkt-3fe897352e.test 12 ms
+Time: tkt-4a03edc4c8.test 13 ms
+Time: tkt-4c86b126f2.test 12 ms
+Time: tkt-4dd95f6943.test 84 ms
+Time: tkt-4ef7e3cfca.test 18 ms
+Time: tkt-54844eea3f.test 23 ms
+Time: tkt-5e10420e8d.test 31 ms
+Time: tkt-5ee23731f.test 17 ms
+Time: tkt-6bfb98dfc0.test 15 ms
+Time: tkt-752e1646fc.test 15 ms
+Time: tkt-78e04e52ea.test 16 ms
+Time: tkt-7a31705a7e6.test 16 ms
+Time: tkt-7bbfb7d442.test 23 ms
+Time: tkt-80ba201079.test 36 ms
+Time: tkt-80e031a00f.test 42 ms
+Time: tkt-8454a207b9.test 17 ms
+Time: tkt-868145d012.test 17 ms
+Time: tkt-8c63ff0ec.test 16 ms
+Time: tkt-91e2e8ba6f.test 16 ms
+Time: tkt-94c04eaadb.test 12 ms
+Time: tkt-9a8b09f8e6.test 27 ms
+Time: tkt-9d68c883.test 161 ms
+Time: tkt-9f2eb3abac.test 411 ms
+Time: tkt-a7b7803e.test 11 ms
+Time: tkt-a7debbe0.test 32 ms
+Time: tkt-a8a0d2996a.test 13 ms
+Time: tkt-b1d3a2e531.test 35 ms
+Time: tkt-b351d95f9.test 20 ms
+Time: tkt-b72787b1.test 16 ms
+Time: tkt-b75a9ca6b0.test 21 ms
+Time: tkt-ba7cbfaedc.test 24 ms
+Time: tkt-bd484a090c.test 11 ms
+Time: tkt-bdc6bbbb38.test 8 ms
+Time: tkt-c48d99d690.test 18 ms
+Time: tkt-c694113d5.test 8 ms
+Time: tkt-cbd054fa6b.test 26 ms
+Time: tkt-d11f09d36e.test 187 ms
+Time: tkt-d635236375.test 11 ms
+Time: tkt-d82e3f3721.test 16 ms
+Time: tkt-f3e5abed55.test 21 ms
+Time: tkt-f67b41381a.test 27 ms
+Time: tkt-f777251dc7a.test 19 ms
+Time: tkt-f7b4edec.test 9 ms
+Time: tkt-f973c7ac31.test 10 ms
+Time: tkt-fa7bf5ec.test 8 ms
+Time: tkt-fc7bd6358f.test 20 ms
+Time: tkt1435.test 9 ms
+Time: tkt1443.test 14 ms
+Time: tkt1444.test 11 ms
+Time: tkt1449.test 23 ms
+Time: tkt1473.test 20 ms
+Time: tkt1501.test 8 ms
+Time: tkt1512.test 12 ms
+Time: tkt1514.test 12 ms
+Time: tkt1536.test 13 ms
+Time: tkt1537.test 19 ms
+Time: tkt1567.test 122 ms
+Time: tkt1644.test 16 ms
+Time: tkt1667.test 605 ms
+Time: tkt1873.test 19 ms
+Time: tkt2141.test 18 ms
+Time: tkt2192.test 27 ms
+Time: tkt2213.test 9 ms
+Time: tkt2251.test 17 ms
+Time: tkt2285.test 15 ms
+Time: tkt2332.test 92 ms
+Time: tkt2339.test 16 ms
+Time: tkt2391.test 9 ms
+Time: tkt2409.test 296 ms
+Time: tkt2450.test 12 ms
+Time: tkt2565.test 44 ms
+Time: tkt2640.test 24 ms
+Time: tkt2643.test 12 ms
+Time: tkt2686.test 6125 ms
+Time: tkt2767.test 14 ms
+Time: tkt2817.test 18 ms
+Time: tkt2820.test 21 ms
+Time: tkt2822.test 24 ms
+Time: tkt2832.test 16 ms
+Time: tkt2854.test 12 ms
+Time: tkt2920.test 11 ms
+Time: tkt2927.test 27 ms
+Time: tkt2942.test 10 ms
+Time: tkt3080.test 14 ms
+Time: tkt3093.test 11 ms
+Time: tkt3121.test 13 ms
+Time: tkt3201.test 17 ms
+Time: tkt3292.test 13 ms
+Time: tkt3298.test 20 ms
+Time: tkt3334.test 13 ms
+Time: tkt3346.test 13 ms
+Time: tkt3357.test 17 ms
+Time: tkt3419.test 22 ms
+Time: tkt3424.test 17 ms
+Time: tkt3442.test 9 ms
+Time: tkt3457.test 21 ms
+Time: tkt3461.test 11 ms
+Time: tkt3493.test 20 ms
+Time: tkt3508.test 12 ms
+Time: tkt3522.test 11 ms
+Time: tkt3527.test 17 ms
+Time: tkt3541.test 10 ms
+Time: tkt3554.test 11 ms
+Time: tkt3581.test 13 ms
+Time: tkt35xx.test 19 ms
+Time: tkt3630.test 14 ms
+Time: tkt3718.test 61 ms
+Time: tkt3731.test 18 ms
+Time: tkt3757.test 20 ms
+Time: tkt3761.test 10 ms
+Time: tkt3762.test 33 ms
+Time: tkt3773.test 13 ms
+Time: tkt3791.test 11 ms
+Time: tkt3793.test 28 ms
+Time: tkt3810.test 11 ms
+Time: tkt3824.test 16 ms
+Time: tkt3832.test 10 ms
+Time: tkt3838.test 21 ms
+Time: tkt3841.test 11 ms
+Time: tkt3871.test 12 ms
+Time: tkt3879.test 16 ms
+Time: tkt3911.test 15 ms
+Time: tkt3918.test 15 ms
+Time: tkt3922.test 12 ms
+Time: tkt3929.test 58 ms
+Time: tkt3935.test 12 ms
+Time: tkt3992.test 15 ms
+Time: tkt3997.test 12 ms
+Time: tokenize.test 14 ms
+Time: tpch01.test 46 ms
+Time: trace.test 17 ms
+Time: trace2.test 7 ms
+Time: trace3.test 21 ms
+Time: trans.test 48354 ms
+Time: trans2.test 27542 ms
+Time: trans3.test 17 ms
+Time: transitive1.test 78 ms
+Time: trigger1.test 100 ms
+Time: trigger2.test 451 ms
+Time: trigger3.test 35 ms
+Time: trigger4.test 38 ms
+Time: trigger5.test 16 ms
+Time: trigger6.test 15 ms
+Time: trigger7.test 27 ms
+Time: trigger8.test 16 ms
+Time: trigger9.test 40 ms
+Time: triggerA.test 774 ms
+Time: triggerB.test 195 ms
+Time: triggerC.test 1919 ms
+Time: triggerD.test 34 ms
+Time: triggerE.test 17 ms
+Time: triggerF.test 36 ms
+Time: triggerG.test 28 ms
+Time: triggerupfrom.test 44 ms
+Time: trustschema1.test 51 ms
+Time: types.test 113 ms
+Time: types2.test 108 ms
+Time: types3.test 15 ms
+Time: unionvtab.test 90 ms
+Time: unionvtabfault.test 4905 ms
+Time: unique.test 31 ms
+Time: unique2.test 45 ms
+Time: unordered.test 25 ms
+Time: update.test 175 ms
+Time: update2.test 72 ms
+Time: upfrom1.test 47 ms
+Time: upfrom2.test 96 ms
+Time: upfrom3.test 86 ms
+Time: upfromfault.test 3268 ms
+Time: upsert1.test 73 ms
+Time: upsert2.test 41 ms
+Time: upsert3.test 20 ms
+Time: upsert4.test 111 ms
+Time: upsertfault.test 333 ms
+Time: uri.test 69 ms
+Time: uri2.test 6 ms
+Time: userauth01.test 11 ms
+Time: utf16align.test 27 ms
+Time: vacuum-into.test 38 ms
+Time: vacuum.test 114 ms
+Time: vacuum2.test 49 ms
+Time: vacuum3.test 21139 ms
+Time: vacuum4.test 14 ms
+Time: vacuum5.test 136 ms
+Time: vacuummem.test 13 ms
+Time: varint.test 110 ms
+Time: view.test 1613 ms
+Time: vtab1.test 1345 ms
+Time: vtab2.test 18 ms
+Time: vtab3.test 15 ms
+Time: vtab4.test 26 ms
+Time: vtab5.test 28 ms
+Time: vtab6.test 712 ms
+Time: vtab7.test 26 ms
+Time: vtab8.test 24 ms
+Time: vtab9.test 18 ms
+Time: vtabA.test 29 ms
+Time: vtabB.test 14 ms
+Time: vtabC.test 2372 ms
+Time: vtabD.test 1276 ms
+Time: vtabE.test 16 ms
+Time: vtabF.test 18 ms
+Time: vtabH.test 37 ms
+Time: vtabI.test 13 ms
+Time: vtabJ.test 13 ms
+Time: vtab_alter.test 14 ms
+Time: vtab_err.test 43598 ms
+Time: vtab_shared.test 41 ms
+Time: vtabdrop.test 23 ms
+Time: wal2.test 499 ms
+Time: wal4.test 502 ms
+Time: wal6.test 54 ms
+Time: wal64k.test 771 ms
+Time: wal7.test 40 ms
+Time: wal8.test 22 ms
+Time: wal9.test 764 ms
+Time: walbak.test 98 ms
+Time: walbig.test 24 ms
+Time: walblock.test 10 ms
+Time: walcksum.test 126 ms
+Time: walcrash.test 24458 ms
+Time: walcrash3.test 425600 ms
+Time: walcrash4.test 4510 ms
+Time: walfault.test 35859 ms
+Time: walfault2.test 3068 ms
+Time: walhook.test 12 ms
+Time: walmode.test 54 ms
+Time: walnoshm.test 30 ms
+Time: waloverwrite.test 133 ms
+Time: walpersist.test 57 ms
+# Warning: This next test case causes SQLite to call xSleep(1) 100 times.
+# Normally this equates to a delay of roughly 10 seconds, but if SQLite
+# is built on unix without HAVE_USLEEP defined, it may be much longer.
+# Warning: Same again!
+# Warning: Third time!
+# Warning: Another slow test!
+# Warning: Last one!
+Time: walprotocol.test 20934 ms
+Time: walprotocol2.test 16 ms
+Time: walrofault.test 967 ms
+Time: walshared.test 10 ms
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+Time: walthread.test 7 ms
+# WARNING: This next test takes around 12 seconds
+Time: walvfs.test 10507 ms
+Time: where.test 175 ms
+Time: where2.test 78 ms
+Time: where3.test 72 ms
+Time: where4.test 38 ms
+Time: where5.test 25 ms
+Time: where6.test 25 ms
+Time: where7.test 526 ms
+Time: where8.test 2839 ms
+Time: where9.test 136 ms
+Time: whereA.test 17 ms
+Time: whereB.test 60 ms
+Time: whereC.test 29 ms
+Time: whereD.test 91 ms
+Time: whereE.test 52 ms
+Time: whereF.test 53 ms
+Time: whereG.test 112 ms
+Time: whereH.test 28 ms
+Time: whereI.test 20 ms
+Time: whereJ.test 1044 ms
+Time: whereK.test 19 ms
+Time: whereL.test 32 ms
+Time: wherefault.test 5104 ms
+Time: wherelfault.test 7 ms
+Time: wherelimit.test 6 ms
+Time: wherelimit2.test 6 ms
+Time: win32heap.test 3 ms
+Time: win32lock.test 5 ms
+Time: win32longpath.test 4 ms
+Time: win32nolock.test 4 ms
+Time: window1.test 232 ms
+Time: window2.test 49 ms
+Time: window3.test 2105 ms
+Time: window4.test 106 ms
+Time: window5.test 19 ms
+Time: window6.test 62 ms
+Time: window7.test 14 ms
+Time: window8.test 538 ms
+Time: window9.test 34 ms
+Time: windowA.test 22 ms
+Time: windowB.test 53 ms
+Time: windowerr.test 20 ms
+Time: windowfault.test 12257 ms
+Time: with1.test 2106 ms
+Time: with2.test 67 ms
+Time: with3.test 27 ms
+Time: with4.test 13 ms
+Time: withM.test 154 ms
+Time: without_rowid1.test 80 ms
+Time: without_rowid2.test 24 ms
+Time: without_rowid3.test 503 ms
+Time: without_rowid4.test 391 ms
+Time: without_rowid5.test 24 ms
+Time: without_rowid6.test 32 ms
+Time: without_rowid7.test 13 ms
+Time: zeroblob.test 35 ms
+Time: zerodamage.test 15 ms
+Time: zipfile.test 202 ms
+Time: zipfile2.test 23 ms
+Time: zipfilefault.test 1583 ms
+SQLite 2020-08-14 13:23:32 fca8dc8b578f215a969cd899336378966156154710873e68b3d9ac5881b0ff3f
+0 errors out of 792994 tests on  Darwin 64-bit little-endian
+WARNING: Multi-threaded tests skipped: Linked against a non-threadsafe Tcl build
+All memory allocations freed - no leaks
+Maximum memory usage: 9223056 bytes
+Current memory usage: 0 bytes
+Number of malloc()  : -1 calls
+--- FAIL: TestTclTest (2829.79s)
 FAIL
 exit status 1
-FAIL	modernc.org/sqlite	42.403s
-57:--- FAIL: TestConcurrentProcesses (0.51s)
-116:--- FAIL: TestTclTest (1.26s)
-117:FAIL
-119:FAIL	modernc.org/sqlite	42.403s
-Sat Dec 26 20:50:34 CET 2020
+FAIL	modernc.org/sqlite	2909.612s
+1305:--- FAIL: TestTclTest (2829.79s)
+1306:FAIL
+1308:FAIL	modernc.org/sqlite	2909.612s
+Wed Dec 30 03:04:08 CET 2020
