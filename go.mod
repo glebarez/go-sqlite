@@ -3,7 +3,7 @@ module modernc.org/sqlite
 go 1.15
 
 require (
-	modernc.org/libc v0.0.0-20210101224849-6e0a86bdd97e
+	modernc.org/libc v0.0.0-20210104193154-57696de638ab
 	modernc.org/mathutil v1.2.1
-	modernc.org/tcl v0.0.0-20210102110656-aa330c27bec6
+	modernc.org/tcl v0.0.0-20210104193618-13dabb3e820b
 )
