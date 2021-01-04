@@ -34,16 +34,6 @@ func TestTclTest(t *testing.T) {
 		// # this test.
 		blacklist["bigsort.test"] = struct{}{}
 	}
-	switch runtime.GOOS {
-	case "darwin":
-		for _, v := range []string{
-			// writecrash-1.1.1...libc_darwin.go:1590:Xabort: TODOTODO
-			"writecrash.test",
-		} {
-			blacklist[v] = struct{}{}
-			t.Errorf("%v: crashes or hangs, disabled", v)
-		}
-	}
 	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
 	if err != nil {
 		t.Fatal(err)
