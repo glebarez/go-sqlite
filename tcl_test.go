@@ -5,6 +5,7 @@
 package sqlite // import "modernc.org/sqlite"
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -115,9 +116,23 @@ func TestTclTest(t *testing.T) {
 	}
 	os.Setenv("PATH", fmt.Sprintf("%s%c%s", dir, os.PathListSeparator, os.Getenv("PATH")))
 	cmd = exec.Command(bin, args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	var w echoWriter
+	cmd.Stdout = &w
+	cmd.Stderr = &w
 	if err := cmd.Run(); err != nil {
 		t.Fatal(err)
 	}
+
+	if b := w.w.Bytes(); bytes.Contains(b, []byte("while executing")) {
+		t.Fatal("silent/unreported error detected in output")
+	}
+}
+
+type echoWriter struct {
+	w bytes.Buffer
+}
+
+func (w *echoWriter) Write(b []byte) (int, error) {
+	os.Stdout.Write(b)
+	return w.w.Write(b)
 }
