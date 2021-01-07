@@ -8,6 +8,7 @@ package sqlite // import "modernc.org/sqlite"
 
 import (
 	"database/sql"
+	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -27,17 +28,17 @@ var inMemory = []bool{
 	false,
 }
 
-func makename(inMemory bool, driver string) string {
+func makename(inMemory bool, driver string, e int) string {
 	name := driver
 	if inMemory {
 		name += "InMemory"
 	} else {
 		name += "OnDisk"
 	}
-	return name
+	return fmt.Sprintf("%s1e%d", name, e)
 }
 
-func reading1Memory(b *testing.B, drivername, file string) {
+func reading1Memory(b *testing.B, drivername, file string, n int) {
 	os.Remove(file)
 	db, err := sql.Open(drivername, file)
 	if err != nil {
@@ -62,7 +63,7 @@ func reading1Memory(b *testing.B, drivername, file string) {
 
 	defer s.Close()
 
-	for i := 0; i < b.N; i++ {
+	for i := 0; i < n; i++ {
 		if _, err := s.Exec(int64(i)); err != nil {
 			b.Fatal(err)
 		}
@@ -71,26 +72,33 @@ func reading1Memory(b *testing.B, drivername, file string) {
 		b.Fatal(err)
 	}
 
-	r, err := db.Query("select * from t")
-	if err != nil {
-		b.Fatal(err)
-	}
-
-	defer r.Close()
 	dst := 0
+	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		if !r.Next() {
-			b.Fatal(r.Err())
-		}
-		err = r.Scan(&dst)
+		b.StopTimer()
+		r, err := db.Query("select * from t")
 		if err != nil {
 			b.Fatal(err)
 		}
+
+		b.StartTimer()
+		for i := 0; i < n; i++ {
+			if !r.Next() {
+				b.Fatal(r.Err())
+			}
+
+			err = r.Scan(&dst)
+			if err != nil {
+				b.Fatal(err)
+			}
+		}
+		b.StopTimer()
+		r.Close()
 	}
 	b.StopTimer()
 	if *oRecsPerSec {
-		b.SetBytes(1e6)
+		b.SetBytes(1e6 * int64(n))
 	}
 }
 
@@ -102,15 +110,17 @@ func BenchmarkReading1(b *testing.B) {
 			filename = filepath.Join(dir, "test.db")
 		}
 		for _, driver := range drivers {
-			b.Run(makename(memory, driver), func(b *testing.B) {
-				reading1Memory(b, driver, filename)
-				if !memory {
-					err := os.Remove(filename)
-					if err != nil {
-						b.Fatal(err)
+			for i, n := range []int{1e1, 1e2, 1e3, 1e4, 1e5, 1e6} {
+				b.Run(makename(memory, driver, i+1), func(b *testing.B) {
+					reading1Memory(b, driver, filename, n)
+					if !memory {
+						err := os.Remove(filename)
+						if err != nil {
+							b.Fatal(err)
+						}
 					}
-				}
-			})
+				})
+			}
 		}
 	}
 }

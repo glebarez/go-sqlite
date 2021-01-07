@@ -248,7 +248,58 @@ func TestBlob(t *testing.T) {
 	}
 }
 
+func benchmarkInsertMemory(b *testing.B, n int) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		b.Fatal(err)
+	}
+
+	defer func() {
+		db.Close()
+	}()
+
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		if _, err := db.Exec(`
+		drop table if exists t;
+		create table t(i int);
+		begin;
+		`); err != nil {
+			b.Fatal(err)
+		}
+
+		s, err := db.Prepare("insert into t values(?)")
+		if err != nil {
+			b.Fatal(err)
+		}
+
+		b.StartTimer()
+		for i := 0; i < n; i++ {
+			if _, err := s.Exec(int64(i)); err != nil {
+				b.Fatal(err)
+			}
+		}
+		b.StopTimer()
+		if _, err := db.Exec(`commit;`); err != nil {
+			b.Fatal(err)
+		}
+	}
+	if *oRecsPerSec {
+		b.SetBytes(1e6 * int64(n))
+	}
+}
+
 func BenchmarkInsertMemory(b *testing.B) {
+	for i, n := range []int{1e1, 1e2, 1e3, 1e4, 1e5, 1e6} {
+		b.Run(fmt.Sprintf("1e%d", i+1), func(b *testing.B) { benchmarkInsertMemory(b, n) })
+	}
+}
+
+var staticInt int
+
+func benchmarkNextMemory(b *testing.B, n int) {
 	db, err := sql.Open(driverName, "file::memory:")
 	if err != nil {
 		b.Fatal(err)
@@ -259,9 +310,9 @@ func BenchmarkInsertMemory(b *testing.B) {
 	}()
 
 	if _, err := db.Exec(`
-	create table t(i int);
-	begin;
-	`); err != nil {
+		create table t(i int);
+		begin;
+		`); err != nil {
 		b.Fatal(err)
 	}
 
@@ -270,70 +321,48 @@ func BenchmarkInsertMemory(b *testing.B) {
 		b.Fatal(err)
 	}
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for i := 0; i < n; i++ {
 		if _, err := s.Exec(int64(i)); err != nil {
 			b.Fatal(err)
 		}
-	}
-	b.StopTimer()
-	if *oRecsPerSec {
-		b.SetBytes(1e6)
 	}
 	if _, err := db.Exec(`commit;`); err != nil {
 		b.Fatal(err)
 	}
+
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		r, err := db.Query("select * from t")
+		if err != nil {
+			b.Fatal(err)
+		}
+
+		b.StartTimer()
+		for i := 0; i < n; i++ {
+			if !r.Next() {
+				b.Fatal(err)
+			}
+			if err := r.Scan(&staticInt); err != nil {
+				b.Fatal(err)
+			}
+		}
+		b.StopTimer()
+		if err := r.Err(); err != nil {
+			b.Fatal(err)
+		}
+
+		r.Close()
+	}
+	if *oRecsPerSec {
+		b.SetBytes(1e6 * int64(n))
+	}
 }
 
 func BenchmarkNextMemory(b *testing.B) {
-	db, err := sql.Open(driverName, "file::memory:")
-	if err != nil {
-		b.Fatal(err)
-	}
-
-	defer func() {
-		db.Close()
-	}()
-
-	if _, err := db.Exec(`
-	create table t(i int);
-	begin;
-	`); err != nil {
-		b.Fatal(err)
-	}
-
-	s, err := db.Prepare("insert into t values(?)")
-	if err != nil {
-		b.Fatal(err)
-	}
-
-	defer s.Close()
-
-	for i := 0; i < b.N; i++ {
-		if _, err := s.Exec(int64(i)); err != nil {
-			b.Fatal(err)
-		}
-	}
-	if _, err := db.Exec("commit"); err != nil {
-		b.Fatal(err)
-	}
-
-	r, err := db.Query("select * from t")
-	if err != nil {
-		b.Fatal(err)
-	}
-
-	defer r.Close()
-
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		if !r.Next() {
-			b.Fatal(err)
-		}
-	}
-	b.StopTimer()
-	if *oRecsPerSec {
-		b.SetBytes(1e6)
+	for i, n := range []int{1e1, 1e2, 1e3, 1e4, 1e5, 1e6} {
+		b.Run(fmt.Sprintf("1e%d", i+1), func(b *testing.B) { benchmarkNextMemory(b, n) })
 	}
 }
 
