@@ -8,25 +8,14 @@ package sqlite // import "modernc.org/sqlite"
 
 import (
 	"database/sql"
-	"fmt"
 	"os"
+	"path/filepath"
 	"testing"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
 const gcoDriver = "sqlite3"
-
-func prepareDatabase() string {
-	//if this fails you should probably clean your folders
-	for i := 0; ; i++ {
-		path := fmt.Sprintf("%dbench.db", i)
-		_, err := os.Stat(path)
-		if os.IsNotExist(err) {
-			return path
-		}
-	}
-}
 
 var drivers = []string{
 	driverName,
@@ -49,6 +38,7 @@ func makename(inMemory bool, driver string) string {
 }
 
 func reading1Memory(b *testing.B, drivername, file string) {
+	os.Remove(file)
 	db, err := sql.Open(drivername, file)
 	if err != nil {
 		b.Fatal(err)
@@ -105,10 +95,11 @@ func reading1Memory(b *testing.B, drivername, file string) {
 }
 
 func BenchmarkReading1(b *testing.B) {
+	dir := b.TempDir()
 	for _, memory := range inMemory {
 		filename := "file::memory:"
 		if !memory {
-			filename = prepareDatabase()
+			filename = filepath.Join(dir, "test.db")
 		}
 		for _, driver := range drivers {
 			b.Run(makename(memory, driver), func(b *testing.B) {
