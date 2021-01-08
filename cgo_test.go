@@ -138,7 +138,6 @@ func benchmarkInsertComparative(b *testing.B, drivername, file string, n int) {
 
 	if _, err := db.Exec(`
 	create table t(i int);
-	begin;
 	`); err != nil {
 		b.Fatal(err)
 	}
@@ -150,19 +149,13 @@ func benchmarkInsertComparative(b *testing.B, drivername, file string, n int) {
 
 	defer s.Close()
 
-	for i := 0; i < n; i++ {
-		if _, err := s.Exec(int64(i)); err != nil {
-			b.Fatal(err)
-		}
-	}
-	if _, err := db.Exec("commit"); err != nil {
-		b.Fatal(err)
-	}
-
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
+		if _, err := db.Exec("begin"); err != nil {
+			b.Fatal(err)
+		}
 		if err, _ := db.Exec("delete * from t"); err != nil {
 			b.Fatal(err)
 		}
@@ -172,6 +165,9 @@ func benchmarkInsertComparative(b *testing.B, drivername, file string, n int) {
 			if _, err := s.Exec(int64(i)); err != nil {
 				b.Fatal(err)
 			}
+		}
+		if _, err := db.Exec("commit"); err != nil {
+			b.Fatal(err)
 		}
 		b.StopTimer()
 	}
@@ -190,7 +186,7 @@ func BenchmarkInsertComparative(b *testing.B) {
 			filename = filepath.Join(dir, "test.db")
 		}
 		for _, driver := range drivers {
-			for i, n := range []int{1e1, 1e2, 1e3, 1e4, 1e5 /*TODO 1e6 */} {
+			for i, n := range []int{1e1, 1e2, 1e3, 1e4, 1e5, 1e6} {
 				b.Run(makename(memory, driver, i+1), func(b *testing.B) {
 					benchmarkInsertComparative(b, driver, filename, n)
 					if !memory {
