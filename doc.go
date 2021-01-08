@@ -7,11 +7,15 @@
 //
 // Builders
 //
-// Test results available at
+// Builder results available at
 //
 //	https://modern-c.appspot.com/-/builder/?importpath=modernc.org%2fsqlite
 //
 // Changelog
+//
+// 2021-01-08 v1.8.0:
+//
+// Support darwin/amd64.
 //
 // 2020-09-13 v1.7.0:
 //
@@ -99,6 +103,7 @@
 //
 // These combinations of GOOS and GOARCH are currently supported
 //
+// 	darwin	amd64
 // 	linux	386
 // 	linux	amd64
 // 	linux	arm
