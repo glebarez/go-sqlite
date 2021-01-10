@@ -277,7 +277,12 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 					return err
 				}
 
-				dest[i] = v
+				switch r.ColumnTypeDatabaseTypeName(i) {
+				case "DATE", "DATETIME", "TIMESTAMP":
+					dest[i], _ = r.c.parseTime(v)
+				default:
+					dest[i] = v
+				}
 			case sqlite3.SQLITE_BLOB:
 				v, err := r.c.columnBlob(r.pstmt, i)
 				if err != nil {
@@ -297,6 +302,33 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 	default:
 		return r.c.errstr(int32(rc))
 	}
+}
+
+// Attempt to parse s as a time. Return (s, false) if s is not
+// recognized as a valid time encoding.
+func (c *conn) parseTime(s string) (interface{}, bool) {
+	if v, ok := c.parseTimeString(s, strings.Index(s, "m=")); ok {
+		return v, true
+	}
+
+	// TODO Add URI select time storage format and handle more formats
+	return s, false
+}
+
+// Attempt to parse s as a time string produced by t.String().  If x > 0 it's
+// the index of substring "m=" within s.  Return (s, false) if s is
+// not recognized as a valid time encoding.
+func (c *conn) parseTimeString(s0 string, x int) (interface{}, bool) {
+	s := s0
+	if x > 0 {
+		s = s[:x] // "2006-01-02 15:04:05.999999999 -0700 MST m=+9999" -> "2006-01-02 15:04:05.999999999 -0700 MST "
+	}
+	s = strings.TrimSpace(s)
+	if t, err := time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", s); err == nil {
+		return t, true
+	}
+
+	return s0, false
 }
 
 // RowsColumnTypeDatabaseTypeName may be implemented by Rows. It should return

@@ -923,3 +923,51 @@ Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 922337203685477580
 	}
 	t.Log(b.String())
 }
+
+// https://gitlab.com/cznic/sqlite/-/issues/35
+func TestTime(t *testing.T) {
+	types := []string{
+		"DATE",
+		"DATETIME",
+		"Date",
+		"DateTime",
+		"TIMESTAMP",
+		"TimeStamp",
+		"date",
+		"datetime",
+		"timestamp",
+	}
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		db.Close()
+	}()
+
+	for _, typ := range types {
+		if _, err := db.Exec(fmt.Sprintf(`
+		drop table if exists mg;
+		create table mg (applied_at %s);
+		`, typ)); err != nil {
+			t.Fatal(err)
+		}
+
+		now := time.Now()
+		_, err = db.Exec(`INSERT INTO mg (applied_at) VALUES (?)`, &now)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		var appliedAt time.Time
+		err = db.QueryRow("SELECT applied_at FROM mg").Scan(&appliedAt)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if g, e := appliedAt, now; !g.Equal(e) {
+			t.Fatal(g, e)
+		}
+	}
+}
