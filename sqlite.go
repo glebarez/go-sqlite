@@ -1189,6 +1189,10 @@ func (c *conn) Close() error {
 
 		c.db = 0
 	}
+	if c.tls != nil {
+		c.tls.Close()
+		c.tls = nil
+	}
 	return nil
 }
 
