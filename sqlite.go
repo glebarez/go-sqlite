@@ -660,7 +660,7 @@ type noRows struct{}
 
 func (noRows) Columns() []string         { return nil }
 func (noRows) Close() error              { return nil }
-func (noRows) Next([]driver.Value) error { return sql.ErrNoRows }
+func (noRows) Next([]driver.Value) error { return io.EOF }
 
 type tx struct {
 	c *conn
