@@ -1138,7 +1138,7 @@ func (c *conn) openV2(name string, flags int32) (uintptr, error) {
 }
 
 func (c *conn) malloc(n int) (uintptr, error) {
-	if p := libc.Xmalloc(c.tls, types.Size_t(n)); p != 0 {
+	if p := libc.Xmalloc(c.tls, types.Size_t(n)); p != 0 || n == 0 {
 		return p, nil
 	}
 
