@@ -18,7 +18,6 @@ func cpDB(sut driver.SUT, src, dest *sql.DB) error {
 		t, i string
 		int
 	}{
-		{"_property", sut.InsertProperty(), 3},
 		{"customer", sut.InsertCustomer(), 8},
 		{"lineitem", sut.InsertLineItem(), 16},
 		{"nation", sut.InsertNation(), 4},
@@ -136,7 +135,7 @@ func run(sut driver.SUT, mem bool, n, sf int, verbose bool) (err error) {
 	t0 := time.Now()
 
 	defer func() {
-		fmt.Println(time.Since(t0)) //TODO -> result.db
+		fmt.Println(time.Since(t0))
 	}()
 
 	switch n {

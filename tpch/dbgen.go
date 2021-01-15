@@ -672,20 +672,7 @@ func dbGen(sut driver.SUT, sf int) (err error) {
 		return err
 	}
 
-	if err = genRegion(db, sf, sut); err != nil {
-		return err
-	}
-
-	tx, err := db.Begin()
-	if err != nil {
-		return err
-	}
-
-	if _, err = tx.Exec(sut.InsertProperty(), time.Now(), int64(sf), int64(maxRecs)); err != nil {
-		return err
-	}
-
-	return tx.Commit()
+	return genRegion(db, sf, sut)
 }
 
 func genSupplier(db *sql.DB, sf int, sut driver.SUT) (err error) {

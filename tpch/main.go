@@ -2,6 +2,21 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// TPC BENCHMARK TM H
+// (Decision Support)
+// Standard Specification
+// Revision 2.17.1
+//
+// Transaction Processing Performance Council (TPC)
+// Presidio of San Francisco
+// Building 572B Ruger St. (surface)
+// P.O. Box 29920 (mail)
+// San Francisco, CA 94129-0920
+// Voice:415-561-6272
+// Fax:415-561-6120
+// Email: webmaster@tpc.org
+// © 1993 - 2014 Transaction Processing Performance Council
+
 package main
 
 import (

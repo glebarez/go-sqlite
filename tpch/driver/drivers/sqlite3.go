@@ -210,12 +210,6 @@ func (b *sqlite3) CreateTables() error {
 			r_comment   string
 		);
 
-		create table _property (
-			ctime   time,
-			sf      int,
-			recs    int
-		);
-
 		`); err != nil {
 		return err
 	}
@@ -253,10 +247,6 @@ func (b *sqlite3) InsertNation() string {
 
 func (b *sqlite3) InsertRegion() string {
 	return "insert into region values (?1, ?2, ?3)"
-}
-
-func (b *sqlite3) InsertProperty() string {
-	return "insert into _property values (?1, ?2, ?3)"
 }
 
 func (b *sqlite3) QProperty() string {

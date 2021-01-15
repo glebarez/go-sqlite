@@ -18,7 +18,6 @@ type SUT interface {
 	InsertOrders() string
 	InsertPart() string
 	InsertPartSupp() string
-	InsertProperty() string
 	InsertRegion() string
 	InsertSupplier() string
 	Name() string
