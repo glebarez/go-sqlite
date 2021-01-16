@@ -175,7 +175,7 @@ proc get_pwd {} {
     #       defeat the purpose of this procedure.
     #
     return [string map [list \\ /] \
-        [string trim [exec -- $::env(ComSpec) /c echo %CD%]]]
+        [string trim [exec -- $::env(ComSpec) /c cd ]]]
   } else {
     return [pwd]
   }
