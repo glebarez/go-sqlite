@@ -24,6 +24,7 @@ import (
 	"testing"
 	"time"
 
+	"modernc.org/libc"
 	"modernc.org/mathutil"
 )
 
@@ -129,11 +130,16 @@ func tempDB(t testing.TB) (string, *sql.DB) {
 }
 
 func TestScalar(t *testing.T) {
+	libc.MemAuditStart()
+
 	dir, db := tempDB(t)
 
 	defer func() {
 		db.Close()
 		os.RemoveAll(dir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
 	}()
 
 	t1 := time.Date(2017, 4, 20, 1, 2, 3, 56789, time.UTC)
@@ -197,11 +203,15 @@ func TestScalar(t *testing.T) {
 }
 
 func TestBlob(t *testing.T) {
+	libc.MemAuditStart()
 	dir, db := tempDB(t)
 
 	defer func() {
 		db.Close()
 		os.RemoveAll(dir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
 	}()
 
 	b1 := []byte(time.Now().String())
@@ -249,6 +259,7 @@ func TestBlob(t *testing.T) {
 }
 
 func benchmarkInsertMemory(b *testing.B, n int) {
+	libc.MemAuditStart()
 	db, err := sql.Open(driverName, "file::memory:")
 	if err != nil {
 		b.Fatal(err)
@@ -256,6 +267,9 @@ func benchmarkInsertMemory(b *testing.B, n int) {
 
 	defer func() {
 		db.Close()
+		if err := libc.MemAuditReport(); err != nil {
+			b.Error(err)
+		}
 	}()
 
 	b.ReportAllocs()
@@ -300,6 +314,7 @@ func BenchmarkInsertMemory(b *testing.B) {
 var staticInt int
 
 func benchmarkNextMemory(b *testing.B, n int) {
+	libc.MemAuditStart()
 	db, err := sql.Open(driverName, "file::memory:")
 	if err != nil {
 		b.Fatal(err)
@@ -307,6 +322,9 @@ func benchmarkNextMemory(b *testing.B, n int) {
 
 	defer func() {
 		db.Close()
+		if err := libc.MemAuditReport(); err != nil {
+			b.Error(err)
+		}
 	}()
 
 	if _, err := db.Exec(`
@@ -368,12 +386,16 @@ func BenchmarkNextMemory(b *testing.B) {
 
 // https://gitlab.com/cznic/sqlite/issues/11
 func TestIssue11(t *testing.T) {
+	libc.MemAuditStart()
 	const N = 6570
 	dir, db := tempDB(t)
 
 	defer func() {
 		db.Close()
 		os.RemoveAll(dir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
 	}()
 
 	if _, err := db.Exec(`
@@ -396,6 +418,7 @@ func TestIssue11(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/issues/12
 func TestMemDB(t *testing.T) {
+	libc.MemAuditStart()
 	// Verify we can create out-of-the heap memory DB instance.
 	db, err := sql.Open(driverName, "file::memory:")
 	if err != nil {
@@ -404,6 +427,9 @@ func TestMemDB(t *testing.T) {
 
 	defer func() {
 		db.Close()
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
 	}()
 
 	v := strings.Repeat("a", 1024)
@@ -431,6 +457,7 @@ func TestMemDB(t *testing.T) {
 }
 
 func TestConcurrentGoroutines(t *testing.T) {
+	libc.MemAuditStart()
 	const (
 		ngoroutines = 8
 		nrows       = 5000
@@ -441,7 +468,12 @@ func TestConcurrentGoroutines(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(dir)
+	defer func() {
+		os.RemoveAll(dir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	db, err := sql.Open(driverName, filepath.Join(dir, "test.db"))
 	if err != nil {
@@ -537,12 +569,18 @@ func TestConcurrentGoroutines(t *testing.T) {
 }
 
 func TestConcurrentProcesses(t *testing.T) {
+	libc.MemAuditStart()
 	dir, err := ioutil.TempDir("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(dir)
+	defer func() {
+		os.RemoveAll(dir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	m, err := filepath.Glob(filepath.FromSlash("internal/mptest/*"))
 	if err != nil {
@@ -629,6 +667,7 @@ outer:
 
 // https://gitlab.com/cznic/sqlite/issues/19
 func TestIssue19(t *testing.T) {
+	libc.MemAuditStart()
 	const (
 		drop = `
 drop table if exists products;
@@ -660,7 +699,12 @@ INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "c
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(dir)
+	defer func() {
+		os.RemoveAll(dir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	wd, err := os.Getwd()
 	if err != nil {
@@ -749,6 +793,7 @@ func mustExec(t *testing.T, db *sql.DB, sql string, args ...interface{}) sql.Res
 
 // https://gitlab.com/cznic/sqlite/issues/20
 func TestIssue20(t *testing.T) {
+	libc.MemAuditStart()
 	const TablePrefix = "gosqltest_"
 
 	tempDir, err := ioutil.TempDir("", "")
@@ -756,7 +801,12 @@ func TestIssue20(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(tempDir)
+	defer func() {
+		os.RemoveAll(tempDir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db"))
 	if err != nil {
@@ -809,12 +859,18 @@ func TestIssue20(t *testing.T) {
 }
 
 func TestNoRows(t *testing.T) {
+	libc.MemAuditStart()
 	tempDir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(tempDir)
+	defer func() {
+		os.RemoveAll(tempDir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db"))
 	if err != nil {
@@ -835,12 +891,18 @@ func TestNoRows(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/28
 func TestIssue28(t *testing.T) {
+	libc.MemAuditStart()
 	tempDir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(tempDir)
+	defer func() {
+		os.RemoveAll(tempDir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	db, err := sql.Open("sqlite", filepath.Join(tempDir, "test.db"))
 	if err != nil {
@@ -862,12 +924,18 @@ func TestIssue28(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/30
 func TestIssue30(t *testing.T) {
+	libc.MemAuditStart()
 	tempDir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	defer os.RemoveAll(tempDir)
+	defer func() {
+		os.RemoveAll(tempDir)
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	db, err := sql.Open("sqlite", filepath.Join(tempDir, "test.db"))
 	if err != nil {
@@ -926,6 +994,7 @@ Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 922337203685477580
 
 // https://gitlab.com/cznic/sqlite/-/issues/35
 func TestTime(t *testing.T) {
+	libc.MemAuditStart()
 	types := []string{
 		"DATE",
 		"DATETIME",
@@ -944,6 +1013,9 @@ func TestTime(t *testing.T) {
 
 	defer func() {
 		db.Close()
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
 	}()
 
 	for _, typ := range types {
