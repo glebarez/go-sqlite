@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"modernc.org/libc"
 	_ "github.com/mattn/go-sqlite3"
 )
 
