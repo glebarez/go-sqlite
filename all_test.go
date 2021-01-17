@@ -867,9 +867,6 @@ func TestNoRows(t *testing.T) {
 
 	defer func() {
 		os.RemoveAll(tempDir)
-		if err := libc.MemAuditReport(); err != nil {
-			t.Error(err)
-		}
 	}()
 
 	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db"))
@@ -877,12 +874,19 @@ func TestNoRows(t *testing.T) {
 		t.Fatalf("foo.db open fail: %v", err)
 	}
 
-	defer db.Close()
+	defer func() {
+		db.Close()
+		if err := libc.MemAuditReport(); err != nil {
+			t.Error(err)
+		}
+	}()
 
 	stmt, err := db.Prepare("create table t(i);")
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	defer stmt.Close()
 
 	if _, err := stmt.Query(); err != nil {
 		t.Fatal(err)

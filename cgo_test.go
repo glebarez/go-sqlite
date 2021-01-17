@@ -13,8 +13,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"modernc.org/libc"
 	_ "github.com/mattn/go-sqlite3"
+	"modernc.org/libc"
 )
 
 const gcoDriver = "sqlite3"
