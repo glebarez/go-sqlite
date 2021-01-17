@@ -132,6 +132,10 @@ mem: clean
 memgrind:
 	go test -v -timeout 24h -tags=libc.memgrind,cgobench -run Test[^T][^c][^l] -bench . -recs_per_sec_as_mbps 2>&1 | tee log-memgrind
 
+regression_check:
+	GO111MODULE=off go test -v -timeout 24h -tags=cgobench -run @ -bench . -recs_per_sec_as_mbps 2>&1 | tee log-regression
+	benchcmp -changed log-regression-base log-regression
+
 nuke: clean
 	go clean -i
 
