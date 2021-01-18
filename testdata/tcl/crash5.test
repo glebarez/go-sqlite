@@ -50,7 +50,7 @@ for {set ii 0} {$ii < 10} {incr ii} {
 	proc get_pwd {} {
           if {$::tcl_platform(platform) eq "windows"} {
             return [string map [list \\ /] \
-              [string trim [exec -- $::env(ComSpec) /c echo %CD%]]]
+              [string trim [exec -- $::env(ComSpec) /c cd ]]]
           } else {
             return [pwd]
           }
