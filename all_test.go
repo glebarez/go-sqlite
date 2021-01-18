@@ -16,6 +16,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"reflect"
 	"runtime"
 	"runtime/debug"
 	"strconv"
@@ -1044,6 +1045,192 @@ func TestTime(t *testing.T) {
 
 		if g, e := appliedAt, now; !g.Equal(e) {
 			t.Fatal(g, e)
+		}
+	}
+}
+
+// https://sqlite.org/lang_expr.html#varparam
+// https://gitlab.com/cznic/sqlite/-/issues/42
+func TestBinding(t *testing.T) {
+	t.Run("DB", func(t *testing.T) {
+		testBinding(t, func(db *sql.DB, query string, args ...interface{}) (*sql.Row, func()) {
+			return db.QueryRow(query, args...), func() {}
+		})
+	})
+
+	t.Run("Prepare", func(t *testing.T) {
+		testBinding(t, func(db *sql.DB, query string, args ...interface{}) (*sql.Row, func()) {
+			stmt, err := db.Prepare(query)
+			if err != nil {
+				t.Fatal(err)
+			}
+			return stmt.QueryRow(args...), func() { stmt.Close() }
+		})
+	})
+}
+
+func testBinding(t *testing.T, query func(db *sql.DB, query string, args ...interface{}) (*sql.Row, func())) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	for _, tc := range []struct {
+		q  string
+		in []interface{}
+		w  []int
+	}{
+		{
+			q:  "?, ?, ?",
+			in: []interface{}{1, 2, 3},
+			w:  []int{1, 2, 3},
+		},
+		{
+			q:  "?1, ?2, ?3",
+			in: []interface{}{1, 2, 3},
+			w:  []int{1, 2, 3},
+		},
+		{
+			q:  "?1, ?, ?3",
+			in: []interface{}{1, 2, 3},
+			w:  []int{1, 2, 3},
+		},
+		{
+			q:  "?3, ?2, ?1",
+			in: []interface{}{1, 2, 3},
+			w:  []int{3, 2, 1},
+		},
+		{
+			q:  "?1, ?1, ?2",
+			in: []interface{}{1, 2},
+			w:  []int{1, 1, 2},
+		},
+		{
+			q:  ":one, :two, :three",
+			in: []interface{}{sql.Named("one", 1), sql.Named("two", 2), sql.Named("three", 3)},
+			w:  []int{1, 2, 3},
+		},
+		{
+			q:  ":one, :one, :two",
+			in: []interface{}{sql.Named("one", 1), sql.Named("two", 2)},
+			w:  []int{1, 1, 2},
+		},
+		{
+			q:  "@one, @two, @three",
+			in: []interface{}{sql.Named("one", 1), sql.Named("two", 2), sql.Named("three", 3)},
+			w:  []int{1, 2, 3},
+		},
+		{
+			q:  "@one, @one, @two",
+			in: []interface{}{sql.Named("one", 1), sql.Named("two", 2)},
+			w:  []int{1, 1, 2},
+		},
+		{
+			q:  "$one, $two, $three",
+			in: []interface{}{sql.Named("one", 1), sql.Named("two", 2), sql.Named("three", 3)},
+			w:  []int{1, 2, 3},
+		},
+		{
+			// A common usage that should technically require sql.Named but
+			// does not.
+			q:  "$1, $2, $3",
+			in: []interface{}{1, 2, 3},
+			w:  []int{1, 2, 3},
+		},
+		{
+			q:  "$one, $one, $two",
+			in: []interface{}{sql.Named("one", 1), sql.Named("two", 2)},
+			w:  []int{1, 1, 2},
+		},
+		{
+			q:  ":one, @one, $one",
+			in: []interface{}{sql.Named("one", 1)},
+			w:  []int{1, 1, 1},
+		},
+	} {
+		got := make([]int, len(tc.w))
+		ptrs := make([]interface{}, len(got))
+		for i := range got {
+			ptrs[i] = &got[i]
+		}
+
+		row, cleanup := query(db, "select "+tc.q, tc.in...)
+		defer cleanup()
+
+		if err := row.Scan(ptrs...); err != nil {
+			t.Errorf("query(%q, %+v) = %s", tc.q, tc.in, err)
+			continue
+		}
+
+		if !reflect.DeepEqual(got, tc.w) {
+			t.Errorf("query(%q, %+v) = %#+v, want %#+v", tc.q, tc.in, got, tc.w)
+		}
+	}
+}
+
+func TestBindingError(t *testing.T) {
+	t.Run("DB", func(t *testing.T) {
+		testBindingError(t, func(db *sql.DB, query string, args ...interface{}) (*sql.Row, func()) {
+			return db.QueryRow(query, args...), func() {}
+		})
+	})
+
+	t.Run("Prepare", func(t *testing.T) {
+		testBindingError(t, func(db *sql.DB, query string, args ...interface{}) (*sql.Row, func()) {
+			stmt, err := db.Prepare(query)
+			if err != nil {
+				t.Fatal(err)
+			}
+			return stmt.QueryRow(args...), func() { stmt.Close() }
+		})
+	})
+}
+
+func testBindingError(t *testing.T, query func(db *sql.DB, query string, args ...interface{}) (*sql.Row, func())) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	for _, tc := range []struct {
+		q  string
+		in []interface{}
+	}{
+		{
+			q:  "?",
+			in: []interface{}{},
+		},
+		{
+			q:  "?500, ?",
+			in: []interface{}{1, 2},
+		},
+		{
+			q:  ":one",
+			in: []interface{}{1},
+		},
+		{
+			q:  "@one",
+			in: []interface{}{1},
+		},
+		{
+			q:  "$one",
+			in: []interface{}{1},
+		},
+	} {
+		got := make([]int, 2)
+		ptrs := make([]interface{}, len(got))
+		for i := range got {
+			ptrs[i] = &got[i]
+		}
+
+		row, cleanup := query(db, "select "+tc.q, tc.in...)
+		defer cleanup()
+
+		err := row.Scan(ptrs...)
+		if err == nil || (!strings.Contains(err.Error(), "missing argument with index") && !strings.Contains(err.Error(), "missing named argument")) {
+			t.Errorf("query(%q, %+v) unexpected error %+v", tc.q, tc.in, err)
 		}
 	}
 }

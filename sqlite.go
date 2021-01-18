@@ -15,6 +15,7 @@ import (
 	"io"
 	"math"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 	"unsafe"
@@ -495,7 +496,6 @@ func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Res
 			continue
 		}
 		err = func() (err error) {
-
 			n, err := s.c.bindParameterCount(pstmt)
 			if err != nil {
 				return err
@@ -891,38 +891,51 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 	}()
 
 	for i := 1; i <= n; i++ {
-		var p uintptr
 		name, err := c.bindParameterName(pstmt, i)
 		if err != nil {
 			return allocs, err
 		}
 
+		var found bool
 		var v driver.NamedValue
 		for _, v = range args {
 			if name != "" {
+				// For ?NNN and $NNN params, match if NNN == v.Ordinal.
+				//
+				// Supporting this for $NNN is a special case that makes eg
+				// `select $1, $2, $3 ...` work without needing to use
+				// sql.Named.
+				if (name[0] == '?' || name[0] == '$') && name[1:] == strconv.Itoa(v.Ordinal) {
+					found = true
+					break
+				}
+
 				// sqlite supports '$', '@' and ':' prefixes for string
 				// identifiers and '?' for numeric, so we cannot
 				// combine different prefixes with the same name
 				// because `database/sql` requires variable names
 				// to start with a letter
 				if name[1:] == v.Name[:] {
+					found = true
 					break
 				}
 			} else {
 				if v.Ordinal == i {
+					found = true
 					break
 				}
 			}
 		}
 
-		if v.Ordinal == 0 {
+		if !found {
 			if name != "" {
 				return allocs, fmt.Errorf("missing named argument %q", name[1:])
 			}
 
-			return allocs, fmt.Errorf("missing argument with %d index", i)
+			return allocs, fmt.Errorf("missing argument with index %d", i)
 		}
 
+		var p uintptr
 		switch x := v.Value.(type) {
 		case int64:
 			if err := c.bindInt64(pstmt, i, x); err != nil {
