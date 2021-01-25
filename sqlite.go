@@ -34,7 +34,6 @@ var (
 	_ driver.Queryer                        = (*conn)(nil)
 	_ driver.Result                         = (*result)(nil)
 	_ driver.Rows                           = (*rows)(nil)
-	_ driver.Rows                           = noRows{}
 	_ driver.RowsColumnTypeDatabaseTypeName = (*rows)(nil)
 	_ driver.RowsColumnTypeLength           = (*rows)(nil)
 	_ driver.RowsColumnTypeNullable         = (*rows)(nil)
@@ -619,6 +618,10 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 
 			switch rc & 0xff {
 			case sqlite3.SQLITE_ROW:
+				if r != nil {
+					r.Close()
+				}
+
 				if r, err = newRows(s.c, pstmt, allocs, false); err != nil {
 					return err
 				}
@@ -628,15 +631,19 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 			case sqlite3.SQLITE_DONE:
 				if r == nil {
 					pstmt = 0
-					r = noRows{}
-					return nil
+					r, err = newRows(s.c, pstmt, allocs, true)
+					return err
 				}
+
 				// nop
 			default:
 				return s.c.errstr(int32(rc))
 			}
 
 			if *(*byte)(unsafe.Pointer(psql)) == 0 {
+				if r != nil {
+					r.Close()
+				}
 				if r, err = newRows(s.c, pstmt, allocs, true); err != nil {
 					return err
 				}
@@ -655,12 +662,6 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 	}
 	return r, err
 }
-
-type noRows struct{}
-
-func (noRows) Columns() []string         { return nil }
-func (noRows) Close() error              { return nil }
-func (noRows) Next([]driver.Value) error { return io.EOF }
 
 type tx struct {
 	c *conn
