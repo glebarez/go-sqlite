@@ -5,6 +5,7 @@ package main
 import (
 	"math"
 	"reflect"
+	"sync/atomic"
 	"unsafe"
 
 	"modernc.org/libc"
@@ -13,6 +14,7 @@ import (
 
 var _ = math.Pi
 var _ reflect.Kind
+var _ atomic.Value
 var _ unsafe.Pointer
 
 func main() { libc.Start(main1) }
@@ -4502,6 +4504,7 @@ var tens = [10]uintptr{ts + 2152 /* "" */, ts + 2309 /* "ten" */, ts + 2389 /* "
 
 // Start a new test case
 var zDots = *(*[72]int8)(unsafe.Pointer(ts + 2443 /* "..................." */)) /* speedtest1.c:368:19 */
+
 func speedtest1_begin_test(tls *libc.TLS, iTestNum int32, zTestName uintptr, va uintptr) { /* speedtest1.c:370:6: */
 	bp := tls.Alloc(64)
 	defer tls.Free(64)

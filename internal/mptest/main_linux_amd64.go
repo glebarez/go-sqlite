@@ -5,6 +5,7 @@ package main
 import (
 	"math"
 	"reflect"
+	"sync/atomic"
 	"unsafe"
 
 	"modernc.org/libc"
@@ -13,6 +14,7 @@ import (
 
 var _ = math.Pi
 var _ reflect.Kind
+var _ atomic.Value
 var _ unsafe.Pointer
 
 func main() { libc.Start(main1) }
@@ -5064,7 +5066,7 @@ func booleanValue(tls *libc.TLS, zArg uintptr) int32 { /* mptest.c:845:12: */
 // This routine exists as a convenient place to set a debugger
 // breakpoint.
 func test_breakpoint(tls *libc.TLS) { /* mptest.c:864:13: */
-	cnt++
+	atomic.AddInt32(&cnt, 1)
 }
 
 var cnt int32 = 0 /* mptest.c:864:56 */

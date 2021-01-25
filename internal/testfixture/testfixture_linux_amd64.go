@@ -5,6 +5,7 @@ package main
 import (
 	"math"
 	"reflect"
+	"sync/atomic"
 	"unsafe"
 
 	"modernc.org/libc"
@@ -15,6 +16,7 @@ import (
 
 var _ = math.Pi
 var _ reflect.Kind
+var _ atomic.Value
 var _ unsafe.Pointer
 
 func main() { libc.Start(main1) }
@@ -3772,6 +3774,10 @@ const ( /* resource.h:158:1: */
 
 	// All of its terminated child processes.
 	RUSAGE_CHILDREN = -1
+)
+
+// Whose usage statistics do you want?
+const ( /* resource.h:158:1: */
 	// The calling thread.
 	RUSAGE_THREAD = 1
 )
@@ -7819,6 +7825,7 @@ var expertModule = sqlite3_module{
 	FxShadowName:// xRollbackTo
 	uintptr(0), // xShadowName
 } /* sqlite3expert.c:623:25 */
+
 //
 // End of virtual table implementation.
 //
@@ -15524,6 +15531,7 @@ func amatchStrcpy(tls *libc.TLS, dest uintptr, src uintptr) { /* amatch.c:1005:1
 	for (int32(libc.AssignPtrInt8(libc.PostIncUintptr(&dest, 1), *(*int8)(unsafe.Pointer(libc.PostIncUintptr(&src, 1)))))) != 0 {
 	}
 }
+
 func amatchStrcat(tls *libc.TLS, dest uintptr, src uintptr) { /* amatch.c:1008:13: */
 	for *(*int8)(unsafe.Pointer(dest)) != 0 {
 		dest++
@@ -18987,6 +18995,7 @@ func decimalAddFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { 
 	decimal_free(tls, pA)
 	decimal_free(tls, pB)
 }
+
 func decimalSubFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* decimal.c:454:13: */
 	var pA uintptr = decimal_new(tls, context, *(*uintptr)(unsafe.Pointer(argv + uintptr(0)*8)), 0, uintptr(0))
 	var pB uintptr = decimal_new(tls, context, *(*uintptr)(unsafe.Pointer(argv + uintptr(1)*8)), 0, uintptr(0))
@@ -19031,6 +19040,7 @@ func decimalSumStep(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { 
 	decimal_add(tls, p, pArg)
 	decimal_free(tls, pArg)
 }
+
 func decimalSumInverse(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* decimal.c:501:13: */
 	var p uintptr
 	var pArg uintptr
@@ -19049,6 +19059,7 @@ func decimalSumInverse(tls *libc.TLS, context uintptr, argc int32, argv uintptr)
 	decimal_add(tls, p, pArg)
 	decimal_free(tls, pArg)
 }
+
 func decimalSumValue(tls *libc.TLS, context uintptr) { /* decimal.c:517:13: */
 	var p uintptr = sqlite3.Xsqlite3_aggregate_context(tls, context, 0)
 	if p == uintptr(0) {
@@ -19056,6 +19067,7 @@ func decimalSumValue(tls *libc.TLS, context uintptr) { /* decimal.c:517:13: */
 	}
 	decimal_result(tls, context, p)
 }
+
 func decimalSumFinalize(tls *libc.TLS, context uintptr) { /* decimal.c:522:13: */
 	var p uintptr = sqlite3.Xsqlite3_aggregate_context(tls, context, 0)
 	if p == uintptr(0) {
@@ -22548,6 +22560,7 @@ func ieee754func_from_blob(tls *libc.TLS, context uintptr, argc int32, argv uint
 		sqlite3.Xsqlite3_result_double(tls, context, *(*float64)(unsafe.Pointer(bp /* r */)))
 	}
 }
+
 func ieee754func_to_blob(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* ieee754.c:225:13: */
 	bp := tls.Alloc(24)
 	defer tls.Free(24)
@@ -24375,6 +24388,7 @@ func re_next_char(tls *libc.TLS, p uintptr) uint32 { /* regexp.c:147:17: */
 	}
 	return c
 }
+
 func re_next_char_nocase(tls *libc.TLS, p uintptr) uint32 { /* regexp.c:172:17: */
 	var c uint32 = re_next_char(tls, p)
 	if (c >= uint32('A')) && (c <= uint32('Z')) {
@@ -26733,6 +26747,7 @@ func editDist3ConfigClear(tls *libc.TLS, p uintptr) { /* spellfix.c:640:13: */
 	sqlite3.Xsqlite3_free(tls, (*EditDist3Config)(unsafe.Pointer(p)).Fa)
 	libc.Xmemset(tls, p, 0, uint64(unsafe.Sizeof(EditDist3Config{})))
 }
+
 func editDist3ConfigDelete(tls *libc.TLS, pIn uintptr) { /* spellfix.c:655:13: */
 	var p uintptr = pIn
 	editDist3ConfigClear(tls, p)
@@ -30224,9 +30239,11 @@ func spellfix1Uninit(tls *libc.TLS, isDestroy int32, pVTab uintptr) int32 { /* s
 	}
 	return *(*int32)(unsafe.Pointer(bp + 16 /* rc */))
 }
+
 func spellfix1Disconnect(tls *libc.TLS, pVTab uintptr) int32 { /* spellfix.c:1994:12: */
 	return spellfix1Uninit(tls, 0, pVTab)
 }
+
 func spellfix1Destroy(tls *libc.TLS, pVTab uintptr) int32 { /* spellfix.c:1997:12: */
 	return spellfix1Uninit(tls, 1, pVTab)
 }
@@ -30341,6 +30358,7 @@ func spellfix1Init(tls *libc.TLS, isCreate int32, db uintptr, pAux uintptr, argc
 func spellfix1Connect(tls *libc.TLS, db uintptr, pAux uintptr, argc int32, argv uintptr, ppVTab uintptr, pzErr uintptr) int32 { /* spellfix.c:2133:12: */
 	return spellfix1Init(tls, 0, db, pAux, argc, argv, ppVTab, pzErr)
 }
+
 func spellfix1Create(tls *libc.TLS, db uintptr, pAux uintptr, argc int32, argv uintptr, ppVTab uintptr, pzErr uintptr) int32 { /* spellfix.c:2142:12: */
 	return spellfix1Init(tls, 1, db, pAux, argc, argv, ppVTab, pzErr)
 }
@@ -34607,6 +34625,7 @@ func zipfileTableErr(tls *libc.TLS, pTab uintptr, zFmt uintptr, va uintptr) { /*
 	(*ZipfileTab)(unsafe.Pointer(pTab)).Fbase.FzErrMsg = sqlite3.Xsqlite3_vmprintf(tls, zFmt, ap)
 	_ = ap
 }
+
 func zipfileCursorErr(tls *libc.TLS, pCsr uintptr, zFmt uintptr, va uintptr) { /* zipfile.c:486:13: */
 	var ap va_list
 	_ = ap
@@ -38299,6 +38318,7 @@ func incrblobSeek(tls *libc.TLS, instanceData ClientData, offset int64, seekMode
 func incrblobWatch(tls *libc.TLS, instanceData ClientData, mode int32) { /* tclsqlite.c:355:27: */
 	// NO-OP
 }
+
 func incrblobHandle(tls *libc.TLS, instanceData ClientData, dir int32, hPtr uintptr) int32 { /* tclsqlite.c:361:26: */
 	return 1
 }
@@ -43289,12 +43309,15 @@ func Sqlite3_Init(tls *libc.TLS, interp uintptr) int32 { /* tclsqlite.c:3877:12:
 	}
 	return rc
 }
+
 func Tclsqlite3_Init(tls *libc.TLS, interp uintptr) int32 { /* tclsqlite.c:3891:12: */
 	return Sqlite3_Init(tls, interp)
 }
+
 func Sqlite3_Unload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* tclsqlite.c:3892:12: */
 	return 0
 }
+
 func Tclsqlite3_Unload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* tclsqlite.c:3893:12: */
 	return 0
 }
@@ -43305,6 +43328,7 @@ func Tclsqlite3_Unload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* tc
 func Sqlite3_SafeInit(tls *libc.TLS, interp uintptr) int32 { /* tclsqlite.c:3899:12: */
 	return 1
 }
+
 func Sqlite3_SafeUnload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* tclsqlite.c:3900:12: */
 	return 1
 }
@@ -43312,12 +43336,15 @@ func Sqlite3_SafeUnload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* t
 func Sqlite_Init(tls *libc.TLS, interp uintptr) int32 { /* tclsqlite.c:3905:5: */
 	return Sqlite3_Init(tls, interp)
 }
+
 func Tclsqlite_Init(tls *libc.TLS, interp uintptr) int32 { /* tclsqlite.c:3906:5: */
 	return Sqlite3_Init(tls, interp)
 }
+
 func Sqlite_Unload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* tclsqlite.c:3907:5: */
 	return 0
 }
+
 func Tclsqlite_Unload(tls *libc.TLS, interp uintptr, flags int32) int32 { /* tclsqlite.c:3908:5: */
 	return 0
 }
@@ -45596,6 +45623,7 @@ func testHexToInt(tls *libc.TLS, h int32) int32 { /* test1.c:44:12: */
 	}
 	return int32(0)
 }
+
 func sqlite3TestTextToPtr(tls *libc.TLS, z uintptr) uintptr { /* test1.c:54:6: */
 	bp := tls.Alloc(20)
 	defer tls.Free(20)
@@ -45916,6 +45944,7 @@ func db_enter(tls *libc.TLS, NotUsed uintptr, interp uintptr, argc int32, argv u
 	sqlite3.Xsqlite3_mutex_enter(tls, (*sqlite31)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 32 /* db */)))).Fmutex)
 	return 0
 }
+
 func db_leave(tls *libc.TLS, NotUsed uintptr, interp uintptr, argc int32, argv uintptr) int32 { /* test1.c:396:26: */
 	bp := tls.Alloc(40)
 	defer tls.Free(40)
@@ -46273,6 +46302,7 @@ func hex8Func(tls *libc.TLS, p uintptr, argc int32, argv uintptr) { /* test1.c:7
 	*(*int8)(unsafe.Pointer(bp + 8 /* &zBuf[0] */ + uintptr((i * 2)))) = int8(0)
 	sqlite3.Xsqlite3_result_text(tls, p, bp+8 /* zBuf */, -1, libc.UintptrFromInt32(-1))
 }
+
 func hex16Func(tls *libc.TLS, p uintptr, argc int32, argv uintptr) { /* test1.c:760:13: */
 	bp := tls.Alloc(408)
 	defer tls.Free(408)
@@ -46639,6 +46669,7 @@ type t1CountCtx1 = struct{ Fn int32 } /* test1.c:1123:9 */
 // is reported on the step function.  If the total count is 42, then
 // a UTF-8 error is reported on the finalize function.
 type t1CountCtx = t1CountCtx1 /* test1.c:1123:27 */
+
 func t1CountStep(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* test1.c:1127:13: */
 	bp := tls.Alloc(9)
 	defer tls.Free(9)
@@ -46658,6 +46689,7 @@ func t1CountStep(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* 
 		}
 	}
 }
+
 func t1CountFinalize(tls *libc.TLS, context uintptr) { /* test1.c:1149:13: */
 	var p uintptr
 	p = sqlite3.Xsqlite3_aggregate_context(tls, context, int32(unsafe.Sizeof(t1CountCtx{})))
@@ -47236,6 +47268,7 @@ type TestCollationX1 = struct {
 } /* test1.c:1715:1 */
 
 type TestCollationX = TestCollationX1 /* test1.c:1720:31 */
+
 func testCreateCollationDel(tls *libc.TLS, pCtx uintptr) { /* test1.c:1721:13: */
 	var p uintptr = pCtx
 
@@ -47258,6 +47291,7 @@ func testCreateCollationDel(tls *libc.TLS, pCtx uintptr) { /* test1.c:1721:13: *
 	}
 	sqlite3.Xsqlite3_free(tls, p)
 }
+
 func testCreateCollationCmp(tls *libc.TLS, pCtx uintptr, nLeft int32, zLeft uintptr, nRight int32, zRight uintptr) int32 { /* test1.c:1733:12: */
 	bp := tls.Alloc(4)
 	defer tls.Free(4)
@@ -47283,6 +47317,7 @@ func testCreateCollationCmp(tls *libc.TLS, pCtx uintptr, nLeft int32, zLeft uint
 
 	return *(*int32)(unsafe.Pointer(bp /* iRes */))
 }
+
 func test_create_collation_v2(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:1757:26: */
 	bp := tls.Alloc(24)
 	defer tls.Free(24)
@@ -47348,12 +47383,16 @@ type CreateFunctionV21 = struct {
 //   -final   SCRIPT
 //   -destroy SCRIPT
 type CreateFunctionV2 = CreateFunctionV21 /* test1.c:1804:33 */
+
 func cf2Func(tls *libc.TLS, ctx uintptr, nArg int32, aArg uintptr) { /* test1.c:1812:13: */
 }
+
 func cf2Step(tls *libc.TLS, ctx uintptr, nArg int32, aArg uintptr) { /* test1.c:1814:13: */
 }
+
 func cf2Final(tls *libc.TLS, ctx uintptr) { /* test1.c:1816:13: */
 }
+
 func cf2Destroy(tls *libc.TLS, pUser uintptr) { /* test1.c:1818:13: */
 	var p uintptr = pUser
 
@@ -47398,6 +47437,7 @@ func cf2Destroy(tls *libc.TLS, pUser uintptr) { /* test1.c:1818:13: */
 	}
 	sqlite3.Xsqlite3_free(tls, p)
 }
+
 func test_create_function_v2(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:1832:26: */
 	bp := tls.Alloc(180)
 	defer tls.Free(180)
@@ -48124,7 +48164,9 @@ func test_snapshot_cmp_blob(tls *libc.TLS, clientData uintptr, interp uintptr, o
 	res = sqlite3.Xsqlite3_snapshot_cmp(tls, p1, p2)
 	tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, res))
 	return 0
-} // in test_delete.c
+}
+
+// in test_delete.c
 func test_delete_database(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:2581:26: */
 	var rc int32
 	var zFile uintptr
@@ -48503,6 +48545,7 @@ func test_bind(tls *libc.TLS, NotUsed uintptr, interp uintptr, argc int32, argv 
 // interp pointer to use when evaluating the TCL script is stored in
 // pTestCollateInterp.
 var pTestCollateInterp uintptr /* test1.c:2975:18: */
+
 func test_collate_func(tls *libc.TLS, pCtx uintptr, nA int32, zA uintptr, nB int32, zB uintptr) int32 { /* test1.c:2976:12: */
 	bp := tls.Alloc(4)
 	defer tls.Free(4)
@@ -48557,6 +48600,7 @@ func test_collate_func(tls *libc.TLS, pCtx uintptr, nA int32, zA uintptr, nB int
 	tcl.XTcl_GetIntFromObj(tls, i, tcl.XTcl_GetObjResult(tls, i), bp /* &res */)
 	return *(*int32)(unsafe.Pointer(bp /* res */))
 }
+
 func test_collate(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:3026:26: */
 	bp := tls.Alloc(60)
 	defer tls.Free(60)
@@ -48688,6 +48732,7 @@ func test_utf16bin_collate_func(tls *libc.TLS, pCtx uintptr, nA int32, zA uintpt
 	}
 	return res
 }
+
 func test_utf16bin_collate(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:3100:26: */
 	bp := tls.Alloc(8)
 	defer tls.Free(8)
@@ -48804,6 +48849,7 @@ bad_args:
 // Both collating functions increment the unaligned utf16 counter
 // whenever they see a string that begins on an odd byte boundary.
 var unaligned_string_counter int32 = 0 /* test1.c:3192:12 */
+
 func alignmentCollFunc(tls *libc.TLS, NotUsed uintptr, nKey1 int32, pKey1 uintptr, nKey2 int32, pKey2 uintptr) int32 { /* test1.c:3193:12: */
 	var rc int32
 	var n int32
@@ -48824,6 +48870,7 @@ func alignmentCollFunc(tls *libc.TLS, NotUsed uintptr, nKey1 int32, pKey1 uintpt
 	}
 	return rc
 }
+
 func add_alignment_test_collations(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:3208:26: */
 	bp := tls.Alloc(8)
 	defer tls.Free(8)
@@ -48894,6 +48941,7 @@ func test_function_utf8(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) {
 		-1, libc.UintptrFromInt32(-1))
 	sqlite3.Xsqlite3ValueFree(tls, pVal)
 }
+
 func test_function_utf16le(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /* test1.c:3276:13: */
 	var interp uintptr
 	var pX uintptr
@@ -48917,6 +48965,7 @@ func test_function_utf16le(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr
 	sqlite3.Xsqlite3_result_text(tls, pCtx, sqlite3.Xsqlite3_value_text(tls, pVal), -1, libc.UintptrFromInt32(-1))
 	sqlite3.Xsqlite3ValueFree(tls, pVal)
 }
+
 func test_function_utf16be(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /* test1.c:3298:13: */
 	var interp uintptr
 	var pX uintptr
@@ -48945,6 +48994,7 @@ func test_function_utf16be(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr
 		-1, libc.UintptrFromInt32(-1))
 	sqlite3.Xsqlite3ValueFree(tls, pVal)
 }
+
 func test_function(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:3326:26: */
 	bp := tls.Alloc(44)
 	defer tls.Free(44)
@@ -49218,6 +49268,7 @@ func test_intarray_addr(tls *libc.TLS, clientData uintptr, interp uintptr, objc 
 }
 
 var p uintptr = uintptr(0) /* test1.c:3540:14 */
+
 // Usage:   intarray_addr  INT  ...
 //
 // Return the address of a C-language array of 32-bit integers.
@@ -49254,6 +49305,7 @@ func test_int64array_addr(tls *libc.TLS, clientData uintptr, interp uintptr, obj
 }
 
 var p1 uintptr = uintptr(0) /* test1.c:3574:24 */
+
 // Usage:   doublearray_addr  INT  ...
 //
 // Return the address of a C-language array of doubles.
@@ -49284,6 +49336,7 @@ func test_doublearray_addr(tls *libc.TLS, clientData uintptr, interp uintptr, ob
 }
 
 var p2 uintptr = uintptr(0) /* test1.c:3610:17 */
+
 // Usage:   textarray_addr  TEXT ...
 //
 // Return the address of a C-language array of strings.
@@ -50603,6 +50656,7 @@ func test_sql(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, obj
 	tcl.XTcl_SetResult(tls, interp, sqlite3.Xsqlite3_sql(tls, *(*uintptr)(unsafe.Pointer(bp /* pStmt */))), uintptr(1))
 	return 0
 }
+
 func test_ex_sql(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:4784:26: */
 	bp := tls.Alloc(8)
 	defer tls.Free(8)
@@ -52274,6 +52328,7 @@ type LogCallback = struct {
 
 // tclcmd:  test_sqlite3_log ?SCRIPT?
 var logcallback = LogCallback{} /* test1.c:6707:3 */
+
 func xLogcallback(tls *libc.TLS, unused uintptr, err int32, zMsg uintptr) { /* test1.c:6708:13: */
 	var pNew uintptr = tcl.XTcl_DuplicateObj(tls, logcallback.FpObj)
 	(*Tcl_Obj)(unsafe.Pointer(pNew)).FrefCount++
@@ -52288,6 +52343,7 @@ func xLogcallback(tls *libc.TLS, unused uintptr, err int32, zMsg uintptr) { /* t
 		}
 	}
 }
+
 func test_sqlite3_log(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:6718:26: */
 	bp := tls.Alloc(32)
 	defer tls.Free(32)
@@ -54747,6 +54803,7 @@ func testPendingByte(tls *libc.TLS, NotUsed uintptr, interp uintptr, argc int32,
 var faultSimInterp uintptr = uintptr(0) /* test2.c:580:19 */
 var faultSimScriptSize int32 = 0        /* test2.c:581:12 */
 var faultSimScript uintptr              /* test2.c:582:13: */
+
 func faultSimCallback(tls *libc.TLS, x int32) int32 { /* test2.c:583:12: */
 	bp := tls.Alloc(38)
 	defer tls.Free(38)
@@ -57889,6 +57946,7 @@ func test_translate(tls *libc.TLS, clientData uintptr, interp uintptr, objc int3
 
 	return 0
 }
+
 func test_translate_selftest(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test5.c:189:26: */
 	sqlite3.Xsqlite3UtfSelfTest(tls)
 	return 0
@@ -57991,9 +58049,11 @@ var sqlite3CrashTestEnable int32 = 0 /* test6.c:161:12 */
 func crash_malloc(tls *libc.TLS, nByte int32) uintptr { /* test6.c:163:13: */
 	return tcl.XTcl_AttemptAlloc(tls, uint32(size_t(nByte)))
 }
+
 func crash_free(tls *libc.TLS, p uintptr) { /* test6.c:166:13: */
 	tcl.XTcl_Free(tls, p)
 }
+
 func crash_realloc(tls *libc.TLS, p uintptr, n int32) uintptr { /* test6.c:169:13: */
 	return tcl.XTcl_AttemptRealloc(tls, p, uint32(size_t(n)))
 }
@@ -58298,12 +58358,15 @@ func cfFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* test6.c:
 func cfLock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* test6.c:514:12: */
 	return sqlite3.Xsqlite3OsLock(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, eLock)
 }
+
 func cfUnlock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* test6.c:517:12: */
 	return sqlite3.Xsqlite3OsUnlock(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, eLock)
 }
+
 func cfCheckReservedLock(tls *libc.TLS, pFile uintptr, pResOut uintptr) int32 { /* test6.c:520:12: */
 	return sqlite3.Xsqlite3OsCheckReservedLock(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, pResOut)
 }
+
 func cfFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32 { /* test6.c:523:12: */
 	if op == 5 {
 		var pCrash uintptr = pFile
@@ -58324,6 +58387,7 @@ func cfFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32 {
 func cfSectorSize(tls *libc.TLS, pFile uintptr) int32 { /* test6.c:542:12: */
 	return g.FiSectorSize
 }
+
 func cfDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* test6.c:545:12: */
 	return g.FiDeviceCharacteristics
 }
@@ -58332,14 +58396,17 @@ func cfDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* test6.c:54
 func cfShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int32) int32 { /* test6.c:552:12: */
 	return sqlite3.Xsqlite3OsShmLock(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, ofst, n, flags)
 }
+
 func cfShmBarrier(tls *libc.TLS, pFile uintptr) { /* test6.c:555:13: */
 	sqlite3.Xsqlite3OsShmBarrier(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile)
 }
+
 func cfShmUnmap(tls *libc.TLS, pFile uintptr, delFlag int32) int32 { /* test6.c:558:12: */
 	return sqlite3.Xsqlite3OsShmUnmap(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, delFlag)
 }
+
 func cfShmMap(tls *libc.TLS, pFile uintptr, iRegion int32, sz int32, w int32, pp uintptr) int32 { /* test6.c:561:12: */
-	return sqlite3.Xsqlite3OsShmMap(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, iRegion, sz, w, pp)
+	return sqlite3.Xsqlite3OsShmMap(tls, (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile, iRegion, sz, w, libc.AtomicLoadUintptr(&pp))
 }
 
 var CrashFileVtab = sqlite3_io_methods{
@@ -58445,42 +58512,52 @@ func cfDelete(tls *libc.TLS, pCfVfs uintptr, zPath uintptr, dirSync int32) int32
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pVfs + 48 /* &.xDelete */))))(tls, pVfs, zPath, dirSync)
 }
+
 func cfAccess(tls *libc.TLS, pCfVfs uintptr, zPath uintptr, flags int32, pResOut uintptr) int32 { /* test6.c:665:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 56 /* &.xAccess */))))(tls, pVfs, zPath, flags, pResOut)
 }
+
 func cfFullPathname(tls *libc.TLS, pCfVfs uintptr, zPath uintptr, nPathOut int32, zPathOut uintptr) int32 { /* test6.c:674:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 64 /* &.xFullPathname */))))(tls, pVfs, zPath, nPathOut, zPathOut)
 }
+
 func cfDlOpen(tls *libc.TLS, pCfVfs uintptr, zPath uintptr) uintptr { /* test6.c:683:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((pVfs + 72 /* &.xDlOpen */))))(tls, pVfs, zPath)
 }
+
 func cfDlError(tls *libc.TLS, pCfVfs uintptr, nByte int32, zErrMsg uintptr) { /* test6.c:687:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer((pVfs + 80 /* &.xDlError */))))(tls, pVfs, nByte, zErrMsg)
 }
+
 func cfDlSym(tls *libc.TLS, pCfVfs uintptr, pH uintptr, zSym uintptr) uintptr { /* test6.c:691:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer((pVfs + 88 /* &.xDlSym */))))(tls, pVfs, pH, zSym)
 }
+
 func cfDlClose(tls *libc.TLS, pCfVfs uintptr, pHandle uintptr) { /* test6.c:695:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer((pVfs + 96 /* &.xDlClose */))))(tls, pVfs, pHandle)
 }
+
 func cfRandomness(tls *libc.TLS, pCfVfs uintptr, nByte int32, zBufOut uintptr) int32 { /* test6.c:699:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 104 /* &.xRandomness */))))(tls, pVfs, nByte, zBufOut)
 }
+
 func cfSleep(tls *libc.TLS, pCfVfs uintptr, nMicro int32) int32 { /* test6.c:703:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((pVfs + 112 /* &.xSleep */))))(tls, pVfs, nMicro)
 }
+
 func cfCurrentTime(tls *libc.TLS, pCfVfs uintptr, pTimeOut uintptr) int32 { /* test6.c:707:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pVfs + 120 /* &.xCurrentTime */))))(tls, pVfs, pTimeOut)
 }
+
 func cfGetLastError(tls *libc.TLS, pCfVfs uintptr, n int32, z uintptr) int32 { /* test6.c:711:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
 	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 128 /* &.xGetLastError */))))(tls, pVfs, n, z)
@@ -60785,6 +60862,7 @@ func echoTransactionCall(tls *libc.TLS, tab uintptr, zCall uintptr) int32 { /* t
 	sqlite3.Xsqlite3_free(tls, z)
 	return 0
 }
+
 func echoBegin(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1111:12: */
 	var rc int32
 	var pVtab uintptr = tab
@@ -60814,6 +60892,7 @@ func echoBegin(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1111:12: */
 	}
 	return rc
 }
+
 func echoSync(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1142:12: */
 	var rc int32
 	var pVtab uintptr = tab
@@ -60840,6 +60919,7 @@ func echoSync(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1142:12: */
 	}
 	return rc
 }
+
 func echoCommit(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1170:12: */
 	var pVtab uintptr = tab
 	var rc int32
@@ -60857,6 +60937,7 @@ func echoCommit(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1170:12: */
 	(*echo_vtab)(unsafe.Pointer(pVtab)).FinTransaction = 0
 	return rc
 }
+
 func echoRollback(tls *libc.TLS, tab uintptr) int32 { /* test8.c:1188:12: */
 	var rc int32
 	var pVtab uintptr = tab
@@ -63347,9 +63428,11 @@ func demoFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* test_d
 func demoLock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* test_demovfs.c:360:12: */
 	return 0
 }
+
 func demoUnlock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* test_demovfs.c:363:12: */
 	return 0
 }
+
 func demoCheckReservedLock(tls *libc.TLS, pFile uintptr, pResOut uintptr) int32 { /* test_demovfs.c:366:12: */
 	*(*int32)(unsafe.Pointer(pResOut)) = 0
 	return 0
@@ -63366,6 +63449,7 @@ func demoFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 func demoSectorSize(tls *libc.TLS, pFile uintptr) int32 { /* test_demovfs.c:383:12: */
 	return 0
 }
+
 func demoDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* test_demovfs.c:386:12: */
 	return 0
 }
@@ -63551,13 +63635,16 @@ func demoFullPathname(tls *libc.TLS, pVfs uintptr, zPath uintptr, nPathOut int32
 func demoDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* test_demovfs.c:564:13: */
 	return uintptr(0)
 }
+
 func demoDlError(tls *libc.TLS, pVfs uintptr, nByte int32, zErrMsg uintptr) { /* test_demovfs.c:567:13: */
 	sqlite3.Xsqlite3_snprintf(tls, nByte, zErrMsg, ts+29503 /* "Loadable extensi..." */, 0)
 	*(*int8)(unsafe.Pointer(zErrMsg + uintptr((nByte - 1)))) = int8(0)
 }
+
 func demoDlSym(tls *libc.TLS, pVfs uintptr, pH uintptr, z uintptr) uintptr { /* test_demovfs.c:571:13: */
 	return uintptr(0)
 }
+
 func demoDlClose(tls *libc.TLS, pVfs uintptr, pHandle uintptr) { /* test_demovfs.c:574:13: */
 	return
 }
@@ -63652,6 +63739,7 @@ func register_demovfs(tls *libc.TLS, clientData ClientData, interp uintptr, objc
 	sqlite3.Xsqlite3_vfs_register(tls, sqlite3_demovfs(tls), 1)
 	return 0
 }
+
 func unregister_demovfs(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32, objv uintptr) int32 { /* test_demovfs.c:666:26: */
 	sqlite3.Xsqlite3_vfs_unregister(tls, sqlite3_demovfs(tls))
 	return 0
@@ -63779,14 +63867,17 @@ func devsymShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int3
 	var p uintptr = pFile
 	return sqlite3.Xsqlite3OsShmLock(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, ofst, n, flags)
 }
+
 func devsymShmMap(tls *libc.TLS, pFile uintptr, iRegion int32, szRegion int32, isWrite int32, pp uintptr) int32 { /* test_devsym.c:196:12: */
 	var p uintptr = pFile
-	return sqlite3.Xsqlite3OsShmMap(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, pp)
+	return sqlite3.Xsqlite3OsShmMap(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, libc.AtomicLoadUintptr(&pp))
 }
+
 func devsymShmBarrier(tls *libc.TLS, pFile uintptr) { /* test_devsym.c:206:13: */
 	var p uintptr = pFile
 	sqlite3.Xsqlite3OsShmBarrier(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal)
 }
+
 func devsymShmUnmap(tls *libc.TLS, pFile uintptr, delFlag int32) int32 { /* test_devsym.c:210:12: */
 	var p uintptr = pFile
 	return sqlite3.Xsqlite3OsShmUnmap(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, delFlag)
@@ -65314,6 +65405,7 @@ var zSrc = *(*[79]uint8)(unsafe.Pointer(ts + 29999 /* "abcdefghijklmnop..." */))
 //
 // WARNING: Not threadsafe.
 var test_destructor_count_var int32 = 0 /* test_func.c:91:12 */
+
 func destructor(tls *libc.TLS, p uintptr) { /* test_func.c:92:13: */
 	var zVal uintptr = p
 
@@ -65321,6 +65413,7 @@ func destructor(tls *libc.TLS, p uintptr) { /* test_func.c:92:13: */
 	sqlite3.Xsqlite3_free(tls, zVal)
 	test_destructor_count_var--
 }
+
 func test_destructor(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /* test_func.c:99:13: */
 	var zVal uintptr
 	var len int32
@@ -65341,6 +65434,7 @@ func test_destructor(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /*
 	libc.Xmemcpy(tls, zVal, sqlite3.Xsqlite3_value_text(tls, *(*uintptr)(unsafe.Pointer(argv + uintptr(0)*8))), uint64(len))
 	sqlite3.Xsqlite3_result_text(tls, pCtx, zVal, -1, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{destructor})))
 }
+
 func test_destructor16(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /* test_func.c:122:13: */
 	var zVal uintptr
 	var len int32
@@ -65361,11 +65455,14 @@ func test_destructor16(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { 
 	libc.Xmemcpy(tls, zVal, sqlite3.Xsqlite3_value_text16(tls, *(*uintptr)(unsafe.Pointer(argv + uintptr(0)*8))), uint64(len))
 	sqlite3.Xsqlite3_result_text16(tls, pCtx, zVal, -1, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{destructor})))
 }
+
 func test_destructor_count(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /* test_func.c:145:13: */
 	sqlite3.Xsqlite3_result_int(tls, pCtx, test_destructor_count_var)
 }
+
 func test_agg_errmsg16_step(tls *libc.TLS, a uintptr, b int32, c uintptr) { /* test_func.c:165:13: */
 }
+
 func test_agg_errmsg16_final(tls *libc.TLS, ctx uintptr) { /* test_func.c:167:13: */
 	var z uintptr
 	var db uintptr = sqlite3.Xsqlite3_context_db_handle(tls, ctx)
@@ -65386,6 +65483,7 @@ func test_agg_errmsg16_final(tls *libc.TLS, ctx uintptr) { /* test_func.c:167:13
 func free_test_auxdata(tls *libc.TLS, p uintptr) { /* test_func.c:188:13: */
 	sqlite3.Xsqlite3_free(tls, p)
 }
+
 func test_auxdata(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) { /* test_func.c:189:13: */
 	var i int32
 	var zRet uintptr = testContextMalloc(tls, pCtx, (nArg * 2))
@@ -65943,6 +66041,7 @@ func autoinstall_test_funcs(tls *libc.TLS, clientData uintptr, interp uintptr, o
 // A bogus step function and finalizer function.
 func tStep(tls *libc.TLS, a uintptr, b int32, c uintptr) { /* test_func.c:736:13: */
 }
+
 func tFinal(tls *libc.TLS, a uintptr) { /* test_func.c:737:13: */
 }
 
@@ -66855,22 +66954,28 @@ func wrMemInit(tls *libc.TLS, pAppData uintptr) int32 { /* test_init.c:49:12: */
 	}
 	return rc
 }
+
 func wrMemShutdown(tls *libc.TLS, pAppData uintptr) { /* test_init.c:61:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 48 /* &.xShutdown */))))(tls, wrapped.Fmem.FpAppData)
 	wrapped.Fmem_init = 0
 }
+
 func wrMemMalloc(tls *libc.TLS, n int32) uintptr { /* test_init.c:65:13: */
 	return (*(*func(*libc.TLS, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ /* &.xMalloc */))))(tls, n)
 }
+
 func wrMemFree(tls *libc.TLS, p uintptr) { /* test_init.c:66:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 8 /* &.xFree */))))(tls, p)
 }
+
 func wrMemRealloc(tls *libc.TLS, p uintptr, n int32) uintptr { /* test_init.c:67:13: */
 	return (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 16 /* &.xRealloc */))))(tls, p, n)
 }
+
 func wrMemSize(tls *libc.TLS, p uintptr) int32 { /* test_init.c:68:12: */
 	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 24 /* &.xSize */))))(tls, p)
 }
+
 func wrMemRoundup(tls *libc.TLS, n int32) int32 { /* test_init.c:69:12: */
 	return (*(*func(*libc.TLS, int32) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 32 /* &.xRoundup */))))(tls, n)
 }
@@ -66887,29 +66992,37 @@ func wrMutexInit(tls *libc.TLS) int32 { /* test_init.c:72:12: */
 	}
 	return rc
 }
+
 func wrMutexEnd(tls *libc.TLS) int32 { /* test_init.c:84:12: */
 	(*(*func(*libc.TLS) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 8 /* &.xMutexEnd */))))(tls)
 	wrapped.Fmutex_init = 0
 	return 0
 }
+
 func wrMutexAlloc(tls *libc.TLS, e int32) uintptr { /* test_init.c:89:22: */
 	return (*(*func(*libc.TLS, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 16 /* &.xMutexAlloc */))))(tls, e)
 }
+
 func wrMutexFree(tls *libc.TLS, p uintptr) { /* test_init.c:92:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 24 /* &.xMutexFree */))))(tls, p)
 }
+
 func wrMutexEnter(tls *libc.TLS, p uintptr) { /* test_init.c:95:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 32 /* &.xMutexEnter */))))(tls, p)
 }
+
 func wrMutexTry(tls *libc.TLS, p uintptr) int32 { /* test_init.c:98:12: */
 	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 40 /* &.xMutexTry */))))(tls, p)
 }
+
 func wrMutexLeave(tls *libc.TLS, p uintptr) { /* test_init.c:101:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 48 /* &.xMutexLeave */))))(tls, p)
 }
+
 func wrMutexHeld(tls *libc.TLS, p uintptr) int32 { /* test_init.c:104:12: */
 	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 56 /* &.xMutexHeld */))))(tls, p)
 }
+
 func wrMutexNotheld(tls *libc.TLS, p uintptr) int32 { /* test_init.c:107:12: */
 	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 64 /* &.xMutexNotheld */))))(tls, p)
 }
@@ -66926,6 +67039,7 @@ func wrPCacheInit(tls *libc.TLS, pArg uintptr) int32 { /* test_init.c:113:12: */
 	}
 	return rc
 }
+
 func wrPCacheShutdown(tls *libc.TLS, pArg uintptr) { /* test_init.c:125:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 24 /* &.xShutdown */))))(tls, wrapped.Fpcache.FpArg)
 	wrapped.Fpcache_init = 0
@@ -66934,24 +67048,31 @@ func wrPCacheShutdown(tls *libc.TLS, pArg uintptr) { /* test_init.c:125:13: */
 func wrPCacheCreate(tls *libc.TLS, a int32, b int32, c int32) uintptr { /* test_init.c:130:23: */
 	return (*(*func(*libc.TLS, int32, int32, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 32 /* &.xCreate */))))(tls, a, b, c)
 }
+
 func wrPCacheCachesize(tls *libc.TLS, p uintptr, n int32) { /* test_init.c:133:13: */
 	(*(*func(*libc.TLS, uintptr, int32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 40 /* &.xCachesize */))))(tls, p, n)
 }
+
 func wrPCachePagecount(tls *libc.TLS, p uintptr) int32 { /* test_init.c:136:12: */
 	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 48 /* &.xPagecount */))))(tls, p)
 }
+
 func wrPCacheFetch(tls *libc.TLS, p uintptr, a uint32, b int32) uintptr { /* test_init.c:139:28: */
 	return (*(*func(*libc.TLS, uintptr, uint32, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 56 /* &.xFetch */))))(tls, p, a, b)
 }
+
 func wrPCacheUnpin(tls *libc.TLS, p uintptr, a uintptr, b int32) { /* test_init.c:142:13: */
 	(*(*func(*libc.TLS, uintptr, uintptr, int32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 64 /* &.xUnpin */))))(tls, p, a, b)
 }
+
 func wrPCacheRekey(tls *libc.TLS, p uintptr, a uintptr, b uint32, c uint32) { /* test_init.c:145:13: */
 	(*(*func(*libc.TLS, uintptr, uintptr, uint32, uint32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 72 /* &.xRekey */))))(tls, p, a, b, c)
 }
+
 func wrPCacheTruncate(tls *libc.TLS, p uintptr, a uint32) { /* test_init.c:153:13: */
 	(*(*func(*libc.TLS, uintptr, uint32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 80 /* &.xTruncate */))))(tls, p, a)
 }
+
 func wrPCacheDestroy(tls *libc.TLS, p uintptr) { /* test_init.c:156:13: */
 	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 88 /* &.xDestroy */))))(tls, p)
 }
@@ -67579,15 +67700,18 @@ var g2 = JtGlobal{} /* test_journal.c:207:24 */
 func enterJtMutex(tls *libc.TLS) { /* test_journal.c:213:13: */
 	sqlite3.Xsqlite3_mutex_enter(tls, sqlite3.Xsqlite3_mutex_alloc(tls, 5))
 }
+
 func leaveJtMutex(tls *libc.TLS) { /* test_journal.c:216:13: */
 	sqlite3.Xsqlite3_mutex_leave(tls, sqlite3.Xsqlite3_mutex_alloc(tls, 5))
 }
+
 func stop_ioerr_simulation(tls *libc.TLS, piSave uintptr, piSave2 uintptr) { /* test_journal.c:222:13: */
 	*(*int32)(unsafe.Pointer(piSave)) = sqlite3.Xsqlite3_io_error_pending
 	*(*int32)(unsafe.Pointer(piSave2)) = sqlite3.Xsqlite3_io_error_hit
 	sqlite3.Xsqlite3_io_error_pending = -1
 	sqlite3.Xsqlite3_io_error_hit = 0
 }
+
 func start_ioerr_simulation(tls *libc.TLS, iSave int32, iSave2 int32) { /* test_journal.c:228:13: */
 	sqlite3.Xsqlite3_io_error_pending = iSave
 	sqlite3.Xsqlite3_io_error_hit = iSave2
@@ -68530,6 +68654,7 @@ func faultsimPending(tls *libc.TLS) int32 { /* test_malloc.c:160:12: */
 func faultsimBeginBenign(tls *libc.TLS) { /* test_malloc.c:169:13: */
 	memfault.FisBenignMode++
 }
+
 func faultsimEndBenign(tls *libc.TLS) { /* test_malloc.c:172:13: */
 	memfault.FisBenignMode--
 }
@@ -68635,6 +68760,7 @@ __3:
 }
 
 var zHex = *(*[17]int8)(unsafe.Pointer(ts + 30109 /* "0123456789abcdef" */)) /* test_malloc.c:240:21 */
+
 func hexToInt(tls *libc.TLS, h int32) int32 { /* test_malloc.c:262:12: */
 	if (h >= '0') && (h <= '9') {
 		return (h - '0')
@@ -68645,6 +68771,7 @@ func hexToInt(tls *libc.TLS, h int32) int32 { /* test_malloc.c:262:12: */
 	}
 	return int32(0)
 }
+
 func textToPointer(tls *libc.TLS, z uintptr, pp uintptr) int32 { /* test_malloc.c:271:12: */
 	bp := tls.Alloc(12)
 	defer tls.Free(12)
@@ -70496,6 +70623,7 @@ func md5step(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* test
 		}
 	}
 }
+
 func md5finalize(tls *libc.TLS, context uintptr) { /* test_md5.c:432:13: */
 	bp := tls.Alloc(49)
 	defer tls.Free(49)
@@ -70510,6 +70638,7 @@ func md5finalize(tls *libc.TLS, context uintptr) { /* test_md5.c:432:13: */
 	MD5DigestToBase16(tls, bp /* &digest[0] */, bp+16 /* &zBuf[0] */)
 	sqlite3.Xsqlite3_result_text(tls, context, bp+16 /* &zBuf[0] */, -1, libc.UintptrFromInt32(-1))
 }
+
 func Md5_Register(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk uintptr) int32 { /* test_md5.c:441:5: */
 	var rc int32 = sqlite3.Xsqlite3_create_function(tls, db, ts+33518 /* "md5sum" */, -1, 1, uintptr(0), uintptr(0),
 		*(*uintptr)(unsafe.Pointer(&struct {
@@ -71064,30 +71193,39 @@ func multiplexDelete(tls *libc.TLS, pVfs uintptr, zName uintptr, syncDir int32) 
 func multiplexAccess(tls *libc.TLS, a uintptr, b uintptr, c int32, d uintptr) int32 { /* test_multiplex.c:656:12: */
 	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 56 /* &.xAccess */))))(tls, gMultiplex.FpOrigVfs, b, c, d)
 }
+
 func multiplexFullPathname(tls *libc.TLS, a uintptr, b uintptr, c int32, d uintptr) int32 { /* test_multiplex.c:659:12: */
 	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 64 /* &.xFullPathname */))))(tls, gMultiplex.FpOrigVfs, b, c, d)
 }
+
 func multiplexDlOpen(tls *libc.TLS, a uintptr, b uintptr) uintptr { /* test_multiplex.c:662:13: */
 	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((gMultiplex.FpOrigVfs + 72 /* &.xDlOpen */))))(tls, gMultiplex.FpOrigVfs, b)
 }
+
 func multiplexDlError(tls *libc.TLS, a uintptr, b int32, c uintptr) { /* test_multiplex.c:665:13: */
 	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer((gMultiplex.FpOrigVfs + 80 /* &.xDlError */))))(tls, gMultiplex.FpOrigVfs, b, c)
 }
+
 func multiplexDlSym(tls *libc.TLS, a uintptr, b uintptr, c uintptr) uintptr { /* test_multiplex.c:668:13: */
 	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer((gMultiplex.FpOrigVfs + 88 /* &.xDlSym */))))(tls, gMultiplex.FpOrigVfs, b, c)
 }
+
 func multiplexDlClose(tls *libc.TLS, a uintptr, b uintptr) { /* test_multiplex.c:671:13: */
 	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer((gMultiplex.FpOrigVfs + 96 /* &.xDlClose */))))(tls, gMultiplex.FpOrigVfs, b)
 }
+
 func multiplexRandomness(tls *libc.TLS, a uintptr, b int32, c uintptr) int32 { /* test_multiplex.c:674:12: */
 	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 104 /* &.xRandomness */))))(tls, gMultiplex.FpOrigVfs, b, c)
 }
+
 func multiplexSleep(tls *libc.TLS, a uintptr, b int32) int32 { /* test_multiplex.c:677:12: */
 	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 112 /* &.xSleep */))))(tls, gMultiplex.FpOrigVfs, b)
 }
+
 func multiplexCurrentTime(tls *libc.TLS, a uintptr, b uintptr) int32 { /* test_multiplex.c:680:12: */
 	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 120 /* &.xCurrentTime */))))(tls, gMultiplex.FpOrigVfs, b)
 }
+
 func multiplexGetLastError(tls *libc.TLS, a uintptr, b int32, c uintptr) int32 { /* test_multiplex.c:683:12: */
 	if (*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxGetLastError != 0 {
 		return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 128 /* &.xGetLastError */))))(tls, gMultiplex.FpOrigVfs, b, c)
@@ -71096,6 +71234,7 @@ func multiplexGetLastError(tls *libc.TLS, a uintptr, b int32, c uintptr) int32 {
 	}
 	return int32(0)
 }
+
 func multiplexCurrentTimeInt64(tls *libc.TLS, a uintptr, b uintptr) int32 { /* test_multiplex.c:690:12: */
 	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, gMultiplex.FpOrigVfs, b)
 }
@@ -71473,7 +71612,7 @@ func multiplexShmMap(tls *libc.TLS, pConn uintptr, iRegion int32, szRegion int32
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 104 /* &.xShmMap */))))(tls, pSubOpen, iRegion, szRegion, bExtend, pp)
+		return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 104 /* &.xShmMap */))))(tls, pSubOpen, iRegion, szRegion, bExtend, libc.AtomicLoadUintptr(&pp))
 	}
 	return 10
 }
@@ -73751,16 +73890,18 @@ func vfslogShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int3
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, 25, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
 }
+
 func vfslogShmMap(tls *libc.TLS, pFile uintptr, iRegion int32, szRegion int32, isWrite int32, pp uintptr) int32 { /* test_osinst.c:442:12: */
 	var rc int32
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 104 /* &.xShmMap */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, pp)
+	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 104 /* &.xShmMap */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, libc.AtomicLoadUintptr(&pp))
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, 23, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
 }
+
 func vfslogShmBarrier(tls *libc.TLS, pFile uintptr) { /* test_osinst.c:458:13: */
 	var t sqlite3_uint64
 	var p uintptr = pFile
@@ -73769,6 +73910,7 @@ func vfslogShmBarrier(tls *libc.TLS, pFile uintptr) { /* test_osinst.c:458:13: *
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, 26, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), 0, 0, 0)
 }
+
 func vfslogShmUnmap(tls *libc.TLS, pFile uintptr, deleteFlag int32) int32 { /* test_osinst.c:466:12: */
 	var rc int32
 	var t sqlite3_uint64
@@ -73877,6 +74019,7 @@ func vfslogCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /*
 func vfslogGetLastError(tls *libc.TLS, pVfs uintptr, a int32, b uintptr) int32 { /* test_osinst.c:610:12: */
 	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 128 /* &.xGetLastError */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, a, b)
 }
+
 func vfslogCurrentTimeInt64(tls *libc.TLS, pVfs uintptr, p uintptr) int32 { /* test_osinst.c:613:12: */
 	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, p)
 }
@@ -75118,6 +75261,7 @@ var gQuota struct {
 func quotaEnter(tls *libc.TLS) { /* test_quota.c:190:13: */
 	sqlite3.Xsqlite3_mutex_enter(tls, gQuota.FpMutex)
 }
+
 func quotaLeave(tls *libc.TLS) { /* test_quota.c:191:13: */
 	sqlite3.Xsqlite3_mutex_leave(tls, gQuota.FpMutex)
 }
@@ -75584,7 +75728,7 @@ func quotaDeviceCharacteristics(tls *libc.TLS, pConn uintptr) int32 { /* test_qu
 // Pass xShmMap requests through to the original VFS unchanged.
 func quotaShmMap(tls *libc.TLS, pConn uintptr, iRegion int32, szRegion int32, bExtend int32, pp uintptr) int32 { /* test_quota.c:700:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 104 /* &.xShmMap */))))(tls, pSubOpen, iRegion, szRegion, bExtend, pp)
+	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 104 /* &.xShmMap */))))(tls, pSubOpen, iRegion, szRegion, bExtend, libc.AtomicLoadUintptr(&pp))
 }
 
 // Pass xShmLock requests through to the original VFS unchanged.
@@ -78258,6 +78402,7 @@ func sqlite3_client_open(tls *libc.TLS, zDatabaseName uintptr, ppDb uintptr) int
 	*(*uintptr)(unsafe.Pointer(ppDb)) = (*SqlMessage)(unsafe.Pointer(bp /* &msg */)).FpDb
 	return (*SqlMessage)(unsafe.Pointer(bp /* &msg */)).FerrCode
 }
+
 func sqlite3_client_prepare(tls *libc.TLS, pDb uintptr, zSql uintptr, nByte int32, ppStmt uintptr, pzTail uintptr) int32 { /* test_server.c:340:5: */
 	bp := tls.Alloc(160)
 	defer tls.Free(160)
@@ -78275,6 +78420,7 @@ func sqlite3_client_prepare(tls *libc.TLS, pDb uintptr, zSql uintptr, nByte int3
 	}
 	return (*SqlMessage)(unsafe.Pointer(bp /* &msg */)).FerrCode
 }
+
 func sqlite3_client_step(tls *libc.TLS, pStmt uintptr) int32 { /* test_server.c:357:5: */
 	bp := tls.Alloc(160)
 	defer tls.Free(160)
@@ -78286,6 +78432,7 @@ func sqlite3_client_step(tls *libc.TLS, pStmt uintptr) int32 { /* test_server.c:
 	sendToServer(tls, bp /* &msg */)
 	return (*SqlMessage)(unsafe.Pointer(bp /* &msg */)).FerrCode
 }
+
 func sqlite3_client_reset(tls *libc.TLS, pStmt uintptr) int32 { /* test_server.c:364:5: */
 	bp := tls.Alloc(160)
 	defer tls.Free(160)
@@ -78297,6 +78444,7 @@ func sqlite3_client_reset(tls *libc.TLS, pStmt uintptr) int32 { /* test_server.c
 	sendToServer(tls, bp /* &msg */)
 	return (*SqlMessage)(unsafe.Pointer(bp /* &msg */)).FerrCode
 }
+
 func sqlite3_client_finalize(tls *libc.TLS, pStmt uintptr) int32 { /* test_server.c:371:5: */
 	bp := tls.Alloc(160)
 	defer tls.Free(160)
@@ -78308,6 +78456,7 @@ func sqlite3_client_finalize(tls *libc.TLS, pStmt uintptr) int32 { /* test_serve
 	sendToServer(tls, bp /* &msg */)
 	return (*SqlMessage)(unsafe.Pointer(bp /* &msg */)).FerrCode
 }
+
 func sqlite3_client_close(tls *libc.TLS, pDb uintptr) int32 { /* test_server.c:378:5: */
 	bp := tls.Alloc(160)
 	defer tls.Free(160)
@@ -78619,7 +78768,7 @@ func superlockWalLock(tls *libc.TLS, db uintptr, pBusy uintptr) int32 { /* test_
 	if rc != 0 {
 		return rc
 	}
-	libc.Xmemset(tls, *(*uintptr)(unsafe.Pointer(bp + 8 /* p */)), 0, uint64(32))
+	libc.Xmemset(tls, libc.AtomicLoadPUintptr(bp+8 /* p */), 0, uint64(32))
 
 	// Obtain exclusive locks on all the "read-lock" slots. Once these locks
 	// are held, it is guaranteed that there are no active reader, writer or
@@ -79817,6 +79966,7 @@ func tclvarConnect(tls *libc.TLS, db uintptr, pAux uintptr, argc int32, argv uin
 }
 
 var zSchema = *(*[100]int8)(unsafe.Pointer(ts + 36295 /* "CREATE TABLE x( ..." */)) /* test_tclvar.c:88:21 */
+
 // Note that for this virtual table, the xCreate and xConnect
 // methods are identical.
 
@@ -81128,6 +81278,7 @@ func tvfsInjectIoerr(tls *libc.TLS, p uintptr) int32 { /* test_vfs.c:269:12: */
 func tvfsInjectFullerr(tls *libc.TLS, p uintptr) int32 { /* test_vfs.c:273:12: */
 	return tvfsInjectFault(tls, (p + 72 /* &.full_err */))
 }
+
 func tvfsInjectCantopenerr(tls *libc.TLS, p uintptr) int32 { /* test_vfs.c:276:12: */
 	return tvfsInjectFault(tls, (p + 84 /* &.cantopen_err */))
 }
@@ -81736,7 +81887,7 @@ func tvfsShmMap(tls *libc.TLS, pFile uintptr, iPage int32, pgsz int32, isWrite i
 	var p uintptr = (*sqlite3_vfs)(unsafe.Pointer((*TestvfsFd)(unsafe.Pointer(pFd)).FpVfs)).FpAppData
 
 	if (*Testvfs)(unsafe.Pointer(p)).FisFullshm != 0 {
-		return sqlite3.Xsqlite3OsShmMap(tls, (*TestvfsFd)(unsafe.Pointer(pFd)).FpReal, iPage, pgsz, isWrite, pp)
+		return sqlite3.Xsqlite3OsShmMap(tls, (*TestvfsFd)(unsafe.Pointer(pFd)).FpReal, iPage, pgsz, isWrite, libc.AtomicLoadUintptr(&pp))
 	}
 
 	if uintptr(0) == (*TestvfsFd)(unsafe.Pointer(pFd)).FpShm {
@@ -81770,7 +81921,7 @@ func tvfsShmMap(tls *libc.TLS, pFile uintptr, iPage int32, pgsz int32, isWrite i
 		tvfsAllocPage(tls, (*TestvfsFd)(unsafe.Pointer(pFd)).FpShm, iPage, pgsz)
 	}
 	if (*(*int32)(unsafe.Pointer(bp /* rc */)) == 0) || (*(*int32)(unsafe.Pointer(bp /* rc */)) == 8) {
-		*(*uintptr)(unsafe.Pointer(pp)) = *(*uintptr)(unsafe.Pointer(((*TestvfsFd)(unsafe.Pointer(pFd)).FpShm + 16 /* &.aPage */) + uintptr(iPage)*8))
+		*(*uintptr)(unsafe.Pointer(libc.AtomicLoadUintptr(&pp))) = *(*uintptr)(unsafe.Pointer(((*TestvfsFd)(unsafe.Pointer(pFd)).FpShm + 16 /* &.aPage */) + uintptr(iPage)*8))
 	}
 
 	return *(*int32)(unsafe.Pointer(bp /* rc */))
@@ -82738,11 +82889,11 @@ func test_vfs_set_readmark(tls *libc.TLS, clientData uintptr, interp uintptr, ob
 		tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewStringObj(tls, sqlite3.Xsqlite3ErrName(tls, rc), -1))
 		return 1
 	}
-	if *(*uintptr)(unsafe.Pointer(bp + 40 /* pShm */)) == uintptr(0) {
+	if libc.AtomicLoadPUintptr(bp+40 /* pShm */) == uintptr(0) {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp, ts+38116 /* "*-shm is not yet..." */, 0))
 		return 1
 	}
-	aShm = *(*uintptr)(unsafe.Pointer(bp + 40 /* pShm */))
+	aShm = libc.AtomicLoadPUintptr(bp + 40 /* pShm */)
 	iOff = (((12 * 2) + 1) + *(*int32)(unsafe.Pointer(bp + 24 /* iSlot */)))
 
 	if objc == 5 {
@@ -82894,6 +83045,7 @@ func doTestWindowFinalize(tls *libc.TLS, bValue int32, ctx uintptr) { /* test_wi
 func testWindowStep(tls *libc.TLS, ctx uintptr, nArg int32, apArg uintptr) { /* test_window.c:107:13: */
 	doTestWindowStep(tls, 0, ctx, nArg, apArg)
 }
+
 func testWindowInverse(tls *libc.TLS, ctx uintptr, nArg int32, apArg uintptr) { /* test_window.c:114:13: */
 	doTestWindowStep(tls, 1, ctx, nArg, apArg)
 }
@@ -82901,6 +83053,7 @@ func testWindowInverse(tls *libc.TLS, ctx uintptr, nArg int32, apArg uintptr) { 
 func testWindowFinal(tls *libc.TLS, ctx uintptr) { /* test_window.c:122:13: */
 	doTestWindowFinalize(tls, 0, ctx)
 }
+
 func testWindowValue(tls *libc.TLS, ctx uintptr) { /* test_window.c:125:13: */
 	doTestWindowFinalize(tls, 1, ctx)
 }
