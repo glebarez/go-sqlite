@@ -141,6 +141,10 @@ import (
 //	-lz
 //	-lpthread
 
+const (
+	volatiles = "-volatile=sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_pager_writedb_count,sqlite3_pager_writej_count,sqlite3_search_count"
+)
+
 var (
 	config = []string{
 		"-DHAVE_USLEEP",
@@ -548,6 +552,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 				"-export-defines", "",
 				"-export-fields", "F",
 				"-trace-translation-units",
+				volatiles,
 				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/lib",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
@@ -576,6 +581,7 @@ func makeSpeedTest(goos, goarch string, more []string) {
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
+				volatiles,
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
@@ -595,6 +601,7 @@ func makeMpTest(goos, goarch string, more []string) {
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
+				volatiles,
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
@@ -621,7 +628,7 @@ func makeSqlite(goos, goarch string, more []string) {
 				"-pkgname", "sqlite3",
 				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
-				//TODO "-volatile", "sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_search_count,sqlite3_sort_count",
+				volatiles,
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
 			more,
