@@ -142,7 +142,7 @@ import (
 //	-lpthread
 
 const (
-	volatiles = "-volatile=sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_pager_writedb_count,sqlite3_pager_writej_count,sqlite3_search_count"
+	volatiles = "-volatile=sqlite3_io_error_pending,sqlite3_open_file_count,sqlite3_pager_readdb_count,sqlite3_pager_writedb_count,sqlite3_pager_writej_count,sqlite3_search_count,sqlite3_sort_count,saved_cnt"
 )
 
 var (
