@@ -146,7 +146,51 @@ const (
 )
 
 var (
-	config = []string{
+	configProduction = []string{
+		"-DHAVE_USLEEP",
+		"-DLONGDOUBLE_TYPE=double",
+		"-DSQLITE_CORE",
+		"-DSQLITE_ENABLE_COLUMN_METADATA",
+		"-DSQLITE_ENABLE_FTS5",
+		"-DSQLITE_ENABLE_GEOPOLY",
+		"-DSQLITE_ENABLE_JSON1",
+		"-DSQLITE_ENABLE_MEMORY_MANAGEMENT",
+		"-DSQLITE_ENABLE_OFFSET_SQL_FUNC",
+		"-DSQLITE_ENABLE_PREUPDATE_HOOK",
+		"-DSQLITE_ENABLE_RBU",
+		"-DSQLITE_ENABLE_RTREE",
+		"-DSQLITE_ENABLE_SNAPSHOT",
+		"-DSQLITE_ENABLE_STAT4",
+		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
+		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
+		"-DSQLITE_MUTEX_APPDEF=1",
+		"-DSQLITE_MUTEX_NOOP",
+		"-DSQLITE_SOUNDEX",
+		"-DSQLITE_THREADSAFE=1",
+		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
+		//DONT "-DSQLITE_DQS=0", // testfixture
+		//DONT "-DSQLITE_ENABLE_SESSION", // Needs UTF16
+		//DONT "-DSQLITE_NO_SYNC=1",
+		//DONT "-DSQLITE_OMIT_DECLTYPE", // testfixture
+		//DONT "-DSQLITE_OMIT_DEPRECATED", // mptest
+		//DONT "-DSQLITE_OMIT_LOAD_EXTENSION", // mptest
+		//DONT "-DSQLITE_OMIT_SHARED_CACHE",
+		//DONT "-DSQLITE_USE_ALLOCA",
+		//TODO "-DHAVE_MALLOC_USABLE_SIZE"
+		//TODO "-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1", //TODO report bug
+		//TODO "-DSQLITE_ENABLE_FTS3",
+		//TODO "-DSQLITE_ENABLE_FTS3_PARENTHESIS",
+		//TODO "-DSQLITE_ENABLE_FTS3_TOKENIZER",
+		//TODO "-DSQLITE_ENABLE_FTS4",
+		//TODO "-DSQLITE_ENABLE_ICU",
+		//TODO "-DSQLITE_MAX_EXPR_DEPTH=0", // bug reported https://sqlite.org/forum/forumpost/87b9262f66, fixed in https://sqlite.org/src/info/5f58dd3a19605b6f
+		//TODO "-DSQLITE_MAX_MMAP_SIZE=8589934592", // testfixture, bug reported https://sqlite.org/forum/forumpost/34380589f7, fixed in https://sqlite.org/src/info/d8e47382160e98be
+		//TODO- "-DSQLITE_DEBUG",
+		//TODO- "-DSQLITE_ENABLE_API_ARMOR",
+		//TODO- "-DSQLITE_MEMDEBUG",
+	}
+
+	configTest = []string{
 		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
 		"-DSQLITE_CORE",                   // testfixture
@@ -349,21 +393,30 @@ func main() {
 	download()
 	switch goos {
 	case "linux":
-		config = append(config, "-DSQLITE_OS_UNIX=1")
+		configProduction = append(configProduction, "-DSQLITE_OS_UNIX=1")
 	case "darwin":
-		config = append(config,
+		configProduction = append(configProduction,
+			"-DSQLITE_OS_UNIX=1",
+			"-DSQLITE_WITHOUT_ZONEMALLOC",
+		)
+		configTest = append(configTest,
 			"-DSQLITE_OS_UNIX=1",
 			"-DSQLITE_WITHOUT_ZONEMALLOC",
 		)
 	case "windows":
-		config = append(config,
+		configProduction = append(configProduction,
+			"-DSQLITE_OS_WIN=1",
+			"-D_MSC_VER=1900",
+		)
+		configTest = append(configTest,
 			"-DSQLITE_OS_WIN=1",
 			"-D_MSC_VER=1900",
 		)
 	default:
 		fail("unknows/unsupported os: %s\n", goos)
 	}
-	makeSqlite(goos, goarch, more)
+	makeSqliteProduction(goos, goarch, more)
+	makeSqliteTest(goos, goarch, more)
 	makeMpTest(goos, goarch, more)
 	makeSpeedTest(goos, goarch, more)
 	makeTestfixture(goos, goarch, more)
@@ -553,7 +606,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 				"-export-fields", "F",
 				"-trace-translation-units",
 				volatiles,
-				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/lib",
+				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/libtest",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/fts3"))),
@@ -567,7 +620,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 			},
 			files,
 			more,
-			config)...,
+			configTest)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
@@ -581,13 +634,12 @@ func makeSpeedTest(goos, goarch string, more []string) {
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
-				volatiles,
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
 			},
 			more,
-			config)...,
+			configProduction)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
@@ -601,20 +653,19 @@ func makeMpTest(goos, goarch string, more []string) {
 			[]string{
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
-				volatiles,
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
 				fmt.Sprintf("-I%s", sqliteDir),
 				"-l", "modernc.org/sqlite/lib",
 			},
 			more,
-			config)...,
+			configProduction)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
-func makeSqlite(goos, goarch string, more []string) {
+func makeSqliteProduction(goos, goarch string, more []string) {
 	cmd := newCmd(
 		"ccgo",
 		join(
@@ -628,11 +679,35 @@ func makeSqlite(goos, goarch string, more []string) {
 				"-pkgname", "sqlite3",
 				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
+				filepath.Join(sqliteDir, "sqlite3.c"),
+			},
+			more,
+			configProduction)...,
+	)
+	if err := cmd.Run(); err != nil {
+		fail("%s\n", err)
+	}
+}
+
+func makeSqliteTest(goos, goarch string, more []string) {
+	cmd := newCmd(
+		"ccgo",
+		join(
+			[]string{
+				"-DSQLITE_PRIVATE=",
+				"-export-defines", "",
+				"-export-enums", "",
+				"-export-externs", "X",
+				"-export-fields", "F",
+				"-export-typedefs", "",
+				"-pkgname", "sqlite3",
+				"-o", filepath.FromSlash(fmt.Sprintf("libtest/sqlite_%s_%s.go", goos, goarch)),
+				"-trace-translation-units",
 				volatiles,
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
 			more,
-			config)...,
+			configTest)...,
 	)
 	if err := cmd.Run(); err != nil {
 		fail("%s\n", err)

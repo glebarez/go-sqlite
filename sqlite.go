@@ -754,12 +754,11 @@ func newConn(name string) (*conn, error) {
 
 	c.db = db
 	if err = c.extendedResultCodes(true); err != nil {
+		c.Close()
 		return nil, err
 	}
 
-	// Default is set at compile time to 1024 because testfixture hard codes that value, fix it at runtime.
-	_, err = c.Exec("PRAGMA page_size = 4096;", nil)
-	return c, err
+	return c, nil
 }
 
 // const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
