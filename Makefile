@@ -131,10 +131,7 @@ mem: clean
 	go tool pprof -lines -web -alloc_space *.test mem.out
 
 memgrind:
-	GO111MODULE=off go test -v -timeout 24h -tags libc.memgrind -xtags=libc.memgrind
-
-memgrind:
-	go test -v -timeout 24h -tags=libc.memgrind,cgobench -run Test[^T][^c][^l] -bench . -recs_per_sec_as_mbps 2>&1 | tee log-memgrind
+	go test -v -timeout 24h -tags libc.memgrind,cgobench -bench . -suite extraquick -xtags=libc.memgrind
 
 regression_base_release:
 	GO111MODULE=on go test -v -timeout 24h -tags=cgobench -run @ -bench '(Reading1|InsertComparative)/sqlite[^3]' -recs_per_sec_as_mbps 2>&1 | tee log-regression-base

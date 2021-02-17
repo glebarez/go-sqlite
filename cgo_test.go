@@ -14,7 +14,6 @@ import (
 	"testing"
 
 	_ "github.com/mattn/go-sqlite3"
-	"modernc.org/libc"
 )
 
 const gcoDriver = "sqlite3"
