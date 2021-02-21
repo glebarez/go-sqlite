@@ -2,8 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package sqlite is an in-process implementation of a self-contained,
-// serverless, zero-configuration, transactional SQL database engine.
+// Package sqlite is a CGo-free port of SQLite.
+//
+// SQLite is an in-process implementation of a self-contained, serverless,
+// zero-configuration, transactional SQL database engine.
 //
 // Builders
 //

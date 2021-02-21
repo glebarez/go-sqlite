@@ -606,7 +606,10 @@ func makeTestfixture(goos, goarch string, more []string) {
 				"-export-fields", "F",
 				"-trace-translation-units",
 				volatiles,
-				"-lmodernc.org/tcl/lib,modernc.org/sqlite/internal/libc2,modernc.org/sqlite/libtest",
+				"-lmodernc.org/sqlite/internal/libc2",
+				"-lmodernc.org/sqlite/libtest",
+				"-lmodernc.org/tcl/lib",
+				"-lmodernc.org/z/lib",
 				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
 				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/fts3"))),
@@ -632,6 +635,7 @@ func makeSpeedTest(goos, goarch string, more []string) {
 		"ccgo",
 		join(
 			[]string{
+				"-export-defines", "",
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
@@ -651,6 +655,7 @@ func makeMpTest(goos, goarch string, more []string) {
 		"ccgo",
 		join(
 			[]string{
+				"-export-defines", "",
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
