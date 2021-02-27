@@ -565,6 +565,14 @@ func TestConcurrentProcesses(t *testing.T) {
 			t.Fatal(err)
 		}
 
+		if runtime.GOOS == "windows" {
+			// reference tests are in *nix format --
+			// but git on windows does line-ending xlation by default
+			// if someone has it 'off' this has no impact.
+			// '\r\n'  -->  '\n'
+			b = bytes.ReplaceAll(b, []byte("\r\n"), []byte("\n"))
+		}
+
 		if err := ioutil.WriteFile(filepath.Join(dir, filepath.Base(v)), b, 0666); err != nil {
 			t.Fatal(err)
 		}
