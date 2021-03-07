@@ -36,6 +36,7 @@ all: editor
 
 build_all_targets:
 	GOOS=darwin GOARCH=amd64 go build -v ./...
+	GOOS=darwin GOARCH=arm64 go build -v ./...
 	GOOS=linux GOARCH=386 go build -v ./...
 	GOOS=linux GOARCH=amd64 go build -v ./...
 	GOOS=linux GOARCH=arm go build -v ./...
@@ -47,6 +48,10 @@ build_all_targets:
 darwin_amd64:
 	TARGET_GOOS=darwin TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-darwin-amd64
 	GOOS=darwin GOARCH=amd64 go build -v ./...
+
+darwin_arm64:
+	TARGET_GOOS=darwin TARGET_GOARCH=arm64 go generate 2>&1 | tee /tmp/log-generate-sqlite-darwin-arm64
+	GOOS=darwin GOARCH=arm64 go build -v ./...
 
 linux_amd64:
 	TARGET_GOOS=linux TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-amd64
@@ -86,6 +91,9 @@ test:
 
 test_darwin_amd64:
 	GOOS=darwin GOARCH=amd64 make test
+
+test_darwin_arm64:
+	GOOS=darwin GOARCH=arm64 make test
 
 test_linux_amd64:
 	GOOS=linux GOARCH=amd64 make test

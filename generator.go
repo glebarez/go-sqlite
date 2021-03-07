@@ -469,7 +469,7 @@ func configure(goos, goarch string) {
 	case "linux":
 		// nop
 	case "darwin":
-		args = append(args, "--with-tcl=/Library/Frameworks/Tcl.framework")
+		args = append(args, "--with-tcl=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework")
 	case "windows":
 		switch goarch {
 		case "amd64":
