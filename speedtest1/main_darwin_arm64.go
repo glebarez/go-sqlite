@@ -11937,7 +11937,7 @@ func testset_orm(tls *libc.TLS) { /* speedtest1.c:1612:6: */
 				fallthrough
 			case 'B':
 				sqlite3.Xsqlite3_bind_text64(tls, g.pStmt, (int32(j + uint32(2))), bp+16 /* &zNum[0] */, uint64(len),
-					uintptr(0), SQLITE_UTF8)
+					uintptr(0), uint8(SQLITE_UTF8))
 				break
 			}
 		}

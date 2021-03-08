@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build ignore
+// +build generator
 
 package main
 
@@ -18,6 +18,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"modernc.org/ccgo/v3/lib"
 )
 
 //	gcc
@@ -592,10 +594,11 @@ func makeTestfixture(goos, goarch string, more []string) {
 		files[i] = filepath.Join(sqliteSrcDir, filepath.FromSlash(v))
 	}
 	configure(goos, goarch)
-	cmd := newCmd(
-		"ccgo",
+
+	task := ccgo.NewTask(
 		join(
 			[]string{
+				"ccgo",
 				"-DSQLITE_OMIT_LOAD_EXTENSION",
 				"-DSQLITE_SERIES_CONSTRAINT_VERIFY=1",
 				"-DSQLITE_SERVER=1",
@@ -623,18 +626,21 @@ func makeTestfixture(goos, goarch string, more []string) {
 			},
 			files,
 			more,
-			configTest)...,
+			configTest,
+		),
+		nil,
+		nil,
 	)
-	if err := cmd.Run(); err != nil {
+	if err := task.Main(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
 func makeSpeedTest(goos, goarch string, more []string) {
-	cmd := newCmd(
-		"ccgo",
+	task := ccgo.NewTask(
 		join(
 			[]string{
+				"ccgo",
 				"-export-defines", "",
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
@@ -643,18 +649,21 @@ func makeSpeedTest(goos, goarch string, more []string) {
 				"-l", "modernc.org/sqlite/lib",
 			},
 			more,
-			configProduction)...,
+			configProduction,
+		),
+		nil,
+		nil,
 	)
-	if err := cmd.Run(); err != nil {
+	if err := task.Main(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
 func makeMpTest(goos, goarch string, more []string) {
-	cmd := newCmd(
-		"ccgo",
+	task := ccgo.NewTask(
 		join(
 			[]string{
+				"ccgo",
 				"-export-defines", "",
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
@@ -663,18 +672,21 @@ func makeMpTest(goos, goarch string, more []string) {
 				"-l", "modernc.org/sqlite/lib",
 			},
 			more,
-			configProduction)...,
+			configProduction,
+		),
+		nil,
+		nil,
 	)
-	if err := cmd.Run(); err != nil {
+	if err := task.Main(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
 func makeSqliteProduction(goos, goarch string, more []string) {
-	cmd := newCmd(
-		"ccgo",
+	task := ccgo.NewTask(
 		join(
 			[]string{
+				"ccgo",
 				"-DSQLITE_PRIVATE=",
 				"-export-defines", "",
 				"-export-enums", "",
@@ -687,18 +699,21 @@ func makeSqliteProduction(goos, goarch string, more []string) {
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
 			more,
-			configProduction)...,
+			configProduction,
+		),
+		nil,
+		nil,
 	)
-	if err := cmd.Run(); err != nil {
+	if err := task.Main(); err != nil {
 		fail("%s\n", err)
 	}
 }
 
 func makeSqliteTest(goos, goarch string, more []string) {
-	cmd := newCmd(
-		"ccgo",
+	task := ccgo.NewTask(
 		join(
 			[]string{
+				"ccgo",
 				"-DSQLITE_PRIVATE=",
 				"-export-defines", "",
 				"-export-enums", "",
@@ -712,9 +727,12 @@ func makeSqliteTest(goos, goarch string, more []string) {
 				filepath.Join(sqliteDir, "sqlite3.c"),
 			},
 			more,
-			configTest)...,
+			configTest,
+		),
+		nil,
+		nil,
 	)
-	if err := cmd.Run(); err != nil {
+	if err := task.Main(); err != nil {
 		fail("%s\n", err)
 	}
 }
