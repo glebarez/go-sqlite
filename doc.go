@@ -15,6 +15,10 @@
 //
 // Changelog
 //
+// 2021-03-11 v1.8.9:
+//
+// Support darwin/arm64.
+//
 // 2021-01-08 v1.8.0:
 //
 // Support darwin/amd64.
@@ -106,6 +110,7 @@
 // These combinations of GOOS and GOARCH are currently supported
 //
 // 	darwin	amd64
+// 	darwin	arm64
 // 	linux	386
 // 	linux	amd64
 // 	linux	arm
