@@ -195,6 +195,7 @@ var (
 	configTest = []string{
 		"-DHAVE_USLEEP",
 		"-DLONGDOUBLE_TYPE=double",
+		"-DSQLITE_CKSUMVFS_STATIC",
 		"-DSQLITE_CORE",                   // testfixture
 		"-DSQLITE_DEFAULT_MEMSTATUS=0",    // bug reported https://sqlite.org/forum/info/d8dfd4771689be35, fixed in https://sqlite.org/src/info/3c5e63c22ffbfeb6
 		"-DSQLITE_DEFAULT_PAGE_SIZE=1024", // testfixture, hardcoded. See file_pages in autovacuum.test.
@@ -252,12 +253,12 @@ var (
 		sz       int
 		dev      bool
 	}{
-		{sqliteDir, "https://www.sqlite.org/2020/sqlite-amalgamation-3330000.zip", 2420, false},
-		{sqliteSrcDir, "https://www.sqlite.org/2020/sqlite-src-3330000.zip", 12060, false},
+		{sqliteDir, "https://www.sqlite.org/2021/sqlite-amalgamation-3350000.zip", 2457, false},
+		{sqliteSrcDir, "https://www.sqlite.org/2021/sqlite-src-3350000.zip", 12814, false},
 	}
 
-	sqliteDir    = filepath.FromSlash("testdata/sqlite-amalgamation-3330000")
-	sqliteSrcDir = filepath.FromSlash("testdata/sqlite-src-3330000")
+	sqliteDir    = filepath.FromSlash("testdata/sqlite-amalgamation-3350000")
+	sqliteSrcDir = filepath.FromSlash("testdata/sqlite-src-3350000")
 )
 
 func download() {
@@ -516,8 +517,10 @@ func makeTestfixture(goos, goarch string, more []string) {
 		"ext/fts5/fts5_tcl.c",
 		"ext/fts5/fts5_test_mi.c",
 		"ext/fts5/fts5_test_tok.c",
+		"ext/misc/appendvfs.c",
 		"ext/misc/amatch.c",
 		"ext/misc/carray.c",
+		"ext/misc/cksumvfs.c",
 		"ext/misc/closure.c",
 		"ext/misc/csv.c",
 		"ext/misc/decimal.c",
