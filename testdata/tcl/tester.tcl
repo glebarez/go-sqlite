@@ -174,8 +174,14 @@ proc get_pwd {} {
     #       case of the result to what Tcl considers canonical, which would
     #       defeat the purpose of this procedure.
     #
+    if {[info exists ::env(ComSpec)]} {
+      set comSpec $::env(ComSpec)
+    } else {
+      # NOTE: Hard-code the typical default value.
+      set comSpec {C:\Windows\system32\cmd.exe}
+    }
     return [string map [list \\ /] \
-        [string trim [exec -- $::env(ComSpec) /c cd ]]]
+        [string trim [exec -- $comSpec /c echo %CD%]]]
   } else {
     return [pwd]
   }
@@ -902,8 +908,8 @@ proc catchcmdex {db {cmd ""}} {
 proc filepath_normalize {p} {
   # test cases should be written to assume "unix"-like file paths
   if {$::tcl_platform(platform)!="unix"} {
-    # lreverse*2 as a hack to remove any unneeded {} after the string map
-    lreverse [lreverse [string map {\\ /} [regsub -nocase -all {[a-z]:[/\\]+} $p {/}]]]
+    string map [list \\ / \{/ / .db\} .db] \
+        [regsub -nocase -all {[a-z]:[/\\]+} $p {/}]
   } {
     set p
   }
@@ -1733,6 +1739,9 @@ proc crashsql {args} {
     if {$msg=="child killed: unknown signal"} {
       set msg "child process exited abnormally"
     }
+  }
+  if {$r && [string match {*ERROR: LeakSanitizer*} $msg]} {
+    set msg "child process exited abnormally"
   }
 
   lappend r $msg

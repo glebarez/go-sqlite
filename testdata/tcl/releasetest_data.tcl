@@ -54,9 +54,10 @@ array set ::Configs [strip_comments {
     -DSQLITE_ENABLE_DESERIALIZE
   }
   "Sanitize" {
-    CC=clang -fsanitize=undefined
+    CC=clang -fsanitize=address,undefined
     -DSQLITE_ENABLE_STAT4
-    --enable-session
+    --enable-debug
+    --enable-all
   }
   "Stdcall" {
     -DUSE_STDCALL=1
@@ -135,6 +136,11 @@ array set ::Configs [strip_comments {
     -DSQLITE_MUTATION_TEST
     --enable-fts5 --enable-json1
   }
+  "Debug-Two" {
+    -DSQLITE_DEFAULT_MEMSTATUS=0
+    -DSQLITE_MAX_EXPR_DEPTH=0
+    --enable-debug
+  }
   "Fast-One" {
     -O6
     -DSQLITE_ENABLE_FTS4=1
@@ -142,6 +148,7 @@ array set ::Configs [strip_comments {
     -DSQLITE_ENABLE_STAT4
     -DSQLITE_ENABLE_RBU
     -DSQLITE_MAX_ATTACHED=125
+    -DSQLITE_MAX_MMAP_SIZE=12884901888
     -DLONGDOUBLE_TYPE=double
     --enable-session
   }
@@ -276,14 +283,15 @@ array set ::Configs [strip_comments {
   FuzzFail2 {-O0}
 }]
 if {$tcl_platform(os)=="Darwin"} {
-  lappend Configs(Apple -DSQLITE_ENABLE_LOCKING_STYLE=1
+  lappend Configs(Apple) -DSQLITE_ENABLE_LOCKING_STYLE=1
 }
 
 array set ::Platforms [strip_comments {
   Linux-x86_64 {
     "Check-Symbols*"          checksymbols
-    "Fast-One"                "fuzztest test"
+    "Fast-One"                "QUICKTEST_INCLUDE=rbu.test fuzztest test"
     "Debug-One"               "mptest test"
+    "Debug-Two"               "test"
     "Have-Not"                test
     "Secure-Delete"           test
     "Unlock-Notify"           "QUICKTEST_INCLUDE=notify2.test test"
@@ -294,7 +302,7 @@ array set ::Platforms [strip_comments {
     "No-lookaside"            test
     "Devkit"                  test
     "Apple"                   test
-    "Sanitize"                {QUICKTEST_OMIT=func4.test,nan.test test}
+    "Sanitize"                test
     "Device-One"              fulltest
     "Default"                 "threadtest fulltest"
     "Valgrind*"               valgrindtest
@@ -346,6 +354,14 @@ array set ::Platforms [strip_comments {
     FuzzFail2* "TEST_FAILURE=5 valgrindtest"
   }
 }]
+
+#--------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+# End of configuration section.
+#--------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+#--------------------------------------------------------------------------
 
 # Configuration verification: Check that each entry in the list of configs
 # specified for each platforms exists.
@@ -578,9 +594,15 @@ proc main_tests {args} {
     puts "$config \"$target\""
     if {$bNodebug==0 && $bNosynthetic==0} {
       set iHas [string first SQLITE_DEBUG $::Configs($config)]
-      set dtarget test
-      if {$target=="tcltest"} {
-        set dtarget tcltest
+      set dtarget [list]
+      set iQTI [lsearch -glob $target QUICKTEST_*]
+      if {$iQTI>=0} {
+        lappend dtarget [lindex $target $iQTI]
+      }
+      if {[lsearch $target tcltest]>=0} {
+        lappend dtarget tcltest
+      } else {
+        lappend dtarget test
       }
       if {$iHas>=0} {
         puts "$config-ndebug \"$dtarget\""
