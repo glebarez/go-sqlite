@@ -857,6 +857,67 @@ func TestNoRows(t *testing.T) {
 	}
 }
 
+func TestColumns(t *testing.T) {
+	db, err := sql.Open("sqlite", "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	if _, err := db.Exec("create table t1(a integer, b text, c blob)"); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := db.Exec("insert into t1 (a) values (1)"); err != nil {
+		t.Fatal(err)
+	}
+
+	rows, err := db.Query("select * from t1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer rows.Close()
+
+	got, err := rows.Columns()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := []string{"a", "b", "c"}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got columns %v, want %v", got, want)
+	}
+}
+
+// https://gitlab.com/cznic/sqlite/-/issues/32
+func TestColumnsNoRows(t *testing.T) {
+	db, err := sql.Open("sqlite", "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	if _, err := db.Exec("create table t1(a integer, b text, c blob)"); err != nil {
+		t.Fatal(err)
+	}
+
+	rows, err := db.Query("select * from t1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer rows.Close()
+
+	got, err := rows.Columns()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := []string{"a", "b", "c"}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got columns %v, want %v", got, want)
+	}
+}
+
 // https://gitlab.com/cznic/sqlite/-/issues/28
 func TestIssue28(t *testing.T) {
 	tempDir, err := ioutil.TempDir("", "")
@@ -887,7 +948,7 @@ func TestIssue28(t *testing.T) {
 }
 
 // https://gitlab.com/cznic/sqlite/-/issues/30
-func TestIssue30(t *testing.T) {
+func TestColumnTypes(t *testing.T) {
 	tempDir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatal(err)
@@ -904,7 +965,7 @@ func TestIssue30(t *testing.T) {
 
 	defer db.Close()
 
-	_, err = db.Query("CREATE TABLE IF NOT EXISTS `userinfo` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT,`username` VARCHAR(64) NULL, `departname` VARCHAR(64) NULL, `created` DATE NULL);")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS `userinfo` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT,`username` VARCHAR(64) NULL, `departname` VARCHAR(64) NULL, `created` DATE NULL);")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -919,24 +980,27 @@ func TestIssue30(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer rows2.Close()
 
-	columnTypes, _ := rows2.ColumnTypes()
+	columnTypes, err := rows2.ColumnTypes()
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	var b strings.Builder
-	for rows2.Next() {
-		for index, value := range columnTypes {
-			precision, scale, precisionOk := value.DecimalSize()
-			length, lengthOk := value.Length()
-			nullable, nullableOk := value.Nullable()
-			fmt.Fprintf(&b, "Col %d: DatabaseTypeName %q, DecimalSize %v %v %v, Length %v %v, Name %q, Nullable %v %v, ScanType %q\n",
-				index,
-				value.DatabaseTypeName(),
-				precision, scale, precisionOk,
-				length, lengthOk,
-				value.Name(),
-				nullable, nullableOk,
-				value.ScanType(),
-			)
-		}
+	for index, value := range columnTypes {
+		precision, scale, precisionOk := value.DecimalSize()
+		length, lengthOk := value.Length()
+		nullable, nullableOk := value.Nullable()
+		fmt.Fprintf(&b, "Col %d: DatabaseTypeName %q, DecimalSize %v %v %v, Length %v %v, Name %q, Nullable %v %v, ScanType %q\n",
+			index,
+			value.DatabaseTypeName(),
+			precision, scale, precisionOk,
+			length, lengthOk,
+			value.Name(),
+			nullable, nullableOk,
+			value.ScanType(),
+		)
 	}
 	if err := rows2.Err(); err != nil {
 		t.Fatal(err)
@@ -946,6 +1010,69 @@ func TestIssue30(t *testing.T) {
 Col 1: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "username", Nullable true true, ScanType "string"
 Col 2: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "departname", Nullable true true, ScanType "string"
 Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 9223372036854775807 true, Name "created", Nullable true true, ScanType "string"
+`; g != e {
+		t.Fatalf("---- got\n%s\n----expected\n%s", g, e)
+	}
+	t.Log(b.String())
+}
+
+// https://gitlab.com/cznic/sqlite/-/issues/32
+func TestColumnTypesNoRows(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
+
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "test.db"))
+	if err != nil {
+		t.Fatalf("test.db open fail: %v", err)
+	}
+
+	defer db.Close()
+
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS `userinfo` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT,`username` VARCHAR(64) NULL, `departname` VARCHAR(64) NULL, `created` DATE NULL);")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rows2, err := db.Query("SELECT * FROM userinfo")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer rows2.Close()
+
+	columnTypes, err := rows2.ColumnTypes()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var b strings.Builder
+	for index, value := range columnTypes {
+		precision, scale, precisionOk := value.DecimalSize()
+		length, lengthOk := value.Length()
+		nullable, nullableOk := value.Nullable()
+		fmt.Fprintf(&b, "Col %d: DatabaseTypeName %q, DecimalSize %v %v %v, Length %v %v, Name %q, Nullable %v %v, ScanType %q\n",
+			index,
+			value.DatabaseTypeName(),
+			precision, scale, precisionOk,
+			length, lengthOk,
+			value.Name(),
+			nullable, nullableOk,
+			value.ScanType(),
+		)
+	}
+	if err := rows2.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	if g, e := b.String(), `Col 0: DatabaseTypeName "INTEGER", DecimalSize 0 0 false, Length 0 false, Name "uid", Nullable true true, ScanType %!q(<nil>)
+Col 1: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 0 false, Name "username", Nullable true true, ScanType %!q(<nil>)
+Col 2: DatabaseTypeName "VARCHAR(64)", DecimalSize 0 0 false, Length 0 false, Name "departname", Nullable true true, ScanType %!q(<nil>)
+Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 0 false, Name "created", Nullable true true, ScanType %!q(<nil>)
 `; g != e {
 		t.Fatalf("---- got\n%s\n----expected\n%s", g, e)
 	}
