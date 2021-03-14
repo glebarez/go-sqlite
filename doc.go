@@ -15,6 +15,10 @@
 //
 // Changelog
 //
+// 2021-03-14 v1.10.0:
+//
+// Update to use sqlite 3.35.0, release notes at https://www.sqlite.org/releaselog/3_35_0.html.
+//
 // 2021-03-11 v1.9.0:
 //
 // Support darwin/arm64.
