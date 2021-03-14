@@ -1127,6 +1127,57 @@ func TestTime(t *testing.T) {
 	}
 }
 
+// https://gitlab.com/cznic/sqlite/-/issues/46
+func TestTimeScan(t *testing.T) {
+	ref := time.Date(2021, 1, 2, 16, 39, 17, 123456789, time.UTC)
+
+	cases := []struct {
+		s string
+		w time.Time
+	}{
+		{s: "2021-01-02 12:39:17 -0400 ADT m=+00000", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02 16:39:17 +0000 UTC m=+0.000000001", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02 12:39:17.123456 -0400 ADT m=+00000", w: ref.Truncate(time.Microsecond)},
+		{s: "2021-01-02 16:39:17.123456 +0000 UTC m=+0.000000001", w: ref.Truncate(time.Microsecond)},
+		{s: "2021-01-02 16:39:17Z", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02 16:39:17+00:00", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02T16:39:17.123456+00:00", w: ref.Truncate(time.Microsecond)},
+		{s: "2021-01-02 16:39:17.123456+00:00", w: ref.Truncate(time.Microsecond)},
+		{s: "2021-01-02 12:39:17-04:00", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02 16:39:17", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02T16:39:17", w: ref.Truncate(time.Second)},
+		{s: "2021-01-02 16:39", w: ref.Truncate(time.Minute)},
+		{s: "2021-01-02T16:39", w: ref.Truncate(time.Minute)},
+		{s: "2021-01-02", w: ref.Truncate(24 * time.Hour)},
+	}
+
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	for _, colType := range []string{"DATE", "DATETIME", "TIMESTAMP"} {
+		for _, tc := range cases {
+			if _, err := db.Exec("drop table if exists x; create table x (y " + colType + ")"); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := db.Exec("insert into x (y) values (?)", tc.s); err != nil {
+				t.Fatal(err)
+			}
+
+			var got time.Time
+
+			if err := db.QueryRow("select y from x").Scan(&got); err != nil {
+				t.Fatal(err)
+			}
+			if !got.Equal(tc.w) {
+				t.Errorf("scan(%q as %q) = %s, want %s", tc.s, colType, got, tc.w)
+			}
+		}
+	}
+}
+
 // https://sqlite.org/lang_expr.html#varparam
 // https://gitlab.com/cznic/sqlite/-/issues/42
 func TestBinding(t *testing.T) {

@@ -304,6 +304,19 @@ func (r *rows) Next(dest []driver.Value) (err error) {
 	}
 }
 
+// Inspired by mattn/go-sqlite3: https://github.com/mattn/go-sqlite3/blob/ab91e934/sqlite3.go#L210-L226
+//
+// These time.Parse formats handle formats 1 through 7 listed at https://www.sqlite.org/lang_datefunc.html.
+var parseTimeFormats = []string{
+	"2006-01-02 15:04:05.999999999-07:00",
+	"2006-01-02T15:04:05.999999999-07:00",
+	"2006-01-02 15:04:05.999999999",
+	"2006-01-02T15:04:05.999999999",
+	"2006-01-02 15:04",
+	"2006-01-02T15:04",
+	"2006-01-02",
+}
+
 // Attempt to parse s as a time. Return (s, false) if s is not
 // recognized as a valid time encoding.
 func (c *conn) parseTime(s string) (interface{}, bool) {
@@ -311,7 +324,15 @@ func (c *conn) parseTime(s string) (interface{}, bool) {
 		return v, true
 	}
 
-	// TODO Add URI select time storage format and handle more formats
+	ts := strings.TrimSuffix(s, "Z")
+
+	for _, f := range parseTimeFormats {
+		t, err := time.Parse(f, ts)
+		if err == nil {
+			return t, true
+		}
+	}
+
 	return s, false
 }
 
