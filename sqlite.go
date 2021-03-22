@@ -15,6 +15,7 @@ import (
 	"io"
 	"math"
 	"reflect"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -127,11 +128,14 @@ func init() {
 		panic(fmt.Errorf("cannot allocate memory"))
 	}
 
-	// int sqlite3_config(int, ...);
-	if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, libc.VaList(varArgs, uintptr(unsafe.Pointer(&mutexMethods)))); rc != sqlite3.SQLITE_OK {
-		p := sqlite3.Xsqlite3_errstr(tls, rc)
-		str := libc.GoString(p)
-		panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
+	// experimental pthreads support currently only on linux/amd64
+	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
+		// int sqlite3_config(int, ...);
+		if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, libc.VaList(varArgs, uintptr(unsafe.Pointer(&mutexMethods)))); rc != sqlite3.SQLITE_OK {
+			p := sqlite3.Xsqlite3_errstr(tls, rc)
+			str := libc.GoString(p)
+			panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
+		}
 	}
 
 	libc.Xfree(tls, varArgs)

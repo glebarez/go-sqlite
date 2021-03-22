@@ -166,7 +166,6 @@ var (
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MUTEX_APPDEF=1",
-		"-DSQLITE_MUTEX_NOOP",
 		"-DSQLITE_SOUNDEX",
 		"-DSQLITE_THREADSAFE=1",
 		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
@@ -220,7 +219,6 @@ var (
 		"-DSQLITE_HAVE_ZLIB=1",          // testfixture
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MUTEX_APPDEF=1",
-		"-DSQLITE_MUTEX_NOOP",
 		"-DSQLITE_SOUNDEX",
 		"-DSQLITE_TEMP_STORE=1", // testfixture
 		"-DSQLITE_TEST",
@@ -394,6 +392,11 @@ func main() {
 	}
 	more = append(more, ndebug...)
 	download()
+	// experimental pthreads support currently only on linux/amd64
+	if goos != "linux" || goarch != "amd64" {
+		configProduction = append(configProduction, "-DSQLITE_MUTEX_NOOP")
+		configTest = append(configTest, "-DSQLITE_MUTEX_NOOP")
+	}
 	switch goos {
 	case "linux":
 		configProduction = append(configProduction, "-DSQLITE_OS_UNIX=1")
@@ -423,34 +426,8 @@ func main() {
 	makeMpTest(goos, goarch, more)
 	makeSpeedTest(goos, goarch, more)
 	makeTestfixture(goos, goarch, more)
-
-	dst := filepath.FromSlash("testdata/tcl")
-	if err := os.MkdirAll(dst, 0770); err != nil {
-		fail("cannot create %q: %v", dst, err)
-	}
-
-	m, err := filepath.Glob(filepath.Join(sqliteSrcDir, "test/*.test"))
-	if err != nil {
-		fail("cannot glob *.test: %v", err)
-	}
-
-	m2, err := filepath.Glob(filepath.Join(sqliteSrcDir, "test/*.tcl"))
-	if err != nil {
-		fail("cannot glob *.tcl: %v", err)
-	}
-
-	m = join(m, m2)
-	for _, v := range m {
-		f, err := ioutil.ReadFile(v)
-		if err != nil {
-			fail("cannot read %v: %v", v, err)
-		}
-
-		fn := filepath.Join(dst, filepath.Base(v))
-		if err := ioutil.WriteFile(fn, f, 0660); err != nil {
-			fail("cannot write %v: %v", fn, err)
-		}
-	}
+	ccgo.MustCopyDir(true, "testdata/tcl", sqliteSrcDir+"/test", nil)
+	ccgo.MustCopyDir(true, "testdata/tcl", "testdata/overlay", nil)
 }
 
 func configure(goos, goarch string) {
@@ -598,42 +575,42 @@ func makeTestfixture(goos, goarch string, more []string) {
 	}
 	configure(goos, goarch)
 
-	task := ccgo.NewTask(
-		join(
-			[]string{
-				"ccgo",
-				"-DSQLITE_OMIT_LOAD_EXTENSION",
-				"-DSQLITE_SERIES_CONSTRAINT_VERIFY=1",
-				"-DSQLITE_SERVER=1",
-				"-DTCLSH_INIT_PROC=sqlite3TestInit",
-				"-D_HAVE_SQLITE_CONFIG_H",
-				"-I/usr/include/tcl8.6", //TODO should not be hardcoded
-				"-export-defines", "",
-				"-export-fields", "F",
-				"-trace-translation-units",
-				volatiles,
-				"-lmodernc.org/sqlite/internal/libc2",
-				"-lmodernc.org/sqlite/libtest",
-				"-lmodernc.org/tcl/lib",
-				"-lmodernc.org/z/lib",
-				"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/fts3"))),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/icu"))),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/rtree"))),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/session"))),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/userauth"))),
-				fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("src"))),
-				fmt.Sprintf("-I%s", sqliteDir),
-				fmt.Sprintf("-I%s", sqliteSrcDir),
-			},
-			files,
-			more,
-			configTest,
-		),
-		nil,
-		nil,
+	args := join(
+		[]string{
+			"ccgo",
+			"-DSQLITE_OMIT_LOAD_EXTENSION",
+			"-DSQLITE_SERIES_CONSTRAINT_VERIFY=1",
+			"-DSQLITE_SERVER=1",
+			"-DTCLSH_INIT_PROC=sqlite3TestInit",
+			"-D_HAVE_SQLITE_CONFIG_H",
+			"-I/usr/include/tcl8.6", //TODO should not be hardcoded
+			"-export-defines", "",
+			"-export-fields", "F",
+			"-trace-translation-units",
+			volatiles,
+			"-lmodernc.org/sqlite/libtest",
+			"-lmodernc.org/tcl/lib",
+			"-lmodernc.org/z/lib",
+			"-o", filepath.Join(dir, fmt.Sprintf("testfixture_%s_%s.go", goos, goarch)),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/async"))),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/fts3"))),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/icu"))),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/rtree"))),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/session"))),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("ext/userauth"))),
+			fmt.Sprintf("-I%s", filepath.Join(sqliteSrcDir, filepath.FromSlash("src"))),
+			fmt.Sprintf("-I%s", sqliteDir),
+			fmt.Sprintf("-I%s", sqliteSrcDir),
+		},
+		files,
+		more,
+		configTest,
 	)
+	// experimental pthreads support currently only on linux/amd64
+	if goos != "linux" || goarch != "amd64" {
+		args = append(args, "-lmodernc.org/sqlite/internal/libc2")
+	}
+	task := ccgo.NewTask(args, nil, nil)
 	if err := task.Main(); err != nil {
 		fail("%s\n", err)
 	}
