@@ -14,6 +14,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"os"
 	"reflect"
 	"runtime"
 	"strconv"
@@ -119,6 +120,9 @@ var (
 
 func init() {
 	tls := libc.NewTLS()
+
+	libc.SetEnviron(tls, os.Environ())
+
 	if sqlite3.Xsqlite3_threadsafe(tls) == 0 {
 		panic(fmt.Errorf("sqlite: thread safety configuration error"))
 	}
