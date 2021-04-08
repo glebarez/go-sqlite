@@ -1178,6 +1178,19 @@ func TestTimeScan(t *testing.T) {
 	}
 }
 
+// https://gitlab.com/cznic/sqlite/-/issues/49
+func TestTimeLocaltime(t *testing.T) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	if _, err := db.Exec("select datetime('now', 'localtime')"); err != nil {
+		t.Fatal(err)
+	}
+}
+
 // https://sqlite.org/lang_expr.html#varparam
 // https://gitlab.com/cznic/sqlite/-/issues/42
 func TestBinding(t *testing.T) {
