@@ -106,13 +106,26 @@ func trc(s string, args ...interface{}) string { //TODO-
 var (
 	oRecsPerSec = flag.Bool("recs_per_sec_as_mbps", false, "Show records per second as MB/s.")
 	oXTags      = flag.String("xtags", "", "passed to go build of testfixture in TestTclTest")
+	tempDir     string
 )
 
 func TestMain(m *testing.M) {
 	fmt.Printf("test binary compiled for %s/%s\n", runtime.GOOS, runtime.GOARCH)
 	flag.Parse()
 	libc.MemAuditStart()
-	os.Exit(m.Run())
+	os.Exit(testMain(m))
+}
+
+func testMain(m *testing.M) int {
+	var err error
+	tempDir, err = ioutil.TempDir("", "sqlite-test-")
+	if err != nil {
+		panic(err) //TODOOK
+	}
+
+	defer os.RemoveAll(tempDir)
+
+	return m.Run()
 }
 
 func tempDB(t testing.TB) (string, *sql.DB) {
@@ -1376,3 +1389,130 @@ func testBindingError(t *testing.T, query func(db *sql.DB, query string, args ..
 		}
 	}
 }
+
+// https://gitlab.com/cznic/sqlite/-/issues/51
+func TestIssue51(t *testing.T) {
+	fn := filepath.Join(tempDir, "test_issue51.db")
+	db, err := sql.Open(driverName, fn)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := db.Exec(`
+CREATE TABLE fileHash (
+	"hash" TEXT NOT NULL PRIMARY KEY,		
+	"filename" TEXT,
+	"lastChecked" INTEGER
+ );`); err != nil {
+		t.Fatal(err)
+	}
+
+	t0 := time.Now()
+	n := 0
+	for time.Since(t0) < time.Minute {
+		hash := randomString()
+		if _, err = lookupHash(fn, hash); err != nil {
+			t.Fatal(err)
+		}
+
+		if err = saveHash(fn, hash, hash+".temp"); err != nil {
+			t.Error(err)
+			break
+		}
+		n++
+	}
+	t.Logf("cycles: %v", n)
+	row := db.QueryRow("select count(*) from fileHash")
+	if err := row.Scan(&n); err != nil {
+		t.Fatal(err)
+	}
+
+	t.Logf("DB records: %v", n)
+}
+
+func saveHash(dbFile string, hash string, fileName string) (err error) {
+	db, err := sql.Open("sqlite", dbFile)
+	if err != nil {
+		return fmt.Errorf("could not open database: %v", err)
+	}
+
+	defer func() {
+		if err2 := db.Close(); err2 != nil && err == nil {
+			err = fmt.Errorf("could not close the database: %s", err2)
+		}
+	}()
+
+	query := `INSERT OR REPLACE INTO fileHash(hash, fileName, lastChecked)
+			VALUES(?, ?, ?);`
+	if _, err = executeSQL(db, query,
+		hash,
+		fileName,
+		time.Now().Unix(),
+	); err != nil {
+		return fmt.Errorf("error saving hash to database: %v", err)
+	}
+
+	return nil
+}
+
+func executeSQL(db *sql.DB, query string, values ...interface{}) (*sql.Rows, error) {
+	statement, err := db.Prepare(query)
+	if err != nil {
+		return nil, fmt.Errorf("could not prepare statement: %v", err)
+	}
+
+	return statement.Query(values...)
+}
+
+func lookupHash(dbFile string, hash string) (ok bool, err error) {
+	db, err := sql.Open("sqlite", dbFile)
+	if err != nil {
+		return false, fmt.Errorf("could not open database: %n", err)
+	}
+
+	defer func() {
+		if err2 := db.Close(); err2 != nil && err == nil {
+			err = fmt.Errorf("could not close the database: %v", err2)
+		}
+	}()
+
+	query := `SELECT hash, fileName, lastChecked
+				FROM fileHash
+				WHERE hash=?;`
+	rows, err := executeSQL(db, query, hash)
+	if err != nil {
+		return false, fmt.Errorf("error checking database for hash: %n", err)
+	}
+
+	defer func() {
+		if err2 := rows.Close(); err2 != nil && err == nil {
+			err = fmt.Errorf("could not close DB rows: %v", err2)
+		}
+	}()
+
+	var (
+		dbHash      string
+		fileName    string
+		lastChecked int64
+	)
+	for rows.Next() {
+		err = rows.Scan(&dbHash, &fileName, &lastChecked)
+		if err != nil {
+			return false, fmt.Errorf("could not read DB row: %v", err)
+		}
+	}
+	return false, nil
+}
+
+func randomString() string {
+	b := make([]byte, 32)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+const charset = "abcdefghijklmnopqrstuvwxyz" +
+	"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
