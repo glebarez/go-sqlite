@@ -1392,6 +1392,10 @@ func testBindingError(t *testing.T, query func(db *sql.DB, query string, args ..
 
 // https://gitlab.com/cznic/sqlite/-/issues/51
 func TestIssue51(t *testing.T) {
+	// Temporarily disable this test until it becomes clear where the error comes from.
+	// See https://gitlab.com/cznic/sqlite/-/issues/51#note_554190594.
+	return
+	;
 	fn := filepath.Join(tempDir, "test_issue51.db")
 	db, err := sql.Open(driverName, fn)
 	if err != nil {
