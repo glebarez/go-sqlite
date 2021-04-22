@@ -15,7 +15,6 @@ import (
 	"io"
 	"math"
 	"reflect"
-	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -118,28 +117,6 @@ var (
 )
 
 func init() {
-	tls := libc.NewTLS()
-	if sqlite3.Xsqlite3_threadsafe(tls) == 0 {
-		panic(fmt.Errorf("sqlite: thread safety configuration error"))
-	}
-
-	varArgs := libc.Xmalloc(tls, types.Size_t(ptrSize))
-	if varArgs == 0 {
-		panic(fmt.Errorf("cannot allocate memory"))
-	}
-
-	// experimental pthreads support currently only on linux/amd64
-	if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
-		// int sqlite3_config(int, ...);
-		if rc := sqlite3.Xsqlite3_config(tls, sqlite3.SQLITE_CONFIG_MUTEX, libc.VaList(varArgs, uintptr(unsafe.Pointer(&mutexMethods)))); rc != sqlite3.SQLITE_OK {
-			p := sqlite3.Xsqlite3_errstr(tls, rc)
-			str := libc.GoString(p)
-			panic(fmt.Errorf("sqlite: failed to configure mutex methods: %v", str))
-		}
-	}
-
-	libc.Xfree(tls, varArgs)
-	tls.Close()
 	sql.Register(driverName, newDriver())
 }
 
@@ -872,8 +849,8 @@ func (c *conn) step(pstmt uintptr) (int, error) {
 }
 
 func (c *conn) retry(pstmt uintptr) error {
-	mu := mutexAlloc(c.tls, sqlite3.SQLITE_MUTEX_FAST)
-	(*mutex)(unsafe.Pointer(mu)).enter(c.tls.ID) // Block
+	mu := mutexAlloc(c.tls)
+	(*mutex)(unsafe.Pointer(mu)).Lock()
 	rc := sqlite3.Xsqlite3_unlock_notify(
 		c.tls,
 		c.db,
@@ -883,13 +860,13 @@ func (c *conn) retry(pstmt uintptr) error {
 		mu,
 	)
 	if rc == sqlite3.SQLITE_LOCKED { // Deadlock, see https://www.sqlite.org/c3ref/unlock_notify.html
-		(*mutex)(unsafe.Pointer(mu)).leave(c.tls.ID) // Clear
+		(*mutex)(unsafe.Pointer(mu)).Unlock()
 		mutexFree(c.tls, mu)
 		return c.errstr(rc)
 	}
 
-	(*mutex)(unsafe.Pointer(mu)).enter(c.tls.ID) // Wait
-	(*mutex)(unsafe.Pointer(mu)).leave(c.tls.ID) // Clear
+	(*mutex)(unsafe.Pointer(mu)).Lock()
+	(*mutex)(unsafe.Pointer(mu)).Unlock()
 	mutexFree(c.tls, mu)
 	if pstmt != 0 {
 		sqlite3.Xsqlite3_reset(c.tls, pstmt)
@@ -900,7 +877,7 @@ func (c *conn) retry(pstmt uintptr) error {
 func unlockNotify(t *libc.TLS, ppArg uintptr, nArg int32) {
 	for i := int32(0); i < nArg; i++ {
 		mu := *(*uintptr)(unsafe.Pointer(ppArg))
-		(*mutex)(unsafe.Pointer(mu)).leave(t.ID) // Signal
+		(*mutex)(unsafe.Pointer(mu)).Unlock()
 		ppArg += ptrSize
 	}
 }
