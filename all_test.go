@@ -1392,10 +1392,6 @@ func testBindingError(t *testing.T, query func(db *sql.DB, query string, args ..
 
 // https://gitlab.com/cznic/sqlite/-/issues/51
 func TestIssue51(t *testing.T) {
-	// Temporarily disable this test until it becomes clear where the error comes from.
-	// See https://gitlab.com/cznic/sqlite/-/issues/51#note_554190594.
-	return
-	;
 	fn := filepath.Join(tempDir, "test_issue51.db")
 	db, err := sql.Open(driverName, fn)
 	if err != nil {
@@ -1404,7 +1400,7 @@ func TestIssue51(t *testing.T) {
 
 	if _, err := db.Exec(`
 CREATE TABLE fileHash (
-	"hash" TEXT NOT NULL PRIMARY KEY,		
+	"hash" TEXT NOT NULL PRIMARY KEY,
 	"filename" TEXT,
 	"lastChecked" INTEGER
  );`); err != nil {
@@ -1448,13 +1444,11 @@ func saveHash(dbFile string, hash string, fileName string) (err error) {
 
 	query := `INSERT OR REPLACE INTO fileHash(hash, fileName, lastChecked)
 			VALUES(?, ?, ?);`
-	if _, err = executeSQL(db, query,
-		hash,
-		fileName,
-		time.Now().Unix(),
-	); err != nil {
+	rows, err := executeSQL(db, query, hash, fileName, time.Now().Unix())
+	if err != nil {
 		return fmt.Errorf("error saving hash to database: %v", err)
 	}
+	defer rows.Close()
 
 	return nil
 }
@@ -1464,6 +1458,7 @@ func executeSQL(db *sql.DB, query string, values ...interface{}) (*sql.Rows, err
 	if err != nil {
 		return nil, fmt.Errorf("could not prepare statement: %v", err)
 	}
+	defer statement.Close()
 
 	return statement.Query(values...)
 }
@@ -1505,7 +1500,7 @@ func lookupHash(dbFile string, hash string) (ok bool, err error) {
 			return false, fmt.Errorf("could not read DB row: %v", err)
 		}
 	}
-	return false, nil
+	return false, rows.Err()
 }
 
 func randomString() string {
