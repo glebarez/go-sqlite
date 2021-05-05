@@ -1515,3 +1515,78 @@ var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 const charset = "abcdefghijklmnopqrstuvwxyz" +
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+// https://gitlab.com/cznic/sqlite/-/issues/53
+func TestIssue53(t *testing.T) {
+	if err := emptyDir(tempDir); err != nil {
+		t.Fatal(err)
+	}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.Chdir(wd)
+
+	if err := os.Chdir(tempDir); err != nil {
+		t.Fatal(err)
+	}
+
+	os.Remove("x.sqlite")
+	db, err := sql.Open(driverName, "x.sqlite")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := db.Exec(`
+CREATE TABLE IF NOT EXISTS loginst (
+     instid INTEGER PRIMARY KEY,
+     name   VARCHAR UNIQUE
+);
+`); err != nil {
+		t.Fatal(err)
+	}
+
+	tx, err := db.Begin()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for i := 0; i < 5000; i++ {
+		x := fmt.Sprintf("foo%d", i)
+		var id int
+		if err := tx.QueryRow("INSERT OR IGNORE INTO loginst (name) VALUES (?); SELECT instid FROM loginst WHERE name = ?", x, x).Scan(&id); err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(id)
+	}
+
+}
+
+func emptyDir(s string) error {
+	m, err := filepath.Glob(filepath.FromSlash(s + "/*"))
+	if err != nil {
+		return err
+	}
+
+	for _, v := range m {
+		fi, err := os.Stat(v)
+		if err != nil {
+			return err
+		}
+
+		switch {
+		case fi.IsDir():
+			if err = os.RemoveAll(v); err != nil {
+				return err
+			}
+		default:
+			if err = os.Remove(v); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
