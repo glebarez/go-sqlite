@@ -19,7 +19,7 @@
 //
 // Fixes a memory corruption issue
 // (https://gitlab.com/cznic/sqlite/-/issues/53).  Versions since v1.8.6 were
-// affected and should be updated to v1.10.5.
+// affected and should be updated to v1.10.6.
 //
 // 2021-03-14 v1.10.0:
 //
