@@ -604,13 +604,8 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 			}
 
 			if n != 0 {
-				a, err := s.c.bind(pstmt, n, args)
-				if err != nil {
+				if allocs, err = s.c.bind(pstmt, n, args); err != nil {
 					return err
-				}
-
-				if len(a) != 0 {
-					allocs = append(allocs, a...)
 				}
 			}
 
