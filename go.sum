@@ -40,11 +40,11 @@ golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8T
 golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 h1:go1bK/D/BFZV2I8cIQd1NKEZ+0owSTG1fDTci4IqFcE=
 golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 modernc.org/cc/v3 v3.32.4/go.mod h1:0R6jl1aZlIl2avnYfbfHBS1QB6/f+16mihBObaBC878=
-modernc.org/cc/v3 v3.33.2 h1:Opi4UrfRcY5Dyn7/4eTpCgNohNKJ1GYByCr2OfzsxHw=
-modernc.org/cc/v3 v3.33.2/go.mod h1:0R6jl1aZlIl2avnYfbfHBS1QB6/f+16mihBObaBC878=
+modernc.org/cc/v3 v3.33.5 h1:gfsIOmcv80EelyQyOHn/Xhlzex8xunhQxWiJRMYmPrI=
+modernc.org/cc/v3 v3.33.5/go.mod h1:0R6jl1aZlIl2avnYfbfHBS1QB6/f+16mihBObaBC878=
 modernc.org/ccgo/v3 v3.9.2/go.mod h1:gnJpy6NIVqkETT+L5zPsQFj7L2kkhfPMzOghRNv/CFo=
-modernc.org/ccgo/v3 v3.9.3 h1:q7htWIez+g9FEQmJFsWWO4GswQaOmx7km2TiBQt+vrQ=
-modernc.org/ccgo/v3 v3.9.3/go.mod h1:XkJJb6KHIYShuYzR22MJlOHbRegERid14ORF8pzdOTo=
+modernc.org/ccgo/v3 v3.9.4 h1:mt2+HyTZKxva27O6T4C9//0xiNQ/MornL3i8itM5cCs=
+modernc.org/ccgo/v3 v3.9.4/go.mod h1:19XAY9uOrYnDhOgfHwCABasBvK69jgC4I8+rizbk3Bc=
 modernc.org/httpfs v1.0.6 h1:AAgIpFZRXuYnkjftxTAZwMIiwEqAfk8aVB2/oA6nAeM=
 modernc.org/httpfs v1.0.6/go.mod h1:7dosgurJGp0sPaRanU53W4xZYKh14wfzX420oZADeHM=
 modernc.org/libc v1.7.13-0.20210308123627-12f642a52bb8/go.mod h1:U1eq8YWr/Kc1RWCMFUWEdkTg8OTcfLw2kY8EDwl039w=
