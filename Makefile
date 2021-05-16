@@ -41,6 +41,7 @@ build_all_targets:
 	GOOS=linux GOARCH=amd64 go build -v ./...
 	GOOS=linux GOARCH=arm go build -v ./...
 	GOOS=linux GOARCH=arm64 go build -v ./...
+	GOOS=linux GOARCH=s390x go build -v ./...
 	GOOS=windows GOARCH=386 go build -v ./...
 	GOOS=windows GOARCH=amd64 go build -v ./...
 	echo done
@@ -69,6 +70,10 @@ linux_arm64:
 	CCGO_CPP=aarch64-linux-gnu-cpp-8 TARGET_GOARCH=arm64 TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm64
 	GOOS=linux GOARCH=arm64 go build -v ./...
 
+linux_s390x:
+	CCGO_CPP=s390x-linux-gnu-cpp TARGET_GOARCH=s390x TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-s390x
+	GOOS=linux GOARCH=s390x go build -v ./...
+
 windows_amd64:
 	CCGO_CPP=x86_64-w64-mingw32-cpp TARGET_GOOS=windows TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-windows-amd64
 	GOOS=windows GOARCH=amd64 go build -v ./...
@@ -77,7 +82,7 @@ windows_386:
 	CCGO_CPP=i686-w64-mingw32-cpp TARGET_GOOS=windows TARGET_GOARCH=386 go generate 2>&1 | tee /tmp/log-generate-sqlite-windows-386
 	GOOS=windows GOARCH=386 go build -v ./...
 
-all_targets: linux_amd64 linux_386 linux_arm linux_arm64 windows_amd64 windows_386
+all_targets: linux_amd64 linux_386 linux_arm linux_arm64 linux_s390x windows_amd64 windows_386
 	gofmt -l -s -w .
 	echo done
 
@@ -109,6 +114,9 @@ test_linux_arm:
 
 test_linux_arm64:
 	GOOS=linux GOARCH=arm64 make test
+
+test_linux_s390x:
+	GOOS=linux GOARCH=s390x make test
 
 extraquick:
 	go test -timeout 24h -v -run Tcl -suite extraquick -maxerror 1 2>&1 | tee log-extraquick
