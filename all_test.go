@@ -628,6 +628,13 @@ outer:
 			t.Fatalf("%s\n%v", out, err)
 		}
 
+		// just remove it so we don't get a
+		// file busy race-condition
+		// when we spin up the next script
+		if runtime.GOOS == "windows" {
+			_ = os.Remove("db")
+		}
+
 		a := strings.Split(string(out), "\n")
 		for _, v := range a {
 			if strings.HasPrefix(v, "Summary:") {

@@ -22,6 +22,12 @@ set testprefix snapshot_fault
 # reading a corrupt snapshot even if a second client fails while 
 # checkpointing the db.
 #
+
+# This test relies on a forcedelete of an open file
+# resulting in: error deleting "test.db": permission denied
+# Not possible to remove the open file
+if {$::tcl_platform(platform)!="windows"} {
+
 do_faultsim_test 1.0 -prep {
   faultsim_delete_and_reopen
   sqlite3 db2 test.db
@@ -59,6 +65,7 @@ do_faultsim_test 1.0 -prep {
   }
 
   sqlite3_snapshot_free $::snapshot
+}
 }
 
 #-------------------------------------------------------------------------

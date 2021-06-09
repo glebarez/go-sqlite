@@ -219,6 +219,12 @@ puts "Highwater mark: [sqlite3_memory_highwater]"
 #
 set ::soft_limit [sqlite3_soft_heap_limit -1]
 execsql {PRAGMA cache_size=2000}
+
+# Test requires sqliteconfig.FbMemstat = 1 to measure highwater mark.
+# We are not built with that enabled, currently
+# -DSQLITE_DEFAULT_MEMSTATUS=0
+if {$::tcl_platform(platform)!="windows"} {
+
 do_test malloc5-4.1 {
   execsql {BEGIN;}
   execsql {DELETE FROM abc;}
@@ -234,6 +240,7 @@ do_test malloc5-4.1 {
   puts -nonewline " (Highwater mark: $nMaxBytes) "
   expr $nMaxBytes > 1000000
 } {1}
+
 do_test malloc5-4.2 {
   db eval {PRAGMA cache_size=1}
   db cache flush
@@ -245,12 +252,15 @@ do_test malloc5-4.2 {
   puts -nonewline " (Highwater mark: $nMaxBytes) "
   expr $nMaxBytes <= 210000
 } {1}
+
 do_test malloc5-4.3 {
   # Check that the content of table abc is at least roughly as expected.
   execsql {
     SELECT count(*), sum(a), sum(b) FROM abc;
   }
 } [list 10000 [expr int(10000.0 * 4999.5)] [expr int(10000.0 * 4999.5)]]
+
+}
 
 # Restore the soft heap limit.
 sqlite3_soft_heap_limit $::soft_limit
@@ -344,6 +354,12 @@ do_test malloc5-6.2.1 {
   expr [nPage db] + [nPage db2]
 } {4}
 
+
+# Our min-useable malloc block-size appears to be 2k (actual) 
+# Because this test attempts to measure actual memory freed 
+# causing 2 blocks to be freed will free 4K, failing the tests
+if {$::tcl_platform(platform)!="windows"} {
+
 do_test malloc5-6.2.2 {
   # If we now try to reclaim some memory, it should come from the db2 cache.
   sqlite3_release_memory 3000
@@ -357,6 +373,8 @@ do_test malloc5-6.2.3 {
   sqlite3_release_memory 3000
   expr [nPage db] + [nPage db2]
 } {0}
+
+}
 
 do_test malloc5-6.3.1 {
   # Now open a transaction and update 2 pages in the db2 cache. Then
