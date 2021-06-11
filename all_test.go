@@ -1405,6 +1405,10 @@ func TestIssue51(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	defer func() {
+		db.Close()
+	}()
+
 	if _, err := db.Exec(`
 CREATE TABLE fileHash (
 	"hash" TEXT NOT NULL PRIMARY KEY,
