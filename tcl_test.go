@@ -38,7 +38,7 @@ func TestTclTest(t *testing.T) {
 	switch runtime.GOOS {
 	case "windows":
 		// See https://gitlab.com/cznic/sqlite/-/issues/23#note_599920077 for details.
-		blacklist["symlink.test"] = struct{}{}
+		blacklist["symlink2.test"] = struct{}{}
 	}
 	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
 	if err != nil {
