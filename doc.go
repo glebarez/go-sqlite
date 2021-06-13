@@ -15,6 +15,10 @@
 //
 // Changelog
 //
+// 2021-06-13 v1.11.0:
+//
+// Support windows/amd64.
+//
 // 2021-05-06 v1.10.6:
 //
 // Fixes a memory corruption issue
@@ -125,11 +129,11 @@
 // 	linux	amd64
 // 	linux	arm
 // 	linux	arm64
+// 	windows	amd64
 //
 // Planned platforms and architectures
 //
 // 	windows	386
-// 	windows	amd64
 //
 // Debug and development versions
 //
