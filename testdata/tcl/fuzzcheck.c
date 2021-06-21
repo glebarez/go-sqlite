@@ -63,7 +63,7 @@
 ** of the global variable g.zTextName[] will identify the specific XSQL and
 ** DB values that were running when the crash occurred.
 **
-** DBSQLFUZZ:
+** DBSQLFUZZ: (Added 2020-02-25)
 **
 ** The dbsqlfuzz fuzzer includes both a database file and SQL to run against
 ** that database in its input.  This utility can now process dbsqlfuzz
@@ -108,10 +108,10 @@ typedef unsigned char uint8_t;
 */
 typedef struct VFile VFile;
 struct VFile {
-  char *zFilename;        /* Filename.  NULL for delete-on-close. From malloc() */
-  int sz;                 /* Size of the file in bytes */
-  int nRef;               /* Number of references to this file */
-  unsigned char *a;       /* Content of the file.  From malloc() */
+  char *zFilename;      /* Filename.  NULL for delete-on-close. From malloc() */
+  int sz;               /* Size of the file in bytes */
+  int nRef;             /* Number of references to this file */
+  unsigned char *a;     /* Content of the file.  From malloc() */
 };
 typedef struct VHandle VHandle;
 struct VHandle {
@@ -219,7 +219,7 @@ static int progressHandler(void *pVdbeLimitFlag){
 #endif
 
 /*
-** Reallocate memory.  Show and error and quit if unable.
+** Reallocate memory.  Show an error and quit if unable.
 */
 static void *safe_realloc(void *pOld, int szNew){
   void *pNew = realloc(pOld, szNew<=0 ? 1 : szNew);
@@ -617,8 +617,8 @@ static int isOffset(
 
 /*
 ** Decode the text starting at zIn into a binary database file.
-** The maximum length of zIn is nIn bytes.  Compute the binary database
-** file contain in space obtained from sqlite3_malloc().
+** The maximum length of zIn is nIn bytes.  Store the binary database
+** file in space obtained from sqlite3_malloc().
 **
 ** Return the number of bytes of zIn consumed.  Or return -1 if there
 ** is an error.  One potential error is that the recipe specifies a
@@ -936,7 +936,12 @@ int runCombinedDbSqlInput(const uint8_t *aData, size_t nByte, int iTimeout){
   sqlite3_set_authorizer(cx.db, block_troublesome_sql, 0);
 
   /* Consistent PRNG seed */
+#ifdef SQLITE_TESTCTRL_PRNG_SEED
+  sqlite3_table_column_metadata(cx.db, 0, "x", 0, 0, 0, 0, 0, 0);
+  sqlite3_test_control(SQLITE_TESTCTRL_PRNG_SEED, 1, cx.db);
+#else
   sqlite3_randomness(0,0);
+#endif
 
   zSql = sqlite3_malloc( nSql + 1 );
   if( zSql==0 ){
@@ -980,6 +985,8 @@ testrun_finished:
             sqlite3_memory_used(), nAlloc);
     exit(1);
   }
+  sqlite3_hard_heap_limit64(0);
+  sqlite3_soft_heap_limit64(0);
   return 0;
 }
 
@@ -1428,9 +1435,10 @@ static void showHelp(void){
 "  --limit-heap N       Limit heap memory to N.  Default: 100M\n"
 "  --limit-mem N        Limit memory used by test SQLite instance to N bytes\n"
 "  --limit-vdbe         Panic if any test runs for more than 100,000 cycles\n"
-"  --load-sql ARGS...   Load SQL scripts fron files into SOURCE-DB\n"
-"  --load-db ARGS...    Load template databases from files into SOURCE_DB\n"
-"  --load-dbsql ARGS..  Load dbsqlfuzz outputs into the xsql table\n"
+"  --load-sql   FILE..  Load SQL scripts fron files into SOURCE-DB\n"
+"  --load-db    FILE..  Load template databases from files into SOURCE_DB\n"
+"  --load-dbsql FILE..  Load dbsqlfuzz outputs into the xsql table\n"
+"               ^^^^------ Use \"-\" for FILE to read filenames from stdin\n"
 "  -m TEXT              Add a description to the database\n"
 "  --native-vfs         Use the native VFS for initially empty database files\n"
 "  --native-malloc      Turn off MEMSYS3/5 and Lookaside\n"
@@ -1771,10 +1779,25 @@ int main(int argc, char **argv){
       rc = sqlite3_exec(db, "BEGIN", 0, 0, 0);
       if( rc ) fatalError("cannot start a transaction");
       for(i=iFirstInsArg; i<argc; i++){
-        sqlite3_bind_text(pStmt, 1, argv[i], -1, SQLITE_STATIC);
-        sqlite3_step(pStmt);
-        rc = sqlite3_reset(pStmt);
-        if( rc ) fatalError("insert failed for %s", argv[i]);
+        if( strcmp(argv[i],"-")==0 ){
+          /* A filename of "-" means read multiple filenames from stdin */
+          char zLine[2000];
+          while( rc==0 && fgets(zLine,sizeof(zLine),stdin)!=0 ){
+            size_t kk = strlen(zLine);
+            while( kk>0 && zLine[kk-1]<=' ' ) kk--;
+            sqlite3_bind_text(pStmt, 1, zLine, kk, SQLITE_STATIC);
+            if( verboseFlag ) printf("loading %.*s\n", (int)kk, zLine);
+            sqlite3_step(pStmt);
+            rc = sqlite3_reset(pStmt);
+            if( rc ) fatalError("insert failed for %s", zLine);
+          }
+        }else{
+          sqlite3_bind_text(pStmt, 1, argv[i], -1, SQLITE_STATIC);
+          if( verboseFlag ) printf("loading %s\n", argv[i]);
+          sqlite3_step(pStmt);
+          rc = sqlite3_reset(pStmt);
+          if( rc ) fatalError("insert failed for %s", argv[i]);
+        }
       }
       sqlite3_finalize(pStmt);
       rc = sqlite3_exec(db, "COMMIT", 0, 0, 0);
@@ -2043,7 +2066,8 @@ int main(int argc, char **argv){
       }
     }
     if( bSpinner ){
-      printf("\n");
+      int nTotal = g.nDb*g.nSql;
+      printf("\r%s: %d/%d   \n", zDbName, nTotal, nTotal);
     }else if( !quietFlag && !verboseFlag ){
       printf(" 100%% - %d tests\n", g.nDb*g.nSql);
     }

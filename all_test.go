@@ -1570,8 +1570,6 @@ CREATE TABLE IF NOT EXISTS loginst (
 		if err := tx.QueryRow("INSERT OR IGNORE INTO loginst (name) VALUES (?); SELECT instid FROM loginst WHERE name = ?", x, x).Scan(&id); err != nil {
 			t.Fatal(err)
 		}
-
-		t.Log(id)
 	}
 
 }

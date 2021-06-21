@@ -131,6 +131,7 @@ set allquicktests [test_set $alltests -exclude {
   fts3defer.test fts4langid.test fts3sort.test fts5unicode.test
 
   rtree4.test
+  sessionbig.test
 }]
 if {[info exists ::env(QUICKTEST_INCLUDE)]} {
   set allquicktests [concat $allquicktests $::env(QUICKTEST_INCLUDE)]
@@ -989,7 +990,7 @@ test_suite "journaltest" -description {
   pager1.test syscall.test tkt3457.test *malloc* mmap* multiplex* nolock*
   pager2.test *fault* rowal* snapshot* superlock* symlink.test
   delete_db.test shmlock.test chunksize.test
-  busy2.test avfs.test
+  busy2.test avfs.test external_reader.test
 }]
 
 if {[info commands register_demovfs] != ""} {
