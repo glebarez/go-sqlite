@@ -15,7 +15,7 @@
 //
 // Changelog
 //
-// 2021-03-14 v1.11.0:
+// 2021-03-23 v1.11.0:
 //
 // Upgrade to use sqlite 3.36.0, release notes at https://www.sqlite.org/releaselog/3_36_0.html.
 //
