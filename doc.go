@@ -15,9 +15,9 @@
 //
 // Changelog
 //
-// 2021-06-13 v1.11.0:
+// 2021-03-14 v1.11.0:
 //
-// Support windows/amd64.
+// Upgrade to use sqlite 3.36.0, release notes at https://www.sqlite.org/releaselog/3_36_0.html.
 //
 // 2021-05-06 v1.10.6:
 //
