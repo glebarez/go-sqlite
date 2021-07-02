@@ -131,6 +131,10 @@
 // 	linux	arm64
 // 	windows	amd64
 //
+// The windows/amd64 has currently experimental/preview status. Tcl tests
+// report an unresolved yet memory leak, see
+// https://gitlab.com/cznic/sqlite/-/issues/23 for more details.
+//
 // Planned platforms and architectures
 //
 // 	windows	386
