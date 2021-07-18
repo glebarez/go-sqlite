@@ -161,6 +161,7 @@ var (
 		"-DSQLITE_ENABLE_PREUPDATE_HOOK",
 		"-DSQLITE_ENABLE_RBU",
 		"-DSQLITE_ENABLE_RTREE",
+		"-DSQLITE_ENABLE_SESSION",
 		"-DSQLITE_ENABLE_SNAPSHOT",
 		"-DSQLITE_ENABLE_STAT4",
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
@@ -170,7 +171,6 @@ var (
 		"-DSQLITE_THREADSAFE=1",
 		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
 		//DONT "-DSQLITE_DQS=0", // testfixture
-		//DONT "-DSQLITE_ENABLE_SESSION", // Needs UTF16
 		//DONT "-DSQLITE_NO_SYNC=1",
 		//DONT "-DSQLITE_OMIT_DECLTYPE", // testfixture
 		//DONT "-DSQLITE_OMIT_DEPRECATED", // mptest
@@ -212,6 +212,7 @@ var (
 		"-DSQLITE_ENABLE_PREUPDATE_HOOK",
 		"-DSQLITE_ENABLE_RBU",
 		"-DSQLITE_ENABLE_RTREE",
+		"-DSQLITE_ENABLE_SESSION",
 		"-DSQLITE_ENABLE_SNAPSHOT",
 		"-DSQLITE_ENABLE_STAT4",
 		"-DSQLITE_ENABLE_STMTVTAB",      // testfixture
@@ -225,7 +226,6 @@ var (
 		"-DSQLITE_THREADSAFE=1",
 		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
 		//DONT "-DSQLITE_DQS=0", // testfixture
-		//DONT "-DSQLITE_ENABLE_SESSION", // Needs UTF16
 		//DONT "-DSQLITE_NO_SYNC=1",
 		//DONT "-DSQLITE_OMIT_DECLTYPE", // testfixture
 		//DONT "-DSQLITE_OMIT_DEPRECATED", // mptest
@@ -520,7 +520,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 		"ext/misc/wholenumber.c",
 		"ext/misc/zipfile.c",
 		"ext/rbu/test_rbu.c",
-		// "ext/session/test_session.c", // Needs UTF16
+		"ext/session/test_session.c",
 		"ext/userauth/userauth.c",
 		"src/tclsqlite.c",
 		"src/test1.c",
