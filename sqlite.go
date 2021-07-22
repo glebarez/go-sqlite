@@ -17,6 +17,8 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"sync"
+	"sync/atomic"
 	"time"
 	"unsafe"
 
@@ -471,14 +473,14 @@ func toNamedValues(vals []driver.Value) (r []driver.NamedValue) {
 
 func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Result, err error) {
 	var pstmt uintptr
-	done := false
+	var done int32
 	if ctx != nil && ctx.Done() != nil {
 		donech := make(chan struct{})
 
 		go func() {
 			select {
 			case <-ctx.Done():
-				done = true
+				atomic.AddInt32(&done, 1)
 				s.c.interrupt(s.c.db)
 			case <-donech:
 			}
@@ -489,7 +491,7 @@ func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Res
 		}()
 	}
 
-	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0 && !done; {
+	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0 && atomic.LoadInt32(&done) == 0; {
 		if pstmt, err = s.c.prepareV2(&psql); err != nil {
 			return nil, err
 		}
@@ -568,15 +570,14 @@ func (s *stmt) Query(args []driver.Value) (driver.Rows, error) { //TODO StmtQuer
 
 func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Rows, err error) {
 	var pstmt uintptr
-
-	done := false
+	var done int32
 	if ctx != nil && ctx.Done() != nil {
 		donech := make(chan struct{})
 
 		go func() {
 			select {
 			case <-ctx.Done():
-				done = true
+				atomic.AddInt32(&done, 1)
 				s.c.interrupt(s.c.db)
 			case <-donech:
 			}
@@ -588,7 +589,7 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 	}
 
 	var allocs []uintptr
-	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0 && !done; {
+	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0 && atomic.LoadInt32(&done) == 0; {
 		if pstmt, err = s.c.prepareV2(&psql); err != nil {
 			return nil, err
 		}
@@ -720,6 +721,10 @@ func (t *tx) exec(ctx context.Context, sql string) (err error) {
 type conn struct {
 	db  uintptr // *sqlite3.Xsqlite3
 	tls *libc.TLS
+
+	// Context handling can cause conn.Close and conn.interrupt to be invoked
+	// concurrently.
+	sync.Mutex
 }
 
 func newConn(name string) (*conn, error) {
@@ -1108,7 +1113,13 @@ func (c *conn) prepareV2(zSQL *uintptr) (pstmt uintptr, err error) {
 
 // void sqlite3_interrupt(sqlite3*);
 func (c *conn) interrupt(pdb uintptr) (err error) {
-	sqlite3.Xsqlite3_interrupt(c.tls, pdb)
+	c.Lock() // Defend against race with .Close invoked by context handling.
+
+	defer c.Unlock()
+
+	if c.tls != nil {
+		sqlite3.Xsqlite3_interrupt(c.tls, pdb)
+	}
 	return nil
 }
 
@@ -1200,6 +1211,10 @@ func (c *conn) begin(ctx context.Context, opts driver.TxOptions) (t driver.Tx, e
 // Close when there's a surplus of idle connections, it shouldn't be necessary
 // for drivers to do their own connection caching.
 func (c *conn) Close() error {
+	c.Lock() // Defend against race with .interrupt invoked by context handling.
+
+	defer c.Unlock()
+
 	if c.db != 0 {
 		if err := c.closeV2(c.db); err != nil {
 			return err

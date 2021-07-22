@@ -143,7 +143,7 @@ edit:
 
 editor:
 	gofmt -l -s -w *.go
-	GO111MODULE=off go install -v ./...
+	go install -v ./...
 
 internalError:
 	egrep -ho '"internal error.*"' *.go | sort | cat -n
