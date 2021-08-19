@@ -8,10 +8,12 @@ import (
 	"bytes"
 	"context"
 	"database/sql"
+	"database/sql/driver"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"net/url"
 	"os"
 	"os/exec"
 	"path"
@@ -1572,6 +1574,167 @@ CREATE TABLE IF NOT EXISTS loginst (
 		}
 	}
 
+}
+
+// https://gitlab.com/cznic/sqlite/-/issues/37
+func TestPersistPragma(t *testing.T) {
+	if err := emptyDir(tempDir); err != nil {
+		t.Fatal(err)
+	}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.Chdir(wd)
+
+	if err := os.Chdir(tempDir); err != nil {
+		t.Fatal(err)
+	}
+
+	pragmas := []pragmaCfg{
+		{"foreign_keys", "on", int64(1)}, 
+		{"analysis_limit", "1000", int64(1000)}, 
+		{"application_id", "214", int64(214)}, 
+		{"encoding", "'UTF-16le'", "UTF-16le"}}
+
+	if err := testPragmas("x.sqlite", "x.sqlite", pragmas); err != nil {
+		t.Fatal(err)
+	}
+	if err := testPragmas("file::memory:", "", pragmas); err != nil {
+		t.Fatal(err)
+	}
+	if err := testPragmas(":memory:", "", pragmas); err != nil {
+		t.Fatal(err)
+	}
+}
+
+type pragmaCfg struct {
+	name     string
+	value    string
+	expected interface{}
+}
+
+func testPragmas(name, diskFile string, pragmas []pragmaCfg) error {
+	if diskFile != "" {
+		os.Remove(diskFile)
+	}
+
+	q := url.Values{}
+	for _, pragma := range pragmas {
+		q.Add("_pragma", pragma.name+"="+pragma.value)
+	}
+
+	dsn := name + "?" + q.Encode()
+	db, err := sql.Open(driverName, dsn)
+	if err != nil {
+		return err
+	}
+
+	db.SetMaxOpenConns(1)
+
+	if err := checkPragmas(db, pragmas); err != nil {
+		return err
+	}
+
+	c, err := db.Conn(context.Background())
+	if err != nil {
+		return err
+	}
+
+	// Kill the connection to spawn a new one. Pragma configs should persist
+	c.Raw(func(interface{}) error { return driver.ErrBadConn })
+
+	if err := checkPragmas(db, pragmas); err != nil {
+		return err
+	}
+
+	if diskFile == "" {
+		// Make sure in memory databases aren't being written to disk
+		return testInMemory(db)
+	}
+
+	return nil
+}
+
+func checkPragmas(db *sql.DB, pragmas []pragmaCfg) error {
+	for _, pragma := range pragmas {
+		row := db.QueryRow(`PRAGMA ` + pragma.name)
+
+		var result interface{}
+		if err := row.Scan(&result); err != nil {
+			return err
+		}
+		if result != pragma.expected {
+			return fmt.Errorf("expected PRAGMA %s to return %v but got %v", pragma.name, pragma.expected, result)
+		}
+	}
+	return nil
+}
+
+func TestInMemory(t *testing.T) {
+	if err := emptyDir(tempDir); err != nil {
+		t.Fatal(err)
+	}
+
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer os.Chdir(wd)
+
+	if err := os.Chdir(tempDir); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := testMemoryPath(":memory:"); err != nil {
+		t.Fatal(err)
+	}
+	if err := testMemoryPath("file::memory:"); err != nil {
+		t.Fatal(err)
+	}
+
+	// This parameter should be ignored
+	q := url.Values{}
+	q.Add("mode", "readonly")
+	if err := testMemoryPath(":memory:?" + q.Encode()); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func testMemoryPath(mPath string) error {
+	db, err := sql.Open(driverName, mPath)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	return testInMemory(db)
+}
+
+func testInMemory(db *sql.DB) error {
+	_, err := db.Exec(`
+	create table in_memory_test(i int, f double);
+	insert into in_memory_test values(12, 3.14);
+	`)
+	if err != nil {
+		return err
+	}
+
+	files, err := ioutil.ReadDir("./")
+	if err != nil {
+		return err
+	}
+
+	for _, file := range files {
+		if strings.Contains(file.Name(), "memory") {
+			return fmt.Errorf("file was created for in memory database")
+		}
+	}
+
+	return nil
 }
 
 func emptyDir(s string) error {
