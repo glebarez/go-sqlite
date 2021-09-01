@@ -1546,10 +1546,17 @@ func TestIssue53(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	db, err := sql.Open(driverName, "testissue53.sqlite")
+	const fn = "testissue53.sqlite"
+
+	db, err := sql.Open(driverName, fn)
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	defer func() {
+		db.Close()
+		os.Remove(fn)
+	}()
 
 	if _, err := db.Exec(`
 CREATE TABLE IF NOT EXISTS loginst (
@@ -1593,9 +1600,9 @@ func TestPersistPragma(t *testing.T) {
 	}
 
 	pragmas := []pragmaCfg{
-		{"foreign_keys", "on", int64(1)}, 
-		{"analysis_limit", "1000", int64(1000)}, 
-		{"application_id", "214", int64(214)}, 
+		{"foreign_keys", "on", int64(1)},
+		{"analysis_limit", "1000", int64(1000)},
+		{"application_id", "214", int64(214)},
 		{"encoding", "'UTF-16le'", "UTF-16le"}}
 
 	if err := testPragmas("testpersistpragma.sqlite", "testpersistpragma.sqlite", pragmas); err != nil {
