@@ -1546,8 +1546,7 @@ func TestIssue53(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	os.Remove("x.sqlite")
-	db, err := sql.Open(driverName, "x.sqlite")
+	db, err := sql.Open(driverName, "testissue53.sqlite")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1599,7 +1598,7 @@ func TestPersistPragma(t *testing.T) {
 		{"application_id", "214", int64(214)}, 
 		{"encoding", "'UTF-16le'", "UTF-16le"}}
 
-	if err := testPragmas("x.sqlite", "x.sqlite", pragmas); err != nil {
+	if err := testPragmas("testpersistpragma.sqlite", "testpersistpragma.sqlite", pragmas); err != nil {
 		t.Fatal(err)
 	}
 	if err := testPragmas("file::memory:", "", pragmas); err != nil {
