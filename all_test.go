@@ -1401,6 +1401,15 @@ func testBindingError(t *testing.T, query func(db *sql.DB, query string, args ..
 
 // https://gitlab.com/cznic/sqlite/-/issues/51
 func TestIssue51(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
+
 	fn := filepath.Join(tempDir, "test_issue51.db")
 	db, err := sql.Open(driverName, fn)
 	if err != nil {
@@ -1531,9 +1540,14 @@ const charset = "abcdefghijklmnopqrstuvwxyz" +
 
 // https://gitlab.com/cznic/sqlite/-/issues/53
 func TestIssue53(t *testing.T) {
-	if err := emptyDir(tempDir); err != nil {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
 		t.Fatal(err)
 	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
 
 	wd, err := os.Getwd()
 	if err != nil {
@@ -1555,7 +1569,6 @@ func TestIssue53(t *testing.T) {
 
 	defer func() {
 		db.Close()
-		os.Remove(fn)
 	}()
 
 	if _, err := db.Exec(`
@@ -1584,9 +1597,14 @@ CREATE TABLE IF NOT EXISTS loginst (
 
 // https://gitlab.com/cznic/sqlite/-/issues/37
 func TestPersistPragma(t *testing.T) {
-	if err := emptyDir(tempDir); err != nil {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
 		t.Fatal(err)
 	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
 
 	wd, err := os.Getwd()
 	if err != nil {
@@ -1680,9 +1698,14 @@ func checkPragmas(db *sql.DB, pragmas []pragmaCfg) error {
 }
 
 func TestInMemory(t *testing.T) {
-	if err := emptyDir(tempDir); err != nil {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
 		t.Fatal(err)
 	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
 
 	wd, err := os.Getwd()
 	if err != nil {
