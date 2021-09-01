@@ -26622,8 +26622,8 @@ var g Global /* mptest.c:90:3: */
 
 // Print a message adding zPrefix[] to the beginning of every line.
 func printWithPrefix(tls *libc.TLS, pOut uintptr, zPrefix uintptr, zMsg uintptr) { /* mptest.c:98:13: */
-	bp := tls.Alloc(32)
-	defer tls.Free(32)
+	bp := tls.Alloc(24)
+	defer tls.Free(24)
 
 	for (zMsg != 0) && (*(*int8)(unsafe.Pointer(zMsg)) != 0) {
 		var i int32
@@ -26770,24 +26770,24 @@ func maybeClose(tls *libc.TLS, pOut uintptr) { /* mptest.c:208:13: */
 
 // Print an error message
 func errorMessage(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:215:13: */
-	bp := tls.Alloc(46)
-	defer tls.Free(46)
+	bp := tls.Alloc(38)
+	defer tls.Free(38)
 
 	var ap va_list
 	_ = ap
 	var zMsg uintptr
-	// var zPrefix [30]int8 at bp+16, 30
+	// var zPrefix [30]int8 at bp+8, 30
 
 	ap = va
 	zMsg = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+16 /* &zPrefix[0] */, ts+8 /* "%s:ERROR: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+8 /* &zPrefix[0] */, ts+8 /* "%s:ERROR: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
 	if g.pLog != 0 {
-		printWithPrefix(tls, g.pLog, bp+16 /* &zPrefix[0] */, zMsg)
+		printWithPrefix(tls, g.pLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pLog)
 	}
 	if (g.pErrLog != 0) && (safe_strcmp(tls, g.zErrLog, g.zLog) != 0) {
-		printWithPrefix(tls, g.pErrLog, bp+16 /* &zPrefix[0] */, zMsg)
+		printWithPrefix(tls, g.pErrLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pErrLog)
 	}
 	sqlite3.Xsqlite3_free(tls, zMsg)
@@ -26796,25 +26796,25 @@ func errorMessage(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:215:
 
 // Print an error message and then quit.
 func fatalError(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:241:13: */
-	bp := tls.Alloc(46)
-	defer tls.Free(46)
+	bp := tls.Alloc(38)
+	defer tls.Free(38)
 
 	var ap va_list
 	_ = ap
 	var zMsg uintptr
-	// var zPrefix [30]int8 at bp+16, 30
+	// var zPrefix [30]int8 at bp+8, 30
 
 	ap = va
 	zMsg = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+16 /* &zPrefix[0] */, ts+19 /* "%s:FATAL: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+8 /* &zPrefix[0] */, ts+19 /* "%s:FATAL: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
 	if g.pLog != 0 {
-		printWithPrefix(tls, g.pLog, bp+16 /* &zPrefix[0] */, zMsg)
+		printWithPrefix(tls, g.pLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pLog)
 		maybeClose(tls, g.pLog)
 	}
 	if (g.pErrLog != 0) && (safe_strcmp(tls, g.zErrLog, g.zLog) != 0) {
-		printWithPrefix(tls, g.pErrLog, bp+16 /* &zPrefix[0] */, zMsg)
+		printWithPrefix(tls, g.pErrLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pErrLog)
 		maybeClose(tls, g.pErrLog)
 	}
@@ -26833,20 +26833,20 @@ func fatalError(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:241:13
 
 // Print a log message
 func logMessage(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:276:13: */
-	bp := tls.Alloc(46)
-	defer tls.Free(46)
+	bp := tls.Alloc(38)
+	defer tls.Free(38)
 
 	var ap va_list
 	_ = ap
 	var zMsg uintptr
-	// var zPrefix [30]int8 at bp+16, 30
+	// var zPrefix [30]int8 at bp+8, 30
 
 	ap = va
 	zMsg = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+16 /* &zPrefix[0] */, ts+60 /* "%s: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+8 /* &zPrefix[0] */, ts+60 /* "%s: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
 	if g.pLog != 0 {
-		printWithPrefix(tls, g.pLog, bp+16 /* &zPrefix[0] */, zMsg)
+		printWithPrefix(tls, g.pLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pLog)
 	}
 	sqlite3.Xsqlite3_free(tls, zMsg)
@@ -26878,8 +26878,8 @@ func vfsNameFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* 
 
 // Busy handler with a g.iTimeout-millisecond timeout
 func busyHandler(tls *libc.TLS, pCD uintptr, count int32) int32 { /* mptest.c:321:12: */
-	bp := tls.Alloc(16)
-	defer tls.Free(16)
+	bp := tls.Alloc(8)
+	defer tls.Free(8)
 
 	_ = pCD
 	if (count * 10) > g.iTimeout {
@@ -26894,8 +26894,8 @@ func busyHandler(tls *libc.TLS, pCD uintptr, count int32) int32 { /* mptest.c:32
 
 // SQL Trace callback
 func sqlTraceCallback(tls *libc.TLS, NotUsed1 uintptr, zSql uintptr) { /* mptest.c:334:13: */
-	bp := tls.Alloc(24)
-	defer tls.Free(24)
+	bp := tls.Alloc(16)
+	defer tls.Free(16)
 
 	_ = NotUsed1
 	logMessage(tls, ts+89 /* "[%.*s]" */, libc.VaList(bp, clipLength(tls, zSql), zSql))
@@ -26903,8 +26903,8 @@ func sqlTraceCallback(tls *libc.TLS, NotUsed1 uintptr, zSql uintptr) { /* mptest
 
 // SQL error log callback
 func sqlErrorCallback(tls *libc.TLS, pArg uintptr, iErrCode int32, zMsg uintptr) { /* mptest.c:342:13: */
-	bp := tls.Alloc(40)
-	defer tls.Free(40)
+	bp := tls.Alloc(24)
+	defer tls.Free(24)
 
 	_ = pArg
 	if (iErrCode == SQLITE_ERROR) && (g.bIgnoreSqlErrors != 0) {
@@ -26919,36 +26919,36 @@ func sqlErrorCallback(tls *libc.TLS, pArg uintptr, iErrCode int32, zMsg uintptr)
 	if (iErrCode & 0xff) == SQLITE_NOTICE {
 		logMessage(tls, ts+96 /* "(info) %s" */, libc.VaList(bp, zMsg))
 	} else {
-		errorMessage(tls, ts+106 /* "(errcode=%d) %s" */, libc.VaList(bp+16, iErrCode, zMsg))
+		errorMessage(tls, ts+106 /* "(errcode=%d) %s" */, libc.VaList(bp+8, iErrCode, zMsg))
 	}
 }
 
 // Prepare an SQL statement.  Issue a fatal error if unable.
 func prepareSql(tls *libc.TLS, zFormat uintptr, va uintptr) uintptr { /* mptest.c:357:21: */
-	bp := tls.Alloc(32)
-	defer tls.Free(32)
+	bp := tls.Alloc(24)
+	defer tls.Free(24)
 
 	var ap va_list
 	_ = ap
 	var zSql uintptr
 	var rc int32
-	*(*uintptr)(unsafe.Pointer(bp + 24 /* pStmt */)) = uintptr(0)
+	*(*uintptr)(unsafe.Pointer(bp + 16 /* pStmt */)) = uintptr(0)
 	ap = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	rc = sqlite3.Xsqlite3_prepare_v2(tls, g.db, zSql, -1, bp+24 /* &pStmt */, uintptr(0))
+	rc = sqlite3.Xsqlite3_prepare_v2(tls, g.db, zSql, -1, bp+16 /* &pStmt */, uintptr(0))
 	if rc != SQLITE_OK {
-		sqlite3.Xsqlite3_finalize(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pStmt */)))
+		sqlite3.Xsqlite3_finalize(tls, *(*uintptr)(unsafe.Pointer(bp + 16 /* pStmt */)))
 		fatalError(tls, ts+122 /* "%s\n%s\n" */, libc.VaList(bp, sqlite3.Xsqlite3_errmsg(tls, g.db), zSql))
 	}
 	sqlite3.Xsqlite3_free(tls, zSql)
-	return *(*uintptr)(unsafe.Pointer(bp + 24 /* pStmt */))
+	return *(*uintptr)(unsafe.Pointer(bp + 16 /* pStmt */))
 }
 
 // Run arbitrary SQL.  Issue a fatal error on failure.
 func runSql(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:377:13: */
-	bp := tls.Alloc(24)
-	defer tls.Free(24)
+	bp := tls.Alloc(16)
+	defer tls.Free(16)
 
 	var ap va_list
 	_ = ap
@@ -27070,30 +27070,30 @@ func evalCallback(tls *libc.TLS, pCData uintptr, argc int32, argv uintptr, azCol
 // Run arbitrary SQL and record the results in an output string
 // given by the first parameter.
 func evalSql(tls *libc.TLS, p uintptr, zFormat uintptr, va uintptr) int32 { /* mptest.c:486:12: */
-	bp := tls.Alloc(54)
-	defer tls.Free(54)
+	bp := tls.Alloc(46)
+	defer tls.Free(46)
 
 	var ap va_list
 	_ = ap
 	var zSql uintptr
 	var rc int32
-	*(*uintptr)(unsafe.Pointer(bp + 16 /* zErrMsg */)) = uintptr(0)
+	*(*uintptr)(unsafe.Pointer(bp + 8 /* zErrMsg */)) = uintptr(0)
 	ap = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 
 	rc = sqlite3.Xsqlite3_exec(tls, g.db, zSql, *(*uintptr)(unsafe.Pointer(&struct {
 		f func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32
-	}{evalCallback})), p, bp+16 /* &zErrMsg */)
+	}{evalCallback})), p, bp+8 /* &zErrMsg */)
 	sqlite3.Xsqlite3_free(tls, zSql)
 	if rc != 0 {
-		// var zErr [30]int8 at bp+24, 30
+		// var zErr [30]int8 at bp+16, 30
 
-		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+24 /* &zErr[0] */, ts+151 /* "error(%d)" */, libc.VaList(bp, rc))
-		stringAppendTerm(tls, p, bp+24 /* &zErr[0] */)
-		if *(*uintptr)(unsafe.Pointer(bp + 16 /* zErrMsg */)) != 0 {
-			stringAppendTerm(tls, p, *(*uintptr)(unsafe.Pointer(bp + 16 /* zErrMsg */)))
-			sqlite3.Xsqlite3_free(tls, *(*uintptr)(unsafe.Pointer(bp + 16 /* zErrMsg */)))
+		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+16 /* &zErr[0] */, ts+151 /* "error(%d)" */, libc.VaList(bp, rc))
+		stringAppendTerm(tls, p, bp+16 /* &zErr[0] */)
+		if *(*uintptr)(unsafe.Pointer(bp + 8 /* zErrMsg */)) != 0 {
+			stringAppendTerm(tls, p, *(*uintptr)(unsafe.Pointer(bp + 8 /* zErrMsg */)))
+			sqlite3.Xsqlite3_free(tls, *(*uintptr)(unsafe.Pointer(bp + 8 /* zErrMsg */)))
 		}
 	}
 	return rc
@@ -27130,8 +27130,8 @@ func evalFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* mpt
 // Return the task script and the task number and mark that
 // task as being under way.
 func startScript(tls *libc.TLS, iClient int32, pzScript uintptr, pTaskId uintptr, pzTaskName uintptr) int32 { /* mptest.c:541:12: */
-	bp := tls.Alloc(152)
-	defer tls.Free(152)
+	bp := tls.Alloc(80)
+	defer tls.Free(80)
 
 	var pStmt uintptr = uintptr(0)
 	var taskId int32
@@ -27152,33 +27152,33 @@ func startScript(tls *libc.TLS, iClient int32, pzScript uintptr, pTaskId uintptr
 		}
 		if (g.nError != 0) || (g.nTest != 0) {
 			runSql(tls, ts+196, /* "UPDATE counters ..." */
-				libc.VaList(bp+16, g.nError, g.nTest))
+				libc.VaList(bp+8, g.nError, g.nTest))
 			g.nError = 0
 			g.nTest = 0
 		}
-		pStmt = prepareSql(tls, ts+249 /* "SELECT 1 FROM cl..." */, libc.VaList(bp+40, iClient))
+		pStmt = prepareSql(tls, ts+249 /* "SELECT 1 FROM cl..." */, libc.VaList(bp+24, iClient))
 		rc = sqlite3.Xsqlite3_step(tls, pStmt)
 		sqlite3.Xsqlite3_finalize(tls, pStmt)
 		if rc == SQLITE_ROW {
-			runSql(tls, ts+295 /* "DELETE FROM clie..." */, libc.VaList(bp+56, iClient))
+			runSql(tls, ts+295 /* "DELETE FROM clie..." */, libc.VaList(bp+32, iClient))
 			g.iTimeout = DEFAULT_TIMEOUT
 			runSql(tls, ts+326 /* "COMMIT TRANSACTI..." */, 0)
 			return SQLITE_DONE
 		}
 		pStmt = prepareSql(tls,
 
-			ts+346 /* "SELECT script, i..." */, libc.VaList(bp+72, iClient))
+			ts+346 /* "SELECT script, i..." */, libc.VaList(bp+40, iClient))
 		rc = sqlite3.Xsqlite3_step(tls, pStmt)
 		if rc == SQLITE_ROW {
 			var n int32 = sqlite3.Xsqlite3_column_bytes(tls, pStmt, 0)
 			*(*uintptr)(unsafe.Pointer(pzScript)) = sqlite3.Xsqlite3_malloc(tls, (n + 1))
 			libc.Xstrcpy(tls, *(*uintptr)(unsafe.Pointer(pzScript)), sqlite3.Xsqlite3_column_text(tls, pStmt, 0))
 			*(*int32)(unsafe.Pointer(pTaskId)) = libc.AssignInt32(&taskId, sqlite3.Xsqlite3_column_int(tls, pStmt, 1))
-			*(*uintptr)(unsafe.Pointer(pzTaskName)) = sqlite3.Xsqlite3_mprintf(tls, ts+438 /* "%s" */, libc.VaList(bp+88, sqlite3.Xsqlite3_column_text(tls, pStmt, 2)))
+			*(*uintptr)(unsafe.Pointer(pzTaskName)) = sqlite3.Xsqlite3_mprintf(tls, ts+438 /* "%s" */, libc.VaList(bp+48, sqlite3.Xsqlite3_column_text(tls, pStmt, 2)))
 			sqlite3.Xsqlite3_finalize(tls, pStmt)
 			runSql(tls,
 
-				ts+441 /* "UPDATE task   SE..." */, libc.VaList(bp+104, taskId))
+				ts+441 /* "UPDATE task   SE..." */, libc.VaList(bp+56, taskId))
 			g.iTimeout = DEFAULT_TIMEOUT
 			runSql(tls, ts+326 /* "COMMIT TRANSACTI..." */, 0)
 			return SQLITE_OK
@@ -27187,7 +27187,7 @@ func startScript(tls *libc.TLS, iClient int32, pzScript uintptr, pTaskId uintptr
 		if rc == SQLITE_DONE {
 			if totalTime > 30000 {
 				errorMessage(tls, ts+524 /* "Waited over 30 s..." */, 0)
-				runSql(tls, ts+573 /* "DELETE FROM clie..." */, libc.VaList(bp+120, iClient))
+				runSql(tls, ts+573 /* "DELETE FROM clie..." */, libc.VaList(bp+64, iClient))
 				sqlite3.Xsqlite3_close(tls, g.db)
 				libc.Xexit(tls, 1)
 			}
@@ -27199,7 +27199,7 @@ func startScript(tls *libc.TLS, iClient int32, pzScript uintptr, pTaskId uintptr
 			totalTime = totalTime + (100)
 			continue
 		}
-		fatalError(tls, ts+438 /* "%s" */, libc.VaList(bp+136, sqlite3.Xsqlite3_errmsg(tls, g.db)))
+		fatalError(tls, ts+438 /* "%s" */, libc.VaList(bp+72, sqlite3.Xsqlite3_errmsg(tls, g.db)))
 	}
 	g.iTimeout = DEFAULT_TIMEOUT
 	return int32(0)
@@ -27208,14 +27208,14 @@ func startScript(tls *libc.TLS, iClient int32, pzScript uintptr, pTaskId uintptr
 // Mark a script as having finished.   Remove the CLIENT table entry
 // if bShutdown is true.
 func finishScript(tls *libc.TLS, iClient int32, taskId int32, bShutdown int32) int32 { /* mptest.c:623:12: */
-	bp := tls.Alloc(32)
-	defer tls.Free(32)
+	bp := tls.Alloc(16)
+	defer tls.Free(16)
 
 	runSql(tls,
 
 		ts+620 /* "UPDATE task   SE..." */, libc.VaList(bp, taskId))
 	if bShutdown != 0 {
-		runSql(tls, ts+295 /* "DELETE FROM clie..." */, libc.VaList(bp+16, iClient))
+		runSql(tls, ts+295 /* "DELETE FROM clie..." */, libc.VaList(bp+8, iClient))
 	}
 	return SQLITE_OK
 }
@@ -27224,43 +27224,43 @@ func finishScript(tls *libc.TLS, iClient int32, taskId int32, bShutdown int32) i
 // running.  If the client is already running, then this routine
 // is a no-op.
 func startClient(tls *libc.TLS, iClient int32) { /* mptest.c:638:13: */
-	bp := tls.Alloc(272)
-	defer tls.Free(272)
+	bp := tls.Alloc(216)
+	defer tls.Free(216)
 
 	runSql(tls, ts+701 /* "INSERT OR IGNORE..." */, libc.VaList(bp, iClient))
 	if sqlite3.Xsqlite3_changes(tls, g.db) != 0 {
 		var zSys uintptr
 		var rc int32
 		zSys = sqlite3.Xsqlite3_mprintf(tls, ts+743, /* "%s \"%s\" --client..." */
-			libc.VaList(bp+16, g.argv0, g.zDbFile, iClient, g.iTrace))
+			libc.VaList(bp+8, g.argv0, g.zDbFile, iClient, g.iTrace))
 		if g.bSqlTrace != 0 {
-			zSys = sqlite3.Xsqlite3_mprintf(tls, ts+774 /* "%z --sqltrace" */, libc.VaList(bp+56, zSys))
+			zSys = sqlite3.Xsqlite3_mprintf(tls, ts+774 /* "%z --sqltrace" */, libc.VaList(bp+40, zSys))
 		}
 		if g.bSync != 0 {
-			zSys = sqlite3.Xsqlite3_mprintf(tls, ts+788 /* "%z --sync" */, libc.VaList(bp+72, zSys))
+			zSys = sqlite3.Xsqlite3_mprintf(tls, ts+788 /* "%z --sync" */, libc.VaList(bp+48, zSys))
 		}
 		if g.zVfs != 0 {
-			zSys = sqlite3.Xsqlite3_mprintf(tls, ts+798 /* "%z --vfs \"%s\"" */, libc.VaList(bp+88, zSys, g.zVfs))
+			zSys = sqlite3.Xsqlite3_mprintf(tls, ts+798 /* "%z --vfs \"%s\"" */, libc.VaList(bp+56, zSys, g.zVfs))
 		}
 		if g.iTrace >= 2 {
-			logMessage(tls, ts+812 /* "system('%q')" */, libc.VaList(bp+112, zSys))
+			logMessage(tls, ts+812 /* "system('%q')" */, libc.VaList(bp+72, zSys))
 		}
 		{
-			// var startupInfo STARTUPINFOA at bp+144, 104
+			// var startupInfo STARTUPINFOA at bp+88, 104
 
-			// var processInfo PROCESS_INFORMATION at bp+248, 24
+			// var processInfo PROCESS_INFORMATION at bp+192, 24
 
-			libc.Xmemset(tls, bp+144 /* &startupInfo */, 0, uint64(unsafe.Sizeof(STARTUPINFOA{})))
-			(*STARTUPINFOA)(unsafe.Pointer(bp + 144 /* &startupInfo */)).cb = DWORD(unsafe.Sizeof(STARTUPINFOA{}))
-			libc.Xmemset(tls, bp+248 /* &processInfo */, 0, uint64(unsafe.Sizeof(PROCESS_INFORMATION{})))
+			libc.Xmemset(tls, bp+88 /* &startupInfo */, 0, uint64(unsafe.Sizeof(STARTUPINFOA{})))
+			(*STARTUPINFOA)(unsafe.Pointer(bp + 88 /* &startupInfo */)).cb = DWORD(unsafe.Sizeof(STARTUPINFOA{}))
+			libc.Xmemset(tls, bp+192 /* &processInfo */, 0, uint64(unsafe.Sizeof(PROCESS_INFORMATION{})))
 			rc = libc.XCreateProcessA(tls, uintptr(0), zSys, uintptr(0), uintptr(0), FALSE, uint32(0), uintptr(0), uintptr(0),
-				bp+144 /* &startupInfo */, bp+248 /* &processInfo */)
+				bp+88 /* &startupInfo */, bp+192 /* &processInfo */)
 			if rc != 0 {
-				libc.XCloseHandle(tls, (*PROCESS_INFORMATION)(unsafe.Pointer(bp+248 /* &processInfo */)).hThread)
-				libc.XCloseHandle(tls, (*PROCESS_INFORMATION)(unsafe.Pointer(bp+248 /* &processInfo */)).hProcess)
+				libc.XCloseHandle(tls, (*PROCESS_INFORMATION)(unsafe.Pointer(bp+192 /* &processInfo */)).hThread)
+				libc.XCloseHandle(tls, (*PROCESS_INFORMATION)(unsafe.Pointer(bp+192 /* &processInfo */)).hProcess)
 			} else {
 				errorMessage(tls, ts+825, /* "CreateProcessA()..." */
-					libc.VaList(bp+128, libc.XGetLastError(tls)))
+					libc.VaList(bp+80, libc.XGetLastError(tls)))
 			}
 
 		}
@@ -27270,8 +27270,8 @@ func startClient(tls *libc.TLS, iClient int32) { /* mptest.c:638:13: */
 
 // Read the entire content of a file into memory
 func readFile(tls *libc.TLS, zFilename uintptr) uintptr { /* mptest.c:684:13: */
-	bp := tls.Alloc(16)
-	defer tls.Free(16)
+	bp := tls.Alloc(8)
+	defer tls.Free(8)
 
 	var in uintptr = libc.Xfopen(tls, zFilename, ts+868 /* "rb" */)
 	var sz int32
@@ -27391,8 +27391,8 @@ func findEndif(tls *libc.TLS, z uintptr, stopAtElse int32, pnLine uintptr) int32
 
 // Wait for a client process to complete all its tasks
 func waitForClient(tls *libc.TLS, iClient int32, iTimeout int32, zErrPrefix uintptr) { /* mptest.c:798:13: */
-	bp := tls.Alloc(56)
-	defer tls.Free(56)
+	bp := tls.Alloc(32)
+	defer tls.Free(32)
 
 	var pStmt uintptr
 	var rc int32
@@ -27420,9 +27420,9 @@ func waitForClient(tls *libc.TLS, iClient int32, iTimeout int32, zErrPrefix uint
 			zErrPrefix = ts + 1103 /* "" */
 		}
 		if iClient > 0 {
-			errorMessage(tls, ts+1104 /* "%stimeout waitin..." */, libc.VaList(bp+16, zErrPrefix, iClient))
+			errorMessage(tls, ts+1104 /* "%stimeout waitin..." */, libc.VaList(bp+8, zErrPrefix, iClient))
 		} else {
-			errorMessage(tls, ts+1136 /* "%stimeout waitin..." */, libc.VaList(bp+40, zErrPrefix))
+			errorMessage(tls, ts+1136 /* "%stimeout waitin..." */, libc.VaList(bp+24, zErrPrefix))
 		}
 	}
 }
@@ -27441,8 +27441,8 @@ func filenameTail(tls *libc.TLS, z uintptr) uintptr { /* mptest.c:836:13: */
 
 // Interpret zArg as a boolean value.  Return either 0 or 1.
 func booleanValue(tls *libc.TLS, zArg uintptr) int32 { /* mptest.c:845:12: */
-	bp := tls.Alloc(16)
-	defer tls.Free(16)
+	bp := tls.Alloc(8)
+	defer tls.Free(8)
 
 	var i int32
 	if zArg == uintptr(0) {
@@ -27475,10 +27475,10 @@ var cnt int32 = 0 /* mptest.c:864:56 */
 
 // Run a script.
 func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFilename uintptr) { /* mptest.c:872:13: */
-	bp := tls.Alloc(1770)
-	defer tls.Free(1770)
+	bp := tls.Alloc(1610)
+	defer tls.Free(1610)
 
-	*(*int32)(unsafe.Pointer(bp + 536 /* lineno */)) = 1
+	*(*int32)(unsafe.Pointer(bp + 376 /* lineno */)) = 1
 	var prevLine int32 = 1
 	var ii int32 = 0
 	var iBegin int32 = 0
@@ -27487,19 +27487,19 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 	var j int32
 	var len int32
 	var nArg int32
-	// var sResult String at bp+520, 16
+	// var sResult String at bp+360, 16
 
-	// var zCmd [30]int8 at bp+540, 30
+	// var zCmd [30]int8 at bp+380, 30
 
-	// var zError [1000]int8 at bp+770, 1000
+	// var zError [1000]int8 at bp+610, 1000
 
-	// var azArg [2][100]int8 at bp+570, 200
+	// var azArg [2][100]int8 at bp+410, 200
 
-	libc.Xmemset(tls, bp+520 /* &sResult */, 0, uint64(unsafe.Sizeof(String{})))
-	stringReset(tls, bp+520 /* &sResult */)
+	libc.Xmemset(tls, bp+360 /* &sResult */, 0, uint64(unsafe.Sizeof(String{})))
+	stringReset(tls, bp+360 /* &sResult */)
 	for (libc.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(zScript + uintptr(ii)))))) != 0 {
-		prevLine = *(*int32)(unsafe.Pointer(bp + 536 /* lineno */))
-		len = tokenLength(tls, (zScript + uintptr(ii)), bp+536 /* &lineno */)
+		prevLine = *(*int32)(unsafe.Pointer(bp + 376 /* lineno */))
+		len = tokenLength(tls, (zScript + uintptr(ii)), bp+376 /* &lineno */)
 		if (libc.Xisspace(tls, int32(uint8(c))) != 0) || ((c == '/') && (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) == '*')) {
 			ii = ii + (len)
 			continue
@@ -27512,16 +27512,16 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		// Run any prior SQL before processing the new --command
 		if ii > iBegin {
 			var zSql uintptr = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp, (ii-iBegin), (zScript+uintptr(iBegin))))
-			evalSql(tls, bp+520 /* &sResult */, zSql, 0)
+			evalSql(tls, bp+360 /* &sResult */, zSql, 0)
 			sqlite3.Xsqlite3_free(tls, zSql)
 			iBegin = (ii + len)
 		}
 
 		// Parse the --command
 		if g.iTrace >= 2 {
-			logMessage(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+24, len, (zScript+uintptr(ii))))
+			logMessage(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+16, len, (zScript+uintptr(ii))))
 		}
-		n = extractToken(tls, ((zScript + uintptr(ii)) + uintptr(2)), (len - 2), bp+540 /* &zCmd[0] */, int32(unsafe.Sizeof([30]int8{})))
+		n = extractToken(tls, ((zScript + uintptr(ii)) + uintptr(2)), (len - 2), bp+380 /* &zCmd[0] */, int32(unsafe.Sizeof([30]int8{})))
 		for nArg = 0; (n < (len - 2)) && (nArg < MX_ARG); nArg++ {
 			for (n < (len - 2)) && (libc.Xisspace(tls, int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr(((ii + 2) + n))))))) != 0) {
 				n++
@@ -27530,25 +27530,25 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 				break
 			}
 			n = n + (extractToken(tls, (((zScript + uintptr(ii)) + uintptr(2)) + uintptr(n)), ((len - 2) - n),
-				(bp + 570 /* &azArg[0] */ + uintptr(nArg)*100), int32(unsafe.Sizeof([100]int8{}))))
+				(bp + 410 /* &azArg[0] */ + uintptr(nArg)*100), int32(unsafe.Sizeof([100]int8{}))))
 		}
 		for j = nArg; j < MX_ARG; j++ {
-			*(*int8)(unsafe.Pointer((bp + 570 /* &azArg[0] */ + uintptr(libc.PostIncInt32(&j, 1))*100))) = int8(0)
+			*(*int8)(unsafe.Pointer((bp + 410 /* &azArg[0] */ + uintptr(libc.PostIncInt32(&j, 1))*100))) = int8(0)
 		}
 
 		//  --sleep N
 		//
 		// Pause for N milliseconds
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1211 /* "sleep" */) == 0 {
-			sqlite3.Xsqlite3_sleep(tls, libc.Xatoi(tls, (bp+570 /* &azArg[0] */)))
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1211 /* "sleep" */) == 0 {
+			sqlite3.Xsqlite3_sleep(tls, libc.Xatoi(tls, (bp+410 /* &azArg[0] */)))
 		} else
 
 		//   --exit N
 		//
 		// Exit this process.  If N>0 then exit without shutting down
 		// SQLite.  (In other words, simulate a crash.)
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1217 /* "exit" */) == 0 {
-			var rc int32 = libc.Xatoi(tls, (bp + 570 /* &azArg[0] */))
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1217 /* "exit" */) == 0 {
+			var rc int32 = libc.Xatoi(tls, (bp + 410 /* &azArg[0] */))
 			finishScript(tls, iClient, taskId, 1)
 			if rc == 0 {
 				sqlite3.Xsqlite3_close(tls, g.db)
@@ -27560,43 +27560,43 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		//
 		// Begin a new test case.  Announce in the log that the test case
 		// has begun.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1222 /* "testcase" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1222 /* "testcase" */) == 0 {
 			if g.iTrace == 1 {
-				logMessage(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+48, (len-1), (zScript+uintptr(ii))))
+				logMessage(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+32, (len-1), (zScript+uintptr(ii))))
 			}
-			stringReset(tls, bp+520 /* &sResult */)
+			stringReset(tls, bp+360 /* &sResult */)
 		} else
 
 		//   --finish
 		//
 		// Mark the current task as having finished, even if it is not.
 		// This can be used in conjunction with --exit to simulate a crash.
-		if (libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1231 /* "finish" */) == 0) && (iClient > 0) {
+		if (libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1231 /* "finish" */) == 0) && (iClient > 0) {
 			finishScript(tls, iClient, taskId, 1)
 		} else
 
 		//  --reset
 		//
 		// Reset accumulated results back to an empty string
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1238 /* "reset" */) == 0 {
-			stringReset(tls, bp+520 /* &sResult */)
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1238 /* "reset" */) == 0 {
+			stringReset(tls, bp+360 /* &sResult */)
 		} else
 
 		//  --match ANSWER...
 		//
 		// Check to see if output matches ANSWER.  Report an error if not.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1244 /* "match" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1244 /* "match" */) == 0 {
 			var jj int32
 			var zAns uintptr = (zScript + uintptr(ii))
 			for jj = 7; (jj < (len - 1)) && (libc.Xisspace(tls, int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj)))))) != 0); jj++ {
 			}
 			zAns += uintptr(jj)
-			if (((len - jj) - 1) != (*String)(unsafe.Pointer(bp+520 /* &sResult */)).n) || (libc.Xstrncmp(tls, (*String)(unsafe.Pointer(bp+520 /* &sResult */)).z, zAns, (uint64((len-jj)-1))) != 0) {
+			if (((len - jj) - 1) != (*String)(unsafe.Pointer(bp+360 /* &sResult */)).n) || (libc.Xstrncmp(tls, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z, zAns, (uint64((len-jj)-1))) != 0) {
 				errorMessage(tls, ts+1250, /* "line %d of %s:\nE..." */
-					libc.VaList(bp+72, prevLine, zFilename, ((len-jj)-1), zAns, (*String)(unsafe.Pointer(bp+520 /* &sResult */)).z))
+					libc.VaList(bp+48, prevLine, zFilename, ((len-jj)-1), zAns, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z))
 			}
 			g.nTest++
-			stringReset(tls, bp+520 /* &sResult */)
+			stringReset(tls, bp+360 /* &sResult */)
 		} else
 
 		//  --glob ANSWER...
@@ -27604,55 +27604,55 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		//
 		// Check to see if output does or does not match the glob pattern
 		// ANSWER.
-		if (libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1295 /* "glob" */) == 0) || (libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1300 /* "notglob" */) == 0) {
+		if (libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1295 /* "glob" */) == 0) || (libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1300 /* "notglob" */) == 0) {
 			var jj int32
 			var zAns uintptr = (zScript + uintptr(ii))
 			var zCopy uintptr
-			var isGlob int32 = (libc.Bool32(int32(*(*int8)(unsafe.Pointer(bp + 540 /* &zCmd[0] */))) == 'g'))
+			var isGlob int32 = (libc.Bool32(int32(*(*int8)(unsafe.Pointer(bp + 380 /* &zCmd[0] */))) == 'g'))
 			for jj = (9 - (3 * isGlob)); (jj < (len - 1)) && (libc.Xisspace(tls, int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj)))))) != 0); jj++ {
 			}
 			zAns += uintptr(jj)
-			zCopy = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+120, ((len-jj)-1), zAns))
-			if ((libc.Bool32(sqlite3.Xsqlite3_strglob(tls, zCopy, (*String)(unsafe.Pointer(bp+520 /* &sResult */)).z) == 0)) ^ isGlob) != 0 {
+			zCopy = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+88, ((len-jj)-1), zAns))
+			if ((libc.Bool32(sqlite3.Xsqlite3_strglob(tls, zCopy, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z) == 0)) ^ isGlob) != 0 {
 				errorMessage(tls, ts+1308, /* "line %d of %s:\nE..." */
-					libc.VaList(bp+144, prevLine, zFilename, zCopy, (*String)(unsafe.Pointer(bp+520 /* &sResult */)).z))
+					libc.VaList(bp+104, prevLine, zFilename, zCopy, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z))
 			}
 			sqlite3.Xsqlite3_free(tls, zCopy)
 			g.nTest++
-			stringReset(tls, bp+520 /* &sResult */)
+			stringReset(tls, bp+360 /* &sResult */)
 		} else
 
 		//  --output
 		//
 		// Output the result of the previous SQL.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1351 /* "output" */) == 0 {
-			logMessage(tls, ts+438 /* "%s" */, libc.VaList(bp+184, (*String)(unsafe.Pointer(bp+520 /* &sResult */)).z))
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1351 /* "output" */) == 0 {
+			logMessage(tls, ts+438 /* "%s" */, libc.VaList(bp+136, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z))
 		} else
 
 		//  --source FILENAME
 		//
 		// Run a subscript from a separate file.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1358 /* "source" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1358 /* "source" */) == 0 {
 			var zNewFile uintptr
 			var zNewScript uintptr
 			var zToDel uintptr = uintptr(0)
-			zNewFile = (bp + 570 /* &azArg[0] */)
+			zNewFile = (bp + 410 /* &azArg[0] */)
 			if !(((int32(*(*int8)(unsafe.Pointer(zNewFile)))) == '/') || ((int32(*(*int8)(unsafe.Pointer(zNewFile)))) == '\\')) {
 				var k int32
 				for k = (int32(libc.Xstrlen(tls, zFilename)) - 1); (k >= 0) && !(((int32(*(*int8)(unsafe.Pointer(zFilename + uintptr(k))))) == '/') || ((int32(*(*int8)(unsafe.Pointer(zFilename + uintptr(k))))) == '\\')); k-- {
 				}
 				if k > 0 {
-					zNewFile = libc.AssignUintptr(&zToDel, sqlite3.Xsqlite3_mprintf(tls, ts+1365 /* "%.*s/%s" */, libc.VaList(bp+200, k, zFilename, zNewFile)))
+					zNewFile = libc.AssignUintptr(&zToDel, sqlite3.Xsqlite3_mprintf(tls, ts+1365 /* "%.*s/%s" */, libc.VaList(bp+144, k, zFilename, zNewFile)))
 				}
 			}
 			zNewScript = readFile(tls, zNewFile)
 			if g.iTrace != 0 {
-				logMessage(tls, ts+1373 /* "begin script [%s..." */, libc.VaList(bp+232, zNewFile))
+				logMessage(tls, ts+1373 /* "begin script [%s..." */, libc.VaList(bp+168, zNewFile))
 			}
 			runScript(tls, 0, 0, zNewScript, zNewFile)
 			sqlite3.Xsqlite3_free(tls, zNewScript)
 			if g.iTrace != 0 {
-				logMessage(tls, ts+1392 /* "end script [%s]\n" */, libc.VaList(bp+248, zNewFile))
+				logMessage(tls, ts+1392 /* "end script [%s]\n" */, libc.VaList(bp+176, zNewFile))
 			}
 			sqlite3.Xsqlite3_free(tls, zToDel)
 		} else
@@ -27660,26 +27660,26 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		//  --print MESSAGE....
 		//
 		// Output the remainder of the line to the log file
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1409 /* "print" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1409 /* "print" */) == 0 {
 			var jj int32
 			for jj = 7; (jj < len) && (libc.Xisspace(tls, int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj))))))) != 0); jj++ {
 			}
-			logMessage(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+264, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
+			logMessage(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+184, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
 		} else
 
 		//  --if EXPR
 		//
 		// Skip forward to the next matching --endif or --else if EXPR is false.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1415 /* "if" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1415 /* "if" */) == 0 {
 			var jj int32
 			var rc int32
 			var pStmt uintptr
 			for jj = 4; (jj < len) && (libc.Xisspace(tls, int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj))))))) != 0); jj++ {
 			}
-			pStmt = prepareSql(tls, ts+1418 /* "SELECT %.*s" */, libc.VaList(bp+288, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
+			pStmt = prepareSql(tls, ts+1418 /* "SELECT %.*s" */, libc.VaList(bp+200, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
 			rc = sqlite3.Xsqlite3_step(tls, pStmt)
 			if (rc != SQLITE_ROW) || (sqlite3.Xsqlite3_column_int(tls, pStmt, 0) == 0) {
-				ii = ii + (findEndif(tls, ((zScript + uintptr(ii)) + uintptr(len)), 1, bp+536 /* &lineno */))
+				ii = ii + (findEndif(tls, ((zScript + uintptr(ii)) + uintptr(len)), 1, bp+376 /* &lineno */))
 			}
 			sqlite3.Xsqlite3_finalize(tls, pStmt)
 		} else
@@ -27688,23 +27688,23 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		//
 		// This command can only be encountered if currently inside an --if that
 		// is true.  Skip forward to the next matching --endif.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1430 /* "else" */) == 0 {
-			ii = ii + (findEndif(tls, ((zScript + uintptr(ii)) + uintptr(len)), 0, bp+536 /* &lineno */))
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1430 /* "else" */) == 0 {
+			ii = ii + (findEndif(tls, ((zScript + uintptr(ii)) + uintptr(len)), 0, bp+376 /* &lineno */))
 		} else
 
 		//  --endif
 		//
 		// This command can only be encountered if currently inside an --if that
 		// is true or an --else of a false if.  This is a no-op.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1435 /* "endif" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1435 /* "endif" */) == 0 {
 			// no-op
 		} else
 
 		//  --start CLIENT
 		//
 		// Start up the given client.
-		if (libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1441 /* "start" */) == 0) && (iClient == 0) {
-			var iNewClient int32 = libc.Xatoi(tls, (bp + 570 /* &azArg[0] */))
+		if (libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1441 /* "start" */) == 0) && (iClient == 0) {
+			var iNewClient int32 = libc.Xatoi(tls, (bp + 410 /* &azArg[0] */))
 			if iNewClient > 0 {
 				startClient(tls, iNewClient)
 			}
@@ -27715,16 +27715,16 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		// Wait until all tasks complete for the given client.  If CLIENT is
 		// "all" then wait for all clients to complete.  Wait no longer than
 		// TIMEOUT milliseconds (default 10,000)
-		if (libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1447 /* "wait" */) == 0) && (iClient == 0) {
+		if (libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1447 /* "wait" */) == 0) && (iClient == 0) {
 			var iTimeout int32
 			if nArg >= 2 {
-				iTimeout = libc.Xatoi(tls, (bp + 570 /* &azArg[0] */ + 1*100))
+				iTimeout = libc.Xatoi(tls, (bp + 410 /* &azArg[0] */ + 1*100))
 			} else {
 				iTimeout = 10000
 			}
-			sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([1000]int8{})), bp+770 /* &zError[0] */, ts+1452, /* "line %d of %s\n" */
-				libc.VaList(bp+312, prevLine, zFilename))
-			waitForClient(tls, libc.Xatoi(tls, (bp+570 /* &azArg[0] */)), iTimeout, bp+770 /* &zError[0] */)
+			sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([1000]int8{})), bp+610 /* &zError[0] */, ts+1452, /* "line %d of %s\n" */
+				libc.VaList(bp+216, prevLine, zFilename))
+			waitForClient(tls, libc.Xatoi(tls, (bp+410 /* &azArg[0] */)), iTimeout, bp+610 /* &zError[0] */)
 		} else
 
 		//  --task CLIENT
@@ -27733,29 +27733,29 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		//
 		// Assign work to a client.  Start the client if it is not running
 		// already.
-		if (libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1467 /* "task" */) == 0) && (iClient == 0) {
-			var iTarget int32 = libc.Xatoi(tls, (bp + 570 /* &azArg[0] */))
+		if (libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1467 /* "task" */) == 0) && (iClient == 0) {
+			var iTarget int32 = libc.Xatoi(tls, (bp + 410 /* &azArg[0] */))
 			var iEnd int32
 			var zTask uintptr
 			var zTName uintptr
-			iEnd = findEnd(tls, ((zScript + uintptr(ii)) + uintptr(len)), bp+536 /* &lineno */)
+			iEnd = findEnd(tls, ((zScript + uintptr(ii)) + uintptr(len)), bp+376 /* &lineno */)
 			if iTarget < 0 {
 				errorMessage(tls, ts+1472, /* "line %d of %s: b..." */
-					libc.VaList(bp+336, prevLine, zFilename, iTarget))
+					libc.VaList(bp+232, prevLine, zFilename, iTarget))
 			} else {
-				zTask = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+368, iEnd, ((zScript+uintptr(ii))+uintptr(len))))
+				zTask = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+256, iEnd, ((zScript+uintptr(ii))+uintptr(len))))
 				if nArg > 1 {
-					zTName = sqlite3.Xsqlite3_mprintf(tls, ts+438 /* "%s" */, libc.VaList(bp+392, (bp+570 /* &azArg[0] */ +1*100)))
+					zTName = sqlite3.Xsqlite3_mprintf(tls, ts+438 /* "%s" */, libc.VaList(bp+272, (bp+410 /* &azArg[0] */ +1*100)))
 				} else {
-					zTName = sqlite3.Xsqlite3_mprintf(tls, ts+1509 /* "%s:%d" */, libc.VaList(bp+408, filenameTail(tls, zFilename), prevLine))
+					zTName = sqlite3.Xsqlite3_mprintf(tls, ts+1509 /* "%s:%d" */, libc.VaList(bp+280, filenameTail(tls, zFilename), prevLine))
 				}
 				startClient(tls, iTarget)
 				runSql(tls,
-					ts+1515 /* "INSERT INTO task..." */, libc.VaList(bp+432, iTarget, zTask, zTName))
+					ts+1515 /* "INSERT INTO task..." */, libc.VaList(bp+296, iTarget, zTask, zTName))
 				sqlite3.Xsqlite3_free(tls, zTask)
 				sqlite3.Xsqlite3_free(tls, zTName)
 			}
-			iEnd = iEnd + (tokenLength(tls, (((zScript + uintptr(ii)) + uintptr(len)) + uintptr(iEnd)), bp+536 /* &lineno */))
+			iEnd = iEnd + (tokenLength(tls, (((zScript + uintptr(ii)) + uintptr(len)) + uintptr(iEnd)), bp+376 /* &lineno */))
 			len = len + (iEnd)
 			iBegin = (ii + len)
 		} else
@@ -27764,32 +27764,32 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		//
 		// This command calls "test_breakpoint()" which is a routine provided
 		// as a convenient place to set a debugger breakpoint.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1571 /* "breakpoint" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1571 /* "breakpoint" */) == 0 {
 			test_breakpoint(tls)
 		} else
 
 		//  --show-sql-errors BOOLEAN
 		//
 		// Turn display of SQL errors on and off.
-		if libc.Xstrcmp(tls, bp+540 /* &zCmd[0] */, ts+1582 /* "show-sql-errors" */) == 0 {
+		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1582 /* "show-sql-errors" */) == 0 {
 			g.bIgnoreSqlErrors = func() int32 {
 				if nArg >= 1 {
-					return libc.BoolInt32(!(booleanValue(tls, (bp+570 /* &azArg[0] */)) != 0))
+					return libc.BoolInt32(!(booleanValue(tls, (bp+410 /* &azArg[0] */)) != 0))
 				}
 				return 1
 			}()
 		} else {
 			errorMessage(tls, ts+1598, /* "line %d of %s: u..." */
-				libc.VaList(bp+464, prevLine, zFilename, bp+540 /* &zCmd[0] */))
+				libc.VaList(bp+320, prevLine, zFilename, bp+380 /* &zCmd[0] */))
 		}
 		ii = ii + (len)
 	}
 	if iBegin < ii {
-		var zSql uintptr = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+496, (ii-iBegin), (zScript+uintptr(iBegin))))
+		var zSql uintptr = sqlite3.Xsqlite3_mprintf(tls, ts+1206 /* "%.*s" */, libc.VaList(bp+344, (ii-iBegin), (zScript+uintptr(iBegin))))
 		runSql(tls, zSql, 0)
 		sqlite3.Xsqlite3_free(tls, zSql)
 	}
-	stringFree(tls, bp+520 /* &sResult */)
+	stringFree(tls, bp+360 /* &sResult */)
 }
 
 // Look for a command-line option.  If present, return a pointer.
@@ -27799,8 +27799,8 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 // hasArg==1 means the option has an argument.  Return a pointer to the
 // argument.
 func findOption(tls *libc.TLS, azArg uintptr, pnArg uintptr, zOption uintptr, hasArg int32) uintptr { /* mptest.c:1201:13: */
-	bp := tls.Alloc(16)
-	defer tls.Free(16)
+	bp := tls.Alloc(8)
+	defer tls.Free(8)
 
 	var i int32
 	var j int32
@@ -27845,8 +27845,8 @@ func findOption(tls *libc.TLS, azArg uintptr, pnArg uintptr, zOption uintptr, ha
 
 // Print a usage message for the program and exit
 func usage(tls *libc.TLS, argv0 uintptr) { /* mptest.c:1241:13: */
-	bp := tls.Alloc(16)
-	defer tls.Free(16)
+	bp := tls.Alloc(8)
+	defer tls.Free(8)
 
 	var i int32
 	var zTail uintptr = argv0
@@ -27864,32 +27864,32 @@ func usage(tls *libc.TLS, argv0 uintptr) { /* mptest.c:1241:13: */
 
 // Report on unrecognized arguments
 func unrecognizedArguments(tls *libc.TLS, argv0 uintptr, nArg int32, azArg uintptr) { /* mptest.c:1265:13: */
-	bp := tls.Alloc(32)
-	defer tls.Free(32)
+	bp := tls.Alloc(16)
+	defer tls.Free(16)
 
 	var i int32
 	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2293 /* "%s: unrecognized..." */, libc.VaList(bp, argv0))
 	for i = 0; i < nArg; i++ {
-		libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2321 /* " %s" */, libc.VaList(bp+16, *(*uintptr)(unsafe.Pointer(azArg + uintptr(i)*8))))
+		libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2321 /* " %s" */, libc.VaList(bp+8, *(*uintptr)(unsafe.Pointer(azArg + uintptr(i)*8))))
 	}
 	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2325 /* "\n" */, 0)
 	libc.Xexit(tls, 1)
 }
 
 func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18: */
-	bp := tls.Alloc(432)
-	defer tls.Free(432)
+	bp := tls.Alloc(272)
+	defer tls.Free(272)
 
 	var zClient uintptr
 	var iClient int32
-	// var n int32 at bp+400, 4
+	// var n int32 at bp+240, 4
 
 	var i int32
 	var openFlags int32 = SQLITE_OPEN_READWRITE
 	var rc int32
-	// var zScript uintptr at bp+408, 8
+	// var zScript uintptr at bp+248, 8
 
-	// var taskId int32 at bp+416, 4
+	// var taskId int32 at bp+256, 4
 
 	var zTrace uintptr
 	var zCOption uintptr
@@ -27916,33 +27916,33 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 			libc.VaList(bp, sqlite3.Xsqlite3_sourceid(tls), ts+2334 /* "2021-06-18 18:36..." */))
 		libc.Xexit(tls, 1)
 	}
-	*(*int32)(unsafe.Pointer(bp + 400 /* n */)) = (argc - 2)
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]int8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2479 /* "%05d.mptest" */, libc.VaList(bp+24, int32(libc.XGetCurrentProcessId(tls))))
-	zJMode = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2491 /* "journalmode" */, 1)
-	zNRep = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2503 /* "repeat" */, 1)
+	*(*int32)(unsafe.Pointer(bp + 240 /* n */)) = (argc - 2)
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]int8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2479 /* "%05d.mptest" */, libc.VaList(bp+16, int32(libc.XGetCurrentProcessId(tls))))
+	zJMode = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2491 /* "journalmode" */, 1)
+	zNRep = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2503 /* "repeat" */, 1)
 	if zNRep != 0 {
 		nRep = libc.Xatoi(tls, zNRep)
 	}
 	if nRep < 1 {
 		nRep = 1
 	}
-	g.zVfs = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2510 /* "vfs" */, 1)
-	zClient = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2514 /* "client" */, 1)
-	g.zErrLog = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2521 /* "errlog" */, 1)
-	g.zLog = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2528 /* "log" */, 1)
-	zTrace = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2532 /* "trace" */, 1)
+	g.zVfs = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2510 /* "vfs" */, 1)
+	zClient = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2514 /* "client" */, 1)
+	g.zErrLog = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2521 /* "errlog" */, 1)
+	g.zLog = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2528 /* "log" */, 1)
+	zTrace = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2532 /* "trace" */, 1)
 	if zTrace != 0 {
 		g.iTrace = libc.Xatoi(tls, zTrace)
 	}
-	if findOption(tls, (argv+uintptr(2)*8), bp+400 /* &n */, ts+2538 /* "quiet" */, 0) != uintptr(0) {
+	if findOption(tls, (argv+uintptr(2)*8), bp+240 /* &n */, ts+2538 /* "quiet" */, 0) != uintptr(0) {
 		g.iTrace = 0
 	}
-	zTmout = findOption(tls, (argv + uintptr(2)*8), bp+400 /* &n */, ts+2544 /* "timeout" */, 1)
+	zTmout = findOption(tls, (argv + uintptr(2)*8), bp+240 /* &n */, ts+2544 /* "timeout" */, 1)
 	if zTmout != 0 {
 		iTmout = libc.Xatoi(tls, zTmout)
 	}
-	g.bSqlTrace = (libc.Bool32(findOption(tls, (argv+uintptr(2)*8), bp+400 /* &n */, ts+2552 /* "sqltrace" */, 0) != uintptr(0)))
-	g.bSync = (libc.Bool32(findOption(tls, (argv+uintptr(2)*8), bp+400 /* &n */, ts+2561 /* "sync" */, 0) != uintptr(0)))
+	g.bSqlTrace = (libc.Bool32(findOption(tls, (argv+uintptr(2)*8), bp+240 /* &n */, ts+2552 /* "sqltrace" */, 0) != uintptr(0)))
+	g.bSync = (libc.Bool32(findOption(tls, (argv+uintptr(2)*8), bp+240 /* &n */, ts+2561 /* "sync" */, 0) != uintptr(0)))
 	if g.zErrLog != 0 {
 		g.pErrLog = libc.Xfopen(tls, g.zErrLog, ts+2566 /* "a" */)
 	} else {
@@ -27954,27 +27954,27 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		g.pLog = libc.X__acrt_iob_func(tls, uint32(1))
 	}
 
-	sqlite3.Xsqlite3_config(tls, SQLITE_CONFIG_LOG, libc.VaList(bp+40, *(*uintptr)(unsafe.Pointer(&struct {
+	sqlite3.Xsqlite3_config(tls, SQLITE_CONFIG_LOG, libc.VaList(bp+24, *(*uintptr)(unsafe.Pointer(&struct {
 		f func(*libc.TLS, uintptr, int32, uintptr)
 	}{sqlErrorCallback})), 0))
 	if zClient != 0 {
 		iClient = libc.Xatoi(tls, zClient)
 		if iClient < 1 {
-			fatalError(tls, ts+2568 /* "illegal client n..." */, libc.VaList(bp+64, iClient))
+			fatalError(tls, ts+2568 /* "illegal client n..." */, libc.VaList(bp+40, iClient))
 		}
 		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]int8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2595, /* "%05d.client%02d" */
-			libc.VaList(bp+80, int32(libc.XGetCurrentProcessId(tls)), iClient))
+			libc.VaList(bp+48, int32(libc.XGetCurrentProcessId(tls)), iClient))
 	} else {
 		var nTry int32 = 0
 		if g.iTrace > 0 {
-			libc.Xprintf(tls, ts+2611 /* "BEGIN: %s" */, libc.VaList(bp+104, *(*uintptr)(unsafe.Pointer(argv))))
+			libc.Xprintf(tls, ts+2611 /* "BEGIN: %s" */, libc.VaList(bp+64, *(*uintptr)(unsafe.Pointer(argv))))
 			for i = 1; i < argc; i++ {
-				libc.Xprintf(tls, ts+2321 /* " %s" */, libc.VaList(bp+120, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
+				libc.Xprintf(tls, ts+2321 /* " %s" */, libc.VaList(bp+72, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
 			}
 			libc.Xprintf(tls, ts+2325 /* "\n" */, 0)
 			libc.Xprintf(tls, ts+2621 /* "With SQLite 3.36..." */, 0)
 			for i = 0; (libc.AssignUintptr(&zCOption, sqlite3.Xsqlite3_compileoption_get(tls, i))) != uintptr(0); i++ {
-				libc.Xprintf(tls, ts+2726 /* "-DSQLITE_%s\n" */, libc.VaList(bp+136, zCOption))
+				libc.Xprintf(tls, ts+2726 /* "-DSQLITE_%s\n" */, libc.VaList(bp+80, zCOption))
 			}
 			libc.Xfflush(tls, libc.X__acrt_iob_func(tls, uint32(1)))
 		}
@@ -27982,7 +27982,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		for ok := true; ok; ok = (((rc != 0) && ((libc.PreIncInt32(&nTry, 1)) < 60)) && (sqlite3.Xsqlite3_sleep(tls, 1000) > 0)) {
 			if (nTry % 5) == 4 {
 				libc.Xprintf(tls, ts+2739, /* "... %strying to ..." */
-					libc.VaList(bp+152, func() uintptr {
+					libc.VaList(bp+88, func() uintptr {
 						if nTry > 5 {
 							return ts + 2768 /* "still " */
 						}
@@ -27996,13 +27996,13 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		}
 		if rc != 0 {
 			fatalError(tls, ts+2775, /* "unable to unlink..." */
-				libc.VaList(bp+176, g.zDbFile, nTry))
+				libc.VaList(bp+104, g.zDbFile, nTry))
 		}
 		openFlags = openFlags | (SQLITE_OPEN_CREATE)
 	}
 	rc = sqlite3.Xsqlite3_open_v2(tls, g.zDbFile, (uintptr(unsafe.Pointer(&g)) + 24 /* &.db */), openFlags, g.zVfs)
 	if rc != 0 {
-		fatalError(tls, ts+2816 /* "cannot open [%s]" */, libc.VaList(bp+200, g.zDbFile))
+		fatalError(tls, ts+2816 /* "cannot open [%s]" */, libc.VaList(bp+120, g.zDbFile))
 	}
 	if iTmout > 0 {
 		sqlite3.Xsqlite3_busy_timeout(tls, g.db, iTmout)
@@ -28011,10 +28011,10 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	if zJMode != 0 {
 		if (sqlite3.Xsqlite3_stricmp(tls, zJMode, ts+2833 /* "persist" */) == 0) ||
 			(sqlite3.Xsqlite3_stricmp(tls, zJMode, ts+2841 /* "truncate" */) == 0) {
-			libc.Xprintf(tls, ts+2850 /* "Changing journal..." */, libc.VaList(bp+216, zJMode))
+			libc.Xprintf(tls, ts+2850 /* "Changing journal..." */, libc.VaList(bp+128, zJMode))
 			zJMode = ts + 2890 /* "DELETE" */
 		}
-		runSql(tls, ts+2897 /* "PRAGMA journal_m..." */, libc.VaList(bp+232, zJMode))
+		runSql(tls, ts+2897 /* "PRAGMA journal_m..." */, libc.VaList(bp+136, zJMode))
 	}
 	if !(g.bSync != 0) {
 		trySql(tls, ts+2921 /* "PRAGMA synchrono..." */, 0)
@@ -28038,27 +28038,27 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		}{sqlTraceCallback})), uintptr(0))
 	}
 	if iClient > 0 {
-		if *(*int32)(unsafe.Pointer(bp + 400 /* n */)) > 0 {
-			unrecognizedArguments(tls, *(*uintptr)(unsafe.Pointer(argv)), *(*int32)(unsafe.Pointer(bp + 400 /* n */)), (argv + uintptr(2)*8))
+		if *(*int32)(unsafe.Pointer(bp + 240 /* n */)) > 0 {
+			unrecognizedArguments(tls, *(*uintptr)(unsafe.Pointer(argv)), *(*int32)(unsafe.Pointer(bp + 240 /* n */)), (argv + uintptr(2)*8))
 		}
 		if g.iTrace != 0 {
 			logMessage(tls, ts+2957 /* "start-client" */, 0)
 		}
 		for 1 != 0 {
-			*(*uintptr)(unsafe.Pointer(bp + 424 /* zTaskName */)) = uintptr(0)
-			rc = startScript(tls, iClient, bp+408 /* &zScript */, bp+416 /* &taskId */, bp+424 /* &zTaskName */)
+			*(*uintptr)(unsafe.Pointer(bp + 264 /* zTaskName */)) = uintptr(0)
+			rc = startScript(tls, iClient, bp+248 /* &zScript */, bp+256 /* &taskId */, bp+264 /* &zTaskName */)
 			if rc == SQLITE_DONE {
 				break
 			}
 			if g.iTrace != 0 {
-				logMessage(tls, ts+2970 /* "begin %s (%d)" */, libc.VaList(bp+248, *(*uintptr)(unsafe.Pointer(bp + 424 /* zTaskName */)), *(*int32)(unsafe.Pointer(bp + 416 /* taskId */))))
+				logMessage(tls, ts+2970 /* "begin %s (%d)" */, libc.VaList(bp+144, *(*uintptr)(unsafe.Pointer(bp + 264 /* zTaskName */)), *(*int32)(unsafe.Pointer(bp + 256 /* taskId */))))
 			}
-			runScript(tls, iClient, *(*int32)(unsafe.Pointer(bp + 416 /* taskId */)), *(*uintptr)(unsafe.Pointer(bp + 408 /* zScript */)), *(*uintptr)(unsafe.Pointer(bp + 424 /* zTaskName */)))
+			runScript(tls, iClient, *(*int32)(unsafe.Pointer(bp + 256 /* taskId */)), *(*uintptr)(unsafe.Pointer(bp + 248 /* zScript */)), *(*uintptr)(unsafe.Pointer(bp + 264 /* zTaskName */)))
 			if g.iTrace != 0 {
-				logMessage(tls, ts+2984 /* "end %s (%d)" */, libc.VaList(bp+272, *(*uintptr)(unsafe.Pointer(bp + 424 /* zTaskName */)), *(*int32)(unsafe.Pointer(bp + 416 /* taskId */))))
+				logMessage(tls, ts+2984 /* "end %s (%d)" */, libc.VaList(bp+160, *(*uintptr)(unsafe.Pointer(bp + 264 /* zTaskName */)), *(*int32)(unsafe.Pointer(bp + 256 /* taskId */))))
 			}
-			finishScript(tls, iClient, *(*int32)(unsafe.Pointer(bp + 416 /* taskId */)), 0)
-			sqlite3.Xsqlite3_free(tls, *(*uintptr)(unsafe.Pointer(bp + 424 /* zTaskName */)))
+			finishScript(tls, iClient, *(*int32)(unsafe.Pointer(bp + 256 /* taskId */)), 0)
+			sqlite3.Xsqlite3_free(tls, *(*uintptr)(unsafe.Pointer(bp + 264 /* zTaskName */)))
 			sqlite3.Xsqlite3_sleep(tls, 10)
 		}
 		if g.iTrace != 0 {
@@ -28067,26 +28067,26 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	} else {
 		var pStmt uintptr
 		var iTimeout int32
-		if *(*int32)(unsafe.Pointer(bp + 400 /* n */)) == 0 {
+		if *(*int32)(unsafe.Pointer(bp + 240 /* n */)) == 0 {
 			fatalError(tls, ts+3007 /* "missing script f..." */, 0)
 		}
-		if *(*int32)(unsafe.Pointer(bp + 400 /* n */)) > 1 {
-			unrecognizedArguments(tls, *(*uintptr)(unsafe.Pointer(argv)), *(*int32)(unsafe.Pointer(bp + 400 /* n */)), (argv + uintptr(2)*8))
+		if *(*int32)(unsafe.Pointer(bp + 240 /* n */)) > 1 {
+			unrecognizedArguments(tls, *(*uintptr)(unsafe.Pointer(argv)), *(*int32)(unsafe.Pointer(bp + 240 /* n */)), (argv + uintptr(2)*8))
 		}
 		runSql(tls,
 
 			ts+3031 /* "DROP TABLE IF EX..." */, 0)
-		*(*uintptr)(unsafe.Pointer(bp + 408 /* zScript */)) = readFile(tls, *(*uintptr)(unsafe.Pointer(argv + 2*8)))
+		*(*uintptr)(unsafe.Pointer(bp + 248 /* zScript */)) = readFile(tls, *(*uintptr)(unsafe.Pointer(argv + 2*8)))
 		for iRep = 1; iRep <= nRep; iRep++ {
 			if g.iTrace != 0 {
-				logMessage(tls, ts+3467 /* "begin script [%s..." */, libc.VaList(bp+296, *(*uintptr)(unsafe.Pointer(argv + 2*8)), iRep))
+				logMessage(tls, ts+3467 /* "begin script [%s..." */, libc.VaList(bp+176, *(*uintptr)(unsafe.Pointer(argv + 2*8)), iRep))
 			}
-			runScript(tls, 0, 0, *(*uintptr)(unsafe.Pointer(bp + 408 /* zScript */)), *(*uintptr)(unsafe.Pointer(argv + 2*8)))
+			runScript(tls, 0, 0, *(*uintptr)(unsafe.Pointer(bp + 248 /* zScript */)), *(*uintptr)(unsafe.Pointer(argv + 2*8)))
 			if g.iTrace != 0 {
-				logMessage(tls, ts+3495 /* "end script [%s] ..." */, libc.VaList(bp+320, *(*uintptr)(unsafe.Pointer(argv + 2*8)), iRep))
+				logMessage(tls, ts+3495 /* "end script [%s] ..." */, libc.VaList(bp+192, *(*uintptr)(unsafe.Pointer(argv + 2*8)), iRep))
 			}
 		}
-		sqlite3.Xsqlite3_free(tls, *(*uintptr)(unsafe.Pointer(bp + 408 /* zScript */)))
+		sqlite3.Xsqlite3_free(tls, *(*uintptr)(unsafe.Pointer(bp + 248 /* zScript */)))
 		waitForClient(tls, 0, 2000, ts+3521 /* "during shutdown...." */)
 		trySql(tls, ts+3541 /* "UPDATE client SE..." */, 0)
 		sqlite3.Xsqlite3_sleep(tls, 10)
@@ -28114,10 +28114,10 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	maybeClose(tls, g.pLog)
 	maybeClose(tls, g.pErrLog)
 	if iClient == 0 {
-		libc.Xprintf(tls, ts+3626 /* "Summary: %d erro..." */, libc.VaList(bp+344, g.nError, g.nTest))
-		libc.Xprintf(tls, ts+3662 /* "END: %s" */, libc.VaList(bp+368, *(*uintptr)(unsafe.Pointer(argv))))
+		libc.Xprintf(tls, ts+3626 /* "Summary: %d erro..." */, libc.VaList(bp+208, g.nError, g.nTest))
+		libc.Xprintf(tls, ts+3662 /* "END: %s" */, libc.VaList(bp+224, *(*uintptr)(unsafe.Pointer(argv))))
 		for i = 1; i < argc; i++ {
-			libc.Xprintf(tls, ts+2321 /* " %s" */, libc.VaList(bp+384, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
+			libc.Xprintf(tls, ts+2321 /* " %s" */, libc.VaList(bp+232, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
 		}
 		libc.Xprintf(tls, ts+2325 /* "\n" */, 0)
 	}

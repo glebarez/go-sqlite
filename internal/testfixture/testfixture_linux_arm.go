@@ -3938,6 +3938,9 @@ const ( /* waitflags.h:52:1: */
 	P_PGID = 2
 )
 
+// If we are compiling with optimizing read this file.  It contains
+//    several optimizing inline functions and macros.
+
 // Copyright (C) 1991-2018 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
