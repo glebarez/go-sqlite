@@ -625,6 +625,7 @@ outer:
 			continue
 		}
 
+		fmt.Printf("exec: %s db --trace 2 %s\n", filepath.FromSlash(bin), script)
 		out, err := exec.Command(filepath.FromSlash(bin), "db", "--trace", "2", script).CombinedOutput()
 		if err != nil {
 			t.Fatalf("%s\n%v", out, err)

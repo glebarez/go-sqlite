@@ -399,7 +399,7 @@ func main() {
 		configTest = append(configTest, "-DSQLITE_MUTEX_NOOP")
 	}
 	switch goos {
-	case "linux":
+	case "linux", "freebsd":
 		configProduction = append(configProduction, "-DSQLITE_OS_UNIX=1")
 	case "darwin":
 		configProduction = append(configProduction,
@@ -447,7 +447,7 @@ func configure(goos, goarch string) {
 	cmd.Run()
 	var args []string
 	switch goos {
-	case "linux":
+	case "linux", "freebsd":
 		// nop
 	case "darwin":
 		args = append(args, "--with-tcl=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework")
