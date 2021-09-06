@@ -7,4 +7,4 @@
 
 package sqlite // import "modernc.org/sqlite"
 
-func setMaxOpenFiles(n int) error {}
+func setMaxOpenFiles(n int) error { return nil }

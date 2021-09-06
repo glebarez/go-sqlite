@@ -8,9 +8,9 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-func setMaxOpenFiles(n int) error {
+func setMaxOpenFiles(n int64) error {
 	var rLimit unix.Rlimit
-	rLimit.Max = 1024
-	rLimit.Cur = 1024
+	rLimit.Max = n
+	rLimit.Cur = n
 	return unix.Setrlimit(unix.RLIMIT_NOFILE, &rLimit)
 }
