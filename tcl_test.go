@@ -9,14 +9,13 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"modernc.org/tcl"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"testing"
-
-	"modernc.org/tcl"
 )
 
 var (
@@ -37,9 +36,9 @@ func TestTclTest(t *testing.T) {
 	}
 	switch runtime.GOOS {
 	case "freebsd":
-		blacklist["misc7.test"] = struct{}{}  //TODO hangs
-		blacklist["mutex1.test"] = struct{}{} //TODO fails
-		blacklist["shrink.test"] = struct{}{} //TODO fails
+		if err := setMaxOpenFiles(1024); err != nil { // Avoid misc7.test hanging for a long time.
+			t.Fatal(err)
+		}
 	case "windows":
 		// See https://gitlab.com/cznic/sqlite/-/issues/23#note_599920077 for details.
 		blacklist["symlink2.test"] = struct{}{}
