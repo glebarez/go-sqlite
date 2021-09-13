@@ -1802,12 +1802,18 @@ func TestIssue70(t *testing.T) {
 
 	defer func() {
 		if err := db.Close(); err != nil {
-			t.Errorf("close: %v", err)
+			t.Errorf("conn close: %v", err)
 		}
 	}()
 
-	if _, err := db.Query("select * from t"); err != nil {
+	r, err := db.Query("select * from t")
+	if err != nil {
 		t.Errorf("select a: %v", err)
+		return
+	}
+
+	if err := r.Close(); err != nil {
+		t.Errorf("rows close: %v", err)
 		return
 	}
 
