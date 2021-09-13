@@ -1792,3 +1792,26 @@ func emptyDir(s string) error {
 	}
 	return nil
 }
+
+// https://gitlab.com/cznic/sqlite/-/issues/70
+func TestIssue70(t *testing.T) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if _, err = db.Exec(`create table t (foo)`); err != nil {
+		t.Fatalf("create: %v", err)
+	}
+
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("close: %v", err)
+		}
+	}()
+
+	if _, err := db.Query("select * from t"); err != nil {
+		t.Errorf("select a: %v", err)
+		return
+	}
+
+	if _, err := db.Query("select * from t"); err != nil {
+		t.Errorf("select b: %v", err)
+	}
+}
