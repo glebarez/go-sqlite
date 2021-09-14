@@ -799,7 +799,7 @@ func TestIssue20(t *testing.T) {
 		os.RemoveAll(tempDir)
 	}()
 
-	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db"))
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db")+"?_pragma=busy_timeout%3d10000")
 	if err != nil {
 		t.Fatalf("foo.db open fail: %v", err)
 	}
@@ -1819,5 +1819,69 @@ func TestIssue70(t *testing.T) {
 
 	if _, err := db.Query("select * from t"); err != nil {
 		t.Errorf("select b: %v", err)
+	}
+}
+
+// https://gitlab.com/cznic/sqlite/-/issues/66
+func TestIssue66(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
+
+	fn := filepath.Join(tempDir, "testissue66.db")
+	db, err := sql.Open(driverName, fn)
+
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Errorf("conn close: %v", err)
+		}
+	}()
+
+	if _, err = db.Exec(`CREATE TABLE IF NOT EXISTS verdictcache (sha1 text);`); err != nil {
+		t.Fatalf("create: %v", err)
+	}
+
+	// ab
+	// 00	ok
+	// 01	ok
+	// 10	ok
+	// 11	hangs with old implementation of conn.step().
+
+	// a
+	if _, err = db.Exec("INSERT OR REPLACE INTO verdictcache (sha1) VALUES ($1)", "a"); err != nil {
+		t.Fatalf("insert: %v", err)
+	}
+
+	// b
+	if _, err := db.Query("SELECT * FROM verdictcache WHERE sha1=$1", "a"); err != nil {
+		t.Fatalf("select: %v", err)
+	}
+
+	// c
+	if _, err = db.Exec("INSERT OR REPLACE INTO verdictcache (sha1) VALUES ($1)", "b"); err != nil {
+
+		// https://www.sqlite.org/rescode.html#busy
+		// ----------------------------------------------------------------------------
+		// The SQLITE_BUSY result code indicates that the database file could not be
+		// written (or in some cases read) because of concurrent activity by some other
+		// database connection, usually a database connection in a separate process.
+		// ----------------------------------------------------------------------------
+		//
+		// The SQLITE_BUSY error is _expected_.
+		//
+		// According to the above, performing c after b's result was not yet
+		// consumed/closed is not possible. Mattn's driver seems to resort to
+		// autoclosing the driver.Rows returned by b in this situation, but I don't
+		// think that's correct (jnml).
+
+		t.Logf("insert 2: %v", err)
+		if !strings.Contains(err.Error(), "SQLITE_BUSY") {
+			t.Fatalf("insert 2: %v", err)
+		}
 	}
 }

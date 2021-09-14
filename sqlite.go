@@ -11,6 +11,7 @@ import (
 	"context"
 	"database/sql"
 	"database/sql/driver"
+	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -872,12 +873,17 @@ func (c *conn) changes() (int, error) {
 func (c *conn) step(pstmt uintptr) (int, error) {
 	for {
 		switch rc := sqlite3.Xsqlite3_step(c.tls, pstmt); rc {
-		case sqliteLockedSharedcache, sqlite3.SQLITE_BUSY:
+		case sqliteLockedSharedcache:
 			if err := c.retry(pstmt); err != nil {
 				return sqlite3.SQLITE_LOCKED, err
 			}
-		default:
+		case
+			sqlite3.SQLITE_DONE,
+			sqlite3.SQLITE_ROW:
+
 			return int(rc), nil
+		default:
+			return int(rc), errors.New(ErrorCodeString[int(rc)])
 		}
 	}
 }
@@ -1135,7 +1141,7 @@ func (c *conn) prepareV2(zSQL *uintptr) (pstmt uintptr, err error) {
 		case sqlite3.SQLITE_OK:
 			*zSQL = *(*uintptr)(unsafe.Pointer(pptail))
 			return *(*uintptr)(unsafe.Pointer(ppstmt)), nil
-		case sqliteLockedSharedcache, sqlite3.SQLITE_BUSY:
+		case sqliteLockedSharedcache:
 			if err := c.retry(0); err != nil {
 				return 0, err
 			}
