@@ -1885,3 +1885,128 @@ func TestIssue66(t *testing.T) {
 		}
 	}
 }
+
+// https://gitlab.com/cznic/sqlite/-/issues/65
+func TestIssue65(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
+
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "testissue65.sqlite"))
+	if err != nil {
+		t.Fatalf("Failed to open database: %v", err)
+	}
+
+	testIssue65(t, db, true)
+
+	if db, err = sql.Open("sqlite", filepath.Join(tempDir, "testissue65b.sqlite")+"?_pragma=busy_timeout%3d10000"); err != nil {
+		t.Fatalf("Failed to open database: %v", err)
+	}
+
+	testIssue65(t, db, false)
+}
+
+func testIssue65(t *testing.T, db *sql.DB, canFail bool) {
+	defer db.Close()
+
+	ctx := context.Background()
+
+	if _, err := db.Exec("CREATE TABLE foo (department INTEGER, profits INTEGER)"); err != nil {
+		t.Fatal("Failed to create table:", err)
+	}
+
+	if _, err := db.Exec("INSERT INTO foo VALUES (1, 10), (1, 20), (1, 45), (2, 42), (2, 115)"); err != nil {
+		t.Fatal("Failed to insert records:", err)
+	}
+
+	readFunc := func(ctx context.Context) error {
+		tx, err := db.BeginTx(ctx, nil)
+		if err != nil {
+			return fmt.Errorf("read error: %v", err)
+		}
+
+		defer tx.Rollback()
+
+		var dept, count int64
+		if err := tx.QueryRowContext(ctx, "SELECT department, COUNT(*) FROM foo GROUP BY department").Scan(
+			&dept,
+			&count,
+		); err != nil {
+			return fmt.Errorf("read error: %v", err)
+		}
+
+		return nil
+	}
+
+	writeFunc := func(ctx context.Context) error {
+		tx, err := db.BeginTx(ctx, nil)
+		if err != nil {
+			return fmt.Errorf("write error: %v", err)
+		}
+
+		defer tx.Rollback()
+
+		if _, err := tx.ExecContext(
+			ctx,
+			"INSERT INTO foo(department, profits) VALUES (@department, @profits)",
+			sql.Named("department", rand.Int()),
+			sql.Named("profits", rand.Int()),
+		); err != nil {
+			return fmt.Errorf("write error: %v", err)
+		}
+
+		return tx.Commit()
+	}
+
+	var wg sync.WaitGroup
+	wg.Add(2)
+
+	const cycles = 100
+
+	errCh := make(chan error, 2)
+
+	go func() {
+		defer wg.Done()
+
+		for i := 0; i < cycles; i++ {
+			if err := readFunc(ctx); err != nil {
+				err = fmt.Errorf("readFunc(%v): %v", canFail, err)
+				t.Log(err)
+				if !canFail {
+					errCh <- err
+				}
+				return
+			}
+		}
+	}()
+
+	go func() {
+		defer wg.Done()
+
+		for i := 0; i < cycles; i++ {
+			if err := writeFunc(ctx); err != nil {
+				err = fmt.Errorf("writeFunc(%v): %v", canFail, err)
+				t.Log(err)
+				if !canFail {
+					errCh <- err
+				}
+				return
+			}
+		}
+	}()
+
+	wg.Wait()
+	for {
+		select {
+		case err := <-errCh:
+			t.Error(err)
+		default:
+			return
+		}
+	}
+}
