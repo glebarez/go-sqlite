@@ -399,7 +399,7 @@ func main() {
 		configTest = append(configTest, "-DSQLITE_MUTEX_NOOP")
 	}
 	switch goos {
-	case "linux", "freebsd":
+	case "linux", "freebsd", "netbsd":
 		configProduction = append(configProduction, "-DSQLITE_OS_UNIX=1")
 	case "darwin":
 		configProduction = append(configProduction,
@@ -447,7 +447,7 @@ func configure(goos, goarch string) {
 	cmd.Run()
 	var args []string
 	switch goos {
-	case "linux", "freebsd":
+	case "linux", "freebsd", "netbsd":
 		// nop
 	case "darwin":
 		args = append(args, "--with-tcl=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Tcl.framework")
@@ -584,7 +584,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 			"-DSQLITE_SERVER=1",
 			"-DTCLSH_INIT_PROC=sqlite3TestInit",
 			"-D_HAVE_SQLITE_CONFIG_H",
-			"-I/usr/include/tcl8.6", //TODO should not be hardcoded
+			"-I/usr/include/tcl8.6", //TODO linux: should not be hardcoded
 			"-export-defines", "",
 			"-export-fields", "F",
 			"-trace-translation-units",
