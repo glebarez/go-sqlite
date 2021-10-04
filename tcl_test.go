@@ -33,6 +33,8 @@ func TestTclTest(t *testing.T) {
 		// # memory.  Make sure the host has at least 8GB available before running
 		// # this test.
 		blacklist["bigsort.test"] = struct{}{}
+	case "s390x":
+		blacklist["sysfault.test"] = struct{}{} //TODO
 	}
 	switch runtime.GOOS {
 	case "freebsd":
