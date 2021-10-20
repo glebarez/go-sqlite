@@ -11,7 +11,6 @@ import (
 	"context"
 	"database/sql"
 	"database/sql/driver"
-	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -883,7 +882,7 @@ func (c *conn) step(pstmt uintptr) (int, error) {
 
 			return int(rc), nil
 		default:
-			return int(rc), errors.New(ErrorCodeString[int(rc)])
+			return int(rc), c.errstr(rc)
 		}
 	}
 }
@@ -1225,11 +1224,15 @@ func (c *conn) errstr(rc int32) error {
 	p := sqlite3.Xsqlite3_errstr(c.tls, rc)
 	str := libc.GoString(p)
 	p = sqlite3.Xsqlite3_errmsg(c.tls, c.db)
+	var s string
+	if rc == sqlite3.SQLITE_BUSY {
+		s = " (SQLITE_BUSY)"
+	}
 	switch msg := libc.GoString(p); {
 	case msg == str:
-		return &Error{msg: fmt.Sprintf("%s (%v)", str, rc), code: int(rc)}
+		return &Error{msg: fmt.Sprintf("%s (%v)%s", str, rc, s), code: int(rc)}
 	default:
-		return &Error{msg: fmt.Sprintf("%s: %s (%v)", str, msg, rc), code: int(rc)}
+		return &Error{msg: fmt.Sprintf("%s: %s (%v)%s", str, msg, rc, s), code: int(rc)}
 	}
 }
 

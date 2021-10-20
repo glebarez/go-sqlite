@@ -1880,7 +1880,7 @@ func TestIssue66(t *testing.T) {
 		// think that's correct (jnml).
 
 		t.Logf("insert 2: %v", err)
-		if !strings.Contains(err.Error(), "SQLITE_BUSY") {
+		if !strings.Contains(err.Error(), "database is locked (5) (SQLITE_BUSY)") {
 			t.Fatalf("insert 2: %v", err)
 		}
 	}
@@ -2008,5 +2008,60 @@ func testIssue65(t *testing.T, db *sql.DB, canFail bool) {
 		default:
 			return
 		}
+	}
+}
+
+// https://gitlab.com/cznic/sqlite/-/issues/73
+func TestConstraintPrimaryKeyError(t *testing.T) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS hash (hashval TEXT PRIMARY KEY NOT NULL)`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec("INSERT INTO hash (hashval) VALUES (?)", "somehashval")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec("INSERT INTO hash (hashval) VALUES (?)", "somehashval")
+	if err == nil {
+		t.Fatal("wanted error")
+	}
+
+	if errs, want := err.Error(), "constraint failed: UNIQUE constraint failed: hash.hashval (1555)"; errs != want {
+		t.Fatalf("got error string %q, want %q", errs, want)
+	}
+}
+
+func TestConstraintUniqueError(t *testing.T) {
+	db, err := sql.Open(driverName, "file::memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS hash (hashval TEXT UNIQUE)`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec("INSERT INTO hash (hashval) VALUES (?)", "somehashval")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec("INSERT INTO hash (hashval) VALUES (?)", "somehashval")
+	if err == nil {
+		t.Fatal("wanted error")
+	}
+
+	if errs, want := err.Error(), "constraint failed: UNIQUE constraint failed: hash.hashval (2067)"; errs != want {
+		t.Fatalf("got error string %q, want %q", errs, want)
 	}
 }
