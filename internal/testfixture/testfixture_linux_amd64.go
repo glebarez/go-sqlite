@@ -555,6 +555,7 @@ const (
 	X_ASSERT_H                            = 1
 	X_ATFILE_SOURCE                       = 1
 	X_BITS_STDIO_LIM_H                    = 1
+	X_BITS_TIME64_H                       = 1
 	X_BITS_TYPESIZES_H                    = 1
 	X_BITS_TYPES_H                        = 1
 	X_BITS_TYPES_LOCALE_T_H               = 1
@@ -720,7 +721,7 @@ const (
 	TCL_PARSE_QUOTE_EXTRA                 = 1
 	TCL_PARSE_SUCCESS                     = 0
 	TCL_PARSE_SYNTAX                      = 8
-	TCL_PATCH_LEVEL                       = "8.6.9"
+	TCL_PATCH_LEVEL                       = "8.6.11"
 	TCL_READABLE                          = 2
 	TCL_REG_ADVANCED                      = 000003
 	TCL_REG_ADVF                          = 000002
@@ -737,7 +738,7 @@ const (
 	TCL_REG_NOTEOL                        = 0002
 	TCL_REG_QUOTE                         = 000004
 	TCL_RELEASE_LEVEL                     = 2
-	TCL_RELEASE_SERIAL                    = 9
+	TCL_RELEASE_SERIAL                    = 11
 	TCL_RESULT_SIZE                       = 200
 	TCL_RETURN                            = 2
 	TCL_SERVICE_ALL                       = 1
@@ -835,6 +836,8 @@ const (
 	WUNTRACED                             = 2
 	X_ALLOCA_H                            = 1
 	X_BITS_BYTESWAP_H                     = 1
+	X_BITS_ENDIANNESS_H                   = 1
+	X_BITS_ENDIAN_H                       = 1
 	X_BITS_FLOATN_COMMON_H                = 0
 	X_BITS_FLOATN_H                       = 0
 	X_BITS_PTHREADTYPES_ARCH_H            = 1
@@ -844,10 +847,12 @@ const (
 	X_CTYPE_H                             = 1
 	X_ENDIAN_H                            = 1
 	X_GCC_WCHAR_T                         = 0
+	X_RWLOCK_INTERNAL_H                   = 0
 	X_STDLIB_H                            = 1
 	X_STRUCT_TIMESPEC                     = 1
 	X_SYS_SELECT_H                        = 1
 	X_SYS_TYPES_H                         = 1
+	X_THREAD_MUTEX_INTERNAL_H             = 1
 	X_THREAD_SHARED_TYPES_H               = 1
 	X_T_WCHAR                             = 0
 	X_T_WCHAR_                            = 0
@@ -1742,7 +1747,7 @@ const (
 	EP_xIsSelect                          = 0x000800
 	EXCLUSIVE_LOCK                        = 4
 	EXPRDUP_REDUCE                        = 0x0001
-	GCC_VERSION                           = 8003000
+	GCC_VERSION                           = 10002001
 	HAVE_DLFCN_H                          = 1
 	HAVE_FCHOWN                           = 1
 	HAVE_FDATASYNC                        = 1
@@ -2753,6 +2758,7 @@ const (
 	X_GNU_SOURCE                          = 0
 	X_INTTYPES_H                          = 1
 	X_ISOC11_SOURCE                       = 1
+	X_ISOC2X_SOURCE                       = 1
 	X_ISOC95_SOURCE                       = 1
 	X_ISOC99_SOURCE                       = 1
 	X_LARGEFILE64_SOURCE                  = 1
@@ -2828,6 +2834,7 @@ const (
 	CLONE_NEWUTS                          = 0x04000000
 	CLONE_PARENT                          = 0x00008000
 	CLONE_PARENT_SETTID                   = 0x00100000
+	CLONE_PIDFD                           = 0x00001000
 	CLONE_PTRACE                          = 0x00002000
 	CLONE_SETTLS                          = 0x00080000
 	CLONE_SIGHAND                         = 0x00000800
@@ -2893,6 +2900,7 @@ const (
 	WRITECRASH_NAME                       = "writecrash"
 	AT_EMPTY_PATH                         = 0x1000
 	AT_NO_AUTOMOUNT                       = 0x800
+	AT_RECURSIVE                          = 0x8000
 	AT_STATX_DONT_SYNC                    = 0x4000
 	AT_STATX_FORCE_SYNC                   = 0x2000
 	AT_STATX_SYNC_AS_STAT                 = 0x0000
@@ -2923,6 +2931,7 @@ const (
 	F_OFD_GETLK                           = 36
 	F_OFD_SETLK                           = 37
 	F_OFD_SETLKW                          = 38
+	F_SEAL_FUTURE_WRITE                   = 0x0010
 	F_SEAL_GROW                           = 0x0004
 	F_SEAL_SEAL                           = 0x0001
 	F_SEAL_SHRINK                         = 0x0002
@@ -2953,31 +2962,42 @@ const (
 	SPLICE_F_MORE                         = 4
 	SPLICE_F_MOVE                         = 1
 	SPLICE_F_NONBLOCK                     = 2
-	STATX_ALL                             = 0x0fff
-	STATX_ATIME                           = 0x0020
-	STATX_ATTR_APPEND                     = 0x0020
-	STATX_ATTR_AUTOMOUNT                  = 0x1000
-	STATX_ATTR_COMPRESSED                 = 0x0004
-	STATX_ATTR_ENCRYPTED                  = 0x0800
-	STATX_ATTR_IMMUTABLE                  = 0x0010
-	STATX_ATTR_NODUMP                     = 0x0040
-	STATX_BASIC_STATS                     = 0x07ff
-	STATX_BLOCKS                          = 0x0400
-	STATX_BTIME                           = 0x0800
-	STATX_CTIME                           = 0x0080
-	STATX_GID                             = 0x0010
-	STATX_INO                             = 0x0100
-	STATX_MODE                            = 0x0002
-	STATX_MTIME                           = 0x0040
-	STATX_NLINK                           = 0x0004
-	STATX_SIZE                            = 0x0200
-	STATX_TYPE                            = 0x0001
-	STATX_UID                             = 0x0008
+	STATX_ALL                             = 0x00000fff
+	STATX_ATIME                           = 0x00000020
+	STATX_ATTR_APPEND                     = 0x00000020
+	STATX_ATTR_AUTOMOUNT                  = 0x00001000
+	STATX_ATTR_COMPRESSED                 = 0x00000004
+	STATX_ATTR_DAX                        = 0x00200000
+	STATX_ATTR_ENCRYPTED                  = 0x00000800
+	STATX_ATTR_IMMUTABLE                  = 0x00000010
+	STATX_ATTR_MOUNT_ROOT                 = 0x00002000
+	STATX_ATTR_NODUMP                     = 0x00000040
+	STATX_ATTR_VERITY                     = 0x00100000
+	STATX_BASIC_STATS                     = 0x000007ff
+	STATX_BLOCKS                          = 0x00000400
+	STATX_BTIME                           = 0x00000800
+	STATX_CTIME                           = 0x00000080
+	STATX_GID                             = 0x00000010
+	STATX_INO                             = 0x00000100
+	STATX_MNT_ID                          = 0x00001000
+	STATX_MODE                            = 0x00000002
+	STATX_MTIME                           = 0x00000040
+	STATX_NLINK                           = 0x00000004
+	STATX_SIZE                            = 0x00000200
+	STATX_TYPE                            = 0x00000001
+	STATX_UID                             = 0x00000008
 	STATX__RESERVED                       = 0x80000000
 	SYNC_FILE_RANGE_WAIT_AFTER            = 4
 	SYNC_FILE_RANGE_WAIT_BEFORE           = 1
 	SYNC_FILE_RANGE_WRITE                 = 2
+	SYNC_FILE_RANGE_WRITE_AND_WAIT        = 7
+	X_ASM_GENERIC_INT_LL64_H              = 0
+	X_ASM_GENERIC_TYPES_H                 = 0
+	X_ASM_X86_POSIX_TYPES_64_H            = 0
 	X_FALLOC_H_                           = 0
+	X_LINUX_POSIX_TYPES_H                 = 0
+	X_LINUX_STAT_H                        = 0
+	X_LINUX_TYPES_H                       = 0
 	X_POSIX_FD_SETSIZE                    = 20
 	X_POSIX_HIWAT                         = 512
 	X_POSIX_QLIMIT                        = 1
@@ -3040,6 +3060,7 @@ const (
 	MSG_Prepare                           = 2
 	MSG_Reset                             = 4
 	MSG_Step                              = 3
+	MADV_COLD                             = 20
 	MADV_DODUMP                           = 17
 	MADV_DOFORK                           = 11
 	MADV_DONTDUMP                         = 16
@@ -3052,6 +3073,7 @@ const (
 	MADV_MERGEABLE                        = 12
 	MADV_NOHUGEPAGE                       = 15
 	MADV_NORMAL                           = 0
+	MADV_PAGEOUT                          = 21
 	MADV_RANDOM                           = 1
 	MADV_REMOVE                           = 9
 	MADV_SEQUENTIAL                       = 2
@@ -3138,7 +3160,7 @@ const (
 )
 
 // Definitions for POSIX 1003.1b-1993 (aka POSIX.4) scheduling interface.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3153,9 +3175,9 @@ const (
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3170,11 +3192,11 @@ const (
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard 7.4: Character handling	<ctype.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3189,10 +3211,10 @@ const (
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3207,7 +3229,7 @@ const (
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3219,7 +3241,8 @@ const (
 //    endian).  We define the bit value interpretations here dependent on the
 //    machine's byte order.
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3281,43 +3304,39 @@ const ( /* dirent.h:97:1: */
 )
 
 // Read-write lock types.
-const ( /* pthread.h:115:1: */
+const ( /* pthread.h:100:1: */
 	PTHREAD_RWLOCK_PREFER_READER_NP              = 0
 	PTHREAD_RWLOCK_PREFER_WRITER_NP              = 1
 	PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP = 2
 	PTHREAD_RWLOCK_DEFAULT_NP                    = 0
 )
 
-// Define __PTHREAD_RWLOCK_INT_FLAGS_SHARED to 1 if pthread_rwlock_t
-//    has the shared field.  All 64-bit architectures have the shared field
-//    in pthread_rwlock_t.
-
 // Read-write lock initializers.
 
 // Scheduler inheritance.
-const ( /* pthread.h:156:1: */
+const ( /* pthread.h:120:1: */
 	PTHREAD_INHERIT_SCHED  = 0
 	PTHREAD_EXPLICIT_SCHED = 1
 )
 
 // Scope handling.
-const ( /* pthread.h:166:1: */
+const ( /* pthread.h:130:1: */
 	PTHREAD_SCOPE_SYSTEM  = 0
 	PTHREAD_SCOPE_PROCESS = 1
 )
 
 // Process shared or private flag.
-const ( /* pthread.h:176:1: */
+const ( /* pthread.h:140:1: */
 	PTHREAD_PROCESS_PRIVATE = 0
 	PTHREAD_PROCESS_SHARED  = 1
 )
 
 // Cancellation
-const ( /* pthread.h:200:1: */
+const ( /* pthread.h:164:1: */
 	PTHREAD_CANCEL_ENABLE  = 0
 	PTHREAD_CANCEL_DISABLE = 1
 )
-const ( /* pthread.h:207:1: */
+const ( /* pthread.h:171:1: */
 	PTHREAD_CANCEL_DEFERRED     = 0
 	PTHREAD_CANCEL_ASYNCHRONOUS = 1
 )
@@ -3417,7 +3436,7 @@ const ( /* tcl.h:690:1: */
 //    the `_SC_*' symbols for the NAME argument to `sysconf';
 //    and the `_CS_*' symbols for the NAME argument to `confstr'.
 // `sysconf', `pathconf', and `confstr' NAME values.  Generic version.
-//    Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1993-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3432,7 +3451,7 @@ const ( /* tcl.h:690:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Values for the NAME argument to `pathconf' and `fpathconf'.
 const ( /* confname.h:24:1: */
@@ -3845,7 +3864,7 @@ const ( /* resource.h:187:1: */
 // Convenience macros for operations on timevals.
 //    NOTE: `timercmp' does not work for >= or <=.
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3860,9 +3879,9 @@ const ( /* resource.h:187:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3877,11 +3896,11 @@ const ( /* resource.h:187:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Get the system-dependent definitions of structures and bit values.
 // Bit values & structures for resource limits.  Linux version.
-//    Copyright (C) 1994-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1994-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3896,10 +3915,10 @@ const ( /* resource.h:187:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3914,7 +3933,7 @@ const ( /* resource.h:187:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3989,7 +4008,7 @@ const ( /* resource.h:31:1: */
 // POSIX names to access some of the members.
 
 // sigevent constants.  Linux version.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4004,7 +4023,7 @@ const ( /* resource.h:31:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // `sigev_notify' values.
 const ( /* sigevent-consts.h:27:1: */
@@ -4016,15 +4035,18 @@ const ( /* sigevent-consts.h:27:1: */
 )
 
 // `si_code' values for SIGSEGV signal.
-const ( /* siginfo-consts.h:110:1: */
-	SEGV_MAPERR = 1 // Address not mapped to object.
-	SEGV_ACCERR = 2 // Invalid permissions for mapped object.
-	SEGV_BNDERR = 3 // Bounds checking failure.
-	SEGV_PKUERR = 4
+const ( /* siginfo-consts.h:119:1: */
+	SEGV_MAPERR  = 1 // Address not mapped to object.
+	SEGV_ACCERR  = 2 // Invalid permissions for mapped object.
+	SEGV_BNDERR  = 3 // Bounds checking failure.
+	SEGV_PKUERR  = 4 // Protection key checking failure.
+	SEGV_ACCADI  = 5 // ADI not enabled for mapped object.
+	SEGV_ADIDERR = 6 // Disrupting MCD error.
+	SEGV_ADIPERR = 7
 )
 
 // `si_code' values for SIGBUS signal.
-const ( /* siginfo-consts.h:123:1: */
+const ( /* siginfo-consts.h:138:1: */
 	BUS_ADRALN    = 1 // Invalid address alignment.
 	BUS_ADRERR    = 2 // Non-existant physical address.
 	BUS_OBJERR    = 3 // Object specific hardware error.
@@ -4033,7 +4055,7 @@ const ( /* siginfo-consts.h:123:1: */
 )
 
 // `si_code' values for SIGCHLD signal.
-const ( /* siginfo-consts.h:151:1: */
+const ( /* siginfo-consts.h:172:1: */
 	CLD_EXITED    = 1 // Child has exited.
 	CLD_KILLED    = 2 // Child was killed.
 	CLD_DUMPED    = 3 // Child terminated abnormally.
@@ -4043,7 +4065,7 @@ const ( /* siginfo-consts.h:151:1: */
 )
 
 // `si_code' values for SIGPOLL signal.
-const ( /* siginfo-consts.h:168:1: */
+const ( /* siginfo-consts.h:189:1: */
 	POLL_IN  = 1 // Data input available.
 	POLL_OUT = 2 // Output buffers available.
 	POLL_MSG = 3 // Input message available.
@@ -4055,7 +4077,7 @@ const ( /* siginfo-consts.h:168:1: */
 // X/Open requires some more fields with fixed names.
 
 // siginfo constants.  Linux version.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4070,7 +4092,7 @@ const ( /* siginfo-consts.h:168:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Most of these constants are uniform across all architectures, but there
 //    is one exception.
@@ -4079,43 +4101,48 @@ const ( /* siginfo-consts.h:168:1: */
 // Values for `si_code'.  Positive values are reserved for kernel-generated
 //    signals.
 const ( /* siginfo-consts.h:35:1: */
-	SI_ASYNCNL = -60 // Sent by asynch name lookup completion.
-	SI_TKILL   = -6  // Sent by tkill.
-	SI_SIGIO   = -5  // Sent by queued SIGIO.
-	SI_ASYNCIO = -4  // Sent by AIO completion.
-	SI_MESGQ   = -3  // Sent by real time mesq state change.
-	SI_TIMER   = -2  // Sent by timer expiration.
-	SI_QUEUE   = -1  // Sent by sigqueue.
-	SI_USER    = 0   // Sent by kill, sigsend.
+	SI_ASYNCNL  = -60 // Sent by asynch name lookup completion.
+	SI_DETHREAD = -7  // Sent by execve killing subsidiary
+	// 				   threads.
+	SI_TKILL   = -6 // Sent by tkill.
+	SI_SIGIO   = -5 // Sent by queued SIGIO.
+	SI_ASYNCIO = -4 // Sent by AIO completion.
+	SI_MESGQ   = -3 // Sent by real time mesq state change.
+	SI_TIMER   = -2 // Sent by timer expiration.
+	SI_QUEUE   = -1 // Sent by sigqueue.
+	SI_USER    = 0  // Sent by kill, sigsend.
 	SI_KERNEL  = 128
 )
 
 // `si_code' values for SIGILL signal.
-const ( /* siginfo-consts.h:68:1: */
-	ILL_ILLOPC = 1 // Illegal opcode.
-	ILL_ILLOPN = 2 // Illegal operand.
-	ILL_ILLADR = 3 // Illegal addressing mode.
-	ILL_ILLTRP = 4 // Illegal trap.
-	ILL_PRVOPC = 5 // Privileged opcode.
-	ILL_PRVREG = 6 // Privileged register.
-	ILL_COPROC = 7 // Coprocessor error.
-	ILL_BADSTK = 8
+const ( /* siginfo-consts.h:71:1: */
+	ILL_ILLOPC   = 1 // Illegal opcode.
+	ILL_ILLOPN   = 2 // Illegal operand.
+	ILL_ILLADR   = 3 // Illegal addressing mode.
+	ILL_ILLTRP   = 4 // Illegal trap.
+	ILL_PRVOPC   = 5 // Privileged opcode.
+	ILL_PRVREG   = 6 // Privileged register.
+	ILL_COPROC   = 7 // Coprocessor error.
+	ILL_BADSTK   = 8 // Internal stack error.
+	ILL_BADIADDR = 9
 )
 
 // `si_code' values for SIGFPE signal.
-const ( /* siginfo-consts.h:89:1: */
-	FPE_INTDIV = 1 // Integer divide by zero.
-	FPE_INTOVF = 2 // Integer overflow.
-	FPE_FLTDIV = 3 // Floating point divide by zero.
-	FPE_FLTOVF = 4 // Floating point overflow.
-	FPE_FLTUND = 5 // Floating point underflow.
-	FPE_FLTRES = 6 // Floating point inexact result.
-	FPE_FLTINV = 7 // Floating point invalid operation.
-	FPE_FLTSUB = 8
+const ( /* siginfo-consts.h:94:1: */
+	FPE_INTDIV   = 1  // Integer divide by zero.
+	FPE_INTOVF   = 2  // Integer overflow.
+	FPE_FLTDIV   = 3  // Floating point divide by zero.
+	FPE_FLTOVF   = 4  // Floating point overflow.
+	FPE_FLTUND   = 5  // Floating point underflow.
+	FPE_FLTRES   = 6  // Floating point inexact result.
+	FPE_FLTINV   = 7  // Floating point invalid operation.
+	FPE_FLTSUB   = 8  // Subscript out of range.
+	FPE_FLTUNK   = 14 // Undiagnosed floating-point exception.
+	FPE_CONDTRAP = 15
 )
 
 // sigstack, sigaltstack definitions.
-//    Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1998-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4130,14 +4157,14 @@ const ( /* siginfo-consts.h:89:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Minimum stack size for a signal handler.
 
 // System default stack size.
 
 // ss_flags values for stack_t.  Linux version.
-//    Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1998-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4152,7 +4179,7 @@ const ( /* siginfo-consts.h:89:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Possible values for `ss_flags'.
 const ( /* ss_flags.h:27:1: */
@@ -4160,16 +4187,11 @@ const ( /* ss_flags.h:27:1: */
 	SS_DISABLE = 2
 )
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // XPG requires a few symbols from <sys/wait.h> being defined.
 // Definitions of flag bits for `waitpid' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4184,7 +4206,7 @@ const ( /* ss_flags.h:27:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Bits in the third argument to `waitpid'.
 
@@ -4202,7 +4224,7 @@ const ( /* waitflags.h:52:1: */
 )
 
 // Values for the first argument to `getitimer' and `setitimer'.
-const ( /* time.h:88:1: */
+const ( /* time.h:89:1: */
 	// Timers run in real time.
 	ITIMER_REAL = 0
 	// Timers run only when the process is executing.
@@ -4280,21 +4302,21 @@ type sqlite32 = struct {
 	FmTrace                 u8
 	FnoSharedCache          u8
 	FnSqlExec               u8
-	_                       [3]byte
+	F__ccgo_pad1            [3]byte
 	FnextPagesize           int32
 	Fmagic                  u32
 	FnChange                int32
 	FnTotalChange           int32
 	FaLimit                 [12]int32
 	FnMaxSorterMmap         int32
-	_                       [4]byte
+	F__ccgo_pad2            [4]byte
 	Finit                   struct {
 		FnewTnum       Pgno
 		FiDb           u8
 		Fbusy          u8
-		_              [2]byte
+		F__ccgo_pad1   [2]byte
 		ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
-		_              [7]byte
+		F__ccgo_pad2   [7]byte
 		FazInit        uintptr
 	}
 	FnVdbeActive        int32
@@ -4606,7 +4628,7 @@ type sqlite3_file1 = struct{ FpMethods uintptr } /* sqlite3.h:684:9 */
 type sqlite3_file = sqlite3_file1 /* sqlite3.h:684:29 */
 type sqlite3_io_methods1 = struct {
 	FiVersion               int32
-	_                       [4]byte
+	F__ccgo_pad1            [4]byte
 	FxClose                 uintptr
 	FxRead                  uintptr
 	FxWrite                 uintptr
@@ -5070,9 +5092,9 @@ type sqlite3_io_methods = sqlite3_io_methods1 /* sqlite3.h:783:35 */
 //
 // Mutexes are created using [sqlite3_mutex_alloc()].
 type sqlite3_mutex1 = struct {
-	FpReal uintptr
-	FeType int32
-	_      [4]byte
+	FpReal       uintptr
+	FeType       int32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3.h:1206:9 */
 
 // CAPI3REF: Loadable Extension Thunk
@@ -5508,7 +5530,7 @@ type sqlite3_vfs1 = struct {
 	FiVersion          int32
 	FszOsFile          int32
 	FmxPathname        int32
-	_                  [4]byte
+	F__ccgo_pad1       [4]byte
 	FpNext             uintptr
 	FzName             uintptr
 	FpAppData          uintptr
@@ -5898,16 +5920,16 @@ type sqlite3_value1 = struct {
 // [sqlite3_context_db_handle()], [sqlite3_get_auxdata()],
 // and/or [sqlite3_set_auxdata()].
 type sqlite3_context1 = struct {
-	FpOut     uintptr
-	FpFunc    uintptr
-	FpMem     uintptr
-	FpVdbe    uintptr
-	FiOp      int32
-	FisError  int32
-	FskipFlag u8
-	Fargc     u8
-	_         [6]byte
-	Fargv     [1]uintptr
+	FpOut        uintptr
+	FpFunc       uintptr
+	FpMem        uintptr
+	FpVdbe       uintptr
+	FiOp         int32
+	FisError     int32
+	FskipFlag    u8
+	Fargc        u8
+	F__ccgo_pad1 [6]byte
+	Fargv        [1]uintptr
 } /* sqlite3.h:249:9 */
 
 // CAPI3REF: Constants Defining Special Destructor Behavior
@@ -5933,10 +5955,10 @@ type sqlite3_destructor_type = uintptr /* sqlite3.h:5665:14 */
 
 // Structures used by the virtual table interface
 type sqlite3_vtab1 = struct {
-	FpModule uintptr
-	FnRef    int32
-	_        [4]byte
-	FzErrMsg uintptr
+	FpModule     uintptr
+	FnRef        int32
+	F__ccgo_pad1 [4]byte
+	FzErrMsg     uintptr
 } /* sqlite3.h:6784:9 */
 
 // The interface to the virtual-table mechanism is currently considered
@@ -5950,21 +5972,21 @@ type sqlite3_vtab1 = struct {
 type sqlite3_vtab = sqlite3_vtab1 /* sqlite3.h:6784:29 */
 type sqlite3_index_info1 = struct {
 	FnConstraint      int32
-	_                 [4]byte
+	F__ccgo_pad1      [4]byte
 	FaConstraint      uintptr
 	FnOrderBy         int32
-	_                 [4]byte
+	F__ccgo_pad2      [4]byte
 	FaOrderBy         uintptr
 	FaConstraintUsage uintptr
 	FidxNum           int32
-	_                 [4]byte
+	F__ccgo_pad3      [4]byte
 	FidxStr           uintptr
 	FneedToFreeIdxStr int32
 	ForderByConsumed  int32
 	FestimatedCost    float64
 	FestimatedRows    sqlite3_int64
 	FidxFlags         int32
-	_                 [4]byte
+	F__ccgo_pad4      [4]byte
 	FcolUsed          sqlite3_uint64
 } /* sqlite3.h:6785:9 */
 
@@ -5974,7 +5996,7 @@ type sqlite3_vtab_cursor1 = struct{ FpVtab uintptr } /* sqlite3.h:6786:9 */
 type sqlite3_vtab_cursor = sqlite3_vtab_cursor1 /* sqlite3.h:6786:36 */
 type sqlite3_module1 = struct {
 	FiVersion      int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	FxCreate       uintptr
 	FxConnect      uintptr
 	FxBestIndex    uintptr
@@ -6106,7 +6128,7 @@ type sqlite3_index_constraint = struct {
 	FiColumn     int32
 	Fop          uint8
 	Fusable      uint8
-	_            [2]byte
+	F__ccgo_pad1 [2]byte
 	FiTermOffset int32
 } /* sqlite3.h:6785:9 */
 
@@ -6211,9 +6233,9 @@ type sqlite3_index_constraint = struct {
 // sqlite3_libversion_number() returns a value greater than or equal to
 // 3009000.
 type sqlite3_index_orderby = struct {
-	FiColumn int32
-	Fdesc    uint8
-	_        [3]byte
+	FiColumn     int32
+	Fdesc        uint8
+	F__ccgo_pad1 [3]byte
 } /* sqlite3.h:6785:9 */
 
 // CAPI3REF: Virtual Table Indexing Information
@@ -6317,9 +6339,9 @@ type sqlite3_index_orderby = struct {
 // sqlite3_libversion_number() returns a value greater than or equal to
 // 3009000.
 type sqlite3_index_constraint_usage = struct {
-	FargvIndex int32
-	Fomit      uint8
-	_          [3]byte
+	FargvIndex   int32
+	Fomit        uint8
+	F__ccgo_pad1 [3]byte
 } /* sqlite3.h:6785:9 */
 
 // CAPI3REF: Mutex Methods Object
@@ -6484,7 +6506,7 @@ type sqlite3_str1 = struct {
 	FnChar       u32
 	FaccError    u8
 	FprintfFlags u8
-	_            [2]byte
+	F__ccgo_pad1 [2]byte
 } /* sqlite3.h:7882:9 */
 
 // CAPI3REF: Custom Page Cache Object
@@ -6668,20 +6690,20 @@ type sqlite3_pcache_page = sqlite3_pcache_page1 /* sqlite3.h:8375:36 */
 // is not obligated to free any memory, but well-behaved implementations should
 // do their best.
 type sqlite3_pcache_methods21 = struct {
-	FiVersion   int32
-	_           [4]byte
-	FpArg       uintptr
-	FxInit      uintptr
-	FxShutdown  uintptr
-	FxCreate    uintptr
-	FxCachesize uintptr
-	FxPagecount uintptr
-	FxFetch     uintptr
-	FxUnpin     uintptr
-	FxRekey     uintptr
-	FxTruncate  uintptr
-	FxDestroy   uintptr
-	FxShrink    uintptr
+	FiVersion    int32
+	F__ccgo_pad1 [4]byte
+	FpArg        uintptr
+	FxInit       uintptr
+	FxShutdown   uintptr
+	FxCreate     uintptr
+	FxCachesize  uintptr
+	FxPagecount  uintptr
+	FxFetch      uintptr
+	FxUnpin      uintptr
+	FxRekey      uintptr
+	FxTruncate   uintptr
+	FxDestroy    uintptr
+	FxShrink     uintptr
 } /* sqlite3.h:8540:9 */
 
 // CAPI3REF: Application Defined Page Cache.
@@ -6941,12 +6963,12 @@ type sqlite3_snapshot = sqlite3_snapshot1 /* sqlite3.h:9632:3 */
 //
 
 type sqlite3_rtree_geometry1 = struct {
-	FpContext uintptr
-	FnParam   int32
-	_         [4]byte
-	FaParam   uintptr
-	FpUser    uintptr
-	FxDelUser uintptr
+	FpContext    uintptr
+	FnParam      int32
+	F__ccgo_pad1 [4]byte
+	FaParam      uintptr
+	FpUser       uintptr
+	FxDelUser    uintptr
 } /* sqlite3.h:9957:9 */
 
 // CAPI3REF: Flags for sqlite3_deserialize()
@@ -6988,7 +7010,7 @@ type sqlite3_rtree_geometry = sqlite3_rtree_geometry1 /* sqlite3.h:9957:39 */
 type sqlite3_rtree_query_info1 = struct {
 	FpContext      uintptr
 	FnParam        int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	FaParam        uintptr
 	FpUser         uintptr
 	FxDelUser      uintptr
@@ -6997,7 +7019,7 @@ type sqlite3_rtree_query_info1 = struct {
 	FnCoord        int32
 	FiLevel        int32
 	FmxLevel       int32
-	_              [4]byte
+	F__ccgo_pad2   [4]byte
 	FiRowid        sqlite3_int64
 	FrParentScore  sqlite3_rtree_dbl
 	FeParentWithin int32
@@ -7044,7 +7066,7 @@ type sqlite3_rtree_dbl = float64 /* sqlite3.h:9966:18 */
 
 type Fts5ExtensionApi1 = struct {
 	FiVersion           int32
-	_                   [4]byte
+	F__ccgo_pad1        [4]byte
 	FxUserData          uintptr
 	FxColumnCount       uintptr
 	FxRowCount          uintptr
@@ -7127,7 +7149,7 @@ type fts5_tokenizer = fts5_tokenizer1 /* sqlite3.h:12276:31 */
 // FTS5 EXTENSION REGISTRATION API
 type fts5_api1 = struct {
 	FiVersion         int32
-	_                 [4]byte
+	F__ccgo_pad1      [4]byte
 	FxCreateTokenizer uintptr
 	FxFindTokenizer   uintptr
 	FxCreateFunction  uintptr
@@ -7155,7 +7177,7 @@ type fts5_api = fts5_api1 /* sqlite3.h:12312:25 */
 
 type sqlite3expert1 = struct {
 	FiSample     int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	Fdb          uintptr
 	Fdbm         uintptr
 	Fdbv         uintptr
@@ -7164,10 +7186,10 @@ type sqlite3expert1 = struct {
 	FpWrite      uintptr
 	FpStatement  uintptr
 	FbRun        int32
-	_            [4]byte
+	F__ccgo_pad2 [4]byte
 	FpzErrmsg    uintptr
 	Frc          int32
-	_            [4]byte
+	F__ccgo_pad3 [4]byte
 	FhIdx        IdxHash
 	FzCandidates uintptr
 } /* sqlite3expert.h:17:9 */
@@ -7182,7 +7204,7 @@ type sqlite3expert = sqlite3expert1 /* sqlite3expert.h:17:30 */
 
 // POSIX.1-2008 extended locale interface (see locale.h).
 // Definition of locale_t.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -7197,10 +7219,10 @@ type sqlite3expert = sqlite3expert1 /* sqlite3expert.h:17:30 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Definition of struct __locale_struct and __locale_t.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //    Contributed by Ulrich Drepper <drepper@cygnus.com>, 1997.
 //
@@ -7216,7 +7238,7 @@ type sqlite3expert = sqlite3expert1 /* sqlite3expert.h:17:30 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // POSIX.1-2008: the locale_t type, representing a locale context
 //    (implementation-namespace version).  This type should be treated
@@ -7245,7 +7267,7 @@ type _G_fpos_t = struct {
 } /* __fpos_t.h:10:9 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -7260,7 +7282,7 @@ type _G_fpos_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -7277,7 +7299,7 @@ type _G_fpos64_t = struct {
 
 type _IO_FILE = struct {
 	F_flags          int32
-	_                [4]byte
+	F__ccgo_pad1     [4]byte
 	F_IO_read_ptr    uintptr
 	F_IO_read_end    uintptr
 	F_IO_read_base   uintptr
@@ -7297,7 +7319,7 @@ type _IO_FILE = struct {
 	F_cur_column     uint16
 	F_vtable_offset  int8
 	F_shortbuf       [1]int8
-	_                [4]byte
+	F__ccgo_pad2     [4]byte
 	F_lock           uintptr
 	F_offset         int64
 	F_codecvt        uintptr
@@ -7330,10 +7352,10 @@ type i64 = sqlite3_int64  /* sqlite3expert.c:20:23 */
 type u64 = sqlite3_uint64 /* sqlite3expert.c:21:24 */
 
 type IdxColumn1 = struct {
-	FzName uintptr
-	FzColl uintptr
-	FiPk   int32
-	_      [4]byte
+	FzName       uintptr
+	FzColl       uintptr
+	FiPk         int32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3expert.h:17:9 */
 
 type IdxColumn = IdxColumn1 /* sqlite3expert.c:23:26 */
@@ -7349,41 +7371,41 @@ type IdxConstraint1 = struct {
 
 type IdxConstraint = IdxConstraint1 /* sqlite3expert.c:24:30 */
 type IdxScan1 = struct {
-	FpTab      uintptr
-	FiDb       int32
-	_          [4]byte
-	Fcovering  i64
-	FpOrder    uintptr
-	FpEq       uintptr
-	FpRange    uintptr
-	FpNextScan uintptr
+	FpTab        uintptr
+	FiDb         int32
+	F__ccgo_pad1 [4]byte
+	Fcovering    i64
+	FpOrder      uintptr
+	FpEq         uintptr
+	FpRange      uintptr
+	FpNextScan   uintptr
 } /* sqlite3expert.h:17:9 */
 
 type IdxScan = IdxScan1 /* sqlite3expert.c:25:24 */
 type IdxStatement1 = struct {
-	FiId   int32
-	_      [4]byte
-	FzSql  uintptr
-	FzIdx  uintptr
-	FzEQP  uintptr
-	FpNext uintptr
+	FiId         int32
+	F__ccgo_pad1 [4]byte
+	FzSql        uintptr
+	FzIdx        uintptr
+	FzEQP        uintptr
+	FpNext       uintptr
 } /* sqlite3expert.h:17:9 */
 
 type IdxStatement = IdxStatement1 /* sqlite3expert.c:26:29 */
 type IdxTable1 = struct {
-	FnCol  int32
-	_      [4]byte
-	FzName uintptr
-	FaCol  uintptr
-	FpNext uintptr
+	FnCol        int32
+	F__ccgo_pad1 [4]byte
+	FzName       uintptr
+	FaCol        uintptr
+	FpNext       uintptr
 } /* sqlite3expert.h:17:9 */
 
 type IdxTable = IdxTable1 /* sqlite3expert.c:27:25 */
 type IdxWrite1 = struct {
-	FpTab  uintptr
-	FeOp   int32
-	_      [4]byte
-	FpNext uintptr
+	FpTab        uintptr
+	FeOp         int32
+	F__ccgo_pad1 [4]byte
+	FpNext       uintptr
 } /* sqlite3expert.h:17:9 */
 
 type IdxWrite = IdxWrite1 /* sqlite3expert.c:28:25 */
@@ -8652,11 +8674,11 @@ func idxCreateVtabSchema(tls *libc.TLS, p uintptr, pzErrmsg uintptr) int32 { /* 
 }
 
 type IdxSampleCtx = struct {
-	FiTarget int32
-	_        [4]byte
-	Ftarget  float64
-	FnRow    float64
-	FnRet    float64
+	FiTarget     int32
+	F__ccgo_pad1 [4]byte
+	Ftarget      float64
+	FnRow        float64
+	FnRet        float64
 } /* sqlite3expert.c:1378:1 */
 
 func idxSampleFunc(tls *libc.TLS, pCtx uintptr, argc int32, argv uintptr) { /* sqlite3expert.c:1385:13: */
@@ -8686,27 +8708,27 @@ func idxSampleFunc(tls *libc.TLS, pCtx uintptr, argc int32, argv uintptr) { /* s
 }
 
 type IdxRemCtx = struct {
-	FnSlot int32
-	_      [4]byte
-	FaSlot [1]struct {
-		FeType int32
-		_      [4]byte
-		FiVal  i64
-		FrVal  float64
-		FnByte int32
-		Fn     int32
-		Fz     uintptr
+	FnSlot       int32
+	F__ccgo_pad1 [4]byte
+	FaSlot       [1]struct {
+		FeType       int32
+		F__ccgo_pad1 [4]byte
+		FiVal        i64
+		FrVal        float64
+		FnByte       int32
+		Fn           int32
+		Fz           uintptr
 	}
 } /* sqlite3expert.c:1411:1 */
 
 type IdxRemSlot = struct {
-	FeType int32
-	_      [4]byte
-	FiVal  i64
-	FrVal  float64
-	FnByte int32
-	Fn     int32
-	Fz     uintptr
+	FeType       int32
+	F__ccgo_pad1 [4]byte
+	FiVal        i64
+	FrVal        float64
+	FnByte       int32
+	Fn           int32
+	Fz           uintptr
 } /* sqlite3expert.c:1411:1 */
 
 // Implementation of scalar function rem().
@@ -9296,7 +9318,7 @@ func sqlite3_expert_destroy(tls *libc.TLS, p uintptr) { /* sqlite3expert.c:1948:
 //
 // New code should just directly be written to use stdarg.h conventions.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -9452,7 +9474,7 @@ type Tcl_Interp1 = struct {
 	FresultDontUse    uintptr
 	FfreeProcDontUse  uintptr
 	FerrorLineDontUse int32
-	_                 [4]byte
+	F__ccgo_pad1      [4]byte
 } /* tcl.h:493:9 */
 
 //----------------------------------------------------------------------------
@@ -9544,7 +9566,7 @@ type Tcl_RegExpIndices = Tcl_RegExpIndices1 /* tcl.h:628:3 */
 
 type Tcl_RegExpInfo1 = struct {
 	Fnsubs       int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	Fmatches     uintptr
 	FextendStart int64
 	Freserved    int64
@@ -9586,7 +9608,7 @@ type Tcl_ValueType = uint32 /* tcl.h:692:3 */
 
 type Tcl_Value1 = struct {
 	Ftype        Tcl_ValueType
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	FintValue    int64
 	FdoubleValue float64
 	FwideValue   Tcl_WideInt
@@ -9599,10 +9621,10 @@ type Tcl_Value = Tcl_Value1 /* tcl.h:700:3 */
 
 type Tcl_Obj1 = struct {
 	FrefCount    int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	Fbytes       uintptr
 	Flength      int32
-	_            [4]byte
+	F__ccgo_pad2 [4]byte
 	FtypePtr     uintptr
 	FinternalRep struct {
 		FlongValue int64
@@ -9649,7 +9671,7 @@ type Tcl_SavedResult1 = struct {
 	FappendAvl    int32
 	FappendUsed   int32
 	FresultSpace  [201]int8
-	_             [7]byte
+	F__ccgo_pad1  [7]byte
 } /* tcl.h:864:9 */
 
 //----------------------------------------------------------------------------
@@ -9701,22 +9723,22 @@ type Tcl_Namespace = Tcl_Namespace1 /* tcl.h:897:3 */
 // CallFrame structure in tclInt.h. If you change one, change the other.
 
 type Tcl_CallFrame1 = struct {
-	FnsPtr   uintptr
-	Fdummy1  int32
-	Fdummy2  int32
-	Fdummy3  uintptr
-	Fdummy4  uintptr
-	Fdummy5  uintptr
-	Fdummy6  int32
-	_        [4]byte
-	Fdummy7  uintptr
-	Fdummy8  uintptr
-	Fdummy9  int32
-	_        [4]byte
-	Fdummy10 uintptr
-	Fdummy11 uintptr
-	Fdummy12 uintptr
-	Fdummy13 uintptr
+	FnsPtr       uintptr
+	Fdummy1      int32
+	Fdummy2      int32
+	Fdummy3      uintptr
+	Fdummy4      uintptr
+	Fdummy5      uintptr
+	Fdummy6      int32
+	F__ccgo_pad1 [4]byte
+	Fdummy7      uintptr
+	Fdummy8      uintptr
+	Fdummy9      int32
+	F__ccgo_pad2 [4]byte
+	Fdummy10     uintptr
+	Fdummy11     uintptr
+	Fdummy12     uintptr
+	Fdummy13     uintptr
 } /* tcl.h:922:9 */
 
 //----------------------------------------------------------------------------
@@ -9757,7 +9779,7 @@ type Tcl_CallFrame = Tcl_CallFrame1 /* tcl.h:937:3 */
 
 type Tcl_CmdInfo1 = struct {
 	FisNativeObjectProc int32
-	_                   [4]byte
+	F__ccgo_pad1        [4]byte
 	FobjProc            uintptr
 	FobjClientData      ClientData
 	Fproc               uintptr
@@ -9968,7 +9990,7 @@ type Tcl_HashEntry = Tcl_HashEntry1 /* tcl.h:1154:30 */
 type Tcl_HashSearch1 = struct {
 	FtablePtr     uintptr
 	FnextIndex    int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 	FnextEntryPtr uintptr
 } /* tcl.h:1308:9 */
 
@@ -10003,7 +10025,7 @@ type Tcl_HashSearch = Tcl_HashSearch1 /* tcl.h:1314:3 */
 type Tcl_DictSearch = struct {
 	Fnext          uintptr
 	Fepoch         int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	FdictionaryPtr Tcl_Dict
 } /* tcl.h:1354:3 */
 
@@ -10122,7 +10144,7 @@ type Tcl_FSVersion = uintptr /* tcl.h:1700:31 */
 type Tcl_Filesystem1 = struct {
 	FtypeName                 uintptr
 	FstructureLength          int32
-	_                         [4]byte
+	F__ccgo_pad1              [4]byte
 	Fversion                  Tcl_FSVersion
 	FpathInFilesystemProc     uintptr
 	FdupInternalRepProc       uintptr
@@ -10218,7 +10240,7 @@ type Tcl_NotifierProcs = Tcl_NotifierProcs1 /* tcl.h:1903:3 */
 
 type Tcl_Token1 = struct {
 	Ftype          int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	Fstart         uintptr
 	Fsize          int32
 	FnumComponents int32
@@ -10311,7 +10333,7 @@ type Tcl_Token = Tcl_Token1 /* tcl.h:1924:3 */
 type Tcl_Parse1 = struct {
 	FcommentStart    uintptr
 	FcommentSize     int32
-	_                [4]byte
+	F__ccgo_pad1     [4]byte
 	FcommandStart    uintptr
 	FcommandSize     int32
 	FnumWords        int32
@@ -10319,13 +10341,13 @@ type Tcl_Parse1 = struct {
 	FnumTokens       int32
 	FtokensAvailable int32
 	FerrorType       int32
-	_                [4]byte
+	F__ccgo_pad2     [4]byte
 	Fstring          uintptr
 	Fend             uintptr
 	Finterp          uintptr
 	Fterm            uintptr
 	Fincomplete      int32
-	_                [4]byte
+	F__ccgo_pad3     [4]byte
 	FstaticTokens    [20]Tcl_Token
 } /* tcl.h:2030:9 */
 
@@ -10417,7 +10439,7 @@ type Tcl_EncodingType1 = struct {
 	FfreeProc     uintptr
 	FclientData   ClientData
 	FnullSize     int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 } /* tcl.h:2091:9 */
 
 //----------------------------------------------------------------------------
@@ -10530,30 +10552,30 @@ type mp_digit = uint32        /* tcl.h:2268:22 */
 // Modifications from the original are copyright (c) Sam Bromley 2006
 
 type Tcl_ArgvInfo = struct {
-	Ftype       int32
-	_           [4]byte
-	FkeyStr     uintptr
-	FsrcPtr     uintptr
-	FdstPtr     uintptr
-	FhelpStr    uintptr
-	FclientData ClientData
+	Ftype        int32
+	F__ccgo_pad1 [4]byte
+	FkeyStr      uintptr
+	FsrcPtr      uintptr
+	FdstPtr      uintptr
+	FhelpStr     uintptr
+	FclientData  ClientData
 } /* tcl.h:2289:3 */
 
 type TclPlatStubs1 = struct {
-	Fmagic int32
-	_      [4]byte
-	Fhooks uintptr
-} /* tclDecls.h:1821:11 */
+	Fmagic       int32
+	F__ccgo_pad1 [4]byte
+	Fhooks       uintptr
+} /* tclDecls.h:1840:11 */
 
 type TclStubHooks = struct {
 	FtclPlatStubs    uintptr
 	FtclIntStubs     uintptr
 	FtclIntPlatStubs uintptr
-} /* tclDecls.h:1824:3 */
+} /* tclDecls.h:1843:3 */
 
 type TclStubs1 = struct {
 	Fmagic                                  int32
-	_                                       [4]byte
+	F__ccgo_pad1                            [4]byte
 	Fhooks                                  uintptr
 	Ftcl_PkgProvideEx                       uintptr
 	Ftcl_PkgRequireEx                       uintptr
@@ -11186,9 +11208,28 @@ type TclStubs1 = struct {
 	Ftcl_FindSymbol                         uintptr
 	Ftcl_FSUnloadFile                       uintptr
 	Ftcl_ZlibStreamSetCompressionDictionary uintptr
-} /* tclDecls.h:1826:9 */
+	Freserved631                            uintptr
+	Freserved632                            uintptr
+	Freserved633                            uintptr
+	Freserved634                            uintptr
+	Freserved635                            uintptr
+	Freserved636                            uintptr
+	Freserved637                            uintptr
+	Freserved638                            uintptr
+	Freserved639                            uintptr
+	Freserved640                            uintptr
+	Freserved641                            uintptr
+	Freserved642                            uintptr
+	Freserved643                            uintptr
+	Freserved644                            uintptr
+	Freserved645                            uintptr
+	Freserved646                            uintptr
+	Freserved647                            uintptr
+	Freserved648                            uintptr
+	FtclUnusedStubEntry                     uintptr
+} /* tclDecls.h:1845:9 */
 
-type TclStubs = TclStubs1 /* tclDecls.h:2485:3 */
+type TclStubs = TclStubs1 /* tclDecls.h:2523:3 */
 
 // !END!: Do not edit above this line.
 
@@ -11345,10 +11386,10 @@ func testExpertCmd(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32
 }
 
 type Subcmd = struct {
-	FzSub uintptr
-	FnArg int32
-	_     [4]byte
-	FzMsg uintptr
+	FzSub        uintptr
+	FnArg        int32
+	F__ccgo_pad1 [4]byte
+	FzMsg        uintptr
 } /* test_expert.c:62:3 */
 
 func testExpertDel(tls *libc.TLS, clientData uintptr) { /* test_expert.c:150:27: */
@@ -11470,7 +11511,7 @@ func TestExpert_Init(tls *libc.TLS, interp uintptr) int32 { /* test_expert.c:202
 // SQLITE_ENABLE_FTS3 macro.  But to avoid confusion we also all
 // the SQLITE_ENABLE_FTS4 macro to serve as an alisse for SQLITE_ENABLE_FTS3.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -11485,11 +11526,11 @@ func TestExpert_Init(tls *libc.TLS, interp uintptr) int32 { /* test_expert.c:202
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -11504,7 +11545,7 @@ func TestExpert_Init(tls *libc.TLS, interp uintptr) int32 { /* test_expert.c:202
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -11559,9 +11600,9 @@ func f5tResultToErrorCode(tls *libc.TLS, zRes uintptr) int32 { /* fts5_tcl.c:69:
 }
 
 type ErrorCode = struct {
-	Frc     int32
-	_       [4]byte
-	FzError uintptr
+	Frc          int32
+	F__ccgo_pad1 [4]byte
+	FzError      uintptr
 } /* fts5_tcl.c:70:3 */
 
 func f5tDbAndApi(tls *libc.TLS, interp uintptr, pObj uintptr, ppDb uintptr, ppApi uintptr) int32 { /* fts5_tcl.c:90:26: */
@@ -11639,7 +11680,7 @@ func xTokenizeCb(tls *libc.TLS, pCtx uintptr, tflags int32, zToken uintptr, nTok
 	rc = tcl.XTcl_EvalObjEx(tls, (*F5tFunction)(unsafe.Pointer(p)).Finterp, pEval, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -11674,7 +11715,7 @@ func xQueryPhraseCb(tls *libc.TLS, pApi uintptr, pFts uintptr, pCtx uintptr) int
 	rc = tcl.XTcl_EvalObjEx(tls, (*F5tFunction)(unsafe.Pointer(p)).Finterp, pEval, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -11693,7 +11734,7 @@ func xSetAuxdataDestructor(tls *libc.TLS, p uintptr) { /* fts5_tcl.c:207:13: */
 	var pData uintptr = p
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = (*F5tAuxData)(unsafe.Pointer(pData)).FpObj
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -11751,7 +11792,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 	case 0:
 		{
 			var nCol int32
-			nCol = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 16 /* &.xColumnCount */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts)
+			nCol = (*struct {
+				f func(*libc.TLS, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxColumnCount})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, nCol))
 			}
@@ -11762,7 +11805,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 		{
 			// var nRow sqlite3_int64 at bp+496, 8
 
-			rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 24 /* &.xRowCount */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+496 /* &nRow */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxRowCount})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+496 /* &nRow */)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewWideIntObj(tls, *(*sqlite3_int64)(unsafe.Pointer(bp + 496 /* nRow */))))
 			}
@@ -11778,7 +11823,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+504 /* &iCol */) != 0 {
 				return TCL_ERROR
 			}
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 32 /* &.xColumnTotalSize */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 504 /* iCol */)), bp+512 /* &nSize */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxColumnTotalSize})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 504 /* iCol */)), bp+512 /* &nSize */)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewWideIntObj(tls, *(*sqlite3_int64)(unsafe.Pointer(bp + 512 /* nSize */))))
 			}
@@ -11794,7 +11841,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 
 			(*F5tFunction)(unsafe.Pointer(bp + 528 /* &ctx */)).Finterp = interp
 			(*F5tFunction)(unsafe.Pointer(bp + 528 /* &ctx */)).FpScript = *(*uintptr)(unsafe.Pointer(objv + 3*8))
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 40 /* &.xTokenize */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, zText, *(*int32)(unsafe.Pointer(bp + 520 /* nText */)), bp+528 /* &ctx */, *(*uintptr)(unsafe.Pointer(&struct {
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxTokenize})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, zText, *(*int32)(unsafe.Pointer(bp + 520 /* nText */)), bp+528 /* &ctx */, *(*uintptr)(unsafe.Pointer(&struct {
 				f func(*libc.TLS, uintptr, int32, uintptr, int32, int32, int32) int32
 			}{xTokenizeCb})))
 			if rc == SQLITE_OK {
@@ -11806,7 +11855,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 	case 4:
 		{
 			var nPhrase int32
-			nPhrase = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 48 /* &.xPhraseCount */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts)
+			nPhrase = (*struct {
+				f func(*libc.TLS, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxPhraseCount})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, nPhrase))
 			}
@@ -11821,7 +11872,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+544 /* &iPhrase */) != 0 {
 				return TCL_ERROR
 			}
-			sz = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 56 /* &.xPhraseSize */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 544 /* iPhrase */)))
+			sz = (*struct {
+				f func(*libc.TLS, uintptr, int32) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxPhraseSize})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 544 /* iPhrase */)))
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, sz))
 			}
@@ -11832,7 +11885,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 		{
 			// var nInst int32 at bp+548, 4
 
-			rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 64 /* &.xInstCount */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+548 /* &nInst */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxInstCount})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+548 /* &nInst */)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, *(*int32)(unsafe.Pointer(bp + 548 /* nInst */))))
 			}
@@ -11852,7 +11907,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+552 /* &iIdx */) != 0 {
 				return TCL_ERROR
 			}
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 72 /* &.xInst */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 552 /* iIdx */)), bp+556 /* &ip */, bp+560 /* &ic */, bp+564 /* &io */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxInst})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 552 /* iIdx */)), bp+556 /* &ip */, bp+560 /* &ic */, bp+564 /* &io */)
 			if rc == SQLITE_OK {
 				var pList uintptr = tcl.XTcl_NewObj(tls)
 				tcl.XTcl_ListObjAppendElement(tls, interp, pList, tcl.XTcl_NewIntObj(tls, *(*int32)(unsafe.Pointer(bp + 556 /* ip */))))
@@ -11865,7 +11922,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 		}
 	case 8:
 		{
-			var iRowid sqlite3_int64 = (*(*func(*libc.TLS, uintptr) sqlite3_int64)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 80 /* &.xRowid */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts)
+			var iRowid sqlite3_int64 = (*struct {
+				f func(*libc.TLS, uintptr) sqlite3_int64
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxRowid})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts)
 			tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewWideIntObj(tls, iRowid))
 			break
 
@@ -11879,7 +11938,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+568 /* &iCol */) != 0 {
 				return TCL_ERROR
 			}
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 88 /* &.xColumnText */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 568 /* iCol */)), bp+576 /* &z */, bp+584 /* &n */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxColumnText})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 568 /* iCol */)), bp+576 /* &z */, bp+584 /* &n */)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewStringObj(tls, *(*uintptr)(unsafe.Pointer(bp + 576 /* z */)), *(*int32)(unsafe.Pointer(bp + 584 /* n */))))
 			}
@@ -11894,7 +11955,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+588 /* &iCol */) != 0 {
 				return TCL_ERROR
 			}
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 96 /* &.xColumnSize */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 588 /* iCol */)), bp+592 /* &n */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxColumnSize})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 588 /* iCol */)), bp+592 /* &n */)
 			if rc == SQLITE_OK {
 				tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, *(*int32)(unsafe.Pointer(bp + 592 /* n */))))
 			}
@@ -11912,7 +11975,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			}
 			(*F5tFunction)(unsafe.Pointer(bp + 600 /* &ctx */)).Finterp = interp
 			(*F5tFunction)(unsafe.Pointer(bp + 600 /* &ctx */)).FpScript = *(*uintptr)(unsafe.Pointer(objv + 3*8))
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 104 /* &.xQueryPhrase */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 596 /* iPhrase */)), bp+600 /* &ctx */, *(*uintptr)(unsafe.Pointer(&struct {
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxQueryPhrase})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 596 /* iPhrase */)), bp+600 /* &ctx */, *(*uintptr)(unsafe.Pointer(&struct {
 				f func(*libc.TLS, uintptr, uintptr, uintptr) int32
 			}{xQueryPhraseCb})))
 			if rc == SQLITE_OK {
@@ -11930,7 +11995,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			}
 			(*F5tAuxData)(unsafe.Pointer(pData)).FpObj = *(*uintptr)(unsafe.Pointer(objv + 2*8))
 			(*Tcl_Obj)(unsafe.Pointer((*F5tAuxData)(unsafe.Pointer(pData)).FpObj)).FrefCount++
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 112 /* &.xSetAuxdata */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, pData, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{xSetAuxdataDestructor})))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxSetAuxdata})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, pData, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{xSetAuxdataDestructor})))
 			break
 
 		}
@@ -11942,7 +12009,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetBooleanFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+616 /* &bClear */) != 0 {
 				return TCL_ERROR
 			}
-			pData = (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 120 /* &.xGetAuxdata */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 616 /* bClear */)))
+			pData = (*struct {
+				f func(*libc.TLS, uintptr, int32) uintptr
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxGetAuxdata})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 616 /* bClear */)))
 			if pData == uintptr(0) {
 				tcl.XTcl_ResetResult(tls, interp)
 			} else {
@@ -11966,7 +12035,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+620 /* &iVal */) != 0 {
 				return TCL_ERROR
 			}
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 112 /* &.xSetAuxdata */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, (uintptr(0) + uintptr(*(*int32)(unsafe.Pointer(bp + 620 /* iVal */)))), uintptr(0))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxSetAuxdata})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, (uintptr(0) + uintptr(*(*int32)(unsafe.Pointer(bp + 620 /* iVal */)))), uintptr(0))
 			break
 
 		}
@@ -11978,7 +12049,9 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			if tcl.XTcl_GetBooleanFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+624 /* &bClear */) != 0 {
 				return TCL_ERROR
 			}
-			iVal = (int32((int64((*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 120 /* &.xGetAuxdata */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 624 /* bClear */)))) - int64(uintptr(0))) / 1))
+			iVal = (int32((int64((*struct {
+				f func(*libc.TLS, uintptr, int32) uintptr
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxGetAuxdata})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 624 /* bClear */)))) - int64(uintptr(0))) / 1))
 			tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, iVal))
 			break
 
@@ -12003,12 +12076,16 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			zColvar = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 3*8)))
 			zOffvar = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 4*8)))
 
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 128 /* &.xPhraseFirst */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 628 /* iPhrase */)), bp+632 /* &iter */, bp+648 /* &iCol */, bp+652 /* &iOff */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxPhraseFirst})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 628 /* iPhrase */)), bp+632 /* &iter */, bp+648 /* &iCol */, bp+652 /* &iOff */)
 			if rc != SQLITE_OK {
 				tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+16, sqlite3.Xsqlite3ErrName(tls, rc), 0))
 				return TCL_ERROR
 			}
-			for ; *(*int32)(unsafe.Pointer(bp + 648 /* iCol */)) >= 0; (*(*func(*libc.TLS, uintptr, uintptr, uintptr, uintptr))(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 136 /* &.xPhraseNext */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+632 /* &iter */, bp+648 /* &iCol */, bp+652 /* &iOff */) {
+			for ; *(*int32)(unsafe.Pointer(bp + 648 /* iCol */)) >= 0; (*struct {
+				f func(*libc.TLS, uintptr, uintptr, uintptr, uintptr)
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxPhraseNext})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+632 /* &iter */, bp+648 /* &iCol */, bp+652 /* &iOff */) {
 				tcl.XTcl_SetVar2Ex(tls, interp, zColvar, uintptr(0), tcl.XTcl_NewIntObj(tls, *(*int32)(unsafe.Pointer(bp + 648 /* iCol */))), 0)
 				tcl.XTcl_SetVar2Ex(tls, interp, zOffvar, uintptr(0), tcl.XTcl_NewIntObj(tls, *(*int32)(unsafe.Pointer(bp + 652 /* iOff */))), 0)
 				rc = tcl.XTcl_EvalObjEx(tls, interp, pScript, 0)
@@ -12042,12 +12119,16 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 			}
 			zColvar = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 3*8)))
 
-			rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32)(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 144 /* &.xPhraseFirstColumn */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 656 /* iPhrase */)), bp+664 /* &iter */, bp+680 /* &iCol */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxPhraseFirstColumn})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, *(*int32)(unsafe.Pointer(bp + 656 /* iPhrase */)), bp+664 /* &iter */, bp+680 /* &iCol */)
 			if rc != SQLITE_OK {
 				tcl.XTcl_SetResult(tls, interp, sqlite3.Xsqlite3ErrName(tls, rc), uintptr(1))
 				return TCL_ERROR
 			}
-			for ; *(*int32)(unsafe.Pointer(bp + 680 /* iCol */)) >= 0; (*(*func(*libc.TLS, uintptr, uintptr, uintptr))(unsafe.Pointer(((*F5tApi)(unsafe.Pointer(p)).FpApi + 152 /* &.xPhraseNextColumn */))))(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+664 /* &iter */, bp+680 /* &iCol */) {
+			for ; *(*int32)(unsafe.Pointer(bp + 680 /* iCol */)) >= 0; (*struct {
+				f func(*libc.TLS, uintptr, uintptr, uintptr)
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer((*F5tApi)(unsafe.Pointer(p)).FpApi)).FxPhraseNextColumn})).f(tls, (*F5tApi)(unsafe.Pointer(p)).FpFts, bp+664 /* &iter */, bp+680 /* &iCol */) {
 				tcl.XTcl_SetVar2Ex(tls, interp, zColvar, uintptr(0), tcl.XTcl_NewIntObj(tls, *(*int32)(unsafe.Pointer(bp + 680 /* iCol */))), 0)
 				rc = tcl.XTcl_EvalObjEx(tls, interp, pScript, 0)
 				if rc == TCL_CONTINUE {
@@ -12079,17 +12160,19 @@ func xF5tApi(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv
 }
 
 type Sub = struct {
-	FzName uintptr
-	FnArg  int32
-	_      [4]byte
-	FzMsg  uintptr
+	FzName       uintptr
+	FnArg        int32
+	F__ccgo_pad1 [4]byte
+	FzMsg        uintptr
 } /* fts5_tcl.c:224:3 */
 
 func xF5tFunction(tls *libc.TLS, pApi uintptr, pFts uintptr, pCtx uintptr, nVal int32, apVal uintptr) { /* fts5_tcl.c:517:13: */
 	bp := tls.Alloc(112)
 	defer tls.Free(112)
 
-	var p uintptr = (*(*func(*libc.TLS, uintptr) uintptr)(unsafe.Pointer((pApi + 8 /* &.xUserData */))))(tls, pFts)
+	var p uintptr = (*struct {
+		f func(*libc.TLS, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxUserData})).f(tls, pFts)
 	var pEval uintptr // Script to evaluate
 	var i int32
 	var rc int32
@@ -12134,7 +12217,7 @@ func xF5tFunction(tls *libc.TLS, pApi uintptr, pFts uintptr, pCtx uintptr, nVal 
 	rc = tcl.XTcl_EvalObjEx(tls, (*F5tFunction)(unsafe.Pointer(p)).Finterp, pEval, TCL_GLOBAL_ONLY)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12184,7 +12267,7 @@ func xF5tDestroy(tls *libc.TLS, pCtx uintptr) { /* fts5_tcl.c:600:13: */
 	var p uintptr = pCtx
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = (*F5tFunction)(unsafe.Pointer(p)).FpScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12220,7 +12303,9 @@ func f5tCreateFunction(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 	(*F5tFunction)(unsafe.Pointer(pCtx)).FpScript = pScript
 	(*Tcl_Obj)(unsafe.Pointer(pScript)).FrefCount++
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, fts5_extension_function, uintptr) int32)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(bp + 32 /* pApi */)) + 24 /* &.xCreateFunction */))))(tls,
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, fts5_extension_function, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*fts5_api)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 32 /* pApi */)))).FxCreateFunction})).f(tls,
 		*(*uintptr)(unsafe.Pointer(bp + 32 /* pApi */)), zName, pCtx, *(*uintptr)(unsafe.Pointer(&struct {
 			f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr)
 		}{xF5tFunction})), *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{xF5tDestroy})))
@@ -12233,10 +12318,10 @@ func f5tCreateFunction(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 }
 
 type F5tTokenizeCtx1 = struct {
-	FpRet   uintptr
-	FbSubst int32
-	_       [4]byte
-	FzInput uintptr
+	FpRet        uintptr
+	FbSubst      int32
+	F__ccgo_pad1 [4]byte
+	FzInput      uintptr
 } /* fts5_tcl.c:648:9 */
 
 type F5tTokenizeCtx = F5tTokenizeCtx1 /* fts5_tcl.c:648:31 */
@@ -12304,13 +12389,17 @@ func f5tTokenize(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 	}
 	zText = tcl.XTcl_GetStringFromObj(tls, *(*uintptr)(unsafe.Pointer(objv + uintptr((objc-1))*8)), bp+128 /* &nText */)
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(bp + 104 /* pApi */)) + 16 /* &.xFindTokenizer */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 104 /* pApi */)), *(*uintptr)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 120 /* azArg */)))), bp+136 /* &pUserdata */, bp+144 /* &tokenizer */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*fts5_api)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 104 /* pApi */)))).FxFindTokenizer})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 104 /* pApi */)), *(*uintptr)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 120 /* azArg */)))), bp+136 /* &pUserdata */, bp+144 /* &tokenizer */)
 	if rc != SQLITE_OK {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+40, ts+2508 /* "no such tokenize..." */, *(*uintptr)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 120 /* azArg */)))), 0))
 		return TCL_ERROR
 	}
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((bp + 144 /* &tokenizer */ /* &.xCreate */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 136 /* pUserdata */)), (*(*uintptr)(unsafe.Pointer(bp + 120 /* azArg */)) + 1*8), (*(*int32)(unsafe.Pointer(bp + 112 /* nArg */)) - 1), bp+168 /* &pTok */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*fts5_tokenizer)(unsafe.Pointer(bp + 144 /* &tokenizer */)).FxCreate})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 136 /* pUserdata */)), (*(*uintptr)(unsafe.Pointer(bp + 120 /* azArg */)) + 1*8), (*(*int32)(unsafe.Pointer(bp + 112 /* nArg */)) - 1), bp+168 /* &pTok */)
 	if rc != SQLITE_OK {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+64, ts+2528 /* "error in tokeniz..." */, 0))
 		return TCL_ERROR
@@ -12321,16 +12410,18 @@ func f5tTokenize(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 	(*F5tTokenizeCtx)(unsafe.Pointer(bp + 176 /* &ctx */)).FbSubst = (libc.Bool32(objc == 5))
 	(*F5tTokenizeCtx)(unsafe.Pointer(bp + 176 /* &ctx */)).FpRet = pRet
 	(*F5tTokenizeCtx)(unsafe.Pointer(bp + 176 /* &ctx */)).FzInput = zText
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr, int32, uintptr) int32)(unsafe.Pointer((bp + 144 /* &tokenizer */ + 16 /* &.xTokenize */))))(tls,
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*fts5_tokenizer)(unsafe.Pointer(bp + 144 /* &tokenizer */)).FxTokenize})).f(tls,
 		*(*uintptr)(unsafe.Pointer(bp + 168 /* pTok */)), bp+176 /* &ctx */, FTS5_TOKENIZE_DOCUMENT, zText, *(*int32)(unsafe.Pointer(bp + 128 /* nText */)), *(*uintptr)(unsafe.Pointer(&struct {
 			f func(*libc.TLS, uintptr, int32, uintptr, int32, int32, int32) int32
 		}{xTokenizeCb2})))
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((bp + 144 /* &tokenizer */ + 8 /* &.xDelete */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 168 /* pTok */)))
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*fts5_tokenizer)(unsafe.Pointer(bp + 144 /* &tokenizer */)).FxDelete})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 168 /* pTok */)))
 	if rc != SQLITE_OK {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+80, ts+2557 /* "error in tokeniz..." */, 0))
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pRet
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -12341,7 +12432,7 @@ func f5tTokenize(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 	tcl.XTcl_SetObjResult(tls, interp, pRet)
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = pRet
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12395,7 +12486,7 @@ func f5tTokenizerCreate(tls *libc.TLS, pCtx uintptr, azArg uintptr, nArg int32, 
 	}
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12418,7 +12509,7 @@ func f5tTokenizerDelete(tls *libc.TLS, p uintptr) { /* fts5_tcl.c:821:13: */
 	var pInst uintptr = p
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = (*F5tTokenizerInstance)(unsafe.Pointer(pInst)).FpScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12465,7 +12556,7 @@ func f5tTokenizerTokenize(tls *libc.TLS, p uintptr, pCtx uintptr, flags int32, p
 	rc = tcl.XTcl_EvalObjEx(tls, (*F5tTokenizerInstance)(unsafe.Pointer(pInst)).Finterp, pEval, TCL_GLOBAL_ONLY)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12538,7 +12629,9 @@ __6:
 __7:
 	;
 
-	rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, int32, int32, int32) int32)(unsafe.Pointer((p + 8 /* &.xToken */))))(tls, (*F5tTokenizerContext)(unsafe.Pointer(p)).FpCtx, tflags, zToken, *(*int32)(unsafe.Pointer(bp + 20 /* nToken */)), *(*int32)(unsafe.Pointer(bp + 24 /* iStart */)), *(*int32)(unsafe.Pointer(bp + 28 /* iEnd */)))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*F5tTokenizerContext)(unsafe.Pointer(p)).FxToken})).f(tls, (*F5tTokenizerContext)(unsafe.Pointer(p)).FpCtx, tflags, zToken, *(*int32)(unsafe.Pointer(bp + 20 /* nToken */)), *(*int32)(unsafe.Pointer(bp + 24 /* iStart */)), *(*int32)(unsafe.Pointer(bp + 28 /* iEnd */)))
 	tcl.XTcl_SetResult(tls, interp, sqlite3.Xsqlite3ErrName(tls, rc), uintptr(1))
 	if rc == SQLITE_OK {
 		return TCL_OK
@@ -12554,7 +12647,7 @@ func f5tDelTokenizer(tls *libc.TLS, pCtx uintptr) { /* fts5_tcl.c:936:13: */
 	var pMod uintptr = pCtx
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = (*F5tTokenizerModule)(unsafe.Pointer(pMod)).FpScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -12614,7 +12707,9 @@ func f5tCreateTokenizer(tls *libc.TLS, clientData ClientData, interp uintptr, ob
 	(*F5tTokenizerModule)(unsafe.Pointer(pMod)).FpScript = pScript
 	(*F5tTokenizerModule)(unsafe.Pointer(pMod)).FpContext = pContext
 	(*Tcl_Obj)(unsafe.Pointer(pScript)).FrefCount++
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(bp + 24 /* pApi */)) + 8 /* &.xCreateTokenizer */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pApi */)), zName, pMod, bp+32 /* &t */, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{f5tDelTokenizer})))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*fts5_api)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 24 /* pApi */)))).FxCreateTokenizer})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pApi */)), zName, pMod, bp+32 /* &t */, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{f5tDelTokenizer})))
 	if rc != SQLITE_OK {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp, ts+2724 /* "error in fts5_ap..." */, 0))
 		return TCL_ERROR
@@ -12726,7 +12821,7 @@ func Fts5tcl_Init(tls *libc.TLS, interp uintptr) int32 { /* fts5_tcl.c:1123:5: *
 		FzName        uintptr
 		FxProc        uintptr
 		FbTokenizeCtx int32
-		_             [4]byte
+		F__ccgo_pad1  [4]byte
 	}{}))); i++ {
 		var p uintptr = (uintptr(unsafe.Pointer(&aCmd)) + uintptr(i)*24)
 		var pCtx uintptr = uintptr(0)
@@ -12734,7 +12829,7 @@ func Fts5tcl_Init(tls *libc.TLS, interp uintptr) int32 { /* fts5_tcl.c:1123:5: *
 			FzName        uintptr
 			FxProc        uintptr
 			FbTokenizeCtx int32
-			_             [4]byte
+			F__ccgo_pad1  [4]byte
 		})(unsafe.Pointer(p)).FbTokenizeCtx != 0 {
 			pCtx = pContext
 		}
@@ -12742,12 +12837,12 @@ func Fts5tcl_Init(tls *libc.TLS, interp uintptr) int32 { /* fts5_tcl.c:1123:5: *
 			FzName        uintptr
 			FxProc        uintptr
 			FbTokenizeCtx int32
-			_             [4]byte
+			F__ccgo_pad1  [4]byte
 		})(unsafe.Pointer(p)).FzName, (*struct {
 			FzName        uintptr
 			FxProc        uintptr
 			FbTokenizeCtx int32
-			_             [4]byte
+			F__ccgo_pad1  [4]byte
 		})(unsafe.Pointer(p)).FxProc, pCtx, func() uintptr {
 			if i != 0 {
 				return uintptr(0)
@@ -12763,7 +12858,7 @@ var aCmd = [8]struct {
 	FzName        uintptr
 	FxProc        uintptr
 	FbTokenizeCtx int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 }{
 	{FzName: ts + 2773 /* "sqlite3_fts5_cre..." */, FxProc: 0, FbTokenizeCtx: 1},
 	{FzName: ts + 2803 /* "sqlite3_fts5_tok..." */, FxProc: 0, FbTokenizeCtx: 1},
@@ -12776,12 +12871,12 @@ var aCmd = [8]struct {
 } /* fts5_tcl.c:1128:5 */
 
 type Fts5MatchinfoCtx1 = struct {
-	FnCol    int32
-	FnPhrase int32
-	FzArg    uintptr
-	FnRet    int32
-	_        [4]byte
-	FaRet    uintptr
+	FnCol        int32
+	FnPhrase     int32
+	FzArg        uintptr
+	FnRet        int32
+	F__ccgo_pad1 [4]byte
+	FaRet        uintptr
 } /* fts5_test_mi.c:50:9 */
 
 type Fts5MatchinfoCtx = Fts5MatchinfoCtx1 /* fts5_test_mi.c:50:33 */
@@ -12854,7 +12949,9 @@ func fts5MatchinfoIter(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, x u
 	var rc int32 = SQLITE_OK
 	var f int8
 	for i = 0; libc.AssignInt8(&f, *(*int8)(unsafe.Pointer((*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FzArg + uintptr(i)))) != 0; i++ {
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int8, uintptr) int32)(unsafe.Pointer(&x)))(tls, pApi, pFts, p, f, ((*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FaRet + uintptr(n)*4))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, int8, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{x})).f(tls, pApi, pFts, p, f, ((*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FaRet + uintptr(n)*4))
 		if rc != SQLITE_OK {
 			break
 		}
@@ -12876,7 +12973,11 @@ func fts5MatchinfoXCb(tls *libc.TLS, pApi uintptr, pFts uintptr, pUserData uintp
 	var aOut uintptr = pUserData
 	var iPrev int32 = -1
 
-	for (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 128 /* &.xPhraseFirst */))))(tls, pFts, 0, bp /* &iter */, bp+16 /* &iCol */, bp+20 /* &iOff */); *(*int32)(unsafe.Pointer(bp + 16 /* iCol */)) >= 0; (*(*func(*libc.TLS, uintptr, uintptr, uintptr, uintptr))(unsafe.Pointer((pApi + 136 /* &.xPhraseNext */))))(tls, pFts, bp /* &iter */, bp+16 /* &iCol */, bp+20 /* &iOff */) {
+	for (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseFirst})).f(tls, pFts, 0, bp /* &iter */, bp+16 /* &iCol */, bp+20 /* &iOff */); *(*int32)(unsafe.Pointer(bp + 16 /* iCol */)) >= 0; (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseNext})).f(tls, pFts, bp /* &iter */, bp+16 /* &iCol */, bp+20 /* &iOff */) {
 		*(*u32)(unsafe.Pointer(aOut + uintptr(((*(*int32)(unsafe.Pointer(bp + 16 /* iCol */))*3)+1))*4))++
 		if *(*int32)(unsafe.Pointer(bp + 16 /* iCol */)) != iPrev {
 			*(*u32)(unsafe.Pointer(aOut + uintptr(((*(*int32)(unsafe.Pointer(bp + 16 /* iCol */))*3)+2))*4))++
@@ -12906,7 +13007,9 @@ func fts5MatchinfoGlobalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr,
 			var i int32
 			for i = 0; (i < (*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnPhrase) && (rc == SQLITE_OK); i++ {
 				var pPtr uintptr = (aOut + uintptr(((i*(*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol)*3))*4)
-				rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 104 /* &.xQueryPhrase */))))(tls, pFts, i, pPtr, *(*uintptr)(unsafe.Pointer(&struct {
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxQueryPhrase})).f(tls, pFts, i, pPtr, *(*uintptr)(unsafe.Pointer(&struct {
 					f func(*libc.TLS, uintptr, uintptr, uintptr) int32
 				}{fts5MatchinfoXCb})))
 			}
@@ -12918,7 +13021,9 @@ func fts5MatchinfoGlobalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr,
 		{
 			// var nRow sqlite3_int64 at bp, 8
 
-			rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 24 /* &.xRowCount */))))(tls, pFts, bp /* &nRow */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxRowCount})).f(tls, pFts, bp /* &nRow */)
 			*(*u32)(unsafe.Pointer(aOut)) = u32(*(*sqlite3_int64)(unsafe.Pointer(bp /* nRow */)))
 			break
 
@@ -12927,7 +13032,9 @@ func fts5MatchinfoGlobalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr,
 	case 'a':
 		{
 			*(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* nRow */)) = int64(0)
-			rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 24 /* &.xRowCount */))))(tls, pFts, bp+8 /* &nRow */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxRowCount})).f(tls, pFts, bp+8 /* &nRow */)
 			if *(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* nRow */)) == int64(0) {
 				libc.Xmemset(tls, aOut, 0, (uint64(unsafe.Sizeof(u32(0))) * uint64((*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol)))
 			} else {
@@ -12935,7 +13042,9 @@ func fts5MatchinfoGlobalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr,
 				for i = 0; (rc == SQLITE_OK) && (i < (*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol); i++ {
 					// var nToken sqlite3_int64 at bp+16, 8
 
-					rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pApi + 32 /* &.xColumnTotalSize */))))(tls, pFts, i, bp+16 /* &nToken */)
+					rc = (*struct {
+						f func(*libc.TLS, uintptr, int32, uintptr) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxColumnTotalSize})).f(tls, pFts, i, bp+16 /* &nToken */)
 					if rc == SQLITE_OK {
 						*(*u32)(unsafe.Pointer(aOut + uintptr(i)*4)) = (u32(((int64(2) * *(*sqlite3_int64)(unsafe.Pointer(bp + 16 /* nToken */))) + *(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* nRow */))) / (int64(2) * *(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* nRow */)))))
 					}
@@ -12970,7 +13079,11 @@ func fts5MatchinfoLocalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, 
 
 				// var iCol int32 at bp+16, 4
 
-				for (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 144 /* &.xPhraseFirstColumn */))))(tls, pFts, iPhrase, bp /* &iter */, bp+16 /* &iCol */); *(*int32)(unsafe.Pointer(bp + 16 /* iCol */)) >= 0; (*(*func(*libc.TLS, uintptr, uintptr, uintptr))(unsafe.Pointer((pApi + 152 /* &.xPhraseNextColumn */))))(tls, pFts, bp /* &iter */, bp+16 /* &iCol */) {
+				for (*struct {
+					f func(*libc.TLS, uintptr, int32, uintptr, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseFirstColumn})).f(tls, pFts, iPhrase, bp /* &iter */, bp+16 /* &iCol */); *(*int32)(unsafe.Pointer(bp + 16 /* iCol */)) >= 0; (*struct {
+					f func(*libc.TLS, uintptr, uintptr, uintptr)
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseNextColumn})).f(tls, pFts, bp /* &iter */, bp+16 /* &iCol */) {
 					*(*u32)(unsafe.Pointer(aOut + uintptr(((iPhrase*(((*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol+31)/32))+(*(*int32)(unsafe.Pointer(bp + 16 /* iCol */))/32)))*4)) |= (u32(u32(1)) << (*(*int32)(unsafe.Pointer(bp + 16 /* iCol */)) % 32))
 				}
 			}
@@ -13002,7 +13115,11 @@ func fts5MatchinfoLocalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, 
 
 				// var iCol int32 at bp+40, 4
 
-				for (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 128 /* &.xPhraseFirst */))))(tls, pFts, iPhrase, bp+24 /* &iter */, bp+40 /* &iCol */, bp+44 /* &iOff */); *(*int32)(unsafe.Pointer(bp + 44 /* iOff */)) >= 0; (*(*func(*libc.TLS, uintptr, uintptr, uintptr, uintptr))(unsafe.Pointer((pApi + 136 /* &.xPhraseNext */))))(tls, pFts, bp+24 /* &iter */, bp+40 /* &iCol */, bp+44 /* &iOff */) {
+				for (*struct {
+					f func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseFirst})).f(tls, pFts, iPhrase, bp+24 /* &iter */, bp+40 /* &iCol */, bp+44 /* &iOff */); *(*int32)(unsafe.Pointer(bp + 44 /* iOff */)) >= 0; (*struct {
+					f func(*libc.TLS, uintptr, uintptr, uintptr, uintptr)
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseNext})).f(tls, pFts, bp+24 /* &iter */, bp+40 /* &iCol */, bp+44 /* &iOff */) {
 					*(*u32)(unsafe.Pointer(aOut + uintptr((nMul*(*(*int32)(unsafe.Pointer(bp + 40 /* iCol */))+(iPhrase*(*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol))))*4))++
 				}
 			}
@@ -13016,7 +13133,9 @@ func fts5MatchinfoLocalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, 
 			for i = 0; (rc == SQLITE_OK) && (i < (*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol); i++ {
 				// var nToken int32 at bp+48, 4
 
-				rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pApi + 96 /* &.xColumnSize */))))(tls, pFts, i, bp+48 /* &nToken */)
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, int32, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxColumnSize})).f(tls, pFts, i, bp+48 /* &nToken */)
 				*(*u32)(unsafe.Pointer(aOut + uintptr(i)*4)) = u32(*(*int32)(unsafe.Pointer(bp + 48 /* nToken */)))
 			}
 			break
@@ -13029,7 +13148,9 @@ func fts5MatchinfoLocalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, 
 
 			libc.Xmemset(tls, aOut, 0, (uint64(unsafe.Sizeof(u32(0))) * uint64((*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FnCol)))
 
-			rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 64 /* &.xInstCount */))))(tls, pFts, bp+52 /* &nInst */)
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxInstCount})).f(tls, pFts, bp+52 /* &nInst */)
 			for i = 0; (rc == SQLITE_OK) && (i < *(*int32)(unsafe.Pointer(bp + 52 /* nInst */))); i++ {
 				// var iPhrase int32 at bp+56, 4
 
@@ -13041,9 +13162,13 @@ func fts5MatchinfoLocalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, 
 				var nSeq u32 = u32(1)
 				var j int32
 
-				rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 72 /* &.xInst */))))(tls, pFts, i, bp+56 /* &iPhrase */, bp+60 /* &iCol */, bp+64 /* &iOff */)
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxInst})).f(tls, pFts, i, bp+56 /* &iPhrase */, bp+60 /* &iCol */, bp+64 /* &iOff */)
 				iNextPhrase = (*(*int32)(unsafe.Pointer(bp + 56 /* iPhrase */)) + 1)
-				iNextOff = (*(*int32)(unsafe.Pointer(bp + 64 /* iOff */)) + (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((pApi + 56 /* &.xPhraseSize */))))(tls, pFts, 0))
+				iNextOff = (*(*int32)(unsafe.Pointer(bp + 64 /* iOff */)) + (*struct {
+					f func(*libc.TLS, uintptr, int32) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseSize})).f(tls, pFts, 0))
 				for j = (i + 1); (rc == SQLITE_OK) && (j < *(*int32)(unsafe.Pointer(bp + 52 /* nInst */))); j++ {
 					// var ip int32 at bp+68, 4
 
@@ -13051,14 +13176,18 @@ func fts5MatchinfoLocalCb(tls *libc.TLS, pApi uintptr, pFts uintptr, p uintptr, 
 
 					// var io int32 at bp+76, 4
 
-					rc = (*(*func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 72 /* &.xInst */))))(tls, pFts, j, bp+68 /* &ip */, bp+72 /* &ic */, bp+76 /* &io */)
+					rc = (*struct {
+						f func(*libc.TLS, uintptr, int32, uintptr, uintptr, uintptr) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxInst})).f(tls, pFts, j, bp+68 /* &ip */, bp+72 /* &ic */, bp+76 /* &io */)
 					if (*(*int32)(unsafe.Pointer(bp + 72 /* ic */)) != *(*int32)(unsafe.Pointer(bp + 60 /* iCol */))) || (*(*int32)(unsafe.Pointer(bp + 76 /* io */)) > iNextOff) {
 						break
 					}
 					if (*(*int32)(unsafe.Pointer(bp + 68 /* ip */)) == iNextPhrase) && (*(*int32)(unsafe.Pointer(bp + 76 /* io */)) == iNextOff) {
 						nSeq++
 						iNextPhrase = (*(*int32)(unsafe.Pointer(bp + 68 /* ip */)) + 1)
-						iNextOff = (*(*int32)(unsafe.Pointer(bp + 76 /* io */)) + (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((pApi + 56 /* &.xPhraseSize */))))(tls, pFts, *(*int32)(unsafe.Pointer(bp + 68 /* ip */))))
+						iNextOff = (*(*int32)(unsafe.Pointer(bp + 76 /* io */)) + (*struct {
+							f func(*libc.TLS, uintptr, int32) int32
+						})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseSize})).f(tls, pFts, *(*int32)(unsafe.Pointer(bp + 68 /* ip */))))
 					}
 				}
 
@@ -13086,8 +13215,12 @@ func fts5MatchinfoNew(tls *libc.TLS, pApi uintptr, pFts uintptr, pCtx uintptr, z
 	var nByte sqlite3_int64
 	var rc int32
 
-	nCol = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((pApi + 16 /* &.xColumnCount */))))(tls, pFts)
-	nPhrase = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((pApi + 48 /* &.xPhraseCount */))))(tls, pFts)
+	nCol = (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxColumnCount})).f(tls, pFts)
+	nPhrase = (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxPhraseCount})).f(tls, pFts)
 
 	nInt = 0
 	for i = 0; *(*int8)(unsafe.Pointer(zArg + uintptr(i))) != 0; i++ {
@@ -13141,13 +13274,17 @@ func fts5MatchinfoFunc(tls *libc.TLS, pApi uintptr, pFts uintptr, pCtx uintptr, 
 		zArg = ts + 3024 /* "pcx" */
 	}
 
-	p = (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer((pApi + 120 /* &.xGetAuxdata */))))(tls, pFts, 0)
+	p = (*struct {
+		f func(*libc.TLS, uintptr, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxGetAuxdata})).f(tls, pFts, 0)
 	if (p == uintptr(0)) || (sqlite3.Xsqlite3_stricmp(tls, zArg, (*Fts5MatchinfoCtx)(unsafe.Pointer(p)).FzArg) != 0) {
 		p = fts5MatchinfoNew(tls, pApi, pFts, pCtx, zArg)
 		if p == uintptr(0) {
 			rc = SQLITE_NOMEM
 		} else {
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 112 /* &.xSetAuxdata */))))(tls, pFts, p, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{sqlite3.Xsqlite3_free})))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5ExtensionApi)(unsafe.Pointer(pApi)).FxSetAuxdata})).f(tls, pFts, p, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS, uintptr) }{sqlite3.Xsqlite3_free})))
 		}
 	}
 
@@ -13191,14 +13328,16 @@ func sqlite3Fts5TestRegisterMatchinfo(tls *libc.TLS, db uintptr) int32 { /* fts5
 	}
 
 	// Register the implementation of matchinfo()
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, fts5_extension_function, uintptr) int32)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(bp /* pApi */)) + 24 /* &.xCreateFunction */))))(tls, *(*uintptr)(unsafe.Pointer(bp /* pApi */)), ts+3028 /* "matchinfo" */, uintptr(0), *(*uintptr)(unsafe.Pointer(&struct {
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, fts5_extension_function, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*fts5_api)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* pApi */)))).FxCreateFunction})).f(tls, *(*uintptr)(unsafe.Pointer(bp /* pApi */)), ts+3028 /* "matchinfo" */, uintptr(0), *(*uintptr)(unsafe.Pointer(&struct {
 		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr)
 	}{fts5MatchinfoFunc})), uintptr(0))
 
 	return rc
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -13213,11 +13352,11 @@ func sqlite3Fts5TestRegisterMatchinfo(tls *libc.TLS, db uintptr) int32 { /* fts5
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -13232,7 +13371,7 @@ func sqlite3Fts5TestRegisterMatchinfo(tls *libc.TLS, db uintptr) int32 { /* fts5
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -13251,7 +13390,7 @@ type Fts5tokTable1 = struct {
 	FpTok uintptr
 } /* fts5_test_tok.c:47:9 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -13266,11 +13405,11 @@ type Fts5tokTable1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -13285,7 +13424,7 @@ type Fts5tokTable1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -13300,22 +13439,22 @@ type Fts5tokTable1 = struct {
 
 type Fts5tokTable = Fts5tokTable1 /* fts5_test_tok.c:47:29 */
 type Fts5tokCursor1 = struct {
-	Fbase   sqlite3_vtab_cursor
-	FiRowid int32
-	_       [4]byte
-	FzInput uintptr
-	FnRow   int32
-	_       [4]byte
-	FaRow   uintptr
+	Fbase        sqlite3_vtab_cursor
+	FiRowid      int32
+	F__ccgo_pad1 [4]byte
+	FzInput      uintptr
+	FnRow        int32
+	F__ccgo_pad2 [4]byte
+	FaRow        uintptr
 } /* fts5_test_tok.c:48:9 */
 
 type Fts5tokCursor = Fts5tokCursor1 /* fts5_test_tok.c:48:30 */
 type Fts5tokRow1 = struct {
-	FzToken uintptr
-	FiStart int32
-	FiEnd   int32
-	FiPos   int32
-	_       [4]byte
+	FzToken      uintptr
+	FiStart      int32
+	FiEnd        int32
+	FiPos        int32
+	F__ccgo_pad1 [4]byte
 } /* fts5_test_tok.c:48:9 */
 
 type Fts5tokRow = Fts5tokRow1 /* fts5_test_tok.c:49:27 */
@@ -13437,7 +13576,9 @@ func fts5tokConnectMethod(tls *libc.TLS, db uintptr, pCtx uintptr, argc int32, a
 			zModule = *(*uintptr)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* azDequote */))))
 		}
 
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((pApi + 16 /* &.xFindTokenizer */))))(tls, pApi, zModule, bp+8 /* &pTokCtx */, (pTab + 24 /* &.tok */))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*fts5_api)(unsafe.Pointer(pApi)).FxFindTokenizer})).f(tls, pApi, zModule, bp+8 /* &pTokCtx */, (pTab + 24 /* &.tok */))
 		if rc == SQLITE_OK {
 			var azArg uintptr = func() uintptr {
 				if nDequote > 1 {
@@ -13451,7 +13592,9 @@ func fts5tokConnectMethod(tls *libc.TLS, db uintptr, pCtx uintptr, argc int32, a
 			} else {
 				nArg = 0
 			}
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pTab + 24 /* &.tok */ /* &.xCreate */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 8 /* pTokCtx */)), azArg, nArg, (pTab + 48 /* &.pTok */))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5tokTable)(unsafe.Pointer(pTab)).Ftok.FxCreate})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 8 /* pTokCtx */)), azArg, nArg, (pTab + 48 /* &.pTok */))
 		}
 	}
 
@@ -13471,7 +13614,7 @@ func fts5tokConnectMethod(tls *libc.TLS, db uintptr, pCtx uintptr, argc int32, a
 func fts5tokDisconnectMethod(tls *libc.TLS, pVtab uintptr) int32 { /* fts5_test_tok.c:235:12: */
 	var pTab uintptr = pVtab
 	if (*Fts5tokTable)(unsafe.Pointer(pTab)).FpTok != 0 {
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((pTab + 24 /* &.tok */ + 8 /* &.xDelete */))))(tls, (*Fts5tokTable)(unsafe.Pointer(pTab)).FpTok)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*Fts5tokTable)(unsafe.Pointer(pTab)).Ftok.FxDelete})).f(tls, (*Fts5tokTable)(unsafe.Pointer(pTab)).FpTok)
 	}
 	sqlite3.Xsqlite3_free(tls, pTab)
 	return SQLITE_OK
@@ -13602,7 +13745,9 @@ func fts5tokFilterMethod(tls *libc.TLS, pCursor uintptr, idxNum int32, idxStr ui
 				libc.Xmemcpy(tls, (*Fts5tokCursor)(unsafe.Pointer(pCsr)).FzInput, zByte, uint64(nByte))
 			}
 			*(*int8)(unsafe.Pointer((*Fts5tokCursor)(unsafe.Pointer(pCsr)).FzInput + uintptr(nByte))) = int8(0)
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr, int32, uintptr) int32)(unsafe.Pointer((pTab + 24 /* &.tok */ + 16 /* &.xTokenize */))))(tls,
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*Fts5tokTable)(unsafe.Pointer(pTab)).Ftok.FxTokenize})).f(tls,
 				(*Fts5tokTable)(unsafe.Pointer(pTab)).FpTok, pCsr, 0, zByte, nByte, *(*uintptr)(unsafe.Pointer(&struct {
 					f func(*libc.TLS, uintptr, int32, uintptr, int32, int32, int32) int32
 				}{fts5tokCb})))
@@ -13691,7 +13836,7 @@ type sqlite3_api_routines = sqlite3_api_routines1 /* sqlite3.h:1216:37 */
 // is also defined in the file "loadext.c".
 type sqlite3_loadext_entry = uintptr /* sqlite3ext.h:346:13 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -13706,11 +13851,11 @@ type sqlite3_loadext_entry = uintptr /* sqlite3ext.h:346:13 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -13725,7 +13870,7 @@ type sqlite3_loadext_entry = uintptr /* sqlite3ext.h:346:13 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -13808,14 +13953,18 @@ var apnd_io_methods = sqlite3_io_methods{
 // Close an apnd-file.
 func apndClose(tls *libc.TLS, pFile uintptr) int32 { /* appendvfs.c:227:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 8 /* &.xClose */))))(tls, pFile)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxClose})).f(tls, pFile)
 }
 
 // Read data from an apnd-file.
 func apndRead(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqlite_int64) int32 { /* appendvfs.c:235:12: */
 	var paf uintptr = pFile
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 16 /* &.xRead */))))(tls, pFile, zBuf, iAmt, ((*ApndFile)(unsafe.Pointer(paf)).FiPgOne + iOfst))
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxRead})).f(tls, pFile, zBuf, iAmt, ((*ApndFile)(unsafe.Pointer(paf)).FiPgOne + iOfst))
 }
 
 // Add the append-mark onto what should become the end of the file.
@@ -13837,7 +13986,9 @@ func apndWriteMark(tls *libc.TLS, paf uintptr, pFile uintptr, iWriteEnd sqlite_i
 		iPgOne >>= 8
 	}
 	iWriteEnd = iWriteEnd + ((*ApndFile)(unsafe.Pointer(paf)).FiPgOne)
-	if SQLITE_OK == (libc.AssignInt32(&rc, (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 24 /* &.xWrite */))))(tls, pFile, bp /* &a[0] */, (APND_MARK_PREFIX_SZ+APND_MARK_FOS_SZ), iWriteEnd))) {
+	if SQLITE_OK == (libc.AssignInt32(&rc, (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxWrite})).f(tls, pFile, bp /* &a[0] */, (APND_MARK_PREFIX_SZ+APND_MARK_FOS_SZ), iWriteEnd))) {
 		(*ApndFile)(unsafe.Pointer(paf)).FiMark = iWriteEnd
 	}
 	return rc
@@ -13858,7 +14009,9 @@ func apndWrite(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sql
 			return rc
 		}
 	}
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 24 /* &.xWrite */))))(tls, pFile, zBuf, iAmt, ((*ApndFile)(unsafe.Pointer(paf)).FiPgOne + iOfst))
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxWrite})).f(tls, pFile, zBuf, iAmt, ((*ApndFile)(unsafe.Pointer(paf)).FiPgOne + iOfst))
 }
 
 // Truncate an apnd-file.
@@ -13870,13 +14023,17 @@ func apndTruncate(tls *libc.TLS, pFile uintptr, size sqlite_int64) int32 { /* ap
 		return SQLITE_IOERR
 	}
 	// Truncate underlying file just past append mark
-	return (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 32 /* &.xTruncate */))))(tls, pFile, ((*ApndFile)(unsafe.Pointer(paf)).FiMark + (int64(APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ))))
+	return (*struct {
+		f func(*libc.TLS, uintptr, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxTruncate})).f(tls, pFile, ((*ApndFile)(unsafe.Pointer(paf)).FiMark + (int64(APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ))))
 }
 
 // Sync an apnd-file.
 func apndSync(tls *libc.TLS, pFile uintptr, flags int32) int32 { /* appendvfs.c:310:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 40 /* &.xSync */))))(tls, pFile, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxSync})).f(tls, pFile, flags)
 }
 
 // Return the current file-size of an apnd-file.
@@ -13895,19 +14052,25 @@ func apndFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* append
 // Lock an apnd-file.
 func apndLock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* appendvfs.c:328:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 56 /* &.xLock */))))(tls, pFile, eLock)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxLock})).f(tls, pFile, eLock)
 }
 
 // Unlock an apnd-file.
 func apndUnlock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* appendvfs.c:336:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 64 /* &.xUnlock */))))(tls, pFile, eLock)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxUnlock})).f(tls, pFile, eLock)
 }
 
 // Check if another file-handle holds a RESERVED lock on an apnd-file.
 func apndCheckReservedLock(tls *libc.TLS, pFile uintptr, pResOut uintptr) int32 { /* appendvfs.c:344:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 72 /* &.xCheckReservedLock */))))(tls, pFile, pResOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxCheckReservedLock})).f(tls, pFile, pResOut)
 }
 
 // File control method. For custom operations on an apnd-file.
@@ -13921,7 +14084,9 @@ func apndFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 	if op == SQLITE_FCNTL_SIZE_HINT {
 		*(*sqlite3_int64)(unsafe.Pointer(pArg)) += ((*ApndFile)(unsafe.Pointer(paf)).FiPgOne)
 	}
-	rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 80 /* &.xFileControl */))))(tls, pFile, op, pArg)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxFileControl})).f(tls, pFile, op, pArg)
 	if (rc == SQLITE_OK) && (op == SQLITE_FCNTL_VFSNAME) {
 		*(*uintptr)(unsafe.Pointer(pArg)) = sqlite3.Xsqlite3_mprintf(tls, ts+3135 /* "apnd(%lld)/%z" */, libc.VaList(bp, (*ApndFile)(unsafe.Pointer(paf)).FiPgOne, *(*uintptr)(unsafe.Pointer(pArg))))
 	}
@@ -13931,37 +14096,47 @@ func apndFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 // Return the sector-size in bytes for an apnd-file.
 func apndSectorSize(tls *libc.TLS, pFile uintptr) int32 { /* appendvfs.c:367:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 88 /* &.xSectorSize */))))(tls, pFile)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxSectorSize})).f(tls, pFile)
 }
 
 // Return the device characteristic flags supported by an apnd-file.
 func apndDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* appendvfs.c:375:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 96 /* &.xDeviceCharacteristics */))))(tls, pFile)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxDeviceCharacteristics})).f(tls, pFile)
 }
 
 // Create a shared memory file mapping
 func apndShmMap(tls *libc.TLS, pFile uintptr, iPg int32, pgsz int32, bExtend int32, pp uintptr) int32 { /* appendvfs.c:381:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 104 /* &.xShmMap */))))(tls, pFile, iPg, pgsz, bExtend, libc.AtomicLoadUintptr(&pp))
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmMap})).f(tls, pFile, iPg, pgsz, bExtend, pp)
 }
 
 // Perform locking on a shared-memory segment
 func apndShmLock(tls *libc.TLS, pFile uintptr, offset int32, n int32, flags int32) int32 { /* appendvfs.c:393:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 112 /* &.xShmLock */))))(tls, pFile, offset, n, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmLock})).f(tls, pFile, offset, n, flags)
 }
 
 // Memory barrier operation on shared memory
 func apndShmBarrier(tls *libc.TLS, pFile uintptr) { /* appendvfs.c:399:13: */
 	pFile = ((pFile) + uintptr(1)*24)
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 120 /* &.xShmBarrier */))))(tls, pFile)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmBarrier})).f(tls, pFile)
 }
 
 // Unmap a shared memory segment
 func apndShmUnmap(tls *libc.TLS, pFile uintptr, deleteFlag int32) int32 { /* appendvfs.c:405:12: */
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 128 /* &.xShmUnmap */))))(tls, pFile, deleteFlag)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmUnmap})).f(tls, pFile, deleteFlag)
 }
 
 // Fetch a page of a memory-mapped file
@@ -13971,14 +14146,18 @@ func apndFetch(tls *libc.TLS, pFile uintptr, iOfst sqlite3_int64, iAmt int32, pp
 		return SQLITE_IOERR // Cannot read what is not yet there.
 	}
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, sqlite3_int64, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 136 /* &.xFetch */))))(tls, pFile, (iOfst + (*ApndFile)(unsafe.Pointer(p)).FiPgOne), iAmt, pp)
+	return (*struct {
+		f func(*libc.TLS, uintptr, sqlite3_int64, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxFetch})).f(tls, pFile, (iOfst + (*ApndFile)(unsafe.Pointer(p)).FiPgOne), iAmt, pp)
 }
 
 // Release a memory-mapped page
 func apndUnfetch(tls *libc.TLS, pFile uintptr, iOfst sqlite3_int64, pPage uintptr) int32 { /* appendvfs.c:426:12: */
 	var p uintptr = pFile
 	pFile = ((pFile) + uintptr(1)*24)
-	return (*(*func(*libc.TLS, uintptr, sqlite3_int64, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 144 /* &.xUnfetch */))))(tls, pFile, (iOfst + (*ApndFile)(unsafe.Pointer(p)).FiPgOne), pPage)
+	return (*struct {
+		f func(*libc.TLS, uintptr, sqlite3_int64, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxUnfetch})).f(tls, pFile, (iOfst + (*ApndFile)(unsafe.Pointer(p)).FiPgOne), pPage)
 }
 
 // Try to read the append-mark off the end of a file.  Return the
@@ -14001,7 +14180,9 @@ func apndReadMark(tls *libc.TLS, sz sqlite3_int64, pFile uintptr) sqlite3_int64 
 	if (int64(APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ)) != (sz & int64(0x1ff)) {
 		return int64(-1)
 	}
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 16 /* &.xRead */))))(tls, pFile, bp /* &a[0] */, (APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ), (sz - (int64(APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ))))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxRead})).f(tls, pFile, bp /* &a[0] */, (APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ), (sz - (int64(APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ))))
 	if rc != 0 {
 		return int64(-1)
 	}
@@ -14038,7 +14219,9 @@ func apndIsAppendvfsDatabase(tls *libc.TLS, sz sqlite3_int64, pFile uintptr) int
 		// If file has the correct end-marker, the expected odd size, and the
 		// SQLite DB type marker where the end-marker puts it, then it
 		// is an appendvfs database.
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 16 /* &.xRead */))))(tls, pFile, bp /* &zHdr[0] */, int32(unsafe.Sizeof([16]int8{})), iMark)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxRead})).f(tls, pFile, bp /* &zHdr[0] */, int32(unsafe.Sizeof([16]int8{})), iMark)
 		if (((SQLITE_OK == rc) &&
 			(libc.Xmemcmp(tls, bp /* &zHdr[0] */, uintptr(unsafe.Pointer(&apvfsSqliteHdr)), uint64(unsafe.Sizeof([16]int8{}))) == 0)) &&
 			((sz & int64(0x1ff)) == (int64(APND_MARK_PREFIX_SZ + APND_MARK_FOS_SZ)))) &&
@@ -14059,7 +14242,9 @@ func apndIsOrdinaryDatabaseFile(tls *libc.TLS, sz sqlite3_int64, pFile uintptr) 
 
 	if (((apndIsAppendvfsDatabase(tls, sz, pFile) != 0) || // rule 2
 		((sz & int64(0x1ff)) != int64(0))) ||
-		(SQLITE_OK != (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 16 /* &.xRead */))))(tls, pFile, bp /* &zHdr[0] */, int32(unsafe.Sizeof([16]int8{})), int64(0)))) ||
+		(SQLITE_OK != (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxRead})).f(tls, pFile, bp /* &zHdr[0] */, int32(unsafe.Sizeof([16]int8{})), int64(0)))) ||
 		(libc.Xmemcmp(tls, bp /* &zHdr[0] */, uintptr(unsafe.Pointer(&apvfsSqliteHdr)), uint64(unsafe.Sizeof([16]int8{}))) != 0) {
 		return 0
 	} else {
@@ -14082,17 +14267,25 @@ func apndOpen(tls *libc.TLS, pApndVfs uintptr, zName uintptr, pFile uintptr, fla
 		// The appendvfs is not to be used for transient or temporary databases.
 		// Just use the base VFS open to initialize the given file object and
 		// open the underlying file. (Appendvfs is then unused for this file.)
-		return (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pBaseVfs + 40 /* &.xOpen */))))(tls, pBaseVfs, zName, pFile, flags, pOutFlags)
+		return (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pBaseVfs)).FxOpen})).f(tls, pBaseVfs, zName, pFile, flags, pOutFlags)
 	}
 	libc.Xmemset(tls, pApndFile, 0, uint64(unsafe.Sizeof(ApndFile{})))
 	(*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods = uintptr(unsafe.Pointer(&apnd_io_methods))
 	(*ApndFile)(unsafe.Pointer(pApndFile)).FiMark = int64(-1) // Append mark not yet written
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pBaseVfs + 40 /* &.xOpen */))))(tls, pBaseVfs, zName, pBaseFile, flags, pOutFlags)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pBaseVfs)).FxOpen})).f(tls, pBaseVfs, zName, pBaseFile, flags, pOutFlags)
 	if rc == SQLITE_OK {
-		rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pBaseFile)).FpMethods + 48 /* &.xFileSize */))))(tls, pBaseFile, bp /* &sz */)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pBaseFile)).FpMethods)).FxFileSize})).f(tls, pBaseFile, bp /* &sz */)
 		if rc != 0 {
-			(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pBaseFile)).FpMethods + 8 /* &.xClose */))))(tls, pBaseFile)
+			(*struct {
+				f func(*libc.TLS, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pBaseFile)).FpMethods)).FxClose})).f(tls, pBaseFile)
 		}
 	}
 	if rc != 0 {
@@ -14111,7 +14304,9 @@ func apndOpen(tls *libc.TLS, pApndVfs uintptr, zName uintptr, pFile uintptr, fla
 		return SQLITE_OK
 	}
 	if (flags & SQLITE_OPEN_CREATE) == 0 {
-		(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pBaseFile)).FpMethods + 8 /* &.xClose */))))(tls, pBaseFile)
+		(*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pBaseFile)).FpMethods)).FxClose})).f(tls, pBaseFile)
 		rc = SQLITE_CANTOPEN
 		(*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods = uintptr(0)
 	} else {
@@ -14129,64 +14324,94 @@ func apndOpen(tls *libc.TLS, pApndVfs uintptr, zName uintptr, pFile uintptr, fla
 // leaving the appendee as it was before it gained an appendvfs.
 // For now, this code deletes the underlying file too.
 func apndDelete(tls *libc.TLS, pVfs uintptr, zPath uintptr, dirSync int32) int32 { /* appendvfs.c:574:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 48 /* &.xDelete */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, dirSync)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDelete})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, dirSync)
 }
 
 // All other VFS methods are pass-thrus.
 func apndAccess(tls *libc.TLS, pVfs uintptr, zPath uintptr, flags int32, pResOut uintptr) int32 { /* appendvfs.c:581:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 56 /* &.xAccess */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, flags, pResOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxAccess})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, flags, pResOut)
 }
 
 func apndFullPathname(tls *libc.TLS, pVfs uintptr, zPath uintptr, nOut int32, zOut uintptr) int32 { /* appendvfs.c:589:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 64 /* &.xFullPathname */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, nOut, zOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxFullPathname})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, nOut, zOut)
 }
 
 func apndDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* appendvfs.c:597:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 72 /* &.xDlOpen */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlOpen})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath)
 }
 
 func apndDlError(tls *libc.TLS, pVfs uintptr, nByte int32, zErrMsg uintptr) { /* appendvfs.c:600:13: */
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 80 /* &.xDlError */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zErrMsg)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlError})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zErrMsg)
 }
 
 func apndDlSym(tls *libc.TLS, pVfs uintptr, p uintptr, zSym uintptr) uintptr { /* appendvfs.c:603:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 88 /* &.xDlSym */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, p, zSym)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlSym})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, p, zSym)
 }
 
 func apndDlClose(tls *libc.TLS, pVfs uintptr, pHandle uintptr) { /* appendvfs.c:606:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 96 /* &.xDlClose */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pHandle)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlClose})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pHandle)
 }
 
 func apndRandomness(tls *libc.TLS, pVfs uintptr, nByte int32, zBufOut uintptr) int32 { /* appendvfs.c:609:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 104 /* &.xRandomness */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zBufOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxRandomness})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zBufOut)
 }
 
 func apndSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* appendvfs.c:612:12: */
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 112 /* &.xSleep */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nMicro)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxSleep})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nMicro)
 }
 
 func apndCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* appendvfs.c:615:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 120 /* &.xCurrentTime */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxCurrentTime})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pTimeOut)
 }
 
 func apndGetLastError(tls *libc.TLS, pVfs uintptr, a int32, b uintptr) int32 { /* appendvfs.c:618:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 128 /* &.xGetLastError */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, a, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxGetLastError})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, a, b)
 }
 
 func apndCurrentTimeInt64(tls *libc.TLS, pVfs uintptr, p uintptr) int32 { /* appendvfs.c:621:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 136 /* &.xCurrentTimeInt64 */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxCurrentTimeInt64})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, p)
 }
 
 func apndSetSystemCall(tls *libc.TLS, pVfs uintptr, zName uintptr, pCall sqlite3_syscall_ptr) int32 { /* appendvfs.c:624:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 144 /* &.xSetSystemCall */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName, pCall)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxSetSystemCall})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName, pCall)
 }
 
 func apndGetSystemCall(tls *libc.TLS, pVfs uintptr, zName uintptr) sqlite3_syscall_ptr { /* appendvfs.c:631:28: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 152 /* &.xGetSystemCall */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxGetSystemCall})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
 }
 
 func apndNextSystemCall(tls *libc.TLS, pVfs uintptr, zName uintptr) uintptr { /* appendvfs.c:637:19: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 160 /* &.xNextSystemCall */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxNextSystemCall})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
 }
 
 // This routine is called when the extension is loaded.
@@ -14212,16 +14437,11 @@ func sqlite3_appendvfs_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi ui
 	return rc
 }
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // XPG requires a few symbols from <sys/wait.h> being defined.
 // Definitions of flag bits for `waitpid' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14236,7 +14456,7 @@ func sqlite3_appendvfs_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi ui
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Bits in the third argument to `waitpid'.
 
@@ -14249,7 +14469,7 @@ func sqlite3_appendvfs_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi ui
 
 type idtype_t = uint32 /* waitflags.h:57:3 */
 // Definitions of status bits for `wait' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14264,7 +14484,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Everything extant so far uses these same bits.
 
@@ -14291,7 +14511,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 
 // _FloatN API tests for enablement.
 // Macros to control TS 18661-3 glibc features on x86.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14306,9 +14526,9 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14323,7 +14543,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Defined to 1 if the current compiler invocation provides a
 //    floating-point type with the IEEE 754 binary128 format, and this
@@ -14367,7 +14587,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 
 // Macros to control TS 18661-3 glibc features where the same
 //    definitions are appropriate for all platforms.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14382,9 +14602,9 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14399,10 +14619,10 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Properties of long double type.  ldbl-96 version.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2016-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14417,7 +14637,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // long double is distinct from double, so there is nothing to
 //    define here.
@@ -14486,6 +14706,10 @@ type lldiv_t = struct {
 	Frem  int64
 } /* stdlib.h:80:5 */
 
+// Seconds since the Epoch, visible to user code when time_t is too
+//    narrow only for consistency with the old way of widening too-narrow
+//    types.  User code should never use __time64_t.
+
 type u_char = uint8                     /* types.h:33:18 */
 type u_short = uint16                   /* types.h:34:19 */
 type u_int = uint32                     /* types.h:35:17 */
@@ -14517,7 +14741,7 @@ type caddr_t = uintptr /* types.h:115:19 */
 type key_t = int32 /* types.h:121:17 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14532,7 +14756,7 @@ type key_t = int32 /* types.h:121:17 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -14540,7 +14764,7 @@ type key_t = int32 /* types.h:121:17 */
 type clock_t = int64 /* clock_t.h:7:19 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14555,7 +14779,7 @@ type clock_t = int64 /* clock_t.h:7:19 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -14563,7 +14787,7 @@ type clock_t = int64 /* clock_t.h:7:19 */
 type clockid_t = int32 /* clockid_t.h:7:21 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14578,7 +14802,7 @@ type clockid_t = int32 /* clockid_t.h:7:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -14586,7 +14810,7 @@ type clockid_t = int32 /* clockid_t.h:7:21 */
 type time_t = int64 /* time_t.h:7:18 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14601,14 +14825,14 @@ type time_t = int64 /* time_t.h:7:18 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Timer ID returned by `timer_create'.
 type timer_t = uintptr /* timer_t.h:7:19 */
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -14639,15 +14863,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -14683,11 +14898,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Old compatibility names for C types.
@@ -14698,7 +14908,7 @@ type uint = uint32   /* types.h:150:22 */
 // These size-specific names are used by some of the inet code.
 
 // Define intN_t types.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14713,10 +14923,10 @@ type uint = uint32   /* types.h:150:22 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14731,7 +14941,7 @@ type uint = uint32   /* types.h:150:22 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -14740,14 +14950,13 @@ type int16_t = int16 /* stdint-intn.h:25:19 */
 type int32_t = int32 /* stdint-intn.h:26:19 */
 type int64_t = int64 /* stdint-intn.h:27:19 */
 
-// For GCC 2.7 and later, we can use specific type-size attributes.
+// These were defined by ISO C without the first `_'.
+type u_int8_t = uint8   /* types.h:158:19 */
+type u_int16_t = uint16 /* types.h:159:20 */
+type u_int32_t = uint32 /* types.h:160:20 */
+type u_int64_t = uint64 /* types.h:161:20 */
 
-type u_int8_t = uint32  /* types.h:177:1 */
-type u_int16_t = uint32 /* types.h:178:1 */
-type u_int32_t = uint32 /* types.h:179:1 */
-type u_int64_t = uint32 /* types.h:180:1 */
-
-type register_t = int32 /* types.h:182:13 */
+type register_t = int32 /* types.h:164:13 */
 
 // A set of signals to be blocked, unblocked, or waited for.
 type sigset_t = struct{ F__val [16]uint64 } /* sigset_t.h:7:20 */
@@ -14755,7 +14964,7 @@ type sigset_t = struct{ F__val [16]uint64 } /* sigset_t.h:7:20 */
 // Get definition of timer specification structures.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14770,7 +14979,7 @@ type sigset_t = struct{ F__val [16]uint64 } /* sigset_t.h:7:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -14784,7 +14993,27 @@ type timeval = struct {
 // NB: Include guard matches what <linux/time.h> uses.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14801,14 +15030,12 @@ type timeval = struct {
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Never include this file directly; use <sys/types.h> instead.
-
 // POSIX.1b structure for a time value.  This is like a `struct timeval' but
 //    has nanoseconds instead of microseconds.
 type timespec = struct {
 	Ftv_sec  int64
 	Ftv_nsec int64
-} /* struct_timespec.h:9:1 */
+} /* struct_timespec.h:10:1 */
 
 type suseconds_t = int64 /* select.h:43:23 */
 
@@ -14825,16 +15052,16 @@ type fd_mask = int64 /* select.h:77:19 */
 
 // Define some inlines helping to catch common problems.
 
-type blksize_t = int64 /* types.h:202:21 */
+type blksize_t = int64 /* types.h:185:21 */
 
 // Types from the Large File Support interface.
-type blkcnt_t = int64    /* types.h:222:22 */ // Type to count number of disk blocks.
-type fsblkcnt_t = uint64 /* types.h:226:24 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inodes.
+type blkcnt_t = int64    /* types.h:205:22 */ // Type to count number of disk blocks.
+type fsblkcnt_t = uint64 /* types.h:209:24 */ // Type to count file system blocks.
+type fsfilcnt_t = uint64 /* types.h:213:24 */ // Type to count file system inodes.
 
 // Now add the thread types.
 // Declaration of common pthread types for all architectures.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14849,11 +15076,11 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // For internal mutex and condition variable definitions.
 // Common threading primitives definitions for both POSIX and C11.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14868,7 +15095,7 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Arch-specific definitions.  Each architecture must define the following
 //    macros to define the expected sizes of pthread data types:
@@ -14883,36 +15110,6 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    __SIZEOF_PTHREAD_BARRIER_T     - size of pthread_barrier_t.
 //    __SIZEOF_PTHREAD_BARRIERATTR_T - size of pthread_barrierattr_t.
 //
-//    Also, the following macros must be define for internal pthread_mutex_t
-//    struct definitions (struct __pthread_mutex_s):
-//
-//    __PTHREAD_COMPAT_PADDING_MID   - any additional members after 'kind'
-// 				    and before '__spin' (for 64 bits) or
-// 				    '__nusers' (for 32 bits).
-//    __PTHREAD_COMPAT_PADDING_END   - any additional members at the end of
-// 				    the internal structure.
-//    __PTHREAD_MUTEX_LOCK_ELISION   - 1 if the architecture supports lock
-// 				    elision or 0 otherwise.
-//    __PTHREAD_MUTEX_NUSERS_AFTER_KIND - control where to put __nusers.  The
-// 				       preferred value for new architectures
-// 				       is 0.
-//    __PTHREAD_MUTEX_USE_UNION      - control whether internal __spins and
-// 				    __list will be place inside a union for
-// 				    linuxthreads compatibility.
-// 				    The preferred value for new architectures
-// 				    is 0.
-//
-//    For a new port the preferred values for the required defines are:
-//
-//    #define __PTHREAD_COMPAT_PADDING_MID
-//    #define __PTHREAD_COMPAT_PADDING_END
-//    #define __PTHREAD_MUTEX_LOCK_ELISION         0
-//    #define __PTHREAD_MUTEX_NUSERS_AFTER_KIND    0
-//    #define __PTHREAD_MUTEX_USE_UNION            0
-//
-//    __PTHREAD_MUTEX_LOCK_ELISION can be set to 1 if the hardware plans to
-//    eventually support lock elision using transactional memory.
-//
 //    The additional macro defines any constraint for the lock alignment
 //    inside the thread structures:
 //
@@ -14921,11 +15118,53 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    Same idea but for the once locking primitive:
 //
 //    __ONCE_ALIGNMENT - for pthread_once_t/once_flag definition.
+
+// Copyright (C) 2002-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
 //
-//    And finally the internal pthread_rwlock_t (struct __pthread_rwlock_arch_t)
-//    must be defined.
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
 //
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Determine the wordsize from the preprocessor defines.
+
+// Both x86-64 and x32 use the 64-bit system call interface.
+
+// Common definition of pthread_mutex_t.
+
+type __pthread_internal_list = struct {
+	F__prev uintptr
+	F__next uintptr
+} /* thread-shared-types.h:49:9 */
+
+type __pthread_internal_slist = struct{ F__next uintptr } /* thread-shared-types.h:55:9 */
+
+// Arch-specific mutex definitions.  A generic implementation is provided
+//    by sysdeps/nptl/bits/struct_mutex.h.  If required, an architecture
+//    can override it by defining:
+//
+//    1. struct __pthread_mutex_s (used on both pthread_mutex_t and mtx_t
+//       definition).  It should contains at least the internal members
+//       defined in the generic version.
+//
+//    2. __LOCK_ALIGNMENT for any extra attribute for internal lock used with
+//       atomic operations.
+//
+//    3. The macro __PTHREAD_MUTEX_INITIALIZER used for static initialization.
+//       It should initialize the mutex internal flag.
+
+// x86 internal mutex struct definitions.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -14942,11 +15181,49 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Determine the wordsize from the preprocessor defines.
+type __pthread_mutex_s = struct {
+	F__lock    int32
+	F__count   uint32
+	F__owner   int32
+	F__nusers  uint32
+	F__kind    int32
+	F__spins   int16
+	F__elision int16
+	F__list    struct {
+		F__prev uintptr
+		F__next uintptr
+	}
+} /* struct_mutex.h:22:1 */
 
-// Both x86-64 and x32 use the 64-bit system call interface.
+// Arch-sepecific read-write lock definitions.  A generic implementation is
+//    provided by struct_rwlock.h.  If required, an architecture can override it
+//    by defining:
+//
+//    1. struct __pthread_rwlock_arch_t (used on pthread_rwlock_t definition).
+//       It should contain at least the internal members defined in the
+//       generic version.
+//
+//    2. The macro __PTHREAD_RWLOCK_INITIALIZER used for static initialization.
+//       It should initialize the rwlock internal type.
 
-// Definitions for internal mutex struct.
+// x86 internal rwlock struct definitions.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
 
 type __pthread_rwlock_arch_t = struct {
 	F__readers       uint32
@@ -14961,31 +15238,8 @@ type __pthread_rwlock_arch_t = struct {
 	F__pad1          [7]uint8
 	F__pad2          uint64
 	F__flags         uint32
-	_                [4]byte
-} /* pthreadtypes-arch.h:65:1 */
-
-// Common definition of pthread_mutex_t.
-
-type __pthread_internal_list = struct {
-	F__prev uintptr
-	F__next uintptr
-} /* thread-shared-types.h:82:9 */
-
-// Lock elision support.
-
-type __pthread_mutex_s = struct {
-	F__lock    int32
-	F__count   uint32
-	F__owner   int32
-	F__nusers  uint32
-	F__kind    int32
-	F__spins   int16
-	F__elision int16
-	F__list    struct {
-		F__prev uintptr
-		F__next uintptr
-	}
-} /* thread-shared-types.h:118:1 */
+	F__ccgo_pad1     [4]byte
+} /* struct_rwlock.h:23:1 */
 
 // Common definition of pthread_cond_t.
 
@@ -14997,7 +15251,7 @@ type __pthread_cond_s = struct {
 	F__g1_orig_size uint32
 	F__wrefs        uint32
 	F__g_signals    [2]uint32
-} /* thread-shared-types.h:171:1 */
+} /* thread-shared-types.h:92:1 */
 
 // Thread identifiers.  The structure of the attribute type is not
 //    exposed on purpose.
@@ -15063,14 +15317,14 @@ type pthread_barrierattr_t = struct {
 //    state, rather than global state variables.
 
 type random_data = struct {
-	Ffptr      uintptr
-	Frptr      uintptr
-	Fstate     uintptr
-	Frand_type int32
-	Frand_deg  int32
-	Frand_sep  int32
-	_          [4]byte
-	Fend_ptr   uintptr
+	Ffptr        uintptr
+	Frptr        uintptr
+	Fstate       uintptr
+	Frand_type   int32
+	Frand_deg    int32
+	Frand_sep    int32
+	F__ccgo_pad1 [4]byte
+	Fend_ptr     uintptr
 } /* stdlib.h:423:1 */
 
 // Data structure for communication with thread safe versions.  This
@@ -15086,55 +15340,55 @@ type drand48_data = struct {
 
 // Forward declaration of objects used by this implementation
 type amatch_vtab1 = struct {
-	Fbase       sqlite3_vtab
-	FzClassName uintptr
-	FzDb        uintptr
-	FzSelf      uintptr
-	FzCostTab   uintptr
-	FzVocabTab  uintptr
-	FzVocabWord uintptr
-	FzVocabLang uintptr
-	FpRule      uintptr
-	FrIns       amatch_cost
-	FrDel       amatch_cost
-	FrSub       amatch_cost
-	_           [4]byte
-	Fdb         uintptr
-	FpVCheck    uintptr
-	FnCursor    int32
-	_           [4]byte
+	Fbase        sqlite3_vtab
+	FzClassName  uintptr
+	FzDb         uintptr
+	FzSelf       uintptr
+	FzCostTab    uintptr
+	FzVocabTab   uintptr
+	FzVocabWord  uintptr
+	FzVocabLang  uintptr
+	FpRule       uintptr
+	FrIns        amatch_cost
+	FrDel        amatch_cost
+	FrSub        amatch_cost
+	F__ccgo_pad1 [4]byte
+	Fdb          uintptr
+	FpVCheck     uintptr
+	FnCursor     int32
+	F__ccgo_pad2 [4]byte
 } /* amatch.c:172:9 */
 
 // Forward declaration of objects used by this implementation
 type amatch_vtab = amatch_vtab1 /* amatch.c:172:28 */
 type amatch_cursor1 = struct {
-	Fbase      sqlite3_vtab_cursor
-	FiRowid    sqlite3_int64
-	FiLang     amatch_langid
-	FrLimit    amatch_cost
-	FnBuf      int32
-	FoomErr    int32
-	FnWord     int32
-	_          [4]byte
-	FzBuf      uintptr
-	FzInput    uintptr
-	FpVtab     uintptr
-	FpAllWords uintptr
-	FpCurrent  uintptr
-	FpCost     uintptr
-	FpWord     uintptr
+	Fbase        sqlite3_vtab_cursor
+	FiRowid      sqlite3_int64
+	FiLang       amatch_langid
+	FrLimit      amatch_cost
+	FnBuf        int32
+	FoomErr      int32
+	FnWord       int32
+	F__ccgo_pad1 [4]byte
+	FzBuf        uintptr
+	FzInput      uintptr
+	FpVtab       uintptr
+	FpAllWords   uintptr
+	FpCurrent    uintptr
+	FpCost       uintptr
+	FpWord       uintptr
 } /* amatch.c:173:9 */
 
 type amatch_cursor = amatch_cursor1 /* amatch.c:173:30 */
 type amatch_rule1 = struct {
-	FpNext uintptr
-	FzFrom uintptr
-	FrCost amatch_cost
-	FiLang amatch_langid
-	FnFrom amatch_len
-	FnTo   amatch_len
-	FzTo   [4]int8
-	_      [2]byte
+	FpNext       uintptr
+	FzFrom       uintptr
+	FrCost       amatch_cost
+	FiLang       amatch_langid
+	FnFrom       amatch_len
+	FnTo         amatch_len
+	FzTo         [4]int8
+	F__ccgo_pad1 [2]byte
 } /* amatch.c:172:9 */
 
 type amatch_rule = amatch_rule1 /* amatch.c:174:28 */
@@ -15151,14 +15405,14 @@ type amatch_word1 = struct {
 
 type amatch_word = amatch_word1 /* amatch.c:175:28 */
 type amatch_avl1 = struct {
-	FpWord     uintptr
-	FzKey      uintptr
-	FpBefore   uintptr
-	FpAfter    uintptr
-	FpUp       uintptr
-	Fheight    int16
-	Fimbalance int16
-	_          [4]byte
+	FpWord       uintptr
+	FzKey        uintptr
+	FpBefore     uintptr
+	FpAfter      uintptr
+	FpUp         uintptr
+	Fheight      int16
+	Fimbalance   int16
+	F__ccgo_pad1 [4]byte
 } /* amatch.c:173:9 */
 
 type amatch_avl = amatch_avl1 /* amatch.c:176:27 */
@@ -16427,12 +16681,12 @@ type carray_bind = carray_bind1 /* carray.c:78:28 */
 // serve as the underlying representation of a cursor that scans
 // over rows of the result
 type carray_cursor1 = struct {
-	Fbase   sqlite3_vtab_cursor
-	FiRowid sqlite3_int64
-	FpPtr   uintptr
-	FiCnt   sqlite3_int64
-	FeType  uint8
-	_       [7]byte
+	Fbase        sqlite3_vtab_cursor
+	FiRowid      sqlite3_int64
+	FpPtr        uintptr
+	FiCnt        sqlite3_int64
+	FeType       uint8
+	F__ccgo_pad1 [7]byte
 } /* carray.c:91:9 */
 
 // carray_cursor is a subclass of sqlite3_vtab_cursor which will
@@ -16732,7 +16986,7 @@ var carrayModule = sqlite3_module{ // xCreate
 func carrayBindDel(tls *libc.TLS, pPtr uintptr) { /* carray.c:391:13: */
 	var p uintptr = pPtr
 	if (*carray_bind)(unsafe.Pointer(p)).FxDel != (uintptr(0)) {
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((p + 16 /* &.xDel */))))(tls, (*carray_bind)(unsafe.Pointer(p)).FaData)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*carray_bind)(unsafe.Pointer(p)).FxDel})).f(tls, (*carray_bind)(unsafe.Pointer(p)).FaData)
 	}
 	sqlite3.Xsqlite3_free(tls, p)
 }
@@ -16745,7 +16999,7 @@ func sqlite3_carray_bind(tls *libc.TLS, pStmt uintptr, idx int32, aData uintptr,
 	pNew = sqlite3.Xsqlite3_malloc64(tls, uint64(unsafe.Sizeof(carray_bind{})))
 	if pNew == uintptr(0) {
 		if (xDestroy != (uintptr(0))) && (xDestroy != (libc.UintptrFromInt32(-1))) {
-			(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(&xDestroy)))(tls, aData)
+			(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{xDestroy})).f(tls, aData)
 		}
 		return SQLITE_NOMEM
 	}
@@ -16848,7 +17102,7 @@ func sqlite3_carray_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 	return rc
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -16863,11 +17117,11 @@ func sqlite3_carray_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -16882,7 +17136,7 @@ func sqlite3_carray_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -16904,7 +17158,7 @@ type CksmFile1 = struct {
 	FverifyCksm  int8
 	FisWal       int8
 	FinCkpt      int8
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	FpPartner    uintptr
 } /* cksumvfs.c:177:9 */
 
@@ -17027,7 +17281,9 @@ func cksmClose(tls *libc.TLS, pFile uintptr) int32 { /* cksumvfs.c:397:12: */
 		(*CksmFile)(unsafe.Pointer(p)).FpPartner = uintptr(0)
 	}
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 8 /* &.xClose */))))(tls, pFile)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxClose})).f(tls, pFile)
 }
 
 // Set the computeCkSm and verifyCksm flags, if they need to be
@@ -17050,7 +17306,9 @@ func cksmRead(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqli
 	var rc int32
 	var p uintptr = pFile
 	pFile = ((pFile) + uintptr(1)*32)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 16 /* &.xRead */))))(tls, pFile, zBuf, iAmt, iOfst)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxRead})).f(tls, pFile, zBuf, iAmt, iOfst)
 	if rc == SQLITE_OK {
 		if ((iOfst == int64(0)) && (iAmt >= 100)) && ((libc.Xmemcmp(tls, zBuf, ts+3149 /* "SQLite format 3" */, uint64(16)) == 0) || (libc.Xmemcmp(tls, zBuf, ts+3966 /* "ZV-" */, uint64(3)) == 0)) {
 			var d uintptr = zBuf
@@ -17098,44 +17356,58 @@ func cksmWrite(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sql
 		!(int32((*CksmFile)(unsafe.Pointer(p)).FinCkpt) != 0) {
 		cksmCompute(tls, zBuf, (iAmt - 8), (((zBuf) + uintptr(iAmt)) - uintptr(8)))
 	}
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 24 /* &.xWrite */))))(tls, pFile, zBuf, iAmt, iOfst)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxWrite})).f(tls, pFile, zBuf, iAmt, iOfst)
 }
 
 // Truncate a cksm-file.
 func cksmTruncate(tls *libc.TLS, pFile uintptr, size sqlite_int64) int32 { /* cksumvfs.c:502:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 32 /* &.xTruncate */))))(tls, pFile, size)
+	return (*struct {
+		f func(*libc.TLS, uintptr, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxTruncate})).f(tls, pFile, size)
 }
 
 // Sync a cksm-file.
 func cksmSync(tls *libc.TLS, pFile uintptr, flags int32) int32 { /* cksumvfs.c:510:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 40 /* &.xSync */))))(tls, pFile, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxSync})).f(tls, pFile, flags)
 }
 
 // Return the current file-size of a cksm-file.
 func cksmFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* cksumvfs.c:518:12: */
 	var p uintptr = pFile
 	pFile = ((p) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 48 /* &.xFileSize */))))(tls, pFile, pSize)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxFileSize})).f(tls, pFile, pSize)
 }
 
 // Lock a cksm-file.
 func cksmLock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* cksumvfs.c:527:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 56 /* &.xLock */))))(tls, pFile, eLock)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxLock})).f(tls, pFile, eLock)
 }
 
 // Unlock a cksm-file.
 func cksmUnlock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* cksumvfs.c:535:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 64 /* &.xUnlock */))))(tls, pFile, eLock)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxUnlock})).f(tls, pFile, eLock)
 }
 
 // Check if another file-handle holds a RESERVED lock on a cksm-file.
 func cksmCheckReservedLock(tls *libc.TLS, pFile uintptr, pResOut uintptr) int32 { /* cksumvfs.c:543:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 72 /* &.xCheckReservedLock */))))(tls, pFile, pResOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxCheckReservedLock})).f(tls, pFile, pResOut)
 }
 
 // File control method. For custom operations on a cksm-file.
@@ -17189,7 +17461,9 @@ func cksmFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 		*(*uintptr)(unsafe.Pointer(ppFile)) = p
 		return SQLITE_OK
 	}
-	rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 80 /* &.xFileControl */))))(tls, pFile, op, pArg)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxFileControl})).f(tls, pFile, op, pArg)
 	if (rc == SQLITE_OK) && (op == SQLITE_FCNTL_VFSNAME) {
 		*(*uintptr)(unsafe.Pointer(pArg)) = sqlite3.Xsqlite3_mprintf(tls, ts+4052 /* "cksm/%z" */, libc.VaList(bp+8, *(*uintptr)(unsafe.Pointer(pArg))))
 	}
@@ -17199,37 +17473,47 @@ func cksmFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 // Return the sector-size in bytes for a cksm-file.
 func cksmSectorSize(tls *libc.TLS, pFile uintptr) int32 { /* cksumvfs.c:605:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 88 /* &.xSectorSize */))))(tls, pFile)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxSectorSize})).f(tls, pFile)
 }
 
 // Return the device characteristic flags supported by a cksm-file.
 func cksmDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* cksumvfs.c:613:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 96 /* &.xDeviceCharacteristics */))))(tls, pFile)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxDeviceCharacteristics})).f(tls, pFile)
 }
 
 // Create a shared memory file mapping
 func cksmShmMap(tls *libc.TLS, pFile uintptr, iPg int32, pgsz int32, bExtend int32, pp uintptr) int32 { /* cksumvfs.c:619:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 104 /* &.xShmMap */))))(tls, pFile, iPg, pgsz, bExtend, libc.AtomicLoadUintptr(&pp))
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmMap})).f(tls, pFile, iPg, pgsz, bExtend, pp)
 }
 
 // Perform locking on a shared-memory segment
 func cksmShmLock(tls *libc.TLS, pFile uintptr, offset int32, n int32, flags int32) int32 { /* cksumvfs.c:631:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 112 /* &.xShmLock */))))(tls, pFile, offset, n, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmLock})).f(tls, pFile, offset, n, flags)
 }
 
 // Memory barrier operation on shared memory
 func cksmShmBarrier(tls *libc.TLS, pFile uintptr) { /* cksumvfs.c:637:13: */
 	pFile = ((pFile) + uintptr(1)*32)
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 120 /* &.xShmBarrier */))))(tls, pFile)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmBarrier})).f(tls, pFile)
 }
 
 // Unmap a shared memory segment
 func cksmShmUnmap(tls *libc.TLS, pFile uintptr, deleteFlag int32) int32 { /* cksumvfs.c:643:12: */
 	pFile = ((pFile) + uintptr(1)*32)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 128 /* &.xShmUnmap */))))(tls, pFile, deleteFlag)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxShmUnmap})).f(tls, pFile, deleteFlag)
 }
 
 // Fetch a page of a memory-mapped file
@@ -17241,7 +17525,9 @@ func cksmFetch(tls *libc.TLS, pFile uintptr, iOfst sqlite3_int64, iAmt int32, pp
 	}
 	pFile = ((pFile) + uintptr(1)*32)
 	if ((*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FiVersion > 2) && ((*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxFetch != 0) {
-		return (*(*func(*libc.TLS, uintptr, sqlite3_int64, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 136 /* &.xFetch */))))(tls, pFile, iOfst, iAmt, pp)
+		return (*struct {
+			f func(*libc.TLS, uintptr, sqlite3_int64, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxFetch})).f(tls, pFile, iOfst, iAmt, pp)
 	}
 	*(*uintptr)(unsafe.Pointer(pp)) = uintptr(0)
 	return SQLITE_OK
@@ -17251,7 +17537,9 @@ func cksmFetch(tls *libc.TLS, pFile uintptr, iOfst sqlite3_int64, iAmt int32, pp
 func cksmUnfetch(tls *libc.TLS, pFile uintptr, iOfst sqlite3_int64, pPage uintptr) int32 { /* cksumvfs.c:669:12: */
 	pFile = ((pFile) + uintptr(1)*32)
 	if ((*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FiVersion > 2) && ((*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxUnfetch != 0) {
-		return (*(*func(*libc.TLS, uintptr, sqlite3_int64, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods + 144 /* &.xUnfetch */))))(tls, pFile, iOfst, pPage)
+		return (*struct {
+			f func(*libc.TLS, uintptr, sqlite3_int64, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods)).FxUnfetch})).f(tls, pFile, iOfst, pPage)
 	}
 	return SQLITE_OK
 }
@@ -17271,14 +17559,18 @@ func cksmOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pFile uintptr, flags i
 	if !((flags & (SQLITE_OPEN_MAIN_DB | SQLITE_OPEN_WAL)) == 0) {
 		goto __1
 	}
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pSubVfs + 40 /* &.xOpen */))))(tls, pSubVfs, zName, pFile, flags, pOutFlags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pSubVfs)).FxOpen})).f(tls, pSubVfs, zName, pFile, flags, pOutFlags)
 __1:
 	;
 	p = pFile
 	libc.Xmemset(tls, p, 0, uint64(unsafe.Sizeof(CksmFile{})))
 	pSubFile = ((pFile) + uintptr(1)*32)
 	(*sqlite3_file)(unsafe.Pointer(pFile)).FpMethods = uintptr(unsafe.Pointer(&cksm_io_methods))
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pSubVfs + 40 /* &.xOpen */))))(tls, pSubVfs, zName, pSubFile, flags, pOutFlags)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pSubVfs)).FxOpen})).f(tls, pSubVfs, zName, pSubFile, flags, pOutFlags)
 	if !(rc != 0) {
 		goto __2
 	}
@@ -17289,7 +17581,9 @@ __2:
 		goto __3
 	}
 	*(*uintptr)(unsafe.Pointer(bp /* pDb */)) = sqlite3.Xsqlite3_database_file_object(tls, zName)
-	rc = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* pDb */)))).FpMethods + 80 /* &.xFileControl */))))(tls, *(*uintptr)(unsafe.Pointer(bp /* pDb */)), SQLITE_FCNTL_CKSM_FILE, bp /* &pDb */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* pDb */)))).FpMethods)).FxFileControl})).f(tls, *(*uintptr)(unsafe.Pointer(bp /* pDb */)), SQLITE_FCNTL_CKSM_FILE, bp /* &pDb */)
 
 	(*CksmFile)(unsafe.Pointer(p)).FpPartner = *(*uintptr)(unsafe.Pointer(bp /* pDb */))
 
@@ -17315,47 +17609,69 @@ __5:
 
 // All other VFS methods are pass-thrus.
 func cksmDelete(tls *libc.TLS, pVfs uintptr, zPath uintptr, dirSync int32) int32 { /* cksumvfs.c:723:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 48 /* &.xDelete */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, dirSync)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDelete})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, dirSync)
 }
 
 func cksmAccess(tls *libc.TLS, pVfs uintptr, zPath uintptr, flags int32, pResOut uintptr) int32 { /* cksumvfs.c:726:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 56 /* &.xAccess */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, flags, pResOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxAccess})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, flags, pResOut)
 }
 
 func cksmFullPathname(tls *libc.TLS, pVfs uintptr, zPath uintptr, nOut int32, zOut uintptr) int32 { /* cksumvfs.c:734:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 64 /* &.xFullPathname */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, nOut, zOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxFullPathname})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath, nOut, zOut)
 }
 
 func cksmDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* cksumvfs.c:742:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 72 /* &.xDlOpen */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlOpen})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zPath)
 }
 
 func cksmDlError(tls *libc.TLS, pVfs uintptr, nByte int32, zErrMsg uintptr) { /* cksumvfs.c:745:13: */
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 80 /* &.xDlError */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zErrMsg)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlError})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zErrMsg)
 }
 
 func cksmDlSym(tls *libc.TLS, pVfs uintptr, p uintptr, zSym uintptr) uintptr { /* cksumvfs.c:748:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 88 /* &.xDlSym */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, p, zSym)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlSym})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, p, zSym)
 }
 
 func cksmDlClose(tls *libc.TLS, pVfs uintptr, pHandle uintptr) { /* cksumvfs.c:751:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 96 /* &.xDlClose */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pHandle)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxDlClose})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pHandle)
 }
 
 func cksmRandomness(tls *libc.TLS, pVfs uintptr, nByte int32, zBufOut uintptr) int32 { /* cksumvfs.c:754:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 104 /* &.xRandomness */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zBufOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxRandomness})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nByte, zBufOut)
 }
 
 func cksmSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* cksumvfs.c:757:12: */
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 112 /* &.xSleep */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nMicro)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxSleep})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, nMicro)
 }
 
 func cksmCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* cksumvfs.c:760:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 120 /* &.xCurrentTime */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxCurrentTime})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, pTimeOut)
 }
 
 func cksmGetLastError(tls *libc.TLS, pVfs uintptr, a int32, b uintptr) int32 { /* cksumvfs.c:763:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 128 /* &.xGetLastError */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, a, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxGetLastError})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, a, b)
 }
 
 func cksmCurrentTimeInt64(tls *libc.TLS, pVfs uintptr, p uintptr) int32 { /* cksumvfs.c:766:12: */
@@ -17366,26 +17682,36 @@ func cksmCurrentTimeInt64(tls *libc.TLS, pVfs uintptr, p uintptr) int32 { /* cks
 	var rc int32
 
 	if (*sqlite3_vfs)(unsafe.Pointer(pOrig)).FxCurrentTimeInt64 != 0 {
-		rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pOrig + 136 /* &.xCurrentTimeInt64 */))))(tls, pOrig, p)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrig)).FxCurrentTimeInt64})).f(tls, pOrig, p)
 	} else {
 		// var r float64 at bp, 8
 
-		rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pOrig + 120 /* &.xCurrentTime */))))(tls, pOrig, bp /* &r */)
-		*(*sqlite3_int64)(unsafe.Pointer(p)) = (sqlite3_int64(*(*float64)(unsafe.Pointer(bp /* r */)) * 86400000.0))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrig)).FxCurrentTime})).f(tls, pOrig, bp /* &r */)
+		*(*sqlite3_int64)(unsafe.Pointer(p)) = (libc.Int64FromFloat64(*(*float64)(unsafe.Pointer(bp /* r */)) * 86400000.0))
 	}
 	return rc
 }
 
 func cksmSetSystemCall(tls *libc.TLS, pVfs uintptr, zName uintptr, pCall sqlite3_syscall_ptr) int32 { /* cksumvfs.c:779:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 144 /* &.xSetSystemCall */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName, pCall)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxSetSystemCall})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName, pCall)
 }
 
 func cksmGetSystemCall(tls *libc.TLS, pVfs uintptr, zName uintptr) sqlite3_syscall_ptr { /* cksumvfs.c:786:28: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 152 /* &.xGetSystemCall */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxGetSystemCall})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
 }
 
 func cksmNextSystemCall(tls *libc.TLS, pVfs uintptr, zName uintptr) uintptr { /* cksumvfs.c:792:19: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData + 160 /* &.xNextSystemCall */))))(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData))).FxNextSystemCall})).f(tls, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData, zName)
 }
 
 // Register the verify_checksum() SQL function.
@@ -17454,7 +17780,7 @@ type closure_vtab1 = struct {
 	FzParentColumn uintptr
 	Fdb            uintptr
 	FnCursor       int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 } /* closure.c:156:9 */
 
 // Forward declaration of objects used by this implementation
@@ -17479,14 +17805,14 @@ type closure_queue = closure_queue1 /* closure.c:158:30 */
 type closure_avl1 = struct {
 	Fid          sqlite3_int64
 	FiGeneration int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	FpList       uintptr
 	FpBefore     uintptr
 	FpAfter      uintptr
 	FpUp         uintptr
 	Fheight      int16
 	Fimbalance   int16
-	_            [4]byte
+	F__ccgo_pad2 [4]byte
 } /* closure.c:157:9 */
 
 type closure_avl = closure_avl1 /* closure.c:159:28 */
@@ -17678,7 +18004,7 @@ func closureAvlDestroy(tls *libc.TLS, p uintptr, xDestroy uintptr) { /* closure.
 	if p != 0 {
 		closureAvlDestroy(tls, (*closure_avl)(unsafe.Pointer(p)).FpBefore, xDestroy)
 		closureAvlDestroy(tls, (*closure_avl)(unsafe.Pointer(p)).FpAfter, xDestroy)
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(&xDestroy)))(tls, p)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{xDestroy})).f(tls, p)
 	}
 }
 
@@ -18327,18 +18653,18 @@ func sqlite3_closure_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 
 // A context object used when read a CSV file.
 type CsvReader1 = struct {
-	Fin        uintptr
-	Fz         uintptr
-	Fn         int32
-	FnAlloc    int32
-	FnLine     int32
-	FbNotFirst int32
-	FcTerm     int32
-	_          [4]byte
-	FiIn       size_t
-	FnIn       size_t
-	FzIn       uintptr
-	FzErr      [200]int8
+	Fin          uintptr
+	Fz           uintptr
+	Fn           int32
+	FnAlloc      int32
+	FnLine       int32
+	FbNotFirst   int32
+	FcTerm       int32
+	F__ccgo_pad1 [4]byte
+	FiIn         size_t
+	FnIn         size_t
+	FzIn         uintptr
+	FzErr        [200]int8
 } /* csv.c:73:9 */
 
 // If we are compiling with optimizing read this file.  It contains
@@ -19346,7 +19672,7 @@ func sqlite3_csv_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintptr)
 }
 
 // Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2012-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -19361,7 +19687,7 @@ func sqlite3_csv_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintptr)
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Define some macros helping to catch buffer overflows.
 
@@ -19370,18 +19696,18 @@ func sqlite3_csv_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintptr)
 
 // A decimal object
 type Decimal1 = struct {
-	Fsign   int8
-	Foom    int8
-	FisNull int8
-	FisInit int8
-	FnDigit int32
-	FnFrac  int32
-	_       [4]byte
-	Fa      uintptr
+	Fsign        int8
+	Foom         int8
+	FisNull      int8
+	FisInit      int8
+	FnDigit      int32
+	FnFrac       int32
+	F__ccgo_pad1 [4]byte
+	Fa           uintptr
 } /* decimal.c:32:9 */
 
 // Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2012-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -19396,7 +19722,7 @@ type Decimal1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Define some macros helping to catch buffer overflows.
 
@@ -20154,10 +20480,10 @@ func sqlite3_decimal_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 	_ = pApi
 
 	for i = uint32(0); (uint64(i) < (uint64(unsafe.Sizeof(aFunc)) / uint64(unsafe.Sizeof(struct {
-		FzFuncName uintptr
-		FnArg      int32
-		_          [4]byte
-		FxFunc     uintptr
+		FzFuncName   uintptr
+		FnArg        int32
+		F__ccgo_pad1 [4]byte
+		FxFunc       uintptr
 	}{})))) && (rc == SQLITE_OK); i++ {
 		rc = sqlite3.Xsqlite3_create_function(tls, db, aFunc[i].FzFuncName, aFunc[i].FnArg,
 			((SQLITE_UTF8 | SQLITE_INNOCUOUS) | SQLITE_DETERMINISTIC),
@@ -20183,10 +20509,10 @@ func sqlite3_decimal_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 }
 
 var aFunc = [5]struct {
-	FzFuncName uintptr
-	FnArg      int32
-	_          [4]byte
-	FxFunc     uintptr
+	FzFuncName   uintptr
+	FnArg        int32
+	F__ccgo_pad1 [4]byte
+	FxFunc       uintptr
 }{
 	{FzFuncName: ts + 4699 /* "decimal" */, FnArg: 1, FxFunc: 0},
 	{FzFuncName: ts + 4707 /* "decimal_cmp" */, FnArg: 2, FxFunc: 0},
@@ -20197,12 +20523,12 @@ var aFunc = [5]struct {
 
 // Structure used to accumulate the output
 type EvalResult = struct {
-	Fz      uintptr
-	FzSep   uintptr
-	FszSep  int32
-	_       [4]byte
-	FnAlloc sqlite3_int64
-	FnUsed  sqlite3_int64
+	Fz           uintptr
+	FzSep        uintptr
+	FszSep       int32
+	F__ccgo_pad1 [4]byte
+	FnAlloc      sqlite3_int64
+	FnUsed       sqlite3_int64
 } /* eval.c:23:1 */
 
 // Callback from sqlite_exec() for the eval() function.
@@ -20325,12 +20651,12 @@ type explain_vtab = explain_vtab1 /* explain.c:38:29 */
 // serve as the underlying representation of a cursor that scans
 // over rows of the result from an EXPLAIN operation.
 type explain_cursor1 = struct {
-	Fbase     sqlite3_vtab_cursor
-	Fdb       uintptr
-	FzSql     uintptr
-	FpExplain uintptr
-	Frc       int32
-	_         [4]byte
+	Fbase        sqlite3_vtab_cursor
+	Fdb          uintptr
+	FzSql        uintptr
+	FpExplain    uintptr
+	Frc          int32
+	F__ccgo_pad1 [4]byte
 } /* explain.c:48:9 */
 
 // explain_cursor is a subclass of sqlite3_vtab_cursor which will
@@ -20544,7 +20870,7 @@ func sqlite3_explain_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 	return rc
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20559,11 +20885,11 @@ func sqlite3_explain_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 6.5 File Control Operations	<fcntl.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20578,13 +20904,13 @@ func sqlite3_explain_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // This must be early so <bits/fcntl.h> can define types winningly.
 
 // Get __mode_t, __dev_t and __off_t  .
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20599,14 +20925,14 @@ func sqlite3_explain_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Get the definitions of O_*, F_*, FD_*: all the
 //    numbers and flag bits for `open', `fcntl', et al.
 // O_*, F_*, FD_* bit values for Linux/x86.
-//    Copyright (C) 2001-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2001-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20621,23 +20947,23 @@ func sqlite3_explain_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uint
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Not necessary, we always have 64-bit offsets.
 
 type flock = struct {
-	Fl_type   int16
-	Fl_whence int16
-	_         [4]byte
-	Fl_start  int64
-	Fl_len    int64
-	Fl_pid    int32
-	_         [4]byte
+	Fl_type      int16
+	Fl_whence    int16
+	F__ccgo_pad1 [4]byte
+	Fl_start     int64
+	Fl_len       int64
+	Fl_pid       int32
+	F__ccgo_pad2 [4]byte
 } /* fcntl.h:35:1 */
 
 // Define some inlines helping to catch common problems.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20652,11 +20978,11 @@ type flock = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.10 Symbolic Constants		<unistd.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20671,7 +20997,7 @@ type flock = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // These may be used to determine what facilities are present at compile time.
 //    Their values can be obtained at run time from `sysconf'.
@@ -20797,7 +21123,7 @@ type flock = struct {
 //
 
 // Define POSIX options for Linux.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20812,13 +21138,16 @@ type flock = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; see the file COPYING.LIB.  If
-//    not, see <http://www.gnu.org/licenses/>.
+//    not, see <https://www.gnu.org/licenses/>.
 
 // Job control is supported.
 
 // Processes have a saved set-user-ID and a saved set-group-ID.
 
-// Priority scheduling is supported.
+// Priority scheduling is not supported with the correct semantics,
+//    but GNU/Linux applications expect that the corresponding interfaces
+//    are available, even though the semantics do not meet the POSIX
+//    requirements.  See glibc bug 14829.
 
 // Synchronizing file data is supported.
 
@@ -20921,7 +21250,7 @@ type flock = struct {
 // Typed memory objects are not available.
 
 // Get the environment definitions from Unix98.
-// Copyright (C) 1999-2018 Free Software Foundation, Inc.
+// Copyright (C) 1999-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20936,7 +21265,7 @@ type flock = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Determine the wordsize from the preprocessor defines.
 
@@ -20979,7 +21308,7 @@ type flock = struct {
 // All functions that are not declared anywhere else.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -20994,11 +21323,11 @@ type flock = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -21029,15 +21358,6 @@ type flock = struct {
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -21073,11 +21393,6 @@ type flock = struct {
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // The Single Unix specification says that some more types are
@@ -21091,7 +21406,9 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 
 // Define some macros helping to catch buffer overflows.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// System-specific extensions.
+// System-specific extensions of <unistd.h>, Linux version.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21106,11 +21423,28 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 5.1.2 Directory Operations	<dirent.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21125,10 +21459,10 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21143,7 +21477,7 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -21162,7 +21496,7 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 //    member that gives the type of the file.
 //
 
-// Copyright (C) 1996-2018 Free Software Foundation, Inc.
+// Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21177,18 +21511,18 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 type dirent = struct {
-	Fd_ino    uint64
-	Fd_off    int64
-	Fd_reclen uint16
-	Fd_type   uint8
-	Fd_name   [256]int8
-	_         [5]byte
+	Fd_ino       uint64
+	Fd_off       int64
+	Fd_reclen    uint16
+	Fd_type      uint8
+	Fd_name      [256]int8
+	F__ccgo_pad1 [5]byte
 } /* dirent.h:22:1 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21203,9 +21537,9 @@ type dirent = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21220,10 +21554,10 @@ type dirent = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21238,12 +21572,12 @@ type dirent = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // `fd_set' type and related macros, and `select'/`pselect' declarations.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21258,7 +21592,7 @@ type dirent = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX 1003.1g: 6.2 Select from File Descriptor Sets <sys/select.h>
 
@@ -21280,12 +21614,12 @@ type itimerval = struct {
 		Ftv_sec  int64
 		Ftv_usec int64
 	}
-} /* time.h:104:1 */
+} /* time.h:105:1 */
 
 // Convenience macros for operations on timevals.
 //    NOTE: `timercmp' does not work for >= or <=.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21300,11 +21634,11 @@ type itimerval = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.23 Date and time	<time.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21319,9 +21653,9 @@ type itimerval = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -21352,15 +21686,6 @@ type itimerval = struct {
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -21396,17 +21721,12 @@ type itimerval = struct {
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // This defines CLOCKS_PER_SEC, which is the number of processor clock
 //    ticks per second, and possibly a number of other constants.
 // System-dependent timing definitions.  Linux version.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21421,12 +21741,12 @@ type itimerval = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <time.h> instead.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21441,7 +21761,7 @@ type itimerval = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -21470,7 +21790,7 @@ type itimerval = struct {
 //    may also need to be defined by other headers.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21485,30 +21805,30 @@ type itimerval = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // ISO C `broken-down time' structure.
 type tm = struct {
-	Ftm_sec    int32
-	Ftm_min    int32
-	Ftm_hour   int32
-	Ftm_mday   int32
-	Ftm_mon    int32
-	Ftm_year   int32
-	Ftm_wday   int32
-	Ftm_yday   int32
-	Ftm_isdst  int32
-	_          [4]byte
-	Ftm_gmtoff int64
-	Ftm_zone   uintptr
+	Ftm_sec      int32
+	Ftm_min      int32
+	Ftm_hour     int32
+	Ftm_mday     int32
+	Ftm_mon      int32
+	Ftm_year     int32
+	Ftm_wday     int32
+	Ftm_yday     int32
+	Ftm_isdst    int32
+	F__ccgo_pad1 [4]byte
+	Ftm_gmtoff   int64
+	Ftm_zone     uintptr
 } /* struct_tm.h:7:1 */
 
 // NB: Include guard matches what <linux/time.h> uses.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -21523,7 +21843,7 @@ type tm = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -21868,14 +22188,14 @@ func lsModeFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* f
 
 // Cursor type for recursively iterating through a directory structure.
 type fsdir_cursor1 = struct {
-	Fbase  sqlite3_vtab_cursor
-	FnLvl  int32
-	FiLvl  int32
-	FaLvl  uintptr
-	FzBase uintptr
-	FnBase int32
-	_      [4]byte
-	FsStat struct {
+	Fbase        sqlite3_vtab_cursor
+	FnLvl        int32
+	FiLvl        int32
+	FaLvl        uintptr
+	FzBase       uintptr
+	FnBase       int32
+	F__ccgo_pad1 [4]byte
+	FsStat       struct {
 		Fst_dev     uint64
 		Fst_ino     uint64
 		Fst_nlink   uint64
@@ -22352,11 +22672,11 @@ func sqlite3_fileio_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 
 // Forward declaration of objects used by this implementation
 type fuzzer_vtab1 = struct {
-	Fbase       sqlite3_vtab
-	FzClassName uintptr
-	FpRule      uintptr
-	FnCursor    int32
-	_           [4]byte
+	Fbase        sqlite3_vtab
+	FzClassName  uintptr
+	FpRule       uintptr
+	FnCursor     int32
+	F__ccgo_pad1 [4]byte
 } /* fuzzer.c:162:9 */
 
 // If we are compiling with optimizing read this file.  It contains
@@ -22365,48 +22685,48 @@ type fuzzer_vtab1 = struct {
 // Forward declaration of objects used by this implementation
 type fuzzer_vtab = fuzzer_vtab1 /* fuzzer.c:162:28 */
 type fuzzer_cursor1 = struct {
-	Fbase     sqlite3_vtab_cursor
-	FiRowid   sqlite3_int64
-	FpVtab    uintptr
-	FrLimit   fuzzer_cost
-	_         [4]byte
-	FpStem    uintptr
-	FpDone    uintptr
-	FaQueue   [20]uintptr
-	FmxQueue  int32
-	_         [4]byte
-	FzBuf     uintptr
-	FnBuf     int32
-	FnStem    int32
-	FiRuleset int32
-	_         [4]byte
-	FnullRule fuzzer_rule
-	FapHash   [4001]uintptr
+	Fbase        sqlite3_vtab_cursor
+	FiRowid      sqlite3_int64
+	FpVtab       uintptr
+	FrLimit      fuzzer_cost
+	F__ccgo_pad1 [4]byte
+	FpStem       uintptr
+	FpDone       uintptr
+	FaQueue      [20]uintptr
+	FmxQueue     int32
+	F__ccgo_pad2 [4]byte
+	FzBuf        uintptr
+	FnBuf        int32
+	FnStem       int32
+	FiRuleset    int32
+	F__ccgo_pad3 [4]byte
+	FnullRule    fuzzer_rule
+	FapHash      [4001]uintptr
 } /* fuzzer.c:163:9 */
 
 type fuzzer_cursor = fuzzer_cursor1 /* fuzzer.c:163:30 */
 type fuzzer_rule1 = struct {
-	FpNext    uintptr
-	FzFrom    uintptr
-	FrCost    fuzzer_cost
-	FnFrom    fuzzer_len
-	FnTo      fuzzer_len
-	_         [2]byte
-	FiRuleset fuzzer_ruleid
-	FzTo      [4]int8
+	FpNext       uintptr
+	FzFrom       uintptr
+	FrCost       fuzzer_cost
+	FnFrom       fuzzer_len
+	FnTo         fuzzer_len
+	F__ccgo_pad1 [2]byte
+	FiRuleset    fuzzer_ruleid
+	FzTo         [4]int8
 } /* fuzzer.c:162:9 */
 
 type fuzzer_rule = fuzzer_rule1 /* fuzzer.c:164:28 */
 type fuzzer_stem1 = struct {
-	FzBasis    uintptr
-	FpRule     uintptr
-	FpNext     uintptr
-	FpHash     uintptr
-	FrBaseCost fuzzer_cost
-	FrCostX    fuzzer_cost
-	FnBasis    fuzzer_len
-	Fn         fuzzer_len
-	_          [6]byte
+	FzBasis      uintptr
+	FpRule       uintptr
+	FpNext       uintptr
+	FpHash       uintptr
+	FrBaseCost   fuzzer_cost
+	FrCostX      fuzzer_cost
+	FnBasis      fuzzer_len
+	Fn           fuzzer_len
+	F__ccgo_pad1 [6]byte
 } /* fuzzer.c:163:9 */
 
 type fuzzer_stem = fuzzer_stem1 /* fuzzer.c:166:28 */
@@ -23588,7 +23908,9 @@ func sqlite3_mmap_warm(tls *libc.TLS, db uintptr, zDb uintptr) int32 { /* mmapwa
 			for 1 != 0 {
 				// var pMap uintptr at bp+80, 8
 
-				rc = (*(*func(*libc.TLS, uintptr, sqlite3_int64, int32, uintptr) int32)(unsafe.Pointer((p + 136 /* &.xFetch */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 72 /* pFd */)), (sqlite3_int64(pgsz) * iPg), pgsz, bp+80 /* &pMap */)
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, sqlite3_int64, int32, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods)(unsafe.Pointer(p)).FxFetch})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 72 /* pFd */)), (sqlite3_int64(pgsz) * iPg), pgsz, bp+80 /* &pMap */)
 				if (rc != SQLITE_OK) || (*(*uintptr)(unsafe.Pointer(bp + 80 /* pMap */)) == uintptr(0)) {
 					break
 				}
@@ -23596,7 +23918,9 @@ func sqlite3_mmap_warm(tls *libc.TLS, db uintptr, zDb uintptr) int32 { /* mmapwa
 				nTotal = nTotal + (int32(*(*uint8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 80 /* pMap */))))))
 				nTotal = nTotal + (int32(*(*uint8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 80 /* pMap */)) + uintptr((pgsz - 1))))))
 
-				rc = (*(*func(*libc.TLS, uintptr, sqlite3_int64, uintptr) int32)(unsafe.Pointer((p + 144 /* &.xUnfetch */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 72 /* pFd */)), (sqlite3_int64(pgsz) * iPg), *(*uintptr)(unsafe.Pointer(bp + 80 /* pMap */)))
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, sqlite3_int64, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods)(unsafe.Pointer(p)).FxUnfetch})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 72 /* pFd */)), (sqlite3_int64(pgsz) * iPg), *(*uintptr)(unsafe.Pointer(bp + 80 /* pMap */)))
 				if rc != SQLITE_OK {
 					break
 				}
@@ -23630,7 +23954,7 @@ type nextCharContext1 = struct {
 	FnPrefix      int32
 	FnAlloc       int32
 	FnUsed        int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 	FaResult      uintptr
 	FmallocFailed int32
 	FotherError   int32
@@ -24507,7 +24831,7 @@ func sqlite3_normalize(tls *libc.TLS, zSql uintptr) uintptr { /* normalize.c:555
 // line and show the result on standard output.
 
 // Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2012-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -24522,7 +24846,7 @@ func sqlite3_normalize(tls *libc.TLS, zSql uintptr) uintptr { /* normalize.c:555
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Define some macros helping to catch buffer overflows.
 
@@ -24537,7 +24861,7 @@ type Percentile1 = struct {
 } /* percentile.c:71:9 */
 
 // Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2012-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -24552,7 +24876,7 @@ type Percentile1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Define some macros helping to catch buffer overflows.
 
@@ -24713,7 +25037,7 @@ func sqlite3_percentile_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi u
 	return rc
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -24728,11 +25052,11 @@ func sqlite3_percentile_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi u
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -24747,7 +25071,7 @@ func sqlite3_percentile_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi u
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -24764,7 +25088,7 @@ func sqlite3_percentile_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi u
 // underlying representation of the virtual table
 type prefixes_vtab1 = struct{ Fbase sqlite3_vtab } /* prefixes.c:33:9 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -24779,11 +25103,11 @@ type prefixes_vtab1 = struct{ Fbase sqlite3_vtab } /* prefixes.c:33:9 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -24798,7 +25122,7 @@ type prefixes_vtab1 = struct{ Fbase sqlite3_vtab } /* prefixes.c:33:9 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -24819,11 +25143,11 @@ type prefixes_vtab = prefixes_vtab1 /* prefixes.c:33:30 */
 // serve as the underlying representation of a cursor that scans
 // over rows of the result
 type prefixes_cursor1 = struct {
-	Fbase   sqlite3_vtab_cursor
-	FiRowid sqlite3_int64
-	FzStr   uintptr
-	FnStr   int32
-	_       [4]byte
+	Fbase        sqlite3_vtab_cursor
+	FiRowid      sqlite3_int64
+	FzStr        uintptr
+	FnStr        int32
+	F__ccgo_pad1 [4]byte
 } /* prefixes.c:43:9 */
 
 // prefixes_cursor is a subclass of sqlite3_vtab_cursor which will
@@ -25102,9 +25426,9 @@ type ReStateNumber = uint16 /* regexp.c:98:24 */
 // the NFA.  The implementation is optimized for the common case where the
 // number of actives states is small.
 type ReStateSet1 = struct {
-	FnState uint32
-	_       [4]byte
-	FaState uintptr
+	FnState      uint32
+	F__ccgo_pad1 [4]byte
+	FaState      uintptr
 } /* regexp.c:105:9 */
 
 // Because this is an NFA and not a DFA, multiple states can be active at
@@ -25303,7 +25627,9 @@ __8:
 		goto __9
 	}
 	cPrev = c
-	c = int32((*(*func(*libc.TLS, uintptr) uint32)(unsafe.Pointer((pRe + 40 /* &.xNextChar */))))(tls, bp+232 /* &in */))
+	c = int32((*struct {
+		f func(*libc.TLS, uintptr) uint32
+	})(unsafe.Pointer(&struct{ uintptr }{(*ReCompiled)(unsafe.Pointer(pRe)).FxNextChar})).f(tls, bp+232 /* &in */))
 	pThis = pNext
 	pNext = (bp /* &aStateSet */ + uintptr(iSwap)*16)
 	iSwap = (uint32(1) - iSwap)
@@ -25703,7 +26029,9 @@ func re_subcompile_string(tls *libc.TLS, p uintptr) uintptr { /* regexp.c:477:19
 	var iStart int32
 	var c uint32
 	var zErr uintptr
-	for (libc.AssignUint32(&c, (*(*func(*libc.TLS, uintptr) uint32)(unsafe.Pointer((p + 40 /* &.xNextChar */))))(tls, (p /* &.sIn */)))) != uint32(0) {
+	for (libc.AssignUint32(&c, (*struct {
+		f func(*libc.TLS, uintptr) uint32
+	})(unsafe.Pointer(&struct{ uintptr }{(*ReCompiled)(unsafe.Pointer(p)).FxNextChar})).f(tls, (p /* &.sIn */)))) != uint32(0) {
 		iStart = int32((*ReCompiled)(unsafe.Pointer(p)).FnState)
 		switch c {
 		case uint32('|'):
@@ -25828,7 +26156,9 @@ func re_subcompile_string(tls *libc.TLS, p uintptr) uintptr { /* regexp.c:477:19
 				} else {
 					re_append(tls, p, RE_OP_CC_INC, 0)
 				}
-				for (libc.AssignUint32(&c, (*(*func(*libc.TLS, uintptr) uint32)(unsafe.Pointer((p + 40 /* &.xNextChar */))))(tls, (p /* &.sIn */)))) != uint32(0) {
+				for (libc.AssignUint32(&c, (*struct {
+					f func(*libc.TLS, uintptr) uint32
+				})(unsafe.Pointer(&struct{ uintptr }{(*ReCompiled)(unsafe.Pointer(p)).FxNextChar})).f(tls, (p /* &.sIn */)))) != uint32(0) {
 					if (c == uint32('[')) && (int32(rePeek(tls, p)) == ':') {
 						return ts + 6261 /* "POSIX character ..." */
 					}
@@ -25838,7 +26168,9 @@ func re_subcompile_string(tls *libc.TLS, p uintptr) uintptr { /* regexp.c:477:19
 					if int32(rePeek(tls, p)) == '-' {
 						re_append(tls, p, RE_OP_CC_RANGE, int32(c))
 						(*ReCompiled)(unsafe.Pointer(p)).FsIn.Fi++
-						c = (*(*func(*libc.TLS, uintptr) uint32)(unsafe.Pointer((p + 40 /* &.xNextChar */))))(tls, (p /* &.sIn */))
+						c = (*struct {
+							f func(*libc.TLS, uintptr) uint32
+						})(unsafe.Pointer(&struct{ uintptr }{(*ReCompiled)(unsafe.Pointer(p)).FxNextChar})).f(tls, (p /* &.sIn */))
 						if c == uint32('\\') {
 							c = re_esc_char(tls, p)
 						}
@@ -26087,7 +26419,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 // This case when the file is being statically linked into the
 // application
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -26102,11 +26434,11 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -26121,7 +26453,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // These are defined by the user (or the compiler)
 //    to specify the desired environment:
@@ -26129,6 +26461,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //    __STRICT_ANSI__	ISO Standard C.
 //    _ISOC99_SOURCE	Extensions to ISO C89 from ISO C99.
 //    _ISOC11_SOURCE	Extensions to ISO C99 from ISO C11.
+//    _ISOC2X_SOURCE	Extensions to ISO C99 from ISO C2X.
 //    __STDC_WANT_LIB_EXT2__
 // 			Extensions to ISO C99 from TR 27431-2:2010.
 //    __STDC_WANT_IEC_60559_BFP_EXT__
@@ -26249,6 +26582,8 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 // If nothing (other than _GNU_SOURCE and _DEFAULT_SOURCE) is defined,
 //    define _DEFAULT_SOURCE.
 
+// This is to enable the ISO C2X extension.
+
 // This is to enable the ISO C11 extension.
 
 // This is to enable the ISO C99 extension.
@@ -26271,9 +26606,22 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //    compatibility with various implementations of <cstdio>, this test
 //    must consider only the value of __cplusplus when compiling C++.
 
+// GNU formerly extended the scanf functions with modified format
+//    specifiers %as, %aS, and %a[...] that allocate a buffer for the
+//    input using malloc.  This extension conflicts with ISO C99, which
+//    defines %a as a standalone format specifier that reads a floating-
+//    point number; moreover, POSIX.1-2008 provides the same feature
+//    using the modifier letter 'm' instead (%ms, %mS, %m[...]).
+//
+//    We now follow C99 unless GNU extensions are active and the compiler
+//    is specifically in C89 or C++98 mode (strict or not).  For
+//    instance, with GCC, -std=gnu11 will have C99-compliant scanf with
+//    or without -D_GNU_SOURCE, but -std=c89 -D_GNU_SOURCE will have the
+//    old extension.
+
 // Get definitions of __STDC_* predefined macros, if the compiler has
 //    not preincluded this header automatically.
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -26288,7 +26636,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // This macro indicates that the installed library is the GNU C Library.
 //    For historic reasons the value now is 6 and this will stay from now
@@ -26301,7 +26649,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //    these macros to test for features in specific releases.
 
 // This is here only because every header file already includes this one.
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -26316,7 +26664,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // We are almost always included from features.h.
 
@@ -26431,7 +26779,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //    semantics.
 //
 //    clang++ identifies itself as gcc-4.2, but has support for GNU inlining
-//    semantics, that can be checked fot by using the __GNUC_STDC_INLINE_ and
+//    semantics, that can be checked for by using the __GNUC_STDC_INLINE_ and
 //    __GNUC_GNU_INLINE__ macro definitions.
 
 // GCC 4.3 and above allow passing all anonymous arguments of an
@@ -26452,11 +26800,15 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //    argument to strncpy and strncat, as the char array is not necessarily
 //    a NUL-terminated string.
 
+// Undefine (also defined in libc-symbols.h).
+// Copies attributes from the declaration or type referenced by
+//    the argument.
+
 // Determine the wordsize from the preprocessor defines.
 
 // Both x86-64 and x32 use the 64-bit system call interface.
 // Properties of long double type.  ldbl-96 version.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2016-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -26471,7 +26823,7 @@ func sqlite3_regexp_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // long double is distinct from double, so there is nothing to
 //    define here.
@@ -26550,14 +26902,14 @@ func sqlite3_remember_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uin
 // serve as the underlying representation of a cursor that scans
 // over rows of the result
 type series_cursor1 = struct {
-	Fbase    sqlite3_vtab_cursor
-	FisDesc  int32
-	_        [4]byte
-	FiRowid  sqlite3_int64
-	FiValue  sqlite3_int64
-	FmnValue sqlite3_int64
-	FmxValue sqlite3_int64
-	FiStep   sqlite3_int64
+	Fbase        sqlite3_vtab_cursor
+	FisDesc      int32
+	F__ccgo_pad1 [4]byte
+	FiRowid      sqlite3_int64
+	FiValue      sqlite3_int64
+	FmnValue     sqlite3_int64
+	FmxValue     sqlite3_int64
+	FiStep       sqlite3_int64
 } /* series.c:83:9 */
 
 // series_cursor is a subclass of sqlite3_vtab_cursor which will
@@ -27412,19 +27764,19 @@ type EditDist3Cost1 = struct {
 // Forward declaration of structures
 type EditDist3Cost = EditDist3Cost1 /* spellfix.c:546:30 */
 type EditDist3Config1 = struct {
-	FnLang int32
-	_      [4]byte
-	Fa     uintptr
+	FnLang       int32
+	F__ccgo_pad1 [4]byte
+	Fa           uintptr
 } /* spellfix.c:547:9 */
 
 type EditDist3Config = EditDist3Config1 /* spellfix.c:547:32 */
 type EditDist3From1 = struct {
-	FnSubst  int32
-	FnDel    int32
-	FnByte   int32
-	_        [4]byte
-	FapSubst uintptr
-	FapDel   uintptr
+	FnSubst      int32
+	FnDel        int32
+	FnByte       int32
+	F__ccgo_pad1 [4]byte
+	FapSubst     uintptr
+	FapDel       uintptr
 } /* spellfix.c:549:9 */
 
 type EditDist3From = EditDist3From1 /* spellfix.c:549:30 */
@@ -27444,10 +27796,10 @@ type EditDist3To1 = struct {
 
 type EditDist3To = EditDist3To1 /* spellfix.c:551:28 */
 type EditDist3ToString1 = struct {
-	Fz uintptr
-	Fn int32
-	_  [4]byte
-	Fa uintptr
+	Fz           uintptr
+	Fn           int32
+	F__ccgo_pad1 [4]byte
+	Fa           uintptr
 } /* spellfix.c:552:9 */
 
 type EditDist3ToString = EditDist3ToString1 /* spellfix.c:552:34 */
@@ -29369,22 +29721,22 @@ func spellfix1RowCompare(tls *libc.TLS, A uintptr, B uintptr) int32 { /* spellfi
 // A structure used to pass information from spellfix1FilterForMatch()
 // into spellfix1RunQuery().
 type MatchQuery1 = struct {
-	FpCur       uintptr
-	FpStmt      uintptr
-	FzHash      [32]int8
-	FzPattern   uintptr
-	FnPattern   int32
-	_           [4]byte
-	FpMatchStr3 uintptr
-	FpConfig3   uintptr
-	FpLang      uintptr
-	FiLang      int32
-	FiScope     int32
-	FiMaxDist   int32
-	Frc         int32
-	FnRun       int32
-	FazPrior    [1][32]int8
-	_           [4]byte
+	FpCur        uintptr
+	FpStmt       uintptr
+	FzHash       [32]int8
+	FzPattern    uintptr
+	FnPattern    int32
+	F__ccgo_pad1 [4]byte
+	FpMatchStr3  uintptr
+	FpConfig3    uintptr
+	FpLang       uintptr
+	FiLang       int32
+	FiScope      int32
+	FiMaxDist    int32
+	Frc          int32
+	FnRun        int32
+	FazPrior     [1][32]int8
+	F__ccgo_pad2 [4]byte
 } /* spellfix.c:2366:9 */
 
 // A structure used to pass information from spellfix1FilterForMatch()
@@ -30830,7 +31182,7 @@ func sqlite3_totype_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 }
 
 // Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2012-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -30845,7 +31197,7 @@ func sqlite3_totype_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Define some macros helping to catch buffer overflows.
 
@@ -30860,15 +31212,15 @@ func sqlite3_totype_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintp
 // simultaneous queries.
 
 type UnionCsr1 = struct {
-	Fbase      sqlite3_vtab_cursor
-	FpStmt     uintptr
-	FiMaxRowid sqlite3_int64
-	FiTab      int32
-	_          [4]byte
+	Fbase        sqlite3_vtab_cursor
+	FpStmt       uintptr
+	FiMaxRowid   sqlite3_int64
+	FiTab        int32
+	F__ccgo_pad1 [4]byte
 } /* unionvtab.c:181:9 */
 
 // Floating-point inline functions for stdlib.h.
-//    Copyright (C) 2012-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2012-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -30883,7 +31235,7 @@ type UnionCsr1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Define some macros helping to catch buffer overflows.
 
@@ -30904,10 +31256,10 @@ type UnionTab1 = struct {
 	FbSwarm      int32
 	FiPK         int32
 	FnSrc        int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	FaSrc        uintptr
 	FbHasContext int32
-	_            [4]byte
+	F__ccgo_pad2 [4]byte
 	FzSourceStr  uintptr
 	FpNotFound   uintptr
 	FpOpenClose  uintptr
@@ -30925,7 +31277,7 @@ type UnionSrc1 = struct {
 	FzFile         uintptr
 	FzContext      uintptr
 	FnUser         int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	Fdb            uintptr
 	FpNextClosable uintptr
 } /* unionvtab.c:182:9 */
@@ -32253,11 +32605,6 @@ func sqlite3_wholenumber_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi 
 	return rc
 }
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Offset of member MEMBER in a struct of type TYPE.
@@ -32268,7 +32615,7 @@ func sqlite3_wholenumber_init(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi 
 type max_align_t = struct {
 	F__max_align_ll int64
 	F__max_align_ld float64
-} /* stddef.h:437:3 */
+} /* stddef.h:426:3 */
 
 type z_size_t = size_t /* zconf.h:248:21 */
 
@@ -32313,7 +32660,7 @@ type voidpc = uintptr /* zconf.h:408:23 */
 type voidpf = uintptr /* zconf.h:409:23 */
 type voidp = uintptr  /* zconf.h:410:23 */
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -32348,7 +32695,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //    If fixincludes fixes it, then the fixed version is installed
 //    instead of this text.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -32363,12 +32710,12 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.10/5.2.4.2.1 Sizes of integer types	<limits.h>
 
 // Handle feature test macros at the start of a header.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2016-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -32383,7 +32730,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // This header is internal to glibc and should not be included outside
 //    of glibc headers.  Headers including it must define
@@ -32393,7 +32740,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //    header is included, not when the first system header is
 //    included.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -32408,16 +32755,20 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // ISO/IEC TR 24731-2:2010 defines the __STDC_WANT_LIB_EXT2__
 //    macro.
 
 // ISO/IEC TS 18661-1:2014 defines the __STDC_WANT_IEC_60559_BFP_EXT__
-//    macro.
+//    macro.  Most but not all symbols enabled by that macro in TS
+//    18661-1 are enabled unconditionally in C2X; the symbols in Annex F
+//    still require that macro in C2X.
 
 // ISO/IEC TS 18661-4:2015 defines the
-//    __STDC_WANT_IEC_60559_FUNCS_EXT__ macro.
+//    __STDC_WANT_IEC_60559_FUNCS_EXT__ macro.  Other than the reduction
+//    functions, the symbols from this TS are enabled unconditionally in
+//    C2X.
 
 // ISO/IEC TS 18661-3:2015 defines the
 //    __STDC_WANT_IEC_60559_TYPES_EXT__ macro.
@@ -32444,7 +32795,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //    __STDC_WANT_IEC_60559_BFP_EXT__ is used to enable this feature.
 
 // POSIX adds things to <limits.h>.
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -32459,7 +32810,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.9.2 Minimum Values	Added to <limits.h>
 //
@@ -32537,7 +32888,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 
 // Get the implementation-specific values for the above.
 // Minimum guaranteed maximum values for system limits.  Linux version.
-//    Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1993-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -32552,7 +32903,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; see the file COPYING.LIB.  If
-//    not, see <http://www.gnu.org/licenses/>.
+//    not, see <https://www.gnu.org/licenses/>.
 
 // The kernel header pollutes the namespace with the NR_OPEN symbol
 //    and defines LINK_MAX although filesystems have different maxima.  A
@@ -32601,7 +32952,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 // This value is a guaranteed minimum maximum.
 //    The current maximum can be got from `sysconf'.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -32616,7 +32967,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; include <limits.h> instead.
 
@@ -32648,7 +32999,7 @@ type voidp = uintptr  /* zconf.h:410:23 */
 
 // This value is defined like this in regex.h.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -32705,6 +33056,25 @@ type z_crc_t = uint32 /* zconf.h:429:17 */
 
 // Define some macros helping to catch buffer overflows.
 
+// System-specific extensions.
+// System-specific extensions of <unistd.h>, Linux version.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
 // MVS linker does not support external names larger than 8 bytes
 
 //
@@ -32744,23 +33114,23 @@ type alloc_func = uintptr /* zlib.h:81:16 */
 type free_func = uintptr  /* zlib.h:82:16 */
 
 type z_stream_s = struct {
-	Fnext_in   uintptr
-	Favail_in  uInt
-	_          [4]byte
-	Ftotal_in  uLong
-	Fnext_out  uintptr
-	Favail_out uInt
-	_          [4]byte
-	Ftotal_out uLong
-	Fmsg       uintptr
-	Fstate     uintptr
-	Fzalloc    alloc_func
-	Fzfree     free_func
-	Fopaque    voidpf
-	Fdata_type int32
-	_          [4]byte
-	Fadler     uLong
-	Freserved  uLong
+	Fnext_in     uintptr
+	Favail_in    uInt
+	F__ccgo_pad1 [4]byte
+	Ftotal_in    uLong
+	Fnext_out    uintptr
+	Favail_out   uInt
+	F__ccgo_pad2 [4]byte
+	Ftotal_out   uLong
+	Fmsg         uintptr
+	Fstate       uintptr
+	Fzalloc      alloc_func
+	Fzfree       free_func
+	Fopaque      voidpf
+	Fdata_type   int32
+	F__ccgo_pad3 [4]byte
+	Fadler       uLong
+	Freserved    uLong
 } /* zlib.h:86:9 */
 
 type z_stream = z_stream_s /* zlib.h:106:3 */
@@ -32771,22 +33141,22 @@ type z_streamp = uintptr /* zlib.h:108:22 */
 //      gzip header information passed to and from zlib routines.  See RFC 1952
 //   for more details on the meanings of these fields.
 type gz_header_s = struct {
-	Ftext      int32
-	_          [4]byte
-	Ftime      uLong
-	Fxflags    int32
-	Fos        int32
-	Fextra     uintptr
-	Fextra_len uInt
-	Fextra_max uInt
-	Fname      uintptr
-	Fname_max  uInt
-	_          [4]byte
-	Fcomment   uintptr
-	Fcomm_max  uInt
-	Fhcrc      int32
-	Fdone      int32
-	_          [4]byte
+	Ftext        int32
+	F__ccgo_pad1 [4]byte
+	Ftime        uLong
+	Fxflags      int32
+	Fos          int32
+	Fextra       uintptr
+	Fextra_len   uInt
+	Fextra_max   uInt
+	Fname        uintptr
+	Fname_max    uInt
+	F__ccgo_pad2 [4]byte
+	Fcomment     uintptr
+	Fcomm_max    uInt
+	Fhcrc        int32
+	Fdone        int32
+	F__ccgo_pad3 [4]byte
 } /* zlib.h:114:9 */
 
 //
@@ -32869,10 +33239,10 @@ type out_func = uintptr /* zlib.h:1094:13 */
 //    wrapper, documented in RFC 1952, wrapped around a deflate stream.
 
 type gzFile_s = struct {
-	Fhave uint32
-	_     [4]byte
-	Fnext uintptr
-	Fpos  off_t
+	Fhave        uint32
+	F__ccgo_pad1 [4]byte
+	Fnext        uintptr
+	Fpos         off_t
 } /* zlib.h:1300:9 */
 
 //
@@ -33045,10 +33415,10 @@ type ZipfileCDS1 = struct {
 	FnComment        u16
 	FiDiskStart      u16
 	FiInternalAttr   u16
-	_                [2]byte
+	F__ccgo_pad1     [2]byte
 	FiExternalAttr   u32
 	FiOffset         u32
-	_                [4]byte
+	F__ccgo_pad2     [4]byte
 	FzFile           uintptr
 } /* zipfile.c:200:9 */
 
@@ -33095,7 +33465,7 @@ type ZipfileLFH1 = struct {
 	FiCompression    u16
 	FmTime           u16
 	FmDate           u16
-	_                [2]byte
+	F__ccgo_pad1     [2]byte
 	Fcrc32           u32
 	FszCompressed    u32
 	FszUncompressed  u32
@@ -33120,30 +33490,30 @@ type ZipfileLFH1 = struct {
 type ZipfileLFH = ZipfileLFH1 /* zipfile.c:237:27 */
 
 type ZipfileEntry1 = struct {
-	Fcds       ZipfileCDS
-	FmUnixTime u32
-	_          [4]byte
-	FaExtra    uintptr
-	FiDataOff  i64
-	FaData     uintptr
-	FpNext     uintptr
+	Fcds         ZipfileCDS
+	FmUnixTime   u32
+	F__ccgo_pad1 [4]byte
+	FaExtra      uintptr
+	FiDataOff    i64
+	FaData       uintptr
+	FpNext       uintptr
 } /* zipfile.c:251:9 */
 
 type ZipfileEntry = ZipfileEntry1 /* zipfile.c:251:29 */
 
 // Cursor type for zipfile tables.
 type ZipfileCsr1 = struct {
-	Fbase       sqlite3_vtab_cursor
-	FiId        i64
-	FbEof       u8
-	FbNoop      u8
-	_           [6]byte
-	FpFile      uintptr
-	FiNextOff   i64
-	Feocd       ZipfileEOCD
-	FpFreeEntry uintptr
-	FpCurrent   uintptr
-	FpCsrNext   uintptr
+	Fbase        sqlite3_vtab_cursor
+	FiId         i64
+	FbEof        u8
+	FbNoop       u8
+	F__ccgo_pad1 [6]byte
+	FpFile       uintptr
+	FiNextOff    i64
+	Feocd        ZipfileEOCD
+	FpFreeEntry  uintptr
+	FpCurrent    uintptr
+	FpCsrNext    uintptr
 } /* zipfile.c:264:9 */
 
 // Cursor type for zipfile tables.
@@ -33558,7 +33928,7 @@ func zipfileMtime(tls *libc.TLS, pCDS uintptr) u32 { /* zipfile.c:722:12: */
 	X2 = ((306001 * (M + 1)) / 10000)
 	A = (Y / 100)
 	B = ((2 - A) + (A / 4))
-	JDsec = ((((i64(((float64(((X1 + X2) + D) + B)) - 1524.5) * float64(86400))) + (i64(hr * 3600))) + (i64(min * 60))) + i64(sec))
+	JDsec = ((((libc.Int64FromFloat64(((float64(((X1 + X2) + D) + B)) - 1524.5) * float64(86400))) + (i64(hr * 3600))) + (i64(min * 60))) + i64(sec))
 	return (u32(JDsec - (int64(24405875) * int64(8640))))
 }
 
@@ -33580,14 +33950,14 @@ func zipfileMtimeToDos(tls *libc.TLS, pCds uintptr, mUnixTime u32) { /* zipfile.
 	var min int32
 	var sec int32
 
-	A = (int32((float64(JD) - 1867216.25) / 36524.25))
+	A = (libc.Int32FromFloat64((float64(JD) - 1867216.25) / 36524.25))
 	A = (int32(((JD + int64(1)) + i64(A)) - (i64(A / 4))))
 	B = (A + 1524)
-	C = (int32((float64(B) - 122.1) / 365.25))
+	C = (libc.Int32FromFloat64((float64(B) - 122.1) / 365.25))
 	D = ((36525 * (C & 32767)) / 100)
-	E = (int32((float64(B - D)) / 30.6001))
+	E = (libc.Int32FromFloat64((float64(B - D)) / 30.6001))
 
-	day = ((B - D) - (int32(30.6001 * float64(E))))
+	day = ((B - D) - (libc.Int32FromFloat64(30.6001 * float64(E))))
 	mon = func() int32 {
 		if E < 14 {
 			return (E - 1)
@@ -34435,13 +34805,17 @@ func zipfileTime(tls *libc.TLS) u32 { /* zipfile.c:1486:12: */
 	if ((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FiVersion >= 2) && ((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxCurrentTimeInt64 != 0) {
 		// var ms i64 at bp, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, pVfs, bp /* &ms */)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxCurrentTimeInt64})).f(tls, pVfs, bp /* &ms */)
 		ret = (u32((*(*i64)(unsafe.Pointer(bp /* ms */)) / int64(1000)) - (int64(24405875) * int64(8640))))
 	} else {
 		// var day float64 at bp+8, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pVfs + 120 /* &.xCurrentTime */))))(tls, pVfs, bp+8 /* &day */)
-		ret = (u32((*(*float64)(unsafe.Pointer(bp + 8 /* day */)) - 2440587.5) * float64(86400)))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxCurrentTime})).f(tls, pVfs, bp+8 /* &day */)
+		ret = (libc.Uint32FromFloat64((*(*float64)(unsafe.Pointer(bp + 8 /* day */)) - 2440587.5) * float64(86400)))
 	}
 	return ret
 }
@@ -35094,10 +35468,10 @@ type ZipfileBuffer1 = struct {
 type ZipfileBuffer = ZipfileBuffer1 /* zipfile.c:1900:30 */
 
 type ZipfileCtx1 = struct {
-	FnEntry int32
-	_       [4]byte
-	Fbody   ZipfileBuffer
-	Fcds    ZipfileBuffer
+	FnEntry      int32
+	F__ccgo_pad1 [4]byte
+	Fbody        ZipfileBuffer
+	Fcds         ZipfileBuffer
 } /* zipfile.c:1907:9 */
 
 type ZipfileCtx = ZipfileCtx1 /* zipfile.c:1907:27 */
@@ -35521,7 +35895,7 @@ func test_rbu_delta(tls *libc.TLS, pCtx uintptr, nArg int32, apVal uintptr) { /*
 
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -35730,10 +36104,10 @@ func test_sqlite3rbu_cmd(tls *libc.TLS, clientData ClientData, interp uintptr, o
 }
 
 type RbuCmd = struct {
-	FzName  uintptr
-	FnArg   int32
-	_       [4]byte
-	FzUsage uintptr
+	FzName       uintptr
+	FnArg        int32
+	F__ccgo_pad1 [4]byte
+	FzUsage      uintptr
 } /* test_rbu.c:67:3 */
 
 // Tclcmd: sqlite3rbu CMD <target-db> <rbu-db> ?<state-db>?
@@ -35887,11 +36261,11 @@ type TestSession1 = struct {
 type TestSession = TestSession1 /* test_session.c:21:28 */
 
 type TestStreamInput1 = struct {
-	FnStream int32
-	_        [4]byte
-	FaData   uintptr
-	FnData   int32
-	FiData   int32
+	FnStream     int32
+	F__ccgo_pad1 [4]byte
+	FaData       uintptr
+	FnData       int32
+	FiData       int32
 } /* test_session.c:28:9 */
 
 type TestStreamInput = TestStreamInput1 /* test_session.c:28:32 */
@@ -36015,7 +36389,7 @@ func test_tcl_integer(tls *libc.TLS, interp uintptr, zVar uintptr) int32 { /* te
 	pObj = tcl.XTcl_ObjGetVar2(tls, interp, pName, uintptr(0), TCL_GLOBAL_ONLY)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pName
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -36061,7 +36435,7 @@ func test_table_filter(tls *libc.TLS, pCtx uintptr, zTbl uintptr) int32 { /* tes
 	}
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -36070,9 +36444,9 @@ func test_table_filter(tls *libc.TLS, pCtx uintptr, zTbl uintptr) int32 { /* tes
 }
 
 type TestSessionsBlob1 = struct {
-	Fp uintptr
-	Fn int32
-	_  [4]byte
+	Fp           uintptr
+	Fn           int32
+	F__ccgo_pad1 [4]byte
 } /* test_session.c:191:1 */
 
 type TestSessionsBlob = TestSessionsBlob1 /* test_session.c:195:33 */
@@ -36215,7 +36589,7 @@ func test_session_cmd(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 			if (*TestSession)(unsafe.Pointer(p)).FpFilterScript != 0 {
 				for ok := true; ok; ok = 0 != 0 {
 					var _objPtr uintptr = (*TestSession)(unsafe.Pointer(p)).FpFilterScript
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -36284,12 +36658,12 @@ func test_session_cmd(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 }
 
 type SessionSubcmd = struct {
-	FzSub uintptr
-	FnArg int32
-	_     [4]byte
-	FzMsg uintptr
-	FiSub int32
-	_     [4]byte
+	FzSub        uintptr
+	FnArg        int32
+	F__ccgo_pad1 [4]byte
+	FzMsg        uintptr
+	FiSub        int32
+	F__ccgo_pad2 [4]byte
 } /* test_session.c:233:10 */
 
 var aSub = [13]SessionSubcmd{
@@ -36313,7 +36687,7 @@ func test_session_del(tls *libc.TLS, clientData uintptr) { /* test_session.c:390
 	if (*TestSession)(unsafe.Pointer(p)).FpFilterScript != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*TestSession)(unsafe.Pointer(p)).FpFilterScript
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -36456,7 +36830,7 @@ func test_filter_handler(tls *libc.TLS, pCtx uintptr, zTab uintptr) int32 { /* t
 
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -36650,7 +37024,7 @@ func test_conflict_handler(tls *libc.TLS, pCtx uintptr, eConf int32, pIter uintp
 
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -37277,12 +37651,12 @@ func test_rebaser_cmd(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 }
 
 type RebaseSubcmd = struct {
-	FzSub uintptr
-	FnArg int32
-	_     [4]byte
-	FzMsg uintptr
-	FiSub int32
-	_     [4]byte
+	FzSub        uintptr
+	FnArg        int32
+	F__ccgo_pad1 [4]byte
+	FzMsg        uintptr
+	FiSub        int32
+	F__ccgo_pad2 [4]byte
 } /* test_session.c:1177:10 */
 
 var aSub1 = [4]RebaseSubcmd{
@@ -37354,9 +37728,9 @@ func test_sqlite3session_config(tls *libc.TLS, clientData uintptr, interp uintpt
 }
 
 type ConfigOpt = struct {
-	FzSub uintptr
-	Fop   int32
-	_     [4]byte
+	FzSub        uintptr
+	Fop          int32
+	F__ccgo_pad1 [4]byte
 } /* test_session.c:1294:10 */
 
 var aSub2 = [3]ConfigOpt{
@@ -37453,7 +37827,7 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 // directory as this file for additional information.
 
 // Used to get the current process ID
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37468,11 +37842,11 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.14 Signal handling <signal.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37487,10 +37861,10 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37505,12 +37879,12 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Signal number definitions.  Linux version.
-//    Copyright (C) 1995-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1995-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37525,10 +37899,10 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Signal number constants.  Generic template.
-//    Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37543,7 +37917,7 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Fake signal functions.
 
@@ -37582,7 +37956,7 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //    most Linux systems.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37597,7 +37971,7 @@ func TestSession_Init(tls *libc.TLS, interp uintptr) int32 { /* test_session.c:1
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -37612,7 +37986,7 @@ type sig_atomic_t = int32 /* sig_atomic_t.h:8:24 */
 
 // Both x86-64 and x32 use the 64-bit system call interface.
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37627,12 +38001,12 @@ type sig_atomic_t = int32 /* sig_atomic_t.h:8:24 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Define __sigval_t.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37647,7 +38021,7 @@ type sig_atomic_t = int32 /* sig_atomic_t.h:8:24 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Type for data associated with a signal.
 type sigval = struct {
@@ -37674,7 +38048,7 @@ type siginfo_t = struct {
 //    These are all considered GNU extensions.
 
 // Define __sigval_t.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37689,7 +38063,7 @@ type siginfo_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // To avoid sigval_t (not a standard type name) having C++ name
 //    mangling depending on whether the selected standard includes union
@@ -37704,7 +38078,7 @@ type sigval_t = sigval /* sigval_t.h:16:20 */
 
 // Both x86-64 and x32 use the 64-bit system call interface.
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37719,12 +38093,12 @@ type sigval_t = sigval /* sigval_t.h:16:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Define __sigval_t.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37739,7 +38113,7 @@ type sigval_t = sigval /* sigval_t.h:16:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Forward declaration.
 
@@ -37752,7 +38126,7 @@ type sig_t = uintptr /* signal.h:190:24 */
 // Get the system-specific definitions of `struct sigaction'
 //    and the `SA_*' and `SIG_*'. constants.
 // The proper definitions for Linux's sigaction.
-//    Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1993-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37767,19 +38141,19 @@ type sig_t = uintptr /* signal.h:190:24 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Structure describing the action to be taken when a signal arrives.
 type sigaction = struct {
 	F__sigaction_handler struct{ Fsa_handler uintptr }
 	Fsa_mask             struct{ F__val [16]uint64 }
 	Fsa_flags            int32
-	_                    [4]byte
+	F__ccgo_pad1         [4]byte
 	Fsa_restorer         uintptr
 } /* sigaction.h:27:1 */
 
 // Get machine-dependent `struct sigcontext' and signal subcodes.
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+// Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37794,10 +38168,10 @@ type sigaction = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -37812,7 +38186,7 @@ type sigaction = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -37920,7 +38294,7 @@ type _xstate = struct {
 	Fymmh struct{ Fymmh_space [64]uint32 }
 } /* sigcontext.h:189:1 */
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -37951,15 +38325,6 @@ type _xstate = struct {
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -37995,15 +38360,10 @@ type _xstate = struct {
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Define stack_t.  Linux version.
-//    Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1998-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -38018,9 +38378,9 @@ type _xstate = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -38051,15 +38411,6 @@ type _xstate = struct {
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -38094,24 +38445,19 @@ type _xstate = struct {
 
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
-
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
 
 // A null pointer constant.
 
 // Structure describing a signal stack.
 type stack_t = struct {
-	Fss_sp    uintptr
-	Fss_flags int32
-	_         [4]byte
-	Fss_size  size_t
+	Fss_sp       uintptr
+	Fss_flags    int32
+	F__ccgo_pad1 [4]byte
+	Fss_size     size_t
 } /* stack_t.h:31:5 */
 
 // This will define `ucontext_t' and `mcontext_t'.
-// Copyright (C) 2001-2018 Free Software Foundation, Inc.
+// Copyright (C) 2001-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -38126,9 +38472,9 @@ type stack_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -38143,10 +38489,10 @@ type stack_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -38161,12 +38507,12 @@ type stack_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Define stack_t.  Linux version.
-//    Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1998-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -38181,7 +38527,7 @@ type stack_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Type for general register.
 type greg_t = int64 /* ucontext.h:37:37 */
@@ -38258,7 +38604,7 @@ type ucontext_t1 = struct {
 type ucontext_t = ucontext_t1 /* ucontext.h:151:5 */
 
 // Define struct sigstack.
-//    Copyright (C) 1998-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1998-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -38273,16 +38619,35 @@ type ucontext_t = ucontext_t1 /* ucontext.h:151:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Structure describing a signal stack (obsolete).
 type sigstack = struct {
-	Fss_sp      uintptr
-	Fss_onstack int32
-	_           [4]byte
+	Fss_sp       uintptr
+	Fss_onstack  int32
+	F__ccgo_pad1 [4]byte
 } /* struct_sigstack.h:23:1 */
 
 // Define some macros helping to catch buffer overflows.
+
+// System-specific extensions.
+// System-specific extensions of <unistd.h>, Linux version.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
 
 // Windows needs to know which symbols to export.  Unix does not.
 // BUILD_sqlite should be undefined for Unix.
@@ -38300,7 +38665,7 @@ type SqliteDb = struct {
 	FzBindFallback  uintptr
 	FzAuth          uintptr
 	FdisableAuth    int32
-	_               [4]byte
+	F__ccgo_pad1    [4]byte
 	FzNull          uintptr
 	FpFunc          uintptr
 	FpUpdateHook    uintptr
@@ -38310,7 +38675,7 @@ type SqliteDb = struct {
 	FpUnlockNotify  uintptr
 	FpCollate       uintptr
 	Frc             int32
-	_               [4]byte
+	F__ccgo_pad2    [4]byte
 	FpCollateNeeded uintptr
 	FstmtList       uintptr
 	FstmtLast       uintptr
@@ -38324,7 +38689,7 @@ type SqliteDb = struct {
 	FnTransaction   int32
 	FopenFlags      int32
 	FbLegacyPrepare int32
-	_               [4]byte
+	F__ccgo_pad3    [4]byte
 } /* tclsqlite.c:91:25 */
 
 // New SQL functions can be created as TCL scripts.  Each such function
@@ -38374,15 +38739,15 @@ type SqlCollate = SqlCollate1 /* tclsqlite.c:120:27 */
 // Prepared statements are cached for faster execution.  Each prepared
 // statement is described by an instance of the following structure.
 type SqlPreparedStmt1 = struct {
-	FpNext  uintptr
-	FpPrev  uintptr
-	FpStmt  uintptr
-	FnSql   int32
-	_       [4]byte
-	FzSql   uintptr
-	FnParm  int32
-	_       [4]byte
-	FapParm uintptr
+	FpNext       uintptr
+	FpPrev       uintptr
+	FpStmt       uintptr
+	FnSql        int32
+	F__ccgo_pad1 [4]byte
+	FzSql        uintptr
+	FnParm       int32
+	F__ccgo_pad2 [4]byte
+	FapParm      uintptr
 } /* tclsqlite.c:131:9 */
 
 // Prepared statements are cached for faster execution.  Each prepared
@@ -38390,13 +38755,13 @@ type SqlPreparedStmt1 = struct {
 type SqlPreparedStmt = SqlPreparedStmt1 /* tclsqlite.c:131:32 */
 
 type IncrblobChannel1 = struct {
-	FpBlob   uintptr
-	FpDb     uintptr
-	FiSeek   int32
-	_        [4]byte
-	Fchannel Tcl_Channel
-	FpNext   uintptr
-	FpPrev   uintptr
+	FpBlob       uintptr
+	FpDb         uintptr
+	FiSeek       int32
+	F__ccgo_pad1 [4]byte
+	Fchannel     Tcl_Channel
+	FpNext       uintptr
+	FpPrev       uintptr
 } /* tclsqlite.c:142:9 */
 
 type IncrblobChannel = IncrblobChannel1 /* tclsqlite.c:142:32 */
@@ -38682,7 +39047,7 @@ func DbDeleteCmd(tls *libc.TLS, db uintptr) { /* tclsqlite.c:524:27: */
 
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*SqlFunc)(unsafe.Pointer(pFunc)).FpScript
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -38717,7 +39082,7 @@ func DbDeleteCmd(tls *libc.TLS, db uintptr) { /* tclsqlite.c:524:27: */
 	if (*SqliteDb)(unsafe.Pointer(pDb)).FpUpdateHook != 0 {
 		for ok1 := true; ok1; ok1 = 0 != 0 {
 			var _objPtr uintptr = (*SqliteDb)(unsafe.Pointer(pDb)).FpUpdateHook
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -38725,7 +39090,7 @@ func DbDeleteCmd(tls *libc.TLS, db uintptr) { /* tclsqlite.c:524:27: */
 	if (*SqliteDb)(unsafe.Pointer(pDb)).FpPreUpdateHook != 0 {
 		for ok2 := true; ok2; ok2 = 0 != 0 {
 			var _objPtr uintptr = (*SqliteDb)(unsafe.Pointer(pDb)).FpPreUpdateHook
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -38733,7 +39098,7 @@ func DbDeleteCmd(tls *libc.TLS, db uintptr) { /* tclsqlite.c:524:27: */
 	if (*SqliteDb)(unsafe.Pointer(pDb)).FpRollbackHook != 0 {
 		for ok3 := true; ok3; ok3 = 0 != 0 {
 			var _objPtr uintptr = (*SqliteDb)(unsafe.Pointer(pDb)).FpRollbackHook
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -38741,7 +39106,7 @@ func DbDeleteCmd(tls *libc.TLS, db uintptr) { /* tclsqlite.c:524:27: */
 	if (*SqliteDb)(unsafe.Pointer(pDb)).FpWalHook != 0 {
 		for ok4 := true; ok4; ok4 = 0 != 0 {
 			var _objPtr uintptr = (*SqliteDb)(unsafe.Pointer(pDb)).FpWalHook
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -38749,7 +39114,7 @@ func DbDeleteCmd(tls *libc.TLS, db uintptr) { /* tclsqlite.c:524:27: */
 	if (*SqliteDb)(unsafe.Pointer(pDb)).FpCollateNeeded != 0 {
 		for ok5 := true; ok5; ok5 = 0 != 0 {
 			var _objPtr uintptr = (*SqliteDb)(unsafe.Pointer(pDb)).FpCollateNeeded
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -38827,7 +39192,7 @@ func DbTraceV2Handler(tls *libc.TLS, type1 uint32, cd uintptr, pd uintptr, xd ui
 			tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pCmd, TCL_EVAL_DIRECT)
 			for ok := true; ok; ok = 0 != 0 {
 				var _objPtr uintptr = pCmd
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -38849,7 +39214,7 @@ func DbTraceV2Handler(tls *libc.TLS, type1 uint32, cd uintptr, pd uintptr, xd ui
 			tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pCmd, TCL_EVAL_DIRECT)
 			for ok1 := true; ok1; ok1 = 0 != 0 {
 				var _objPtr uintptr = pCmd
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -38868,7 +39233,7 @@ func DbTraceV2Handler(tls *libc.TLS, type1 uint32, cd uintptr, pd uintptr, xd ui
 			tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pCmd, TCL_EVAL_DIRECT)
 			for ok2 := true; ok2; ok2 = 0 != 0 {
 				var _objPtr uintptr = pCmd
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -38887,7 +39252,7 @@ func DbTraceV2Handler(tls *libc.TLS, type1 uint32, cd uintptr, pd uintptr, xd ui
 			tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pCmd, TCL_EVAL_DIRECT)
 			for ok3 := true; ok3; ok3 = 0 != 0 {
 				var _objPtr uintptr = pCmd
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -38963,7 +39328,7 @@ func DbWalHandler(tls *libc.TLS, clientData uintptr, db uintptr, zDb uintptr, nE
 	}
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = p
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -38993,7 +39358,7 @@ func DbUnlockNotify(tls *libc.TLS, apArg uintptr, nArg int32) { /* tclsqlite.c:7
 		tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, (*SqliteDb)(unsafe.Pointer(pDb)).FpUnlockNotify, flags)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*SqliteDb)(unsafe.Pointer(pDb)).FpUnlockNotify
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -39016,7 +39381,7 @@ func DbPreUpdateHandler(tls *libc.TLS, p uintptr, db uintptr, op int32, zDb uint
 	tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pCmd, TCL_EVAL_DIRECT)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pCmd
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -39037,7 +39402,7 @@ func DbUpdateHandler(tls *libc.TLS, p uintptr, op int32, zDb uintptr, zTbl uintp
 	tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pCmd, TCL_EVAL_DIRECT)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pCmd
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -39053,7 +39418,7 @@ func tclCollateNeeded(tls *libc.TLS, pCtx uintptr, db uintptr, enc int32, zName 
 	tcl.XTcl_EvalObjEx(tls, (*SqliteDb)(unsafe.Pointer(pDb)).Finterp, pScript, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -39072,7 +39437,7 @@ func tclSqlCollate(tls *libc.TLS, pCtx uintptr, nA int32, zA uintptr, nB int32, 
 	tcl.XTcl_EvalObjEx(tls, (*SqlCollate)(unsafe.Pointer(p)).Finterp, pCmd, TCL_EVAL_DIRECT)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pCmd
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -39100,7 +39465,7 @@ func tclSqlFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* t
 		rc = tcl.XTcl_EvalObjEx(tls, (*SqlFunc)(unsafe.Pointer(p)).Finterp, pCmd, 0)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pCmd
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -39176,7 +39541,7 @@ func tclSqlFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* t
 			if rc != 0 {
 				for ok1 := true; ok1; ok1 = 0 != 0 {
 					var _objPtr uintptr = pCmd
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -39193,7 +39558,7 @@ func tclSqlFunc(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* t
 		rc = tcl.XTcl_EvalObjEx(tls, (*SqlFunc)(unsafe.Pointer(p)).Finterp, pCmd, TCL_EVAL_DIRECT)
 		for ok2 := true; ok2; ok2 = 0 != 0 {
 			var _objPtr uintptr = pCmd
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -39688,7 +40053,7 @@ func dbPrepareAndBind(tls *libc.TLS, pDb uintptr, zIn uintptr, pzOut uintptr, pp
 				rx = tcl.XTcl_EvalObjEx(tls, interp, pCmd, TCL_EVAL_DIRECT)
 				for ok := true; ok; ok = 0 != 0 {
 					var _objPtr uintptr = pCmd
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -39770,7 +40135,7 @@ func dbReleaseStmt(tls *libc.TLS, pDb uintptr, pPreStmt uintptr, discard int32) 
 	for i = 0; i < (*SqlPreparedStmt)(unsafe.Pointer(pPreStmt)).FnParm; i++ {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = *(*uintptr)(unsafe.Pointer((*SqlPreparedStmt)(unsafe.Pointer(pPreStmt)).FapParm + uintptr(i)*8))
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -39843,7 +40208,7 @@ func dbReleaseColumnNames(tls *libc.TLS, p uintptr) { /* tclsqlite.c:1541:13: */
 		for i = 0; i < (*DbEvalContext)(unsafe.Pointer(p)).FnCol; i++ {
 			for ok := true; ok; ok = 0 != 0 {
 				var _objPtr uintptr = *(*uintptr)(unsafe.Pointer((*DbEvalContext)(unsafe.Pointer(p)).FapColName + uintptr(i)*8))
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -39911,7 +40276,7 @@ func dbEvalRowInfo(tls *libc.TLS, p uintptr, pnCol uintptr, papColName uintptr) 
 			tcl.XTcl_ObjSetVar2(tls, interp, (*DbEvalContext)(unsafe.Pointer(p)).FpArray, pStar, pColList, 0)
 			for ok := true; ok; ok = 0 != 0 {
 				var _objPtr uintptr = pStar
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -40011,7 +40376,7 @@ func dbEvalFinalize(tls *libc.TLS, p uintptr) { /* tclsqlite.c:1710:13: */
 	if (*DbEvalContext)(unsafe.Pointer(p)).FpArray != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*DbEvalContext)(unsafe.Pointer(p)).FpArray
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -40019,7 +40384,7 @@ func dbEvalFinalize(tls *libc.TLS, p uintptr) { /* tclsqlite.c:1710:13: */
 	}
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = (*DbEvalContext)(unsafe.Pointer(p)).FpSql
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -40142,7 +40507,7 @@ func DbEvalNextCmd(tls *libc.TLS, data uintptr, interp uintptr, result int32) in
 
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -40171,7 +40536,7 @@ func DbHookCmd(tls *libc.TLS, interp uintptr, pDb uintptr, pArg uintptr, ppHook 
 		if pArg != 0 {
 			for ok := true; ok; ok = 0 != 0 {
 				var _objPtr uintptr = *(*uintptr)(unsafe.Pointer(ppHook))
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -41187,7 +41552,7 @@ __101:
 	}
 __103:
 	_objPtr = (*SqliteDb)(unsafe.Pointer(pDb)).FpCollateNeeded
-	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1) {
+	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1) {
 		goto __106
 	}
 	tcl.XTclFreeObj(tls, _objPtr)
@@ -41904,7 +42269,7 @@ __204:
 	;
 __205:
 	_objPtr1 = pRet
-	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr1))).FrefCount, 1) <= 1) {
+	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr1)).FrefCount, 1) <= 1) {
 		goto __208
 	}
 	tcl.XTclFreeObj(tls, _objPtr1)
@@ -42073,7 +42438,7 @@ __229:
 	}
 __231:
 	_objPtr2 = (*SqlFunc)(unsafe.Pointer(pFunc)).FpScript
-	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr2))).FrefCount, 1) <= 1) {
+	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr2)).FrefCount, 1) <= 1) {
 		goto __234
 	}
 	tcl.XTclFreeObj(tls, _objPtr2)
@@ -42683,7 +43048,7 @@ __320:
 	}
 __325:
 	_objPtr3 = pError
-	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr3))).FrefCount, 1) <= 1) {
+	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr3)).FrefCount, 1) <= 1) {
 		goto __328
 	}
 	tcl.XTclFreeObj(tls, _objPtr3)
@@ -42703,7 +43068,7 @@ __323:
 	tcl.XTcl_SetObjResult(tls, interp, pError)
 __329:
 	_objPtr4 = pError
-	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr4))).FrefCount, 1) <= 1) {
+	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr4)).FrefCount, 1) <= 1) {
 		goto __332
 	}
 	tcl.XTclFreeObj(tls, _objPtr4)
@@ -42898,7 +43263,7 @@ __353:
 	}
 __356:
 	_objPtr5 = (*SqliteDb)(unsafe.Pointer(pDb)).FpUnlockNotify
-	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr5))).FrefCount, 1) <= 1) {
+	if !(libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr5)).FrefCount, 1) <= 1) {
 		goto __359
 	}
 	tcl.XTclFreeObj(tls, _objPtr5)
@@ -43165,9 +43530,9 @@ __3:
 }
 
 type DbConfigChoices = struct {
-	FzName uintptr
-	Fop    int32
-	_      [4]byte
+	FzName       uintptr
+	Fop          int32
+	F__ccgo_pad1 [4]byte
 } /* tclsqlite.c:2340:18 */
 
 var DB_strs = [42]uintptr{
@@ -43654,7 +44019,7 @@ type sqlite3_str = sqlite3_str1 /* sqlite3.h:7882:28 */
 
 // Unsigned.
 // Define uintN_t types.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -43669,10 +44034,10 @@ type sqlite3_str = sqlite3_str1 /* sqlite3.h:7882:28 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -43687,7 +44052,7 @@ type sqlite3_str = sqlite3_str1 /* sqlite3.h:7882:28 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -43867,9 +44232,9 @@ type HashElem = HashElem1 /* hash.h:20:25 */
 // in the table, it is faster to do a linear search than to manage
 // the hash table.
 type _ht = struct {
-	Fcount uint32
-	_      [4]byte
-	Fchain uintptr
+	Fcount       uint32
+	F__ccgo_pad1 [4]byte
+	Fchain       uintptr
 } /* sqlite3.h:249:9 */
 
 // The structure with the cookie function pointers.
@@ -43900,11 +44265,11 @@ type ino64_t = uint64                                  /* types.h:54:19 */
 // fd_set for select and pselect.
 type fd_set1 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */ // Type to count file system inodes.
 
-type blkcnt64_t = int64    /* types.h:236:22 */ // Type to count number of disk blocks.
-type fsblkcnt64_t = uint64 /* types.h:237:24 */ // Type to count file system blocks.
-type fsfilcnt64_t = uint64 /* types.h:238:24 */
+type blkcnt64_t = int64    /* types.h:219:22 */ // Type to count number of disk blocks.
+type fsblkcnt64_t = uint64 /* types.h:220:24 */ // Type to count file system blocks.
+type fsfilcnt64_t = uint64 /* types.h:221:24 */
 
-type comparison_fn_t = uintptr /* stdlib.h:808:23 */    // 2-byte unsigned integer
+type comparison_fn_t = uintptr /* stdlib.h:811:23 */    // 2-byte unsigned integer
 type i16 = int16_t             /* sqliteInt.h:795:20 */ // 1-byte unsigned integer
 type i8 = int8_t               /* sqliteInt.h:797:19 */ // 1-byte signed integer
 
@@ -43958,7 +44323,7 @@ type BusyHandler1 = struct {
 	FxBusyHandler uintptr
 	FpBusyArg     uintptr
 	FnBusy        int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 } /* sqlite3.h:249:9 */
 
 // An instance of the following structure is used to store the busy-handler
@@ -44020,7 +44385,7 @@ type BusyHandler = BusyHandler1 /* sqliteInt.h:1037:28 */
 type AggInfo1 = struct {
 	FdirectMode     u8
 	FuseSortingIdx  u8
-	_               [2]byte
+	F__ccgo_pad1    [2]byte
 	FsortingIdx     int32
 	FsortingIdxPTab int32
 	FnSortingColumn int32
@@ -44098,47 +44463,47 @@ type AutoincInfo1 = struct {
 
 type AutoincInfo = AutoincInfo1 /* sqliteInt.h:1135:28 */
 type CollSeq1 = struct {
-	FzName uintptr
-	Fenc   u8
-	_      [7]byte
-	FpUser uintptr
-	FxCmp  uintptr
-	FxDel  uintptr
+	FzName       uintptr
+	Fenc         u8
+	F__ccgo_pad1 [7]byte
+	FpUser       uintptr
+	FxCmp        uintptr
+	FxDel        uintptr
 } /* sqlite3.h:249:9 */
 
 type CollSeq = CollSeq1 /* sqliteInt.h:1137:24 */
 type Column1 = struct {
-	FzName    uintptr
-	FpDflt    uintptr
-	FzColl    uintptr
-	FnotNull  u8
-	Faffinity int8
-	FszEst    u8
-	FhName    u8
-	FcolFlags u16
-	_         [2]byte
+	FzName       uintptr
+	FpDflt       uintptr
+	FzColl       uintptr
+	FnotNull     u8
+	Faffinity    int8
+	FszEst       u8
+	FhName       u8
+	FcolFlags    u16
+	F__ccgo_pad1 [2]byte
 } /* sqlite3.h:249:9 */
 
 type Column = Column1 /* sqliteInt.h:1138:23 */
 type Cte1 = struct {
-	FzName   uintptr
-	FpCols   uintptr
-	FpSelect uintptr
-	FzCteErr uintptr
-	FpUse    uintptr
-	FeM10d   u8
-	_        [7]byte
+	FzName       uintptr
+	FpCols       uintptr
+	FpSelect     uintptr
+	FzCteErr     uintptr
+	FpUse        uintptr
+	FeM10d       u8
+	F__ccgo_pad1 [7]byte
 } /* sqlite3.h:249:9 */
 
 type Cte = Cte1 /* sqliteInt.h:1139:20 */
 type CteUse1 = struct {
-	FnUse    int32
-	FaddrM9e int32
-	FregRtn  int32
-	FiCur    int32
-	FnRowEst LogEst
-	FeM10d   u8
-	_        [1]byte
+	FnUse        int32
+	FaddrM9e     int32
+	FregRtn      int32
+	FiCur        int32
+	FnRowEst     LogEst
+	FeM10d       u8
+	F__ccgo_pad1 [1]byte
 } /* sqlite3.h:249:9 */
 
 type CteUse = CteUse1 /* sqliteInt.h:1140:23 */
@@ -44147,20 +44512,20 @@ type Db1 = struct {
 	FpBt          uintptr
 	Fsafety_level u8
 	FbSyncSet     u8
-	_             [6]byte
+	F__ccgo_pad1  [6]byte
 	FpSchema      uintptr
 } /* sqlite3.h:249:9 */
 
 type Db = Db1 /* sqliteInt.h:1141:19 */
 type DbFixer1 = struct {
-	FpParse  uintptr
-	Fw       Walker
-	FpSchema uintptr
-	FbTemp   u8
-	_        [7]byte
-	FzDb     uintptr
-	FzType   uintptr
-	FpName   uintptr
+	FpParse      uintptr
+	Fw           Walker
+	FpSchema     uintptr
+	FbTemp       u8
+	F__ccgo_pad1 [7]byte
+	FzDb         uintptr
+	FzType       uintptr
+	FpName       uintptr
 } /* sqliteInt.h:1142:9 */
 
 type DbFixer = DbFixer1 /* sqliteInt.h:1142:24 */
@@ -44183,7 +44548,7 @@ type Expr1 = struct {
 	Fop              u8
 	FaffExpr         int8
 	Fop2             u8
-	_                [1]byte
+	F__ccgo_pad1     [1]byte
 	Fflags           u32
 	Fu               struct{ FzToken uintptr }
 	FpLeft           uintptr
@@ -44203,63 +44568,63 @@ type ExprList1 = struct {
 	FnExpr  int32
 	FnAlloc int32
 	Fa      [1]struct {
-		FpExpr     uintptr
-		FzEName    uintptr
-		FsortFlags u8
-		_          [3]byte
-		FeEName    uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
-		_          [3]byte
-		Fu         struct {
+		FpExpr       uintptr
+		FzEName      uintptr
+		FsortFlags   u8
+		F__ccgo_pad1 [3]byte
+		FeEName      uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
+		F__ccgo_pad2 [3]byte
+		Fu           struct {
 			_  [0]uint32
 			Fx struct {
 				FiOrderByCol u16
 				FiAlias      u16
 			}
 		}
-		_ [4]byte
+		F__ccgo_pad3 [4]byte
 	}
 } /* sqlite3.h:249:9 */
 
 type ExprList = ExprList1 /* sqliteInt.h:1145:25 */
 type FKey1 = struct {
-	FpFrom      uintptr
-	FpNextFrom  uintptr
-	FzTo        uintptr
-	FpNextTo    uintptr
-	FpPrevTo    uintptr
-	FnCol       int32
-	FisDeferred u8
-	FaAction    [2]u8
-	_           [1]byte
-	FapTrigger  [2]uintptr
-	FaCol       [1]struct {
-		FiFrom int32
-		_      [4]byte
-		FzCol  uintptr
+	FpFrom       uintptr
+	FpNextFrom   uintptr
+	FzTo         uintptr
+	FpNextTo     uintptr
+	FpPrevTo     uintptr
+	FnCol        int32
+	FisDeferred  u8
+	FaAction     [2]u8
+	F__ccgo_pad1 [1]byte
+	FapTrigger   [2]uintptr
+	FaCol        [1]struct {
+		FiFrom       int32
+		F__ccgo_pad1 [4]byte
+		FzCol        uintptr
 	}
 } /* sqlite3.h:249:9 */
 
 type FKey = FKey1 /* sqliteInt.h:1146:21 */
 type FuncDestructor1 = struct {
-	FnRef      int32
-	_          [4]byte
-	FxDestroy  uintptr
-	FpUserData uintptr
+	FnRef        int32
+	F__ccgo_pad1 [4]byte
+	FxDestroy    uintptr
+	FpUserData   uintptr
 } /* sqliteInt.h:1147:9 */
 
 type FuncDestructor = FuncDestructor1 /* sqliteInt.h:1147:31 */
 type FuncDef1 = struct {
-	FnArg      i8
-	_          [3]byte
-	FfuncFlags u32
-	FpUserData uintptr
-	FpNext     uintptr
-	FxSFunc    uintptr
-	FxFinalize uintptr
-	FxValue    uintptr
-	FxInverse  uintptr
-	FzName     uintptr
-	Fu         struct{ FpHash uintptr }
+	FnArg        i8
+	F__ccgo_pad1 [3]byte
+	FfuncFlags   u32
+	FpUserData   uintptr
+	FpNext       uintptr
+	FxSFunc      uintptr
+	FxFinalize   uintptr
+	FxValue      uintptr
+	FxInverse    uintptr
+	FzName       uintptr
+	Fu           struct{ FpHash uintptr }
 } /* sqlite3.h:249:9 */
 
 type FuncDef = FuncDef1                      /* sqliteInt.h:1148:24 */
@@ -44267,9 +44632,9 @@ type FuncDefHash1 = struct{ Fa [23]uintptr } /* sqliteInt.h:1149:9 */
 
 type FuncDefHash = FuncDefHash1 /* sqliteInt.h:1149:28 */
 type IdList1 = struct {
-	Fa   uintptr
-	FnId int32
-	_    [4]byte
+	Fa           uintptr
+	FnId         int32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3.h:249:9 */
 
 type IdList = IdList1 /* sqliteInt.h:1150:23 */
@@ -44290,59 +44655,59 @@ type Index1 = struct {
 	FnKeyCol       u16
 	FnColumn       u16
 	FonError       u8
-	_              [1]byte
+	F__ccgo_pad1   [1]byte
 	FidxType       uint16 /* unsigned idxType: 2, unsigned bUnordered: 1, unsigned uniqNotNull: 1, unsigned isResized: 1, unsigned isCovering: 1, unsigned noSkipScan: 1, unsigned hasStat1: 1, unsigned bNoQuery: 1, unsigned bAscKeyBug: 1, unsigned bHasVCol: 1 */
-	_              [2]byte
+	F__ccgo_pad2   [2]byte
 	FnSample       int32
 	FnSampleCol    int32
 	FaAvgEq        uintptr
 	FaSample       uintptr
 	FaiRowEst      uintptr
 	FnRowEst0      tRowcnt
-	_              [4]byte
+	F__ccgo_pad3   [4]byte
 	FcolNotIdxed   Bitmask
 } /* sqlite3.h:249:9 */
 
 type Index = Index1 /* sqliteInt.h:1151:22 */
 type IndexSample1 = struct {
-	Fp     uintptr
-	Fn     int32
-	_      [4]byte
-	FanEq  uintptr
-	FanLt  uintptr
-	FanDLt uintptr
+	Fp           uintptr
+	Fn           int32
+	F__ccgo_pad1 [4]byte
+	FanEq        uintptr
+	FanLt        uintptr
+	FanDLt       uintptr
 } /* sqlite3.h:249:9 */
 
 type IndexSample = IndexSample1 /* sqliteInt.h:1152:28 */
 type KeyInfo1 = struct {
-	FnRef       u32
-	Fenc        u8
-	_           [1]byte
-	FnKeyField  u16
-	FnAllField  u16
-	_           [6]byte
-	Fdb         uintptr
-	FaSortFlags uintptr
-	FaColl      [1]uintptr
+	FnRef        u32
+	Fenc         u8
+	F__ccgo_pad1 [1]byte
+	FnKeyField   u16
+	FnAllField   u16
+	F__ccgo_pad2 [6]byte
+	Fdb          uintptr
+	FaSortFlags  uintptr
+	FaColl       [1]uintptr
 } /* sqlite3.h:249:9 */
 
 type KeyInfo = KeyInfo1 /* sqliteInt.h:1154:24 */
 type Lookaside1 = struct {
-	FbDisable   u32
-	Fsz         u16
-	FszTrue     u16
-	FbMalloced  u8
-	_           [3]byte
-	FnSlot      u32
-	FanStat     [3]u32
-	_           [4]byte
-	FpInit      uintptr
-	FpFree      uintptr
-	FpSmallInit uintptr
-	FpSmallFree uintptr
-	FpMiddle    uintptr
-	FpStart     uintptr
-	FpEnd       uintptr
+	FbDisable    u32
+	Fsz          u16
+	FszTrue      u16
+	FbMalloced   u8
+	F__ccgo_pad1 [3]byte
+	FnSlot       u32
+	FanStat      [3]u32
+	F__ccgo_pad2 [4]byte
+	FpInit       uintptr
+	FpFree       uintptr
+	FpSmallInit  uintptr
+	FpSmallFree  uintptr
+	FpMiddle     uintptr
+	FpStart      uintptr
+	FpEnd        uintptr
 } /* sqlite3.h:249:9 */
 
 type Lookaside = Lookaside1                    /* sqliteInt.h:1155:26 */
@@ -44350,26 +44715,26 @@ type LookasideSlot1 = struct{ FpNext uintptr } /* sqlite3.h:249:9 */
 
 type LookasideSlot = LookasideSlot1 /* sqliteInt.h:1156:30 */
 type Module1 = struct {
-	FpModule    uintptr
-	FzName      uintptr
-	FnRefModule int32
-	_           [4]byte
-	FpAux       uintptr
-	FxDestroy   uintptr
-	FpEpoTab    uintptr
+	FpModule     uintptr
+	FzName       uintptr
+	FnRefModule  int32
+	F__ccgo_pad1 [4]byte
+	FpAux        uintptr
+	FxDestroy    uintptr
+	FpEpoTab     uintptr
 } /* sqlite3.h:249:9 */
 
 type Module = Module1 /* sqliteInt.h:1157:23 */
 type NameContext1 = struct {
-	FpParse     uintptr
-	FpSrcList   uintptr
-	FuNC        struct{ FpEList uintptr }
-	FpNext      uintptr
-	FnRef       int32
-	FnNcErr     int32
-	FncFlags    int32
-	_           [4]byte
-	FpWinSelect uintptr
+	FpParse      uintptr
+	FpSrcList    uintptr
+	FuNC         struct{ FpEList uintptr }
+	FpNext       uintptr
+	FnRef        int32
+	FnNcErr      int32
+	FncFlags     int32
+	F__ccgo_pad1 [4]byte
+	FpWinSelect  uintptr
 } /* sqliteInt.h:1158:9 */
 
 type NameContext = NameContext1 /* sqliteInt.h:1158:28 */
@@ -44388,7 +44753,7 @@ type Parse1 = struct {
 	FokConstFactor    u8
 	FdisableLookaside u8
 	FdisableVtab      u8
-	_                 [2]byte
+	F__ccgo_pad1      [2]byte
 	FnRangeReg        int32
 	FiRangeReg        int32
 	FnErr             int32
@@ -44398,7 +44763,7 @@ type Parse1 = struct {
 	FiSelfTab         int32
 	FnLabel           int32
 	FnLabelAlloc      int32
-	_                 [4]byte
+	F__ccgo_pad2      [4]byte
 	FaLabel           uintptr
 	FpConstExpr       uintptr
 	FconstraintName   Token
@@ -44409,7 +44774,7 @@ type Parse1 = struct {
 	FnMaxArg          int32
 	FnSelect          int32
 	FnTableLock       int32
-	_                 [4]byte
+	F__ccgo_pad3      [4]byte
 	FaTableLock       uintptr
 	FpAinc            uintptr
 	FpToplevel        uintptr
@@ -44434,11 +44799,11 @@ type Parse1 = struct {
 	FiPkSortOrder    u8
 	Fexplain         u8
 	FeParseMode      u8
-	_                [3]byte
+	F__ccgo_pad4     [3]byte
 	FnVtabLock       int32
 	FnHeight         int32
 	FaddrExplain     int32
-	_                [4]byte
+	F__ccgo_pad5     [4]byte
 	FpVList          uintptr
 	FpReprepare      uintptr
 	FzTail           uintptr
@@ -44466,7 +44831,7 @@ type PreUpdate1 = struct {
 	Fv            uintptr
 	FpCsr         uintptr
 	Fop           int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 	FaRecord      uintptr
 	Fkeyinfo      KeyInfo
 	FpUnpacked    uintptr
@@ -44489,14 +44854,14 @@ type PrintfArguments1 = struct {
 
 type PrintfArguments = PrintfArguments1 /* sqliteInt.h:1162:32 */
 type Returning1 = struct {
-	FpParse    uintptr
-	FpReturnEL uintptr
-	FretTrig   Trigger
-	FretTStep  TriggerStep
-	FiRetCur   int32
-	FnRetCol   int32
-	FiRetReg   int32
-	_          [4]byte
+	FpParse      uintptr
+	FpReturnEL   uintptr
+	FretTrig     Trigger
+	FretTStep    TriggerStep
+	FiRetCur     int32
+	FnRetCol     int32
+	FiRetReg     int32
+	F__ccgo_pad1 [4]byte
 } /* sqliteInt.h:1164:9 */
 
 type Returning = Returning1 /* sqliteInt.h:1164:26 */
@@ -44510,14 +44875,14 @@ type Savepoint1 = struct {
 type Savepoint = Savepoint1 /* sqliteInt.h:1166:26 */
 type Select1 = struct {
 	Fop           u8
-	_             [1]byte
+	F__ccgo_pad1  [1]byte
 	FnSelectRow   LogEst
 	FselFlags     u32
 	FiLimit       int32
 	FiOffset      int32
 	FselId        u32
 	FaddrOpenEphm [2]int32
-	_             [4]byte
+	F__ccgo_pad2  [4]byte
 	FpEList       uintptr
 	FpSrc         uintptr
 	FpWhere       uintptr
@@ -44534,15 +44899,15 @@ type Select1 = struct {
 
 type Select = Select1 /* sqliteInt.h:1167:23 */
 type SelectDest1 = struct {
-	FeDest    u8
-	_         [3]byte
-	FiSDParm  int32
-	FiSDParm2 int32
-	FiSdst    int32
-	FnSdst    int32
-	_         [4]byte
-	FzAffSdst uintptr
-	FpOrderBy uintptr
+	FeDest       u8
+	F__ccgo_pad1 [3]byte
+	FiSDParm     int32
+	FiSDParm2    int32
+	FiSdst       int32
+	FnSdst       int32
+	F__ccgo_pad2 [4]byte
+	FzAffSdst    uintptr
+	FpOrderBy    uintptr
 } /* sqliteInt.h:1169:9 */
 
 type SelectDest = SelectDest1 /* sqliteInt.h:1169:27 */
@@ -44557,11 +44922,11 @@ type SrcItem1 = struct {
 	FregReturn   int32
 	FregResult   int32
 	Ffg          struct {
-		_           [0]uint32
-		Fjointype   u8
-		_           [3]byte
-		FnotIndexed uint16 /* unsigned notIndexed: 1, unsigned isIndexedBy: 1, unsigned isTabFunc: 1, unsigned isCorrelated: 1, unsigned viaCoroutine: 1, unsigned isRecursive: 1, unsigned fromDDL: 1, unsigned isCte: 1, unsigned notCte: 1 */
-		_           [2]byte
+		F__ccgo_pad1 [0]uint32
+		Fjointype    u8
+		F__ccgo_pad2 [3]byte
+		FnotIndexed  uint16 /* unsigned notIndexed: 1, unsigned isIndexedBy: 1, unsigned isTabFunc: 1, unsigned isCorrelated: 1, unsigned viaCoroutine: 1, unsigned isRecursive: 1, unsigned fromDDL: 1, unsigned isCte: 1, unsigned notCte: 1 */
+		F__ccgo_pad3 [2]byte
 	}
 	FiCursor int32
 	FpOn     uintptr
@@ -44597,7 +44962,7 @@ type Table1 = struct {
 	FnRowLogEst   LogEst
 	FszTabRow     LogEst
 	FkeyConf      u8
-	_             [1]byte
+	F__ccgo_pad1  [1]byte
 	FaddColOffset int32
 	FnModuleArg   int32
 	FazModuleArg  uintptr
@@ -44609,66 +44974,66 @@ type Table1 = struct {
 // Internal alias for sqlite3_str
 type Table = Table1 /* sqliteInt.h:1173:22 */
 type Token1 = struct {
-	Fz uintptr
-	Fn uint32
-	_  [4]byte
+	Fz           uintptr
+	Fn           uint32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3.h:249:9 */
 
 type Token = Token1 /* sqliteInt.h:1175:22 */
 type Trigger1 = struct {
-	FzName      uintptr
-	Ftable      uintptr
-	Fop         u8
-	Ftr_tm      u8
-	FbReturning u8
-	_           [5]byte
-	FpWhen      uintptr
-	FpColumns   uintptr
-	FpSchema    uintptr
-	FpTabSchema uintptr
-	Fstep_list  uintptr
-	FpNext      uintptr
+	FzName       uintptr
+	Ftable       uintptr
+	Fop          u8
+	Ftr_tm       u8
+	FbReturning  u8
+	F__ccgo_pad1 [5]byte
+	FpWhen       uintptr
+	FpColumns    uintptr
+	FpSchema     uintptr
+	FpTabSchema  uintptr
+	Fstep_list   uintptr
+	FpNext       uintptr
 } /* sqlite3.h:249:9 */
 
 type Trigger = Trigger1 /* sqliteInt.h:1177:24 */
 type TriggerPrg1 = struct {
-	FpTrigger uintptr
-	FpNext    uintptr
-	FpProgram uintptr
-	Forconf   int32
-	FaColmask [2]u32
-	_         [4]byte
+	FpTrigger    uintptr
+	FpNext       uintptr
+	FpProgram    uintptr
+	Forconf      int32
+	FaColmask    [2]u32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3.h:249:9 */
 
 type TriggerPrg = TriggerPrg1 /* sqliteInt.h:1178:27 */
 type TriggerStep1 = struct {
-	Fop        u8
-	Forconf    u8
-	_          [6]byte
-	FpTrig     uintptr
-	FpSelect   uintptr
-	FzTarget   uintptr
-	FpFrom     uintptr
-	FpWhere    uintptr
-	FpExprList uintptr
-	FpIdList   uintptr
-	FpUpsert   uintptr
-	FzSpan     uintptr
-	FpNext     uintptr
-	FpLast     uintptr
+	Fop          u8
+	Forconf      u8
+	F__ccgo_pad1 [6]byte
+	FpTrig       uintptr
+	FpSelect     uintptr
+	FzTarget     uintptr
+	FpFrom       uintptr
+	FpWhere      uintptr
+	FpExprList   uintptr
+	FpIdList     uintptr
+	FpUpsert     uintptr
+	FzSpan       uintptr
+	FpNext       uintptr
+	FpLast       uintptr
 } /* sqlite3.h:249:9 */
 
 type TriggerStep = TriggerStep1 /* sqliteInt.h:1179:28 */
 type UnpackedRecord1 = struct {
-	FpKeyInfo   uintptr
-	FaMem       uintptr
-	FnField     u16
-	Fdefault_rc i8
-	FerrCode    u8
-	Fr1         i8
-	Fr2         i8
-	FeqSeen     u8
-	_           [1]byte
+	FpKeyInfo    uintptr
+	FaMem        uintptr
+	FnField      u16
+	Fdefault_rc  i8
+	FerrCode     u8
+	Fr1          i8
+	Fr2          i8
+	FeqSeen      u8
+	F__ccgo_pad1 [1]byte
 } /* sqlite3.h:249:9 */
 
 type UnpackedRecord = UnpackedRecord1 /* sqliteInt.h:1180:31 */
@@ -44679,14 +45044,14 @@ type Upsert1 = struct {
 	FpUpsertWhere       uintptr
 	FpNextUpsert        uintptr
 	FisDoUpdate         u8
-	_                   [7]byte
+	F__ccgo_pad1        [7]byte
 	FpToFree            uintptr
 	FpUpsertIdx         uintptr
 	FpUpsertSrc         uintptr
 	FregData            int32
 	FiDataCur           int32
 	FiIdxCur            int32
-	_                   [4]byte
+	F__ccgo_pad2        [4]byte
 } /* sqlite3.h:249:9 */
 
 type Upsert = Upsert1 /* sqliteInt.h:1181:23 */
@@ -44697,9 +45062,9 @@ type VTable1 = struct {
 	FnRef        int32
 	FbConstraint u8
 	FeVtabRisk   u8
-	_            [2]byte
+	F__ccgo_pad1 [2]byte
 	FiSavepoint  int32
-	_            [4]byte
+	F__ccgo_pad2 [4]byte
 	FpNext       uintptr
 } /* sqlite3.h:249:9 */
 
@@ -44711,7 +45076,7 @@ type Walker1 = struct {
 	FxSelectCallback2 uintptr
 	FwalkerDepth      int32
 	FeCode            u16
-	_                 [2]byte
+	F__ccgo_pad1      [2]byte
 	Fu                struct{ FpNC uintptr }
 } /* sqliteInt.h:1142:9 */
 
@@ -44726,7 +45091,7 @@ type Window1 = struct {
 	FeEnd           u8
 	FbImplicitFrame u8
 	FeExclude       u8
-	_               [3]byte
+	F__ccgo_pad1    [3]byte
 	FpStart         uintptr
 	FpEnd           uintptr
 	FppThis         uintptr
@@ -44746,7 +45111,7 @@ type Window1 = struct {
 	FregStartRowid  int32
 	FregEndRowid    int32
 	FbExprArgs      u8
-	_               [3]byte
+	F__ccgo_pad2    [3]byte
 } /* sqlite3.h:249:9 */
 
 type Window = Window1 /* sqliteInt.h:1186:23 */
@@ -44874,7 +45239,7 @@ type BtCursor1 = struct {
 	FcurIntKey     u8
 	Fix            u16
 	FaiIdx         [19]u16
-	_              [2]byte
+	F__ccgo_pad1   [2]byte
 	FpKeyInfo      uintptr
 	FpPage         uintptr
 	FapPage        [19]uintptr
@@ -44892,42 +45257,42 @@ type BtShared1 = struct {
 	FinTransaction   u8
 	Fmax1bytePayload u8
 	FnReserveWanted  u8
-	_                [1]byte
+	F__ccgo_pad1     [1]byte
 	FbtsFlags        u16
 	FmaxLocal        u16
 	FminLocal        u16
 	FmaxLeaf         u16
 	FminLeaf         u16
-	_                [2]byte
+	F__ccgo_pad2     [2]byte
 	FpageSize        u32
 	FusableSize      u32
 	FnTransaction    int32
 	FnPage           u32
-	_                [4]byte
+	F__ccgo_pad3     [4]byte
 	FpSchema         uintptr
 	FxFreeSchema     uintptr
 	Fmutex           uintptr
 	FpHasContent     uintptr
 	FnRef            int32
-	_                [4]byte
+	F__ccgo_pad4     [4]byte
 	FpNext           uintptr
 	FpLock           uintptr
 	FpWriter         uintptr
 	FpTmpSpace       uintptr
 	FnPreformatSize  int32
-	_                [4]byte
+	F__ccgo_pad5     [4]byte
 } /* btree.h:39:9 */
 
 type BtreePayload1 = struct {
-	FpKey  uintptr
-	FnKey  sqlite3_int64
-	FpData uintptr
-	FaMem  uintptr
-	FnMem  u16
-	_      [2]byte
-	FnData int32
-	FnZero int32
-	_      [4]byte
+	FpKey        uintptr
+	FnKey        sqlite3_int64
+	FpData       uintptr
+	FaMem        uintptr
+	FnMem        u16
+	F__ccgo_pad1 [2]byte
+	FnData       int32
+	FnZero       int32
+	F__ccgo_pad2 [4]byte
 } /* btree.h:42:9 */
 
 type BtreePayload = BtreePayload1 /* btree.h:42:29 */
@@ -44948,7 +45313,7 @@ type BtreePayload = BtreePayload1 /* btree.h:42:29 */
 // or VDBE.  The VDBE implements an abstract machine that runs a
 // simple program to access and modify the underlying database.
 // Define ISO C stdio on top of C++ iostreams.
-//    Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -44963,7 +45328,7 @@ type BtreePayload = BtreePayload1 /* btree.h:42:29 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.19 Input/output	<stdio.h>
 
@@ -44976,7 +45341,7 @@ type Vdbe1 = struct {
 	FpNext              uintptr
 	FpParse             uintptr
 	FnVar               ynVar
-	_                   [2]byte
+	F__ccgo_pad1        [2]byte
 	FiVdbeMagic         u32
 	FnMem               int32
 	FnCursor            int32
@@ -44985,7 +45350,7 @@ type Vdbe1 = struct {
 	Frc                 int32
 	FnChange            int32
 	FiStatement         int32
-	_                   [4]byte
+	F__ccgo_pad2        [4]byte
 	FiCurrentTime       i64
 	FnFkConstraint      i64
 	FnStmtDefCons       i64
@@ -45007,9 +45372,9 @@ type Vdbe1 = struct {
 	FminWriteFileFormat u8
 	FprepFlags          u8
 	FdoingRerun         u8
-	_                   [2]byte
+	F__ccgo_pad3        [2]byte
 	Fexpired            uint16 /* bft expired: 2, bft explain: 2, bft changeCntOn: 1, bft runOnlyOnce: 1, bft usesStmtJournal: 1, bft readOnly: 1, bft bIsReader: 1 */
-	_                   [2]byte
+	F__ccgo_pad4        [2]byte
 	FbtreeMask          yDbMask
 	FlockMask           yDbMask
 	FaCounter           [7]u32
@@ -45039,7 +45404,7 @@ type Vdbe1 = struct {
 // or VDBE.  The VDBE implements an abstract machine that runs a
 // simple program to access and modify the underlying database.
 // Define ISO C stdio on top of C++ iostreams.
-//    Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -45054,7 +45419,7 @@ type Vdbe1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.19 Input/output	<stdio.h>
 
@@ -45067,14 +45432,14 @@ type Vdbe = Vdbe1 /* vdbe.h:27:21 */
 // for the VdbeOp definition.
 type Mem = sqlite3_value1 /* vdbe.h:33:30 */
 type SubProgram1 = struct {
-	FaOp   uintptr
-	FnOp   int32
-	FnMem  int32
-	FnCsr  int32
-	_      [4]byte
-	FaOnce uintptr
-	Ftoken uintptr
-	FpNext uintptr
+	FaOp         uintptr
+	FnOp         int32
+	FnMem        int32
+	FnCsr        int32
+	F__ccgo_pad1 [4]byte
+	FaOnce       uintptr
+	Ftoken       uintptr
+	FpNext       uintptr
 } /* sqlite3.h:249:9 */
 
 type SubProgram = SubProgram1 /* vdbe.h:34:27 */
@@ -45189,9 +45554,9 @@ type sqlite3InitInfo = struct {
 	FnewTnum       Pgno
 	FiDb           u8
 	Fbusy          u8
-	_              [2]byte
+	F__ccgo_pad1   [2]byte
 	ForphanTrigger uint8 /* unsigned orphanTrigger: 1, unsigned imposterTable: 1, unsigned reopenMemdb: 1 */
-	_              [7]byte
+	F__ccgo_pad2   [7]byte
 	FazInit        uintptr
 } /* sqlite3.h:249:9 */
 
@@ -45247,9 +45612,9 @@ type sqlite3InitInfo = struct {
 // A list of all children for a table named Z (which might not even exist)
 // is held in Schema.fkeyHash with a hash key of Z.
 type sColMap = struct {
-	FiFrom int32
-	_      [4]byte
-	FzCol  uintptr
+	FiFrom       int32
+	F__ccgo_pad1 [4]byte
+	FzCol        uintptr
 } /* sqlite3.h:249:9 */
 
 // An instance of this structure contains information needed to generate
@@ -45270,7 +45635,7 @@ type AggInfo_col = struct {
 	FiMem          int32
 	FiColumn       i16
 	FiSorterColumn i16
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 } /* sqlite3.h:249:9 */
 
 // An instance of this structure contains information needed to generate
@@ -45285,12 +45650,12 @@ type AggInfo_col = struct {
 // original Select structure that describes the SELECT statement.  These
 // fields do not need to be freed when deallocating the AggInfo structure.
 type AggInfo_func = struct {
-	FpFExpr    uintptr
-	FpFunc     uintptr
-	FiMem      int32
-	FiDistinct int32
-	FiDistAddr int32
-	_          [4]byte
+	FpFExpr      uintptr
+	FpFunc       uintptr
+	FiMem        int32
+	FiDistinct   int32
+	FiDistAddr   int32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3.h:249:9 */
 
 // The datatype ynVar is a signed integer, either 16-bit or 32-bit.
@@ -45354,20 +45719,20 @@ type ynVar = i16 /* sqliteInt.h:2622:13 */
 //    ENAME_SPAN       Text of the original result set
 //                     expression.
 type ExprList_item = struct {
-	FpExpr     uintptr
-	FzEName    uintptr
-	FsortFlags u8
-	_          [3]byte
-	FeEName    uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
-	_          [3]byte
-	Fu         struct {
+	FpExpr       uintptr
+	FzEName      uintptr
+	FsortFlags   u8
+	F__ccgo_pad1 [3]byte
+	FeEName      uint8 /* unsigned eEName: 2, unsigned done: 1, unsigned reusable: 1, unsigned bSorterRef: 1, unsigned bNulls: 1 */
+	F__ccgo_pad2 [3]byte
+	Fu           struct {
 		_  [0]uint32
 		Fx struct {
 			FiOrderByCol u16
 			FiAlias      u16
 		}
 	}
-	_ [4]byte
+	F__ccgo_pad3 [4]byte
 } /* sqlite3.h:249:9 */
 
 // Allowed values for Expr.a.eEName
@@ -45386,9 +45751,9 @@ type ExprList_item = struct {
 //
 // If "a" is the k-th column of table "t", then IdList.a[0].idx==k.
 type IdList_item = struct {
-	FzName uintptr
-	Fidx   int32
-	_      [4]byte
+	FzName       uintptr
+	Fidx         int32
+	F__ccgo_pad1 [4]byte
 } /* sqlite3.h:249:9 */
 
 // The yDbMask datatype for the bitmask of all attached databases.
@@ -45397,14 +45762,14 @@ type yDbMask = uint32 /* sqliteInt.h:3379:24 */
 // A pointer to this structure is used to communicate information
 // from sqlite3Init and OP_ParseSchema into the sqlite3InitCallback.
 type InitData = struct {
-	Fdb         uintptr
-	FpzErrMsg   uintptr
-	FiDb        int32
-	Frc         int32
-	FmInitFlags u32
-	FnInitRow   u32
-	FmxPage     Pgno
-	_           [4]byte
+	Fdb          uintptr
+	FpzErrMsg    uintptr
+	FiDb         int32
+	Frc          int32
+	FmInitFlags  u32
+	FnInitRow    u32
+	FmxPage      Pgno
+	F__ccgo_pad1 [4]byte
 } /* sqliteInt.h:3737:3 */
 
 // Allowed values for mInitFlags
@@ -45429,7 +45794,7 @@ type Sqlite3Config = struct {
 	FbUseCis             u8
 	FbSmallMalloc        u8
 	FbExtraSchemaChecks  u8
-	_                    [2]byte
+	F__ccgo_pad1         [2]byte
 	FmxStrlen            int32
 	FneverCorrupt        int32
 	FszLookaside         int32
@@ -45442,7 +45807,7 @@ type Sqlite3Config = struct {
 	FnHeap               int32
 	FmnReq               int32
 	FmxReq               int32
-	_                    [4]byte
+	F__ccgo_pad2         [4]byte
 	FszMmap              sqlite3_int64
 	FmxMmap              sqlite3_int64
 	FpPage               uintptr
@@ -45457,7 +45822,7 @@ type Sqlite3Config = struct {
 	FisMallocInit        int32
 	FisPCacheInit        int32
 	FnRefInitMutex       int32
-	_                    [4]byte
+	F__ccgo_pad3         [4]byte
 	FpInitMutex          uintptr
 	FxLog                uintptr
 	FpLogArg             uintptr
@@ -45527,11 +45892,11 @@ type VdbeCursor1 = struct {
 	FnullRow        u8
 	FdeferredMoveto u8
 	FisTable        u8
-	_               [3]byte
+	F__ccgo_pad1    [3]byte
 	FisEphemeral    uint8 /* Bool isEphemeral: 1, Bool useRandomRowid: 1, Bool isOrdered: 1, Bool hasBeenDuped: 1 */
-	_               [1]byte
+	F__ccgo_pad2    [1]byte
 	FseekHit        u16
-	_               [4]byte
+	F__ccgo_pad3    [4]byte
 	FpBtx           uintptr
 	FseqCount       i64
 	FaAltMap        uintptr
@@ -45544,14 +45909,14 @@ type VdbeCursor1 = struct {
 	FpgnoRoot       Pgno
 	FnField         i16
 	FnHdrParsed     u16
-	_               [4]byte
+	F__ccgo_pad4    [4]byte
 	FmovetoTarget   i64
 	FaOffset        uintptr
 	FaRow           uintptr
 	FpayloadSize    u32
 	FszRow          u32
 	FaType          [1]u32
-	_               [4]byte
+	F__ccgo_pad5    [4]byte
 } /* sqlite3.h:249:9 */
 
 // Types of VDBE cursors
@@ -45653,7 +46018,7 @@ type ScanStatus1 = struct {
 	FaddrVisit   int32
 	FiSelectID   int32
 	FnEst        LogEst
-	_            [6]byte
+	F__ccgo_pad1 [6]byte
 	FzName       uintptr
 } /* vdbeInt.h:350:9 */
 
@@ -47351,13 +47716,13 @@ func testCreateCollationDel(tls *libc.TLS, pCtx uintptr) { /* test1.c:1721:13: *
 
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = (*TestCollationX)(unsafe.Pointer(p)).FpCmp
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = (*TestCollationX)(unsafe.Pointer(p)).FpDel
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -47382,7 +47747,7 @@ func testCreateCollationCmp(tls *libc.TLS, pCtx uintptr, nLeft int32, zLeft uint
 	}
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -47478,7 +47843,7 @@ func cf2Destroy(tls *libc.TLS, pUser uintptr) { /* test1.c:1818:13: */
 	if (*CreateFunctionV2)(unsafe.Pointer(p)).FpFunc != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*CreateFunctionV2)(unsafe.Pointer(p)).FpFunc
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -47486,7 +47851,7 @@ func cf2Destroy(tls *libc.TLS, pUser uintptr) { /* test1.c:1818:13: */
 	if (*CreateFunctionV2)(unsafe.Pointer(p)).FpStep != 0 {
 		for ok1 := true; ok1; ok1 = 0 != 0 {
 			var _objPtr uintptr = (*CreateFunctionV2)(unsafe.Pointer(p)).FpStep
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -47494,7 +47859,7 @@ func cf2Destroy(tls *libc.TLS, pUser uintptr) { /* test1.c:1818:13: */
 	if (*CreateFunctionV2)(unsafe.Pointer(p)).FpFinal != 0 {
 		for ok2 := true; ok2; ok2 = 0 != 0 {
 			var _objPtr uintptr = (*CreateFunctionV2)(unsafe.Pointer(p)).FpFinal
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -47502,7 +47867,7 @@ func cf2Destroy(tls *libc.TLS, pUser uintptr) { /* test1.c:1818:13: */
 	if (*CreateFunctionV2)(unsafe.Pointer(p)).FpDestroy != 0 {
 		for ok3 := true; ok3; ok3 = 0 != 0 {
 			var _objPtr uintptr = (*CreateFunctionV2)(unsafe.Pointer(p)).FpDestroy
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -47640,9 +48005,9 @@ func test_create_function_v2(tls *libc.TLS, clientData ClientData, interp uintpt
 }
 
 type EncTable = struct {
-	FzEnc uintptr
-	Fenc  int32
-	_     [4]byte
+	FzEnc        uintptr
+	Fenc         int32
+	F__ccgo_pad1 [4]byte
 } /* test1.c:1846:3 */
 
 // Usage: sqlite3_load_extension DB-HANDLE FILE ?PROC?
@@ -47915,9 +48280,9 @@ func test_stmt_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 	}
 	zOpName = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8)))
 	for i = 0; i < (int32(uint64(unsafe.Sizeof(aOp)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fop    int32
-		_      [4]byte
+		FzName       uintptr
+		Fop          int32
+		F__ccgo_pad1 [4]byte
 	}{})))); i++ {
 		if libc.Xstrcmp(tls, aOp[i].FzName, zOpName) == 0 {
 			*(*int32)(unsafe.Pointer(bp + 8 /* op */)) = aOp[i].Fop
@@ -47925,9 +48290,9 @@ func test_stmt_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 		}
 	}
 	if i >= (int32(uint64(unsafe.Sizeof(aOp)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fop    int32
-		_      [4]byte
+		FzName       uintptr
+		Fop          int32
+		F__ccgo_pad1 [4]byte
 	}{})))) {
 		if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+8 /* &op */) != 0 {
 			return TCL_ERROR
@@ -47942,9 +48307,9 @@ func test_stmt_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 }
 
 var aOp = [7]struct {
-	FzName uintptr
-	Fop    int32
-	_      [4]byte
+	FzName       uintptr
+	Fop          int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 16506 /* "SQLITE_STMTSTATU..." */, Fop: SQLITE_STMTSTATUS_FULLSCAN_STEP},
 	{FzName: ts + 16538 /* "SQLITE_STMTSTATU..." */, Fop: SQLITE_STMTSTATUS_SORT},
@@ -47989,7 +48354,9 @@ func vfsCurrentTimeInt64(tls *libc.TLS, clientData uintptr, interp uintptr, objc
 		tcl.XTcl_WrongNumArgs(tls, interp, 1, objv, ts+489 /* "" */)
 		return TCL_ERROR
 	}
-	(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, pVfs, bp /* &t */)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxCurrentTimeInt64})).f(tls, pVfs, bp /* &t */)
 	tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewWideIntObj(tls, *(*i64)(unsafe.Pointer(bp /* t */))))
 	return TCL_OK
 }
@@ -48253,7 +48620,9 @@ func test_atomic_batch_write(tls *libc.TLS, clientData uintptr, interp uintptr, 
 	}
 
 	rc = sqlite3.Xsqlite3_file_control(tls, *(*uintptr)(unsafe.Pointer(bp + 16 /* db */)), ts+85 /* "main" */, SQLITE_FCNTL_FILE_POINTER, bp+24 /* &pFd */)
-	dc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 24 /* pFd */)))).FpMethods + 96 /* &.xDeviceCharacteristics */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pFd */)))
+	dc = (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 24 /* pFd */)))).FpMethods)).FxDeviceCharacteristics})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pFd */)))
 	if (dc & SQLITE_IOCAP_BATCH_ATOMIC) != 0 {
 		bRes = 1
 	}
@@ -48639,7 +49008,7 @@ func test_collate_func(tls *libc.TLS, pCtx uintptr, nA int32, zA uintptr, nB int
 	tcl.XTcl_EvalObjEx(tls, i, pX, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pX
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -48975,7 +49344,7 @@ func test_function_utf8(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr) {
 	tcl.XTcl_EvalObjEx(tls, interp, pX, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pX
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -49001,7 +49370,7 @@ func test_function_utf16le(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr
 	tcl.XTcl_EvalObjEx(tls, interp, pX, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pX
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -49025,7 +49394,7 @@ func test_function_utf16be(tls *libc.TLS, pCtx uintptr, nArg int32, argv uintptr
 	tcl.XTcl_EvalObjEx(tls, interp, pX, 0)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pX
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -50736,7 +51105,7 @@ func test_prepare16(tls *libc.TLS, clientData uintptr, interp uintptr, objc int3
 		tcl.XTcl_ObjSetVar2(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 4*8)), uintptr(0), pTail, 0)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pTail
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -50812,7 +51181,7 @@ func test_prepare16_v2(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 		tcl.XTcl_ObjSetVar2(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 4*8)), uintptr(0), pTail, 0)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pTail
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -50932,9 +51301,9 @@ func test_open_v2(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32,
 }
 
 type OpenFlag = struct {
-	FzFlag uintptr
-	Fflag  int32
-	_      [4]byte
+	FzFlag       uintptr
+	Fflag        int32
+	F__ccgo_pad1 [4]byte
 } /* test1.c:4830:5 */
 
 // Usage: sqlite3_open16 filename options
@@ -51287,7 +51656,9 @@ func test_stmt_utf8(tls *libc.TLS, clientData uintptr, interp uintptr, objc int3
 	if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+40 /* &col */) != 0 {
 		return TCL_ERROR
 	}
-	zRet = (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer(&xFunc)))(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pStmt */)), *(*int32)(unsafe.Pointer(bp + 40 /* col */)))
+	zRet = (*struct {
+		f func(*libc.TLS, uintptr, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{xFunc})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pStmt */)), *(*int32)(unsafe.Pointer(bp + 40 /* col */)))
 	if zRet != 0 {
 		tcl.XTcl_SetResult(tls, interp, zRet, uintptr(0))
 	}
@@ -51336,7 +51707,9 @@ func test_stmt_utf16(tls *libc.TLS, clientData uintptr, interp uintptr, objc int
 		return TCL_ERROR
 	}
 
-	zName16 = (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer(&xFunc)))(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pStmt */)), *(*int32)(unsafe.Pointer(bp + 40 /* col */)))
+	zName16 = (*struct {
+		f func(*libc.TLS, uintptr, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{xFunc})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pStmt */)), *(*int32)(unsafe.Pointer(bp + 40 /* col */)))
 	if zName16 != 0 {
 		var n int32
 		var z uintptr = zName16
@@ -51379,7 +51752,9 @@ func test_stmt_int(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32
 		return TCL_ERROR
 	}
 
-	tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(&xFunc)))(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pStmt */)), *(*int32)(unsafe.Pointer(bp + 40 /* col */)))))
+	tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{xFunc})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pStmt */)), *(*int32)(unsafe.Pointer(bp + 40 /* col */)))))
 	return TCL_OK
 }
 
@@ -51819,7 +52194,7 @@ func working_64bit_int(tls *libc.TLS, clientData ClientData, interp uintptr, obj
 	working = (libc.Bool32(libc.Xstrcmp(tls, tcl.XTcl_GetString(tls, pTestObj), ts+18148 /* "1234567890000000" */) == 0))
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pTestObj
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -52397,9 +52772,9 @@ func test_limit(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32
 	}
 	zId = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8)))
 	for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aId)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fid    int32
-		_      [4]byte
+		FzName       uintptr
+		Fid          int32
+		F__ccgo_pad1 [4]byte
 	}{}))); i++ {
 		if libc.Xstrcmp(tls, zId, aId[i].FzName) == 0 {
 			id = aId[i].Fid
@@ -52407,9 +52782,9 @@ func test_limit(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32
 		}
 	}
 	if uint64(i) >= (uint64(unsafe.Sizeof(aId)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fid    int32
-		_      [4]byte
+		FzName       uintptr
+		Fid          int32
+		F__ccgo_pad1 [4]byte
 	}{}))) {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+32, ts+18301 /* "unknown limit ty..." */, zId, uintptr(0)))
 		return TCL_ERROR
@@ -52423,9 +52798,9 @@ func test_limit(tls *libc.TLS, clientData ClientData, interp uintptr, objc int32
 }
 
 var aId = [14]struct {
-	FzName uintptr
-	Fid    int32
-	_      [4]byte
+	FzName       uintptr
+	Fid          int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 18322 /* "SQLITE_LIMIT_LEN..." */},
 	{FzName: ts + 18342 /* "SQLITE_LIMIT_SQL..." */, Fid: SQLITE_LIMIT_SQL_LENGTH},
@@ -52757,7 +53132,7 @@ func xLogcallback(tls *libc.TLS, unused uintptr, err int32, zMsg uintptr) { /* t
 	tcl.XTcl_EvalObjEx(tls, logcallback.FpInterp, pNew, (TCL_EVAL_GLOBAL | TCL_EVAL_DIRECT))
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pNew
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -52774,7 +53149,7 @@ func test_sqlite3_log(tls *libc.TLS, clientData ClientData, interp uintptr, objc
 	if logcallback.FpObj != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = logcallback.FpObj
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -52817,7 +53192,9 @@ func runAsObjProc(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32,
 			tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 1*8))), uintptr(0)))
 		return TCL_ERROR
 	}
-	return (*(*func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32)(unsafe.Pointer((bp + 48 /* &cmdInfo */ + 8 /* &.objProc */))))(tls, (*Tcl_CmdInfo)(unsafe.Pointer(bp+48 /* &cmdInfo */)).FobjClientData, interp, (objc - 1), (objv + uintptr(1)*8))
+	return (*struct {
+		f func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*Tcl_CmdInfo)(unsafe.Pointer(bp + 48 /* &cmdInfo */)).FobjProc})).f(tls, (*Tcl_CmdInfo)(unsafe.Pointer(bp+48 /* &cmdInfo */)).FobjClientData, interp, (objc - 1), (objv + uintptr(1)*8))
 }
 
 // WARNING: The following function, printExplainQueryPlan() is an exact
@@ -53001,9 +53378,9 @@ func test_test_control(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 }
 
 type Verb = struct {
-	FzName uintptr
-	Fi     int32
-	_      [4]byte
+	FzName       uintptr
+	Fi           int32
+	F__ccgo_pad1 [4]byte
 } /* test1.c:7125:3 */
 
 // Value to indicate that there is no limit.
@@ -53025,7 +53402,7 @@ type rlimit64 = struct {
 } /* resource.h:148:1 */
 
 // Define struct rusage.
-//    Copyright (C) 1994-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1994-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -53040,10 +53417,10 @@ type rlimit64 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -53058,11 +53435,13 @@ type rlimit64 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
-// Structure which says how much of each resource has been used.
+// Structure which says how much of each resource has been used.  If
+//    the system does not keep track of a particular value, the struct
+//    field is always zero.
 
 // The purpose of all the unions is to have the kernel-compatible layout
 //    while keeping the API type as 'long int', and among machines where
@@ -53091,7 +53470,7 @@ type rusage = struct {
 	F__120 struct{ Fru_nsignals int64 }
 	F__128 struct{ Fru_nvcsw int64 }
 	F__136 struct{ Fru_nivcsw int64 }
-} /* struct_rusage.h:31:1 */
+} /* struct_rusage.h:33:1 */
 
 func test_getrusage(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test1.c:7209:26: */
 	bp := tls.Alloc(1216)
@@ -53142,9 +53521,9 @@ func optimization_control(tls *libc.TLS, clientData uintptr, interp uintptr, obj
 	}
 	zOpt = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8)))
 	for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aOpt)) / uint64(unsafe.Sizeof(struct {
-		FzOptName uintptr
-		Fmask     int32
-		_         [4]byte
+		FzOptName    uintptr
+		Fmask        int32
+		F__ccgo_pad1 [4]byte
 	}{}))); i++ {
 		if libc.Xstrcmp(tls, zOpt, aOpt[i].FzOptName) == 0 {
 			mask = aOpt[i].Fmask
@@ -53155,16 +53534,16 @@ func optimization_control(tls *libc.TLS, clientData uintptr, interp uintptr, obj
 		mask = ^mask
 	}
 	if uint64(i) >= (uint64(unsafe.Sizeof(aOpt)) / uint64(unsafe.Sizeof(struct {
-		FzOptName uintptr
-		Fmask     int32
-		_         [4]byte
+		FzOptName    uintptr
+		Fmask        int32
+		F__ccgo_pad1 [4]byte
 	}{}))) {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp, ts+19080, /* "unknown optimiza..." */
 			uintptr(0)))
 		for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aOpt)) / uint64(unsafe.Sizeof(struct {
-			FzOptName uintptr
-			Fmask     int32
-			_         [4]byte
+			FzOptName    uintptr
+			Fmask        int32
+			F__ccgo_pad1 [4]byte
 		}{}))); i++ {
 			tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+16, ts+4755 /* " " */, aOpt[i].FzOptName, uintptr(0)))
 		}
@@ -53175,9 +53554,9 @@ func optimization_control(tls *libc.TLS, clientData uintptr, interp uintptr, obj
 }
 
 var aOpt = [13]struct {
-	FzOptName uintptr
-	Fmask     int32
-	_         [4]byte
+	FzOptName    uintptr
+	Fmask        int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzOptName: ts + 19121 /* "all" */, Fmask: libc.Int32FromUint32(SQLITE_AllOpts)},
 	{FzOptName: ts + 19125 /* "none" */},
@@ -53233,7 +53612,9 @@ func tclLoadStaticExtensionCmd(tls *libc.TLS, clientData uintptr, interp uintptr
 			return TCL_ERROR
 		}
 		if aExtension[i].FpInit != 0 {
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&aExtension)) + uintptr(i)*16 + 8 /* &.pInit */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 64 /* db */)), bp+72 /* &zErrMsg */, uintptr(0))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{aExtension[i].FpInit})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 64 /* db */)), bp+72 /* &zErrMsg */, uintptr(0))
 		} else {
 			rc = SQLITE_OK
 		}
@@ -53564,18 +53945,18 @@ func test_sqlite3_db_config(tls *libc.TLS, clientData uintptr, interp uintptr, o
 		zSetting += uintptr(7)
 	}
 	for i = 0; i < (int32(uint64(unsafe.Sizeof(aSetting)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		FeVal  int32
-		_      [4]byte
+		FzName       uintptr
+		FeVal        int32
+		F__ccgo_pad1 [4]byte
 	}{})))); i++ {
 		if libc.Xstrcmp(tls, zSetting, aSetting[i].FzName) == 0 {
 			break
 		}
 	}
 	if i >= (int32(uint64(unsafe.Sizeof(aSetting)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		FeVal  int32
-		_      [4]byte
+		FzName       uintptr
+		FeVal        int32
+		F__ccgo_pad1 [4]byte
 	}{})))) {
 		tcl.XTcl_SetObjResult(tls, interp,
 			tcl.XTcl_NewStringObj(tls, ts+19538 /* "unknown sqlite3_..." */, -1))
@@ -53594,9 +53975,9 @@ func test_sqlite3_db_config(tls *libc.TLS, clientData uintptr, interp uintptr, o
 }
 
 var aSetting = [14]struct {
-	FzName uintptr
-	FeVal  int32
-	_      [4]byte
+	FzName       uintptr
+	FeVal        int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 19572 /* "FKEY" */, FeVal: SQLITE_DBCONFIG_ENABLE_FKEY},
 	{FzName: ts + 19577 /* "TRIGGER" */, FeVal: SQLITE_DBCONFIG_ENABLE_TRIGGER},
@@ -53722,7 +54103,9 @@ func test_write_db(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32
 	aData = tcl.XTcl_GetByteArrayFromObj(tls, *(*uintptr)(unsafe.Pointer(objv + 3*8)), bp+16 /* &nData */)
 
 	sqlite3.Xsqlite3_file_control(tls, *(*uintptr)(unsafe.Pointer(bp /* db */)), ts+85 /* "main" */, SQLITE_FCNTL_FILE_POINTER, bp+24 /* &pFile */)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 24 /* pFile */)))).FpMethods + 24 /* &.xWrite */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pFile */)), aData, *(*int32)(unsafe.Pointer(bp + 16 /* nData */)), *(*Tcl_WideInt)(unsafe.Pointer(bp + 8 /* iOff */)))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 24 /* pFile */)))).FpMethods)).FxWrite})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 24 /* pFile */)), aData, *(*int32)(unsafe.Pointer(bp + 16 /* nData */)), *(*Tcl_WideInt)(unsafe.Pointer(bp + 8 /* iOff */)))
 
 	tcl.XTcl_SetResult(tls, interp, sqlite3.Xsqlite3ErrName(tls, rc), uintptr(1))
 	return TCL_OK
@@ -55107,7 +55490,7 @@ type MemPage1 = struct {
 	FchildPtrSize    u8
 	Fmax1bytePayload u8
 	FnOverflow       u8
-	_                [1]byte
+	F__ccgo_pad1     [1]byte
 	FmaxLocal        u16
 	FminLocal        u16
 	FcellOffset      u16
@@ -55115,7 +55498,7 @@ type MemPage1 = struct {
 	FnCell           u16
 	FmaskPage        u16
 	FaiOvfl          [4]u16
-	_                [4]byte
+	F__ccgo_pad2     [4]byte
 	FapOvfl          [4]uintptr
 	FpBt             uintptr
 	FaData           uintptr
@@ -55364,11 +55747,11 @@ type MemPage1 = struct {
 // Forward declarations
 type MemPage = MemPage1 /* btreeInt.h:232:24 */
 type BtLock1 = struct {
-	FpBtree uintptr
-	FiTable Pgno
-	FeLock  u8
-	_       [3]byte
-	FpNext  uintptr
+	FpBtree      uintptr
+	FiTable      Pgno
+	FeLock       u8
+	F__ccgo_pad1 [3]byte
+	FpNext       uintptr
 } /* btree.h:39:9 */
 
 type BtLock = BtLock1 /* btreeInt.h:233:23 */
@@ -56248,7 +56631,7 @@ var aCmd3 = [14]struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56263,11 +56646,11 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56282,11 +56665,11 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+// Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56301,9 +56684,9 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56318,27 +56701,10 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Definitions for POSIX 1003.1b-1993 (aka POSIX.4) scheduling interface.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56353,9 +56719,9 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56370,11 +56736,11 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Get type definitions.
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56389,11 +56755,11 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -56424,15 +56790,6 @@ var aCmd3 = [14]struct {
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -56470,11 +56827,6 @@ var aCmd3 = [14]struct {
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Offset of member MEMBER in a struct of type TYPE.
@@ -56484,7 +56836,7 @@ var aCmd3 = [14]struct {
 // Get system specific constant and data structure definitions.
 // Definitions of constants and data structure for POSIX 1003.1b-1993
 //    scheduling interface.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56499,14 +56851,14 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Scheduling algorithms.
 
 // Cloning flags.
 
 // Sched parameter structure.  Generic version.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56521,7 +56873,7 @@ var aCmd3 = [14]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library;  if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Data structure to describe a process' schedulability.
 type sched_param = struct{ Fsched_priority int32 } /* struct_sched_param.h:23:1 */
@@ -56531,7 +56883,7 @@ type sched_param = struct{ Fsched_priority int32 } /* struct_sched_param.h:23:1 
 // Data structure to describe CPU mask.
 type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56546,11 +56898,11 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.23 Date and time	<time.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56565,9 +56917,9 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -56598,15 +56950,6 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -56644,11 +56987,6 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Offset of member MEMBER in a struct of type TYPE.
@@ -56656,7 +56994,7 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 // This defines CLOCKS_PER_SEC, which is the number of processor clock
 //    ticks per second, and possibly a number of other constants.
 // System-dependent timing definitions.  Linux version.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56671,12 +57009,12 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <time.h> instead.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56691,7 +57029,7 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -56716,7 +57054,7 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 
 // Flag to indicate time is absolute.
 
-// Copyright (C) 1995-2018 Free Software Foundation, Inc.
+// Copyright (C) 1995-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56731,10 +57069,10 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -56749,50 +57087,50 @@ type cpu_set_t = struct{ F__bits [16]uint64 } /* cpu-set.h:42:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // These definitions from linux/timex.h as of 3.18.
 
 type timex = struct {
-	Fmodes     uint32
-	_          [4]byte
-	Foffset    int64
-	Ffreq      int64
-	Fmaxerror  int64
-	Festerror  int64
-	Fstatus    int32
-	_          [4]byte
-	Fconstant  int64
-	Fprecision int64
-	Ftolerance int64
-	Ftime      struct {
+	Fmodes       uint32
+	F__ccgo_pad1 [4]byte
+	Foffset      int64
+	Ffreq        int64
+	Fmaxerror    int64
+	Festerror    int64
+	Fstatus      int32
+	F__ccgo_pad2 [4]byte
+	Fconstant    int64
+	Fprecision   int64
+	Ftolerance   int64
+	Ftime        struct {
 		Ftv_sec  int64
 		Ftv_usec int64
 	}
-	Ftick    int64
-	Fppsfreq int64
-	Fjitter  int64
-	Fshift   int32
-	_        [4]byte
-	Fstabil  int64
-	Fjitcnt  int64
-	Fcalcnt  int64
-	Ferrcnt  int64
-	Fstbcnt  int64
-	Ftai     int32
-	__164    uint32 /* int : 32 */
-	__168    uint32 /* int : 32 */
-	__172    uint32 /* int : 32 */
-	__176    uint32 /* int : 32 */
-	__180    uint32 /* int : 32 */
-	__184    uint32 /* int : 32 */
-	__188    uint32 /* int : 32 */
-	__192    uint32 /* int : 32 */
-	__196    uint32 /* int : 32 */
-	__200    uint32 /* int : 32 */
-	__204    uint32 /* int : 32 */
+	Ftick        int64
+	Fppsfreq     int64
+	Fjitter      int64
+	Fshift       int32
+	F__ccgo_pad3 [4]byte
+	Fstabil      int64
+	Fjitcnt      int64
+	Fcalcnt      int64
+	Ferrcnt      int64
+	Fstbcnt      int64
+	Ftai         int32
+	__164        uint32 /* int : 32 */
+	__168        uint32 /* int : 32 */
+	__172        uint32 /* int : 32 */
+	__176        uint32 /* int : 32 */
+	__180        uint32 /* int : 32 */
+	__184        uint32 /* int : 32 */
+	__188        uint32 /* int : 32 */
+	__192        uint32 /* int : 32 */
+	__196        uint32 /* int : 32 */
+	__200        uint32 /* int : 32 */
+	__204        uint32 /* int : 32 */
 } /* timex.h:26:1 */
 
 // Conditional variable handling.
@@ -56802,9 +57140,9 @@ type _pthread_cleanup_buffer = struct {
 	F__routine    uintptr
 	F__arg        uintptr
 	F__canceltype int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 	F__prev       uintptr
-} /* pthread.h:191:1 */
+} /* pthread.h:155:1 */
 
 // No special attributes by default.
 
@@ -56814,26 +57152,26 @@ type __pthread_cleanup_frame = struct {
 	F__cancel_arg     uintptr
 	F__do_it          int32
 	F__cancel_type    int32
-} /* pthread.h:541:1 */
+} /* pthread.h:516:1 */
 
 // Each thread is controlled by an instance of the following
 // structure.
 type Thread = struct {
-	FzFilename  uintptr
-	FxOp        uintptr
-	FzArg       uintptr
-	Fopnum      int32
-	Fbusy       int32
-	Fcompleted  int32
-	_           [4]byte
-	Fdb         uintptr
-	FpStmt      uintptr
-	FzErr       uintptr
-	FzStaticErr uintptr
-	Frc         int32
-	Fargc       int32
-	Fargv       [100]uintptr
-	Fcolv       [100]uintptr
+	FzFilename   uintptr
+	FxOp         uintptr
+	FzArg        uintptr
+	Fopnum       int32
+	Fbusy        int32
+	Fcompleted   int32
+	F__ccgo_pad1 [4]byte
+	Fdb          uintptr
+	FpStmt       uintptr
+	FzErr        uintptr
+	FzStaticErr  uintptr
+	Frc          int32
+	Fargc        int32
+	Fargv        [100]uintptr
+	Fcolv        [100]uintptr
 } /* test4.c:33:23 */
 
 // There can be as many as 26 threads running at once.  Each is named
@@ -56862,7 +57200,7 @@ func test_thread_main(tls *libc.TLS, pArg uintptr) uintptr { /* test4.c:67:13: *
 			sqlite3.Xsqlite3_free(tls, (*Thread)(unsafe.Pointer(p)).FzErr)
 			(*Thread)(unsafe.Pointer(p)).FzErr = uintptr(0)
 		}
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((p + 8 /* &.xOp */))))(tls, p)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*Thread)(unsafe.Pointer(p)).FxOp})).f(tls, p)
 		(*Thread)(unsafe.Pointer(p)).Fcompleted++
 		for (*Thread)(unsafe.Pointer(p)).Fopnum <= (*Thread)(unsafe.Pointer(p)).Fcompleted {
 			libc.Xsched_yield(tls)
@@ -57483,7 +57821,7 @@ var aCmd4 = [15]struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -57498,11 +57836,11 @@ var aCmd4 = [15]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -57517,7 +57855,7 @@ var aCmd4 = [15]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -57613,9 +57951,9 @@ func name_to_enc(tls *libc.TLS, interp uintptr, pObj uintptr) u8 { /* test5.c:94
 }
 
 type EncName = struct {
-	FzName uintptr
-	Fenc   u8
-	_      [7]byte
+	FzName       uintptr
+	Fenc         u8
+	F__ccgo_pad1 [7]byte
 } /* test5.c:95:3 */
 
 // Usage:   test_translate <string/blob> <from enc> <to enc> ?<transient>?
@@ -57721,15 +58059,15 @@ var aCmd5 = [4]struct {
 // #define TRACE_CRASHTEST
 
 type CrashFile1 = struct {
-	FpMethod   uintptr
-	FpRealFile uintptr
-	FzName     uintptr
-	Fflags     int32
-	_          [4]byte
-	FzData     uintptr
-	FnData     int32
-	_          [4]byte
-	FiSize     i64
+	FpMethod     uintptr
+	FpRealFile   uintptr
+	FzName       uintptr
+	Fflags       int32
+	F__ccgo_pad1 [4]byte
+	FzData       uintptr
+	FnData       int32
+	F__ccgo_pad2 [4]byte
+	FiSize       i64
 } /* test6.c:29:9 */
 
 // end block for C++
@@ -57754,12 +58092,12 @@ type CrashGlobal1 = struct {
 
 type CrashGlobal = CrashGlobal1 /* test6.c:30:28 */
 type WriteBuffer1 = struct {
-	FiOffset i64
-	FnBuf    int32
-	_        [4]byte
-	FzBuf    uintptr
-	FpFile   uintptr
-	FpNext   uintptr
+	FiOffset     i64
+	FnBuf        int32
+	F__ccgo_pad1 [4]byte
+	FzBuf        uintptr
+	FpFile       uintptr
+	FpNext       uintptr
 } /* test6.c:30:9 */
 
 type WriteBuffer = WriteBuffer1 /* test6.c:31:28 */
@@ -58118,22 +58456,28 @@ func cfDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* test6.c:54
 // Pass-throughs for WAL support.
 func cfShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int32) int32 { /* test6.c:552:12: */
 	var pReal uintptr = (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 112 /* &.xShmLock */))))(tls, pReal, ofst, n, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmLock})).f(tls, pReal, ofst, n, flags)
 }
 
 func cfShmBarrier(tls *libc.TLS, pFile uintptr) { /* test6.c:556:13: */
 	var pReal uintptr = (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 120 /* &.xShmBarrier */))))(tls, pReal)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmBarrier})).f(tls, pReal)
 }
 
 func cfShmUnmap(tls *libc.TLS, pFile uintptr, delFlag int32) int32 { /* test6.c:560:12: */
 	var pReal uintptr = (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 128 /* &.xShmUnmap */))))(tls, pReal, delFlag)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmUnmap})).f(tls, pReal, delFlag)
 }
 
 func cfShmMap(tls *libc.TLS, pFile uintptr, iRegion int32, sz int32, w int32, pp uintptr) int32 { /* test6.c:564:12: */
 	var pReal uintptr = (*CrashFile)(unsafe.Pointer(pFile)).FpRealFile
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 104 /* &.xShmMap */))))(tls, pReal, iRegion, sz, w, libc.AtomicLoadUintptr(&pp))
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmMap})).f(tls, pReal, iRegion, sz, w, pp)
 }
 
 var CrashFileVtab = sqlite3_io_methods{
@@ -58221,57 +58565,79 @@ func cfOpen(tls *libc.TLS, pCfVfs uintptr, zName uintptr, pFile uintptr, flags i
 
 func cfDelete(tls *libc.TLS, pCfVfs uintptr, zPath uintptr, dirSync int32) int32 { /* test6.c:665:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pVfs + 48 /* &.xDelete */))))(tls, pVfs, zPath, dirSync)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxDelete})).f(tls, pVfs, zPath, dirSync)
 }
 
 func cfAccess(tls *libc.TLS, pCfVfs uintptr, zPath uintptr, flags int32, pResOut uintptr) int32 { /* test6.c:669:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 56 /* &.xAccess */))))(tls, pVfs, zPath, flags, pResOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxAccess})).f(tls, pVfs, zPath, flags, pResOut)
 }
 
 func cfFullPathname(tls *libc.TLS, pCfVfs uintptr, zPath uintptr, nPathOut int32, zPathOut uintptr) int32 { /* test6.c:678:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 64 /* &.xFullPathname */))))(tls, pVfs, zPath, nPathOut, zPathOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxFullPathname})).f(tls, pVfs, zPath, nPathOut, zPathOut)
 }
 
 func cfDlOpen(tls *libc.TLS, pCfVfs uintptr, zPath uintptr) uintptr { /* test6.c:687:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((pVfs + 72 /* &.xDlOpen */))))(tls, pVfs, zPath)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxDlOpen})).f(tls, pVfs, zPath)
 }
 
 func cfDlError(tls *libc.TLS, pCfVfs uintptr, nByte int32, zErrMsg uintptr) { /* test6.c:691:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer((pVfs + 80 /* &.xDlError */))))(tls, pVfs, nByte, zErrMsg)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxDlError})).f(tls, pVfs, nByte, zErrMsg)
 }
 
 func cfDlSym(tls *libc.TLS, pCfVfs uintptr, pH uintptr, zSym uintptr) uintptr { /* test6.c:695:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer((pVfs + 88 /* &.xDlSym */))))(tls, pVfs, pH, zSym)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxDlSym})).f(tls, pVfs, pH, zSym)
 }
 
 func cfDlClose(tls *libc.TLS, pCfVfs uintptr, pHandle uintptr) { /* test6.c:699:13: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer((pVfs + 96 /* &.xDlClose */))))(tls, pVfs, pHandle)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxDlClose})).f(tls, pVfs, pHandle)
 }
 
 func cfRandomness(tls *libc.TLS, pCfVfs uintptr, nByte int32, zBufOut uintptr) int32 { /* test6.c:703:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 104 /* &.xRandomness */))))(tls, pVfs, nByte, zBufOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxRandomness})).f(tls, pVfs, nByte, zBufOut)
 }
 
 func cfSleep(tls *libc.TLS, pCfVfs uintptr, nMicro int32) int32 { /* test6.c:707:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((pVfs + 112 /* &.xSleep */))))(tls, pVfs, nMicro)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSleep})).f(tls, pVfs, nMicro)
 }
 
 func cfCurrentTime(tls *libc.TLS, pCfVfs uintptr, pTimeOut uintptr) int32 { /* test6.c:711:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pVfs + 120 /* &.xCurrentTime */))))(tls, pVfs, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxCurrentTime})).f(tls, pVfs, pTimeOut)
 }
 
 func cfGetLastError(tls *libc.TLS, pCfVfs uintptr, n int32, z uintptr) int32 { /* test6.c:715:12: */
 	var pVfs uintptr = (*sqlite3_vfs)(unsafe.Pointer(pCfVfs)).FpAppData
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 128 /* &.xGetLastError */))))(tls, pVfs, n, z)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxGetLastError})).f(tls, pVfs, n, z)
 }
 
 func processDevSymArgs(tls *libc.TLS, interp uintptr, objc int32, objv uintptr, piDeviceChar uintptr, piSectorSize uintptr) int32 { /* test6.c:720:12: */
@@ -58343,7 +58709,7 @@ func processDevSymArgs(tls *libc.TLS, interp uintptr, objc int32, objv uintptr, 
 					interp, pFlag, bp+88 /* &aFlag[0] */, int32(unsafe.Sizeof(DeviceFlag{})), ts+26944 /* "no such flag" */, 0, bp+312 /* &iChoice */)
 				for ok := true; ok; ok = 0 != 0 {
 					var _objPtr uintptr = pFlag
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -58368,9 +58734,9 @@ func processDevSymArgs(tls *libc.TLS, interp uintptr, objc int32, objv uintptr, 
 }
 
 type DeviceFlag = struct {
-	FzName  uintptr
-	FiValue int32
-	_       [4]byte
+	FzName       uintptr
+	FiValue      int32
+	F__ccgo_pad1 [4]byte
 } /* test6.c:727:3 */
 
 // tclcmd:   sqlite3_crash_now
@@ -58653,23 +59019,23 @@ func Sqlitetest6_Init(tls *libc.TLS, interp uintptr) int32 { /* test6.c:1093:5: 
 // Each thread is controlled by an instance of the following
 // structure.
 type Thread1 = struct {
-	FzFilename  uintptr
-	FxOp        uintptr
-	FzArg       uintptr
-	Fopnum      int32
-	Fbusy       int32
-	Fcompleted  int32
-	_           [4]byte
-	Fdb         uintptr
-	FpStmt      uintptr
-	FzErr       uintptr
-	FzStaticErr uintptr
-	Frc         int32
-	Fargc       int32
-	Fargv       [100]uintptr
-	Fcolv       [100]uintptr
-	FnServer    int32
-	_           [4]byte
+	FzFilename   uintptr
+	FxOp         uintptr
+	FzArg        uintptr
+	Fopnum       int32
+	Fbusy        int32
+	Fcompleted   int32
+	F__ccgo_pad1 [4]byte
+	Fdb          uintptr
+	FpStmt       uintptr
+	FzErr        uintptr
+	FzStaticErr  uintptr
+	Frc          int32
+	Fargc        int32
+	Fargv        [100]uintptr
+	Fcolv        [100]uintptr
+	FnServer     int32
+	F__ccgo_pad2 [4]byte
 } /* test7.c:53:23 */
 
 // There can be as many as 26 threads running at once.  Each is named
@@ -58698,7 +59064,7 @@ func client_main(tls *libc.TLS, pArg uintptr) uintptr { /* test7.c:95:13: */
 			sqlite3.Xsqlite3_free(tls, (*Thread1)(unsafe.Pointer(p)).FzErr)
 			(*Thread1)(unsafe.Pointer(p)).FzErr = uintptr(0)
 		}
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((p + 8 /* &.xOp */))))(tls, p)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*Thread1)(unsafe.Pointer(p)).FxOp})).f(tls, p)
 		(*Thread1)(unsafe.Pointer(p)).Fcompleted++
 		for (*Thread1)(unsafe.Pointer(p)).Fopnum <= (*Thread1)(unsafe.Pointer(p)).Fcompleted {
 			libc.Xsched_yield(tls)
@@ -59287,7 +59653,7 @@ var aCmd6 = [13]struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -59302,11 +59668,11 @@ var aCmd6 = [13]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -59321,7 +59687,7 @@ var aCmd6 = [13]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -59335,7 +59701,7 @@ type echo_vtab1 = struct {
 	FzTableName    uintptr
 	FzLogName      uintptr
 	FnCol          int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	FaIndex        uintptr
 	FaCol          uintptr
 } /* test8.c:27:9 */
@@ -59347,7 +59713,7 @@ type echo_vtab1 = struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -59362,11 +59728,11 @@ type echo_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -59381,7 +59747,7 @@ type echo_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -60831,7 +61197,7 @@ var aObjCmd2 = [2]struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -60846,11 +61212,11 @@ var aObjCmd2 = [2]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -60865,7 +61231,7 @@ var aObjCmd2 = [2]struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -61383,7 +61749,7 @@ func tclDisconnect(tls *libc.TLS, pVtab uintptr) int32 { /* test_bestindex.c:224
 	var pTab uintptr = pVtab
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = (*tcl_vtab)(unsafe.Pointer(pTab)).FpCmd
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -61471,7 +61837,7 @@ func tclFilter(tls *libc.TLS, pVtabCursor uintptr, idxNum int32, idxStr uintptr,
 	tcl.XTcl_ListObjAppendElement(tls, interp, pScript, pArg)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pArg
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -61617,7 +61983,7 @@ func tclBestIndex(tls *libc.TLS, tab uintptr, pIdxInfo uintptr) int32 { /* test_
 		tcl.XTcl_ListObjAppendElement(tls, uintptr(0), pArg, pElem)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pElem
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -61626,7 +61992,7 @@ func tclBestIndex(tls *libc.TLS, tab uintptr, pIdxInfo uintptr) int32 { /* test_
 	tcl.XTcl_ListObjAppendElement(tls, uintptr(0), pScript, pArg)
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = pArg
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -61646,7 +62012,7 @@ func tclBestIndex(tls *libc.TLS, tab uintptr, pIdxInfo uintptr) int32 { /* test_
 		tcl.XTcl_ListObjAppendElement(tls, uintptr(0), pArg, pElem)
 		for ok2 := true; ok2; ok2 = 0 != 0 {
 			var _objPtr uintptr = pElem
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -61655,7 +62021,7 @@ func tclBestIndex(tls *libc.TLS, tab uintptr, pIdxInfo uintptr) int32 { /* test_
 	tcl.XTcl_ListObjAppendElement(tls, uintptr(0), pScript, pArg)
 	for ok3 := true; ok3; ok3 = 0 != 0 {
 		var _objPtr uintptr = pArg
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -61665,7 +62031,7 @@ func tclBestIndex(tls *libc.TLS, tab uintptr, pIdxInfo uintptr) int32 { /* test_
 	rc = tcl.XTcl_EvalObjEx(tls, interp, pScript, TCL_EVAL_GLOBAL)
 	for ok4 := true; ok4; ok4 = 0 != 0 {
 		var _objPtr uintptr = pScript
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -62154,7 +62520,7 @@ func sqlite3BtreeCursorList(tls *libc.TLS, p uintptr) { /* test_btree.c:52:6: */
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -62169,11 +62535,11 @@ func sqlite3BtreeCursorList(tls *libc.TLS, p uintptr) { /* test_btree.c:52:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -62188,7 +62554,7 @@ func sqlite3BtreeCursorList(tls *libc.TLS, p uintptr) { /* test_btree.c:52:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -62751,7 +63117,7 @@ type DevsymGlobal = struct {
 	FiDeviceChar int32
 	FiSectorSize int32
 	FnWriteCrash int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 } /* test_devsym.c:76:1 */
 
 var g1 = DevsymGlobal{FiSectorSize: 512} /* test_devsym.c:82:21 */
@@ -62830,22 +63196,28 @@ func devsymDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* test_d
 // Shared-memory methods are all pass-thrus.
 func devsymShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int32) int32 { /* test_devsym.c:192:12: */
 	var p uintptr = pFile
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods + 112 /* &.xShmLock */))))(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, ofst, n, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmLock})).f(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, ofst, n, flags)
 }
 
 func devsymShmMap(tls *libc.TLS, pFile uintptr, iRegion int32, szRegion int32, isWrite int32, pp uintptr) int32 { /* test_devsym.c:196:12: */
 	var p uintptr = pFile
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods + 104 /* &.xShmMap */))))(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, libc.AtomicLoadUintptr(&pp))
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmMap})).f(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, pp)
 }
 
 func devsymShmBarrier(tls *libc.TLS, pFile uintptr) { /* test_devsym.c:206:13: */
 	var p uintptr = pFile
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods + 120 /* &.xShmBarrier */))))(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmBarrier})).f(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal)
 }
 
 func devsymShmUnmap(tls *libc.TLS, pFile uintptr, delFlag int32) int32 { /* test_devsym.c:210:12: */
 	var p uintptr = pFile
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods + 128 /* &.xShmUnmap */))))(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, delFlag)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*devsym_file)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmUnmap})).f(tls, (*devsym_file)(unsafe.Pointer(p)).FpReal, delFlag)
 }
 
 // Open an devsym file handle.
@@ -62914,7 +63286,9 @@ func devsymSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* test_devs
 
 // Return the current time as a Julian Day number in *pTimeOut.
 func devsymCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* test_devsym.c:344:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((g1.FpVfs + 120 /* &.xCurrentTime */))))(tls, g1.FpVfs, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g1.FpVfs)).FxCurrentTime})).f(tls, g1.FpVfs, pTimeOut)
 }
 
 // Return the sector-size in bytes for an writecrash-file.
@@ -63077,36 +63451,55 @@ type stat64 = struct {
 	F__glibc_reserved [3]int64
 } /* stat.h:119:1 */
 
-// statx-related definitions and declarations.
-//    Copyright (C) 2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
+// Timestamp structure for the timestamps in struct statx.
 //
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
+// tv_sec holds the number of seconds before (negative) or after (positive)
+// 00:00:00 1st January 1970 UTC.
 //
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
+// tv_nsec holds a number of nanoseconds (0..999,999,999) after the tv_sec time.
 //
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// This interface is based on <linux/stat.h> in Linux.
-
+// __reserved is held in case we need a yet finer resolution.
 type statx_timestamp = struct {
-	Ftv_sec                 int64
-	Ftv_nsec                uint32
-	F__statx_timestamp_pad1 [1]int32
-} /* statx.h:25:1 */
+	Ftv_sec     int64
+	Ftv_nsec    uint32
+	F__reserved int32
+} /* stat.h:56:1 */
 
-// Warning: The kernel may add additional fields to this struct in the
-//    future.  Only use this struct for calling the statx function, not
-//    for storing data.  (Expansion will be controlled by the mask
-//    argument of the statx function.)
+// Structures for the extended file attribute retrieval system call
+// (statx()).
+//
+// The caller passes a mask of what they're specifically interested in as a
+// parameter to statx().  What statx() actually got will be indicated in
+// st_mask upon return.
+//
+// For each bit in the mask argument:
+//
+// - if the datum is not supported:
+//
+//   - the bit will be cleared, and
+//
+//   - the datum will be set to an appropriate fabricated value if one is
+//     available (eg. CIFS can take a default uid and gid), otherwise
+//
+//   - the field will be cleared;
+//
+// - otherwise, if explicitly requested:
+//
+//   - the datum will be synchronised to the server if AT_STATX_FORCE_SYNC is
+//     set or if the datum is considered out of date, and
+//
+//   - the field will be filled in and the bit will be set;
+//
+// - otherwise, if not requested, but available in approximate form without any
+//   effort, it will be filled in anyway, and the bit will be set upon return
+//   (it might not be up to date, however, and no attempt will be made to
+//   synchronise the internal state first);
+//
+// - otherwise the field and the bit will be cleared before returning.
+//
+// Items in STATX_BASIC_STATS may be marked unavailable on return, but they
+// will have values installed for compatibility purposes so that stat() and
+// co. can be emulated in userspace.
 type statx = struct {
 	Fstx_mask            uint32
 	Fstx_blksize         uint32
@@ -63115,51 +63508,53 @@ type statx = struct {
 	Fstx_uid             uint32
 	Fstx_gid             uint32
 	Fstx_mode            uint16
-	F__statx_pad1        [1]uint16
+	F__spare0            [1]uint16
 	Fstx_ino             uint64
 	Fstx_size            uint64
 	Fstx_blocks          uint64
 	Fstx_attributes_mask uint64
 	Fstx_atime           struct {
-		Ftv_sec                 int64
-		Ftv_nsec                uint32
-		F__statx_timestamp_pad1 [1]int32
+		Ftv_sec     int64
+		Ftv_nsec    uint32
+		F__reserved int32
 	}
 	Fstx_btime struct {
-		Ftv_sec                 int64
-		Ftv_nsec                uint32
-		F__statx_timestamp_pad1 [1]int32
+		Ftv_sec     int64
+		Ftv_nsec    uint32
+		F__reserved int32
 	}
 	Fstx_ctime struct {
-		Ftv_sec                 int64
-		Ftv_nsec                uint32
-		F__statx_timestamp_pad1 [1]int32
+		Ftv_sec     int64
+		Ftv_nsec    uint32
+		F__reserved int32
 	}
 	Fstx_mtime struct {
-		Ftv_sec                 int64
-		Ftv_nsec                uint32
-		F__statx_timestamp_pad1 [1]int32
+		Ftv_sec     int64
+		Ftv_nsec    uint32
+		F__reserved int32
 	}
 	Fstx_rdev_major uint32
 	Fstx_rdev_minor uint32
 	Fstx_dev_major  uint32
 	Fstx_dev_minor  uint32
-	F__statx_pad2   [14]uint64
-} /* statx.h:36:1 */
+	Fstx_mnt_id     uint64
+	F__spare2       uint64
+	F__spare3       [12]uint64
+} /* stat.h:99:1 */
 
 type flock64 = struct {
-	Fl_type   int16
-	Fl_whence int16
-	_         [4]byte
-	Fl_start  int64
-	Fl_len    int64
-	Fl_pid    int32
-	_         [4]byte
+	Fl_type      int16
+	Fl_whence    int16
+	F__ccgo_pad1 [4]byte
+	Fl_start     int64
+	Fl_len       int64
+	Fl_pid       int32
+	F__ccgo_pad2 [4]byte
 } /* fcntl.h:50:1 */
 
 // Include generic Linux declarations.
 // O_*, F_*, FD_* bit values for Linux.
-//    Copyright (C) 2001-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2001-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -63174,7 +63569,7 @@ type flock64 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // This file contains shared definitions between Linux architectures
 //    and is included by <bits/fcntl.h> to declare them.  The various
@@ -63190,7 +63585,7 @@ type flock64 = struct {
 //    #include <bits/fcntl-linux.h>
 
 // Define struct iovec.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -63205,9 +63600,9 @@ type flock64 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -63238,15 +63633,6 @@ type flock64 = struct {
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -63284,11 +63670,6 @@ type flock64 = struct {
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Offset of member MEMBER in a struct of type TYPE.
@@ -63315,6 +63696,8 @@ type f_owner_ex = struct {
 // Advise to `posix_fadvise'.
 
 // Flags for SYNC_FILE_RANGE.
+// SYNC_FILE_RANGE_WRITE_AND_WAIT ensures all pages in the range are
+//    written to disk before returning.
 
 // Flags for SPLICE and VMSPLICE.
 
@@ -63382,18 +63765,18 @@ type f_owner_ex = struct {
 
 // File handle structure.
 type file_handle = struct {
-	_             [0]uint32
+	F__ccgo_pad1  [0]uint32
 	Fhandle_bytes uint32
 	Fhandle_type  int32
-} /* fcntl-linux.h:350:1 */
+} /* fcntl-linux.h:357:1 */
 
 type dirent64 = struct {
-	Fd_ino    uint64
-	Fd_off    int64
-	Fd_reclen uint16
-	Fd_type   uint8
-	Fd_name   [256]int8
-	_         [5]byte
+	Fd_ino       uint64
+	Fd_off       int64
+	Fd_reclen    uint16
+	Fd_type      uint8
+	Fd_name      [256]int8
+	F__ccgo_pad1 [5]byte
 } /* dirent.h:37:1 */
 
 type fs_vtab1 = struct {
@@ -63618,10 +64001,10 @@ type FstreeVtab1 = struct {
 // Start of fstree implementation.
 type FstreeVtab = FstreeVtab1 /* test_fs.c:328:27 */
 type FstreeCsr1 = struct {
-	Fbase  sqlite3_vtab_cursor
-	FpStmt uintptr
-	Ffd    int32
-	_      [4]byte
+	Fbase        sqlite3_vtab_cursor
+	FpStmt       uintptr
+	Ffd          int32
+	F__ccgo_pad1 [4]byte
 } /* test_fs.c:329:9 */
 
 type FstreeCsr = FstreeCsr1 /* test_fs.c:329:26 */
@@ -64649,7 +65032,7 @@ func test_decode(tls *libc.TLS, context uintptr, argc int32, argv uintptr) { /* 
 	sqlite3.Xsqlite3_result_text(tls, context, tcl.XTcl_GetString(tls, pRet), -1, libc.UintptrFromInt32(-1))
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pRet
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -64700,11 +65083,11 @@ func registerTestFunctions(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk u
 	var i int32
 
 	for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aFuncs)) / uint64(unsafe.Sizeof(struct {
-		FzName    uintptr
-		FnArg     int8
-		_         [3]byte
-		FeTextRep uint32
-		FxFunc    uintptr
+		FzName       uintptr
+		FnArg        int8
+		F__ccgo_pad1 [3]byte
+		FeTextRep    uint32
+		FxFunc       uintptr
 	}{}))); i++ {
 		sqlite3.Xsqlite3_create_function(tls, db, aFuncs[i].FzName, int32(aFuncs[i].FnArg),
 			int32(aFuncs[i].FeTextRep), uintptr(0), aFuncs[i].FxFunc, uintptr(0), uintptr(0))
@@ -64719,11 +65102,11 @@ func registerTestFunctions(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk u
 }
 
 var aFuncs = [20]struct {
-	FzName    uintptr
-	FnArg     int8
-	_         [3]byte
-	FeTextRep uint32
-	FxFunc    uintptr
+	FzName       uintptr
+	FnArg        int8
+	F__ccgo_pad1 [3]byte
+	FeTextRep    uint32
+	FxFunc       uintptr
 }{
 	{FzName: ts + 31427 /* "randstr" */, FnArg: int8(2), FeTextRep: uint32(SQLITE_UTF8), FxFunc: 0},
 	{FzName: ts + 31435 /* "test_destructor" */, FnArg: int8(1), FeTextRep: uint32(SQLITE_UTF8), FxFunc: 0},
@@ -65111,7 +65494,7 @@ type fd_set3 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -65126,11 +65509,11 @@ type fd_set3 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -65145,11 +65528,11 @@ type fd_set3 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -65164,11 +65547,11 @@ type fd_set3 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -65183,7 +65566,7 @@ type fd_set3 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -65652,7 +66035,9 @@ func wrMemInit(tls *libc.TLS, pAppData uintptr) int32 { /* test_init.c:49:12: */
 	if wrapped.Fmem_fail != 0 {
 		rc = SQLITE_ERROR
 	} else {
-		rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 40 /* &.xInit */))))(tls, wrapped.Fmem.FpAppData)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxInit})).f(tls, wrapped.Fmem.FpAppData)
 	}
 	if rc == SQLITE_OK {
 		wrapped.Fmem_init = 1
@@ -65661,28 +66046,34 @@ func wrMemInit(tls *libc.TLS, pAppData uintptr) int32 { /* test_init.c:49:12: */
 }
 
 func wrMemShutdown(tls *libc.TLS, pAppData uintptr) { /* test_init.c:61:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 48 /* &.xShutdown */))))(tls, wrapped.Fmem.FpAppData)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxShutdown})).f(tls, wrapped.Fmem.FpAppData)
 	wrapped.Fmem_init = 0
 }
 
 func wrMemMalloc(tls *libc.TLS, n int32) uintptr { /* test_init.c:65:13: */
-	return (*(*func(*libc.TLS, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ /* &.xMalloc */))))(tls, n)
+	return (*struct {
+		f func(*libc.TLS, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxMalloc})).f(tls, n)
 }
 
 func wrMemFree(tls *libc.TLS, p uintptr) { /* test_init.c:66:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 8 /* &.xFree */))))(tls, p)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxFree})).f(tls, p)
 }
 
 func wrMemRealloc(tls *libc.TLS, p uintptr, n int32) uintptr { /* test_init.c:67:13: */
-	return (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 16 /* &.xRealloc */))))(tls, p, n)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxRealloc})).f(tls, p, n)
 }
 
 func wrMemSize(tls *libc.TLS, p uintptr) int32 { /* test_init.c:68:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 24 /* &.xSize */))))(tls, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxSize})).f(tls, p)
 }
 
 func wrMemRoundup(tls *libc.TLS, n int32) int32 { /* test_init.c:69:12: */
-	return (*(*func(*libc.TLS, int32) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 104 /* &.mem */ + 32 /* &.xRoundup */))))(tls, n)
+	return (*struct{ f func(*libc.TLS, int32) int32 })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmem.FxRoundup})).f(tls, n)
 }
 
 func wrMutexInit(tls *libc.TLS) int32 { /* test_init.c:72:12: */
@@ -65690,7 +66081,7 @@ func wrMutexInit(tls *libc.TLS) int32 { /* test_init.c:72:12: */
 	if wrapped.Fmutex_fail != 0 {
 		rc = SQLITE_ERROR
 	} else {
-		rc = (*(*func(*libc.TLS) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ /* &.xMutexInit */))))(tls)
+		rc = (*struct{ f func(*libc.TLS) int32 })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexInit})).f(tls)
 	}
 	if rc == SQLITE_OK {
 		wrapped.Fmutex_init = 1
@@ -65699,37 +66090,45 @@ func wrMutexInit(tls *libc.TLS) int32 { /* test_init.c:72:12: */
 }
 
 func wrMutexEnd(tls *libc.TLS) int32 { /* test_init.c:84:12: */
-	(*(*func(*libc.TLS) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 8 /* &.xMutexEnd */))))(tls)
+	(*struct{ f func(*libc.TLS) int32 })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexEnd})).f(tls)
 	wrapped.Fmutex_init = 0
 	return SQLITE_OK
 }
 
 func wrMutexAlloc(tls *libc.TLS, e int32) uintptr { /* test_init.c:89:22: */
-	return (*(*func(*libc.TLS, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 16 /* &.xMutexAlloc */))))(tls, e)
+	return (*struct {
+		f func(*libc.TLS, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexAlloc})).f(tls, e)
 }
 
 func wrMutexFree(tls *libc.TLS, p uintptr) { /* test_init.c:92:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 24 /* &.xMutexFree */))))(tls, p)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexFree})).f(tls, p)
 }
 
 func wrMutexEnter(tls *libc.TLS, p uintptr) { /* test_init.c:95:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 32 /* &.xMutexEnter */))))(tls, p)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexEnter})).f(tls, p)
 }
 
 func wrMutexTry(tls *libc.TLS, p uintptr) int32 { /* test_init.c:98:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 40 /* &.xMutexTry */))))(tls, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexTry})).f(tls, p)
 }
 
 func wrMutexLeave(tls *libc.TLS, p uintptr) { /* test_init.c:101:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 48 /* &.xMutexLeave */))))(tls, p)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexLeave})).f(tls, p)
 }
 
 func wrMutexHeld(tls *libc.TLS, p uintptr) int32 { /* test_init.c:104:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 56 /* &.xMutexHeld */))))(tls, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexHeld})).f(tls, p)
 }
 
 func wrMutexNotheld(tls *libc.TLS, p uintptr) int32 { /* test_init.c:107:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) + 168 /* &.mutex */ + 64 /* &.xMutexNotheld */))))(tls, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fmutex.FxMutexNotheld})).f(tls, p)
 }
 
 func wrPCacheInit(tls *libc.TLS, pArg uintptr) int32 { /* test_init.c:113:12: */
@@ -65737,7 +66136,9 @@ func wrPCacheInit(tls *libc.TLS, pArg uintptr) int32 { /* test_init.c:113:12: */
 	if wrapped.Fpcache_fail != 0 {
 		rc = SQLITE_ERROR
 	} else {
-		rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 16 /* &.xInit */))))(tls, wrapped.Fpcache.FpArg)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxInit})).f(tls, wrapped.Fpcache.FpArg)
 	}
 	if rc == SQLITE_OK {
 		wrapped.Fpcache_init = 1
@@ -65746,40 +66147,54 @@ func wrPCacheInit(tls *libc.TLS, pArg uintptr) int32 { /* test_init.c:113:12: */
 }
 
 func wrPCacheShutdown(tls *libc.TLS, pArg uintptr) { /* test_init.c:125:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 24 /* &.xShutdown */))))(tls, wrapped.Fpcache.FpArg)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxShutdown})).f(tls, wrapped.Fpcache.FpArg)
 	wrapped.Fpcache_init = 0
 }
 
 func wrPCacheCreate(tls *libc.TLS, a int32, b int32, c int32) uintptr { /* test_init.c:130:23: */
-	return (*(*func(*libc.TLS, int32, int32, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 32 /* &.xCreate */))))(tls, a, b, c)
+	return (*struct {
+		f func(*libc.TLS, int32, int32, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxCreate})).f(tls, a, b, c)
 }
 
 func wrPCacheCachesize(tls *libc.TLS, p uintptr, n int32) { /* test_init.c:133:13: */
-	(*(*func(*libc.TLS, uintptr, int32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 40 /* &.xCachesize */))))(tls, p, n)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32)
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxCachesize})).f(tls, p, n)
 }
 
 func wrPCachePagecount(tls *libc.TLS, p uintptr) int32 { /* test_init.c:136:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 48 /* &.xPagecount */))))(tls, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxPagecount})).f(tls, p)
 }
 
 func wrPCacheFetch(tls *libc.TLS, p uintptr, a uint32, b int32) uintptr { /* test_init.c:139:28: */
-	return (*(*func(*libc.TLS, uintptr, uint32, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 56 /* &.xFetch */))))(tls, p, a, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uint32, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxFetch})).f(tls, p, a, b)
 }
 
 func wrPCacheUnpin(tls *libc.TLS, p uintptr, a uintptr, b int32) { /* test_init.c:142:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr, int32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 64 /* &.xUnpin */))))(tls, p, a, b)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32)
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxUnpin})).f(tls, p, a, b)
 }
 
 func wrPCacheRekey(tls *libc.TLS, p uintptr, a uintptr, b uint32, c uint32) { /* test_init.c:145:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr, uint32, uint32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 72 /* &.xRekey */))))(tls, p, a, b, c)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr, uint32, uint32)
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxRekey})).f(tls, p, a, b, c)
 }
 
 func wrPCacheTruncate(tls *libc.TLS, p uintptr, a uint32) { /* test_init.c:153:13: */
-	(*(*func(*libc.TLS, uintptr, uint32))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 80 /* &.xTruncate */))))(tls, p, a)
+	(*struct {
+		f func(*libc.TLS, uintptr, uint32)
+	})(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxTruncate})).f(tls, p, a)
 }
 
 func wrPCacheDestroy(tls *libc.TLS, p uintptr) { /* test_init.c:156:13: */
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&wrapped)) /* &.pcache */ + 88 /* &.xDestroy */))))(tls, p)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{wrapped.Fpcache.FxDestroy})).f(tls, p)
 }
 
 func installInitWrappers(tls *libc.TLS) { /* test_init.c:160:13: */
@@ -65954,10 +66369,10 @@ var aObjCmd9 = [4]struct {
 // An sqlite3_intarray is an abstract type to stores an instance of
 // an integer array.
 type sqlite3_intarray1 = struct {
-	Fn     int32
-	_      [4]byte
-	Fa     uintptr
-	FxFree uintptr
+	Fn           int32
+	F__ccgo_pad1 [4]byte
+	Fa           uintptr
+	FxFree       uintptr
 } /* test_intarray.h:99:9 */
 
 //
@@ -65981,9 +66396,9 @@ type intarray_vtab1 = struct {
 // Objects used internally by the virtual table implementation
 type intarray_vtab = intarray_vtab1 /* test_intarray.c:41:30 */
 type intarray_cursor1 = struct {
-	Fbase sqlite3_vtab_cursor
-	Fi    int32
-	_     [4]byte
+	Fbase        sqlite3_vtab_cursor
+	Fi           int32
+	F__ccgo_pad1 [4]byte
 } /* test_intarray.c:42:9 */
 
 type intarray_cursor = intarray_cursor1 /* test_intarray.c:42:32 */
@@ -65993,7 +66408,7 @@ type intarray_cursor = intarray_cursor1 /* test_intarray.c:42:32 */
 // Free an sqlite3_intarray object.
 func intarrayFree(tls *libc.TLS, p uintptr) { /* test_intarray.c:64:13: */
 	if (*sqlite3_intarray)(unsafe.Pointer(p)).FxFree != 0 {
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((p + 16 /* &.xFree */))))(tls, (*sqlite3_intarray)(unsafe.Pointer(p)).Fa)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_intarray)(unsafe.Pointer(p)).FxFree})).f(tls, (*sqlite3_intarray)(unsafe.Pointer(p)).Fa)
 	}
 	sqlite3.Xsqlite3_free(tls, p)
 }
@@ -66138,7 +66553,7 @@ func sqlite3_intarray_create(tls *libc.TLS, db uintptr, zName uintptr, ppReturn 
 // array does change or is deallocated undefined behavior will result.
 func sqlite3_intarray_bind(tls *libc.TLS, pIntArray uintptr, nElements int32, aElements uintptr, xFree uintptr) int32 { /* test_intarray.c:257:16: */
 	if (*sqlite3_intarray)(unsafe.Pointer(pIntArray)).FxFree != 0 {
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((pIntArray + 16 /* &.xFree */))))(tls, (*sqlite3_intarray)(unsafe.Pointer(pIntArray)).Fa)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_intarray)(unsafe.Pointer(pIntArray)).FxFree})).f(tls, (*sqlite3_intarray)(unsafe.Pointer(pIntArray)).Fa)
 	}
 	(*sqlite3_intarray)(unsafe.Pointer(pIntArray)).Fn = nElements
 	(*sqlite3_intarray)(unsafe.Pointer(pIntArray)).Fa = aElements
@@ -66245,19 +66660,19 @@ var aObjCmd10 = [2]struct {
 // Name used to identify this VFS.
 
 type jt_file1 = struct {
-	Fbase      sqlite3_file
-	FzName     uintptr
-	Fflags     int32
-	FeLock     int32
-	FnPage     u32
-	FnPagesize u32
-	FpWritable uintptr
-	FaCksum    uintptr
-	FnSync     int32
-	_          [4]byte
-	FiMaxOff   sqlite3_int64
-	FpNext     uintptr
-	FpReal     uintptr
+	Fbase        sqlite3_file
+	FzName       uintptr
+	Fflags       int32
+	FeLock       int32
+	FnPage       u32
+	FnPagesize   u32
+	FpWritable   uintptr
+	FaCksum      uintptr
+	FnSync       int32
+	F__ccgo_pad1 [4]byte
+	FiMaxOff     sqlite3_int64
+	FpNext       uintptr
+	FpReal       uintptr
 } /* test_journal.c:111:9 */
 
 // Maximum pathname length supported by the jt backend.
@@ -66802,7 +67217,9 @@ func jtCheckReservedLock(tls *libc.TLS, pFile uintptr, pResOut uintptr) int32 { 
 // File control method. For custom operations on an jt-file.
 func jtFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32 { /* test_journal.c:672:12: */
 	var p uintptr = pFile
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*jt_file)(unsafe.Pointer(p)).FpReal)).FpMethods + 80 /* &.xFileControl */))))(tls, (*jt_file)(unsafe.Pointer(p)).FpReal, op, pArg)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*jt_file)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxFileControl})).f(tls, (*jt_file)(unsafe.Pointer(p)).FpReal, op, pArg)
 }
 
 // Return the sector-size in bytes for an jt-file.
@@ -66875,24 +67292,32 @@ func jtFullPathname(tls *libc.TLS, pVfs uintptr, zPath uintptr, nOut int32, zOut
 
 // Open the dynamic library located at zPath and return a handle.
 func jtDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* test_journal.c:776:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((g2.FpVfs + 72 /* &.xDlOpen */))))(tls, g2.FpVfs, zPath)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxDlOpen})).f(tls, g2.FpVfs, zPath)
 }
 
 // Populate the buffer zErrMsg (size nByte bytes) with a human readable
 // utf-8 string describing the most recent error encountered associated
 // with dynamic libraries.
 func jtDlError(tls *libc.TLS, pVfs uintptr, nByte int32, zErrMsg uintptr) { /* test_journal.c:785:13: */
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer((g2.FpVfs + 80 /* &.xDlError */))))(tls, g2.FpVfs, nByte, zErrMsg)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxDlError})).f(tls, g2.FpVfs, nByte, zErrMsg)
 }
 
 // Return a pointer to the symbol zSymbol in the dynamic library pHandle.
 func jtDlSym(tls *libc.TLS, pVfs uintptr, p uintptr, zSym uintptr) uintptr { /* test_journal.c:792:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer((g2.FpVfs + 88 /* &.xDlSym */))))(tls, g2.FpVfs, p, zSym)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxDlSym})).f(tls, g2.FpVfs, p, zSym)
 }
 
 // Close the dynamic library handle pHandle.
 func jtDlClose(tls *libc.TLS, pVfs uintptr, pHandle uintptr) { /* test_journal.c:799:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer((g2.FpVfs + 96 /* &.xDlClose */))))(tls, g2.FpVfs, pHandle)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxDlClose})).f(tls, g2.FpVfs, pHandle)
 }
 
 // Populate the buffer pointed to by zBufOut with nByte bytes of
@@ -66909,16 +67334,22 @@ func jtSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* test_journal.
 
 // Return the current time as a Julian Day number in *pTimeOut.
 func jtCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* test_journal.c:822:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((g2.FpVfs + 120 /* &.xCurrentTime */))))(tls, g2.FpVfs, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxCurrentTime})).f(tls, g2.FpVfs, pTimeOut)
 }
 
 // Return the current time as a Julian Day number in *pTimeOut.
 func jtCurrentTimeInt64(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* test_journal.c:828:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((g2.FpVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, g2.FpVfs, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxCurrentTimeInt64})).f(tls, g2.FpVfs, pTimeOut)
 }
 
 func jtGetLastError(tls *libc.TLS, pVfs uintptr, n int32, z uintptr) int32 { /* test_journal.c:832:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((g2.FpVfs + 128 /* &.xGetLastError */))))(tls, g2.FpVfs, n, z)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(g2.FpVfs)).FxGetLastError})).f(tls, g2.FpVfs, n, z)
 }
 
 // *************************************************************************
@@ -66957,7 +67388,7 @@ func jt_unregister(tls *libc.TLS) { /* test_journal.c:865:6: */
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -66972,11 +67403,11 @@ func jt_unregister(tls *libc.TLS) { /* test_journal.c:865:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -66991,11 +67422,11 @@ func jt_unregister(tls *libc.TLS) { /* test_journal.c:865:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -67010,11 +67441,11 @@ func jt_unregister(tls *libc.TLS) { /* test_journal.c:865:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -67029,7 +67460,7 @@ func jt_unregister(tls *libc.TLS) { /* test_journal.c:865:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -67052,10 +67483,10 @@ type MemFault = struct {
 	FnOkBefore    int32
 	FnOkAfter     int32
 	Fenable       u8
-	_             [3]byte
+	F__ccgo_pad1  [3]byte
 	FisInstalled  int32
 	FisBenignMode int32
-	_             [4]byte
+	F__ccgo_pad2  [4]byte
 	Fm            sqlite3_mem_methods
 } /* test_malloc.c:30:8 */
 
@@ -67066,7 +67497,7 @@ type MemFault = struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -67081,11 +67512,11 @@ type MemFault = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -67100,11 +67531,11 @@ type MemFault = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -67119,11 +67550,11 @@ type MemFault = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -67138,7 +67569,7 @@ type MemFault = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -67205,7 +67636,9 @@ func faultsimStep(tls *libc.TLS) int32 { /* test_malloc.c:67:12: */
 func faultsimMalloc(tls *libc.TLS, n int32) uintptr { /* test_malloc.c:94:13: */
 	var p uintptr = uintptr(0)
 	if !(faultsimStep(tls) != 0) {
-		p = (*(*func(*libc.TLS, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&memfault)) + 40 /* &.m */ /* &.xMalloc */))))(tls, n)
+		p = (*struct {
+			f func(*libc.TLS, int32) uintptr
+		})(unsafe.Pointer(&struct{ uintptr }{memfault.Fm.FxMalloc})).f(tls, n)
 	}
 	return p
 }
@@ -67215,7 +67648,9 @@ func faultsimMalloc(tls *libc.TLS, n int32) uintptr { /* test_malloc.c:94:13: */
 func faultsimRealloc(tls *libc.TLS, pOld uintptr, n int32) uintptr { /* test_malloc.c:107:13: */
 	var p uintptr = uintptr(0)
 	if !(faultsimStep(tls) != 0) {
-		p = (*(*func(*libc.TLS, uintptr, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&memfault)) + 40 /* &.m */ + 16 /* &.xRealloc */))))(tls, pOld, n)
+		p = (*struct {
+			f func(*libc.TLS, uintptr, int32) uintptr
+		})(unsafe.Pointer(&struct{ uintptr }{memfault.Fm.FxRealloc})).f(tls, pOld, n)
 	}
 	return p
 }
@@ -68307,9 +68742,9 @@ func test_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 	}
 	zOpName = tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 1*8)))
 	for i = 0; i < (int32(uint64(unsafe.Sizeof(aOp1)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fop    int32
-		_      [4]byte
+		FzName       uintptr
+		Fop          int32
+		F__ccgo_pad1 [4]byte
 	}{})))); i++ {
 		if libc.Xstrcmp(tls, aOp1[i].FzName, zOpName) == 0 {
 			*(*int32)(unsafe.Pointer(bp /* op */)) = aOp1[i].Fop
@@ -68317,9 +68752,9 @@ func test_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 		}
 	}
 	if i >= (int32(uint64(unsafe.Sizeof(aOp1)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fop    int32
-		_      [4]byte
+		FzName       uintptr
+		Fop          int32
+		F__ccgo_pad1 [4]byte
 	}{})))) {
 		if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 1*8)), bp /* &op */) != 0 {
 			return TCL_ERROR
@@ -68340,9 +68775,9 @@ func test_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 }
 
 var aOp1 = [10]struct {
-	FzName uintptr
-	Fop    int32
-	_      [4]byte
+	FzName       uintptr
+	Fop          int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 33536 /* "SQLITE_STATUS_ME..." */},
 	{FzName: ts + 33562 /* "SQLITE_STATUS_MA..." */, Fop: SQLITE_STATUS_MALLOC_SIZE},
@@ -68392,9 +68827,9 @@ func test_db_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc int3
 		zOpName += uintptr(9)
 	}
 	for i = 0; i < (int32(uint64(unsafe.Sizeof(aOp2)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fop    int32
-		_      [4]byte
+		FzName       uintptr
+		Fop          int32
+		F__ccgo_pad1 [4]byte
 	}{})))); i++ {
 		if libc.Xstrcmp(tls, aOp2[i].FzName, zOpName) == 0 {
 			*(*int32)(unsafe.Pointer(bp + 8 /* op */)) = aOp2[i].Fop
@@ -68402,9 +68837,9 @@ func test_db_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc int3
 		}
 	}
 	if i >= (int32(uint64(unsafe.Sizeof(aOp2)) / uint64(unsafe.Sizeof(struct {
-		FzName uintptr
-		Fop    int32
-		_      [4]byte
+		FzName       uintptr
+		Fop          int32
+		F__ccgo_pad1 [4]byte
 	}{})))) {
 		if tcl.XTcl_GetIntFromObj(tls, interp, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp+8 /* &op */) != 0 {
 			return TCL_ERROR
@@ -68425,9 +68860,9 @@ func test_db_status(tls *libc.TLS, clientData uintptr, interp uintptr, objc int3
 }
 
 var aOp2 = [13]struct {
-	FzName uintptr
-	Fop    int32
-	_      [4]byte
+	FzName       uintptr
+	Fop          int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 33859 /* "LOOKASIDE_USED" */},
 	{FzName: ts + 33874 /* "CACHE_USED" */, Fop: SQLITE_DBSTATUS_CACHE_USED},
@@ -68494,10 +68929,10 @@ func test_vfs_oom_test(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 func Sqlitetest_malloc_Init(tls *libc.TLS, interp uintptr) int32 { /* test_malloc.c:1467:5: */
 	var i int32
 	for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aObjCmd11)) / uint64(unsafe.Sizeof(struct {
-		FzName      uintptr
-		FxProc      uintptr
-		FclientData int32
-		_           [4]byte
+		FzName       uintptr
+		FxProc       uintptr
+		FclientData  int32
+		F__ccgo_pad1 [4]byte
 	}{}))); i++ {
 		var c ClientData = uintptr(intptr_t(aObjCmd11[i].FclientData))
 		tcl.XTcl_CreateObjCommand(tls, interp, aObjCmd11[i].FzName, aObjCmd11[i].FxProc, c, uintptr(0))
@@ -68506,10 +68941,10 @@ func Sqlitetest_malloc_Init(tls *libc.TLS, interp uintptr) int32 { /* test_mallo
 }
 
 var aObjCmd11 = [32]struct {
-	FzName      uintptr
-	FxProc      uintptr
-	FclientData int32
-	_           [4]byte
+	FzName       uintptr
+	FxProc       uintptr
+	FclientData  int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 28381 /* "sqlite3_malloc" */, FxProc: 0},
 	{FzName: ts + 28396 /* "sqlite3_realloc" */, FxProc: 0},
@@ -68980,7 +69415,9 @@ func md5_cmd(tls *libc.TLS, cd uintptr, interp uintptr, argc int32, argv uintptr
 	MD5Update(tls, bp+48 /* &ctx */, *(*uintptr)(unsafe.Pointer(argv + 1*8)), uint32(libc.Xstrlen(tls, *(*uintptr)(unsafe.Pointer(argv + 1*8)))))
 	MD5Final(tls, bp+140 /* &digest[0] */, bp+48 /* &ctx */)
 	converter = cd
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer(&converter)))(tls, bp+140 /* &digest[0] */, bp+156 /* &zBuf[0] */)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{converter})).f(tls, bp+140 /* &digest[0] */, bp+156 /* &zBuf[0] */)
 	tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+32, bp+156 /* &zBuf[0] */, uintptr(0)))
 	return TCL_OK
 }
@@ -69038,7 +69475,9 @@ func md5file_cmd(tls *libc.TLS, cd uintptr, interp uintptr, argc int32, argv uin
 	libc.Xfclose(tls, in)
 	MD5Final(tls, bp+10412 /* &digest[0] */, bp+80 /* &ctx */)
 	converter = cd
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer(&converter)))(tls, bp+10412 /* &digest[0] */, bp+172 /* &zBuf[0] */)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{converter})).f(tls, bp+10412 /* &digest[0] */, bp+172 /* &zBuf[0] */)
 	tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp+64, bp+172 /* &zBuf[0] */, uintptr(0)))
 	return TCL_OK
 }
@@ -69158,16 +69597,16 @@ func Md5_Register(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pThunk uintptr) i
 
 // Forward declaration of all object types
 type multiplexGroup1 = struct {
-	FaReal     uintptr
-	FnReal     int32
-	_          [4]byte
-	FzName     uintptr
-	FnName     int32
-	Fflags     int32
-	FszChunk   uint32
-	FbEnabled  uint8
-	FbTruncate uint8
-	_          [2]byte
+	FaReal       uintptr
+	FnReal       int32
+	F__ccgo_pad1 [4]byte
+	FzName       uintptr
+	FnName       int32
+	Fflags       int32
+	FszChunk     uint32
+	FbEnabled    uint8
+	FbTruncate   uint8
+	F__ccgo_pad2 [2]byte
 } /* test_multiplex.c:106:9 */
 
 // The following macros redefine the API routines so that they are
@@ -69235,7 +69674,7 @@ var gMultiplex struct {
 	FsIoMethodsV1  sqlite3_io_methods
 	FsIoMethodsV2  sqlite3_io_methods
 	FisInitialized int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 } /* test_multiplex.c:176:3: */
 
 //************************ Utility Routines ********************************
@@ -69348,7 +69787,9 @@ func multiplexSubOpen(tls *libc.TLS, pGroup uintptr, iChunk int32, rc uintptr, p
 		} else if (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz == uintptr(0) {
 			return uintptr(0)
 		} else {
-			*(*int32)(unsafe.Pointer(rc)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 56 /* &.xAccess */))))(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz,
+			*(*int32)(unsafe.Pointer(rc)) = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxAccess})).f(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz,
 				SQLITE_ACCESS_EXISTS, bp+16 /* &bExists */)
 			if (*(*int32)(unsafe.Pointer(rc)) != 0) || !(*(*int32)(unsafe.Pointer(bp + 16 /* bExists */)) != 0) {
 				if *(*int32)(unsafe.Pointer(rc)) != 0 {
@@ -69365,7 +69806,9 @@ func multiplexSubOpen(tls *libc.TLS, pGroup uintptr, iChunk int32, rc uintptr, p
 			return uintptr(0)
 		}
 		(*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal + uintptr(iChunk)*16)).Fp = pSubOpen
-		*(*int32)(unsafe.Pointer(rc)) = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 40 /* &.xOpen */))))(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, pSubOpen,
+		*(*int32)(unsafe.Pointer(rc)) = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxOpen})).f(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, pSubOpen,
 			flags, pOutFlags)
 		if (*(*int32)(unsafe.Pointer(rc))) != SQLITE_OK {
 			sqlite3.Xsqlite3_log(tls, *(*int32)(unsafe.Pointer(rc)), ts+34844, /* "multiplexor.xOpe..." */
@@ -69395,7 +69838,9 @@ func multiplexSubSize(tls *libc.TLS, pGroup uintptr, iChunk int32, rc uintptr) s
 	if pSub == uintptr(0) {
 		return int64(0)
 	}
-	*(*int32)(unsafe.Pointer(rc)) = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSub)).FpMethods + 48 /* &.xFileSize */))))(tls, pSub, bp /* &sz */)
+	*(*int32)(unsafe.Pointer(rc)) = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSub)).FpMethods)).FxFileSize})).f(tls, pSub, bp /* &sz */)
 	return *(*sqlite3_int64)(unsafe.Pointer(bp /* sz */))
 }
 
@@ -69455,9 +69900,13 @@ func multiplexFuncInit(tls *libc.TLS, db uintptr, pzErrMsg uintptr, pApi uintptr
 func multiplexSubClose(tls *libc.TLS, pGroup uintptr, iChunk int32, pOrigVfs uintptr) { /* test_multiplex.c:431:13: */
 	var pSubOpen uintptr = (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal + uintptr(iChunk)*16)).Fp
 	if pSubOpen != 0 {
-		(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 8 /* &.xClose */))))(tls, pSubOpen)
+		(*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxClose})).f(tls, pSubOpen)
 		if (pOrigVfs != 0) && ((*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz != 0) {
-			(*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pOrigVfs + 48 /* &.xDelete */))))(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, 0)
+			(*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxDelete})).f(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, 0)
 		}
 		sqlite3.Xsqlite3_free(tls, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fp)
 	}
@@ -69556,7 +70005,9 @@ func multiplexOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pConn uintptr, fl
 		if *(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK {
 			// var sz64 sqlite3_int64 at bp+8, 8
 
-			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 48 /* &.xFileSize */))))(tls, pSubOpen, bp+8 /* &sz64 */)
+			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxFileSize})).f(tls, pSubOpen, bp+8 /* &sz64 */)
 			if (*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK) && (zName != 0) {
 				// var bExists int32 at bp+16, 4
 
@@ -69569,10 +70020,14 @@ func multiplexOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pConn uintptr, fl
 						// file-system.
 						var iChunk int32 = 1
 						for ok := true; ok; ok = ((*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK) && (*(*int32)(unsafe.Pointer(bp + 16 /* bExists */)) != 0)) {
-							*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 56 /* &.xAccess */))))(tls, pOrigVfs,
+							*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+								f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+							})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxAccess})).f(tls, pOrigVfs,
 								(*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, SQLITE_ACCESS_EXISTS, bp+16 /* &bExists */)
 							if (*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK) && (*(*int32)(unsafe.Pointer(bp + 16 /* bExists */)) != 0) {
-								*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pOrigVfs + 48 /* &.xDelete */))))(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, 0)
+								*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+									f func(*libc.TLS, uintptr, uintptr, int32) int32
+								})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxDelete})).f(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+uintptr(iChunk)*16)).Fz, 0)
 								if *(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK {
 									*(*int32)(unsafe.Pointer(bp /* rc */)) = multiplexSubFilename(tls, pGroup, libc.PreIncInt32(&iChunk, 1))
 								}
@@ -69588,7 +70043,9 @@ func multiplexOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pConn uintptr, fl
 					// larger than the chunk size, that means the chunk size is too small.
 					// But we have no way of determining the intended chunk size, so
 					// just disable the multiplexor all togethre.
-					*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 56 /* &.xAccess */))))(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+1*16)).Fz,
+					*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+						f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxAccess})).f(tls, pOrigVfs, (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal+1*16)).Fz,
 						SQLITE_ACCESS_EXISTS, bp+16 /* &bExists */)
 					*(*int32)(unsafe.Pointer(bp + 16 /* bExists */)) = (libc.Bool32(multiplexSubSize(tls, pGroup, 1, bp /* &rc */) > int64(0)))
 					if ((((*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK) && (*(*int32)(unsafe.Pointer(bp + 16 /* bExists */)) != 0)) && (*(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* sz64 */)) == (*(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* sz64 */)) & int64(0xffff0000)))) && (*(*sqlite3_int64)(unsafe.Pointer(bp + 8 /* sz64 */)) > int64(0))) &&
@@ -69624,7 +70081,9 @@ func multiplexDelete(tls *libc.TLS, pVfs uintptr, zName uintptr, syncDir int32) 
 
 	var rc int32
 	var pOrigVfs uintptr = gMultiplex.FpOrigVfs // Real VFS
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pOrigVfs + 48 /* &.xDelete */))))(tls, pOrigVfs, zName, syncDir)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxDelete})).f(tls, pOrigVfs, zName, syncDir)
 	if rc == SQLITE_OK {
 		// If the main chunk was deleted successfully, also delete any subsequent
 		// chunks - starting with the last (highest numbered).
@@ -69639,21 +70098,29 @@ func multiplexDelete(tls *libc.TLS, pVfs uintptr, zName uintptr, syncDir int32) 
 
 			for ok := true; ok; ok = ((rc == SQLITE_OK) && (*(*int32)(unsafe.Pointer(bp /* bExists */)) != 0)) {
 				multiplexFilename(tls, zName, nName, SQLITE_OPEN_MAIN_JOURNAL, libc.PreIncInt32(&iChunk, 1), z)
-				rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 56 /* &.xAccess */))))(tls, pOrigVfs, z, SQLITE_ACCESS_EXISTS, bp /* &bExists */)
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxAccess})).f(tls, pOrigVfs, z, SQLITE_ACCESS_EXISTS, bp /* &bExists */)
 			}
 			for (rc == SQLITE_OK) && (iChunk > 1) {
 				multiplexFilename(tls, zName, nName, SQLITE_OPEN_MAIN_JOURNAL, libc.PreDecInt32(&iChunk, 1), z)
-				rc = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pOrigVfs + 48 /* &.xDelete */))))(tls, pOrigVfs, z, syncDir)
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxDelete})).f(tls, pOrigVfs, z, syncDir)
 			}
 			if rc == SQLITE_OK {
 				iChunk = 0
 				for ok1 := true; ok1; ok1 = ((rc == SQLITE_OK) && (*(*int32)(unsafe.Pointer(bp /* bExists */)) != 0)) {
 					multiplexFilename(tls, zName, nName, SQLITE_OPEN_WAL, libc.PreIncInt32(&iChunk, 1), z)
-					rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 56 /* &.xAccess */))))(tls, pOrigVfs, z, SQLITE_ACCESS_EXISTS, bp /* &bExists */)
+					rc = (*struct {
+						f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxAccess})).f(tls, pOrigVfs, z, SQLITE_ACCESS_EXISTS, bp /* &bExists */)
 				}
 				for (rc == SQLITE_OK) && (iChunk > 1) {
 					multiplexFilename(tls, zName, nName, SQLITE_OPEN_WAL, libc.PreDecInt32(&iChunk, 1), z)
-					rc = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pOrigVfs + 48 /* &.xDelete */))))(tls, pOrigVfs, z, syncDir)
+					rc = (*struct {
+						f func(*libc.TLS, uintptr, uintptr, int32) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxDelete})).f(tls, pOrigVfs, z, syncDir)
 				}
 			}
 		}
@@ -69663,44 +70130,64 @@ func multiplexDelete(tls *libc.TLS, pVfs uintptr, zName uintptr, syncDir int32) 
 }
 
 func multiplexAccess(tls *libc.TLS, a uintptr, b uintptr, c int32, d uintptr) int32 { /* test_multiplex.c:656:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 56 /* &.xAccess */))))(tls, gMultiplex.FpOrigVfs, b, c, d)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxAccess})).f(tls, gMultiplex.FpOrigVfs, b, c, d)
 }
 
 func multiplexFullPathname(tls *libc.TLS, a uintptr, b uintptr, c int32, d uintptr) int32 { /* test_multiplex.c:659:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 64 /* &.xFullPathname */))))(tls, gMultiplex.FpOrigVfs, b, c, d)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxFullPathname})).f(tls, gMultiplex.FpOrigVfs, b, c, d)
 }
 
 func multiplexDlOpen(tls *libc.TLS, a uintptr, b uintptr) uintptr { /* test_multiplex.c:662:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((gMultiplex.FpOrigVfs + 72 /* &.xDlOpen */))))(tls, gMultiplex.FpOrigVfs, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxDlOpen})).f(tls, gMultiplex.FpOrigVfs, b)
 }
 
 func multiplexDlError(tls *libc.TLS, a uintptr, b int32, c uintptr) { /* test_multiplex.c:665:13: */
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer((gMultiplex.FpOrigVfs + 80 /* &.xDlError */))))(tls, gMultiplex.FpOrigVfs, b, c)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxDlError})).f(tls, gMultiplex.FpOrigVfs, b, c)
 }
 
 func multiplexDlSym(tls *libc.TLS, a uintptr, b uintptr, c uintptr) uintptr { /* test_multiplex.c:668:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer((gMultiplex.FpOrigVfs + 88 /* &.xDlSym */))))(tls, gMultiplex.FpOrigVfs, b, c)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxDlSym})).f(tls, gMultiplex.FpOrigVfs, b, c)
 }
 
 func multiplexDlClose(tls *libc.TLS, a uintptr, b uintptr) { /* test_multiplex.c:671:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer((gMultiplex.FpOrigVfs + 96 /* &.xDlClose */))))(tls, gMultiplex.FpOrigVfs, b)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxDlClose})).f(tls, gMultiplex.FpOrigVfs, b)
 }
 
 func multiplexRandomness(tls *libc.TLS, a uintptr, b int32, c uintptr) int32 { /* test_multiplex.c:674:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 104 /* &.xRandomness */))))(tls, gMultiplex.FpOrigVfs, b, c)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxRandomness})).f(tls, gMultiplex.FpOrigVfs, b, c)
 }
 
 func multiplexSleep(tls *libc.TLS, a uintptr, b int32) int32 { /* test_multiplex.c:677:12: */
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 112 /* &.xSleep */))))(tls, gMultiplex.FpOrigVfs, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxSleep})).f(tls, gMultiplex.FpOrigVfs, b)
 }
 
 func multiplexCurrentTime(tls *libc.TLS, a uintptr, b uintptr) int32 { /* test_multiplex.c:680:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 120 /* &.xCurrentTime */))))(tls, gMultiplex.FpOrigVfs, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxCurrentTime})).f(tls, gMultiplex.FpOrigVfs, b)
 }
 
 func multiplexGetLastError(tls *libc.TLS, a uintptr, b int32, c uintptr) int32 { /* test_multiplex.c:683:12: */
 	if (*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxGetLastError != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 128 /* &.xGetLastError */))))(tls, gMultiplex.FpOrigVfs, b, c)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxGetLastError})).f(tls, gMultiplex.FpOrigVfs, b, c)
 	} else {
 		return 0
 	}
@@ -69708,7 +70195,9 @@ func multiplexGetLastError(tls *libc.TLS, a uintptr, b int32, c uintptr) int32 {
 }
 
 func multiplexCurrentTimeInt64(tls *libc.TLS, a uintptr, b uintptr) int32 { /* test_multiplex.c:690:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((gMultiplex.FpOrigVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, gMultiplex.FpOrigVfs, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gMultiplex.FpOrigVfs)).FxCurrentTimeInt64})).f(tls, gMultiplex.FpOrigVfs, b)
 }
 
 //*********************** I/O Method Wrappers ******************************
@@ -69741,7 +70230,9 @@ func multiplexRead(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfst
 		if pSubOpen == uintptr(0) {
 			*(*int32)(unsafe.Pointer(bp /* rc */)) = (SQLITE_IOERR | (int32(1) << 8))
 		} else {
-			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 16 /* &.xRead */))))(tls, pSubOpen, pBuf, iAmt, iOfst)
+			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxRead})).f(tls, pSubOpen, pBuf, iAmt, iOfst)
 		}
 	} else {
 		for iAmt > 0 {
@@ -69754,7 +70245,9 @@ func multiplexRead(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfst
 					extra = 0
 				}
 				iAmt = iAmt - (extra)
-				*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 16 /* &.xRead */))))(tls, pSubOpen, pBuf, iAmt,
+				*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxRead})).f(tls, pSubOpen, pBuf, iAmt,
 					(iOfst % sqlite3_int64((*multiplexGroup)(unsafe.Pointer(pGroup)).FszChunk)))
 				if *(*int32)(unsafe.Pointer(bp /* rc */)) != SQLITE_OK {
 					break
@@ -69787,7 +70280,9 @@ func multiplexWrite(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfs
 		if pSubOpen == uintptr(0) {
 			*(*int32)(unsafe.Pointer(bp /* rc */)) = (SQLITE_IOERR | (int32(3) << 8))
 		} else {
-			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 24 /* &.xWrite */))))(tls, pSubOpen, pBuf, iAmt, iOfst)
+			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxWrite})).f(tls, pSubOpen, pBuf, iAmt, iOfst)
 		}
 	} else {
 		for (*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK) && (iAmt > 0) {
@@ -69799,7 +70294,9 @@ func multiplexWrite(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfs
 					extra = 0
 				}
 				iAmt = iAmt - (extra)
-				*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 24 /* &.xWrite */))))(tls, pSubOpen, pBuf, iAmt,
+				*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxWrite})).f(tls, pSubOpen, pBuf, iAmt,
 					(iOfst % sqlite3_int64((*multiplexGroup)(unsafe.Pointer(pGroup)).FszChunk)))
 				pBuf = (pBuf + uintptr(iAmt))
 				iOfst = iOfst + (sqlite3_int64(iAmt))
@@ -69825,7 +70322,9 @@ func multiplexTruncate(tls *libc.TLS, pConn uintptr, size sqlite3_int64) int32 {
 		if pSubOpen == uintptr(0) {
 			*(*int32)(unsafe.Pointer(bp /* rc */)) = (SQLITE_IOERR | (int32(6) << 8))
 		} else {
-			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 32 /* &.xTruncate */))))(tls, pSubOpen, size)
+			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+				f func(*libc.TLS, uintptr, sqlite3_int64) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxTruncate})).f(tls, pSubOpen, size)
 		}
 	} else {
 		var i int32
@@ -69839,14 +70338,18 @@ func multiplexTruncate(tls *libc.TLS, pConn uintptr, size sqlite3_int64) int32 {
 			} else {
 				pSubOpen = multiplexSubOpen(tls, pGroup, i, bp /* &rc */, uintptr(0), 0)
 				if pSubOpen != 0 {
-					*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 32 /* &.xTruncate */))))(tls, pSubOpen, int64(0))
+					*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+						f func(*libc.TLS, uintptr, sqlite3_int64) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxTruncate})).f(tls, pSubOpen, int64(0))
 				}
 			}
 		}
 		if *(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK {
 			pSubOpen = multiplexSubOpen(tls, pGroup, iBaseGroup, bp /* &rc */, uintptr(0), 0)
 			if pSubOpen != 0 {
-				*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 32 /* &.xTruncate */))))(tls, pSubOpen, (size % sqlite3_int64((*multiplexGroup)(unsafe.Pointer(pGroup)).FszChunk)))
+				*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+					f func(*libc.TLS, uintptr, sqlite3_int64) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxTruncate})).f(tls, pSubOpen, (size % sqlite3_int64((*multiplexGroup)(unsafe.Pointer(pGroup)).FszChunk)))
 			}
 		}
 		if *(*int32)(unsafe.Pointer(bp /* rc */)) != 0 {
@@ -69865,7 +70368,9 @@ func multiplexSync(tls *libc.TLS, pConn uintptr, flags int32) int32 { /* test_mu
 	for i = 0; i < (*multiplexGroup)(unsafe.Pointer(pGroup)).FnReal; i++ {
 		var pSubOpen uintptr = (*multiplexReal)(unsafe.Pointer((*multiplexGroup)(unsafe.Pointer(pGroup)).FaReal + uintptr(i)*16)).Fp
 		if pSubOpen != 0 {
-			var rc2 int32 = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 40 /* &.xSync */))))(tls, pSubOpen, flags)
+			var rc2 int32 = (*struct {
+				f func(*libc.TLS, uintptr, int32) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxSync})).f(tls, pSubOpen, flags)
 			if rc2 != SQLITE_OK {
 				rc = rc2
 			}
@@ -69889,7 +70394,9 @@ func multiplexFileSize(tls *libc.TLS, pConn uintptr, pSize uintptr) int32 { /* t
 		if pSubOpen == uintptr(0) {
 			*(*int32)(unsafe.Pointer(bp /* rc */)) = (SQLITE_IOERR | (int32(7) << 8))
 		} else {
-			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 48 /* &.xFileSize */))))(tls, pSubOpen, pSize)
+			*(*int32)(unsafe.Pointer(bp /* rc */)) = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxFileSize})).f(tls, pSubOpen, pSize)
 		}
 	} else {
 		*(*sqlite3_int64)(unsafe.Pointer(pSize)) = int64(0)
@@ -69914,7 +70421,9 @@ func multiplexLock(tls *libc.TLS, pConn uintptr, lock int32) int32 { /* test_mul
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 56 /* &.xLock */))))(tls, pSubOpen, lock)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxLock})).f(tls, pSubOpen, lock)
 	}
 	return SQLITE_BUSY
 }
@@ -69929,7 +70438,9 @@ func multiplexUnlock(tls *libc.TLS, pConn uintptr, lock int32) int32 { /* test_m
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 64 /* &.xUnlock */))))(tls, pSubOpen, lock)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxUnlock})).f(tls, pSubOpen, lock)
 	}
 	return (SQLITE_IOERR | (int32(8) << 8))
 }
@@ -69944,7 +70455,9 @@ func multiplexCheckReservedLock(tls *libc.TLS, pConn uintptr, pResOut uintptr) i
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 72 /* &.xCheckReservedLock */))))(tls, pSubOpen, pResOut)
+		return (*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxCheckReservedLock})).f(tls, pSubOpen, pResOut)
 	}
 	return (SQLITE_IOERR | (int32(14) << 8))
 }
@@ -70034,7 +70547,9 @@ func multiplexFileControl(tls *libc.TLS, pConn uintptr, op int32, pArg uintptr) 
 	default:
 		pSubOpen = multiplexSubOpen(tls, pGroup, 0, bp+8 /* &rc */, uintptr(0), 0)
 		if pSubOpen != 0 {
-			*(*int32)(unsafe.Pointer(bp + 8 /* rc */)) = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 80 /* &.xFileControl */))))(tls, pSubOpen, op, pArg)
+			*(*int32)(unsafe.Pointer(bp + 8 /* rc */)) = (*struct {
+				f func(*libc.TLS, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxFileControl})).f(tls, pSubOpen, op, pArg)
 			if (op == SQLITE_FCNTL_VFSNAME) && (*(*int32)(unsafe.Pointer(bp + 8 /* rc */)) == SQLITE_OK) {
 				*(*uintptr)(unsafe.Pointer(pArg)) = sqlite3.Xsqlite3_mprintf(tls, ts+34923 /* "multiplex/%z" */, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(pArg))))
 			}
@@ -70054,7 +70569,9 @@ func multiplexSectorSize(tls *libc.TLS, pConn uintptr) int32 { /* test_multiplex
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if (pSubOpen != 0) && ((*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxSectorSize != 0) {
-		return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 88 /* &.xSectorSize */))))(tls, pSubOpen)
+		return (*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxSectorSize})).f(tls, pSubOpen)
 	}
 	return DEFAULT_SECTOR_SIZE
 }
@@ -70069,7 +70586,9 @@ func multiplexDeviceCharacteristics(tls *libc.TLS, pConn uintptr) int32 { /* tes
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 96 /* &.xDeviceCharacteristics */))))(tls, pSubOpen)
+		return (*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxDeviceCharacteristics})).f(tls, pSubOpen)
 	}
 	return 0
 }
@@ -70084,7 +70603,9 @@ func multiplexShmMap(tls *libc.TLS, pConn uintptr, iRegion int32, szRegion int32
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 104 /* &.xShmMap */))))(tls, pSubOpen, iRegion, szRegion, bExtend, libc.AtomicLoadUintptr(&pp))
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmMap})).f(tls, pSubOpen, iRegion, szRegion, bExtend, pp)
 	}
 	return SQLITE_IOERR
 }
@@ -70099,7 +70620,9 @@ func multiplexShmLock(tls *libc.TLS, pConn uintptr, ofst int32, n int32, flags i
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 112 /* &.xShmLock */))))(tls, pSubOpen, ofst, n, flags)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32, int32, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmLock})).f(tls, pSubOpen, ofst, n, flags)
 	}
 	return SQLITE_BUSY
 }
@@ -70114,7 +70637,7 @@ func multiplexShmBarrier(tls *libc.TLS, pConn uintptr) { /* test_multiplex.c:106
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 120 /* &.xShmBarrier */))))(tls, pSubOpen)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmBarrier})).f(tls, pSubOpen)
 	}
 }
 
@@ -70128,7 +70651,9 @@ func multiplexShmUnmap(tls *libc.TLS, pConn uintptr, deleteFlag int32) int32 { /
 
 	var pSubOpen uintptr = multiplexSubOpen(tls, (*multiplexConn)(unsafe.Pointer(p)).FpGroup, 0, bp /* &rc */, uintptr(0), 0)
 	if pSubOpen != 0 {
-		return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 128 /* &.xShmUnmap */))))(tls, pSubOpen, deleteFlag)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmUnmap})).f(tls, pSubOpen, deleteFlag)
 	}
 	return SQLITE_OK
 }
@@ -70806,12 +71331,16 @@ var g3 = test_mutex_globals{} /* test_mutex.c:54:3 */
 
 // Return true if the countable mutex is currently held
 func counterMutexHeld(tls *libc.TLS, p uintptr) int32 { /* test_mutex.c:57:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 56 /* &.xMutexHeld */))))(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexHeld})).f(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
 }
 
 // Return true if the countable mutex is not currently held
 func counterMutexNotheld(tls *libc.TLS, p uintptr) int32 { /* test_mutex.c:62:12: */
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 64 /* &.xMutexNotheld */))))(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexNotheld})).f(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
 }
 
 // Initialize the countable mutex interface
@@ -70823,7 +71352,7 @@ func counterMutexInit(tls *libc.TLS) int32 { /* test_mutex.c:71:12: */
 	if g3.FdisableInit != 0 {
 		return g3.FdisableInit
 	}
-	rc = (*(*func(*libc.TLS) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ /* &.xMutexInit */))))(tls)
+	rc = (*struct{ f func(*libc.TLS) int32 })(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexInit})).f(tls)
 	g3.FisInit = 1
 	return rc
 }
@@ -70831,7 +71360,7 @@ func counterMutexInit(tls *libc.TLS) int32 { /* test_mutex.c:71:12: */
 // Uninitialize the mutex subsystem
 func counterMutexEnd(tls *libc.TLS) int32 { /* test_mutex.c:82:12: */
 	g3.FisInit = 0
-	return (*(*func(*libc.TLS) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 8 /* &.xMutexEnd */))))(tls)
+	return (*struct{ f func(*libc.TLS) int32 })(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexEnd})).f(tls)
 }
 
 // Allocate a countable mutex
@@ -70839,7 +71368,9 @@ func counterMutexAlloc(tls *libc.TLS, eType int32) uintptr { /* test_mutex.c:90:
 	var pReal uintptr
 	var pRet uintptr = uintptr(0)
 
-	pReal = (*(*func(*libc.TLS, int32) uintptr)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 16 /* &.xMutexAlloc */))))(tls, eType)
+	pReal = (*struct {
+		f func(*libc.TLS, int32) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexAlloc})).f(tls, eType)
 	if !(pReal != 0) {
 		return uintptr(0)
 	}
@@ -70860,7 +71391,7 @@ func counterMutexAlloc(tls *libc.TLS, eType int32) uintptr { /* test_mutex.c:90:
 // Free a countable mutex
 func counterMutexFree(tls *libc.TLS, p uintptr) { /* test_mutex.c:118:13: */
 
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 24 /* &.xMutexFree */))))(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexFree})).f(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
 	if ((*sqlite3_mutex)(unsafe.Pointer(p)).FeType == SQLITE_MUTEX_FAST) || ((*sqlite3_mutex)(unsafe.Pointer(p)).FeType == SQLITE_MUTEX_RECURSIVE) {
 		libc.Xfree(tls, p)
 	}
@@ -70870,7 +71401,7 @@ func counterMutexFree(tls *libc.TLS, p uintptr) { /* test_mutex.c:118:13: */
 func counterMutexEnter(tls *libc.TLS, p uintptr) { /* test_mutex.c:129:13: */
 
 	*(*int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 88 /* &.aCounter */) + uintptr((*sqlite3_mutex)(unsafe.Pointer(p)).FeType)*4))++
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 32 /* &.xMutexEnter */))))(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexEnter})).f(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
 }
 
 // Try to enter a mutex.  Return true on success.
@@ -70880,13 +71411,15 @@ func counterMutexTry(tls *libc.TLS, p uintptr) int32 { /* test_mutex.c:140:12: *
 	if g3.FdisableTry != 0 {
 		return SQLITE_BUSY
 	}
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 40 /* &.xMutexTry */))))(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexTry})).f(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
 }
 
 // Leave a mutex
 func counterMutexLeave(tls *libc.TLS, p uintptr) { /* test_mutex.c:151:13: */
 
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((uintptr(unsafe.Pointer(&g3)) + 16 /* &.m */ + 48 /* &.xMutexLeave */))))(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{g3.Fm.FxMutexLeave})).f(tls, (*sqlite3_mutex)(unsafe.Pointer(p)).FpReal)
 }
 
 // sqlite3_shutdown
@@ -71004,7 +71537,7 @@ func test_read_mutex_counters(tls *libc.TLS, clientData uintptr, interp uintptr,
 	tcl.XTcl_SetObjResult(tls, interp, pRet)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pRet
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -71086,9 +71619,9 @@ func test_config(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, 
 }
 
 type ConfigOption = struct {
-	FzName  uintptr
-	FiValue int32
-	_       [4]byte
+	FzName       uintptr
+	FiValue      int32
+	F__ccgo_pad1 [4]byte
 } /* test_mutex.c:348:3 */
 
 func getDbPointer1(tls *libc.TLS, pInterp uintptr, pObj uintptr) uintptr { /* test_mutex.c:379:16: */
@@ -71235,10 +71768,10 @@ type fs_real_file1 = struct {
 type fs_real_file = fs_real_file1 /* test_onefile.c:97:29 */
 
 type fs_file1 = struct {
-	Fbase  sqlite3_file
-	FeType int32
-	_      [4]byte
-	FpReal uintptr
+	Fbase        sqlite3_file
+	FeType       int32
+	F__ccgo_pad1 [4]byte
+	FpReal       uintptr
 } /* test_onefile.c:109:9 */
 
 type fs_file = fs_file1 /* test_onefile.c:109:24 */
@@ -71421,7 +71954,9 @@ func fsClose1(tls *libc.TLS, pFile uintptr) int32 { /* test_onefile.c:375:12: */
 		if (*fs_real_file)(unsafe.Pointer(pReal)).FpNext != 0 {
 			(*fs_real_file)(unsafe.Pointer((*fs_real_file)(unsafe.Pointer(pReal)).FpNext)).FppThis = (*fs_real_file)(unsafe.Pointer(pReal)).FppThis
 		}
-		rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*fs_real_file)(unsafe.Pointer(pReal)).FpFile)).FpMethods + 8 /* &.xClose */))))(tls, (*fs_real_file)(unsafe.Pointer(pReal)).FpFile)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*fs_real_file)(unsafe.Pointer(pReal)).FpFile)).FpMethods)).FxClose})).f(tls, (*fs_real_file)(unsafe.Pointer(pReal)).FpFile)
 		sqlite3.Xsqlite3_free(tls, pReal)
 	}
 
@@ -71439,7 +71974,9 @@ func fsRead(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqlite
 		(((*fs_file)(unsafe.Pointer(p)).FeType == JOURNAL_FILE) && ((sqlite_int64(iAmt) + iOfst) > sqlite_int64((*fs_real_file)(unsafe.Pointer(pReal)).FnJournal))) {
 		rc = (SQLITE_IOERR | (int32(2) << 8))
 	} else if (*fs_file)(unsafe.Pointer(p)).FeType == DATABASE_FILE {
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods + 16 /* &.xRead */))))(tls, pF, zBuf, iAmt, (iOfst + int64(BLOCKSIZE)))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods)).FxRead})).f(tls, pF, zBuf, iAmt, (iOfst + int64(BLOCKSIZE)))
 	} else {
 		// Journal file.
 		var iRem int32 = iAmt
@@ -71454,7 +71991,9 @@ func fsRead(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqlite
 				return (BLOCKSIZE - (iRealOff % BLOCKSIZE))
 			}()
 
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods + 16 /* &.xRead */))))(tls, pF, ((zBuf) + uintptr(iBuf)), iRealAmt, int64(iRealOff))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods)).FxRead})).f(tls, pF, ((zBuf) + uintptr(iBuf)), iRealAmt, int64(iRealOff))
 			ii = ii + (iRealAmt)
 			iBuf = iBuf + (iRealAmt)
 			iRem = iRem - (iRealAmt)
@@ -71475,7 +72014,9 @@ func fsWrite(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqlit
 		if ((sqlite_int64(iAmt) + iOfst) + int64(BLOCKSIZE)) > (sqlite_int64((*fs_real_file)(unsafe.Pointer(pReal)).FnBlob - (*fs_real_file)(unsafe.Pointer(pReal)).FnJournal)) {
 			rc = SQLITE_FULL
 		} else {
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods + 24 /* &.xWrite */))))(tls, pF, zBuf, iAmt, (iOfst + int64(BLOCKSIZE)))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods)).FxWrite})).f(tls, pF, zBuf, iAmt, (iOfst + int64(BLOCKSIZE)))
 			if rc == SQLITE_OK {
 				(*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase = func() int32 {
 					if (sqlite_int64((*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase)) > (sqlite_int64(iAmt) + iOfst) {
@@ -71502,7 +72043,9 @@ func fsWrite(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sqlit
 			if iRealOff < ((*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase + BLOCKSIZE) {
 				rc = SQLITE_FULL
 			} else {
-				rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods + 24 /* &.xWrite */))))(tls, pF, ((zBuf) + uintptr(iBuf)), iRealAmt, int64(iRealOff))
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods)).FxWrite})).f(tls, pF, ((zBuf) + uintptr(iBuf)), iRealAmt, int64(iRealOff))
 				ii = ii + (iRealAmt)
 				iBuf = iBuf + (iRealAmt)
 				iRem = iRem - (iRealAmt)
@@ -71560,10 +72103,14 @@ func fsSync(tls *libc.TLS, pFile uintptr, flags int32) int32 { /* test_onefile.c
 		*(*uint8)(unsafe.Pointer(bp /* &zSize[0] */ + 1)) = (uint8(((*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase & 0x00FF0000) >> 16))
 		*(*uint8)(unsafe.Pointer(bp /* &zSize[0] */ + 2)) = (uint8(((*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase & 0x0000FF00) >> 8))
 		*(*uint8)(unsafe.Pointer(bp /* &zSize[0] */ + 3)) = (uint8((*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase & 0x000000FF))
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods + 24 /* &.xWrite */))))(tls, pRealFile, bp /* &zSize[0] */, 4, int64(0))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods)).FxWrite})).f(tls, pRealFile, bp /* &zSize[0] */, 4, int64(0))
 	}
 	if rc == SQLITE_OK {
-		rc = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods + 40 /* &.xSync */))))(tls, pRealFile, (flags & (libc.CplInt32(SQLITE_SYNC_DATAONLY))))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods)).FxSync})).f(tls, pRealFile, (flags & (libc.CplInt32(SQLITE_SYNC_DATAONLY))))
 	}
 
 	return rc
@@ -71695,7 +72242,9 @@ __6:
 	(*fs_real_file)(unsafe.Pointer(pReal)).FzName = zName
 	(*fs_real_file)(unsafe.Pointer(pReal)).FpFile = (pReal + 1*48)
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pParent + 40 /* &.xOpen */))))(tls, pParent, zName, (*fs_real_file)(unsafe.Pointer(pReal)).FpFile, real_flags, pOutFlags)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxOpen})).f(tls, pParent, zName, (*fs_real_file)(unsafe.Pointer(pReal)).FpFile, real_flags, pOutFlags)
 	if !(rc != SQLITE_OK) {
 		goto __7
 	}
@@ -71704,7 +72253,9 @@ __7:
 	;
 	pRealFile = (*fs_real_file)(unsafe.Pointer(pReal)).FpFile
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods + 48 /* &.xFileSize */))))(tls, pRealFile, bp /* &size */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods)).FxFileSize})).f(tls, pRealFile, bp /* &size */)
 	if !(rc != SQLITE_OK) {
 		goto __8
 	}
@@ -71714,17 +72265,23 @@ __8:
 	if !(*(*sqlite3_int64)(unsafe.Pointer(bp /* size */)) == int64(0)) {
 		goto __9
 	}
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods + 24 /* &.xWrite */))))(tls, pRealFile, ts+35647 /* "\x00" */, 1, (int64(BLOBSIZE - 1)))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods)).FxWrite})).f(tls, pRealFile, ts+35647 /* "\x00" */, 1, (int64(BLOBSIZE - 1)))
 	(*fs_real_file)(unsafe.Pointer(pReal)).FnBlob = BLOBSIZE
 	goto __10
 __9:
 	(*fs_real_file)(unsafe.Pointer(pReal)).FnBlob = int32(*(*sqlite3_int64)(unsafe.Pointer(bp /* size */)))
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods + 16 /* &.xRead */))))(tls, pRealFile, bp+8 /* &zS[0] */, 4, int64(0))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods)).FxRead})).f(tls, pRealFile, bp+8 /* &zS[0] */, 4, int64(0))
 	(*fs_real_file)(unsafe.Pointer(pReal)).FnDatabase = ((((int32(*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */))) << 24) + (int32(*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */ + 1))) << 16)) + (int32(*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */ + 2))) << 8)) + int32(*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */ + 3))))
 	if !(rc == SQLITE_OK) {
 		goto __11
 	}
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods + 16 /* &.xRead */))))(tls, pRealFile, bp+8 /* &zS[0] */, 4, (int64((*fs_real_file)(unsafe.Pointer(pReal)).FnBlob - 4)))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pRealFile)).FpMethods)).FxRead})).f(tls, pRealFile, bp+8 /* &zS[0] */, 4, (int64((*fs_real_file)(unsafe.Pointer(pReal)).FnBlob - 4)))
 	if !((((*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */)) != 0) || (*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */ + 1)) != 0)) || (*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */ + 2)) != 0)) || (*(*uint8)(unsafe.Pointer(bp + 8 /* &zS[0] */ + 3)) != 0)) {
 		goto __12
 	}
@@ -71767,7 +72324,9 @@ __16:
 	if !((*sqlite3_file)(unsafe.Pointer((*fs_real_file)(unsafe.Pointer(pReal)).FpFile)).FpMethods != 0) {
 		goto __18
 	}
-	(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*fs_real_file)(unsafe.Pointer(pReal)).FpFile)).FpMethods + 8 /* &.xClose */))))(tls, (*fs_real_file)(unsafe.Pointer(pReal)).FpFile)
+	(*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*fs_real_file)(unsafe.Pointer(pReal)).FpFile)).FpMethods)).FxClose})).f(tls, (*fs_real_file)(unsafe.Pointer(pReal)).FpFile)
 __18:
 	;
 	sqlite3.Xsqlite3_free(tls, pReal)
@@ -71793,7 +72352,9 @@ func fsDelete(tls *libc.TLS, pVfs uintptr, zPath uintptr, dirSync int32) int32 {
 	}
 	if pReal != 0 {
 		pF = (*fs_real_file)(unsafe.Pointer(pReal)).FpFile
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods + 24 /* &.xWrite */))))(tls, pF, ts+35649 /* "\x00\x00\x00\x00" */, 4, (int64((*fs_real_file)(unsafe.Pointer(pReal)).FnBlob - BLOCKSIZE)))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pF)).FpMethods)).FxWrite})).f(tls, pF, ts+35649 /* "\x00\x00\x00\x00" */, 4, (int64((*fs_real_file)(unsafe.Pointer(pReal)).FnBlob - BLOCKSIZE)))
 		if rc == SQLITE_OK {
 			(*fs_real_file)(unsafe.Pointer(pReal)).FnJournal = 0
 		}
@@ -71811,7 +72372,9 @@ func fsAccess(tls *libc.TLS, pVfs uintptr, zPath uintptr, flags int32, pResOut u
 
 	if flags != SQLITE_ACCESS_EXISTS {
 		var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-		return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pParent + 56 /* &.xAccess */))))(tls, pParent, zPath, flags, pResOut)
+		return (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxAccess})).f(tls, pParent, zPath, flags, pResOut)
 	}
 
 	if (nName > 8) && (libc.Xstrcmp(tls, ts+33006 /* "-journal" */, (zPath+uintptr((nName-8)))) == 0) {
@@ -71832,13 +72395,17 @@ func fsAccess(tls *libc.TLS, pVfs uintptr, zPath uintptr, flags int32, pResOut u
 // of at least (FS_MAX_PATHNAME+1) bytes.
 func fsFullPathname(tls *libc.TLS, pVfs uintptr, zPath uintptr, nOut int32, zOut uintptr) int32 { /* test_onefile.c:746:12: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pParent + 64 /* &.xFullPathname */))))(tls, pParent, zPath, nOut, zOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxFullPathname})).f(tls, pParent, zPath, nOut, zOut)
 }
 
 // Open the dynamic library located at zPath and return a handle.
 func fsDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* test_onefile.c:759:13: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((pParent + 72 /* &.xDlOpen */))))(tls, pParent, zPath)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxDlOpen})).f(tls, pParent, zPath)
 }
 
 // Populate the buffer zErrMsg (size nByte bytes) with a human readable
@@ -71846,39 +72413,51 @@ func fsDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* test_onef
 // with dynamic libraries.
 func fsDlError(tls *libc.TLS, pVfs uintptr, nByte int32, zErrMsg uintptr) { /* test_onefile.c:769:13: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer((pParent + 80 /* &.xDlError */))))(tls, pParent, nByte, zErrMsg)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxDlError})).f(tls, pParent, nByte, zErrMsg)
 }
 
 // Return a pointer to the symbol zSymbol in the dynamic library pHandle.
 func fsDlSym(tls *libc.TLS, pVfs uintptr, pH uintptr, zSym uintptr) uintptr { /* test_onefile.c:777:13: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer((pParent + 88 /* &.xDlSym */))))(tls, pParent, pH, zSym)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxDlSym})).f(tls, pParent, pH, zSym)
 }
 
 // Close the dynamic library handle pHandle.
 func fsDlClose(tls *libc.TLS, pVfs uintptr, pHandle uintptr) { /* test_onefile.c:785:13: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer((pParent + 96 /* &.xDlClose */))))(tls, pParent, pHandle)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxDlClose})).f(tls, pParent, pHandle)
 }
 
 // Populate the buffer pointed to by zBufOut with nByte bytes of
 // random data.
 func fsRandomness(tls *libc.TLS, pVfs uintptr, nByte int32, zBufOut uintptr) int32 { /* test_onefile.c:794:12: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer((pParent + 104 /* &.xRandomness */))))(tls, pParent, nByte, zBufOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxRandomness})).f(tls, pParent, nByte, zBufOut)
 }
 
 // Sleep for nMicro microseconds. Return the number of microseconds
 // actually slept.
 func fsSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* test_onefile.c:803:12: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((pParent + 112 /* &.xSleep */))))(tls, pParent, nMicro)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxSleep})).f(tls, pParent, nMicro)
 }
 
 // Return the current time as a Julian Day number in *pTimeOut.
 func fsCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* test_onefile.c:811:12: */
 	var pParent uintptr = (*fs_vfs_t)(unsafe.Pointer(pVfs)).FpParent
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((pParent + 120 /* &.xCurrentTime */))))(tls, pParent, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxCurrentTime})).f(tls, pParent, pTimeOut)
 }
 
 // This procedure registers the fs vfs with SQLite. If the argument is
@@ -71903,7 +72482,7 @@ func SqlitetestOnefile_Init(tls *libc.TLS) int32 { /* test_onefile.c:830:7: */
 	return fs_register(tls)
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -71918,11 +72497,11 @@ func SqlitetestOnefile_Init(tls *libc.TLS) int32 { /* test_onefile.c:830:7: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -71937,7 +72516,7 @@ func SqlitetestOnefile_Init(tls *libc.TLS) int32 { /* test_onefile.c:830:7: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -71956,15 +72535,15 @@ type VfslogVfs1 = struct {
 	Fbase        sqlite3_vfs
 	FpVfs        uintptr
 	FiNextFileId int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 	FpLog        uintptr
 	FiOffset     sqlite3_int64
 	FnBuf        int32
 	FaBuf        [8192]int8
-	_            [4]byte
+	F__ccgo_pad2 [4]byte
 } /* test_osinst.c:117:9 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -71979,11 +72558,11 @@ type VfslogVfs1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -71998,7 +72577,7 @@ type VfslogVfs1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -72015,11 +72594,11 @@ type VfslogVfs1 = struct {
 
 type VfslogVfs = VfslogVfs1 /* test_osinst.c:117:26 */
 type VfslogFile1 = struct {
-	Fbase    sqlite3_file
-	FpReal   uintptr
-	FpVfslog uintptr
-	FiFileId int32
-	_        [4]byte
+	Fbase        sqlite3_file
+	FpReal       uintptr
+	FpVfslog     uintptr
+	FiFileId     int32
+	F__ccgo_pad1 [4]byte
 } /* test_osinst.c:118:9 */
 
 type VfslogFile = VfslogFile1 /* test_osinst.c:118:27 */
@@ -72084,7 +72663,9 @@ func vfslogClose(tls *libc.TLS, pFile uintptr) int32 { /* test_osinst.c:256:12: 
 
 	t = vfslog_time(tls)
 	if (*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods != 0 {
-		rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 8 /* &.xClose */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxClose})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
 	}
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_CLOSE, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
@@ -72097,7 +72678,9 @@ func vfslogRead(tls *libc.TLS, pFile uintptr, zBuf uintptr, iAmt int32, iOfst sq
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 16 /* &.xRead */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, zBuf, iAmt, iOfst)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxRead})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, zBuf, iAmt, iOfst)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_READ, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, iAmt, int32(iOfst))
 	return rc
@@ -72109,7 +72692,9 @@ func vfslogWrite(tls *libc.TLS, pFile uintptr, z uintptr, iAmt int32, iOfst sqli
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 24 /* &.xWrite */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, z, iAmt, iOfst)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxWrite})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, z, iAmt, iOfst)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_WRITE, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, iAmt, int32(iOfst))
 	return rc
@@ -72121,7 +72706,9 @@ func vfslogTruncate(tls *libc.TLS, pFile uintptr, size sqlite_int64) int32 { /* 
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 32 /* &.xTruncate */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, size)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxTruncate})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, size)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_TRUNCATE, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, int32(size))
 	return rc
@@ -72133,7 +72720,9 @@ func vfslogSync(tls *libc.TLS, pFile uintptr, flags int32) int32 { /* test_osins
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 40 /* &.xSync */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, flags)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxSync})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, flags)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_SYNC, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, flags, 0)
 	return rc
@@ -72145,7 +72734,9 @@ func vfslogFileSize(tls *libc.TLS, pFile uintptr, pSize uintptr) int32 { /* test
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 48 /* &.xFileSize */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, pSize)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxFileSize})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, pSize)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_FILESIZE, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, int32(*(*sqlite_int64)(unsafe.Pointer(pSize))))
 	return rc
@@ -72157,7 +72748,9 @@ func vfslogLock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* test_osins
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 56 /* &.xLock */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, eLock)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxLock})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, eLock)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_LOCK, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, eLock, 0)
 	return rc
@@ -72169,7 +72762,9 @@ func vfslogUnlock(tls *libc.TLS, pFile uintptr, eLock int32) int32 { /* test_osi
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 64 /* &.xUnlock */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, eLock)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxUnlock})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, eLock)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_UNLOCK, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, eLock, 0)
 	return rc
@@ -72181,7 +72776,9 @@ func vfslogCheckReservedLock(tls *libc.TLS, pFile uintptr, pResOut uintptr) int3
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 72 /* &.xCheckReservedLock */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, pResOut)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxCheckReservedLock})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, pResOut)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_CHECKRESERVEDLOCK, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, *(*int32)(unsafe.Pointer(pResOut)), 0)
 	return rc
@@ -72193,7 +72790,9 @@ func vfslogFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int
 	defer tls.Free(8)
 
 	var p uintptr = pFile
-	var rc int32 = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 80 /* &.xFileControl */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, op, pArg)
+	var rc int32 = (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxFileControl})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, op, pArg)
 	if (op == SQLITE_FCNTL_VFSNAME) && (rc == SQLITE_OK) {
 		*(*uintptr)(unsafe.Pointer(pArg)) = sqlite3.Xsqlite3_mprintf(tls, ts+35654 /* "vfslog/%z" */, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(pArg))))
 	}
@@ -72206,7 +72805,9 @@ func vfslogSectorSize(tls *libc.TLS, pFile uintptr) int32 { /* test_osinst.c:407
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 88 /* &.xSectorSize */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxSectorSize})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_SECTORSIZE, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
@@ -72218,7 +72819,9 @@ func vfslogDeviceCharacteristics(tls *libc.TLS, pFile uintptr) int32 { /* test_o
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 96 /* &.xDeviceCharacteristics */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxDeviceCharacteristics})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_DEVCHAR, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
@@ -72229,7 +72832,9 @@ func vfslogShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int3
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 112 /* &.xShmLock */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, ofst, n, flags)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmLock})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, ofst, n, flags)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_SHMLOCK, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
@@ -72240,7 +72845,9 @@ func vfslogShmMap(tls *libc.TLS, pFile uintptr, iRegion int32, szRegion int32, i
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 104 /* &.xShmMap */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, libc.AtomicLoadUintptr(&pp))
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmMap})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, iRegion, szRegion, isWrite, pp)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_SHMMAP, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
@@ -72250,7 +72857,7 @@ func vfslogShmBarrier(tls *libc.TLS, pFile uintptr) { /* test_osinst.c:458:13: *
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 120 /* &.xShmBarrier */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmBarrier})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_SHMBARRIER, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), SQLITE_OK, 0, 0)
 }
@@ -72260,7 +72867,9 @@ func vfslogShmUnmap(tls *libc.TLS, pFile uintptr, deleteFlag int32) int32 { /* t
 	var t sqlite3_uint64
 	var p uintptr = pFile
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods + 128 /* &.xShmUnmap */))))(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, deleteFlag)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogFile)(unsafe.Pointer(p)).FpReal)).FpMethods)).FxShmUnmap})).f(tls, (*VfslogFile)(unsafe.Pointer(p)).FpReal, deleteFlag)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, (*VfslogFile)(unsafe.Pointer(p)).FpVfslog, OS_SHMUNMAP, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
 	return rc
@@ -72279,7 +72888,9 @@ func vfslogOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pFile uintptr, flags
 	(*VfslogFile)(unsafe.Pointer(p)).FiFileId = libc.PreIncInt32(&(*VfslogVfs)(unsafe.Pointer(pLog)).FiNextFileId, 1)
 
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 40 /* &.xOpen */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zName, (*VfslogFile)(unsafe.Pointer(p)).FpReal, flags, pOutFlags)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxOpen})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zName, (*VfslogFile)(unsafe.Pointer(p)).FpReal, flags, pOutFlags)
 	t = (vfslog_time(tls) - t)
 
 	vfslog_call(tls, pVfs, OS_OPEN, (*VfslogFile)(unsafe.Pointer(p)).FiFileId, int64(t), rc, 0, 0)
@@ -72294,7 +72905,9 @@ func vfslogDelete(tls *libc.TLS, pVfs uintptr, zPath uintptr, dirSync int32) int
 	var rc int32
 	var t sqlite3_uint64
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 48 /* &.xDelete */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath, dirSync)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxDelete})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath, dirSync)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, pVfs, OS_DELETE, 0, int64(t), rc, dirSync, 0)
 	vfslog_string(tls, pVfs, zPath)
@@ -72307,7 +72920,9 @@ func vfslogAccess(tls *libc.TLS, pVfs uintptr, zPath uintptr, flags int32, pResO
 	var rc int32
 	var t sqlite3_uint64
 	t = vfslog_time(tls)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 56 /* &.xAccess */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath, flags, pResOut)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxAccess})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath, flags, pResOut)
 	t = (vfslog_time(tls) - t)
 	vfslog_call(tls, pVfs, OS_ACCESS, 0, int64(t), rc, flags, *(*int32)(unsafe.Pointer(pResOut)))
 	vfslog_string(tls, pVfs, zPath)
@@ -72318,54 +72933,74 @@ func vfslogAccess(tls *libc.TLS, pVfs uintptr, zPath uintptr, flags int32, pResO
 // to the pathname in zPath. zOut is guaranteed to point to a buffer
 // of at least (INST_MAX_PATHNAME+1) bytes.
 func vfslogFullPathname(tls *libc.TLS, pVfs uintptr, zPath uintptr, nOut int32, zOut uintptr) int32 { /* test_osinst.c:548:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 64 /* &.xFullPathname */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath, nOut, zOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxFullPathname})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath, nOut, zOut)
 }
 
 // Open the dynamic library located at zPath and return a handle.
 func vfslogDlOpen(tls *libc.TLS, pVfs uintptr, zPath uintptr) uintptr { /* test_osinst.c:560:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 72 /* &.xDlOpen */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxDlOpen})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, zPath)
 }
 
 // Populate the buffer zErrMsg (size nByte bytes) with a human readable
 // utf-8 string describing the most recent error encountered associated
 // with dynamic libraries.
 func vfslogDlError(tls *libc.TLS, pVfs uintptr, nByte int32, zErrMsg uintptr) { /* test_osinst.c:569:13: */
-	(*(*func(*libc.TLS, uintptr, int32, uintptr))(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 80 /* &.xDlError */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, nByte, zErrMsg)
+	(*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxDlError})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, nByte, zErrMsg)
 }
 
 // Return a pointer to the symbol zSymbol in the dynamic library pHandle.
 func vfslogDlSym(tls *libc.TLS, pVfs uintptr, p uintptr, zSym uintptr) uintptr { /* test_osinst.c:576:13: */
-	return (*(*func(*libc.TLS, uintptr, uintptr, uintptr) uintptr)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 88 /* &.xDlSym */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, p, zSym)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxDlSym})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, p, zSym)
 }
 
 // Close the dynamic library handle pHandle.
 func vfslogDlClose(tls *libc.TLS, pVfs uintptr, pHandle uintptr) { /* test_osinst.c:583:13: */
-	(*(*func(*libc.TLS, uintptr, uintptr))(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 96 /* &.xDlClose */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, pHandle)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr)
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxDlClose})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, pHandle)
 }
 
 // Populate the buffer pointed to by zBufOut with nByte bytes of
 // random data.
 func vfslogRandomness(tls *libc.TLS, pVfs uintptr, nByte int32, zBufOut uintptr) int32 { /* test_osinst.c:591:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 104 /* &.xRandomness */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, nByte, zBufOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxRandomness})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, nByte, zBufOut)
 }
 
 // Sleep for nMicro microseconds. Return the number of microseconds
 // actually slept.
 func vfslogSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* test_osinst.c:599:12: */
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 112 /* &.xSleep */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, nMicro)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxSleep})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, nMicro)
 }
 
 // Return the current time as a Julian Day number in *pTimeOut.
 func vfslogCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* test_osinst.c:606:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 120 /* &.xCurrentTime */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxCurrentTime})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, pTimeOut)
 }
 
 func vfslogGetLastError(tls *libc.TLS, pVfs uintptr, a int32, b uintptr) int32 { /* test_osinst.c:610:12: */
-	return (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 128 /* &.xGetLastError */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, a, b)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxGetLastError})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, a, b)
 }
 
 func vfslogCurrentTimeInt64(tls *libc.TLS, pVfs uintptr, p uintptr) int32 { /* test_osinst.c:613:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, p)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs))).FxCurrentTimeInt64})).f(tls, (*VfslogVfs)(unsafe.Pointer(pVfs)).FpVfs, p)
 }
 
 func vfslog_flush(tls *libc.TLS, p uintptr) { /* test_osinst.c:617:13: */
@@ -72379,7 +73014,9 @@ func vfslog_flush(tls *libc.TLS, p uintptr) { /* test_osinst.c:617:13: */
 	sqlite3.Xsqlite3_diskfull_pending = 0
 
 	if (*VfslogVfs)(unsafe.Pointer(p)).FnBuf != 0 {
-		(*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVfs)(unsafe.Pointer(p)).FpLog)).FpMethods + 24 /* &.xWrite */))))(tls, (*VfslogVfs)(unsafe.Pointer(p)).FpLog, p+204 /* &.aBuf */, (*VfslogVfs)(unsafe.Pointer(p)).FnBuf, (*VfslogVfs)(unsafe.Pointer(p)).FiOffset)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVfs)(unsafe.Pointer(p)).FpLog)).FpMethods)).FxWrite})).f(tls, (*VfslogVfs)(unsafe.Pointer(p)).FpLog, p+204 /* &.aBuf */, (*VfslogVfs)(unsafe.Pointer(p)).FnBuf, (*VfslogVfs)(unsafe.Pointer(p)).FiOffset)
 		*(*sqlite3_int64)(unsafe.Pointer(p + 192 /* &.iOffset */)) += (sqlite3_int64((*VfslogVfs)(unsafe.Pointer(p)).FnBuf))
 		(*VfslogVfs)(unsafe.Pointer(p)).FnBuf = 0
 	}
@@ -72435,7 +73072,9 @@ func vfslog_string(tls *libc.TLS, pVfs uintptr, zStr uintptr) { /* test_osinst.c
 func vfslog_finalize(tls *libc.TLS, p uintptr) { /* test_osinst.c:691:13: */
 	if (*sqlite3_file)(unsafe.Pointer((*VfslogVfs)(unsafe.Pointer(p)).FpLog)).FpMethods != 0 {
 		vfslog_flush(tls, p)
-		(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVfs)(unsafe.Pointer(p)).FpLog)).FpMethods + 8 /* &.xClose */))))(tls, (*VfslogVfs)(unsafe.Pointer(p)).FpLog)
+		(*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVfs)(unsafe.Pointer(p)).FpLog)).FpMethods)).FxClose})).f(tls, (*VfslogVfs)(unsafe.Pointer(p)).FpLog)
 	}
 	sqlite3.Xsqlite3_free(tls, p)
 }
@@ -72484,11 +73123,17 @@ func sqlite3_vfslog_new(tls *libc.TLS, zVfs uintptr, zParentVfs uintptr, zLog ui
 	libc.Xmemcpy(tls, (*VfslogVfs)(unsafe.Pointer(p)).Fbase.FzName, zVfs, uint64(nVfs))
 
 	zFile = ((*VfslogVfs)(unsafe.Pointer(p)).Fbase.FzName + uintptr((nVfs + 1)))
-	(*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pParent + 64 /* &.xFullPathname */))))(tls, pParent, zLog, (*sqlite3_vfs)(unsafe.Pointer(pParent)).FmxPathname, zFile)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxFullPathname})).f(tls, pParent, zLog, (*sqlite3_vfs)(unsafe.Pointer(pParent)).FmxPathname, zFile)
 
 	*(*int32)(unsafe.Pointer(bp /* flags */)) = ((SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE) | SQLITE_OPEN_SUPER_JOURNAL)
-	(*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pParent + 48 /* &.xDelete */))))(tls, pParent, zFile, 0)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pParent + 40 /* &.xOpen */))))(tls, pParent, zFile, (*VfslogVfs)(unsafe.Pointer(p)).FpLog, *(*int32)(unsafe.Pointer(bp /* flags */)), bp /* &flags */)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxDelete})).f(tls, pParent, zFile, 0)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pParent)).FxOpen})).f(tls, pParent, zFile, (*VfslogVfs)(unsafe.Pointer(p)).FpLog, *(*int32)(unsafe.Pointer(bp /* flags */)), bp /* &flags */)
 	if rc == SQLITE_OK {
 		libc.Xmemcpy(tls, p+204 /* &.aBuf */, ts+35664 /* "sqlite_ostrace1...." */, uint64(20))
 		(*VfslogVfs)(unsafe.Pointer(p)).FiOffset = int64(0)
@@ -72606,14 +73251,14 @@ type VfslogVtab1 = struct {
 
 type VfslogVtab = VfslogVtab1 /* test_osinst.c:804:27 */
 type VfslogCsr1 = struct {
-	Fbase       sqlite3_vtab_cursor
-	FiRowid     sqlite3_int64
-	FiOffset    sqlite3_int64
-	FzTransient uintptr
-	FnFile      int32
-	_           [4]byte
-	FazFile     uintptr
-	FaBuf       [1024]uint8
+	Fbase        sqlite3_vtab_cursor
+	FiRowid      sqlite3_int64
+	FiOffset     sqlite3_int64
+	FzTransient  uintptr
+	FnFile       int32
+	F__ccgo_pad1 [4]byte
+	FazFile      uintptr
+	FaBuf        [1024]uint8
 } /* test_osinst.c:805:9 */
 
 type VfslogCsr = VfslogCsr1 /* test_osinst.c:805:26 */
@@ -72680,14 +73325,20 @@ func vlogConnect(tls *libc.TLS, db uintptr, pAux uintptr, argc int32, argv uintp
 		return SQLITE_NOMEM
 	}
 	dequote(tls, zFile)
-	(*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 64 /* &.xFullPathname */))))(tls, pVfs, zFile, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FmxPathname, (*VfslogVtab)(unsafe.Pointer(p)).FzFile)
+	(*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxFullPathname})).f(tls, pVfs, zFile, (*sqlite3_vfs)(unsafe.Pointer(pVfs)).FmxPathname, (*VfslogVtab)(unsafe.Pointer(p)).FzFile)
 	sqlite3.Xsqlite3_free(tls, zFile)
 
 	*(*int32)(unsafe.Pointer(bp + 8 /* flags */)) = (SQLITE_OPEN_READWRITE | SQLITE_OPEN_SUPER_JOURNAL)
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pVfs + 40 /* &.xOpen */))))(tls, pVfs, (*VfslogVtab)(unsafe.Pointer(p)).FzFile, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, *(*int32)(unsafe.Pointer(bp + 8 /* flags */)), bp+8 /* &flags */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxOpen})).f(tls, pVfs, (*VfslogVtab)(unsafe.Pointer(p)).FzFile, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, *(*int32)(unsafe.Pointer(bp + 8 /* flags */)), bp+8 /* &flags */)
 
 	if rc == SQLITE_OK {
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods + 48 /* &.xFileSize */))))(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, (p + 32 /* &.nByte */))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods)).FxFileSize})).f(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, (p + 32 /* &.nByte */))
 		sqlite3.Xsqlite3_declare_vtab(tls, db,
 			ts+35902 /* "CREATE TABLE xxx..." */)
 		*(*uintptr)(unsafe.Pointer(ppVtab)) = (p /* &.base */)
@@ -72709,7 +73360,9 @@ func vlogBestIndex(tls *libc.TLS, tab uintptr, pIdxInfo uintptr) int32 { /* test
 func vlogDisconnect(tls *libc.TLS, pVtab uintptr) int32 { /* test_osinst.c:924:12: */
 	var p uintptr = pVtab
 	if (*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods != 0 {
-		(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods + 8 /* &.xClose */))))(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd)
+		(*struct {
+			f func(*libc.TLS, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods)).FxClose})).f(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd)
 		(*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods = uintptr(0)
 	}
 	sqlite3.Xsqlite3_free(tls, p)
@@ -72758,19 +73411,25 @@ func vlogNext(tls *libc.TLS, pCursor uintptr) int32 { /* test_osinst.c:965:12: *
 	nRead = 24
 	if ((*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset + sqlite3_int64(nRead)) <= (*VfslogVtab)(unsafe.Pointer(p)).FnByte {
 		var eEvent int32
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods + 16 /* &.xRead */))))(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, pCsr+48 /* &.aBuf */, nRead, (*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods)).FxRead})).f(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, pCsr+48 /* &.aBuf */, nRead, (*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset)
 
 		eEvent = int32(get32bits(tls, pCsr+48 /* &.aBuf */))
 		if (rc == SQLITE_OK) &&
 			(((eEvent == OS_OPEN) || (eEvent == OS_DELETE)) || (eEvent == OS_ACCESS)) {
 			// var buf [4]int8 at bp, 4
 
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods + 16 /* &.xRead */))))(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, bp /* &buf[0] */, 4, ((*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset + sqlite3_int64(nRead)))
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods)).FxRead})).f(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, bp /* &buf[0] */, 4, ((*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset + sqlite3_int64(nRead)))
 			nRead = nRead + (4)
 			if rc == SQLITE_OK {
 				var nStr int32 = int32(get32bits(tls, bp /* buf */))
 				var zStr uintptr = sqlite3.Xsqlite3_malloc(tls, (nStr + 1))
-				rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods + 16 /* &.xRead */))))(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, zStr, nStr, ((*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset + sqlite3_int64(nRead)))
+				rc = (*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer((*VfslogVtab)(unsafe.Pointer(p)).FpFd)).FpMethods)).FxRead})).f(tls, (*VfslogVtab)(unsafe.Pointer(p)).FpFd, zStr, nStr, ((*VfslogCsr)(unsafe.Pointer(pCsr)).FiOffset + sqlite3_int64(nRead)))
 				*(*int8)(unsafe.Pointer(zStr + uintptr(nStr))) = int8(0)
 				nRead = nRead + (nStr)
 
@@ -72987,7 +73646,7 @@ func SqlitetestOsinst_Init(tls *libc.TLS, interp uintptr) int32 { /* test_osinst
 	return TCL_OK
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -73002,11 +73661,11 @@ func SqlitetestOsinst_Init(tls *libc.TLS, interp uintptr) int32 { /* test_osinst
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -73021,7 +73680,7 @@ func SqlitetestOsinst_Init(tls *libc.TLS, interp uintptr) int32 { /* test_osinst
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -73045,7 +73704,7 @@ type testpcacheGlobalType1 = struct {
 	FhighStress    uint32
 } /* test_pcache.c:33:9 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -73060,11 +73719,11 @@ type testpcacheGlobalType1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -73079,7 +73738,7 @@ type testpcacheGlobalType1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -73137,15 +73796,15 @@ func testpcacheShutdown(tls *libc.TLS, pArg uintptr) { /* test_pcache.c:67:13: *
 
 // Private implementation of a page cache.
 type testpcache1 = struct {
-	FszPage     int32
-	FszExtra    int32
-	FbPurgeable int32
-	FnFree      int32
-	FnPinned    int32
-	FiRand      uint32
-	FiMagic     uint32
-	_           [4]byte
-	Fa          [217]struct {
+	FszPage      int32
+	FszExtra     int32
+	FbPurgeable  int32
+	FnFree       int32
+	FnPinned     int32
+	FiRand       uint32
+	FiMagic      uint32
+	F__ccgo_pad1 [4]byte
+	Fa           [217]struct {
 		Fpage     sqlite3_pcache_page
 		Fkey      uint32
 		FisPinned int32
@@ -73519,6 +74178,25 @@ type quota_FILE = quota_FILE1 /* test_quota.h:145:27 */
 
 // Define some macros helping to catch buffer overflows.
 
+// System-specific extensions.
+// System-specific extensions of <unistd.h>, Linux version.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
 //*********************** Object Definitions *****************************
 
 // Forward declaration of all object types
@@ -73535,6 +74213,25 @@ type quotaGroup1 = struct {
 } /* test_quota.h:145:9 */
 
 // Define some macros helping to catch buffer overflows.
+
+// System-specific extensions.
+// System-specific extensions of <unistd.h>, Linux version.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
 
 //*********************** Object Definitions *****************************
 
@@ -73567,7 +74264,7 @@ var gQuota struct {
 	FsIoMethodsV1  sqlite3_io_methods
 	FsIoMethodsV2  sqlite3_io_methods
 	FisInitialized int32
-	_              [4]byte
+	F__ccgo_pad1   [4]byte
 	FpMutex        uintptr
 	FpGroup        uintptr
 } /* test_quota.c:183:3: */
@@ -73626,7 +74323,7 @@ func quotaGroupDeref(tls *libc.TLS, pGroup uintptr) { /* test_quota.c:229:13: */
 			(*quotaGroup)(unsafe.Pointer((*quotaGroup)(unsafe.Pointer(pGroup)).FpNext)).FppPrev = (*quotaGroup)(unsafe.Pointer(pGroup)).FppPrev
 		}
 		if (*quotaGroup)(unsafe.Pointer(pGroup)).FxDestroy != 0 {
-			(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((pGroup + 40 /* &.xDestroy */))))(tls, (*quotaGroup)(unsafe.Pointer(pGroup)).FpArg)
+			(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*quotaGroup)(unsafe.Pointer(pGroup)).FxDestroy})).f(tls, (*quotaGroup)(unsafe.Pointer(pGroup)).FpArg)
 		}
 		sqlite3.Xsqlite3_free(tls, pGroup)
 	}
@@ -73813,7 +74510,9 @@ func quotaOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pConn uintptr, flags 
 	// If the file is not a main database file or a WAL, then use the
 	// normal xOpen method.
 	if (flags & (SQLITE_OPEN_MAIN_DB | SQLITE_OPEN_WAL)) == 0 {
-		return (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 40 /* &.xOpen */))))(tls, pOrigVfs, zName, pConn, flags, pOutFlags)
+		return (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxOpen})).f(tls, pOrigVfs, zName, pConn, flags, pOutFlags)
 	}
 
 	// If the name of the file does not match any quota group, then
@@ -73821,17 +74520,23 @@ func quotaOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pConn uintptr, flags 
 	quotaEnter(tls)
 	pGroup = quotaGroupFind(tls, zName)
 	if pGroup == uintptr(0) {
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 40 /* &.xOpen */))))(tls, pOrigVfs, zName, pConn, flags, pOutFlags)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxOpen})).f(tls, pOrigVfs, zName, pConn, flags, pOutFlags)
 	} else {
 		// If we get to this point, it means the file needs to be quota tracked.
 		pQuotaOpen = pConn
 		pSubOpen = quotaSubOpen(tls, pConn)
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((pOrigVfs + 40 /* &.xOpen */))))(tls, pOrigVfs, zName, pSubOpen, flags, pOutFlags)
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxOpen})).f(tls, pOrigVfs, zName, pSubOpen, flags, pOutFlags)
 		if rc == SQLITE_OK {
 			pFile = quotaFindFile(tls, pGroup, zName, 1)
 			if pFile == uintptr(0) {
 				quotaLeave(tls)
-				(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 8 /* &.xClose */))))(tls, pSubOpen)
+				(*struct {
+					f func(*libc.TLS, uintptr) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxClose})).f(tls, pSubOpen)
 				return SQLITE_NOMEM
 			}
 			(*quotaFile)(unsafe.Pointer(pFile)).FdeleteOnClose = (libc.Bool32((flags & SQLITE_OPEN_DELETEONCLOSE) != 0))
@@ -73860,7 +74565,9 @@ func quotaDelete(tls *libc.TLS, pVfs uintptr, zName uintptr, syncDir int32) int3
 	var pOrigVfs uintptr = gQuota.FpOrigVfs // Real VFS
 
 	// Do the actual file delete
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((pOrigVfs + 48 /* &.xDelete */))))(tls, pOrigVfs, zName, syncDir)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pOrigVfs)).FxDelete})).f(tls, pOrigVfs, zName, syncDir)
 
 	// If the file just deleted is a member of a quota group, then remove
 	// it from that quota group.
@@ -73893,13 +74600,17 @@ func quotaClose(tls *libc.TLS, pConn uintptr) int32 { /* test_quota.c:528:12: */
 	var pFile uintptr = (*quotaConn)(unsafe.Pointer(p)).FpFile
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
 	var rc int32
-	rc = (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 8 /* &.xClose */))))(tls, pSubOpen)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxClose})).f(tls, pSubOpen)
 	quotaEnter(tls)
 	(*quotaFile)(unsafe.Pointer(pFile)).FnRef--
 	if (*quotaFile)(unsafe.Pointer(pFile)).FnRef == 0 {
 		var pGroup uintptr = (*quotaFile)(unsafe.Pointer(pFile)).FpGroup
 		if (*quotaFile)(unsafe.Pointer(pFile)).FdeleteOnClose != 0 {
-			(*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((gQuota.FpOrigVfs + 48 /* &.xDelete */))))(tls, gQuota.FpOrigVfs, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, 0)
+			(*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gQuota.FpOrigVfs)).FxDelete})).f(tls, gQuota.FpOrigVfs, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, 0)
 			quotaRemoveFile(tls, pFile)
 		}
 		quotaGroupDeref(tls, pGroup)
@@ -73912,7 +74623,9 @@ func quotaClose(tls *libc.TLS, pConn uintptr) int32 { /* test_quota.c:528:12: */
 // further processing.
 func quotaRead(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfst sqlite3_int64) int32 { /* test_quota.c:551:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 16 /* &.xRead */))))(tls, pSubOpen, pBuf, iAmt, iOfst)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxRead})).f(tls, pSubOpen, pBuf, iAmt, iOfst)
 }
 
 // Check xWrite requests to see if they expand the file.  If they do,
@@ -73932,7 +74645,9 @@ func quotaWrite(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfst sq
 		szNew = (((*quotaGroup)(unsafe.Pointer(pGroup)).FiSize - (*quotaFile)(unsafe.Pointer(pFile)).FiSize) + iEnd)
 		if (szNew > (*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit) && ((*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit > int64(0)) {
 			if (*quotaGroup)(unsafe.Pointer(pGroup)).FxCallback != 0 {
-				(*(*func(*libc.TLS, uintptr, uintptr, sqlite3_int64, uintptr))(unsafe.Pointer((pGroup + 24 /* &.xCallback */))))(tls, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, (pGroup + 8 /* &.iLimit */), szNew,
+				(*struct {
+					f func(*libc.TLS, uintptr, uintptr, sqlite3_int64, uintptr)
+				})(unsafe.Pointer(&struct{ uintptr }{(*quotaGroup)(unsafe.Pointer(pGroup)).FxCallback})).f(tls, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, (pGroup + 8 /* &.iLimit */), szNew,
 					(*quotaGroup)(unsafe.Pointer(pGroup)).FpArg)
 			}
 			if (szNew > (*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit) && ((*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit > int64(0)) {
@@ -73944,7 +74659,9 @@ func quotaWrite(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfst sq
 		(*quotaFile)(unsafe.Pointer(pFile)).FiSize = iEnd
 		quotaLeave(tls)
 	}
-	return (*(*func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 24 /* &.xWrite */))))(tls, pSubOpen, pBuf, iAmt, iOfst)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxWrite})).f(tls, pSubOpen, pBuf, iAmt, iOfst)
 }
 
 // Pass xTruncate requests thru to the original VFS.  If the
@@ -73952,7 +74669,9 @@ func quotaWrite(tls *libc.TLS, pConn uintptr, pBuf uintptr, iAmt int32, iOfst sq
 func quotaTruncate(tls *libc.TLS, pConn uintptr, size sqlite3_int64) int32 { /* test_quota.c:602:12: */
 	var p uintptr = pConn
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	var rc int32 = (*(*func(*libc.TLS, uintptr, sqlite3_int64) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 32 /* &.xTruncate */))))(tls, pSubOpen, size)
+	var rc int32 = (*struct {
+		f func(*libc.TLS, uintptr, sqlite3_int64) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxTruncate})).f(tls, pSubOpen, size)
 	var pFile uintptr = (*quotaConn)(unsafe.Pointer(p)).FpFile
 	var pGroup uintptr
 	if rc == SQLITE_OK {
@@ -73969,7 +74688,9 @@ func quotaTruncate(tls *libc.TLS, pConn uintptr, size sqlite3_int64) int32 { /* 
 // Pass xSync requests through to the original VFS without change
 func quotaSync(tls *libc.TLS, pConn uintptr, flags int32) int32 { /* test_quota.c:621:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 40 /* &.xSync */))))(tls, pSubOpen, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxSync})).f(tls, pSubOpen, flags)
 }
 
 // Pass xFileSize requests through to the original VFS but then
@@ -73986,7 +74707,9 @@ func quotaFileSize(tls *libc.TLS, pConn uintptr, pSize uintptr) int32 { /* test_
 
 	var rc int32
 
-	rc = (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 48 /* &.xFileSize */))))(tls, pSubOpen, bp /* &sz */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxFileSize})).f(tls, pSubOpen, bp /* &sz */)
 	if rc == SQLITE_OK {
 		quotaEnter(tls)
 		pGroup = (*quotaFile)(unsafe.Pointer(pFile)).FpGroup
@@ -74002,19 +74725,25 @@ func quotaFileSize(tls *libc.TLS, pConn uintptr, pSize uintptr) int32 { /* test_
 // Pass xLock requests through to the original VFS unchanged.
 func quotaLock(tls *libc.TLS, pConn uintptr, lock int32) int32 { /* test_quota.c:652:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 56 /* &.xLock */))))(tls, pSubOpen, lock)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxLock})).f(tls, pSubOpen, lock)
 }
 
 // Pass xUnlock requests through to the original VFS unchanged.
 func quotaUnlock(tls *libc.TLS, pConn uintptr, lock int32) int32 { /* test_quota.c:659:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 64 /* &.xUnlock */))))(tls, pSubOpen, lock)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxUnlock})).f(tls, pSubOpen, lock)
 }
 
 // Pass xCheckReservedLock requests through to the original VFS unchanged.
 func quotaCheckReservedLock(tls *libc.TLS, pConn uintptr, pResOut uintptr) int32 { /* test_quota.c:666:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 72 /* &.xCheckReservedLock */))))(tls, pSubOpen, pResOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxCheckReservedLock})).f(tls, pSubOpen, pResOut)
 }
 
 // Pass xFileControl requests through to the original VFS unchanged.
@@ -74023,7 +74752,9 @@ func quotaFileControl(tls *libc.TLS, pConn uintptr, op int32, pArg uintptr) int3
 	defer tls.Free(8)
 
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	var rc int32 = (*(*func(*libc.TLS, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 80 /* &.xFileControl */))))(tls, pSubOpen, op, pArg)
+	var rc int32 = (*struct {
+		f func(*libc.TLS, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxFileControl})).f(tls, pSubOpen, op, pArg)
 	if (op == SQLITE_FCNTL_VFSNAME) && (rc == SQLITE_OK) {
 		*(*uintptr)(unsafe.Pointer(pArg)) = sqlite3.Xsqlite3_mprintf(tls, ts+36042 /* "quota/%z" */, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(pArg))))
 	}
@@ -74033,37 +74764,47 @@ func quotaFileControl(tls *libc.TLS, pConn uintptr, op int32, pArg uintptr) int3
 // Pass xSectorSize requests through to the original VFS unchanged.
 func quotaSectorSize(tls *libc.TLS, pConn uintptr) int32 { /* test_quota.c:686:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 88 /* &.xSectorSize */))))(tls, pSubOpen)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxSectorSize})).f(tls, pSubOpen)
 }
 
 // Pass xDeviceCharacteristics requests through to the original VFS unchanged.
 func quotaDeviceCharacteristics(tls *libc.TLS, pConn uintptr) int32 { /* test_quota.c:693:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 96 /* &.xDeviceCharacteristics */))))(tls, pSubOpen)
+	return (*struct {
+		f func(*libc.TLS, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxDeviceCharacteristics})).f(tls, pSubOpen)
 }
 
 // Pass xShmMap requests through to the original VFS unchanged.
 func quotaShmMap(tls *libc.TLS, pConn uintptr, iRegion int32, szRegion int32, bExtend int32, pp uintptr) int32 { /* test_quota.c:700:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 104 /* &.xShmMap */))))(tls, pSubOpen, iRegion, szRegion, bExtend, libc.AtomicLoadUintptr(&pp))
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmMap})).f(tls, pSubOpen, iRegion, szRegion, bExtend, pp)
 }
 
 // Pass xShmLock requests through to the original VFS unchanged.
 func quotaShmLock(tls *libc.TLS, pConn uintptr, ofst int32, n int32, flags int32) int32 { /* test_quota.c:713:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 112 /* &.xShmLock */))))(tls, pSubOpen, ofst, n, flags)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmLock})).f(tls, pSubOpen, ofst, n, flags)
 }
 
 // Pass xShmBarrier requests through to the original VFS unchanged.
 func quotaShmBarrier(tls *libc.TLS, pConn uintptr) { /* test_quota.c:725:13: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 120 /* &.xShmBarrier */))))(tls, pSubOpen)
+	(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmBarrier})).f(tls, pSubOpen)
 }
 
 // Pass xShmUnmap requests through to the original VFS unchanged.
 func quotaShmUnmap(tls *libc.TLS, pConn uintptr, deleteFlag int32) int32 { /* test_quota.c:732:12: */
 	var pSubOpen uintptr = quotaSubOpen(tls, pConn)
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods + 128 /* &.xShmUnmap */))))(tls, pSubOpen, deleteFlag)
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pSubOpen)).FpMethods)).FxShmUnmap})).f(tls, pSubOpen, deleteFlag)
 }
 
 //************************* Public Interfaces ****************************
@@ -74234,7 +74975,7 @@ func sqlite3_quota_set(tls *libc.TLS, zPattern uintptr, iLimit sqlite3_int64, xC
 	(*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit = iLimit
 	(*quotaGroup)(unsafe.Pointer(pGroup)).FxCallback = xCallback
 	if ((*quotaGroup)(unsafe.Pointer(pGroup)).FxDestroy != 0) && ((*quotaGroup)(unsafe.Pointer(pGroup)).FpArg != pArg) {
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer((pGroup + 40 /* &.xDestroy */))))(tls, (*quotaGroup)(unsafe.Pointer(pGroup)).FpArg)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*quotaGroup)(unsafe.Pointer(pGroup)).FxDestroy})).f(tls, (*quotaGroup)(unsafe.Pointer(pGroup)).FpArg)
 	}
 	(*quotaGroup)(unsafe.Pointer(pGroup)).FpArg = pArg
 	(*quotaGroup)(unsafe.Pointer(pGroup)).FxDestroy = xDestroy
@@ -74263,7 +75004,9 @@ func sqlite3_quota_file(tls *libc.TLS, zFilename uintptr) int32 { /* test_quota.
 		rc = SQLITE_NOMEM
 	} else {
 		zFull = ((fd) + uintptr(gQuota.FsThisVfs.FszOsFile))
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gQuota.FpOrigVfs + 64 /* &.xFullPathname */))))(tls, gQuota.FpOrigVfs, zFilename,
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gQuota.FpOrigVfs)).FxFullPathname})).f(tls, gQuota.FpOrigVfs, zFilename,
 			(gQuota.FsThisVfs.FmxPathname + 1), zFull)
 	}
 
@@ -74272,8 +75015,12 @@ func sqlite3_quota_file(tls *libc.TLS, zFilename uintptr) int32 { /* test_quota.
 		rc = quotaOpen(tls, (uintptr(unsafe.Pointer(&gQuota)) + 8 /* &.sThisVfs */), zFull, fd,
 			(SQLITE_OPEN_READONLY | SQLITE_OPEN_MAIN_DB), bp /* &outFlags */)
 		if rc == SQLITE_OK {
-			(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(fd)).FpMethods + 48 /* &.xFileSize */))))(tls, fd, bp+8 /* &iSize */)
-			(*(*func(*libc.TLS, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(fd)).FpMethods + 8 /* &.xClose */))))(tls, fd)
+			(*struct {
+				f func(*libc.TLS, uintptr, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(fd)).FpMethods)).FxFileSize})).f(tls, fd, bp+8 /* &iSize */)
+			(*struct {
+				f func(*libc.TLS, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(fd)).FpMethods)).FxClose})).f(tls, fd)
 		} else if rc == SQLITE_CANTOPEN {
 			var pGroup uintptr
 			var pFile uintptr
@@ -74312,7 +75059,9 @@ func sqlite3_quota_fopen(tls *libc.TLS, zFilename uintptr, zMode uintptr) uintpt
 	return uintptr(0)
 __1:
 	;
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gQuota.FpOrigVfs + 64 /* &.xFullPathname */))))(tls, gQuota.FpOrigVfs, zFilename,
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gQuota.FpOrigVfs)).FxFullPathname})).f(tls, gQuota.FpOrigVfs, zFilename,
 		(gQuota.FsThisVfs.FmxPathname + 1), zFull)
 	if !(rc != 0) {
 		goto __2
@@ -74399,7 +75148,9 @@ func sqlite3_quota_fwrite(tls *libc.TLS, pBuf uintptr, size size_t, nmemb size_t
 		szNew = (((*quotaGroup)(unsafe.Pointer(pGroup)).FiSize - (*quotaFile)(unsafe.Pointer(pFile)).FiSize) + iEnd)
 		if (szNew > (*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit) && ((*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit > int64(0)) {
 			if (*quotaGroup)(unsafe.Pointer(pGroup)).FxCallback != 0 {
-				(*(*func(*libc.TLS, uintptr, uintptr, sqlite3_int64, uintptr))(unsafe.Pointer((pGroup + 24 /* &.xCallback */))))(tls, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, (pGroup + 8 /* &.iLimit */), szNew,
+				(*struct {
+					f func(*libc.TLS, uintptr, uintptr, sqlite3_int64, uintptr)
+				})(unsafe.Pointer(&struct{ uintptr }{(*quotaGroup)(unsafe.Pointer(pGroup)).FxCallback})).f(tls, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, (pGroup + 8 /* &.iLimit */), szNew,
 					(*quotaGroup)(unsafe.Pointer(pGroup)).FpArg)
 			}
 			if (szNew > (*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit) && ((*quotaGroup)(unsafe.Pointer(pGroup)).FiLimit > int64(0)) {
@@ -74445,7 +75196,9 @@ func sqlite3_quota_fclose(tls *libc.TLS, p uintptr) int32 { /* test_quota.c:1054
 		if (*quotaFile)(unsafe.Pointer(pFile)).FnRef == 0 {
 			var pGroup uintptr = (*quotaFile)(unsafe.Pointer(pFile)).FpGroup
 			if (*quotaFile)(unsafe.Pointer(pFile)).FdeleteOnClose != 0 {
-				(*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((gQuota.FpOrigVfs + 48 /* &.xDelete */))))(tls, gQuota.FpOrigVfs, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, 0)
+				(*struct {
+					f func(*libc.TLS, uintptr, uintptr, int32) int32
+				})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gQuota.FpOrigVfs)).FxDelete})).f(tls, gQuota.FpOrigVfs, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, 0)
 				quotaRemoveFile(tls, pFile)
 			}
 			quotaGroupDeref(tls, pGroup)
@@ -74595,7 +75348,9 @@ func sqlite3_quota_remove(tls *libc.TLS, zFilename uintptr) int32 { /* test_quot
 	if zFull == uintptr(0) {
 		return SQLITE_NOMEM
 	}
-	rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer((gQuota.FpOrigVfs + 64 /* &.xFullPathname */))))(tls, gQuota.FpOrigVfs, zFilename,
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gQuota.FpOrigVfs)).FxFullPathname})).f(tls, gQuota.FpOrigVfs, zFilename,
 		(gQuota.FsThisVfs.FmxPathname + 1), zFull)
 	if rc != 0 {
 		sqlite3.Xsqlite3_free(tls, zFull)
@@ -74620,7 +75375,9 @@ func sqlite3_quota_remove(tls *libc.TLS, zFilename uintptr) int32 { /* test_quot
 				if (*quotaFile)(unsafe.Pointer(pFile)).FnRef != 0 {
 					(*quotaFile)(unsafe.Pointer(pFile)).FdeleteOnClose = 1
 				} else {
-					rc = (*(*func(*libc.TLS, uintptr, uintptr, int32) int32)(unsafe.Pointer((gQuota.FpOrigVfs + 48 /* &.xDelete */))))(tls, gQuota.FpOrigVfs, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, 0)
+					rc = (*struct {
+						f func(*libc.TLS, uintptr, uintptr, int32) int32
+					})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(gQuota.FpOrigVfs)).FxDelete})).f(tls, gQuota.FpOrigVfs, (*quotaFile)(unsafe.Pointer(pFile)).FzFilename, 0)
 					quotaRemoveFile(tls, pFile)
 					quotaGroupDeref(tls, pGroup)
 				}
@@ -74698,13 +75455,13 @@ func tclQuotaCallback(tls *libc.TLS, zFilename uintptr, piLimit uintptr, iSize s
 
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = pVarname
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -74719,7 +75476,7 @@ func tclCallbackDestructor(tls *libc.TLS, pObj uintptr) { /* test_quota.c:1349:1
 	if p != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*TclQuotaCallback)(unsafe.Pointer(p)).FpScript
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -75278,12 +76035,12 @@ type Circle1 = struct {
 		Fymin float64
 		Fymax float64
 	}
-	Fcenterx    float64
-	Fcentery    float64
-	Fradius     float64
-	FmxArea     float64
-	FeScoreType int32
-	_           [4]byte
+	Fcenterx     float64
+	Fcentery     float64
+	Fradius      float64
+	FmxArea      float64
+	FeScoreType  int32
+	F__ccgo_pad1 [4]byte
 } /* test_rtree.c:31:9 */
 
 // Type used to cache parameter information for the "circle" r-tree geometry
@@ -75468,7 +76225,7 @@ func circle_query_func(tls *libc.TLS, p uintptr) int32 { /* test_rtree.c:168:12:
 			(*Circle)(unsafe.Pointer(pCircle)).Fcenterx = *(*sqlite3_rtree_dbl)(unsafe.Pointer((*sqlite3_rtree_query_info)(unsafe.Pointer(p)).FaParam))
 			(*Circle)(unsafe.Pointer(pCircle)).Fcentery = *(*sqlite3_rtree_dbl)(unsafe.Pointer((*sqlite3_rtree_query_info)(unsafe.Pointer(p)).FaParam + 1*8))
 			(*Circle)(unsafe.Pointer(pCircle)).Fradius = *(*sqlite3_rtree_dbl)(unsafe.Pointer((*sqlite3_rtree_query_info)(unsafe.Pointer(p)).FaParam + 2*8))
-			(*Circle)(unsafe.Pointer(pCircle)).FeScoreType = int32(*(*sqlite3_rtree_dbl)(unsafe.Pointer((*sqlite3_rtree_query_info)(unsafe.Pointer(p)).FaParam + 3*8)))
+			(*Circle)(unsafe.Pointer(pCircle)).FeScoreType = libc.Int32FromFloat64(*(*sqlite3_rtree_dbl)(unsafe.Pointer((*sqlite3_rtree_query_info)(unsafe.Pointer(p)).FaParam + 3*8)))
 		} else {
 			var z uintptr = sqlite3.Xsqlite3_value_text(tls, *(*uintptr)(unsafe.Pointer((*sqlite3_rtree_query_info)(unsafe.Pointer(p)).FapSqlParam)))
 			(*Circle)(unsafe.Pointer(pCircle)).Fcenterx = 0.0
@@ -75483,7 +76240,7 @@ func circle_query_func(tls *libc.TLS, p uintptr) int32 { /* test_rtree.c:168:12:
 				} else if (int32(*(*int8)(unsafe.Pointer(z))) == 'y') && (int32(*(*int8)(unsafe.Pointer(z + 1))) == ':') {
 					(*Circle)(unsafe.Pointer(pCircle)).Fcentery = libc.Xatof(tls, (z + 2))
 				} else if (int32(*(*int8)(unsafe.Pointer(z))) == 'e') && (int32(*(*int8)(unsafe.Pointer(z + 1))) == ':') {
-					(*Circle)(unsafe.Pointer(pCircle)).FeScoreType = int32(libc.Xatof(tls, (z + 2)))
+					(*Circle)(unsafe.Pointer(pCircle)).FeScoreType = libc.Int32FromFloat64(libc.Xatof(tls, (z + 2)))
 				} else if int32(*(*int8)(unsafe.Pointer(z))) == ' ' {
 					z++
 					continue
@@ -75648,7 +76405,7 @@ func bfs_query_func(tls *libc.TLS, p uintptr) int32 { /* test_rtree.c:329:12: */
 //
 //
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75663,11 +76420,11 @@ func bfs_query_func(tls *libc.TLS, p uintptr) int32 { /* test_rtree.c:329:12: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75682,7 +76439,7 @@ func bfs_query_func(tls *libc.TLS, p uintptr) int32 { /* test_rtree.c:329:12: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -75728,7 +76485,7 @@ type Cube1 = struct {
 //
 //
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75743,11 +76500,11 @@ type Cube1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75762,7 +76519,7 @@ type Cube1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -75929,7 +76686,7 @@ type fd_set5 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 // fill-column: 78
 // End:
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75944,11 +76701,11 @@ type fd_set5 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75963,11 +76720,11 @@ type fd_set5 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -75982,11 +76739,11 @@ type fd_set5 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76001,7 +76758,7 @@ type fd_set5 = struct{ Ffds_bits [16]int64 } /* select.h:70:5 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -76027,7 +76784,7 @@ type schema_vtab1 = struct {
 // fill-column: 78
 // End:
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76042,11 +76799,11 @@ type schema_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76061,11 +76818,11 @@ type schema_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76080,11 +76837,11 @@ type schema_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76099,7 +76856,7 @@ type schema_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -76119,7 +76876,7 @@ type schema_cursor1 = struct {
 	FpTableList  uintptr
 	FpColumnList uintptr
 	Frowid       int32
-	_            [4]byte
+	F__ccgo_pad1 [4]byte
 } /* test_schema.c:54:9 */
 
 type schema_cursor = schema_cursor1 /* test_schema.c:54:30 */
@@ -76475,14 +77232,14 @@ var aObjCmd12 = [1]struct {
 // instances of the following structure.
 type SqlMessage1 = struct {
 	Fop           int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 	FpDb          uintptr
 	FpStmt        uintptr
 	FerrCode      int32
-	_             [4]byte
+	F__ccgo_pad2  [4]byte
 	FzIn          uintptr
 	FnByte        int32
-	_             [4]byte
+	F__ccgo_pad3  [4]byte
 	FzOut         uintptr
 	FpNext        uintptr
 	FpPrev        uintptr
@@ -76570,7 +77327,7 @@ type ServerState = struct {
 	FserverMutex  pthread_mutex_t
 	FserverWakeup pthread_cond_t
 	FserverHalt   int32
-	_             [4]byte
+	F__ccgo_pad1  [4]byte
 	FpQueueHead   uintptr
 	FpQueueTail   uintptr
 } /* test_server.c:252:8 */
@@ -76861,7 +77618,7 @@ func sqlite3_server_stop(tls *libc.TLS) { /* test_server.c:508:6: */
 	libc.Xpthread_mutex_unlock(tls, (uintptr(unsafe.Pointer(&g4)) + 40 /* &.serverMutex */))
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76876,11 +77633,11 @@ func sqlite3_server_stop(tls *libc.TLS) { /* test_server.c:508:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -76895,7 +77652,7 @@ func sqlite3_server_stop(tls *libc.TLS) { /* test_server.c:508:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -76911,10 +77668,10 @@ func sqlite3_server_stop(tls *libc.TLS) { /* test_server.c:508:6: */
 // A structure to collect a busy-handler callback and argument and a count
 // of the number of times it has been invoked.
 type SuperlockBusy1 = struct {
-	FxBusy    uintptr
-	FpBusyArg uintptr
-	FnBusy    int32
-	_         [4]byte
+	FxBusy       uintptr
+	FpBusyArg    uintptr
+	FnBusy       int32
+	F__ccgo_pad1 [4]byte
 } /* test_superlock.c:29:1 */
 
 type SuperlockBusy = SuperlockBusy1 /* test_superlock.c:34:30 */
@@ -76923,9 +77680,9 @@ type SuperlockBusy = SuperlockBusy1 /* test_superlock.c:34:30 */
 // superlock. The opaque handle returned by sqlite3demo_superlock() is
 // actually a pointer to an instance of this structure.
 type Superlock1 = struct {
-	Fdb   uintptr
-	FbWal int32
-	_     [4]byte
+	Fdb          uintptr
+	FbWal        int32
+	F__ccgo_pad1 [4]byte
 } /* test_superlock.c:41:1 */
 
 type Superlock = Superlock1 /* test_superlock.c:45:26 */
@@ -76938,7 +77695,9 @@ func superlockBusyHandler(tls *libc.TLS, pCtx uintptr, UNUSED int32) int32 { /* 
 	if (*SuperlockBusy)(unsafe.Pointer(pBusy)).FxBusy == uintptr(0) {
 		return 0
 	}
-	return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer((pBusy /* &.xBusy */))))(tls, (*SuperlockBusy)(unsafe.Pointer(pBusy)).FpBusyArg, libc.PostIncInt32(&(*SuperlockBusy)(unsafe.Pointer(pBusy)).FnBusy, 1))
+	return (*struct {
+		f func(*libc.TLS, uintptr, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*SuperlockBusy)(unsafe.Pointer(pBusy)).FxBusy})).f(tls, (*SuperlockBusy)(unsafe.Pointer(pBusy)).FpBusyArg, libc.PostIncInt32(&(*SuperlockBusy)(unsafe.Pointer(pBusy)).FnBusy, 1))
 }
 
 // This function is used to determine if the main database file for
@@ -76980,7 +77739,9 @@ func superlockShmLock(tls *libc.TLS, fd uintptr, idx int32, nByte int32, pBusy u
 	var rc int32
 	var xShmLock uintptr = (*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(fd)).FpMethods)).FxShmLock
 	for ok := true; ok; ok = ((rc == SQLITE_BUSY) && (superlockBusyHandler(tls, pBusy, 0) != 0)) {
-		rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(&xShmLock)))(tls, fd, idx, nByte, (SQLITE_SHM_LOCK | SQLITE_SHM_EXCLUSIVE))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, int32, int32, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{xShmLock})).f(tls, fd, idx, nByte, (SQLITE_SHM_LOCK | SQLITE_SHM_EXCLUSIVE))
 	}
 	return rc
 }
@@ -77014,11 +77775,13 @@ func superlockWalLock(tls *libc.TLS, db uintptr, pBusy uintptr) int32 { /* test_
 	// lock that this process is holding to do that, no new read or write
 	// transactions may now be opened. Nor can a checkpoint be run, for the
 	// same reason.
-	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* fd */)))).FpMethods + 104 /* &.xShmMap */))))(tls, *(*uintptr)(unsafe.Pointer(bp /* fd */)), 0, (32 * 1024), 1, bp+8 /* &p */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* fd */)))).FpMethods)).FxShmMap})).f(tls, *(*uintptr)(unsafe.Pointer(bp /* fd */)), 0, (32 * 1024), 1, bp+8 /* &p */)
 	if rc != SQLITE_OK {
 		return rc
 	}
-	libc.Xmemset(tls, libc.AtomicLoadPUintptr(bp+8 /* p */), 0, uint64(32))
+	libc.Xmemset(tls, *(*uintptr)(unsafe.Pointer(bp + 8 /* p */)), 0, uint64(32))
 
 	// Obtain exclusive locks on all the "read-lock" slots. Once these locks
 	// are held, it is guaranteed that there are no active reader, writer or
@@ -77041,8 +77804,12 @@ func sqlite3demo_superunlock(tls *libc.TLS, pLock uintptr) { /* test_superlock.c
 		*(*uintptr)(unsafe.Pointer(bp /* fd */)) = uintptr(0)
 		rc = sqlite3.Xsqlite3_file_control(tls, (*Superlock)(unsafe.Pointer(p)).Fdb, ts+85 /* "main" */, SQLITE_FCNTL_FILE_POINTER, bp /* &fd */)
 		if rc == SQLITE_OK {
-			(*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* fd */)))).FpMethods + 112 /* &.xShmLock */))))(tls, *(*uintptr)(unsafe.Pointer(bp /* fd */)), 2, 1, flags)
-			(*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* fd */)))).FpMethods + 112 /* &.xShmLock */))))(tls, *(*uintptr)(unsafe.Pointer(bp /* fd */)), 3, (SQLITE_SHM_NLOCK - 3), flags)
+			(*struct {
+				f func(*libc.TLS, uintptr, int32, int32, int32) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* fd */)))).FpMethods)).FxShmLock})).f(tls, *(*uintptr)(unsafe.Pointer(bp /* fd */)), 2, 1, flags)
+			(*struct {
+				f func(*libc.TLS, uintptr, int32, int32, int32) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp /* fd */)))).FpMethods)).FxShmLock})).f(tls, *(*uintptr)(unsafe.Pointer(bp /* fd */)), 3, (SQLITE_SHM_NLOCK - 3), flags)
 		}
 	}
 	sqlite3.Xsqlite3_close(tls, (*Superlock)(unsafe.Pointer(p)).Fdb)
@@ -77171,7 +77938,7 @@ func superlock_busy(tls *libc.TLS, pCtx uintptr, nBusy int32) int32 { /* test_su
 	tcl.XTcl_GetIntFromObj(tls, (*InterpAndScript)(unsafe.Pointer(p)).Finterp, tcl.XTcl_GetObjResult(tls, (*InterpAndScript)(unsafe.Pointer(p)).Finterp), bp /* &iVal */)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -77238,7 +78005,7 @@ func SqliteSuperlock_Init(tls *libc.TLS, interp uintptr) int32 { /* test_superlo
 }
 
 // Define error_t.
-//    Copyright (C) 1991-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -77253,7 +78020,7 @@ func SqliteSuperlock_Init(tls *libc.TLS, interp uintptr) int32 { /* test_superlo
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 type error_t = int32 /* error_t.h:22:13 */
 
@@ -77544,8 +78311,12 @@ func test_syscall_install(tls *libc.TLS, clientData uintptr, interp uintptr, obj
 			return rc
 		}
 		if aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FxOrig == uintptr(0) {
-			aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FxOrig = (*(*func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr)(unsafe.Pointer((pVfs + 152 /* &.xGetSystemCall */))))(tls, pVfs, aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FzName)
-			(*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer((pVfs + 144 /* &.xSetSystemCall */))))(tls, pVfs, aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FzName, aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FxTest)
+			aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FxOrig = (*struct {
+				f func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxGetSystemCall})).f(tls, pVfs, aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FzName)
+			(*struct {
+				f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSetSystemCall})).f(tls, pVfs, aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FzName, aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].FxTest)
 		}
 		aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].Fcustom_errno = aSyscall[*(*int32)(unsafe.Pointer(bp + 16 /* iCall */))].Fdefault_errno
 	}
@@ -77565,7 +78336,9 @@ func test_syscall_uninstall(tls *libc.TLS, clientData uintptr, interp uintptr, o
 	pVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	for i = 0; aSyscall[i].FzName != 0; i++ {
 		if aSyscall[i].FxOrig != 0 {
-			(*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer((pVfs + 144 /* &.xSetSystemCall */))))(tls, pVfs, aSyscall[i].FzName, uintptr(0))
+			(*struct {
+				f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSetSystemCall})).f(tls, pVfs, aSyscall[i].FzName, uintptr(0))
 			aSyscall[i].FxOrig = uintptr(0)
 		}
 	}
@@ -77587,7 +78360,9 @@ func test_syscall_reset(tls *libc.TLS, clientData uintptr, interp uintptr, objc 
 
 	pVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	if objc == 2 {
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer((pVfs + 144 /* &.xSetSystemCall */))))(tls, pVfs, uintptr(0), uintptr(0))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSetSystemCall})).f(tls, pVfs, uintptr(0), uintptr(0))
 		for i = 0; aSyscall[i].FzName != 0; i++ {
 			aSyscall[i].FxOrig = uintptr(0)
 		}
@@ -77595,7 +78370,9 @@ func test_syscall_reset(tls *libc.TLS, clientData uintptr, interp uintptr, objc 
 		// var nFunc int32 at bp, 4
 
 		var zFunc uintptr = tcl.XTcl_GetStringFromObj(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8)), bp /* &nFunc */)
-		rc = (*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer((pVfs + 144 /* &.xSetSystemCall */))))(tls, pVfs, tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8))), uintptr(0))
+		rc = (*struct {
+			f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSetSystemCall})).f(tls, pVfs, tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8))), uintptr(0))
 		for i = 0; (rc == SQLITE_OK) && (aSyscall[i].FzName != 0); i++ {
 			if libc.Xstrlen(tls, aSyscall[i].FzName) != size_t(*(*int32)(unsafe.Pointer(bp /* nFunc */))) {
 				continue
@@ -77625,7 +78402,9 @@ func test_syscall_exists(tls *libc.TLS, clientData uintptr, interp uintptr, objc
 	}
 
 	pVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
-	x = (*(*func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr)(unsafe.Pointer((pVfs + 152 /* &.xGetSystemCall */))))(tls, pVfs, tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8))))
+	x = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxGetSystemCall})).f(tls, pVfs, tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8))))
 
 	tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewIntObj(tls, (libc.Bool32((libc.Bool32(x != uintptr(0))) != 0))))
 	return TCL_OK
@@ -77703,9 +78482,9 @@ func test_syscall_errno(tls *libc.TLS, clientData uintptr, interp uintptr, objc 
 }
 
 type Errno = struct {
-	Fz uintptr
-	Fi int32
-	_  [4]byte
+	Fz           uintptr
+	Fi           int32
+	F__ccgo_pad1 [4]byte
 } /* test_syscall.c:583:3 */
 
 func test_syscall_list(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32, objv uintptr) int32 { /* test_syscall.c:619:26: */
@@ -77721,14 +78500,18 @@ func test_syscall_list(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 	pVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	pList = tcl.XTcl_NewObj(tls)
 	(*Tcl_Obj)(unsafe.Pointer(pList)).FrefCount++
-	for zSys = (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((pVfs + 160 /* &.xNextSystemCall */))))(tls, pVfs, uintptr(0)); zSys != uintptr(0); zSys = (*(*func(*libc.TLS, uintptr, uintptr) uintptr)(unsafe.Pointer((pVfs + 160 /* &.xNextSystemCall */))))(tls, pVfs, zSys) {
+	for zSys = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxNextSystemCall})).f(tls, pVfs, uintptr(0)); zSys != uintptr(0); zSys = (*struct {
+		f func(*libc.TLS, uintptr, uintptr) uintptr
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxNextSystemCall})).f(tls, pVfs, zSys) {
 		tcl.XTcl_ListObjAppendElement(tls, interp, pList, tcl.XTcl_NewStringObj(tls, zSys, -1))
 	}
 
 	tcl.XTcl_SetObjResult(tls, interp, pList)
 	for ok := true; ok; ok = 0 != 0 {
 		var _objPtr uintptr = pList
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -77769,16 +78552,22 @@ func test_syscall_pagesize(tls *libc.TLS, clientData uintptr, interp uintptr, ob
 
 	if *(*int32)(unsafe.Pointer(bp + 16 /* pgsz */)) < 0 {
 		if gSyscall.Forig_getpagesize != 0 {
-			(*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer((pVfs + 144 /* &.xSetSystemCall */))))(tls, pVfs, ts+37406 /* "getpagesize" */, gSyscall.Forig_getpagesize)
+			(*struct {
+				f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSetSystemCall})).f(tls, pVfs, ts+37406 /* "getpagesize" */, gSyscall.Forig_getpagesize)
 		}
 	} else {
 		if (*(*int32)(unsafe.Pointer(bp + 16 /* pgsz */)) < 512) || ((*(*int32)(unsafe.Pointer(bp + 16 /* pgsz */)) & (*(*int32)(unsafe.Pointer(bp + 16 /* pgsz */)) - 1)) != 0) {
 			tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp, ts+37418 /* "pgsz out of rang..." */, 0))
 			return TCL_ERROR
 		}
-		gSyscall.Forig_getpagesize = (*(*func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr)(unsafe.Pointer((pVfs + 152 /* &.xGetSystemCall */))))(tls, pVfs, ts+37406 /* "getpagesize" */)
+		gSyscall.Forig_getpagesize = (*struct {
+			f func(*libc.TLS, uintptr, uintptr) sqlite3_syscall_ptr
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxGetSystemCall})).f(tls, pVfs, ts+37406 /* "getpagesize" */)
 		gSyscall.Fpgsz = *(*int32)(unsafe.Pointer(bp + 16 /* pgsz */))
-		(*(*func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32)(unsafe.Pointer((pVfs + 144 /* &.xSetSystemCall */))))(tls,
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr, sqlite3_syscall_ptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(pVfs)).FxSetSystemCall})).f(tls,
 			pVfs, ts+37406 /* "getpagesize" */, *(*uintptr)(unsafe.Pointer(&struct{ f func(*libc.TLS) int32 }{ts_getpagesize})))
 	}
 
@@ -77838,7 +78627,9 @@ func test_syscall(tls *libc.TLS, clientData uintptr, interp uintptr, objc int32,
 	if rc != TCL_OK {
 		return rc
 	}
-	return (*(*func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32)(unsafe.Pointer((bp + 16 /* &aCmd */ + uintptr(*(*int32)(unsafe.Pointer(bp + 176 /* iCmd */)))*16 + 8 /* &.xCmd */))))(tls, clientData, interp, objc, objv)
+	return (*struct {
+		f func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*SyscallCmd)(unsafe.Pointer(bp + 16 /* &aCmd */ + uintptr(*(*int32)(unsafe.Pointer(bp + 176 /* iCmd */)))*16)).FxCmd})).f(tls, clientData, interp, objc, objv)
 }
 
 type SyscallCmd = struct {
@@ -77968,7 +78759,7 @@ func load_testfixture_extensions(tls *libc.TLS, cd ClientData, interp uintptr, o
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -77983,11 +78774,11 @@ func load_testfixture_extensions(tls *libc.TLS, cd ClientData, interp uintptr, o
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -78002,7 +78793,7 @@ func load_testfixture_extensions(tls *libc.TLS, cd ClientData, interp uintptr, o
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -78020,7 +78811,7 @@ type tclvar_vtab1 = struct {
 // c-basic-offset: 4
 // fill-column: 78
 // End:
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -78035,11 +78826,11 @@ type tclvar_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.20 General utilities	<stdlib.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -78054,7 +78845,7 @@ type tclvar_vtab1 = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.21 String handling	<string.h>
 
@@ -78116,7 +78907,7 @@ func tclvarClose(tls *libc.TLS, cur uintptr) int32 { /* test_tclvar.c:124:12: */
 	if (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList1 != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList1
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -78124,7 +78915,7 @@ func tclvarClose(tls *libc.TLS, cur uintptr) int32 { /* test_tclvar.c:124:12: */
 	if (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList2 != 0 {
 		for ok1 := true; ok1; ok1 = 0 != 0 {
 			var _objPtr uintptr = (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList2
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -78148,7 +78939,7 @@ func next2(tls *libc.TLS, interp uintptr, pCur uintptr, pObj uintptr) int32 { /*
 			tcl.XTcl_EvalObjEx(tls, interp, p, TCL_EVAL_GLOBAL)
 			for ok := true; ok; ok = 0 != 0 {
 				var _objPtr uintptr = p
-				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+				if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 					tcl.XTclFreeObj(tls, _objPtr)
 				}
 			}
@@ -78162,7 +78953,7 @@ func next2(tls *libc.TLS, interp uintptr, pCur uintptr, pObj uintptr) int32 { /*
 			if (*tclvar_cursor)(unsafe.Pointer(pCur)).Fi2 >= *(*int32)(unsafe.Pointer(bp /* n */)) {
 				for ok1 := true; ok1; ok1 = 0 != 0 {
 					var _objPtr uintptr = (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList2
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -78245,7 +79036,7 @@ func tclvarFilter(tls *libc.TLS, pVtabCursor uintptr, idxNum int32, idxStr uintp
 	if (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList1 != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList1
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -78253,7 +79044,7 @@ func tclvarFilter(tls *libc.TLS, pVtabCursor uintptr, idxNum int32, idxStr uintp
 	if (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList2 != 0 {
 		for ok1 := true; ok1; ok1 = 0 != 0 {
 			var _objPtr uintptr = (*tclvar_cursor)(unsafe.Pointer(pCur)).FpList2
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -78266,7 +79057,7 @@ func tclvarFilter(tls *libc.TLS, pVtabCursor uintptr, idxNum int32, idxStr uintp
 
 	for ok2 := true; ok2; ok2 = 0 != 0 {
 		var _objPtr uintptr = p
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -78565,8 +79356,6 @@ var aObjCmd13 = [1]struct {
 	{FzName: ts + 38368 /* "register_tclvar_..." */, FxProc: 0},
 } /* test_tclvar.c:552:5 */
 
-// Define some macros helping to catch buffer overflows.
-
 // One of these is allocated for each thread created by [sqlthread spawn].
 type SqlThread1 = struct {
 	Fparent   Tcl_ThreadId
@@ -78574,8 +79363,6 @@ type SqlThread1 = struct {
 	FzScript  uintptr
 	FzVarname uintptr
 } /* test_thread.c:36:9 */
-
-// Define some macros helping to catch buffer overflows.
 
 // One of these is allocated for each thread created by [sqlthread spawn].
 type SqlThread = SqlThread1 /* test_thread.c:36:26 */
@@ -78676,7 +79463,7 @@ func tclScriptThread(tls *libc.TLS, pSqlThread ClientData) { /* test_thread.c:11
 		postToParent(tls, p, pList)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pList
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -78691,13 +79478,13 @@ func tclScriptThread(tls *libc.TLS, pSqlThread ClientData) { /* test_thread.c:11
 	tcl.XTcl_Free(tls, p)
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = pList
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
 	for ok2 := true; ok2; ok2 = 0 != 0 {
 		var _objPtr uintptr = pRes
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -78857,17 +79644,17 @@ func sqlthread_proc(tls *libc.TLS, clientData ClientData, interp uintptr, objc i
 	defer tls.Free(164)
 
 	*(*[5]struct {
-		FzName  uintptr
-		FxProc  uintptr
-		FnArg   int32
-		_       [4]byte
-		FzUsage uintptr
+		FzName       uintptr
+		FxProc       uintptr
+		FnArg        int32
+		F__ccgo_pad1 [4]byte
+		FzUsage      uintptr
 	})(unsafe.Pointer(bp /* aSub */)) = [5]struct {
-		FzName  uintptr
-		FxProc  uintptr
-		FnArg   int32
-		_       [4]byte
-		FzUsage uintptr
+		FzName       uintptr
+		FxProc       uintptr
+		FnArg        int32
+		F__ccgo_pad1 [4]byte
+		FzUsage      uintptr
 	}{
 		{FzName: ts + 38545 /* "parent" */, FxProc: *(*uintptr)(unsafe.Pointer(&struct {
 			f func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32
@@ -78894,11 +79681,11 @@ func sqlthread_proc(tls *libc.TLS, clientData ClientData, interp uintptr, objc i
 
 	rc = tcl.XTcl_GetIndexFromObjStruct(tls,
 		interp, *(*uintptr)(unsafe.Pointer(objv + 1*8)), bp /* &aSub[0] */, int32(unsafe.Sizeof(struct {
-			FzName  uintptr
-			FxProc  uintptr
-			FnArg   int32
-			_       [4]byte
-			FzUsage uintptr
+			FzName       uintptr
+			FxProc       uintptr
+			FnArg        int32
+			F__ccgo_pad1 [4]byte
+			FzUsage      uintptr
 		}{})), ts+1875 /* "sub-command" */, 0, bp+160 /* &iIndex */)
 	if rc != TCL_OK {
 		return rc
@@ -78906,23 +79693,31 @@ func sqlthread_proc(tls *libc.TLS, clientData ClientData, interp uintptr, objc i
 	pSub = (bp /* &aSub */ + uintptr(*(*int32)(unsafe.Pointer(bp + 160 /* iIndex */)))*32)
 
 	if objc < ((*struct {
-		FzName  uintptr
-		FxProc  uintptr
-		FnArg   int32
-		_       [4]byte
-		FzUsage uintptr
+		FzName       uintptr
+		FxProc       uintptr
+		FnArg        int32
+		F__ccgo_pad1 [4]byte
+		FzUsage      uintptr
 	})(unsafe.Pointer(pSub)).FnArg + 2) {
 		tcl.XTcl_WrongNumArgs(tls, interp, 2, objv, (*struct {
-			FzName  uintptr
-			FxProc  uintptr
-			FnArg   int32
-			_       [4]byte
-			FzUsage uintptr
+			FzName       uintptr
+			FxProc       uintptr
+			FnArg        int32
+			F__ccgo_pad1 [4]byte
+			FzUsage      uintptr
 		})(unsafe.Pointer(pSub)).FzUsage)
 		return TCL_ERROR
 	}
 
-	return (*(*func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32)(unsafe.Pointer((pSub + 8 /* &.xProc */))))(tls, clientData, interp, objc, objv)
+	return (*struct {
+		f func(*libc.TLS, ClientData, uintptr, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*struct {
+		FzName       uintptr
+		FxProc       uintptr
+		FnArg        int32
+		F__ccgo_pad1 [4]byte
+		FzUsage      uintptr
+	})(unsafe.Pointer(pSub)).FxProc})).f(tls, clientData, interp, objc, objv)
 }
 
 /*
@@ -78949,10 +79744,10 @@ func clock_seconds_proc(tls *libc.TLS, clientData ClientData, interp uintptr, ob
 // A pointer to an instance of this structure is passed as the user-context
 // pointer when registering for an unlock-notify callback.
 type UnlockNotification1 = struct {
-	Ffired int32
-	_      [4]byte
-	Fcond  pthread_cond_t
-	Fmutex pthread_mutex_t
+	Ffired       int32
+	F__ccgo_pad1 [4]byte
+	Fcond        pthread_cond_t
+	Fmutex       pthread_mutex_t
 } /* test_thread.c:410:9 */
 
 // A pointer to an instance of this structure is passed as the user-context
@@ -79216,12 +80011,12 @@ type Testvfs1 = struct {
 
 type Testvfs = Testvfs1 /* test_vfs.c:37:24 */
 type TestvfsBuffer1 = struct {
-	FzFile uintptr
-	Fpgsz  int32
-	_      [4]byte
-	FaPage [1024]uintptr
-	FpFile uintptr
-	FpNext uintptr
+	FzFile       uintptr
+	Fpgsz        int32
+	F__ccgo_pad1 [4]byte
+	FaPage       [1024]uintptr
+	FpFile       uintptr
+	FpNext       uintptr
 } /* test_vfs.c:37:9 */
 
 type TestvfsBuffer = TestvfsBuffer1 /* test_vfs.c:39:30 */
@@ -79304,9 +80099,9 @@ func tvfsResultCode(tls *libc.TLS, p uintptr, pRc uintptr) int32 { /* test_vfs.c
 }
 
 type errcode = struct {
-	FeCode int32
-	_      [4]byte
-	FzCode uintptr
+	FeCode       int32
+	F__ccgo_pad1 [4]byte
+	FzCode       uintptr
 } /* test_vfs.c:227:3 */
 
 func tvfsInjectFault(tls *libc.TLS, p uintptr) int32 { /* test_vfs.c:256:12: */
@@ -79374,7 +80169,7 @@ func tvfsClose(tls *libc.TLS, pFile uintptr) int32 { /* test_vfs.c:317:12: */
 	if (*TestvfsFd)(unsafe.Pointer(pFd)).FpShmId != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*TestvfsFd)(unsafe.Pointer(pFd)).FpShmId
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -79635,9 +80430,9 @@ func tvfsFileControl(tls *libc.TLS, pFile uintptr, op int32, pArg uintptr) int32
 }
 
 type Fcntl = struct {
-	FiFnctl int32
-	_       [4]byte
-	FzFnctl uintptr
+	FiFnctl      int32
+	F__ccgo_pad1 [4]byte
+	FzFnctl      uintptr
 } /* test_vfs.c:550:5 */
 
 // Return the sector-size in bytes for an tvfs-file.
@@ -79706,7 +80501,7 @@ func tvfsOpen(tls *libc.TLS, pVfs uintptr, zName uintptr, pFile uintptr, flags i
 		tvfsExecTcl(tls, p, ts+27701 /* "xOpen" */, tcl.XTcl_NewStringObj(tls, (*TestvfsFd)(unsafe.Pointer(pFd)).FzFilename, -1), pArg, uintptr(0), uintptr(0))
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pArg
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -79857,7 +80652,9 @@ func tvfsSleep(tls *libc.TLS, pVfs uintptr, nMicro int32) int32 { /* test_vfs.c:
 
 // Return the current time as a Julian Day number in *pTimeOut.
 func tvfsCurrentTime(tls *libc.TLS, pVfs uintptr, pTimeOut uintptr) int32 { /* test_vfs.c:823:12: */
-	return (*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer(((*Testvfs)(unsafe.Pointer((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData)).FpParent + 120 /* &.xCurrentTime */))))(tls, (*Testvfs)(unsafe.Pointer((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData)).FpParent, pTimeOut)
+	return (*struct {
+		f func(*libc.TLS, uintptr, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(((*Testvfs)(unsafe.Pointer((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData)).FpParent))).FxCurrentTime})).f(tls, (*Testvfs)(unsafe.Pointer((*sqlite3_vfs)(unsafe.Pointer(pVfs)).FpAppData)).FpParent, pTimeOut)
 }
 
 func tvfsShmOpen(tls *libc.TLS, pFile uintptr) int32 { /* test_vfs.c:827:12: */
@@ -79932,7 +80729,9 @@ func tvfsShmMap(tls *libc.TLS, pFile uintptr, iPage int32, pgsz int32, isWrite i
 
 	if (*Testvfs)(unsafe.Pointer(p)).FisFullshm != 0 {
 		var pReal uintptr = (*TestvfsFd)(unsafe.Pointer(pFd)).FpReal
-		return (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 104 /* &.xShmMap */))))(tls, pReal, iPage, pgsz, isWrite, libc.AtomicLoadUintptr(&pp))
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmMap})).f(tls, pReal, iPage, pgsz, isWrite, pp)
 	}
 
 	if uintptr(0) == (*TestvfsFd)(unsafe.Pointer(pFd)).FpShm {
@@ -79953,7 +80752,7 @@ func tvfsShmMap(tls *libc.TLS, pFile uintptr, iPage int32, pgsz int32, isWrite i
 		tvfsResultCode(tls, p, bp /* &rc */)
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = pArg
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -79966,7 +80765,7 @@ func tvfsShmMap(tls *libc.TLS, pFile uintptr, iPage int32, pgsz int32, isWrite i
 		tvfsAllocPage(tls, (*TestvfsFd)(unsafe.Pointer(pFd)).FpShm, iPage, pgsz)
 	}
 	if (*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_OK) || (*(*int32)(unsafe.Pointer(bp /* rc */)) == SQLITE_READONLY) {
-		*(*uintptr)(unsafe.Pointer(libc.AtomicLoadUintptr(&pp))) = *(*uintptr)(unsafe.Pointer(((*TestvfsFd)(unsafe.Pointer(pFd)).FpShm + 16 /* &.aPage */) + uintptr(iPage)*8))
+		*(*uintptr)(unsafe.Pointer(pp)) = *(*uintptr)(unsafe.Pointer(((*TestvfsFd)(unsafe.Pointer(pFd)).FpShm + 16 /* &.aPage */) + uintptr(iPage)*8))
 	}
 
 	return *(*int32)(unsafe.Pointer(bp /* rc */))
@@ -79984,7 +80783,9 @@ func tvfsShmLock(tls *libc.TLS, pFile uintptr, ofst int32, n int32, flags int32)
 
 	if (*Testvfs)(unsafe.Pointer(p)).FisFullshm != 0 {
 		var pReal uintptr = (*TestvfsFd)(unsafe.Pointer(pFd)).FpReal
-		return (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 112 /* &.xShmLock */))))(tls, pReal, ofst, n, flags)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32, int32, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmLock})).f(tls, pReal, ofst, n, flags)
 	}
 
 	if ((*Testvfs)(unsafe.Pointer(p)).FpScript != 0) && (((*Testvfs)(unsafe.Pointer(p)).Fmask & TESTVFS_SHMLOCK_MASK) != 0) {
@@ -80063,7 +80864,7 @@ func tvfsShmBarrier(tls *libc.TLS, pFile uintptr) { /* test_vfs.c:1004:13: */
 
 	if (*Testvfs)(unsafe.Pointer(p)).FisFullshm != 0 {
 		var pReal uintptr = (*TestvfsFd)(unsafe.Pointer(pFd)).FpReal
-		(*(*func(*libc.TLS, uintptr))(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 120 /* &.xShmBarrier */))))(tls, pReal)
+		(*struct{ f func(*libc.TLS, uintptr) })(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmBarrier})).f(tls, pReal)
 		return
 	}
 }
@@ -80080,7 +80881,9 @@ func tvfsShmUnmap(tls *libc.TLS, pFile uintptr, deleteFlag int32) int32 { /* tes
 
 	if (*Testvfs)(unsafe.Pointer(p)).FisFullshm != 0 {
 		var pReal uintptr = (*TestvfsFd)(unsafe.Pointer(pFd)).FpReal
-		return (*(*func(*libc.TLS, uintptr, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods + 128 /* &.xShmUnmap */))))(tls, pReal, deleteFlag)
+		return (*struct {
+			f func(*libc.TLS, uintptr, int32) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(pReal)).FpMethods)).FxShmUnmap})).f(tls, pReal, deleteFlag)
 	}
 
 	if !(pBuffer != 0) {
@@ -80166,7 +80969,9 @@ func testvfs_obj_cmd(tls *libc.TLS, cd ClientData, interp uintptr, objc int32, o
 				return TCL_ERROR
 			}
 			zName = tcl.XTcl_Alloc(tls, uint32((*sqlite3_vfs)(unsafe.Pointer((*Testvfs)(unsafe.Pointer(p)).FpParent)).FmxPathname))
-			rc = (*(*func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32)(unsafe.Pointer(((*Testvfs)(unsafe.Pointer(p)).FpParent + 64 /* &.xFullPathname */))))(tls,
+			rc = (*struct {
+				f func(*libc.TLS, uintptr, uintptr, int32, uintptr) int32
+			})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer((*Testvfs)(unsafe.Pointer(p)).FpParent)).FxFullPathname})).f(tls,
 				(*Testvfs)(unsafe.Pointer(p)).FpParent, tcl.XTcl_GetString(tls, *(*uintptr)(unsafe.Pointer(objv + 2*8))),
 				(*sqlite3_vfs)(unsafe.Pointer((*Testvfs)(unsafe.Pointer(p)).FpParent)).FmxPathname, zName)
 			if rc != SQLITE_OK {
@@ -80263,7 +81068,7 @@ func testvfs_obj_cmd(tls *libc.TLS, cd ClientData, interp uintptr, objc int32, o
 				if (*Testvfs)(unsafe.Pointer(p)).FpScript != 0 {
 					for ok := true; ok; ok = 0 != 0 {
 						var _objPtr uintptr = (*Testvfs)(unsafe.Pointer(p)).FpScript
-						if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+						if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 							tcl.XTclFreeObj(tls, _objPtr)
 						}
 					}
@@ -80438,15 +81243,15 @@ func testvfs_obj_cmd(tls *libc.TLS, cd ClientData, interp uintptr, objc int32, o
 }
 
 type TestvfsSubcmd = struct {
-	FzName uintptr
-	FeCmd  uint32
-	_      [4]byte
+	FzName       uintptr
+	FeCmd        uint32
+	F__ccgo_pad1 [4]byte
 } /* test_vfs.c:1092:3 */
 
 type VfsMethod = struct {
-	FzName uintptr
-	Fmask  int32
-	_      [4]byte
+	FzName       uintptr
+	Fmask        int32
+	F__ccgo_pad1 [4]byte
 } /* test_vfs.c:1179:14 */
 
 var vfsmethod = [18]VfsMethod{
@@ -80475,7 +81280,7 @@ func testvfs_obj_del(tls *libc.TLS, cd ClientData) { /* test_vfs.c:1393:27: */
 	if (*Testvfs)(unsafe.Pointer(p)).FpScript != 0 {
 		for ok := true; ok; ok = 0 != 0 {
 			var _objPtr uintptr = (*Testvfs)(unsafe.Pointer(p)).FpScript
-			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+			if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 				tcl.XTclFreeObj(tls, _objPtr)
 			}
 		}
@@ -80765,7 +81570,9 @@ func test_vfs_shmlock(tls *libc.TLS, clientData uintptr, interp uintptr, objc in
 	if *(*uintptr)(unsafe.Pointer(bp + 80 /* pFd */)) == uintptr(0) {
 		return TCL_ERROR
 	}
-	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 80 /* pFd */)))).FpMethods + 112 /* &.xShmLock */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 80 /* pFd */)), *(*int32)(unsafe.Pointer(bp + 68 /* iOffset */)), *(*int32)(unsafe.Pointer(bp + 72 /* n */)),
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 80 /* pFd */)))).FpMethods)).FxShmLock})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 80 /* pFd */)), *(*int32)(unsafe.Pointer(bp + 68 /* iOffset */)), *(*int32)(unsafe.Pointer(bp + 72 /* n */)),
 		((func() int32 {
 			if *(*int32)(unsafe.Pointer(bp + 32 /* iArg1 */)) == 0 {
 				return SQLITE_SHM_SHARED
@@ -80813,16 +81620,18 @@ func test_vfs_set_readmark(tls *libc.TLS, clientData uintptr, interp uintptr, ob
 	if *(*uintptr)(unsafe.Pointer(bp + 32 /* pFd */)) == uintptr(0) {
 		return TCL_ERROR
 	}
-	rc = (*(*func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32)(unsafe.Pointer(((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 32 /* pFd */)))).FpMethods + 104 /* &.xShmMap */))))(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pFd */)), 0, (32 * 1024), 0, bp+40 /* &pShm */)
+	rc = (*struct {
+		f func(*libc.TLS, uintptr, int32, int32, int32, uintptr) int32
+	})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_io_methods1)(unsafe.Pointer((*sqlite3_file)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(bp + 32 /* pFd */)))).FpMethods)).FxShmMap})).f(tls, *(*uintptr)(unsafe.Pointer(bp + 32 /* pFd */)), 0, (32 * 1024), 0, bp+40 /* &pShm */)
 	if rc != SQLITE_OK {
 		tcl.XTcl_SetObjResult(tls, interp, tcl.XTcl_NewStringObj(tls, sqlite3.Xsqlite3ErrName(tls, rc), -1))
 		return TCL_ERROR
 	}
-	if libc.AtomicLoadPUintptr(bp+40 /* pShm */) == uintptr(0) {
+	if *(*uintptr)(unsafe.Pointer(bp + 40 /* pShm */)) == uintptr(0) {
 		tcl.XTcl_AppendResult(tls, interp, libc.VaList(bp, ts+39382 /* "*-shm is not yet..." */, 0))
 		return TCL_ERROR
 	}
-	aShm = libc.AtomicLoadPUintptr(bp + 40 /* pShm */)
+	aShm = *(*uintptr)(unsafe.Pointer(bp + 40 /* pShm */))
 	iOff = (((12 * 2) + 1) + *(*int32)(unsafe.Pointer(bp + 24 /* iSlot */)))
 
 	if objc == 5 {
@@ -80906,7 +81715,7 @@ func doTestWindowStep(tls *libc.TLS, bInverse int32, ctx uintptr, nArg int32, ap
 			if (*TestWindowCtx)(unsafe.Pointer(pCtx)).FpVal != 0 {
 				for ok := true; ok; ok = 0 != 0 {
 					var _objPtr uintptr = (*TestWindowCtx)(unsafe.Pointer(pCtx)).FpVal
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -80917,7 +81726,7 @@ func doTestWindowStep(tls *libc.TLS, bInverse int32, ctx uintptr, nArg int32, ap
 	}
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -80955,7 +81764,7 @@ func doTestWindowFinalize(tls *libc.TLS, bValue int32, ctx uintptr) { /* test_wi
 			if (*TestWindowCtx)(unsafe.Pointer(pCtx)).FpVal != 0 {
 				for ok := true; ok; ok = 0 != 0 {
 					var _objPtr uintptr = (*TestWindowCtx)(unsafe.Pointer(pCtx)).FpVal
-					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+					if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 						tcl.XTclFreeObj(tls, _objPtr)
 					}
 				}
@@ -80965,7 +81774,7 @@ func doTestWindowFinalize(tls *libc.TLS, bValue int32, ctx uintptr) { /* test_wi
 	}
 	for ok1 := true; ok1; ok1 = 0 != 0 {
 		var _objPtr uintptr = pEval
-		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer((_objPtr))).FrefCount, 1) <= 1 {
+		if libc.PostDecInt32(&(*Tcl_Obj)(unsafe.Pointer(_objPtr)).FrefCount, 1) <= 1 {
 			tcl.XTclFreeObj(tls, _objPtr)
 		}
 	}
@@ -81222,10 +82031,10 @@ func test_override_sum(tls *libc.TLS, clientData uintptr, interp uintptr, objc i
 func Sqlitetest_window_Init(tls *libc.TLS, interp uintptr) int32 { /* test_window.c:331:5: */
 	var i int32
 	for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aObjCmd14)) / uint64(unsafe.Sizeof(struct {
-		FzName      uintptr
-		FxProc      uintptr
-		FclientData int32
-		_           [4]byte
+		FzName       uintptr
+		FxProc       uintptr
+		FclientData  int32
+		F__ccgo_pad1 [4]byte
 	}{}))); i++ {
 		var c ClientData = uintptr(intptr_t(aObjCmd14[i].FclientData))
 		tcl.XTcl_CreateObjCommand(tls, interp, aObjCmd14[i].FzName, aObjCmd14[i].FxProc, c, uintptr(0))
@@ -81234,10 +82043,10 @@ func Sqlitetest_window_Init(tls *libc.TLS, interp uintptr) int32 { /* test_windo
 }
 
 var aObjCmd14 = [4]struct {
-	FzName      uintptr
-	FxProc      uintptr
-	FclientData int32
-	_           [4]byte
+	FzName       uintptr
+	FxProc       uintptr
+	FclientData  int32
+	F__ccgo_pad1 [4]byte
 }{
 	{FzName: ts + 39530 /* "sqlite3_create_w..." */, FxProc: 0},
 	{FzName: ts + 39561 /* "test_create_wind..." */, FxProc: 0},
