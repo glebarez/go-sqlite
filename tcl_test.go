@@ -9,13 +9,14 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"modernc.org/tcl"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"testing"
+
+	"modernc.org/tcl"
 )
 
 var (
@@ -26,6 +27,10 @@ var (
 )
 
 func TestTclTest(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+
 	blacklist := map[string]struct{}{}
 	switch runtime.GOARCH {
 	case "386", "arm":

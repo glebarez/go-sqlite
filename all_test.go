@@ -556,6 +556,10 @@ func TestConcurrentGoroutines(t *testing.T) {
 }
 
 func TestConcurrentProcesses(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+
 	dir, err := ioutil.TempDir("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
@@ -1166,6 +1170,7 @@ func TestTimeScan(t *testing.T) {
 		{s: "2021-01-02 16:39:17+00:00", w: ref.Truncate(time.Second)},
 		{s: "2021-01-02T16:39:17.123456+00:00", w: ref.Truncate(time.Microsecond)},
 		{s: "2021-01-02 16:39:17.123456+00:00", w: ref.Truncate(time.Microsecond)},
+		{s: "2021-01-02 16:39:17.123456Z", w: ref.Truncate(time.Microsecond)},
 		{s: "2021-01-02 12:39:17-04:00", w: ref.Truncate(time.Second)},
 		{s: "2021-01-02 16:39:17", w: ref.Truncate(time.Second)},
 		{s: "2021-01-02T16:39:17", w: ref.Truncate(time.Second)},
@@ -1190,7 +1195,6 @@ func TestTimeScan(t *testing.T) {
 			}
 
 			var got time.Time
-
 			if err := db.QueryRow("select y from x").Scan(&got); err != nil {
 				t.Fatal(err)
 			}
@@ -1211,6 +1215,69 @@ func TestTimeLocaltime(t *testing.T) {
 
 	if _, err := db.Exec("select datetime('now', 'localtime')"); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestTimeFormat(t *testing.T) {
+	ref := time.Date(2021, 1, 2, 16, 39, 17, 123456789, time.UTC)
+
+	cases := []struct {
+		f string
+		w string
+	}{
+		{f: "", w: "2021-01-02 16:39:17.123456789 +0000 UTC"},
+		{f: "sqlite", w: "2021-01-02 16:39:17.123456789+00:00"},
+	}
+	for _, c := range cases {
+		t.Run("", func(t *testing.T) {
+			dsn := "file::memory:"
+			if c.f != "" {
+				q := make(url.Values)
+				q.Set("_time_format", c.f)
+				dsn += "?" + q.Encode()
+			}
+			db, err := sql.Open(driverName, dsn)
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer db.Close()
+
+			if _, err := db.Exec("drop table if exists x; create table x (y text)"); err != nil {
+				t.Fatal(err)
+			}
+
+			if _, err := db.Exec(`insert into x values (?)`, ref); err != nil {
+				t.Fatal(err)
+			}
+
+			var got string
+			if err := db.QueryRow(`select y from x`).Scan(&got); err != nil {
+				t.Fatal(err)
+			}
+
+			if got != c.w {
+				t.Fatal(got, c.w)
+			}
+		})
+	}
+}
+
+func TestTimeFormatBad(t *testing.T) {
+	db, err := sql.Open(driverName, "file::memory:?_time_format=bogus")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	// Error doesn't appear until a connection is opened.
+	_, err = db.Exec("select 1")
+	if err == nil {
+		t.Fatal("wanted error")
+	}
+
+	want := `unknown _time_format "bogus"`
+	if got := err.Error(); got != want {
+		t.Fatalf("got error %q, want %q", got, want)
 	}
 }
 
@@ -1402,6 +1469,10 @@ func testBindingError(t *testing.T, query func(db *sql.DB, query string, args ..
 
 // https://gitlab.com/cznic/sqlite/-/issues/51
 func TestIssue51(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping test in short mode")
+	}
+
 	tempDir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Fatal(err)
