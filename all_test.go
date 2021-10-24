@@ -630,7 +630,7 @@ outer:
 		}
 
 		fmt.Printf("exec: %s db %s\n", filepath.FromSlash(bin), script)
-		out, err := exec.Command(filepath.FromSlash(bin), "db", script).CombinedOutput()
+		out, err := exec.Command(filepath.FromSlash(bin), "db", "--timeout", "20000", script).CombinedOutput()
 		if err != nil {
 			t.Fatalf("%s\n%v", out, err)
 		}
