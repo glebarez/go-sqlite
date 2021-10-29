@@ -8,6 +8,6 @@ require (
 	modernc.org/ccgo/v3 v3.12.49
 	modernc.org/libc v1.11.47
 	modernc.org/mathutil v1.4.1
-	modernc.org/tcl v1.8.2
-	modernc.org/z v1.2.9
+	modernc.org/tcl v1.8.4
+	modernc.org/z v1.2.10
 )

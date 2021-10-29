@@ -607,10 +607,6 @@ func makeTestfixture(goos, goarch string, more []string) {
 		more,
 		configTest,
 	)
-	// experimental pthreads support currently only on linux/amd64
-	if goos != "linux" || goarch != "amd64" {
-		args = append(args, "-lmodernc.org/sqlite/internal/libc2")
-	}
 	task := ccgo.NewTask(args, nil, nil)
 	if err := task.Main(); err != nil {
 		fail("%s\n", err)
