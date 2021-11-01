@@ -84,12 +84,16 @@ linux_386:
 	CCGO_CPP=i686-linux-gnu-cpp TARGET_GOARCH=386 TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-386
 	GOOS=linux GOARCH=386 go build -v ./...
 
+linux_arm_on_linux_amd64:
+	CCGO_CPP=arm-linux-gnueabi-cpp TARGET_GOARCH=arm TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
+	GOOS=linux GOARCH=arm go build -v ./...
+
 linux_arm:
-	CCGO_CPP=arm-linux-gnueabi-cpp-8 TARGET_GOARCH=arm TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
+	go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
 	GOOS=linux GOARCH=arm go build -v ./...
 
 linux_arm64:
-	CCGO_CPP=aarch64-linux-gnu-cpp-8 TARGET_GOARCH=arm64 TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm64
+	CCGO_CPP=aarch64-linux-gnu-cpp TARGET_GOARCH=arm64 TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm64
 	GOOS=linux GOARCH=arm64 go build -v ./...
 
 linux_s390x:
