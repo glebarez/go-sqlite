@@ -562,6 +562,8 @@ const (
 	X_ASSERT_H                            = 1
 	X_ATFILE_SOURCE                       = 1
 	X_BITS_BYTESWAP_H                     = 1
+	X_BITS_ENDIANNESS_H                   = 1
+	X_BITS_ENDIAN_H                       = 1
 	X_BITS_FLOATN_COMMON_H                = 0
 	X_BITS_FLOATN_H                       = 0
 	X_BITS_POSIX_OPT_H                    = 1
@@ -569,6 +571,7 @@ const (
 	X_BITS_PTHREADTYPES_COMMON_H          = 1
 	X_BITS_STDINT_INTN_H                  = 1
 	X_BITS_STDIO_LIM_H                    = 1
+	X_BITS_TIME64_H                       = 1
 	X_BITS_TYPESIZES_H                    = 1
 	X_BITS_TYPES_H                        = 1
 	X_BITS_TYPES_LOCALE_T_H               = 1
@@ -668,6 +671,7 @@ const (
 	X_POSIX_V7_LPBIG_OFFBIG               = -1
 	X_POSIX_VDISABLE                      = 0
 	X_POSIX_VERSION                       = 200809
+	X_RWLOCK_INTERNAL_H                   = 0
 	X_SIZET_                              = 0
 	X_SIZE_T                              = 0
 	X_SIZE_T_                             = 0
@@ -686,6 +690,7 @@ const (
 	X_SYS_SELECT_H                        = 1
 	X_SYS_SIZE_T_H                        = 0
 	X_SYS_TYPES_H                         = 1
+	X_THREAD_MUTEX_INTERNAL_H             = 1
 	X_THREAD_SHARED_TYPES_H               = 1
 	X_T_SIZE                              = 0
 	X_T_SIZE_                             = 0
@@ -725,7 +730,7 @@ const (
 //    the `_SC_*' symbols for the NAME argument to `sysconf';
 //    and the `_CS_*' symbols for the NAME argument to `confstr'.
 // `sysconf', `pathconf', and `confstr' NAME values.  Generic version.
-//    Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1993-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -740,7 +745,7 @@ const (
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Values for the NAME argument to `pathconf' and `fpathconf'.
 const ( /* confname.h:24:1: */
@@ -1089,16 +1094,11 @@ const ( /* confname.h:71:1: */
 	_SC_THREAD_ROBUST_PRIO_PROTECT = 248
 )
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // XPG requires a few symbols from <sys/wait.h> being defined.
 // Definitions of flag bits for `waitpid' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1113,7 +1113,7 @@ const ( /* confname.h:71:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Bits in the third argument to `waitpid'.
 
@@ -1130,7 +1130,7 @@ const ( /* waitflags.h:52:1: */
 	P_PGID = 2
 )
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1145,11 +1145,11 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard 7.4: Character handling	<ctype.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1164,10 +1164,10 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1182,7 +1182,7 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -1194,7 +1194,8 @@ const ( /* waitflags.h:52:1: */
 //    endian).  We define the bit value interpretations here dependent on the
 //    machine's byte order.
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1235,7 +1236,7 @@ type wchar_t = uint32 /* <builtin>:15:24 */
 // A program for performance testing.
 //
 // The available command-line options are described below:
-var zHelp = *(*[2206]int8)(unsafe.Pointer(ts /* "Usage: %s [--opt..." */)) /* speedtest1.c:6:19 */
+var zHelp = *(*[2206]uint8)(unsafe.Pointer(ts /* "Usage: %s [--opt..." */)) /* speedtest1.c:6:19 */
 
 // Define the standard macros for the user,
 //    if this invocation was from the user program.
@@ -3341,7 +3342,7 @@ type _G_fpos_t = struct {
 } /* __fpos_t.h:10:9 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3356,7 +3357,7 @@ type _G_fpos_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3392,7 +3393,7 @@ type _IO_FILE = struct {
 	_old_offset     int64
 	_cur_column     uint16
 	_vtable_offset  int8
-	_shortbuf       [1]int8
+	_shortbuf       [1]uint8
 	_               [4]byte
 	_lock           uintptr
 	_offset         int64
@@ -3402,7 +3403,7 @@ type _IO_FILE = struct {
 	_freeres_buf    uintptr
 	__pad5          size_t
 	_mode           int32
-	_unused2        [20]int8
+	_unused2        [20]uint8
 } /* __FILE.h:4:1 */
 
 // The opaque type of streams.  This is the definition used elsewhere.
@@ -3419,16 +3420,11 @@ type ssize_t = int64 /* stdio.h:77:19 */
 // The type of the second argument to `fgetpos' and `fsetpos'.
 type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // XPG requires a few symbols from <sys/wait.h> being defined.
 // Definitions of flag bits for `waitpid' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3443,7 +3439,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Bits in the third argument to `waitpid'.
 
@@ -3456,7 +3452,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 
 type idtype_t = uint32 /* waitflags.h:57:3 */
 // Definitions of status bits for `wait' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3471,7 +3467,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Everything extant so far uses these same bits.
 
@@ -3498,7 +3494,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 
 // _FloatN API tests for enablement.
 // Macros to control TS 18661-3 glibc features on ldbl-128 platforms.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3513,175 +3509,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Properties of long double type.  ldbl-128 version.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License  published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// long double is distinct from double, so there is nothing to
-//    define here.
-
-// Defined to 1 if the current compiler invocation provides a
-//    floating-point type with the IEEE 754 binary128 format, and this
-//    glibc includes corresponding *f128 interfaces for it.
-
-// Defined to 1 if __HAVE_FLOAT128 is 1 and the type is ABI-distinct
-//    from the default float, double and long double types in this glibc.
-
-// Defined to 1 if the current compiler invocation provides a
-//    floating-point type with the right format for _Float64x, and this
-//    glibc includes corresponding *f64x interfaces for it.
-
-// Defined to 1 if __HAVE_FLOAT64X is 1 and _Float64x has the format
-//    of long double.  Otherwise, if __HAVE_FLOAT64X is 1, _Float64x has
-//    the format of _Float128, which must be different from that of long
-//    double.
-
-// Defined to concatenate the literal suffix to be used with _Float128
-//    types, if __HAVE_FLOAT128 is 1.
-
-// Defined to a complex binary128 type if __HAVE_FLOAT128 is 1.
-
-// The remaining of this file provides support for older compilers.
-
-// The type _Float128 exists only since GCC 7.0.
-
-// Various built-in functions do not exist before GCC 7.0.
-
-// Macros to control TS 18661-3 glibc features where the same
-//    definitions are appropriate for all platforms.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Properties of long double type.  ldbl-128 version.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License  published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// long double is distinct from double, so there is nothing to
-//    define here.
-
-// This header should be included at the bottom of each bits/floatn.h.
-//    It defines the following macros for each _FloatN and _FloatNx type,
-//    where the same definitions, or definitions based only on the macros
-//    in bits/floatn.h, are appropriate for all glibc configurations.
-
-// Defined to 1 if the current compiler invocation provides a
-//    floating-point type with the right format for this type, and this
-//    glibc includes corresponding *fN or *fNx interfaces for it.
-
-// Defined to 1 if the corresponding __HAVE_<type> macro is 1 and the
-//    type is the first with its format in the sequence of (the default
-//    choices for) float, double, long double, _Float16, _Float32,
-//    _Float64, _Float128, _Float32x, _Float64x, _Float128x for this
-//    glibc; that is, if functions present once per floating-point format
-//    rather than once per type are present for this type.
-//
-//    All configurations supported by glibc have _Float32 the same format
-//    as float, _Float64 and _Float32x the same format as double, the
-//    _Float64x the same format as either long double or _Float128.  No
-//    configurations support _Float128x or, as of GCC 7, have compiler
-//    support for a type meeting the requirements for _Float128x.
-
-// Defined to 1 if the corresponding _FloatN type is not binary compatible
-//    with the corresponding ISO C type in the current compilation unit as
-//    opposed to __HAVE_DISTINCT_FLOATN, which indicates the default types built
-//    in glibc.
-
-// Defined to 1 if any _FloatN or _FloatNx types that are not
-//    ABI-distinct are however distinct types at the C language level (so
-//    for the purposes of __builtin_types_compatible_p and _Generic).
-
-// Defined to concatenate the literal suffix to be used with _FloatN
-//    or _FloatNx types, if __HAVE_<type> is 1.  The corresponding
-//    literal suffixes exist since GCC 7, for C only.
-
-// Defined to a complex type if __HAVE_<type> is 1.
-
-// The remaining of this file provides support for older compilers.
-
-// If double, long double and _Float64 all have the same set of
-//    values, TS 18661-3 requires the usual arithmetic conversions on
-//    long double and _Float64 to produce _Float64.  For this to be the
-//    case when building with a compiler without a distinct _Float64
-//    type, _Float64 must be a typedef for long double, not for
-//    double.
+//    <https://www.gnu.org/licenses/>.
 
 // Returned by `div'.
 type div_t = struct {
@@ -3701,7 +3529,7 @@ type lldiv_t = struct {
 	rem  int64
 } /* stdlib.h:80:5 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3716,11 +3544,11 @@ type lldiv_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.6 Primitive System Data Types	<sys/types.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3735,10 +3563,10 @@ type lldiv_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3753,7 +3581,7 @@ type lldiv_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3788,7 +3616,7 @@ type caddr_t = uintptr /* types.h:115:19 */
 type key_t = int32 /* types.h:121:17 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3803,7 +3631,7 @@ type key_t = int32 /* types.h:121:17 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3811,7 +3639,7 @@ type key_t = int32 /* types.h:121:17 */
 type clock_t = int64 /* clock_t.h:7:19 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3826,7 +3654,7 @@ type clock_t = int64 /* clock_t.h:7:19 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3834,7 +3662,7 @@ type clock_t = int64 /* clock_t.h:7:19 */
 type clockid_t = int32 /* clockid_t.h:7:21 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3849,7 +3677,7 @@ type clockid_t = int32 /* clockid_t.h:7:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3857,7 +3685,7 @@ type clockid_t = int32 /* clockid_t.h:7:21 */
 type time_t = int64 /* time_t.h:7:18 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3872,14 +3700,14 @@ type time_t = int64 /* time_t.h:7:18 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Timer ID returned by `timer_create'.
 type timer_t = uintptr /* timer_t.h:7:19 */
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -3910,15 +3738,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -3954,11 +3773,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Old compatibility names for C types.
@@ -3969,7 +3783,7 @@ type uint = uint32   /* types.h:150:22 */
 // These size-specific names are used by some of the inet code.
 
 // Define intN_t types.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3984,10 +3798,10 @@ type uint = uint32   /* types.h:150:22 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4002,7 +3816,7 @@ type uint = uint32   /* types.h:150:22 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4011,14 +3825,13 @@ type int16_t = int16 /* stdint-intn.h:25:19 */
 type int32_t = int32 /* stdint-intn.h:26:19 */
 type int64_t = int64 /* stdint-intn.h:27:19 */
 
-// For GCC 2.7 and later, we can use specific type-size attributes.
+// These were defined by ISO C without the first `_'.
+type u_int8_t = uint8   /* types.h:158:19 */
+type u_int16_t = uint16 /* types.h:159:20 */
+type u_int32_t = uint32 /* types.h:160:20 */
+type u_int64_t = uint64 /* types.h:161:20 */
 
-type u_int8_t = uint32  /* types.h:177:1 */
-type u_int16_t = uint32 /* types.h:178:1 */
-type u_int32_t = uint32 /* types.h:179:1 */
-type u_int64_t = uint32 /* types.h:180:1 */
-
-type register_t = int32 /* types.h:182:13 */
+type register_t = int32 /* types.h:164:13 */
 
 // A set of signals to be blocked, unblocked, or waited for.
 type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
@@ -4026,7 +3839,7 @@ type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
 // Get definition of timer specification structures.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4041,7 +3854,7 @@ type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4055,7 +3868,27 @@ type timeval = struct {
 // NB: Include guard matches what <linux/time.h> uses.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4072,14 +3905,12 @@ type timeval = struct {
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Never include this file directly; use <sys/types.h> instead.
-
 // POSIX.1b structure for a time value.  This is like a `struct timeval' but
 //    has nanoseconds instead of microseconds.
 type timespec = struct {
 	tv_sec  int64
 	tv_nsec int64
-} /* struct_timespec.h:9:1 */
+} /* struct_timespec.h:10:1 */
 
 type suseconds_t = int64 /* select.h:43:23 */
 
@@ -4096,16 +3927,16 @@ type fd_mask = int64 /* select.h:77:19 */
 
 // Define some inlines helping to catch common problems.
 
-type blksize_t = int32 /* types.h:202:21 */
+type blksize_t = int32 /* types.h:185:21 */
 
 // Types from the Large File Support interface.
-type blkcnt_t = int64    /* types.h:222:22 */ // Type to count number of disk blocks.
-type fsblkcnt_t = uint64 /* types.h:226:24 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inodes.
+type blkcnt_t = int64    /* types.h:205:22 */ // Type to count number of disk blocks.
+type fsblkcnt_t = uint64 /* types.h:209:24 */ // Type to count file system blocks.
+type fsfilcnt_t = uint64 /* types.h:213:24 */ // Type to count file system inodes.
 
 // Now add the thread types.
 // Declaration of common pthread types for all architectures.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4120,11 +3951,11 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // For internal mutex and condition variable definitions.
 // Common threading primitives definitions for both POSIX and C11.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4139,7 +3970,7 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Arch-specific definitions.  Each architecture must define the following
 //    macros to define the expected sizes of pthread data types:
@@ -4154,36 +3985,6 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    __SIZEOF_PTHREAD_BARRIER_T     - size of pthread_barrier_t.
 //    __SIZEOF_PTHREAD_BARRIERATTR_T - size of pthread_barrierattr_t.
 //
-//    Also, the following macros must be define for internal pthread_mutex_t
-//    struct definitions (struct __pthread_mutex_s):
-//
-//    __PTHREAD_COMPAT_PADDING_MID   - any additional members after 'kind'
-// 				    and before '__spin' (for 64 bits) or
-// 				    '__nusers' (for 32 bits).
-//    __PTHREAD_COMPAT_PADDING_END   - any additional members at the end of
-// 				    the internal structure.
-//    __PTHREAD_MUTEX_LOCK_ELISION   - 1 if the architecture supports lock
-// 				    elision or 0 otherwise.
-//    __PTHREAD_MUTEX_NUSERS_AFTER_KIND - control where to put __nusers.  The
-// 				       preferred value for new architectures
-// 				       is 0.
-//    __PTHREAD_MUTEX_USE_UNION      - control whether internal __spins and
-// 				    __list will be place inside a union for
-// 				    linuxthreads compatibility.
-// 				    The preferred value for new architectures
-// 				    is 0.
-//
-//    For a new port the preferred values for the required defines are:
-//
-//    #define __PTHREAD_COMPAT_PADDING_MID
-//    #define __PTHREAD_COMPAT_PADDING_END
-//    #define __PTHREAD_MUTEX_LOCK_ELISION         0
-//    #define __PTHREAD_MUTEX_NUSERS_AFTER_KIND    0
-//    #define __PTHREAD_MUTEX_USE_UNION            0
-//
-//    __PTHREAD_MUTEX_LOCK_ELISION can be set to 1 if the hardware plans to
-//    eventually support lock elision using transactional memory.
-//
 //    The additional macro defines any constraint for the lock alignment
 //    inside the thread structures:
 //
@@ -4192,12 +3993,27 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    Same idea but for the once locking primitive:
 //
 //    __ONCE_ALIGNMENT - for pthread_once_t/once_flag definition.
+
+// Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //
-//    And finally the internal pthread_rwlock_t (struct __pthread_rwlock_arch_t)
-//    must be defined.
+//    This file is part of the GNU C Library.
 //
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
 //
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4214,7 +4030,31 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Common definition of pthread_mutex_t.
+
+type __pthread_internal_list = struct {
+	__prev uintptr
+	__next uintptr
+} /* thread-shared-types.h:49:9 */
+
+type __pthread_internal_slist = struct{ __next uintptr } /* thread-shared-types.h:55:9 */
+
+// Arch-specific mutex definitions.  A generic implementation is provided
+//    by sysdeps/nptl/bits/struct_mutex.h.  If required, an architecture
+//    can override it by defining:
+//
+//    1. struct __pthread_mutex_s (used on both pthread_mutex_t and mtx_t
+//       definition).  It should contains at least the internal members
+//       defined in the generic version.
+//
+//    2. __LOCK_ALIGNMENT for any extra attribute for internal lock used with
+//       atomic operations.
+//
+//    3. The macro __PTHREAD_MUTEX_INITIALIZER used for static initialization.
+//       It should initialize the mutex internal flag.
+
+// Default mutex implementation struct definitions.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4231,7 +4071,53 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Definitions for internal mutex struct.
+// Generic struct for both POSIX and C11 mutexes.  New ports are expected
+//    to use the default layout, however architecture can redefine it to
+//    add arch-specific extension (such as lock-elision).  The struct have
+//    a size of 32 bytes on LP32 and 40 bytes on LP64 architectures.
+
+type __pthread_mutex_s = struct {
+	__lock   int32
+	__count  uint32
+	__owner  int32
+	__nusers uint32
+	__kind   int32
+	__spins  int32
+	__list   struct {
+		__prev uintptr
+		__next uintptr
+	}
+} /* struct_mutex.h:27:1 */
+
+// Arch-sepecific read-write lock definitions.  A generic implementation is
+//    provided by struct_rwlock.h.  If required, an architecture can override it
+//    by defining:
+//
+//    1. struct __pthread_rwlock_arch_t (used on pthread_rwlock_t definition).
+//       It should contain at least the internal members defined in the
+//       generic version.
+//
+//    2. The macro __PTHREAD_RWLOCK_INITIALIZER used for static initialization.
+//       It should initialize the rwlock internal type.
+
+// AArch64 internal rwlock struct definitions.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
 
 type __pthread_rwlock_arch_t = struct {
 	__readers       uint32
@@ -4246,30 +4132,7 @@ type __pthread_rwlock_arch_t = struct {
 	__pad2          uint64
 	__flags         uint32
 	_               [4]byte
-} /* pthreadtypes-arch.h:54:1 */
-
-// Common definition of pthread_mutex_t.
-
-type __pthread_internal_list = struct {
-	__prev uintptr
-	__next uintptr
-} /* thread-shared-types.h:82:9 */
-
-// Lock elision support.
-// Mutex __spins initializer used by PTHREAD_MUTEX_INITIALIZER.
-
-type __pthread_mutex_s = struct {
-	__lock   int32
-	__count  uint32
-	__owner  int32
-	__nusers uint32
-	__kind   int32
-	__spins  int32
-	__list   struct {
-		__prev uintptr
-		__next uintptr
-	}
-} /* thread-shared-types.h:118:1 */
+} /* struct_rwlock.h:23:1 */
 
 // Common definition of pthread_cond_t.
 
@@ -4281,7 +4144,7 @@ type __pthread_cond_s = struct {
 	__g1_orig_size uint32
 	__wrefs        uint32
 	__g_signals    [2]uint32
-} /* thread-shared-types.h:171:1 */
+} /* thread-shared-types.h:92:1 */
 
 // Thread identifiers.  The structure of the attribute type is not
 //    exposed on purpose.
@@ -4291,14 +4154,14 @@ type pthread_t = uint64 /* pthreadtypes.h:27:27 */
 //    type is not exposed on purpose.
 type pthread_mutexattr_t = struct {
 	_      [0]uint32
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:36:3 */
 
 // Data structure for condition variable handling.  The structure of
 //    the attribute type is not exposed on purpose.
 type pthread_condattr_t = struct {
 	_      [0]uint32
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:45:3 */
 
 // Keys for thread-specific data
@@ -4309,7 +4172,7 @@ type pthread_once_t = int32 /* pthreadtypes.h:53:30 */
 
 type pthread_attr_t1 = struct {
 	_      [0]uint64
-	__size [64]int8
+	__size [64]uint8
 } /* pthreadtypes.h:56:1 */
 
 type pthread_attr_t = pthread_attr_t1 /* pthreadtypes.h:62:30 */
@@ -4327,7 +4190,7 @@ type pthread_rwlock_t = struct{ __data __pthread_rwlock_arch_t } /* pthreadtypes
 
 type pthread_rwlockattr_t = struct {
 	_      [0]uint64
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:97:3 */
 
 // POSIX spinlock data type.
@@ -4337,12 +4200,12 @@ type pthread_spinlock_t = int32 /* pthreadtypes.h:103:22 */
 //    deliberately not exposed.
 type pthread_barrier_t = struct {
 	_      [0]uint64
-	__size [32]int8
+	__size [32]uint8
 } /* pthreadtypes.h:112:3 */
 
 type pthread_barrierattr_t = struct {
 	_      [0]uint32
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:118:3 */
 
 // Reentrant versions of the `random' family of functions.
@@ -4373,7 +4236,7 @@ type drand48_data = struct {
 
 // POSIX.1-2008 extended locale interface (see locale.h).
 // Definition of locale_t.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4388,10 +4251,10 @@ type drand48_data = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Definition of struct __locale_struct and __locale_t.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //    Contributed by Ulrich Drepper <drepper@cygnus.com>, 1997.
 //
@@ -4407,7 +4270,7 @@ type drand48_data = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // POSIX.1-2008: the locale_t type, representing a locale context
 //    (implementation-namespace version).  This type should be treated
@@ -4424,7 +4287,7 @@ type __locale_struct = struct {
 
 type locale_t = uintptr /* locale_t.h:24:20 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4439,11 +4302,11 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.10 Symbolic Constants		<unistd.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4458,7 +4321,7 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // These may be used to determine what facilities are present at compile time.
 //    Their values can be obtained at run time from `sysconf'.
@@ -4584,7 +4447,7 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 
 // Define POSIX options for Linux.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4599,13 +4462,16 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; see the file COPYING.LIB.  If
-//    not, see <http://www.gnu.org/licenses/>.
+//    not, see <https://www.gnu.org/licenses/>.
 
 // Job control is supported.
 
 // Processes have a saved set-user-ID and a saved set-group-ID.
 
-// Priority scheduling is supported.
+// Priority scheduling is not supported with the correct semantics,
+//    but GNU/Linux applications expect that the corresponding interfaces
+//    are available, even though the semantics do not meet the POSIX
+//    requirements.  See glibc bug 14829.
 
 // Synchronizing file data is supported.
 
@@ -4708,7 +4574,7 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 // Typed memory objects are not available.
 
 // Get the environment definitions from Unix98.
-// Copyright (C) 1999-2018 Free Software Foundation, Inc.
+// Copyright (C) 1999-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4723,11 +4589,11 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Determine the wordsize from the preprocessor defines.
 //
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2016-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4742,7 +4608,7 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // This header should define the following symbols under the described
 //    situations.  A value `1' means that the model is always supported,
@@ -4772,7 +4638,7 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 // All functions that are not declared anywhere else.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4787,11 +4653,11 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -4822,15 +4688,6 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -4866,11 +4723,6 @@ type locale_t = uintptr /* locale_t.h:24:20 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // The Single Unix specification says that some more types are
@@ -4883,6 +4735,25 @@ type intptr_t = int64 /* unistd.h:267:20 */
 type socklen_t = uint32 /* unistd.h:274:21 */
 
 // Define some macros helping to catch buffer overflows.
+
+// System-specific extensions.
+// System-specific extensions of <unistd.h>, Linux version.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
 
 type u64 = sqlite3_uint64 /* speedtest1.c:67:24 */
 
@@ -4923,7 +4794,7 @@ type Global = struct {
 	y             uint32
 	nResByte      u64
 	nResult       int32
-	zResult       [3000]int8
+	zResult       [3000]uint8
 	_             [4]byte
 	hashFile      uintptr
 	hash          HashContext
@@ -5014,7 +4885,7 @@ func HashFinal(tls *libc.TLS) { /* speedtest1.c:172:13: */
 
 // Return the value of a hexadecimal digit.  Return -1 if the input
 // is not a hex digit.
-func hexDigitValue(tls *libc.TLS, c int8) int32 { /* speedtest1.c:196:12: */
+func hexDigitValue(tls *libc.TLS, c uint8) int32 { /* speedtest1.c:196:12: */
 	if (int32(c) >= '0') && (int32(c) <= '9') {
 		return (int32(c) - '0')
 	}
@@ -5035,22 +4906,22 @@ func integerValue(tls *libc.TLS, zArg uintptr) int32 { /* speedtest1.c:212:12: *
 	var v sqlite3_int64 = int64(0)
 	var i int32
 	var isNeg int32 = 0
-	if int32(*(*int8)(unsafe.Pointer(zArg))) == '-' {
+	if int32(*(*uint8)(unsafe.Pointer(zArg))) == '-' {
 		isNeg = 1
 		zArg++
-	} else if int32(*(*int8)(unsafe.Pointer(zArg))) == '+' {
+	} else if int32(*(*uint8)(unsafe.Pointer(zArg))) == '+' {
 		zArg++
 	}
-	if (int32(*(*int8)(unsafe.Pointer(zArg))) == '0') && (int32(*(*int8)(unsafe.Pointer(zArg + 1))) == 'x') {
+	if (int32(*(*uint8)(unsafe.Pointer(zArg))) == '0') && (int32(*(*uint8)(unsafe.Pointer(zArg + 1))) == 'x') {
 		var x int32
 		zArg += uintptr(2)
-		for (libc.AssignInt32(&x, hexDigitValue(tls, *(*int8)(unsafe.Pointer(zArg))))) >= 0 {
+		for (libc.AssignInt32(&x, hexDigitValue(tls, *(*uint8)(unsafe.Pointer(zArg))))) >= 0 {
 			v = ((v << 4) + sqlite3_int64(x))
 			zArg++
 		}
 	} else {
-		for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(*(*int8)(unsafe.Pointer(zArg))))*2))) & int32(_ISdigit)) != 0 {
-			v = (((v * int64(10)) + sqlite3_int64(*(*int8)(unsafe.Pointer(zArg)))) - int64('0'))
+		for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(*(*uint8)(unsafe.Pointer(zArg))))*2))) & int32(_ISdigit)) != 0 {
+			v = (((v * int64(10)) + sqlite3_int64(*(*uint8)(unsafe.Pointer(zArg)))) - int64('0'))
 			zArg++
 		}
 	}
@@ -5102,12 +4973,16 @@ func speedtest1_timestamp(tls *libc.TLS) sqlite3_int64 { /* speedtest1.c:257:15:
 		clockVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	}
 	if ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).iVersion >= 2) && ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64 != uintptr(0)) {
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, clockVfs, bp /* &t */)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64})).f(tls, clockVfs, bp /* &t */)
 	} else {
 		// var r float64 at bp+8, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 120 /* &.xCurrentTime */))))(tls, clockVfs, bp+8 /* &r */)
-		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (sqlite3_int64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTime})).f(tls, clockVfs, bp+8 /* &r */)
+		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (libc.Int64FromFloat64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
 	}
 	return *(*sqlite3_int64)(unsafe.Pointer(bp /* t */))
 }
@@ -5163,7 +5038,7 @@ func speedtest1_numbername(tls *libc.TLS, n uint32, zOut uintptr, nOut int32) in
 	}
 	if n >= uint32(1000000) {
 		if (i != 0) && (i < (nOut - 1)) {
-			*(*int8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = int8(' ')
+			*(*uint8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = uint8(' ')
 		}
 		i = i + (speedtest1_numbername(tls, (n / uint32(1000000)), (zOut + uintptr(i)), (nOut - i)))
 		sqlite3.Xsqlite3_snprintf(tls, (nOut - i), (zOut + uintptr(i)), ts+2286 /* " million" */, 0)
@@ -5172,7 +5047,7 @@ func speedtest1_numbername(tls *libc.TLS, n uint32, zOut uintptr, nOut int32) in
 	}
 	if n >= uint32(1000) {
 		if (i != 0) && (i < (nOut - 1)) {
-			*(*int8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = int8(' ')
+			*(*uint8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = uint8(' ')
 		}
 		i = i + (speedtest1_numbername(tls, (n / uint32(1000)), (zOut + uintptr(i)), (nOut - i)))
 		sqlite3.Xsqlite3_snprintf(tls, (nOut - i), (zOut + uintptr(i)), ts+2295 /* " thousand" */, 0)
@@ -5181,7 +5056,7 @@ func speedtest1_numbername(tls *libc.TLS, n uint32, zOut uintptr, nOut int32) in
 	}
 	if n >= uint32(100) {
 		if (i != 0) && (i < (nOut - 1)) {
-			*(*int8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = int8(' ')
+			*(*uint8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = uint8(' ')
 		}
 		sqlite3.Xsqlite3_snprintf(tls, (nOut - i), (zOut + uintptr(i)), ts+2305 /* "%s hundred" */, libc.VaList(bp, ones[(n/uint32(100))]))
 		i = i + (int32(libc.Xstrlen(tls, (zOut + uintptr(i)))))
@@ -5189,7 +5064,7 @@ func speedtest1_numbername(tls *libc.TLS, n uint32, zOut uintptr, nOut int32) in
 	}
 	if n >= uint32(20) {
 		if (i != 0) && (i < (nOut - 1)) {
-			*(*int8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = int8(' ')
+			*(*uint8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = uint8(' ')
 		}
 		sqlite3.Xsqlite3_snprintf(tls, (nOut - i), (zOut + uintptr(i)), ts+2316 /* "%s" */, libc.VaList(bp+8, tens[(n/uint32(10))]))
 		i = i + (int32(libc.Xstrlen(tls, (zOut + uintptr(i)))))
@@ -5197,7 +5072,7 @@ func speedtest1_numbername(tls *libc.TLS, n uint32, zOut uintptr, nOut int32) in
 	}
 	if n > uint32(0) {
 		if (i != 0) && (i < (nOut - 1)) {
-			*(*int8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = int8(' ')
+			*(*uint8)(unsafe.Pointer(zOut + uintptr(libc.PostIncInt32(&i, 1)))) = uint8(' ')
 		}
 		sqlite3.Xsqlite3_snprintf(tls, (nOut - i), (zOut + uintptr(i)), ts+2316 /* "%s" */, libc.VaList(bp+16, ones[n]))
 		i = i + (int32(libc.Xstrlen(tls, (zOut + uintptr(i)))))
@@ -5217,7 +5092,7 @@ var tens = [10]uintptr{ts + 2212 /* "" */, ts + 2369 /* "ten" */, ts + 2449 /* "
 	ts + 2469 /* "fifty" */, ts + 2475 /* "sixty" */, ts + 2481 /* "seventy" */, ts + 2489 /* "eighty" */, ts + 2496 /* "ninety" */} /* speedtest1.c:319:21 */
 
 // Start a new test case
-var zDots = *(*[72]int8)(unsafe.Pointer(ts + 2503 /* "..................." */)) /* speedtest1.c:370:19 */
+var zDots = *(*[72]uint8)(unsafe.Pointer(ts + 2503 /* "..................." */)) /* speedtest1.c:370:19 */
 
 func speedtest1_begin_test(tls *libc.TLS, iTestNum int32, zTestName uintptr, va uintptr) { /* speedtest1.c:372:6: */
 	bp := tls.Alloc(64)
@@ -5232,7 +5107,7 @@ func speedtest1_begin_test(tls *libc.TLS, iTestNum int32, zTestName uintptr, va 
 	_ = ap
 	n = int32(libc.Xstrlen(tls, zName))
 	if n > NAMEWIDTH {
-		*(*int8)(unsafe.Pointer(zName + 60)) = int8(0)
+		*(*uint8)(unsafe.Pointer(zName + 60)) = uint8(0)
 		n = NAMEWIDTH
 	}
 	if g.bSqlOnly != 0 {
@@ -5297,7 +5172,7 @@ func printSql(tls *libc.TLS, zSql uintptr) { /* speedtest1.c:438:13: */
 	defer tls.Free(32)
 
 	var n int32 = int32(libc.Xstrlen(tls, zSql))
-	for (n > 0) && ((int32(*(*int8)(unsafe.Pointer(zSql + uintptr((n - 1))))) == ';') || ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zSql + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0)) {
+	for (n > 0) && ((int32(*(*uint8)(unsafe.Pointer(zSql + uintptr((n - 1))))) == ';') || ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zSql + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0)) {
 		n--
 	}
 	if g.bExplain != 0 {
@@ -5435,7 +5310,7 @@ func speedtest1_run(tls *libc.TLS) { /* speedtest1.c:534:6: */
 				// var zPrefix [2]uint8 at bp, 2
 
 				*(*uint8)(unsafe.Pointer(bp /* &zPrefix[0] */)) = uint8('\n')
-				*(*uint8)(unsafe.Pointer(bp /* &zPrefix[0] */ + 1)) = uint8(*(*int8)(unsafe.Pointer(ts + 2796 /* "-IFTBN" */ + uintptr(eType))))
+				*(*uint8)(unsafe.Pointer(bp /* &zPrefix[0] */ + 1)) = uint8(*(*uint8)(unsafe.Pointer(ts + 2796 /* "-IFTBN" */ + uintptr(eType))))
 				if g.nResByte != 0 {
 					HashUpdate(tls, bp /* &zPrefix[0] */, uint32(2))
 				} else {
@@ -5453,8 +5328,8 @@ func speedtest1_run(tls *libc.TLS) { /* speedtest1.c:534:6: */
 
 					var aBlob uintptr = sqlite3.Xsqlite3_column_blob(tls, g.pStmt, i)
 					for iBlob = 0; iBlob < nBlob; iBlob++ {
-						*(*uint8)(unsafe.Pointer(bp + 2 /* &zChar[0] */)) = uint8(*(*int8)(unsafe.Pointer(ts + 2803 /* "0123456789abcdef" */ + uintptr((int32(*(*uint8)(unsafe.Pointer(aBlob + uintptr(iBlob)))) >> 4)))))
-						*(*uint8)(unsafe.Pointer(bp + 2 /* &zChar[0] */ + 1)) = uint8(*(*int8)(unsafe.Pointer(ts + 2803 /* "0123456789abcdef" */ + uintptr((int32(*(*uint8)(unsafe.Pointer(aBlob + uintptr(iBlob)))) & 15)))))
+						*(*uint8)(unsafe.Pointer(bp + 2 /* &zChar[0] */)) = uint8(*(*uint8)(unsafe.Pointer(ts + 2803 /* "0123456789abcdef" */ + uintptr((int32(*(*uint8)(unsafe.Pointer(aBlob + uintptr(iBlob)))) >> 4)))))
+						*(*uint8)(unsafe.Pointer(bp + 2 /* &zChar[0] */ + 1)) = uint8(*(*uint8)(unsafe.Pointer(ts + 2803 /* "0123456789abcdef" */ + uintptr((int32(*(*uint8)(unsafe.Pointer(aBlob + uintptr(iBlob)))) & 15)))))
 						HashUpdate(tls, bp+2 /* &zChar[0] */, uint32(2))
 					}
 					*(*u64)(unsafe.Pointer(uintptr(unsafe.Pointer(&g)) + 112 /* &.nResByte */)) += (u64((nBlob * 2) + 2))
@@ -5463,9 +5338,9 @@ func speedtest1_run(tls *libc.TLS) { /* speedtest1.c:534:6: */
 					*(*u64)(unsafe.Pointer(uintptr(unsafe.Pointer(&g)) + 112 /* &.nResByte */)) += (u64(len + 2))
 				}
 			}
-			if (uint64(g.nResult + len)) < (uint64(unsafe.Sizeof([3000]int8{})) - uint64(2)) {
+			if (uint64(g.nResult + len)) < (uint64(unsafe.Sizeof([3000]uint8{})) - uint64(2)) {
 				if g.nResult > 0 {
-					*(*int8)(unsafe.Pointer((uintptr(unsafe.Pointer(&g)) + 124 /* &.zResult */) + uintptr(libc.PostIncInt32(&g.nResult, 1)))) = int8(' ')
+					*(*uint8)(unsafe.Pointer((uintptr(unsafe.Pointer(&g)) + 124 /* &.zResult */) + uintptr(libc.PostIncInt32(&g.nResult, 1)))) = uint8(' ')
 				}
 				libc.Xmemcpy(tls, ((uintptr(unsafe.Pointer(&g)) + 124 /* &.zResult */) + uintptr(g.nResult)), z, (uint64(len + 1)))
 				*(*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&g)) + 120 /* &.nResult */)) += (len)
@@ -5490,7 +5365,7 @@ func traceCallback(tls *libc.TLS, NotUsed uintptr, zSql uintptr) { /* speedtest1
 	defer tls.Free(16)
 
 	var n int32 = int32(libc.Xstrlen(tls, zSql))
-	for (n > 0) && ((int32(*(*int8)(unsafe.Pointer(zSql + uintptr((n - 1))))) == ';') || ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zSql + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0)) {
+	for (n > 0) && ((int32(*(*uint8)(unsafe.Pointer(zSql + uintptr((n - 1))))) == ';') || ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zSql + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0)) {
 		n--
 	}
 	libc.Xfprintf(tls, libc.Xstderr, ts+2712 /* "%.*s;\n" */, libc.VaList(bp, n, zSql))
@@ -5529,11 +5404,11 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	var x1 uint32 = uint32(0)
 	var x2 uint32 = uint32(0) // Parameters
 	var len int32 = 0         // Length of the zNum[] string
-	// var zNum [2000]int8 at bp+568, 2000
+	// var zNum [2000]uint8 at bp+568, 2000
 	// A number name
 
 	sz = libc.AssignInt32(&n, (g.szTest * 500))
-	*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = int8(0)
+	*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = uint8(0)
 	maxb = int32(roundup_allones(tls, uint32(sz)))
 	speedtest1_begin_test(tls, 100, ts+2820 /* "%d INSERTs into ..." */, libc.VaList(bp, n))
 	speedtest1_exec(tls, ts+2856 /* "BEGIN" */, 0)
@@ -5542,7 +5417,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_prepare(tls, ts+2920 /* "INSERT INTO z1 V..." */, libc.VaList(bp+40, n))
 	for i = 1; i <= n; i++ {
 		x1 = swizzle(tls, uint32(i), uint32(maxb))
-		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int64(tls, g.pStmt, 1, sqlite3_int64(x1))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 2, i)
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 3, bp+568 /* &zNum[0] */, -1, uintptr(0))
@@ -5560,7 +5435,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_prepare(tls, ts+3073 /* "INSERT INTO z2 V..." */, libc.VaList(bp+104, n))
 	for i = 1; i <= n; i++ {
 		x1 = swizzle(tls, uint32(i), uint32(maxb))
-		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, i)
 		sqlite3.Xsqlite3_bind_int64(tls, g.pStmt, 2, sqlite3_int64(x1))
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 3, bp+568 /* &zNum[0] */, -1, uintptr(0))
@@ -5578,7 +5453,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_prepare(tls, ts+3220 /* "INSERT INTO t3 V..." */, libc.VaList(bp+168, n))
 	for i = 1; i <= n; i++ {
 		x1 = swizzle(tls, uint32(i), uint32(maxb))
-		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 2, i)
 		sqlite3.Xsqlite3_bind_int64(tls, g.pStmt, 1, sqlite3_int64(x1))
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 3, bp+568 /* &zNum[0] */, -1, uintptr(0))
@@ -5614,10 +5489,10 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	for i = 1; i <= n; i++ {
 		if ((i - 1) % g.nRepeat) == 0 {
 			x1 = (speedtest1_random(tls) % uint32(maxb))
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = int8('%')
-			len = speedtest1_numbername(tls, uint32(i), (bp + 568 /* &zNum[0] */ + uintptr(1)), (int32(uint64(unsafe.Sizeof([2000]int8{})) - uint64(2))))
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr(len))) = int8('%')
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr((len + 1)))) = int8(0)
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = uint8('%')
+			len = speedtest1_numbername(tls, uint32(i), (bp + 568 /* &zNum[0] */ + uintptr(1)), (int32(uint64(unsafe.Sizeof([2000]uint8{})) - uint64(2))))
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr(len))) = uint8('%')
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr((len + 1)))) = uint8(0)
 		}
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 1, bp+568 /* &zNum[0] */, (len + 1), uintptr(0))
 		speedtest1_run(tls)
@@ -5634,10 +5509,10 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	for i = 1; i <= n; i++ {
 		if ((i - 1) % g.nRepeat) == 0 {
 			x1 = (speedtest1_random(tls) % uint32(maxb))
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = int8('%')
-			len = speedtest1_numbername(tls, uint32(i), (bp + 568 /* &zNum[0] */ + uintptr(1)), (int32(uint64(unsafe.Sizeof([2000]int8{})) - uint64(2))))
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr(len))) = int8('%')
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr((len + 1)))) = int8(0)
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = uint8('%')
+			len = speedtest1_numbername(tls, uint32(i), (bp + 568 /* &zNum[0] */ + uintptr(1)), (int32(uint64(unsafe.Sizeof([2000]uint8{})) - uint64(2))))
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr(len))) = uint8('%')
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr((len + 1)))) = uint8(0)
 		}
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 1, bp+568 /* &zNum[0] */, (len + 1), uintptr(0))
 		speedtest1_run(tls)
@@ -5654,10 +5529,10 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	for i = 1; i <= n; i++ {
 		if ((i - 1) % g.nRepeat) == 0 {
 			x1 = (speedtest1_random(tls) % uint32(maxb))
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = int8('%')
-			len = speedtest1_numbername(tls, uint32(i), (bp + 568 /* &zNum[0] */ + uintptr(1)), (int32(uint64(unsafe.Sizeof([2000]int8{})) - uint64(2))))
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr(len))) = int8('%')
-			*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr((len + 1)))) = int8(0)
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = uint8('%')
+			len = speedtest1_numbername(tls, uint32(i), (bp + 568 /* &zNum[0] */ + uintptr(1)), (int32(uint64(unsafe.Sizeof([2000]uint8{})) - uint64(2))))
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr(len))) = uint8('%')
+			*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */ + uintptr((len + 1)))) = uint8(0)
 		}
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 1, bp+568 /* &zNum[0] */, (len + 1), uintptr(0))
 		speedtest1_run(tls)
@@ -5720,7 +5595,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	for i = 1; i <= n; i++ {
 		if ((i - 1) % g.nRepeat) == 0 {
 			x1 = swizzle(tls, uint32(i), uint32(maxb))
-			len = speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, (int32(uint64(unsafe.Sizeof([2000]int8{})) - uint64(1))))
+			len = speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, (int32(uint64(unsafe.Sizeof([2000]uint8{})) - uint64(1))))
 		}
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 1, bp+568 /* &zNum[0] */, len, uintptr(0))
 		speedtest1_run(tls)
@@ -5858,7 +5733,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_end_test(tls)
 
 	sz = libc.AssignInt32(&n, (g.szTest * 700))
-	*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = int8(0)
+	*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = uint8(0)
 	maxb = int32(roundup_allones(tls, (uint32(sz / 3))))
 	speedtest1_begin_test(tls, 400, ts+5726 /* "%d REPLACE ops o..." */, libc.VaList(bp+456, n))
 	speedtest1_exec(tls, ts+2856 /* "BEGIN" */, 0)
@@ -5867,7 +5742,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_prepare(tls, ts+5799 /* "REPLACE INTO t5 ..." */, libc.VaList(bp+480, n))
 	for i = 1; i <= n; i++ {
 		x1 = swizzle(tls, uint32(i), uint32(maxb))
-		speedtest1_numbername(tls, uint32(i), bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, uint32(i), bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, int32(sqlite3_int64(x1)))
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 2, bp+568 /* &zNum[0] */, -1, uintptr(0))
 		speedtest1_run(tls)
@@ -5884,7 +5759,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_end_test(tls)
 
 	sz = libc.AssignInt32(&n, (g.szTest * 700))
-	*(*int8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = int8(0)
+	*(*uint8)(unsafe.Pointer(bp + 568 /* &zNum[0] */)) = uint8(0)
 	maxb = int32(roundup_allones(tls, (uint32(sz / 3))))
 	speedtest1_begin_test(tls, 500, ts+5906 /* "%d REPLACE on TE..." */, libc.VaList(bp+504, n))
 	speedtest1_exec(tls, ts+2856 /* "BEGIN" */, 0)
@@ -5899,7 +5774,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_prepare(tls, ts+5989 /* "REPLACE INTO t6 ..." */, libc.VaList(bp+536, n))
 	for i = 1; i <= n; i++ {
 		x1 = swizzle(tls, uint32(i), uint32(maxb))
-		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 2, i)
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 1, bp+568 /* &zNum[0] */, -1, uintptr(0))
 		speedtest1_run(tls)
@@ -5910,7 +5785,7 @@ func testset_main(tls *libc.TLS) { /* speedtest1.c:696:6: */
 	speedtest1_prepare(tls, ts+6057 /* "SELECT b FROM t6..." */, libc.VaList(bp+552, n))
 	for i = 1; i <= n; i++ {
 		x1 = swizzle(tls, uint32(i), uint32(maxb))
-		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, x1, bp+568 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 1, bp+568 /* &zNum[0] */, -1, uintptr(0))
 		speedtest1_run(tls)
 	}
@@ -6019,9 +5894,9 @@ func testset_fp(tls *libc.TLS) { /* speedtest1.c:1312:6: */
 
 	var n int32
 	var i int32
-	// var zFP1 [100]int8 at bp+72, 100
+	// var zFP1 [100]uint8 at bp+72, 100
 
-	// var zFP2 [100]int8 at bp+172, 100
+	// var zFP2 [100]uint8 at bp+172, 100
 
 	n = (g.szTest * 5000)
 	speedtest1_begin_test(tls, 100, ts+9028 /* "Fill a table wit..." */, libc.VaList(bp, (n*2)))
@@ -6328,7 +6203,7 @@ func testset_orm(tls *libc.TLS) { /* speedtest1.c:1614:6: */
 	var nRow uint32
 	var x1 uint32
 	var len uint32
-	// var zNum [2000]int8 at bp+16, 2000
+	// var zNum [2000]uint8 at bp+16, 2000
 
 	nRow = libc.AssignUint32(&n, (uint32(g.szTest * 250)))
 	speedtest1_begin_test(tls, 100, ts+10884 /* "Fill %d rows" */, libc.VaList(bp, n))
@@ -6340,7 +6215,7 @@ func testset_orm(tls *libc.TLS) { /* speedtest1.c:1614:6: */
 		ts+14797 /* "INSERT INTO ZLOO..." */, 0)
 	for i = uint32(0); i < n; i++ {
 		x1 = speedtest1_random(tls)
-		speedtest1_numbername(tls, (x1 % uint32(1000)), bp+16 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, (x1 % uint32(1000)), bp+16 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		len = uint32(int32(libc.Xstrlen(tls, bp+16 /* &zNum[0] */)))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, (int32(i ^ uint32(0xf))))
 		for j = uint32(0); zType[j] != 0; j++ {
@@ -6381,7 +6256,7 @@ func testset_orm(tls *libc.TLS) { /* speedtest1.c:1614:6: */
 
 var zType = // Types for all non-PK columns, in order
 
-*(*[120]int8)(unsafe.Pointer(ts + 20817 /* "IBBIIITIVVITBTBF..." */)) /* speedtest1.c:1619:21 */
+*(*[120]uint8)(unsafe.Pointer(ts + 20817 /* "IBBIIITIVVITBTBF..." */)) /* speedtest1.c:1619:21 */
 
 //
 func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
@@ -6390,7 +6265,7 @@ func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
 
 	var jj int32
 	var ii int32
-	// var zNum [2000]int8 at bp+32, 2000
+	// var zNum [2000]uint8 at bp+32, 2000
 	// A number name
 
 	var NROW int32 = (500 * g.szTest)
@@ -6403,7 +6278,7 @@ func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
 		speedtest1_prepare(tls, ts+21265 /* "INSERT INTO t%d ..." */, libc.VaList(bp, jj))
 		for ii = 0; ii < NROW; ii++ {
 			var x1 int32 = (int32(speedtest1_random(tls) % uint32(NROW)))
-			speedtest1_numbername(tls, uint32(x1), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+			speedtest1_numbername(tls, uint32(x1), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 			sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, x1)
 			sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 2, bp+32 /* &zNum[0] */, -1, uintptr(0))
 			speedtest1_run(tls)
@@ -6487,7 +6362,7 @@ func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
 	speedtest1_begin_test(tls, 180, ts+22429 /* "speed4p-trigger1" */, 0)
 	speedtest1_prepare(tls, ts+22446 /* "INSERT INTO t4 V..." */, 0)
 	for jj = 0; jj < NROW2; jj++ {
-		speedtest1_numbername(tls, uint32(jj), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, uint32(jj), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, jj)
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 2, bp+32 /* &zNum[0] */, -1, uintptr(0))
 		speedtest1_run(tls)
@@ -6500,7 +6375,7 @@ func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
 	speedtest1_begin_test(tls, 190, ts+22482 /* "speed4p-trigger2" */, 0)
 	speedtest1_prepare(tls, ts+22499 /* "UPDATE t4 SET i ..." */, 0)
 	for jj = 1; jj <= (NROW2 * 2); jj = jj + (2) {
-		speedtest1_numbername(tls, (uint32(jj * 2)), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, (uint32(jj * 2)), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, (jj * 2))
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 2, bp+32 /* &zNum[0] */, -1, uintptr(0))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 3, jj)
@@ -6528,7 +6403,7 @@ func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
 	speedtest1_begin_test(tls, 210, ts+22699 /* "speed4p-notrigge..." */, 0)
 	speedtest1_prepare(tls, ts+22446 /* "INSERT INTO t4 V..." */, 0)
 	for jj = 0; jj < NROW2; jj++ {
-		speedtest1_numbername(tls, uint32(jj), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, uint32(jj), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, jj)
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 2, bp+32 /* &zNum[0] */, -1, uintptr(0))
 		speedtest1_run(tls)
@@ -6537,7 +6412,7 @@ func testset_trigger(tls *libc.TLS) { /* speedtest1.c:1881:6: */
 	speedtest1_begin_test(tls, 210, ts+22718 /* "speed4p-notrigge..." */, 0)
 	speedtest1_prepare(tls, ts+22499 /* "UPDATE t4 SET i ..." */, 0)
 	for jj = 1; jj <= (NROW2 * 2); jj = jj + (2) {
-		speedtest1_numbername(tls, (uint32(jj * 2)), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, (uint32(jj * 2)), bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 1, (jj * 2))
 		sqlite3.Xsqlite3_bind_text(tls, g.pStmt, 2, bp+32 /* &zNum[0] */, -1, uintptr(0))
 		sqlite3.Xsqlite3_bind_int(tls, g.pStmt, 3, jj)
@@ -6563,19 +6438,19 @@ func testset_debug1(tls *libc.TLS) { /* speedtest1.c:2083:6: */
 	var n uint32
 	var x1 uint32
 	var x2 uint32
-	// var zNum [2000]int8 at bp+32, 2000
+	// var zNum [2000]uint8 at bp+32, 2000
 	// A number name
 
 	n = uint32(g.szTest)
 	for i = uint32(1); i <= n; i++ {
 		x1 = swizzle(tls, i, n)
 		x2 = swizzle(tls, x1, n)
-		speedtest1_numbername(tls, x1, bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
+		speedtest1_numbername(tls, x1, bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]uint8{})))
 		libc.Xprintf(tls, ts+22756 /* "%5d %5d %5d %s\n" */, libc.VaList(bp, i, x1, x2, bp+32 /* &zNum[0] */))
 	}
 }
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -6590,11 +6465,11 @@ func testset_debug1(tls *libc.TLS) { /* speedtest1.c:2083:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.6 Primitive System Data Types	<sys/types.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -6609,7 +6484,7 @@ func testset_debug1(tls *libc.TLS) { /* speedtest1.c:2083:6: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.10 Symbolic Constants		<unistd.h>
 
@@ -6619,14 +6494,14 @@ func displayLinuxIoStats(tls *libc.TLS, out uintptr) { /* speedtest1.c:2104:13: 
 	defer tls.Free(224)
 
 	var in uintptr
-	// var z [200]int8 at bp+24, 200
+	// var z [200]uint8 at bp+24, 200
 
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([200]int8{})), bp+24 /* &z[0] */, ts+22772 /* "/proc/%d/io" */, libc.VaList(bp, libc.Xgetpid(tls)))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([200]uint8{})), bp+24 /* &z[0] */, ts+22772 /* "/proc/%d/io" */, libc.VaList(bp, libc.Xgetpid(tls)))
 	in = libc.Xfopen(tls, bp+24 /* &z[0] */, ts+22784 /* "rb" */)
 	if in == uintptr(0) {
 		return
 	}
-	for libc.Xfgets(tls, bp+24 /* &z[0] */, int32(unsafe.Sizeof([200]int8{})), in) != uintptr(0) {
+	for libc.Xfgets(tls, bp+24 /* &z[0] */, int32(unsafe.Sizeof([200]uint8{})), in) != uintptr(0) {
 		var i int32
 		for i = 0; uint64(i) < (uint64(unsafe.Sizeof(aTrans)) / uint64(unsafe.Sizeof(struct {
 			zPattern uintptr
@@ -6713,8 +6588,8 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 	g.nRepeat = 1
 	for i = 1; i < argc; i++ {
 		var z uintptr = *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))
-		if int32(*(*int8)(unsafe.Pointer(z))) == '-' {
-			for ok := true; ok; ok = (int32(*(*int8)(unsafe.Pointer(z))) == '-') {
+		if int32(*(*uint8)(unsafe.Pointer(z))) == '-' {
+			for ok := true; ok; ok = (int32(*(*uint8)(unsafe.Pointer(z))) == '-') {
 				z++
 			}
 			if libc.Xstrcmp(tls, z, ts+23115 /* "autovacuum" */) == 0 {
@@ -6829,10 +6704,10 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 					fatal_error(tls, ts+23136 /* "missing argument..." */, libc.VaList(bp+120, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
 				}
 				i++
-				if ((int32(*(*int8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))) < '0') || (int32(*(*int8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))) > '9')) || (int32(*(*int8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8)) + 1))) != 0) {
+				if ((int32(*(*uint8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))) < '0') || (int32(*(*uint8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))) > '9')) || (int32(*(*uint8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8)) + 1))) != 0) {
 					fatal_error(tls, ts+23469 /* "argument to --te..." */, 0)
 				}
-				g.eTemp = (int32(*(*int8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))) - '0')
+				g.eTemp = (int32(*(*uint8)(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))) - '0')
 			} else if libc.Xstrcmp(tls, z, ts+23522 /* "testset" */) == 0 {
 				if i >= (argc - 1) {
 					fatal_error(tls, ts+23136 /* "missing argument..." */, libc.VaList(bp+128, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
@@ -6971,11 +6846,11 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 	if g.bExplain != 0 {
 		libc.Xprintf(tls, ts+24162 /* ".explain\n.echo o..." */, 0)
 	}
-	for ok1 := true; ok1; ok1 = *(*int8)(unsafe.Pointer(zTSet)) != 0 {
+	for ok1 := true; ok1; ok1 = *(*uint8)(unsafe.Pointer(zTSet)) != 0 {
 		var zThisTest uintptr = zTSet
 		var zComma uintptr = libc.Xstrchr(tls, zThisTest, ',')
 		if zComma != 0 {
-			*(*int8)(unsafe.Pointer(zComma)) = int8(0)
+			*(*uint8)(unsafe.Pointer(zComma)) = uint8(0)
 			zTSet = (zComma + uintptr(1))
 		} else {
 			zTSet = ts + 2212 /* "" */
@@ -7002,7 +6877,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 				ts+24240, /* "unknown testset:..." */
 				libc.VaList(bp+392, zThisTest))
 		}
-		if *(*int8)(unsafe.Pointer(zTSet)) != 0 {
+		if *(*uint8)(unsafe.Pointer(zTSet)) != 0 {
 			var zSql uintptr
 			var zObj uintptr
 			speedtest1_begin_test(tls, 999, ts+24309 /* "Reset the databa..." */, 0)

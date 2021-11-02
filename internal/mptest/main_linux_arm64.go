@@ -699,6 +699,8 @@ const (
 	X_ASSERT_H                            = 1
 	X_ATFILE_SOURCE                       = 1
 	X_BITS_BYTESWAP_H                     = 1
+	X_BITS_ENDIANNESS_H                   = 1
+	X_BITS_ENDIAN_H                       = 1
 	X_BITS_ERRNO_H                        = 1
 	X_BITS_FLOATN_COMMON_H                = 0
 	X_BITS_FLOATN_H                       = 0
@@ -707,6 +709,7 @@ const (
 	X_BITS_PTHREADTYPES_COMMON_H          = 1
 	X_BITS_STDINT_INTN_H                  = 1
 	X_BITS_STDIO_LIM_H                    = 1
+	X_BITS_TIME64_H                       = 1
 	X_BITS_TYPESIZES_H                    = 1
 	X_BITS_TYPES_H                        = 1
 	X_BITS_TYPES_LOCALE_T_H               = 1
@@ -807,6 +810,7 @@ const (
 	X_POSIX_V7_LPBIG_OFFBIG               = -1
 	X_POSIX_VDISABLE                      = 0
 	X_POSIX_VERSION                       = 200809
+	X_RWLOCK_INTERNAL_H                   = 0
 	X_SIZET_                              = 0
 	X_SIZE_T                              = 0
 	X_SIZE_T_                             = 0
@@ -825,6 +829,7 @@ const (
 	X_SYS_SELECT_H                        = 1
 	X_SYS_SIZE_T_H                        = 0
 	X_SYS_TYPES_H                         = 1
+	X_THREAD_MUTEX_INTERNAL_H             = 1
 	X_THREAD_SHARED_TYPES_H               = 1
 	X_T_SIZE                              = 0
 	X_T_SIZE_                             = 0
@@ -864,7 +869,7 @@ const (
 //    the `_SC_*' symbols for the NAME argument to `sysconf';
 //    and the `_CS_*' symbols for the NAME argument to `confstr'.
 // `sysconf', `pathconf', and `confstr' NAME values.  Generic version.
-//    Copyright (C) 1993-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1993-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -879,7 +884,7 @@ const (
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Values for the NAME argument to `pathconf' and `fpathconf'.
 const ( /* confname.h:24:1: */
@@ -1228,16 +1233,11 @@ const ( /* confname.h:71:1: */
 	_SC_THREAD_ROBUST_PRIO_PROTECT = 248
 )
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // XPG requires a few symbols from <sys/wait.h> being defined.
 // Definitions of flag bits for `waitpid' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1252,7 +1252,7 @@ const ( /* confname.h:71:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Bits in the third argument to `waitpid'.
 
@@ -1269,7 +1269,7 @@ const ( /* waitflags.h:52:1: */
 	P_PGID = 2
 )
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1284,11 +1284,11 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1303,7 +1303,7 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // void assert (int expression);
 //
@@ -1316,7 +1316,7 @@ const ( /* waitflags.h:52:1: */
 //    error message with the error text for ERRNUM and abort.
 //    (This is a GNU extension.)
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1331,11 +1331,11 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	ISO C99 Standard 7.4: Character handling	<ctype.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1350,10 +1350,10 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -1368,7 +1368,7 @@ const ( /* waitflags.h:52:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -1380,7 +1380,8 @@ const ( /* waitflags.h:52:1: */
 //    endian).  We define the bit value interpretations here dependent on the
 //    machine's byte order.
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3522,7 +3523,7 @@ type _G_fpos_t = struct {
 } /* __fpos_t.h:10:9 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3537,7 +3538,7 @@ type _G_fpos_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -3573,7 +3574,7 @@ type _IO_FILE = struct {
 	_old_offset     int64
 	_cur_column     uint16
 	_vtable_offset  int8
-	_shortbuf       [1]int8
+	_shortbuf       [1]uint8
 	_               [4]byte
 	_lock           uintptr
 	_offset         int64
@@ -3583,7 +3584,7 @@ type _IO_FILE = struct {
 	_freeres_buf    uintptr
 	__pad5          size_t
 	_mode           int32
-	_unused2        [20]int8
+	_unused2        [20]uint8
 } /* __FILE.h:4:1 */
 
 // The opaque type of streams.  This is the definition used elsewhere.
@@ -3603,7 +3604,8 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 // If we are compiling with optimizing read this file.  It contains
 //    several optimizing inline functions and macros.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Macros to control TS 18661-3 glibc features on ldbl-128 platforms.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3618,11 +3620,28 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
+
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.10 Symbolic Constants		<unistd.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3637,7 +3656,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // These may be used to determine what facilities are present at compile time.
 //    Their values can be obtained at run time from `sysconf'.
@@ -3763,7 +3782,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 
 // Define POSIX options for Linux.
-//    Copyright (C) 1996-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1996-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3778,13 +3797,16 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; see the file COPYING.LIB.  If
-//    not, see <http://www.gnu.org/licenses/>.
+//    not, see <https://www.gnu.org/licenses/>.
 
 // Job control is supported.
 
 // Processes have a saved set-user-ID and a saved set-group-ID.
 
-// Priority scheduling is supported.
+// Priority scheduling is not supported with the correct semantics,
+//    but GNU/Linux applications expect that the corresponding interfaces
+//    are available, even though the semantics do not meet the POSIX
+//    requirements.  See glibc bug 14829.
 
 // Synchronizing file data is supported.
 
@@ -3887,7 +3909,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 // Typed memory objects are not available.
 
 // Get the environment definitions from Unix98.
-// Copyright (C) 1999-2018 Free Software Foundation, Inc.
+// Copyright (C) 1999-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3902,11 +3924,11 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Determine the wordsize from the preprocessor defines.
 //
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2016-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3921,7 +3943,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // This header should define the following symbols under the described
 //    situations.  A value `1' means that the model is always supported,
@@ -3951,7 +3973,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 // All functions that are not declared anywhere else.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -3966,11 +3988,11 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -4001,15 +4023,6 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -4045,11 +4058,6 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // The Single Unix specification says that some more types are
@@ -4066,16 +4074,11 @@ type intptr_t = int64 /* unistd.h:267:20 */
 
 type socklen_t = uint32 /* unistd.h:274:21 */
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // XPG requires a few symbols from <sys/wait.h> being defined.
 // Definitions of flag bits for `waitpid' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4090,7 +4093,7 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Bits in the third argument to `waitpid'.
 
@@ -4103,7 +4106,7 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 
 type idtype_t = uint32 /* waitflags.h:57:3 */
 // Definitions of status bits for `wait' et al.
-//    Copyright (C) 1992-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4118,7 +4121,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Everything extant so far uses these same bits.
 
@@ -4145,7 +4148,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 
 // _FloatN API tests for enablement.
 // Macros to control TS 18661-3 glibc features on ldbl-128 platforms.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4160,175 +4163,7 @@ type idtype_t = uint32 /* waitflags.h:57:3 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Properties of long double type.  ldbl-128 version.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License  published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// long double is distinct from double, so there is nothing to
-//    define here.
-
-// Defined to 1 if the current compiler invocation provides a
-//    floating-point type with the IEEE 754 binary128 format, and this
-//    glibc includes corresponding *f128 interfaces for it.
-
-// Defined to 1 if __HAVE_FLOAT128 is 1 and the type is ABI-distinct
-//    from the default float, double and long double types in this glibc.
-
-// Defined to 1 if the current compiler invocation provides a
-//    floating-point type with the right format for _Float64x, and this
-//    glibc includes corresponding *f64x interfaces for it.
-
-// Defined to 1 if __HAVE_FLOAT64X is 1 and _Float64x has the format
-//    of long double.  Otherwise, if __HAVE_FLOAT64X is 1, _Float64x has
-//    the format of _Float128, which must be different from that of long
-//    double.
-
-// Defined to concatenate the literal suffix to be used with _Float128
-//    types, if __HAVE_FLOAT128 is 1.
-
-// Defined to a complex binary128 type if __HAVE_FLOAT128 is 1.
-
-// The remaining of this file provides support for older compilers.
-
-// The type _Float128 exists only since GCC 7.0.
-
-// Various built-in functions do not exist before GCC 7.0.
-
-// Macros to control TS 18661-3 glibc features where the same
-//    definitions are appropriate for all platforms.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Properties of long double type.  ldbl-128 version.
-//    Copyright (C) 2016-2018 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License  published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
-
-// long double is distinct from double, so there is nothing to
-//    define here.
-
-// This header should be included at the bottom of each bits/floatn.h.
-//    It defines the following macros for each _FloatN and _FloatNx type,
-//    where the same definitions, or definitions based only on the macros
-//    in bits/floatn.h, are appropriate for all glibc configurations.
-
-// Defined to 1 if the current compiler invocation provides a
-//    floating-point type with the right format for this type, and this
-//    glibc includes corresponding *fN or *fNx interfaces for it.
-
-// Defined to 1 if the corresponding __HAVE_<type> macro is 1 and the
-//    type is the first with its format in the sequence of (the default
-//    choices for) float, double, long double, _Float16, _Float32,
-//    _Float64, _Float128, _Float32x, _Float64x, _Float128x for this
-//    glibc; that is, if functions present once per floating-point format
-//    rather than once per type are present for this type.
-//
-//    All configurations supported by glibc have _Float32 the same format
-//    as float, _Float64 and _Float32x the same format as double, the
-//    _Float64x the same format as either long double or _Float128.  No
-//    configurations support _Float128x or, as of GCC 7, have compiler
-//    support for a type meeting the requirements for _Float128x.
-
-// Defined to 1 if the corresponding _FloatN type is not binary compatible
-//    with the corresponding ISO C type in the current compilation unit as
-//    opposed to __HAVE_DISTINCT_FLOATN, which indicates the default types built
-//    in glibc.
-
-// Defined to 1 if any _FloatN or _FloatNx types that are not
-//    ABI-distinct are however distinct types at the C language level (so
-//    for the purposes of __builtin_types_compatible_p and _Generic).
-
-// Defined to concatenate the literal suffix to be used with _FloatN
-//    or _FloatNx types, if __HAVE_<type> is 1.  The corresponding
-//    literal suffixes exist since GCC 7, for C only.
-
-// Defined to a complex type if __HAVE_<type> is 1.
-
-// The remaining of this file provides support for older compilers.
-
-// If double, long double and _Float64 all have the same set of
-//    values, TS 18661-3 requires the usual arithmetic conversions on
-//    long double and _Float64 to produce _Float64.  For this to be the
-//    case when building with a compiler without a distinct _Float64
-//    type, _Float64 must be a typedef for long double, not for
-//    double.
+//    <https://www.gnu.org/licenses/>.
 
 // Returned by `div'.
 type div_t = struct {
@@ -4348,7 +4183,7 @@ type lldiv_t = struct {
 	rem  int64
 } /* stdlib.h:80:5 */
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4363,11 +4198,11 @@ type lldiv_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 //	POSIX Standard: 2.6 Primitive System Data Types	<sys/types.h>
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4382,10 +4217,10 @@ type lldiv_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4400,7 +4235,7 @@ type lldiv_t = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4429,7 +4264,7 @@ type caddr_t = uintptr /* types.h:115:19 */
 type key_t = int32 /* types.h:121:17 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4444,7 +4279,7 @@ type key_t = int32 /* types.h:121:17 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4452,7 +4287,7 @@ type key_t = int32 /* types.h:121:17 */
 type clock_t = int64 /* clock_t.h:7:19 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4467,7 +4302,7 @@ type clock_t = int64 /* clock_t.h:7:19 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4475,7 +4310,7 @@ type clock_t = int64 /* clock_t.h:7:19 */
 type clockid_t = int32 /* clockid_t.h:7:21 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4490,7 +4325,7 @@ type clockid_t = int32 /* clockid_t.h:7:21 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4498,7 +4333,7 @@ type clockid_t = int32 /* clockid_t.h:7:21 */
 type time_t = int64 /* time_t.h:7:18 */
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4513,14 +4348,14 @@ type time_t = int64 /* time_t.h:7:18 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
 // Timer ID returned by `timer_create'.
 type timer_t = uintptr /* timer_t.h:7:19 */
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -4551,15 +4386,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -4595,11 +4421,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // Old compatibility names for C types.
@@ -4610,7 +4431,7 @@ type uint = uint32   /* types.h:150:22 */
 // These size-specific names are used by some of the inet code.
 
 // Define intN_t types.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4625,10 +4446,10 @@ type uint = uint32   /* types.h:150:22 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4643,7 +4464,7 @@ type uint = uint32   /* types.h:150:22 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4652,14 +4473,13 @@ type int16_t = int16 /* stdint-intn.h:25:19 */
 type int32_t = int32 /* stdint-intn.h:26:19 */
 type int64_t = int64 /* stdint-intn.h:27:19 */
 
-// For GCC 2.7 and later, we can use specific type-size attributes.
+// These were defined by ISO C without the first `_'.
+type u_int8_t = uint8   /* types.h:158:19 */
+type u_int16_t = uint16 /* types.h:159:20 */
+type u_int32_t = uint32 /* types.h:160:20 */
+type u_int64_t = uint64 /* types.h:161:20 */
 
-type u_int8_t = uint32  /* types.h:177:1 */
-type u_int16_t = uint32 /* types.h:178:1 */
-type u_int32_t = uint32 /* types.h:179:1 */
-type u_int64_t = uint32 /* types.h:180:1 */
-
-type register_t = int32 /* types.h:182:13 */
+type register_t = int32 /* types.h:164:13 */
 
 // A set of signals to be blocked, unblocked, or waited for.
 type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
@@ -4667,7 +4487,7 @@ type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
 // Get definition of timer specification structures.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4682,7 +4502,7 @@ type sigset_t = struct{ __val [16]uint64 } /* sigset_t.h:7:20 */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Never include this file directly; use <sys/types.h> instead.
 
@@ -4696,7 +4516,27 @@ type timeval = struct {
 // NB: Include guard matches what <linux/time.h> uses.
 
 // bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4713,14 +4553,12 @@ type timeval = struct {
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Never include this file directly; use <sys/types.h> instead.
-
 // POSIX.1b structure for a time value.  This is like a `struct timeval' but
 //    has nanoseconds instead of microseconds.
 type timespec = struct {
 	tv_sec  int64
 	tv_nsec int64
-} /* struct_timespec.h:9:1 */
+} /* struct_timespec.h:10:1 */
 
 type suseconds_t = int64 /* select.h:43:23 */
 
@@ -4737,16 +4575,16 @@ type fd_mask = int64 /* select.h:77:19 */
 
 // Define some inlines helping to catch common problems.
 
-type blksize_t = int32 /* types.h:202:21 */
+type blksize_t = int32 /* types.h:185:21 */
 
 // Types from the Large File Support interface.
-type blkcnt_t = int64    /* types.h:222:22 */ // Type to count number of disk blocks.
-type fsblkcnt_t = uint64 /* types.h:226:24 */ // Type to count file system blocks.
-type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inodes.
+type blkcnt_t = int64    /* types.h:205:22 */ // Type to count number of disk blocks.
+type fsblkcnt_t = uint64 /* types.h:209:24 */ // Type to count file system blocks.
+type fsfilcnt_t = uint64 /* types.h:213:24 */ // Type to count file system inodes.
 
 // Now add the thread types.
 // Declaration of common pthread types for all architectures.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4761,11 +4599,11 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // For internal mutex and condition variable definitions.
 // Common threading primitives definitions for both POSIX and C11.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4780,7 +4618,7 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Arch-specific definitions.  Each architecture must define the following
 //    macros to define the expected sizes of pthread data types:
@@ -4795,36 +4633,6 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    __SIZEOF_PTHREAD_BARRIER_T     - size of pthread_barrier_t.
 //    __SIZEOF_PTHREAD_BARRIERATTR_T - size of pthread_barrierattr_t.
 //
-//    Also, the following macros must be define for internal pthread_mutex_t
-//    struct definitions (struct __pthread_mutex_s):
-//
-//    __PTHREAD_COMPAT_PADDING_MID   - any additional members after 'kind'
-// 				    and before '__spin' (for 64 bits) or
-// 				    '__nusers' (for 32 bits).
-//    __PTHREAD_COMPAT_PADDING_END   - any additional members at the end of
-// 				    the internal structure.
-//    __PTHREAD_MUTEX_LOCK_ELISION   - 1 if the architecture supports lock
-// 				    elision or 0 otherwise.
-//    __PTHREAD_MUTEX_NUSERS_AFTER_KIND - control where to put __nusers.  The
-// 				       preferred value for new architectures
-// 				       is 0.
-//    __PTHREAD_MUTEX_USE_UNION      - control whether internal __spins and
-// 				    __list will be place inside a union for
-// 				    linuxthreads compatibility.
-// 				    The preferred value for new architectures
-// 				    is 0.
-//
-//    For a new port the preferred values for the required defines are:
-//
-//    #define __PTHREAD_COMPAT_PADDING_MID
-//    #define __PTHREAD_COMPAT_PADDING_END
-//    #define __PTHREAD_MUTEX_LOCK_ELISION         0
-//    #define __PTHREAD_MUTEX_NUSERS_AFTER_KIND    0
-//    #define __PTHREAD_MUTEX_USE_UNION            0
-//
-//    __PTHREAD_MUTEX_LOCK_ELISION can be set to 1 if the hardware plans to
-//    eventually support lock elision using transactional memory.
-//
 //    The additional macro defines any constraint for the lock alignment
 //    inside the thread structures:
 //
@@ -4833,12 +4641,27 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    Same idea but for the once locking primitive:
 //
 //    __ONCE_ALIGNMENT - for pthread_once_t/once_flag definition.
+
+// Copyright (C) 2002-2020 Free Software Foundation, Inc.
 //
-//    And finally the internal pthread_rwlock_t (struct __pthread_rwlock_arch_t)
-//    must be defined.
+//    This file is part of the GNU C Library.
 //
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
 //
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4855,7 +4678,31 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Common definition of pthread_mutex_t.
+
+type __pthread_internal_list = struct {
+	__prev uintptr
+	__next uintptr
+} /* thread-shared-types.h:49:9 */
+
+type __pthread_internal_slist = struct{ __next uintptr } /* thread-shared-types.h:55:9 */
+
+// Arch-specific mutex definitions.  A generic implementation is provided
+//    by sysdeps/nptl/bits/struct_mutex.h.  If required, an architecture
+//    can override it by defining:
+//
+//    1. struct __pthread_mutex_s (used on both pthread_mutex_t and mtx_t
+//       definition).  It should contains at least the internal members
+//       defined in the generic version.
+//
+//    2. __LOCK_ALIGNMENT for any extra attribute for internal lock used with
+//       atomic operations.
+//
+//    3. The macro __PTHREAD_MUTEX_INITIALIZER used for static initialization.
+//       It should initialize the mutex internal flag.
+
+// Default mutex implementation struct definitions.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -4872,7 +4719,53 @@ type fsfilcnt_t = uint64 /* types.h:230:24 */ // Type to count file system inode
 //    License along with the GNU C Library; if not, see
 //    <http://www.gnu.org/licenses/>.
 
-// Definitions for internal mutex struct.
+// Generic struct for both POSIX and C11 mutexes.  New ports are expected
+//    to use the default layout, however architecture can redefine it to
+//    add arch-specific extension (such as lock-elision).  The struct have
+//    a size of 32 bytes on LP32 and 40 bytes on LP64 architectures.
+
+type __pthread_mutex_s = struct {
+	__lock   int32
+	__count  uint32
+	__owner  int32
+	__nusers uint32
+	__kind   int32
+	__spins  int32
+	__list   struct {
+		__prev uintptr
+		__next uintptr
+	}
+} /* struct_mutex.h:27:1 */
+
+// Arch-sepecific read-write lock definitions.  A generic implementation is
+//    provided by struct_rwlock.h.  If required, an architecture can override it
+//    by defining:
+//
+//    1. struct __pthread_rwlock_arch_t (used on pthread_rwlock_t definition).
+//       It should contain at least the internal members defined in the
+//       generic version.
+//
+//    2. The macro __PTHREAD_RWLOCK_INITIALIZER used for static initialization.
+//       It should initialize the rwlock internal type.
+
+// AArch64 internal rwlock struct definitions.
+//    Copyright (C) 2019-2020 Free Software Foundation, Inc.
+//
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
 
 type __pthread_rwlock_arch_t = struct {
 	__readers       uint32
@@ -4887,30 +4780,7 @@ type __pthread_rwlock_arch_t = struct {
 	__pad2          uint64
 	__flags         uint32
 	_               [4]byte
-} /* pthreadtypes-arch.h:54:1 */
-
-// Common definition of pthread_mutex_t.
-
-type __pthread_internal_list = struct {
-	__prev uintptr
-	__next uintptr
-} /* thread-shared-types.h:82:9 */
-
-// Lock elision support.
-// Mutex __spins initializer used by PTHREAD_MUTEX_INITIALIZER.
-
-type __pthread_mutex_s = struct {
-	__lock   int32
-	__count  uint32
-	__owner  int32
-	__nusers uint32
-	__kind   int32
-	__spins  int32
-	__list   struct {
-		__prev uintptr
-		__next uintptr
-	}
-} /* thread-shared-types.h:118:1 */
+} /* struct_rwlock.h:23:1 */
 
 // Common definition of pthread_cond_t.
 
@@ -4922,7 +4792,7 @@ type __pthread_cond_s = struct {
 	__g1_orig_size uint32
 	__wrefs        uint32
 	__g_signals    [2]uint32
-} /* thread-shared-types.h:171:1 */
+} /* thread-shared-types.h:92:1 */
 
 // Thread identifiers.  The structure of the attribute type is not
 //    exposed on purpose.
@@ -4932,14 +4802,14 @@ type pthread_t = uint64 /* pthreadtypes.h:27:27 */
 //    type is not exposed on purpose.
 type pthread_mutexattr_t = struct {
 	_      [0]uint32
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:36:3 */
 
 // Data structure for condition variable handling.  The structure of
 //    the attribute type is not exposed on purpose.
 type pthread_condattr_t = struct {
 	_      [0]uint32
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:45:3 */
 
 // Keys for thread-specific data
@@ -4950,7 +4820,7 @@ type pthread_once_t = int32 /* pthreadtypes.h:53:30 */
 
 type pthread_attr_t1 = struct {
 	_      [0]uint64
-	__size [64]int8
+	__size [64]uint8
 } /* pthreadtypes.h:56:1 */
 
 type pthread_attr_t = pthread_attr_t1 /* pthreadtypes.h:62:30 */
@@ -4968,7 +4838,7 @@ type pthread_rwlock_t = struct{ __data __pthread_rwlock_arch_t } /* pthreadtypes
 
 type pthread_rwlockattr_t = struct {
 	_      [0]uint64
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:97:3 */
 
 // POSIX spinlock data type.
@@ -4978,12 +4848,12 @@ type pthread_spinlock_t = int32 /* pthreadtypes.h:103:22 */
 //    deliberately not exposed.
 type pthread_barrier_t = struct {
 	_      [0]uint64
-	__size [32]int8
+	__size [32]uint8
 } /* pthreadtypes.h:112:3 */
 
 type pthread_barrierattr_t = struct {
 	_      [0]uint32
-	__size [8]int8
+	__size [8]uint8
 } /* pthreadtypes.h:118:3 */
 
 // Reentrant versions of the `random' family of functions.
@@ -5014,7 +4884,7 @@ type drand48_data = struct {
 
 // POSIX.1-2008 extended locale interface (see locale.h).
 // Definition of locale_t.
-//    Copyright (C) 2017-2018 Free Software Foundation, Inc.
+//    Copyright (C) 2017-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
 //    The GNU C Library is free software; you can redistribute it and/or
@@ -5029,10 +4899,10 @@ type drand48_data = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // Definition of struct __locale_struct and __locale_t.
-//    Copyright (C) 1997-2018 Free Software Foundation, Inc.
+//    Copyright (C) 1997-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //    Contributed by Ulrich Drepper <drepper@cygnus.com>, 1997.
 //
@@ -5048,7 +4918,7 @@ type drand48_data = struct {
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
 // POSIX.1-2008: the locale_t type, representing a locale context
 //    (implementation-namespace version).  This type should be treated
@@ -5081,7 +4951,7 @@ type Global = struct {
 	pErrLog          uintptr
 	zLog             uintptr
 	pLog             uintptr
-	zName            [32]int8
+	zName            [32]uint8
 	taskId           int32
 	iTrace           int32
 	bSqlTrace        int32
@@ -5108,13 +4978,13 @@ func printWithPrefix(tls *libc.TLS, pOut uintptr, zPrefix uintptr, zMsg uintptr)
 	bp := tls.Alloc(24)
 	defer tls.Free(24)
 
-	for (zMsg != 0) && (*(*int8)(unsafe.Pointer(zMsg)) != 0) {
+	for (zMsg != 0) && (*(*uint8)(unsafe.Pointer(zMsg)) != 0) {
 		var i int32
-		for i = 0; ((*(*int8)(unsafe.Pointer(zMsg + uintptr(i))) != 0) && (int32(*(*int8)(unsafe.Pointer(zMsg + uintptr(i)))) != '\n')) && (int32(*(*int8)(unsafe.Pointer(zMsg + uintptr(i)))) != '\r'); i++ {
+		for i = 0; ((*(*uint8)(unsafe.Pointer(zMsg + uintptr(i))) != 0) && (int32(*(*uint8)(unsafe.Pointer(zMsg + uintptr(i)))) != '\n')) && (int32(*(*uint8)(unsafe.Pointer(zMsg + uintptr(i)))) != '\r'); i++ {
 		}
 		libc.Xfprintf(tls, pOut, ts /* "%s%.*s\n" */, libc.VaList(bp, zPrefix, i, zMsg))
 		zMsg += uintptr(i)
-		for (int32(*(*int8)(unsafe.Pointer(zMsg))) == '\n') || (int32(*(*int8)(unsafe.Pointer(zMsg))) == '\r') {
+		for (int32(*(*uint8)(unsafe.Pointer(zMsg))) == '\n') || (int32(*(*uint8)(unsafe.Pointer(zMsg))) == '\r') {
 			zMsg++
 		}
 	}
@@ -5156,24 +5026,24 @@ func strglob(tls *libc.TLS, zGlob uintptr, z uintptr) int32 { /* mptest.c:136:5:
 	var invert int32
 	var seen int32
 
-	for (libc.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1)))))) != 0 {
+	for (libc.AssignInt32(&c, int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1)))))) != 0 {
 		if c == '*' {
-			for ((libc.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1)))))) == '*') || (c == '?') {
-				if (c == '?') && ((int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))) == 0) {
+			for ((libc.AssignInt32(&c, int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1)))))) == '*') || (c == '?') {
+				if (c == '?') && ((int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))) == 0) {
 					return 0
 				}
 			}
 			if c == 0 {
 				return 1
 			} else if c == '[' {
-				for (*(*int8)(unsafe.Pointer(z)) != 0) && (strglob(tls, (zGlob-uintptr(1)), z) != 0) {
+				for (*(*uint8)(unsafe.Pointer(z)) != 0) && (strglob(tls, (zGlob-uintptr(1)), z) != 0) {
 					z++
 				}
-				return (libc.Bool32((int32(*(*int8)(unsafe.Pointer(z)))) != 0))
+				return (libc.Bool32((int32(*(*uint8)(unsafe.Pointer(z)))) != 0))
 			}
-			for (libc.AssignInt32(&c2, int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1)))))) != 0 {
+			for (libc.AssignInt32(&c2, int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1)))))) != 0 {
 				for c2 != c {
-					c2 = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))
+					c2 = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))
 					if c2 == 0 {
 						return 0
 					}
@@ -5184,31 +5054,31 @@ func strglob(tls *libc.TLS, zGlob uintptr, z uintptr) int32 { /* mptest.c:136:5:
 			}
 			return 0
 		} else if c == '?' {
-			if (int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))) == 0 {
+			if (int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))) == 0 {
 				return 0
 			}
 		} else if c == '[' {
 			var prior_c int32 = 0
 			seen = 0
 			invert = 0
-			c = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))
+			c = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))
 			if c == 0 {
 				return 0
 			}
-			c2 = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
+			c2 = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
 			if c2 == '^' {
 				invert = 1
-				c2 = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
+				c2 = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
 			}
 			if c2 == ']' {
 				if c == ']' {
 					seen = 1
 				}
-				c2 = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
+				c2 = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
 			}
 			for (c2 != 0) && (c2 != ']') {
-				if (((c2 == '-') && (int32(*(*int8)(unsafe.Pointer(zGlob))) != ']')) && (int32(*(*int8)(unsafe.Pointer(zGlob))) != 0)) && (prior_c > 0) {
-					c2 = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
+				if (((c2 == '-') && (int32(*(*uint8)(unsafe.Pointer(zGlob))) != ']')) && (int32(*(*uint8)(unsafe.Pointer(zGlob))) != 0)) && (prior_c > 0) {
+					c2 = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
 					if (c >= prior_c) && (c <= c2) {
 						seen = 1
 					}
@@ -5219,29 +5089,29 @@ func strglob(tls *libc.TLS, zGlob uintptr, z uintptr) int32 { /* mptest.c:136:5:
 					}
 					prior_c = c2
 				}
-				c2 = int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
+				c2 = int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&zGlob, 1))))
 			}
 			if (c2 == 0) || ((seen ^ invert) == 0) {
 				return 0
 			}
 		} else if c == '#' {
-			if ((int32(*(*int8)(unsafe.Pointer(z))) == '-') || (int32(*(*int8)(unsafe.Pointer(z))) == '+')) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + 1)))))*2))) & int32(_ISdigit)) != 0) {
+			if ((int32(*(*uint8)(unsafe.Pointer(z))) == '-') || (int32(*(*uint8)(unsafe.Pointer(z))) == '+')) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + 1)))))*2))) & int32(_ISdigit)) != 0) {
 				z++
 			}
-			if !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z)))))*2))) & int32(_ISdigit)) != 0) {
+			if !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z)))))*2))) & int32(_ISdigit)) != 0) {
 				return 0
 			}
 			z++
-			for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z)))))*2))) & int32(_ISdigit)) != 0 {
+			for (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z)))))*2))) & int32(_ISdigit)) != 0 {
 				z++
 			}
 		} else {
-			if c != (int32(*(*int8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))) {
+			if c != (int32(*(*uint8)(unsafe.Pointer(libc.PostIncUintptr(&z, 1))))) {
 				return 0
 			}
 		}
 	}
-	return (libc.Bool32(int32(*(*int8)(unsafe.Pointer(z))) == 0))
+	return (libc.Bool32(int32(*(*uint8)(unsafe.Pointer(z))) == 0))
 }
 
 // Close output stream pOut if it is not stdout or stderr
@@ -5259,12 +5129,12 @@ func errorMessage(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:215:
 	var ap va_list
 	_ = ap
 	var zMsg uintptr
-	// var zPrefix [30]int8 at bp+8, 30
+	// var zPrefix [30]uint8 at bp+8, 30
 
 	ap = va
 	zMsg = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+8 /* &zPrefix[0] */, ts+8 /* "%s:ERROR: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]uint8{})), bp+8 /* &zPrefix[0] */, ts+8 /* "%s:ERROR: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
 	if g.pLog != 0 {
 		printWithPrefix(tls, g.pLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pLog)
@@ -5285,12 +5155,12 @@ func fatalError(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:241:13
 	var ap va_list
 	_ = ap
 	var zMsg uintptr
-	// var zPrefix [30]int8 at bp+8, 30
+	// var zPrefix [30]uint8 at bp+8, 30
 
 	ap = va
 	zMsg = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+8 /* &zPrefix[0] */, ts+19 /* "%s:FATAL: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]uint8{})), bp+8 /* &zPrefix[0] */, ts+19 /* "%s:FATAL: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
 	if g.pLog != 0 {
 		printWithPrefix(tls, g.pLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pLog)
@@ -5322,12 +5192,12 @@ func logMessage(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:276:13
 	var ap va_list
 	_ = ap
 	var zMsg uintptr
-	// var zPrefix [30]int8 at bp+8, 30
+	// var zPrefix [30]uint8 at bp+8, 30
 
 	ap = va
 	zMsg = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+8 /* &zPrefix[0] */, ts+60 /* "%s: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]uint8{})), bp+8 /* &zPrefix[0] */, ts+60 /* "%s: " */, libc.VaList(bp, uintptr(unsafe.Pointer(&g))+64 /* &.zName */))
 	if g.pLog != 0 {
 		printWithPrefix(tls, g.pLog, bp+8 /* &zPrefix[0] */, zMsg)
 		libc.Xfflush(tls, g.pLog)
@@ -5338,7 +5208,7 @@ func logMessage(tls *libc.TLS, zFormat uintptr, va uintptr) { /* mptest.c:276:13
 // Return the length of a string omitting trailing whitespace
 func clipLength(tls *libc.TLS, z uintptr) int32 { /* mptest.c:294:12: */
 	var n int32 = int32(libc.Xstrlen(tls, z))
-	for (n > 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0) {
+	for (n > 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + uintptr((n - 1)))))))*2))) & int32(_ISspace)) != 0) {
 		n--
 	}
 	return n
@@ -5495,7 +5365,7 @@ func stringAppend(tls *libc.TLS, p uintptr, z uintptr, n int32) { /* mptest.c:42
 	}
 	libc.Xmemcpy(tls, ((*String)(unsafe.Pointer(p)).z + uintptr((*String)(unsafe.Pointer(p)).n)), z, uint64(n))
 	*(*int32)(unsafe.Pointer(p + 8 /* &.n */)) += (n)
-	*(*int8)(unsafe.Pointer((*String)(unsafe.Pointer(p)).z + uintptr((*String)(unsafe.Pointer(p)).n))) = int8(0)
+	*(*uint8)(unsafe.Pointer((*String)(unsafe.Pointer(p)).z + uintptr((*String)(unsafe.Pointer(p)).n))) = uint8(0)
 }
 
 // Reset a string to an empty string
@@ -5504,7 +5374,7 @@ func stringReset(tls *libc.TLS, p uintptr) { /* mptest.c:437:13: */
 		stringAppend(tls, p, ts+143 /* " " */, 1)
 	}
 	(*String)(unsafe.Pointer(p)).n = 0
-	*(*int8)(unsafe.Pointer((*String)(unsafe.Pointer(p)).z)) = int8(0)
+	*(*uint8)(unsafe.Pointer((*String)(unsafe.Pointer(p)).z)) = uint8(0)
 }
 
 // Append a new token onto the end of the string
@@ -5517,17 +5387,17 @@ func stringAppendTerm(tls *libc.TLS, p uintptr, z uintptr) { /* mptest.c:444:13:
 		stringAppend(tls, p, ts+145 /* "nil" */, 3)
 		return
 	}
-	for i = 0; (*(*int8)(unsafe.Pointer(z + uintptr(i))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr(i))))))*2))) & int32(_ISspace)) != 0); i++ {
+	for i = 0; (*(*uint8)(unsafe.Pointer(z + uintptr(i))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + uintptr(i))))))*2))) & int32(_ISspace)) != 0); i++ {
 	}
-	if (i > 0) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(i)))) == 0) {
+	if (i > 0) && (int32(*(*uint8)(unsafe.Pointer(z + uintptr(i)))) == 0) {
 		stringAppend(tls, p, z, i)
 		return
 	}
 	stringAppend(tls, p, ts+149 /* "'" */, 1)
-	for *(*int8)(unsafe.Pointer(z)) != 0 {
-		for i = 0; (*(*int8)(unsafe.Pointer(z + uintptr(i))) != 0) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(i)))) != '\''); i++ {
+	for *(*uint8)(unsafe.Pointer(z)) != 0 {
+		for i = 0; (*(*uint8)(unsafe.Pointer(z + uintptr(i))) != 0) && (int32(*(*uint8)(unsafe.Pointer(z + uintptr(i)))) != '\''); i++ {
 		}
-		if *(*int8)(unsafe.Pointer(z + uintptr(i))) != 0 {
+		if *(*uint8)(unsafe.Pointer(z + uintptr(i))) != 0 {
 			stringAppend(tls, p, z, (i + 1))
 			stringAppend(tls, p, ts+149 /* "'" */, 1)
 			z += (uintptr(i + 1))
@@ -5570,9 +5440,9 @@ func evalSql(tls *libc.TLS, p uintptr, zFormat uintptr, va uintptr) int32 { /* m
 	}{evalCallback})), p, bp+8 /* &zErrMsg */)
 	sqlite3.Xsqlite3_free(tls, zSql)
 	if rc != 0 {
-		// var zErr [30]int8 at bp+16, 30
+		// var zErr [30]uint8 at bp+16, 30
 
-		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]int8{})), bp+16 /* &zErr[0] */, ts+151 /* "error(%d)" */, libc.VaList(bp, rc))
+		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([30]uint8{})), bp+16 /* &zErr[0] */, ts+151 /* "error(%d)" */, libc.VaList(bp, rc))
 		stringAppendTerm(tls, p, bp+16 /* &zErr[0] */)
 		if *(*uintptr)(unsafe.Pointer(bp + 8 /* zErrMsg */)) != 0 {
 			stringAppendTerm(tls, p, *(*uintptr)(unsafe.Pointer(bp + 8 /* zErrMsg */)))
@@ -5753,7 +5623,7 @@ func readFile(tls *libc.TLS, zFilename uintptr) uintptr { /* mptest.c:684:13: */
 	libc.Xrewind(tls, in)
 	z = sqlite3.Xsqlite3_malloc(tls, (int32(sz + int64(1))))
 	sz = int64(libc.Xfread(tls, z, uint64(1), uint64(sz), in))
-	*(*int8)(unsafe.Pointer(z + uintptr(sz))) = int8(0)
+	*(*uint8)(unsafe.Pointer(z + uintptr(sz))) = uint8(0)
 	libc.Xfclose(tls, in)
 	return z
 }
@@ -5761,24 +5631,24 @@ func readFile(tls *libc.TLS, zFilename uintptr) uintptr { /* mptest.c:684:13: */
 // Return the length of the next token.
 func tokenLength(tls *libc.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:704:12: */
 	var n int32 = 0
-	if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z)))))*2))) & int32(_ISspace)) != 0) || ((int32(*(*int8)(unsafe.Pointer(z))) == '/') && (int32(*(*int8)(unsafe.Pointer(z + 1))) == '*')) {
+	if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z)))))*2))) & int32(_ISspace)) != 0) || ((int32(*(*uint8)(unsafe.Pointer(z))) == '/') && (int32(*(*uint8)(unsafe.Pointer(z + 1))) == '*')) {
 		var inC int32 = 0
 		var c int32
-		if int32(*(*int8)(unsafe.Pointer(z))) == '/' {
+		if int32(*(*uint8)(unsafe.Pointer(z))) == '/' {
 			inC = 1
 			n = 2
 		}
-		for (libc.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(z + uintptr(libc.PostIncInt32(&n, 1))))))) != 0 {
+		for (libc.AssignInt32(&c, int32(*(*uint8)(unsafe.Pointer(z + uintptr(libc.PostIncInt32(&n, 1))))))) != 0 {
 			if c == '\n' {
 				(*(*int32)(unsafe.Pointer(pnLine)))++
 			}
 			if (int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0 {
 				continue
 			}
-			if ((inC != 0) && (c == '*')) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))) == '/') {
+			if ((inC != 0) && (c == '*')) && (int32(*(*uint8)(unsafe.Pointer(z + uintptr(n)))) == '/') {
 				n++
 				inC = 0
-			} else if (!(inC != 0) && (c == '/')) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))) == '*') {
+			} else if (!(inC != 0) && (c == '/')) && (int32(*(*uint8)(unsafe.Pointer(z + uintptr(n)))) == '*') {
 				n++
 				inC = 1
 			} else if !(inC != 0) {
@@ -5786,29 +5656,29 @@ func tokenLength(tls *libc.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:7
 			}
 		}
 		n--
-	} else if (int32(*(*int8)(unsafe.Pointer(z))) == '-') && (int32(*(*int8)(unsafe.Pointer(z + 1))) == '-') {
-		for n = 2; (*(*int8)(unsafe.Pointer(z + uintptr(n))) != 0) && (int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))) != '\n'); n++ {
+	} else if (int32(*(*uint8)(unsafe.Pointer(z))) == '-') && (int32(*(*uint8)(unsafe.Pointer(z + 1))) == '-') {
+		for n = 2; (*(*uint8)(unsafe.Pointer(z + uintptr(n))) != 0) && (int32(*(*uint8)(unsafe.Pointer(z + uintptr(n)))) != '\n'); n++ {
 		}
-		if *(*int8)(unsafe.Pointer(z + uintptr(n))) != 0 {
+		if *(*uint8)(unsafe.Pointer(z + uintptr(n))) != 0 {
 			(*(*int32)(unsafe.Pointer(pnLine)))++
 			n++
 		}
-	} else if (int32(*(*int8)(unsafe.Pointer(z))) == '"') || (int32(*(*int8)(unsafe.Pointer(z))) == '\'') {
-		var delim int32 = int32(*(*int8)(unsafe.Pointer(z)))
-		for n = 1; *(*int8)(unsafe.Pointer(z + uintptr(n))) != 0; n++ {
-			if int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))) == '\n' {
+	} else if (int32(*(*uint8)(unsafe.Pointer(z))) == '"') || (int32(*(*uint8)(unsafe.Pointer(z))) == '\'') {
+		var delim int32 = int32(*(*uint8)(unsafe.Pointer(z)))
+		for n = 1; *(*uint8)(unsafe.Pointer(z + uintptr(n))) != 0; n++ {
+			if int32(*(*uint8)(unsafe.Pointer(z + uintptr(n)))) == '\n' {
 				(*(*int32)(unsafe.Pointer(pnLine)))++
 			}
-			if int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))) == delim {
+			if int32(*(*uint8)(unsafe.Pointer(z + uintptr(n)))) == delim {
 				n++
-				if int32(*(*int8)(unsafe.Pointer(z + uintptr((n + 1))))) != delim {
+				if int32(*(*uint8)(unsafe.Pointer(z + uintptr((n + 1))))) != delim {
 					break
 				}
 			}
 		}
 	} else {
 		var c int32
-		for n = 1; (((((libc.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(z + uintptr(n)))))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0)) && (c != '"')) && (c != '\'')) && (c != ';'); n++ {
+		for n = 1; (((((libc.AssignInt32(&c, int32(*(*uint8)(unsafe.Pointer(z + uintptr(n)))))) != 0) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0)) && (c != '"')) && (c != '\'')) && (c != ';'); n++ {
 		}
 	}
 	return n
@@ -5818,20 +5688,20 @@ func tokenLength(tls *libc.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:7
 func extractToken(tls *libc.TLS, zIn uintptr, nIn int32, zOut uintptr, nOut int32) int32 { /* mptest.c:749:12: */
 	var i int32
 	if nIn <= 0 {
-		*(*int8)(unsafe.Pointer(zOut)) = int8(0)
+		*(*uint8)(unsafe.Pointer(zOut)) = uint8(0)
 		return 0
 	}
-	for i = 0; ((i < nIn) && (i < (nOut - 1))) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zIn + uintptr(i))))))*2))) & int32(_ISspace)) != 0); i++ {
-		*(*int8)(unsafe.Pointer(zOut + uintptr(i))) = *(*int8)(unsafe.Pointer(zIn + uintptr(i)))
+	for i = 0; ((i < nIn) && (i < (nOut - 1))) && !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zIn + uintptr(i))))))*2))) & int32(_ISspace)) != 0); i++ {
+		*(*uint8)(unsafe.Pointer(zOut + uintptr(i))) = *(*uint8)(unsafe.Pointer(zIn + uintptr(i)))
 	}
-	*(*int8)(unsafe.Pointer(zOut + uintptr(i))) = int8(0)
+	*(*uint8)(unsafe.Pointer(zOut + uintptr(i))) = uint8(0)
 	return i
 }
 
 // Find the number of characters up to the start of the next "--end" token.
 func findEnd(tls *libc.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:763:12: */
 	var n int32 = 0
-	for (*(*int8)(unsafe.Pointer(z + uintptr(n))) != 0) && ((libc.Xstrncmp(tls, (z+uintptr(n)), ts+896 /* "--end" */, uint64(5)) != 0) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 5)))))))*2))) & int32(_ISspace)) != 0)) {
+	for (*(*uint8)(unsafe.Pointer(z + uintptr(n))) != 0) && ((libc.Xstrncmp(tls, (z+uintptr(n)), ts+896 /* "--end" */, uint64(5)) != 0) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + uintptr((n + 5)))))))*2))) & int32(_ISspace)) != 0)) {
 		n = n + (tokenLength(tls, (z + uintptr(n)), pnLine))
 	}
 	return n
@@ -5842,13 +5712,13 @@ func findEnd(tls *libc.TLS, z uintptr, pnLine uintptr) int32 { /* mptest.c:763:1
 // also skipped.
 func findEndif(tls *libc.TLS, z uintptr, stopAtElse int32, pnLine uintptr) int32 { /* mptest.c:776:12: */
 	var n int32 = 0
-	for *(*int8)(unsafe.Pointer(z + uintptr(n))) != 0 {
+	for *(*uint8)(unsafe.Pointer(z + uintptr(n))) != 0 {
 		var len int32 = tokenLength(tls, (z + uintptr(n)), pnLine)
-		if ((libc.Xstrncmp(tls, (z+uintptr(n)), ts+902 /* "--endif" */, uint64(7)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 7)))))))*2))) & int32(_ISspace)) != 0)) ||
-			(((stopAtElse != 0) && (libc.Xstrncmp(tls, (z+uintptr(n)), ts+910 /* "--else" */, uint64(6)) == 0)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 6)))))))*2))) & int32(_ISspace)) != 0)) {
+		if ((libc.Xstrncmp(tls, (z+uintptr(n)), ts+902 /* "--endif" */, uint64(7)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + uintptr((n + 7)))))))*2))) & int32(_ISspace)) != 0)) ||
+			(((stopAtElse != 0) && (libc.Xstrncmp(tls, (z+uintptr(n)), ts+910 /* "--else" */, uint64(6)) == 0)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + uintptr((n + 6)))))))*2))) & int32(_ISspace)) != 0)) {
 			return (n + len)
 		}
-		if (libc.Xstrncmp(tls, (z+uintptr(n)), ts+917 /* "--if" */, uint64(4)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(z + uintptr((n + 4)))))))*2))) & int32(_ISspace)) != 0) {
+		if (libc.Xstrncmp(tls, (z+uintptr(n)), ts+917 /* "--if" */, uint64(4)) == 0) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(z + uintptr((n + 4)))))))*2))) & int32(_ISspace)) != 0) {
 			var skip int32 = findEndif(tls, ((z + uintptr(n)) + uintptr(len)), 0, pnLine)
 			n = n + (skip + len)
 		} else {
@@ -5900,8 +5770,8 @@ func waitForClient(tls *libc.TLS, iClient int32, iTimeout int32, zErrPrefix uint
 func filenameTail(tls *libc.TLS, z uintptr) uintptr { /* mptest.c:836:13: */
 	var i int32
 	var j int32
-	for i = libc.AssignInt32(&j, 0); *(*int8)(unsafe.Pointer(z + uintptr(i))) != 0; i++ {
-		if (int32(*(*int8)(unsafe.Pointer(z + uintptr(i))))) == '/' {
+	for i = libc.AssignInt32(&j, 0); *(*uint8)(unsafe.Pointer(z + uintptr(i))) != 0; i++ {
+		if (int32(*(*uint8)(unsafe.Pointer(z + uintptr(i))))) == '/' {
 			j = (i + 1)
 		}
 	}
@@ -5917,9 +5787,9 @@ func booleanValue(tls *libc.TLS, zArg uintptr) int32 { /* mptest.c:845:12: */
 	if zArg == uintptr(0) {
 		return 0
 	}
-	for i = 0; (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(i)))) >= '0') && (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(i)))) <= '9'); i++ {
+	for i = 0; (int32(*(*uint8)(unsafe.Pointer(zArg + uintptr(i)))) >= '0') && (int32(*(*uint8)(unsafe.Pointer(zArg + uintptr(i)))) <= '9'); i++ {
 	}
-	if (i > 0) && (int32(*(*int8)(unsafe.Pointer(zArg + uintptr(i)))) == 0) {
+	if (i > 0) && (int32(*(*uint8)(unsafe.Pointer(zArg + uintptr(i)))) == 0) {
 		return libc.Xatoi(tls, zArg)
 	}
 	if (sqlite3.Xsqlite3_stricmp(tls, zArg, ts+1166 /* "on" */) == 0) || (sqlite3.Xsqlite3_stricmp(tls, zArg, ts+1169 /* "yes" */) == 0) {
@@ -5958,22 +5828,22 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 	var nArg int32
 	// var sResult String at bp+360, 16
 
-	// var zCmd [30]int8 at bp+380, 30
+	// var zCmd [30]uint8 at bp+380, 30
 
-	// var zError [1000]int8 at bp+610, 1000
+	// var zError [1000]uint8 at bp+610, 1000
 
-	// var azArg [2][100]int8 at bp+410, 200
+	// var azArg [2][100]uint8 at bp+410, 200
 
 	libc.Xmemset(tls, bp+360 /* &sResult */, 0, uint64(unsafe.Sizeof(String{})))
 	stringReset(tls, bp+360 /* &sResult */)
-	for (libc.AssignInt32(&c, int32(*(*int8)(unsafe.Pointer(zScript + uintptr(ii)))))) != 0 {
+	for (libc.AssignInt32(&c, int32(*(*uint8)(unsafe.Pointer(zScript + uintptr(ii)))))) != 0 {
 		prevLine = *(*int32)(unsafe.Pointer(bp + 376 /* lineno */))
 		len = tokenLength(tls, (zScript + uintptr(ii)), bp+376 /* &lineno */)
-		if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0) || ((c == '/') && (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) == '*')) {
+		if ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(c)))*2))) & int32(_ISspace)) != 0) || ((c == '/') && (int32(*(*uint8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) == '*')) {
 			ii = ii + (len)
 			continue
 		}
-		if ((c != '-') || (int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) != '-')) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + 2))))))*2))) & int32(_ISalpha)) != 0) {
+		if ((c != '-') || (int32(*(*uint8)(unsafe.Pointer(zScript + uintptr((ii + 1))))) != '-')) || !((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(*(*uint8)(unsafe.Pointer(zScript + uintptr((ii + 2))))))*2))) & int32(_ISalpha)) != 0) {
 			ii = ii + (len)
 			continue
 		}
@@ -5990,19 +5860,19 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		if g.iTrace >= 2 {
 			logMessage(tls, ts+1202 /* "%.*s" */, libc.VaList(bp+16, len, (zScript+uintptr(ii))))
 		}
-		n = extractToken(tls, ((zScript + uintptr(ii)) + uintptr(2)), (len - 2), bp+380 /* &zCmd[0] */, int32(unsafe.Sizeof([30]int8{})))
+		n = extractToken(tls, ((zScript + uintptr(ii)) + uintptr(2)), (len - 2), bp+380 /* &zCmd[0] */, int32(unsafe.Sizeof([30]uint8{})))
 		for nArg = 0; (n < (len - 2)) && (nArg < MX_ARG); nArg++ {
-			for (n < (len - 2)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr(((ii + 2) + n)))))))*2))) & int32(_ISspace)) != 0) {
+			for (n < (len - 2)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zScript + uintptr(((ii + 2) + n)))))))*2))) & int32(_ISspace)) != 0) {
 				n++
 			}
 			if n >= (len - 2) {
 				break
 			}
 			n = n + (extractToken(tls, (((zScript + uintptr(ii)) + uintptr(2)) + uintptr(n)), ((len - 2) - n),
-				(bp + 410 /* &azArg[0] */ + uintptr(nArg)*100), int32(unsafe.Sizeof([100]int8{}))))
+				(bp + 410 /* &azArg[0] */ + uintptr(nArg)*100), int32(unsafe.Sizeof([100]uint8{}))))
 		}
 		for j = nArg; j < MX_ARG; j++ {
-			*(*int8)(unsafe.Pointer((bp + 410 /* &azArg[0] */ + uintptr(libc.PostIncInt32(&j, 1))*100))) = int8(0)
+			*(*uint8)(unsafe.Pointer((bp + 410 /* &azArg[0] */ + uintptr(libc.PostIncInt32(&j, 1))*100))) = uint8(0)
 		}
 
 		//  --sleep N
@@ -6057,7 +5927,7 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1240 /* "match" */) == 0 {
 			var jj int32
 			var zAns uintptr = (zScript + uintptr(ii))
-			for jj = 7; (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(_ISspace)) != 0); jj++ {
+			for jj = 7; (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			zAns += uintptr(jj)
 			if (((len - jj) - 1) != (*String)(unsafe.Pointer(bp+360 /* &sResult */)).n) || (libc.Xstrncmp(tls, (*String)(unsafe.Pointer(bp+360 /* &sResult */)).z, zAns, (uint64((len-jj)-1))) != 0) {
@@ -6077,8 +5947,8 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 			var jj int32
 			var zAns uintptr = (zScript + uintptr(ii))
 			var zCopy uintptr
-			var isGlob int32 = (libc.Bool32(int32(*(*int8)(unsafe.Pointer(bp + 380 /* &zCmd[0] */))) == 'g'))
-			for jj = (9 - (3 * isGlob)); (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(_ISspace)) != 0); jj++ {
+			var isGlob int32 = (libc.Bool32(int32(*(*uint8)(unsafe.Pointer(bp + 380 /* &zCmd[0] */))) == 'g'))
+			for jj = (9 - (3 * isGlob)); (jj < (len - 1)) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zAns + uintptr(jj))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			zAns += uintptr(jj)
 			zCopy = sqlite3.Xsqlite3_mprintf(tls, ts+1202 /* "%.*s" */, libc.VaList(bp+88, ((len-jj)-1), zAns))
@@ -6106,9 +5976,9 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 			var zNewScript uintptr
 			var zToDel uintptr = uintptr(0)
 			zNewFile = (bp + 410 /* &azArg[0] */)
-			if !((int32(*(*int8)(unsafe.Pointer(zNewFile)))) == '/') {
+			if !((int32(*(*uint8)(unsafe.Pointer(zNewFile)))) == '/') {
 				var k int32
-				for k = (int32(libc.Xstrlen(tls, zFilename)) - 1); (k >= 0) && !((int32(*(*int8)(unsafe.Pointer(zFilename + uintptr(k))))) == '/'); k-- {
+				for k = (int32(libc.Xstrlen(tls, zFilename)) - 1); (k >= 0) && !((int32(*(*uint8)(unsafe.Pointer(zFilename + uintptr(k))))) == '/'); k-- {
 				}
 				if k > 0 {
 					zNewFile = libc.AssignUintptr(&zToDel, sqlite3.Xsqlite3_mprintf(tls, ts+1361 /* "%.*s/%s" */, libc.VaList(bp+144, k, zFilename, zNewFile)))
@@ -6131,7 +6001,7 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 		// Output the remainder of the line to the log file
 		if libc.Xstrcmp(tls, bp+380 /* &zCmd[0] */, ts+1405 /* "print" */) == 0 {
 			var jj int32
-			for jj = 7; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(_ISspace)) != 0); jj++ {
+			for jj = 7; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			logMessage(tls, ts+1202 /* "%.*s" */, libc.VaList(bp+184, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
 		} else
@@ -6143,7 +6013,7 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 			var jj int32
 			var rc int32
 			var pStmt uintptr
-			for jj = 4; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*int8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(_ISspace)) != 0); jj++ {
+			for jj = 4; (jj < len) && ((int32(*(*uint16)(unsafe.Pointer((*(*uintptr)(unsafe.Pointer(libc.X__ctype_b_loc(tls)))) + uintptr(int32(uint8(*(*uint8)(unsafe.Pointer(zScript + uintptr((ii + jj)))))))*2))) & int32(_ISspace)) != 0); jj++ {
 			}
 			pStmt = prepareSql(tls, ts+1414 /* "SELECT %.*s" */, libc.VaList(bp+200, (len-jj), ((zScript+uintptr(ii))+uintptr(jj))))
 			rc = sqlite3.Xsqlite3_step(tls, pStmt)
@@ -6191,7 +6061,7 @@ func runScript(tls *libc.TLS, iClient int32, taskId int32, zScript uintptr, zFil
 			} else {
 				iTimeout = 10000
 			}
-			sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([1000]int8{})), bp+610 /* &zError[0] */, ts+1448, /* "line %d of %s\n" */
+			sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([1000]uint8{})), bp+610 /* &zError[0] */, ts+1448, /* "line %d of %s\n" */
 				libc.VaList(bp+216, prevLine, zFilename))
 			waitForClient(tls, libc.Xatoi(tls, (bp+410 /* &azArg[0] */)), iTimeout, bp+610 /* &zError[0] */)
 		} else
@@ -6282,12 +6152,12 @@ func findOption(tls *libc.TLS, azArg uintptr, pnArg uintptr, zOption uintptr, ha
 			break
 		}
 		z = *(*uintptr)(unsafe.Pointer(azArg + uintptr(i)*8))
-		if int32(*(*int8)(unsafe.Pointer(z))) != '-' {
+		if int32(*(*uint8)(unsafe.Pointer(z))) != '-' {
 			continue
 		}
 		z++
-		if int32(*(*int8)(unsafe.Pointer(z))) == '-' {
-			if int32(*(*int8)(unsafe.Pointer(z + 1))) == 0 {
+		if int32(*(*uint8)(unsafe.Pointer(z))) == '-' {
+			if int32(*(*uint8)(unsafe.Pointer(z + 1))) == 0 {
 				break
 			}
 			z++
@@ -6319,8 +6189,8 @@ func usage(tls *libc.TLS, argv0 uintptr) { /* mptest.c:1241:13: */
 
 	var i int32
 	var zTail uintptr = argv0
-	for i = 0; *(*int8)(unsafe.Pointer(argv0 + uintptr(i))) != 0; i++ {
-		if (int32(*(*int8)(unsafe.Pointer(argv0 + uintptr(i))))) == '/' {
+	for i = 0; *(*uint8)(unsafe.Pointer(argv0 + uintptr(i))) != 0; i++ {
+		if (int32(*(*uint8)(unsafe.Pointer(argv0 + uintptr(i))))) == '/' {
 			zTail = ((argv0 + uintptr(i)) + uintptr(1))
 		}
 	}
@@ -6386,7 +6256,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		libc.Xexit(tls, 1)
 	}
 	*(*int32)(unsafe.Pointer(bp + 232 /* n */)) = (argc - 2)
-	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]int8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2475 /* "%05d.mptest" */, libc.VaList(bp+16, libc.Xgetpid(tls)))
+	sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]uint8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2475 /* "%05d.mptest" */, libc.VaList(bp+16, libc.Xgetpid(tls)))
 	zJMode = findOption(tls, (argv + uintptr(2)*8), bp+232 /* &n */, ts+2487 /* "journalmode" */, 1)
 	zNRep = findOption(tls, (argv + uintptr(2)*8), bp+232 /* &n */, ts+2499 /* "repeat" */, 1)
 	if zNRep != 0 {
@@ -6431,7 +6301,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		if iClient < 1 {
 			fatalError(tls, ts+2564 /* "illegal client n..." */, libc.VaList(bp+40, iClient))
 		}
-		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]int8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2591, /* "%05d.client%02d" */
+		sqlite3.Xsqlite3_snprintf(tls, int32(unsafe.Sizeof([32]uint8{})), uintptr(unsafe.Pointer(&g))+64 /* &.zName */, ts+2591, /* "%05d.client%02d" */
 			libc.VaList(bp+48, libc.Xgetpid(tls), iClient))
 	} else {
 		var nTry int32 = 0
