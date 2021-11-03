@@ -859,6 +859,150 @@ const (
 	Unix                                  = 1
 )
 
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
+
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// void assert (int expression);
+//
+//    If NDEBUG is defined, do nothing.
+//    If not, and EXPRESSION is zero, print an error message and abort.
+
+// void assert_perror (int errnum);
+//
+//    If NDEBUG is defined, do nothing.  If not, and ERRNUM is not zero, print an
+//    error message with the error text for ERRNUM and abort.
+//    (This is a GNU extension.)
+
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+//	ISO C99 Standard 7.4: Character handling	<ctype.h>
+
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// bits/types.h -- definitions of __*_t types underlying *_t types.
+//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <https://www.gnu.org/licenses/>.
+
+// Never include this file directly; use <sys/types.h> instead.
+
+// These are all the characteristics of characters.
+//    If there get to be more than 16 distinct characteristics,
+//    many things must be changed that use `unsigned short int's.
+//
+//    The characteristics are stored always in network byte order (big
+//    endian).  We define the bit value interpretations here dependent on the
+//    machine's byte order.
+
+// Endian macros for string.h functions
+//    Copyright (C) 1992-2020 Free Software Foundation, Inc.
+//    This file is part of the GNU C Library.
+//
+//    The GNU C Library is free software; you can redistribute it and/or
+//    modify it under the terms of the GNU Lesser General Public
+//    License as published by the Free Software Foundation; either
+//    version 2.1 of the License, or (at your option) any later version.
+//
+//    The GNU C Library is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//    Lesser General Public License for more details.
+//
+//    You should have received a copy of the GNU Lesser General Public
+//    License along with the GNU C Library; if not, see
+//    <http://www.gnu.org/licenses/>.
+
+const ( /* ctype.h:46:1: */
+	_ISupper  = 1    // UPPERCASE.
+	_ISlower  = 2    // lowercase.
+	_ISalpha  = 4    // Alphabetic.
+	_ISdigit  = 8    // Numeric.
+	_ISxdigit = 16   // Hexadecimal numeric.
+	_ISspace  = 32   // Whitespace.
+	_ISprint  = 64   // Printing.
+	_ISgraph  = 128  // Graphical.
+	_ISblank  = 256  // Blank (usually SPC and TAB).
+	_IScntrl  = 512  // Control character.
+	_ISpunct  = 1024 // Punctuation.
+	_ISalnum  = 2048
+)
+
 // Get the `_PC_*' symbols for the NAME argument to `pathconf' and `fpathconf';
 //    the `_SC_*' symbols for the NAME argument to `sysconf';
 //    and the `_CS_*' symbols for the NAME argument to `confstr'.
@@ -1227,118 +1371,10 @@ const ( /* confname.h:71:1: */
 	_SC_THREAD_ROBUST_PRIO_PROTECT = 248
 )
 
-// Copyright (C) 1991-2020 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <https://www.gnu.org/licenses/>.
+// A null pointer constant.
 
-//	ISO C99 Standard: 7.2 Diagnostics	<assert.h>
-
-// Copyright (C) 1991-2020 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <https://www.gnu.org/licenses/>.
-
-// void assert (int expression);
-//
-//    If NDEBUG is defined, do nothing.
-//    If not, and EXPRESSION is zero, print an error message and abort.
-
-// void assert_perror (int errnum);
-//
-//    If NDEBUG is defined, do nothing.  If not, and ERRNUM is not zero, print an
-//    error message with the error text for ERRNUM and abort.
-//    (This is a GNU extension.)
-
-// Copyright (C) 1991-2020 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <https://www.gnu.org/licenses/>.
-
-//	ISO C99 Standard 7.4: Character handling	<ctype.h>
-
-// Copyright (C) 1991-2020 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <https://www.gnu.org/licenses/>.
-
-// bits/types.h -- definitions of __*_t types underlying *_t types.
-//    Copyright (C) 2002-2020 Free Software Foundation, Inc.
-//    This file is part of the GNU C Library.
-//
-//    The GNU C Library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Lesser General Public
-//    License as published by the Free Software Foundation; either
-//    version 2.1 of the License, or (at your option) any later version.
-//
-//    The GNU C Library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Lesser General Public License for more details.
-//
-//    You should have received a copy of the GNU Lesser General Public
-//    License along with the GNU C Library; if not, see
-//    <https://www.gnu.org/licenses/>.
-
-// Never include this file directly; use <sys/types.h> instead.
-
-// These are all the characteristics of characters.
-//    If there get to be more than 16 distinct characteristics,
-//    many things must be changed that use `unsigned short int's.
-//
-//    The characteristics are stored always in network byte order (big
-//    endian).  We define the bit value interpretations here dependent on the
-//    machine's byte order.
-
-// Endian macros for string.h functions
+// XPG requires a few symbols from <sys/wait.h> being defined.
+// Definitions of flag bits for `waitpid' et al.
 //    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
 //
@@ -1354,21 +1390,21 @@ const ( /* confname.h:71:1: */
 //
 //    You should have received a copy of the GNU Lesser General Public
 //    License along with the GNU C Library; if not, see
-//    <http://www.gnu.org/licenses/>.
+//    <https://www.gnu.org/licenses/>.
 
-const ( /* ctype.h:46:1: */
-	_ISupper  = 1    // UPPERCASE.
-	_ISlower  = 2    // lowercase.
-	_ISalpha  = 4    // Alphabetic.
-	_ISdigit  = 8    // Numeric.
-	_ISxdigit = 16   // Hexadecimal numeric.
-	_ISspace  = 32   // Whitespace.
-	_ISprint  = 64   // Printing.
-	_ISgraph  = 128  // Graphical.
-	_ISblank  = 256  // Blank (usually SPC and TAB).
-	_IScntrl  = 512  // Control character.
-	_ISpunct  = 1024 // Punctuation.
-	_ISalnum  = 2048
+// Bits in the third argument to `waitpid'.
+
+// Bits in the fourth argument to `waitid'.
+
+// The following values are used by the `waitid' function.
+
+// The Linux kernel defines these bare, rather than an enum,
+//    which causes a conflict if the include order is reversed.
+
+const ( /* waitflags.h:52:1: */
+	P_ALL  = 0 // Wait for any child.
+	P_PID  = 1 // Wait for specified process.
+	P_PGID = 2
 )
 
 type ptrdiff_t = int64 /* <builtin>:3:26 */
@@ -3924,7 +3960,7 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 
 // Never include this file directly; use <sys/types.h> instead.
 
-// Copyright (C) 1989-2017 Free Software Foundation, Inc.
+// Copyright (C) 1989-2019 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -3955,15 +3991,6 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -3999,11 +4026,6 @@ type fpos_t = _G_fpos64_t /* stdio.h:86:20 */
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
 
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
-
 // A null pointer constant.
 
 // The Single Unix specification says that some more types are
@@ -4019,11 +4041,6 @@ type pid_t = int32 /* unistd.h:260:17 */
 type intptr_t = int64 /* unistd.h:267:20 */
 
 type socklen_t = uint32 /* unistd.h:274:21 */
-
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
 
 // A null pointer constant.
 
@@ -4050,6 +4067,12 @@ type socklen_t = uint32 /* unistd.h:274:21 */
 
 // Bits in the fourth argument to `waitid'.
 
+// The following values are used by the `waitid' function.
+
+// The Linux kernel defines these bare, rather than an enum,
+//    which causes a conflict if the include order is reversed.
+
+type idtype_t = uint32 /* waitflags.h:57:3 */
 // Definitions of status bits for `wait' et al.
 //    Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //    This file is part of the GNU C Library.
@@ -4462,7 +4485,7 @@ type time_t = int64 /* time_t.h:7:18 */
 // Timer ID returned by `timer_create'.
 type timer_t = uintptr /* timer_t.h:7:19 */
 
-// Copyright (C) 1989-2017 Free Software Foundation, Inc.
+// Copyright (C) 1989-2019 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -4493,15 +4516,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 
 // This avoids lossage on SunOS but only if stdtypes.h comes first.
 //    There's no way to win with the other order!  Sun lossage.
-
-// On 4.3bsd-net2, make sure ansi.h is included, so we have
-//    one less case to deal with in the following.
-// On FreeBSD 5, machine/ansi.h does not exist anymore...
-
-// In 4.3bsd-net2, machine/ansi.h defines these symbols, which are
-//    defined if the corresponding type is *not* defined.
-//    FreeBSD-2.1 defines _MACHINE_ANSI_H_ instead of _ANSI_H_.
-//    NetBSD defines _I386_ANSI_H_ and _X86_64_ANSI_H_ instead of _ANSI_H_
 
 // Sequent's header files use _PTRDIFF_T_ in some conflicting way.
 //    Just ignore it.
@@ -4536,11 +4550,6 @@ type timer_t = uintptr /* timer_t.h:7:19 */
 
 // Define this type if we are doing the whole job,
 //    or if we want this type in particular.
-
-//  In 4.3bsd-net2, leave these undefined to indicate that size_t, etc.
-//     are already defined.
-//  BSD/OS 3.1 and FreeBSD [23].x require the MACHINE_ANSI_H check here.
-//  NetBSD 5 requires the I386_ANSI_H and X86_64_ANSI_H checks here.
 
 // A null pointer constant.
 
