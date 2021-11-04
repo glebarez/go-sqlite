@@ -393,8 +393,10 @@ func main() {
 	}
 	more = append(more, ndebug...)
 	download()
-	// experimental pthreads support currently only on linux/amd64
-	if goos != "linux" || goarch != "amd64" {
+	switch fmt.Sprintf("%s/%s", goos, goarch) {
+	case "linux/amd64":
+		// experimental pthreads support currently only on linux/amd64
+	default:
 		configProduction = append(configProduction, "-DSQLITE_MUTEX_NOOP")
 		configTest = append(configTest, "-DSQLITE_MUTEX_NOOP")
 	}
