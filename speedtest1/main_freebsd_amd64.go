@@ -578,7 +578,6 @@ const (
 	W_OK                                  = 0x02
 	X_OK                                  = 0x01
 	X_ACCMODE_T_DECLARED                  = 0
-	X_ANSI_STDARG_H_                      = 0
 	X_ASSERT_H_                           = 0
 	X_BIG_ENDIAN                          = 4321
 	X_BLKCNT_T_DECLARED                   = 0
@@ -656,6 +655,7 @@ const (
 	X_LSEEK_DECLARED                      = 0
 	X_LWPID_T_DECLARED                    = 0
 	X_MACHINE_ENDIAN_H_                   = 0
+	X_MACHINE_STDARG_H_                   = 0
 	X_MACHINE__LIMITS_H_                  = 0
 	X_MACHINE__TYPES_H_                   = 0
 	X_MKDTEMP_DECLARED                    = 0
@@ -898,7 +898,6 @@ const (
 	X_SIZE_T_DECLARED                     = 0
 	X_SQLITE3RTREE_H_                     = 0
 	X_SSIZE_T_DECLARED                    = 0
-	X_STDARG_H                            = 0
 	X_STDFILE_DECLARED                    = 0
 	X_STDIO_H_                            = 0
 	X_STDLIB_H_                           = 0
@@ -914,6 +913,7 @@ const (
 	X_SYS_UNISTD_H_                       = 0
 	X_SYS__PTHREADTYPES_H_                = 0
 	X_SYS__SIGSET_H_                      = 0
+	X_SYS__STDARG_H_                      = 0
 	X_SYS__STDINT_H_                      = 0
 	X_SYS__TIMESPEC_H_                    = 0
 	X_SYS__TIMEVAL_H_                     = 0
@@ -934,10 +934,7 @@ const (
 	X_V6_ILP32_OFFBIG                     = 0
 	X_V6_LP64_OFF64                       = 0
 	X_V6_LPBIG_OFFBIG                     = -1
-	X_VA_LIST                             = 0
 	X_VA_LIST_DECLARED                    = 0
-	X_VA_LIST_DEFINED                     = 0
-	X_VA_LIST_T_H                         = 0
 	X_WCHAR_T_DECLARED                    = 0
 	X_XLOCALE_CTYPE_H                     = 0
 	X_XLOCALE_RUN_FUNCTIONS_DEFINED       = 1
@@ -963,27 +960,13 @@ type wchar_t = int32 /* <builtin>:15:24 */
 // A program for performance testing.
 //
 // The available command-line options are described below:
-var zHelp = *(*[2206]int8)(unsafe.Pointer(ts /* "Usage: %s [--opt..." */)) /* speedtest1.c:6:19 */
+var zHelp = *(*[2206]int8)(unsafe.Pointer(ts /* "Usage: %s [--opt..." */)) /* speedtest1.c:6:19 */ // compatibility w/GNU headers
 
-// Define the standard macros for the user,
-//    if this invocation was from the user program.
+// When the following macro is defined, the system uses 64-bit inode numbers.
+// Programs can use this to avoid including <sys/param.h>, with its associated
+// namespace pollution.
 
-// Define va_list, if desired, from __gnuc_va_list.
-// We deliberately do not define va_list when called from
-//    stdio.h, because ANSI C says that stdio.h is not supposed to define
-//    va_list.  stdio.h needs to have access to that data type,
-//    but must not use that name.  It should use the name __gnuc_va_list,
-//    which is safe because it is reserved for the implementation.
-
-// The macro _VA_LIST_ is the same thing used by this file in Ultrix.
-//    But on BSD NET2 we must not test or define or undef it.
-//    (Note that the comments in NET 2's ansi.h
-//    are incorrect for _VA_LIST_--see stdio.h!)
-// The macro _VA_LIST_DEFINED is used in Windows NT 3.5
-// The macro _VA_LIST is used in SCO Unix 3.2.
-// The macro _VA_LIST_T_H is used in the Bull dpx2
-// The macro __va_list__ is used by BeOS.
-type va_list = uintptr /* stdarg.h:99:24 */
+type va_list = uintptr /* _stdarg.h:41:27 */
 
 // CAPI3REF: 64-Bit Integer Types
 // KEYWORDS: sqlite_int64 sqlite_uint64
@@ -3055,11 +3038,137 @@ type fts5_api1 = struct {
 // ************************************************************************
 //
 // FTS5 EXTENSION REGISTRATION API
-type fts5_api = fts5_api1 /* sqlite3.h:12312:25 */ // internally known to gcc
+type fts5_api = fts5_api1 /* sqlite3.h:12312:25 */
 
-// When the following macro is defined, the system uses 64-bit inode numbers.
-// Programs can use this to avoid including <sys/param.h>, with its associated
-// namespace pollution.
+// -
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// Copyright (c) 1990, 1993
+//	The Regents of the University of California.  All rights reserved.
+//
+// This code is derived from software contributed to Berkeley by
+// Chris Torek.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+// 3. Neither the name of the University nor the names of its contributors
+//    may be used to endorse or promote products derived from this software
+//    without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+// OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+// OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE.
+//
+//	@(#)stdio.h	8.5 (Berkeley) 4/29/95
+// $FreeBSD$
+
+// -
+// SPDX-License-Identifier: BSD-3-Clause
+//
+// Copyright (c) 1991, 1993
+//	The Regents of the University of California.  All rights reserved.
+//
+// This code is derived from software contributed to Berkeley by
+// Berkeley Software Design, Inc.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+// 3. Neither the name of the University nor the names of its contributors
+//    may be used to endorse or promote products derived from this software
+//    without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+// OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+// OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE.
+//
+//	@(#)cdefs.h	8.8 (Berkeley) 1/9/95
+// $FreeBSD$
+
+// -
+// SPDX-License-Identifier: BSD-2-Clause-FreeBSD
+//
+// Copyright (c) 2003 Marcel Moolenaar
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+//
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+// IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+// OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+// IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+// NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+// THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+// $FreeBSD$
+
+// -
+// SPDX-License-Identifier: BSD-2-Clause-FreeBSD
+//
+// Copyright (c) 2002 Mike Barcroft <mike@FreeBSD.org>
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+// 1. Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+// OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+// OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE.
+//
+// $FreeBSD$
 
 type fpos_t = int64 /* stdio.h:47:18 */
 
@@ -4164,7 +4273,7 @@ func isTemp(tls *libc.TLS, N int32) uintptr { /* speedtest1.c:113:19: */
 func fatal_error(tls *libc.TLS, zMsg uintptr, va uintptr) { /* speedtest1.c:118:13: */
 	var ap va_list
 	_ = ap
-	ap = va
+	(ap) = va
 	libc.Xvfprintf(tls, libc.X__stderrp, zMsg, ap)
 	_ = ap
 	libc.Xexit(tls, 1)
@@ -4321,12 +4430,16 @@ func speedtest1_timestamp(tls *libc.TLS) sqlite3_int64 { /* speedtest1.c:257:15:
 		clockVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	}
 	if ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).iVersion >= 2) && ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64 != uintptr(0)) {
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, clockVfs, bp /* &t */)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64})).f(tls, clockVfs, bp /* &t */)
 	} else {
 		// var r float64 at bp+8, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 120 /* &.xCurrentTime */))))(tls, clockVfs, bp+8 /* &r */)
-		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (sqlite3_int64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTime})).f(tls, clockVfs, bp+8 /* &r */)
+		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (libc.Int64FromFloat64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
 	}
 	return *(*sqlite3_int64)(unsafe.Pointer(bp /* t */))
 }
@@ -4446,7 +4559,7 @@ func speedtest1_begin_test(tls *libc.TLS, iTestNum int32, zTestName uintptr, va 
 	var zName uintptr
 	var ap va_list
 	_ = ap
-	ap = va
+	(ap) = va
 	zName = sqlite3.Xsqlite3_vmprintf(tls, zTestName, ap)
 	_ = ap
 	n = int32(libc.Xstrlen(tls, zName))
@@ -4547,7 +4660,7 @@ func speedtest1_exec(tls *libc.TLS, zFormat uintptr, va uintptr) { /* speedtest1
 	var ap va_list
 	_ = ap
 	var zSql uintptr
-	ap = va
+	(ap) = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 	if g.bSqlOnly != 0 {
@@ -4579,7 +4692,7 @@ func speedtest1_once(tls *libc.TLS, zFormat uintptr, va uintptr) uintptr { /* sp
 	// var pStmt uintptr at bp+16, 8
 
 	var zResult uintptr = uintptr(0)
-	ap = va
+	(ap) = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 	if g.bSqlOnly != 0 {
@@ -4610,7 +4723,7 @@ func speedtest1_prepare(tls *libc.TLS, zFormat uintptr, va uintptr) { /* speedte
 	var ap va_list
 	_ = ap
 	var zSql uintptr
-	ap = va
+	(ap) = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 	if g.bSqlOnly != 0 {

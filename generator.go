@@ -372,6 +372,7 @@ func fail(s string, args ...interface{}) {
 }
 
 func main() {
+	fmt.Printf("Running on %s/%s.\n", runtime.GOOS, runtime.GOARCH)
 	env := os.Getenv("GO_GENERATE")
 	goarch := runtime.GOARCH
 	goos := runtime.GOOS
@@ -586,7 +587,8 @@ func makeTestfixture(goos, goarch string, more []string) {
 			"-DSQLITE_SERVER=1",
 			"-DTCLSH_INIT_PROC=sqlite3TestInit",
 			"-D_HAVE_SQLITE_CONFIG_H",
-			"-I/usr/include/tcl8.6", //TODO linux: should not be hardcoded
+			"-I/usr/include/tcl8.6",       //TODO linux: should not be hardcoded
+			"-I/usr/local/include/tcl8.6", //TODO freebsd: should not be hardcoded
 			"-export-defines", "",
 			"-export-fields", "F",
 			"-trace-translation-units",

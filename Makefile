@@ -69,8 +69,9 @@ darwin_arm64:
 	GOOS=darwin GOARCH=arm64 go build -v ./...
 
 freebsd_amd64:
-	TARGET_GOOS=freebsd TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-freebsd-amd64
-	GOOS=freebsd GOARCH=amd64 go build -v ./...
+	@echo "Should be executed only on freebsd/amd64."
+	go generate 2>&1 | tee log-generate
+	go build -v ./...
 
 netbsd_amd64:
 	TARGET_GOOS=netbsd TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-netbsd-amd64
