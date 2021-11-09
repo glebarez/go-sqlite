@@ -579,6 +579,29 @@ func makeTestfixture(goos, goarch string, more []string) {
 	}
 	configure(goos, goarch)
 
+	var defines, includes []string
+	switch goos {
+	case "freebsd":
+		includes = []string{"-I/usr/local/include/tcl8.6"}
+	case "linux":
+		includes = []string{"-I/usr/include/tcl8.6"}
+	case "netbsd":
+		includes = []string{"-I/usr/pkg/include"}
+		defines = []string{
+			"-D__libc_cond_broadcast=pthread_cond_broadcast",
+			"-D__libc_cond_destroy=pthread_cond_destroy",
+			"-D__libc_cond_init=pthread_cond_init",
+			"-D__libc_cond_signal=pthread_cond_signal",
+			"-D__libc_cond_wait=pthread_cond_wait",
+			"-D__libc_mutex_destroy=pthread_mutex_destroy",
+			"-D__libc_mutex_init=pthread_mutex_init",
+			"-D__libc_mutex_lock=pthread_mutex_lock",
+			"-D__libc_mutex_trylock=pthread_mutex_trylock",
+			"-D__libc_mutex_unlock=pthread_mutex_unlock",
+			"-D__libc_thr_yield=sched_yield",
+		}
+	}
+
 	args := join(
 		[]string{
 			"ccgo",
@@ -587,8 +610,10 @@ func makeTestfixture(goos, goarch string, more []string) {
 			"-DSQLITE_SERVER=1",
 			"-DTCLSH_INIT_PROC=sqlite3TestInit",
 			"-D_HAVE_SQLITE_CONFIG_H",
-			"-I/usr/include/tcl8.6",       //TODO linux: should not be hardcoded
-			"-I/usr/local/include/tcl8.6", //TODO freebsd: should not be hardcoded
+		},
+		defines,
+		includes,
+		[]string{
 			"-export-defines", "",
 			"-export-fields", "F",
 			"-trace-translation-units",

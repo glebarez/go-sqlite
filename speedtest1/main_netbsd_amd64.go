@@ -33,7 +33,6 @@ const (
 	FD_SETSIZE                            = 256
 	FFILESYNC                             = 0x0020
 	FILENAME_MAX                          = 1024
-	FIXINC_WRAP_STDIO_H_STDIO_STDARG_H    = 1
 	FOPEN_MAX                             = 20
 	FPARSELN_UNESCALL                     = 0x0f
 	FPARSELN_UNESCCOMM                    = 0x04
@@ -639,7 +638,6 @@ const (
 	X_AMD64_INT_MWGWTYPES_H_              = 0
 	X_AMD64_INT_TYPES_H_                  = 0
 	X_AMD64_WCHAR_LIMITS_H_               = 0
-	X_ANSI_STDARG_H_                      = 0
 	X_BIG_ENDIAN                          = 4321
 	X_BSD_INT16_T_                        = 0
 	X_BSD_INT32_T_                        = 0
@@ -672,8 +670,6 @@ const (
 	X_FILE_OFFSET_BITS                    = 64
 	X_FSTDIO                              = 0
 	X_FTS5_H                              = 0
-	X_GCC_PTRDIFF_T                       = 0
-	X_GCC_WCHAR_T                         = 0
 	X_IOFBF                               = 0
 	X_IOLBF                               = 1
 	X_IONBF                               = 2
@@ -854,7 +850,6 @@ const (
 	X_SC_VERSION                          = 8
 	X_SC_XOPEN_SHM                        = 30
 	X_SQLITE3RTREE_H_                     = 0
-	X_STDARG_H                            = 0
 	X_STDIO_H_                            = 0
 	X_STDLIB_H_                           = 0
 	X_STRINGS_H_                          = 0
@@ -871,14 +866,11 @@ const (
 	X_SYS_ENDIAN_H_                       = 0
 	X_SYS_FD_SET_H_                       = 0
 	X_SYS_NULL_H_                         = 0
+	X_SYS_STDARG_H_                       = 0
 	X_SYS_STDINT_H_                       = 0
 	X_SYS_TYPES_H_                        = 0
 	X_SYS_UNISTD_H_                       = 0
 	X_UNISTD_H_                           = 0
-	X_VA_LIST                             = 0
-	X_VA_LIST_                            = 0
-	X_VA_LIST_DEFINED                     = 0
-	X_VA_LIST_T_H                         = 0
 	X_X86_64_BSWAP_H_                     = 0
 	X_X86_64_CDEFS_H_                     = 0
 	X_X86_64_TYPES_H_                     = 0
@@ -896,25 +888,66 @@ type wchar_t = int32 /* <builtin>:15:24 */
 // The available command-line options are described below:
 var zHelp = *(*[2206]int8)(unsafe.Pointer(ts /* "Usage: %s [--opt..." */)) /* speedtest1.c:6:19 */
 
-// Define the standard macros for the user,
-//    if this invocation was from the user program.
+//	$NetBSD: featuretest.h,v 1.10 2013/04/26 18:29:06 christos Exp $
 
-// Define va_list, if desired, from __gnuc_va_list.
-// We deliberately do not define va_list when called from
-//    stdio.h, because ANSI C says that stdio.h is not supposed to define
-//    va_list.  stdio.h needs to have access to that data type,
-//    but must not use that name.  It should use the name __gnuc_va_list,
-//    which is safe because it is reserved for the implementation.
+// Written by Klaus Klein <kleink@NetBSD.org>, February 2, 1998.
+// Public domain.
+//
+// NOTE: Do not protect this header against multiple inclusion.  Doing
+// so can have subtle side-effects due to header file inclusion order
+// and testing of e.g. _POSIX_SOURCE vs. _POSIX_C_SOURCE.  Instead,
+// protect each CPP macro that we want to supply.
 
-// The macro _VA_LIST_ is the same thing used by this file in Ultrix.
-//    But on BSD NET2 we must not test or define or undef it.
-//    (Note that the comments in NET 2's ansi.h
-//    are incorrect for _VA_LIST_--see stdio.h!)
-// The macro _VA_LIST_DEFINED is used in Windows NT 3.5
-// The macro _VA_LIST is used in SCO Unix 3.2.
-// The macro _VA_LIST_T_H is used in the Bull dpx2
-// The macro __va_list__ is used by BeOS.
-type va_list = uintptr /* stdarg.h:99:24 */
+// Feature-test macros are defined by several standards, and allow an
+// application to specify what symbols they want the system headers to
+// expose, and hence what standard they want them to conform to.
+// There are two classes of feature-test macros.  The first class
+// specify complete standards, and if one of these is defined, header
+// files will try to conform to the relevant standard.  They are:
+//
+// ANSI macros:
+// _ANSI_SOURCE			ANSI C89
+//
+// POSIX macros:
+// _POSIX_SOURCE == 1		IEEE Std 1003.1 (version?)
+// _POSIX_C_SOURCE == 1		IEEE Std 1003.1-1990
+// _POSIX_C_SOURCE == 2		IEEE Std 1003.2-1992
+// _POSIX_C_SOURCE == 199309L	IEEE Std 1003.1b-1993
+// _POSIX_C_SOURCE == 199506L	ISO/IEC 9945-1:1996
+// _POSIX_C_SOURCE == 200112L	IEEE Std 1003.1-2001
+// _POSIX_C_SOURCE == 200809L   IEEE Std 1003.1-2008
+//
+// X/Open macros:
+// _XOPEN_SOURCE		System Interfaces and Headers, Issue 4, Ver 2
+// _XOPEN_SOURCE_EXTENDED == 1	XSH4.2 UNIX extensions
+// _XOPEN_SOURCE == 500		System Interfaces and Headers, Issue 5
+// _XOPEN_SOURCE == 520		Networking Services (XNS), Issue 5.2
+// _XOPEN_SOURCE == 600		IEEE Std 1003.1-2001, XSI option
+// _XOPEN_SOURCE == 700		IEEE Std 1003.1-2008, XSI option
+//
+// NetBSD macros:
+// _NETBSD_SOURCE == 1		Make all NetBSD features available.
+//
+// If more than one of these "major" feature-test macros is defined,
+// then the set of facilities provided (and namespace used) is the
+// union of that specified by the relevant standards, and in case of
+// conflict, the earlier standard in the above list has precedence (so
+// if both _POSIX_C_SOURCE and _NETBSD_SOURCE are defined, the version
+// of rename() that's used is the POSIX one).  If none of the "major"
+// feature-test macros is defined, _NETBSD_SOURCE is assumed.
+//
+// There are also "minor" feature-test macros, which enable extra
+// functionality in addition to some base standard.  They should be
+// defined along with one of the "major" macros.  The "minor" macros
+// are:
+//
+// _REENTRANT
+// _ISOC99_SOURCE
+// _ISOC11_SOURCE
+// _LARGEFILE_SOURCE		Large File Support
+//		<http://ftp.sas.com/standards/large.file/x_open.20Mar96.html>
+
+type va_list = uintptr /* stdarg.h:53:19 */
 
 // CAPI3REF: 64-Bit Integer Types
 // KEYWORDS: sqlite_int64 sqlite_uint64
@@ -2987,7 +3020,7 @@ type fts5_api1 = struct {
 //
 // FTS5 EXTENSION REGISTRATION API
 type fts5_api = fts5_api1 /* sqlite3.h:12312:25 */
-type ssize_t = int64      /* stdio.h:63:23 */
+type ssize_t = int64      /* stdio.h:49:23 */
 
 //	$NetBSD: null.h,v 1.9 2010/07/06 11:56:20 kleink Exp $
 
@@ -3007,7 +3040,7 @@ type __sfpos = struct {
 		__mbstateL int64
 		_          [120]byte
 	}
-} /* stdio.h:81:9 */
+} /* stdio.h:67:9 */
 
 //	$NetBSD: null.h,v 1.9 2010/07/06 11:56:20 kleink Exp $
 
@@ -3017,7 +3050,7 @@ type __sfpos = struct {
 // This is fairly grotesque, but pure ANSI code must not inspect the
 // innards of an fpos_t anyway.  The library internally uses off_t,
 // which we assume is exactly as big as eight chars.
-type fpos_t = __sfpos /* stdio.h:84:3 */
+type fpos_t = __sfpos /* stdio.h:70:3 */
 
 // NB: to fit things in six character monocase externals, the stdio
 // code uses the prefix `__s' for stdio objects, typically followed
@@ -3028,7 +3061,7 @@ type __sbuf = struct {
 	_base uintptr
 	_size int32
 	_     [4]byte
-} /* stdio.h:95:1 */
+} /* stdio.h:81:1 */
 
 // stdio state variables.
 //
@@ -3087,7 +3120,7 @@ type __sFILE = struct {
 	_blksize   int32
 	_          [4]byte
 	_offset    int64
-} /* stdio.h:126:9 */
+} /* stdio.h:112:9 */
 
 // stdio state variables.
 //
@@ -3113,12 +3146,12 @@ type __sFILE = struct {
 // _ub._base!=NULL) and _up and _ur save the current values of _p and _r.
 //
 // NB: see WARNING above before changing the layout of this structure!
-type FILE = __sFILE /* stdio.h:160:3 */
+type FILE = __sFILE /* stdio.h:146:3 */
 
 // X/Open CAE Specification Issue 5 Version 2
-type off_t = int64 /* stdio.h:390:18 */
+type off_t = int64 /* stdio.h:376:18 */
 
-type locale_t = uintptr /* stdio.h:557:25 */
+type locale_t = uintptr /* stdio.h:543:25 */
 
 // __cpu_simple_lock_t used to be a full word.
 
@@ -3218,26 +3251,26 @@ type locale_t = uintptr /* stdio.h:557:25 */
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-type int8_t = int8 /* types.h:63:18 */
+type int8_t = int8 /* types.h:54:18 */
 
-type uint8_t = uint8 /* types.h:68:19 */
+type uint8_t = uint8 /* types.h:59:19 */
 
-type int16_t = int16 /* types.h:73:19 */
+type int16_t = int16 /* types.h:64:19 */
 
-type uint16_t = uint16 /* types.h:78:20 */
+type uint16_t = uint16 /* types.h:69:20 */
 
-type int32_t = int32 /* types.h:83:19 */
+type int32_t = int32 /* types.h:74:19 */
 
-type uint32_t = uint32 /* types.h:88:20 */
+type uint32_t = uint32 /* types.h:79:20 */
 
-type int64_t = int64 /* types.h:93:19 */
+type int64_t = int64 /* types.h:84:19 */
 
-type uint64_t = uint64 /* types.h:98:20 */
+type uint64_t = uint64 /* types.h:89:20 */
 
-type u_int8_t = uint8_t   /* types.h:102:18 */
-type u_int16_t = uint16_t /* types.h:103:18 */
-type u_int32_t = uint32_t /* types.h:104:18 */
-type u_int64_t = uint64_t /* types.h:105:18 */
+type u_int8_t = uint8_t   /* types.h:93:18 */
+type u_int16_t = uint16_t /* types.h:94:18 */
+type u_int32_t = uint32_t /* types.h:95:18 */
+type u_int64_t = uint64_t /* types.h:96:18 */
 
 //	$NetBSD: endian.h,v 1.1 2003/04/26 18:39:40 fvdl Exp $
 
@@ -3399,15 +3432,6 @@ type u_int64_t = uint64_t /* types.h:105:18 */
 // SUCH DAMAGE.
 //
 //	@(#)cdefs.h	8.8 (Berkeley) 1/9/95
-
-//  DO NOT EDIT THIS FILE.
-//
-//     It has been auto-edited by fixincludes from:
-//
-// 	"/usr/include/sys/types.h"
-//
-//     This had to be done to correct non-standard usages in the
-//     original, manufacturer supplied header file.
 
 //	$NetBSD: types.h,v 1.102 2018/11/06 16:26:44 maya Exp $
 
@@ -3657,19 +3681,19 @@ type uint_fast64_t = uint64 /* common_int_mwgwtypes.h:62:32 */
 type intmax_t = int64   /* common_int_mwgwtypes.h:66:33 */
 type uintmax_t = uint64 /* common_int_mwgwtypes.h:67:32 */
 
-type u_char = uint8   /* types.h:110:23 */
-type u_short = uint16 /* types.h:111:24 */
-type u_int = uint32   /* types.h:112:22 */
-type u_long = uint64  /* types.h:113:23 */
+type u_char = uint8   /* types.h:101:23 */
+type u_short = uint16 /* types.h:102:24 */
+type u_int = uint32   /* types.h:103:22 */
+type u_long = uint64  /* types.h:104:23 */
 
-type unchar = uint8  /* types.h:115:23 */ // Sys V compatibility
-type ushort = uint16 /* types.h:116:24 */ // Sys V compatibility
-type uint = uint32   /* types.h:117:22 */ // Sys V compatibility
-type ulong = uint64  /* types.h:118:23 */ // Sys V compatibility
+type unchar = uint8  /* types.h:106:23 */ // Sys V compatibility
+type ushort = uint16 /* types.h:107:24 */ // Sys V compatibility
+type uint = uint32   /* types.h:108:22 */ // Sys V compatibility
+type ulong = uint64  /* types.h:109:23 */ // Sys V compatibility
 
-type u_quad_t = uint64_t /* types.h:121:18 */ // quads
-type quad_t = int64_t    /* types.h:122:18 */
-type qaddr_t = uintptr   /* types.h:123:16 */
+type u_quad_t = uint64_t /* types.h:112:18 */ // quads
+type quad_t = int64_t    /* types.h:113:18 */
+type qaddr_t = uintptr   /* types.h:114:16 */
 
 // The types longlong_t and u_longlong_t exist for use with the
 // Sun-derived XDR routines involving these types, and their usage
@@ -3679,59 +3703,59 @@ type qaddr_t = uintptr   /* types.h:123:16 */
 // respectively.  Portable programs that need 64-bit types should use
 // the C99 types int64_t and uint64_t instead.
 
-type longlong_t = int64_t    /* types.h:135:18 */ // for XDR
-type u_longlong_t = uint64_t /* types.h:136:18 */ // for XDR
+type longlong_t = int64_t    /* types.h:126:18 */ // for XDR
+type u_longlong_t = uint64_t /* types.h:127:18 */ // for XDR
 
-type blkcnt_t = int64_t  /* types.h:138:18 */ // fs block count
-type blksize_t = int32_t /* types.h:139:18 */ // fs optimal block size
+type blkcnt_t = int64_t  /* types.h:129:18 */ // fs block count
+type blksize_t = int32_t /* types.h:130:18 */ // fs optimal block size
 
-type fsblkcnt_t = uint64 /* types.h:142:22 */ // fs block count (statvfs)
+type fsblkcnt_t = uint64 /* types.h:133:22 */ // fs block count (statvfs)
 
-type fsfilcnt_t = uint64 /* types.h:147:22 */ // fs file count
+type fsfilcnt_t = uint64 /* types.h:138:22 */ // fs file count
 
 // We don't and shouldn't use caddr_t in the kernel anymore
-type caddr_t = uintptr /* types.h:154:19 */ // core address
+type caddr_t = uintptr /* types.h:145:19 */ // core address
 
-type daddr_t = int64_t /* types.h:163:18 */ // disk address
+type daddr_t = int64_t /* types.h:154:18 */ // disk address
 
-type dev_t = uint64_t   /* types.h:166:18 */ // device number
-type fixpt_t = uint32_t /* types.h:167:18 */ // fixed point number
+type dev_t = uint64_t   /* types.h:157:18 */ // device number
+type fixpt_t = uint32_t /* types.h:158:18 */ // fixed point number
 
-type gid_t = uint32 /* types.h:170:18 */ // group id
+type gid_t = uint32 /* types.h:161:18 */ // group id
 
-type id_t = uint32_t  /* types.h:174:18 */ // group id, process id or user id
-type ino_t = uint64_t /* types.h:175:18 */ // inode number
-type key_t = int64    /* types.h:176:15 */ // IPC key (for Sys V IPC)
+type id_t = uint32_t  /* types.h:165:18 */ // group id, process id or user id
+type ino_t = uint64_t /* types.h:166:18 */ // inode number
+type key_t = int64    /* types.h:167:15 */ // IPC key (for Sys V IPC)
 
-type mode_t = uint32 /* types.h:179:18 */ // permissions
+type mode_t = uint32 /* types.h:170:18 */ // permissions
 
-type nlink_t = uint32_t /* types.h:183:18 */ // link count
+type nlink_t = uint32_t /* types.h:174:18 */ // link count
 
-type pid_t = int32     /* types.h:191:18 */ // process id
-type lwpid_t = int32_t /* types.h:194:18 */ // LWP id
-type rlim_t = uint64_t /* types.h:195:18 */ // resource limit
-type segsz_t = int32_t /* types.h:196:18 */ // segment size
-type swblk_t = int32_t /* types.h:197:18 */ // swap offset
+type pid_t = int32     /* types.h:182:18 */ // process id
+type lwpid_t = int32_t /* types.h:185:18 */ // LWP id
+type rlim_t = uint64_t /* types.h:186:18 */ // resource limit
+type segsz_t = int32_t /* types.h:187:18 */ // segment size
+type swblk_t = int32_t /* types.h:188:18 */ // swap offset
 
-type uid_t = uint32 /* types.h:200:18 */ // user id
+type uid_t = uint32 /* types.h:191:18 */ // user id
 
-type mqd_t = int32 /* types.h:204:14 */
+type mqd_t = int32 /* types.h:195:14 */
 
-type cpuid_t = uint64 /* types.h:206:23 */
+type cpuid_t = uint64 /* types.h:197:23 */
 
-type psetid_t = int32 /* types.h:208:14 */
+type psetid_t = int32 /* types.h:199:14 */
 
-type clock_t = uint32 /* types.h:277:24 */
+type clock_t = uint32 /* types.h:268:24 */
 
-type time_t = int64 /* types.h:306:23 */
+type time_t = int64 /* types.h:289:23 */
 
-type clockid_t = int32 /* types.h:311:26 */
+type clockid_t = int32 /* types.h:294:26 */
 
-type timer_t = int32 /* types.h:316:24 */
+type timer_t = int32 /* types.h:299:24 */
 
-type suseconds_t = int32 /* types.h:321:27 */
+type suseconds_t = int32 /* types.h:304:27 */
 
-type useconds_t = uint32 /* types.h:326:26 */
+type useconds_t = uint32 /* types.h:309:26 */
 
 // 32 = 2 ^ 5
 
@@ -3749,9 +3773,9 @@ type fd_set = fd_set1 /* fd_set.h:68:3 */
 
 // Expose our internals if we are not required to hide them.
 
-type kauth_cred_t = uintptr /* types.h:335:27 */
+type kauth_cred_t = uintptr /* types.h:318:27 */
 
-type pri_t = int32 /* types.h:337:13 */
+type pri_t = int32 /* types.h:320:13 */
 
 //	$NetBSD: pthread_types.h,v 1.23 2017/09/09 23:21:45 kamil Exp $
 
@@ -3906,22 +3930,22 @@ type pthread_key_t = int32                            /* pthread_types.h:88:13 *
 type div_t = struct {
 	quot int32
 	rem  int32
-} /* stdlib.h:76:3 */
+} /* stdlib.h:59:3 */
 
 type ldiv_t = struct {
 	quot int64
 	rem  int64
-} /* stdlib.h:81:3 */
+} /* stdlib.h:64:3 */
 
 type lldiv_t = struct {
 	quot int64
 	rem  int64
-} /* stdlib.h:91:3 */
+} /* stdlib.h:74:3 */
 
 type qdiv_t = struct {
 	quot quad_t
 	rem  quad_t
-} /* stdlib.h:98:3 */ // getsubopt(3) external variable
+} /* stdlib.h:81:3 */ // getsubopt(3) external variable
 
 type u64 = sqlite3_uint64 /* speedtest1.c:67:24 */
 
@@ -3984,7 +4008,7 @@ func isTemp(tls *libc.TLS, N int32) uintptr { /* speedtest1.c:113:19: */
 func fatal_error(tls *libc.TLS, zMsg uintptr, va uintptr) { /* speedtest1.c:118:13: */
 	var ap va_list
 	_ = ap
-	ap = va
+	(ap) = va
 	libc.Xvfprintf(tls, (uintptr(unsafe.Pointer(&libc.X__sF)) + 2*152), zMsg, ap)
 	_ = ap
 	libc.Xexit(tls, 1)
@@ -4141,12 +4165,16 @@ func speedtest1_timestamp(tls *libc.TLS) sqlite3_int64 { /* speedtest1.c:257:15:
 		clockVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	}
 	if ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).iVersion >= 2) && ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64 != uintptr(0)) {
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, clockVfs, bp /* &t */)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64})).f(tls, clockVfs, bp /* &t */)
 	} else {
 		// var r float64 at bp+8, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 120 /* &.xCurrentTime */))))(tls, clockVfs, bp+8 /* &r */)
-		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (sqlite3_int64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTime})).f(tls, clockVfs, bp+8 /* &r */)
+		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (libc.Int64FromFloat64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
 	}
 	return *(*sqlite3_int64)(unsafe.Pointer(bp /* t */))
 }
@@ -4266,7 +4294,7 @@ func speedtest1_begin_test(tls *libc.TLS, iTestNum int32, zTestName uintptr, va 
 	var zName uintptr
 	var ap va_list
 	_ = ap
-	ap = va
+	(ap) = va
 	zName = sqlite3.Xsqlite3_vmprintf(tls, zTestName, ap)
 	_ = ap
 	n = int32(libc.Xstrlen(tls, zName))
@@ -4367,7 +4395,7 @@ func speedtest1_exec(tls *libc.TLS, zFormat uintptr, va uintptr) { /* speedtest1
 	var ap va_list
 	_ = ap
 	var zSql uintptr
-	ap = va
+	(ap) = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 	if g.bSqlOnly != 0 {
@@ -4399,7 +4427,7 @@ func speedtest1_once(tls *libc.TLS, zFormat uintptr, va uintptr) uintptr { /* sp
 	// var pStmt uintptr at bp+16, 8
 
 	var zResult uintptr = uintptr(0)
-	ap = va
+	(ap) = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 	if g.bSqlOnly != 0 {
@@ -4430,7 +4458,7 @@ func speedtest1_prepare(tls *libc.TLS, zFormat uintptr, va uintptr) { /* speedte
 	var ap va_list
 	_ = ap
 	var zSql uintptr
-	ap = va
+	(ap) = va
 	zSql = sqlite3.Xsqlite3_vmprintf(tls, zFormat, ap)
 	_ = ap
 	if g.bSqlOnly != 0 {

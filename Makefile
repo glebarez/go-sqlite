@@ -74,8 +74,9 @@ freebsd_amd64:
 	go build -v ./...
 
 netbsd_amd64:
-	TARGET_GOOS=netbsd TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-netbsd-amd64
-	GOOS=netbsd GOARCH=amd64 go build -v ./...
+	@echo "Should be executed only on netbsd/amd64."
+	go generate 2>&1 | tee log-generate
+	go build -v ./...
 
 linux_amd64:
 	TARGET_GOOS=linux TARGET_GOARCH=amd64 go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-amd64
