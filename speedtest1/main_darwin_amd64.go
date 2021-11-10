@@ -11868,12 +11868,16 @@ func speedtest1_timestamp(tls *libc.TLS) sqlite3_int64 { /* speedtest1.c:257:15:
 		clockVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	}
 	if ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).iVersion >= 2) && ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64 != uintptr(0)) {
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, clockVfs, bp /* &t */)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64})).f(tls, clockVfs, bp /* &t */)
 	} else {
 		// var r float64 at bp+8, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 120 /* &.xCurrentTime */))))(tls, clockVfs, bp+8 /* &r */)
-		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (sqlite3_int64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTime})).f(tls, clockVfs, bp+8 /* &r */)
+		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (libc.Int64FromFloat64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
 	}
 	return *(*sqlite3_int64)(unsafe.Pointer(bp /* t */))
 }
