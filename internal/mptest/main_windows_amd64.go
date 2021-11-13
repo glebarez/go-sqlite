@@ -107,6 +107,7 @@ const (
 	ALERT_SYSTEM_WARNING                                                   = 2
 	ALIGNMENT_MACHINE                                                      = 0
 	ALTERNATE                                                              = 1
+	ALTNUMPAD_BIT                                                          = 0x4000000
 	ANSI_CHARSET                                                           = 0
 	ANSI_FIXED_FONT                                                        = 11
 	ANSI_VAR_FONT                                                          = 12
@@ -252,6 +253,7 @@ const (
 	APPMODEL_ERROR_NO_PACKAGE                                              = 15700
 	APPMODEL_ERROR_PACKAGE_IDENTITY_CORRUPT                                = 15702
 	APPMODEL_ERROR_PACKAGE_RUNTIME_CORRUPT                                 = 15701
+	APP_LOCAL_DEVICE_ID_SIZE                                               = 32
 	ARABIC_CHARSET                                                         = 178
 	ARW_BOTTOMLEFT                                                         = 0
 	ARW_BOTTOMRIGHT                                                        = 1
@@ -674,6 +676,9 @@ const (
 	CE_RXOVER                                                              = 0x1
 	CE_RXPARITY                                                            = 0x4
 	CE_TXFULL                                                              = 0x100
+	CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID                     = 0x04
+	CFG_CALL_TARGET_PROCESSED                                              = 0x02
+	CFG_CALL_TARGET_VALID                                                  = 0x01
 	CFS_CANDIDATEPOS                                                       = 0x0040
 	CFS_DEFAULT                                                            = 0x0000
 	CFS_EXCLUDE                                                            = 0x0080
@@ -833,6 +838,7 @@ const (
 	COMPRESSION_FORMAT_NONE                                                = 0
 	COMPRESSION_FORMAT_XPRESS                                              = 3
 	COMPRESSION_FORMAT_XPRESS_HUFF                                         = 4
+	CONCURRENCYSAL_HXX                                                     = 0
 	CONDITION_VARIABLE_LOCKMODE_SHARED                                     = 1
 	CONNDLG_CONN_POINT                                                     = 0x00000002
 	CONNDLG_HIDE_BOX                                                       = 0x00000008
@@ -1094,6 +1100,7 @@ const (
 	CT_CTYPE1                                                              = 0x00000001
 	CT_CTYPE2                                                              = 0x00000002
 	CT_CTYPE3                                                              = 0x00000004
+	CURRENT_IMPORT_REDIRECTION_VERSION                                     = 1
 	CURSOR_SHOWING                                                         = 0x00000001
 	CURVECAPS                                                              = 28
 	CWF_CREATE_ONLY                                                        = 0x00000001
@@ -1283,6 +1290,7 @@ const (
 	DIB_RGB_COLORS                                                         = 0
 	DIFFERENCE                                                             = 11
 	DISABLE_MAX_PRIVILEGE                                                  = 0x1
+	DISABLE_NEWLINE_AUTO_RETURN                                            = 0x8
 	DISCHARGE_POLICY_CRITICAL                                              = 0
 	DISCHARGE_POLICY_LOW                                                   = 1
 	DISC_NO_FORCE                                                          = 0x00000040
@@ -1295,6 +1303,7 @@ const (
 	DISPLAY_DEVICE_MODESPRUNED                                             = 0x08000000
 	DISPLAY_DEVICE_MULTI_DRIVER                                            = 0x00000002
 	DISPLAY_DEVICE_PRIMARY_DEVICE                                          = 0x00000004
+	DISPLAY_DEVICE_RDPUDD                                                  = 0x01000000
 	DISPLAY_DEVICE_REMOTE                                                  = 0x04000000
 	DISPLAY_DEVICE_REMOVABLE                                               = 0x00000020
 	DISPLAY_DEVICE_TS_COMPATIBLE                                           = 0x00200000
@@ -1746,6 +1755,7 @@ const (
 	DRAGDROP_S_FIRST                                                       = 262400
 	DRAGDROP_S_LAST                                                        = 262415
 	DRAWPATTERNRECT                                                        = 25
+	DRIVERSPECS_H                                                          = 0
 	DRIVERVERSION                                                          = 0
 	DRIVE_CDROM                                                            = 5
 	DRIVE_FIXED                                                            = 3
@@ -1848,6 +1858,7 @@ const (
 	EDGE_SUNKEN                                                            = 10
 	EDOM                                                                   = 33
 	EDS_RAWMODE                                                            = 0x00000002
+	EDS_ROTATEDMODE                                                        = 0x00000004
 	EEXIST                                                                 = 17
 	EFAULT                                                                 = 14
 	EFBIG                                                                  = 27
@@ -2075,10 +2086,13 @@ const (
 	ENABLE_EXTENDED_FLAGS                                                  = 0x80
 	ENABLE_INSERT_MODE                                                     = 0x20
 	ENABLE_LINE_INPUT                                                      = 0x2
+	ENABLE_LVB_GRID_WORLDWIDE                                              = 0x10
 	ENABLE_MOUSE_INPUT                                                     = 0x10
 	ENABLE_PROCESSED_INPUT                                                 = 0x1
 	ENABLE_PROCESSED_OUTPUT                                                = 0x1
 	ENABLE_QUICK_EDIT_MODE                                                 = 0x40
+	ENABLE_VIRTUAL_TERMINAL_INPUT                                          = 0x200
+	ENABLE_VIRTUAL_TERMINAL_PROCESSING                                     = 0x4
 	ENABLE_WINDOW_INPUT                                                    = 0x8
 	ENABLE_WRAP_AT_EOL_OUTPUT                                              = 0x2
 	ENAMETOOLONG                                                           = 38
@@ -4048,7 +4062,9 @@ const (
 	EV_RXFLAG                                                              = 0x2
 	EV_TXEMPTY                                                             = 0x4
 	EWOULDBLOCK                                                            = 140
+	EWX_ARSO                                                               = 0x04000000
 	EWX_BOOTOPTIONS                                                        = 0x01000000
+	EWX_CHECK_SAFE_FOR_SERVER                                              = 0x08000000
 	EWX_FORCE                                                              = 0x00000004
 	EWX_FORCEIFHUNG                                                        = 0x00000010
 	EWX_HYBRID_SHUTDOWN                                                    = 0x00400000
@@ -4231,8 +4247,10 @@ const (
 	FILE_MAP_ALL_ACCESS                                                    = 983071
 	FILE_MAP_COPY                                                          = 0x1
 	FILE_MAP_EXECUTE                                                       = 32
+	FILE_MAP_LARGE_PAGES                                                   = 0x20000000
 	FILE_MAP_READ                                                          = 4
 	FILE_MAP_RESERVE                                                       = 0x80000000
+	FILE_MAP_TARGETS_INVALID                                               = 0x40000000
 	FILE_MAP_WRITE                                                         = 2
 	FILE_MAXIMUM_DISPOSITION                                               = 0x00000005
 	FILE_NAMED_STREAMS                                                     = 0x00040000
@@ -4301,6 +4319,9 @@ const (
 	FILE_UNICODE_ON_DISK                                                   = 0x00000004
 	FILE_UNKNOWN                                                           = 5
 	FILE_USER_DISALLOWED                                                   = 7
+	FILE_VER_GET_LOCALISED                                                 = 0x01
+	FILE_VER_GET_NEUTRAL                                                   = 0x02
+	FILE_VER_GET_PREFETCHED                                                = 0x04
 	FILE_VOLUME_IS_COMPRESSED                                              = 0x00008000
 	FILE_VOLUME_QUOTAS                                                     = 0x00000020
 	FILE_WRITE_ATTRIBUTES                                                  = 256
@@ -4655,6 +4676,7 @@ const (
 	HCF_HOTKEYSOUND                                                        = 0x00000010
 	HCF_INDICATOR                                                          = 0x00000020
 	HCF_LOGONDESKTOP                                                       = 0x00000100
+	HCF_OPTION_NOTHEMECHANGE                                               = 0x00001000
 	HC_ACTION                                                              = 0
 	HC_GETNEXT                                                             = 1
 	HC_NOREM                                                               = 3
@@ -4705,6 +4727,7 @@ const (
 	HIGH_SURROGATE_END                                                     = 0xdbff
 	HIGH_SURROGATE_START                                                   = 0xd800
 	HINSTANCE_ERROR                                                        = 32
+	HISTORY_NO_DUP_FLAG                                                    = 0x1
 	HKL_NEXT                                                               = 1
 	HKL_PREV                                                               = 0
 	HMONITOR_DECLARED                                                      = 1
@@ -5464,23 +5487,53 @@ const (
 	INVALID_OS_COUNT                                                       = 65535
 	IO_COMPLETION_ALL_ACCESS                                               = 2031619
 	IO_COMPLETION_MODIFY_STATE                                             = 0x0002
+	IO_REPARSE_TAG_AF_UNIX                                                 = 2147483683
+	IO_REPARSE_TAG_APPEXECLINK                                             = 2147483675
+	IO_REPARSE_TAG_CLOUD                                                   = 2415919130
+	IO_REPARSE_TAG_CLOUD_1                                                 = 2415923226
+	IO_REPARSE_TAG_CLOUD_2                                                 = 2415927322
+	IO_REPARSE_TAG_CLOUD_3                                                 = 2415931418
+	IO_REPARSE_TAG_CLOUD_4                                                 = 2415935514
+	IO_REPARSE_TAG_CLOUD_5                                                 = 2415939610
+	IO_REPARSE_TAG_CLOUD_6                                                 = 2415943706
+	IO_REPARSE_TAG_CLOUD_7                                                 = 2415947802
+	IO_REPARSE_TAG_CLOUD_8                                                 = 2415951898
+	IO_REPARSE_TAG_CLOUD_9                                                 = 2415955994
+	IO_REPARSE_TAG_CLOUD_A                                                 = 2415960090
+	IO_REPARSE_TAG_CLOUD_B                                                 = 2415964186
+	IO_REPARSE_TAG_CLOUD_C                                                 = 2415968282
+	IO_REPARSE_TAG_CLOUD_D                                                 = 2415972378
+	IO_REPARSE_TAG_CLOUD_E                                                 = 2415976474
+	IO_REPARSE_TAG_CLOUD_F                                                 = 2415980570
+	IO_REPARSE_TAG_CLOUD_MASK                                              = 61440
 	IO_REPARSE_TAG_CSV                                                     = 2147483657
 	IO_REPARSE_TAG_DEDUP                                                   = 2147483667
 	IO_REPARSE_TAG_DFS                                                     = 2147483658
 	IO_REPARSE_TAG_DFSR                                                    = 2147483666
 	IO_REPARSE_TAG_DRIVE_EXTENDER                                          = 2147483653
+	IO_REPARSE_TAG_FILE_PLACEHOLDER                                        = 2147483669
 	IO_REPARSE_TAG_FILTER_MANAGER                                          = 2147483659
+	IO_REPARSE_TAG_GLOBAL_REPARSE                                          = 2684354585
 	IO_REPARSE_TAG_HSM                                                     = 3221225476
 	IO_REPARSE_TAG_HSM2                                                    = 2147483654
 	IO_REPARSE_TAG_IIS_CACHE                                               = 2684354576
 	IO_REPARSE_TAG_MOUNT_POINT                                             = 2684354563
 	IO_REPARSE_TAG_NFS                                                     = 2147483668
+	IO_REPARSE_TAG_ONEDRIVE                                                = 2147483681
+	IO_REPARSE_TAG_PROJFS                                                  = 2415919132
+	IO_REPARSE_TAG_PROJFS_TOMBSTONE                                        = 2684354594
 	IO_REPARSE_TAG_RESERVED_ONE                                            = 1
 	IO_REPARSE_TAG_RESERVED_RANGE                                          = 1
 	IO_REPARSE_TAG_RESERVED_ZERO                                           = 0
 	IO_REPARSE_TAG_SIS                                                     = 2147483655
+	IO_REPARSE_TAG_STORAGE_SYNC                                            = 2147483678
 	IO_REPARSE_TAG_SYMLINK                                                 = 2684354572
+	IO_REPARSE_TAG_UNHANDLED                                               = 2147483680
+	IO_REPARSE_TAG_WCI                                                     = 2147483672
+	IO_REPARSE_TAG_WCI_1                                                   = 2415923224
+	IO_REPARSE_TAG_WCI_TOMBSTONE                                           = 2684354591
 	IO_REPARSE_TAG_WIM                                                     = 2147483656
+	IO_REPARSE_TAG_WOF                                                     = 2147483671
 	ISC_SHOWUIALL                                                          = 0xC000000F
 	ISC_SHOWUIALLCANDIDATEWINDOW                                           = 0x0000000F
 	ISC_SHOWUICANDIDATEWINDOW                                              = 0x00000001
@@ -5888,8 +5941,10 @@ const (
 	LLKHF_ALTDOWN                                                          = 32
 	LLKHF_EXTENDED                                                         = 1
 	LLKHF_INJECTED                                                         = 0x00000010
+	LLKHF_LOWER_IL_INJECTED                                                = 0x00000002
 	LLKHF_UP                                                               = 128
 	LLMHF_INJECTED                                                         = 0x00000001
+	LLMHF_LOWER_IL_INJECTED                                                = 0x00000002
 	LLONG_MAX                                                              = 9223372036854775807
 	LLONG_MIN                                                              = -9223372036854775808
 	LMEM_DISCARDABLE                                                       = 0xf00
@@ -5913,6 +5968,7 @@ const (
 	LOAD_LIBRARY_SEARCH_DEFAULT_DIRS                                       = 0x1000
 	LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR                                       = 0x100
 	LOAD_LIBRARY_SEARCH_SYSTEM32                                           = 0x800
+	LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER                              = 2048
 	LOAD_LIBRARY_SEARCH_USER_DIRS                                          = 0x400
 	LOAD_WITH_ALTERED_SEARCH_PATH                                          = 0x8
 	LOCALE_FONTSIGNATURE                                                   = 0x00000058
@@ -6340,9 +6396,22 @@ const (
 	MDM_X75_DATA_DEFAULT                                                   = 0x0
 	MDM_X75_DATA_T_70                                                      = 0x3
 	MEMORY_ALLOCATION_ALIGNMENT                                            = 16
+	MEMORY_PRIORITY_BELOW_NORMAL                                           = 4
+	MEMORY_PRIORITY_LOW                                                    = 2
+	MEMORY_PRIORITY_MEDIUM                                                 = 3
+	MEMORY_PRIORITY_NORMAL                                                 = 5
+	MEMORY_PRIORITY_VERY_LOW                                               = 1
 	MEM_4MB_PAGES                                                          = 0x80000000
+	MEM_64K_PAGES                                                          = 541065216
 	MEM_COMMIT                                                             = 0x1000
 	MEM_DECOMMIT                                                           = 0x4000
+	MEM_DIFFERENT_IMAGE_BASE_OK                                            = 0x800000
+	MEM_EXTENDED_PARAMETER_GRAPHICS                                        = 0x01
+	MEM_EXTENDED_PARAMETER_NONPAGED                                        = 0x02
+	MEM_EXTENDED_PARAMETER_NONPAGED_HUGE                                   = 0x10
+	MEM_EXTENDED_PARAMETER_NONPAGED_LARGE                                  = 0x08
+	MEM_EXTENDED_PARAMETER_TYPE_BITS                                       = 8
+	MEM_EXTENDED_PARAMETER_ZERO_PAGES_OPTIONAL                             = 0x04
 	MEM_FREE                                                               = 0x10000
 	MEM_IMAGE                                                              = 16777216
 	MEM_LARGE_PAGES                                                        = 0x20000000
@@ -6352,6 +6421,7 @@ const (
 	MEM_RELEASE                                                            = 0x8000
 	MEM_RESERVE                                                            = 0x2000
 	MEM_RESET                                                              = 0x80000
+	MEM_RESET_UNDO                                                         = 0x1000000
 	MEM_ROTATE                                                             = 0x800000
 	MEM_TOP_DOWN                                                           = 0x100000
 	MEM_UNMAP_WITH_TRANSIENT_BOOST                                         = 0x01
@@ -6495,9 +6565,7 @@ const (
 	MIM_STYLE                                                              = 0x00000010
 	MINCHAR                                                                = 0x80
 	MINGW_DDK_H                                                            = 0
-	MINGW_DDRAW_VERSION                                                    = 7
 	MINGW_HAS_DDK_H                                                        = 1
-	MINGW_HAS_DDRAW_H                                                      = 1
 	MINGW_HAS_SECURE_API                                                   = 1
 	MINGW_SDK_INIT                                                         = 0
 	MINLONG                                                                = 0x80000000
@@ -6677,10 +6745,16 @@ const (
 	NTDDI_VISTASP3                                                         = 100664064
 	NTDDI_VISTASP4                                                         = 100664320
 	NTDDI_WIN10                                                            = 0x0A000000
+	NTDDI_WIN10_19H1                                                       = 0x0A000007
+	NTDDI_WIN10_FE                                                         = 0x0A00000A
+	NTDDI_WIN10_MN                                                         = 0x0A000009
 	NTDDI_WIN10_RS1                                                        = 0x0A000002
 	NTDDI_WIN10_RS2                                                        = 0x0A000003
 	NTDDI_WIN10_RS3                                                        = 0x0A000004
+	NTDDI_WIN10_RS4                                                        = 0x0A000005
+	NTDDI_WIN10_RS5                                                        = 0x0A000006
 	NTDDI_WIN10_TH2                                                        = 0x0A000001
+	NTDDI_WIN10_VB                                                         = 0x0A000008
 	NTDDI_WIN2K                                                            = 0x05000000
 	NTDDI_WIN2KSP1                                                         = 0x05000100
 	NTDDI_WIN2KSP2                                                         = 0x05000200
@@ -6822,15 +6896,28 @@ const (
 	OUT_TT_PRECIS                                                          = 4
 	OVERWRITE_HIDDEN                                                       = 4
 	OWNER_SECURITY_INFORMATION                                             = 1
+	PAGE_ENCLAVE_DECOMMIT                                                  = 0x10000000
+	PAGE_ENCLAVE_THREAD_CONTROL                                            = 0x80000000
+	PAGE_ENCLAVE_UNVALIDATED                                               = 0x20000000
 	PAGE_EXECUTE                                                           = 0x10
 	PAGE_EXECUTE_READ                                                      = 0x20
 	PAGE_EXECUTE_READWRITE                                                 = 0x40
 	PAGE_EXECUTE_WRITECOPY                                                 = 0x80
+	PAGE_GRAPHICS_COHERENT                                                 = 0x20000
+	PAGE_GRAPHICS_EXECUTE                                                  = 0x4000
+	PAGE_GRAPHICS_EXECUTE_READ                                             = 0x8000
+	PAGE_GRAPHICS_EXECUTE_READWRITE                                        = 0x10000
+	PAGE_GRAPHICS_NOACCESS                                                 = 0x0800
+	PAGE_GRAPHICS_READONLY                                                 = 0x1000
+	PAGE_GRAPHICS_READWRITE                                                = 0x2000
 	PAGE_GUARD                                                             = 0x100
 	PAGE_NOACCESS                                                          = 0x01
 	PAGE_NOCACHE                                                           = 0x200
 	PAGE_READONLY                                                          = 0x02
 	PAGE_READWRITE                                                         = 0x04
+	PAGE_REVERT_TO_FILE_MAP                                                = 0x80000000
+	PAGE_TARGETS_INVALID                                                   = 0x40000000
+	PAGE_TARGETS_NO_UPDATE                                                 = 0x40000000
 	PAGE_WRITECOMBINE                                                      = 0x400
 	PAGE_WRITECOPY                                                         = 0x08
 	PANOSE_COUNT                                                           = 10
@@ -7022,6 +7109,9 @@ const (
 	PF_ARM_EXTERNAL_CACHE_AVAILABLE                                        = 26
 	PF_ARM_FMAC_INSTRUCTIONS_AVAILABLE                                     = 27
 	PF_ARM_NEON_INSTRUCTIONS_AVAILABLE                                     = 19
+	PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE                                 = 31
+	PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE                                = 30
+	PF_ARM_V8_INSTRUCTIONS_AVAILABLE                                       = 29
 	PF_ARM_VFP_32_REGISTERS_AVAILABLE                                      = 18
 	PF_CHANNELS_ENABLED                                                    = 16
 	PF_COMPARE64_EXCHANGE128                                               = 15
@@ -7034,6 +7124,9 @@ const (
 	PF_NX_ENABLED                                                          = 12
 	PF_PAE_ENABLED                                                         = 9
 	PF_PPC_MOVEMEM_64BIT_OK                                                = 4
+	PF_RDPID_INSTRUCTION_AVAILABLE                                         = 33
+	PF_RDRAND_INSTRUCTION_AVAILABLE                                        = 28
+	PF_RDTSCP_INSTRUCTION_AVAILABLE                                        = 32
 	PF_RDTSC_INSTRUCTION_AVAILABLE                                         = 8
 	PF_RDWRFSGSBASE_AVAILABLE                                              = 22
 	PF_SECOND_LEVEL_ADDRESS_TRANSLATION                                    = 20
@@ -7172,6 +7265,9 @@ const (
 	PROCESSOR_ARCHITECTURE_ALPHA64                                         = 7
 	PROCESSOR_ARCHITECTURE_AMD64                                           = 9
 	PROCESSOR_ARCHITECTURE_ARM                                             = 5
+	PROCESSOR_ARCHITECTURE_ARM32_ON_WIN64                                  = 13
+	PROCESSOR_ARCHITECTURE_ARM64                                           = 12
+	PROCESSOR_ARCHITECTURE_IA32_ON_ARM64                                   = 14
 	PROCESSOR_ARCHITECTURE_IA32_ON_WIN64                                   = 10
 	PROCESSOR_ARCHITECTURE_IA64                                            = 6
 	PROCESSOR_ARCHITECTURE_INTEL                                           = 0
@@ -7219,6 +7315,7 @@ const (
 	PROCESS_HEAP_ENTRY_DDESHARE                                            = 0x20
 	PROCESS_HEAP_ENTRY_MOVEABLE                                            = 0x10
 	PROCESS_HEAP_REGION                                                    = 0x1
+	PROCESS_HEAP_SEG_ALLOC                                                 = 0x8
 	PROCESS_HEAP_UNCOMMITTED_RANGE                                         = 0x2
 	PROCESS_MODE_BACKGROUND_BEGIN                                          = 0x100000
 	PROCESS_MODE_BACKGROUND_END                                            = 0x200000
@@ -7382,6 +7479,7 @@ const (
 	PSINJECT_BEGINSTREAM                                                   = 1
 	PSINJECT_BOUNDINGBOX                                                   = 9
 	PSINJECT_COMMENTS                                                      = 11
+	PSINJECT_DLFONT                                                        = 0xdddddddd
 	PSINJECT_DOCNEEDEDRES                                                  = 5
 	PSINJECT_DOCSUPPLIEDRES                                                = 6
 	PSINJECT_DOCUMENTPROCESSCOLORS                                         = 10
@@ -7561,6 +7659,7 @@ const (
 	REG_LEGAL_CHANGE_FILTER                                                = 268435471
 	REG_LEGAL_OPTION                                                       = 15
 	REG_LINK                                                               = 6
+	REG_MUI_STRING_TRUNCATE                                                = 0x00000001
 	REG_MULTI_SZ                                                           = 7
 	REG_NONE                                                               = 0
 	REG_NOTIFY_CHANGE_ATTRIBUTES                                           = 2
@@ -7577,6 +7676,7 @@ const (
 	REG_OPTION_OPEN_LINK                                                   = 8
 	REG_OPTION_RESERVED                                                    = 0
 	REG_OPTION_VOLATILE                                                    = 1
+	REG_PROCESS_APPKEY                                                     = 0x00000001
 	REG_PROCESS_PRIVATE                                                    = 32
 	REG_QWORD                                                              = 11
 	REG_QWORD_LITTLE_ENDIAN                                                = 11
@@ -7681,6 +7781,7 @@ const (
 	RIM_INPUTSINK                                                          = 1
 	RIM_TYPEHID                                                            = 2
 	RIM_TYPEKEYBOARD                                                       = 1
+	RIM_TYPEMAX                                                            = 2
 	RIM_TYPEMOUSE                                                          = 0
 	RIP_EVENT                                                              = 9
 	RI_KEY_BREAK                                                           = 1
@@ -8069,7 +8170,10 @@ const (
 	SECURITY_BUILTIN_CAPABILITY_RID_COUNT                                  = 2
 	SECURITY_BUILTIN_DOMAIN_RID                                            = 32
 	SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE                                   = 1
+	SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE                        = 2
+	SECURITY_CAPABILITY_APPOINTMENTS                                       = 11
 	SECURITY_CAPABILITY_BASE_RID                                           = 3
+	SECURITY_CAPABILITY_CONTACTS                                           = 12
 	SECURITY_CAPABILITY_DOCUMENTS_LIBRARY                                  = 7
 	SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION                          = 8
 	SECURITY_CAPABILITY_INTERNET_CLIENT                                    = 1
@@ -8166,12 +8270,14 @@ const (
 	SECURITY_WMIHOST_ID_RID_COUNT                                          = 6
 	SECURITY_WORLD_RID                                                     = 0
 	SECURITY_WRITE_RESTRICTED_CODE_RID                                     = 33
+	SEC_64K_PAGES                                                          = 0x80000
 	SEC_COMMIT                                                             = 0x8000000
 	SEC_FILE                                                               = 0x800000
 	SEC_IMAGE                                                              = 0x1000000
 	SEC_IMAGE_NO_EXECUTE                                                   = 285212672
 	SEC_LARGE_PAGES                                                        = 0x80000000
 	SEC_NOCACHE                                                            = 0x10000000
+	SEC_PARTITION_OWNER_HANDLE                                             = 0x40000
 	SEC_PROTECTED_IMAGE                                                    = 0x2000000
 	SEC_RESERVE                                                            = 0x4000000
 	SEC_WRITECOMBINE                                                       = 0x40000000
@@ -9307,7 +9413,9 @@ const (
 	SS_WORDELLIPSIS                                                        = 49152
 	STACK_SIZE_PARAM_IS_A_RESERVATION                                      = 0x10000
 	STAMP_AXESLIST                                                         = 134245473
+	STAMP_CFF2                                                             = 134248035
 	STAMP_DESIGNVECTOR                                                     = 134248036
+	STAMP_TRUETYPE_VARIATION                                               = 134248052
 	STANDARD_RIGHTS_ALL                                                    = 2031616
 	STANDARD_RIGHTS_EXECUTE                                                = 131072
 	STANDARD_RIGHTS_READ                                                   = 131072
@@ -9916,6 +10024,7 @@ const (
 	TMPF_TRUETYPE                                                          = 0x04
 	TMPF_VECTOR                                                            = 0x02
 	TMP_MAX                                                                = 32767
+	TMP_MAX_S                                                              = 32767
 	TOKEN_ADJUST_DEFAULT                                                   = 128
 	TOKEN_ADJUST_GROUPS                                                    = 64
 	TOKEN_ADJUST_PRIVILEGES                                                = 32
@@ -10065,6 +10174,7 @@ const (
 	UNW_FLAG_UHANDLER                                                      = 0x2
 	UOI_FLAGS                                                              = 1
 	UOI_NAME                                                               = 2
+	UOI_TIMERPROC_EXCEPTION_SUPPRESSION                                    = 7
 	UOI_TYPE                                                               = 3
 	UOI_USER_SID                                                           = 4
 	UPOINTER_32                                                            = 0
@@ -10233,6 +10343,8 @@ const (
 	VK_ICO_00                                                              = 0xE4
 	VK_ICO_CLEAR                                                           = 0xE6
 	VK_ICO_HELP                                                            = 0xE3
+	VK_IME_OFF                                                             = 0x1A
+	VK_IME_ON                                                              = 0x16
 	VK_INSERT                                                              = 0x2D
 	VK_JUNJA                                                               = 0x17
 	VK_KANA                                                                = 0x15
@@ -10423,6 +10535,7 @@ const (
 	WC_DISCARDNS                                                           = 0x00000010
 	WC_NO_BEST_FIT_CHARS                                                   = 0x00000400
 	WC_SEPCHARS                                                            = 0x00000020
+	WDK_NTDDI_VERSION                                                      = 167772170
 	WGL_FONT_LINES                                                         = 0
 	WGL_FONT_POLYGONS                                                      = 1
 	WGL_SWAPMULTIPLE_MAX                                                   = 16
@@ -11143,6 +11256,8 @@ const (
 	X_AVX2INTRIN_H_INCLUDED                                                = 0
 	X_AVX5124FMAPSINTRIN_H_INCLUDED                                        = 0
 	X_AVX5124VNNIWINTRIN_H_INCLUDED                                        = 0
+	X_AVX512BF16INTRIN_H_INCLUDED                                          = 0
+	X_AVX512BF16VLINTRIN_H_INCLUDED                                        = 0
 	X_AVX512BITALGINTRIN_H_INCLUDED                                        = 0
 	X_AVX512BWINTRIN_H_INCLUDED                                            = 0
 	X_AVX512CDINTRIN_H_INCLUDED                                            = 0
@@ -11159,6 +11274,8 @@ const (
 	X_AVX512VLDQINTRIN_H_INCLUDED                                          = 0
 	X_AVX512VLINTRIN_H_INCLUDED                                            = 0
 	X_AVX512VNNIVLINTRIN_H_INCLUDED                                        = 0
+	X_AVX512VP2INTERSECTINTRIN_H_INCLUDED                                  = 0
+	X_AVX512VP2INTERSECTVLINTRIN_H_INCLUDED                                = 0
 	X_AVX512VPOPCNTDQINTRIN_H_INCLUDED                                     = 0
 	X_AVX512VPOPCNTDQVLINTRIN_H_INCLUDED                                   = 0
 	X_AVXINTRIN_H_INCLUDED                                                 = 0
@@ -11168,8 +11285,11 @@ const (
 	X_BMI2INTRIN_H_INCLUDED                                                = 0
 	X_BMIINTRIN_H_INCLUDED                                                 = 0
 	X_BOOLEAN_                                                             = 0
+	X_Benign_race_begin_                                                   = 0
+	X_Benign_race_end_                                                     = 0
 	X_CALL_REPORTFAULT                                                     = 0x2
 	X_CETINTRIN_H_INCLUDED                                                 = 0
+	X_CLDEMOTE_H_INCLUDED                                                  = 0
 	X_CLFLUSHOPTINTRIN_H_INCLUDED                                          = 0
 	X_CLWBINTRIN_H_INCLUDED                                                = 0
 	X_CLZEROINTRIN_H_INCLUDED                                              = 0
@@ -11222,6 +11342,16 @@ const (
 	X_CRT_DIRECTORY_DEFINED                                                = 0
 	X_CRT_DOUBLE_DEC                                                       = 0
 	X_CRT_ERRNO_DEFINED                                                    = 0
+	X_CRT_INTERNAL_LOCAL_PRINTF_OPTIONS                                    = 4
+	X_CRT_INTERNAL_LOCAL_SCANF_OPTIONS                                     = 2
+	X_CRT_INTERNAL_PRINTF_LEGACY_MSVCRT_COMPATIBILITY                      = 0x0008
+	X_CRT_INTERNAL_PRINTF_LEGACY_THREE_DIGIT_EXPONENTS                     = 0x0010
+	X_CRT_INTERNAL_PRINTF_LEGACY_VSPRINTF_NULL_TERMINATION                 = 0x0001
+	X_CRT_INTERNAL_PRINTF_LEGACY_WIDE_SPECIFIERS                           = 0x0004
+	X_CRT_INTERNAL_PRINTF_STANDARD_SNPRINTF_BEHAVIOR                       = 0x0002
+	X_CRT_INTERNAL_SCANF_LEGACY_MSVCRT_COMPATIBILITY                       = 0x0004
+	X_CRT_INTERNAL_SCANF_LEGACY_WIDE_SPECIFIERS                            = 0x0002
+	X_CRT_INTERNAL_SCANF_SECURECRT                                         = 0x0001
 	X_CRT_MANAGED_HEAP_DEPRECATE                                           = 0
 	X_CRT_MEMORY_DEFINED                                                   = 0
 	X_CRT_PACKING                                                          = 8
@@ -11235,6 +11365,7 @@ const (
 	X_CRT_SWAB_DEFINED                                                     = 0
 	X_CRT_SYSTEM_DEFINED                                                   = 0
 	X_CRT_TERMINATE_DEFINED                                                = 0
+	X_CRT_USE_WINAPI_FAMILY_DESKTOP_APP                                    = 0
 	X_CRT_WCTYPEDATA_DEFINED                                               = 0
 	X_CRT_WPERROR_DEFINED                                                  = 0
 	X_CRT_WSYSTEM_DEFINED                                                  = 0
@@ -11246,8 +11377,10 @@ const (
 	X_DIGIT                                                                = 0x4
 	X_DIV_T_DEFINED                                                        = 0
 	X_DLL                                                                  = 0
+	X_DPI_AWARENESS_CONTEXTS_                                              = 0
 	X_DWORDLONG_                                                           = 0
 	X_EMMINTRIN_H_INCLUDED                                                 = 0
+	X_ENQCMDINTRIN_H_INCLUDED                                              = 0
 	X_ERRCODE_DEFINED                                                      = 0
 	X_ERRHANDLING_H_                                                       = 0
 	X_F16CINTRIN_H_INCLUDED                                                = 0
@@ -11293,6 +11426,8 @@ const (
 	X_IMMINTRIN_H_INCLUDED                                                 = 0
 	X_IMM_                                                                 = 0
 	X_IMM_SDK_DEFINED_                                                     = 0
+	X_INC_CORECRT                                                          = 0
+	X_INC_CORECRT_WSTDLIB                                                  = 0
 	X_INC_CRTDEFS                                                          = 0
 	X_INC_CRTDEFS_MACRO                                                    = 0
 	X_INC_CRT_UNICODE_MACROS                                               = 2
@@ -11332,6 +11467,9 @@ const (
 	X_IOSTRG                                                               = 0x0040
 	X_IOWRT                                                                = 0x0002
 	X_IO_APISET_H_                                                         = 0
+	X_IRQL_requires_same_                                                  = 0
+	X_IRQL_restores_                                                       = 0
+	X_IRQL_saves_                                                          = 0
 	X_In_                                                                  = 0
 	X_In_opt_                                                              = 0
 	X_In_opt_z_                                                            = 0
@@ -11340,6 +11478,7 @@ const (
 	X_Inout_opt_                                                           = 0
 	X_Inout_opt_z_                                                         = 0
 	X_Inout_z_                                                             = 0
+	X_Interlocked_                                                         = 0
 	X_JOBAPISET_H_                                                         = 0
 	X_KTMTYPES_                                                            = 0
 	X_LANGID_DEFINED                                                       = 0
@@ -11354,6 +11493,7 @@ const (
 	X_LPCVOID_DEFINED                                                      = 0
 	X_LWPINTRIN_H_INCLUDED                                                 = 0
 	X_LZCNTINTRIN_H_INCLUDED                                               = 0
+	X_Literal_                                                             = 0
 	X_MALLOC_H_                                                            = 0
 	X_MAX_DIR                                                              = 256
 	X_MAX_DRIVE                                                            = 3
@@ -11432,6 +11572,10 @@ const (
 	X_NTDDTAPE_WINNT_                                                      = 0
 	X_NTTMAPI_                                                             = 0
 	X_NT_TIB_DEFINED                                                       = 0
+	X_No_competing_thread_                                                 = 0
+	X_No_competing_thread_begin_                                           = 0
+	X_No_competing_thread_end_                                             = 0
+	X_Notliteral_                                                          = 0
 	X_NullNull_terminated_                                                 = 0
 	X_Null_terminated_                                                     = 0
 	X_OFF64_T_DEFINED                                                      = 0
@@ -11478,6 +11622,10 @@ const (
 	X_P_OVERLAY                                                            = 2
 	X_P_WAIT                                                               = 0
 	X_P_tmpdir                                                             = "\\"
+	X_Points_to_data_                                                      = 0
+	X_Post_                                                                = 0
+	X_Post_equals_last_error_                                              = 0
+	X_Pre_notnull_                                                         = 0
 	X_Printf_format_string_                                                = 0
 	X_QSORT_S_DEFINED                                                      = 0
 	X_RDSEEDINTRIN_H_INCLUDED                                              = 0
@@ -11490,6 +11638,7 @@ const (
 	X_RTL_RUN_ONCE_DEF                                                     = 1
 	X_RTMINTRIN_H_INCLUDED                                                 = 0
 	X_Raises_SEH_exception_                                                = 0
+	X_Requires_no_locks_held_                                              = 0
 	X_Reserved_                                                            = 0
 	X_Result_nullonfailure_                                                = 0
 	X_Result_zeroonfailure_                                                = 0
@@ -11497,6 +11646,7 @@ const (
 	X_Ret_maybenull_z_                                                     = 0
 	X_Ret_notnull_                                                         = 0
 	X_Ret_null_                                                            = 0
+	X_Ret_valid_                                                           = 0
 	X_Ret_z_                                                               = 0
 	X_SECURECRT_ERRCODE_VALUES_DEFINED                                     = 0
 	X_SECURECRT_FILL_BUFFER_PATTERN                                        = 0xFD
@@ -11526,6 +11676,7 @@ const (
 	X_SQLITE3RTREE_H_                                                      = 0
 	X_SSIZE_T_DEFINED                                                      = 0
 	X_STDARG_H                                                             = 0
+	X_STDIO_CONFIG_DEFINED                                                 = 0
 	X_STDIO_DEFINED                                                        = 0
 	X_STDIO_S_DEFINED                                                      = 0
 	X_STDSTREAM_DEFINED                                                    = 0
@@ -11539,6 +11690,7 @@ const (
 	X_SYS_OPEN                                                             = 20
 	X_Scanf_format_string_                                                 = 0
 	X_Scanf_s_format_string_                                               = 0
+	X_Strict_type_match_                                                   = 0
 	X_TAGLC_ID_DEFINED                                                     = 0
 	X_TBMINTRIN_H_INCLUDED                                                 = 0
 	X_TCHAR_DEFINED                                                        = 0
@@ -11567,6 +11719,7 @@ const (
 	X_VA_LIST_T_H                                                          = 0
 	X_VPCLMULQDQINTRIN_H_INCLUDED                                          = 0
 	X_W64                                                                  = 0
+	X_WAITPKG_H_INCLUDED                                                   = 0
 	X_WAIT_CHILD                                                           = 0
 	X_WAIT_GRANDCHILD                                                      = 1
 	X_WBNOINVDINTRIN_H_INCLUDED                                            = 0
@@ -11578,6 +11731,7 @@ const (
 	X_WIN32                                                                = 1
 	X_WIN32_IE                                                             = 1538
 	X_WIN32_IE_IE100                                                       = 0x0a00
+	X_WIN32_IE_IE110                                                       = 0x0A00
 	X_WIN32_IE_IE20                                                        = 0x0200
 	X_WIN32_IE_IE30                                                        = 0x0300
 	X_WIN32_IE_IE302                                                       = 0x0302
@@ -11600,6 +11754,7 @@ const (
 	X_WIN32_IE_NT4SP4                                                      = 1025
 	X_WIN32_IE_NT4SP5                                                      = 1025
 	X_WIN32_IE_NT4SP6                                                      = 1280
+	X_WIN32_IE_WIN10                                                       = 2560
 	X_WIN32_IE_WIN2K                                                       = 1281
 	X_WIN32_IE_WIN2KSP1                                                    = 1281
 	X_WIN32_IE_WIN2KSP2                                                    = 1281
@@ -11612,6 +11767,7 @@ const (
 	X_WIN32_IE_WIN98SE                                                     = 1280
 	X_WIN32_IE_WINBLUE                                                     = 2560
 	X_WIN32_IE_WINME                                                       = 1360
+	X_WIN32_IE_WINTHRESHOLD                                                = 2560
 	X_WIN32_IE_WS03                                                        = 0x0602
 	X_WIN32_IE_WS03SP1                                                     = 1539
 	X_WIN32_IE_XP                                                          = 1536
@@ -11653,9 +11809,7 @@ const (
 	X_WSTDIO_DEFINED                                                       = 0
 	X_WSTDIO_S_DEFINED                                                     = 0
 	X_WSTDLIBP_DEFINED                                                     = 0
-	X_WSTDLIBP_S_DEFINED                                                   = 0
 	X_WSTDLIB_DEFINED                                                      = 0
-	X_WSTDLIB_S_DEFINED                                                    = 0
 	X_WSTRING_DEFINED                                                      = 0
 	X_WSTRING_S_DEFINED                                                    = 0
 	X_X86INTRIN_H_INCLUDED                                                 = 0
@@ -11680,7 +11834,7 @@ const (
 	Pascal                                                                 = 0
 )
 
-const ( /* avx512fintrin.h:4200:1: */
+const ( /* avx512fintrin.h:4271:1: */
 	_MM_PERM_AAAA = 0
 	_MM_PERM_AAAB = 1
 	_MM_PERM_AAAC = 2
@@ -11940,14 +12094,14 @@ const ( /* avx512fintrin.h:4200:1: */
 )
 
 // Constants for mantissa extraction
-const ( /* avx512fintrin.h:8510:1: */
+const ( /* avx512fintrin.h:8686:1: */
 	_MM_MANT_NORM_1_2     = 0 // interval [1, 2)
 	_MM_MANT_NORM_p5_2    = 1 // interval [0.5, 2)
 	_MM_MANT_NORM_p5_1    = 2 // interval [0.5, 1)
 	_MM_MANT_NORM_p75_1p5 = 3
 )
 
-const ( /* avx512fintrin.h:8518:1: */
+const ( /* avx512fintrin.h:8694:1: */
 	_MM_MANT_SIGN_src  = 0 // sign = sign(SRC)
 	_MM_MANT_SIGN_zero = 1 // sign = 0
 	_MM_MANT_SIGN_nan  = 2
@@ -11981,22 +12135,22 @@ const ( /* memoryapi.h:18:3: */
 	HighMemoryResourceNotification = 1
 )
 
-const ( /* minwinbase.h:100:3: */
+const ( /* minwinbase.h:102:3: */
+	FindExInfoStandard     = 0
+	FindExInfoBasic        = 1
+	FindExInfoMaxInfoLevel = 2
+)
+
+const ( /* minwinbase.h:114:3: */
 	FindExSearchNameMatch          = 0
 	FindExSearchLimitToDirectories = 1
 	FindExSearchLimitToDevices     = 2
 	FindExSearchMaxSearchOp        = 3
 )
 
-const ( /* minwinbase.h:107:3: */
+const ( /* minwinbase.h:131:3: */
 	GetFileExInfoStandard = 0
 	GetFileExMaxInfoLevel = 1
-)
-
-const ( /* minwinbase.h:91:3: */
-	FindExInfoStandard     = 0
-	FindExInfoBasic        = 1
-	FindExInfoMaxInfoLevel = 2
 )
 
 const ( /* sysinfoapi.h:70:3: */
@@ -12011,20 +12165,13 @@ const ( /* sysinfoapi.h:70:3: */
 	ComputerNameMax                       = 8
 )
 
-// TODO: Add RTL_UMS... to winnt.h header and add UMS-base API.
-
-const ( /* winbase.h:1191:3: */
+const ( /* winbase.h:1184:3: */
 	ThreadMemoryPriority      = 0
 	ThreadAbsoluteCpuPriority = 1
 	ThreadInformationClassMax = 2
 )
 
-const ( /* winbase.h:1197:3: */
-	ProcessMemoryPriority      = 0
-	ProcessInformationClassMax = 1
-)
-
-const ( /* winbase.h:1298:3: */
+const ( /* winbase.h:1279:3: */
 	DEPPolicyAlwaysOff  = 0
 	DEPPolicyAlwaysOn   = 1
 	DEPPolicyOptIn      = 2
@@ -12032,9 +12179,27 @@ const ( /* winbase.h:1298:3: */
 	DEPTotalPolicyCount = 4
 )
 
-const ( /* winbase.h:2147:3: */
+const ( /* winbase.h:1570:3: */
+	ProcessMemoryPriority      = 0
+	ProcessInformationClassMax = 1
+)
+
+const ( /* winbase.h:2216:3: */
 	FindStreamInfoStandard     = 0
 	FindStreamInfoMaxInfoLevel = 1
+)
+
+const ( /* windef.h:157:1: */
+	DPI_AWARENESS_INVALID           = -1
+	DPI_AWARENESS_UNAWARE           = 0
+	DPI_AWARENESS_SYSTEM_AWARE      = 1
+	DPI_AWARENESS_PER_MONITOR_AWARE = 2
+)
+
+const ( /* windef.h:170:1: */
+	DPI_HOSTING_BEHAVIOR_INVALID = -1
+	DPI_HOSTING_BEHAVIOR_DEFAULT = 0
+	DPI_HOSTING_BEHAVIOR_MIXED   = 1
 )
 
 const ( /* winnls.h:720:3: */
@@ -12063,7 +12228,7 @@ const ( /* winnls.h:772:3: */
 	GEOCLASS_ALL    = 0
 )
 
-const ( /* winnt.h:2945:5: */
+const ( /* winnt.h:2946:5: */
 	SidTypeUser           = 1
 	SidTypeGroup          = 2
 	SidTypeDomain         = 3
@@ -12077,7 +12242,7 @@ const ( /* winnt.h:2945:5: */
 	SidTypeLogonSession   = 11
 )
 
-const ( /* winnt.h:3184:5: */
+const ( /* winnt.h:3189:5: */
 	WinNullSid                                    = 0
 	WinWorldSid                                   = 1
 	WinLocalSid                                   = 2
@@ -12198,17 +12363,17 @@ const ( /* winnt.h:3184:5: */
 	WinAuthenticationKeyPropertyAttestationSid    = 117
 )
 
-const ( /* winnt.h:3495:5: */
+const ( /* winnt.h:3500:5: */
 	AclRevisionInformation = 1
 	AclSizeInformation     = 2
 )
 
-const ( /* winnt.h:3565:5: */
+const ( /* winnt.h:3570:5: */
 	AuditEventObjectAccess           = 0
 	AuditEventDirectoryServiceAccess = 1
 )
 
-const ( /* winnt.h:3597:5: */
+const ( /* winnt.h:3602:5: */
 	AccessReasonNone                     = 0
 	AccessReasonAllowedAce               = 65536
 	AccessReasonDeniedAce                = 131072
@@ -12227,25 +12392,25 @@ const ( /* winnt.h:3597:5: */
 	AccessReasonNoGrant                  = 8388608
 )
 
-const ( /* winnt.h:3687:5: */
+const ( /* winnt.h:3692:5: */
 	SecurityAnonymous      = 0
 	SecurityIdentification = 1
 	SecurityImpersonation  = 2
 	SecurityDelegation     = 3
 )
 
-const ( /* winnt.h:3714:5: */
+const ( /* winnt.h:3719:5: */
 	TokenPrimary       = 1
 	TokenImpersonation = 2
 )
 
-const ( /* winnt.h:3719:5: */
+const ( /* winnt.h:3724:5: */
 	TokenElevationTypeDefault = 1
 	TokenElevationTypeFull    = 2
 	TokenElevationTypeLimited = 3
 )
 
-const ( /* winnt.h:3725:5: */
+const ( /* winnt.h:3730:5: */
 	TokenUser                            = 1
 	TokenGroups                          = 2
 	TokenPrivileges                      = 3
@@ -12289,7 +12454,7 @@ const ( /* winnt.h:3725:5: */
 	MaxTokenInfoClass                    = 41
 )
 
-const ( /* winnt.h:3893:5: */
+const ( /* winnt.h:3898:5: */
 	MandatoryLevelUntrusted     = 0
 	MandatoryLevelLow           = 1
 	MandatoryLevelMedium        = 2
@@ -12299,18 +12464,18 @@ const ( /* winnt.h:3893:5: */
 	MandatoryLevelCount         = 6
 )
 
-const ( /* winnt.h:4019:5: */
+const ( /* winnt.h:4024:5: */
 	SeLearningModeInvalidType = 0
 	SeLearningModeSettings    = 1
 	SeLearningModeMax         = 2
 )
 
-const ( /* winnt.h:4223:5: */
+const ( /* winnt.h:4228:5: */
 	PMCCounter             = 0
 	MaxHardwareCounterType = 1
 )
 
-const ( /* winnt.h:4228:5: */
+const ( /* winnt.h:4233:5: */
 	ProcessDEPPolicy                   = 0
 	ProcessASLRPolicy                  = 1
 	ProcessDynamicCodePolicy           = 2
@@ -12325,19 +12490,19 @@ const ( /* winnt.h:4228:5: */
 	MaxProcessMitigationPolicy         = 11
 )
 
-const ( /* winnt.h:4426:5: */
+const ( /* winnt.h:4431:5: */
 	ToleranceLow    = 1
 	ToleranceMedium = 2
 	ToleranceHigh   = 3
 )
 
-const ( /* winnt.h:4432:5: */
+const ( /* winnt.h:4437:5: */
 	ToleranceIntervalShort  = 1
 	ToleranceIntervalMedium = 2
 	ToleranceIntervalLong   = 3
 )
 
-const ( /* winnt.h:4551:5: */
+const ( /* winnt.h:4556:5: */
 	JobObjectBasicAccountingInformation         = 1
 	JobObjectBasicLimitInformation              = 2
 	JobObjectBasicProcessIdList                 = 3
@@ -12366,14 +12531,14 @@ const ( /* winnt.h:4551:5: */
 	MaxJobObjectInfoClass                       = 26
 )
 
-const ( /* winnt.h:4575:5: */
+const ( /* winnt.h:4580:5: */
 	FirmwareTypeUnknown = 0
 	FirmwareTypeBios    = 1
 	FirmwareTypeUefi    = 2
 	FirmwareTypeMax     = 3
 )
 
-const ( /* winnt.h:4600:5: */
+const ( /* winnt.h:4605:5: */
 	RelationProcessorCore    = 0
 	RelationNumaNode         = 1
 	RelationCache            = 2
@@ -12382,7 +12547,7 @@ const ( /* winnt.h:4600:5: */
 	RelationAll              = 65535
 )
 
-const ( /* winnt.h:4607:5: */
+const ( /* winnt.h:4612:5: */
 	CacheUnified     = 0
 	CacheInstruction = 1
 	CacheData        = 2
@@ -12394,7 +12559,24 @@ const ( /* winnt.h:467:1: */
 	DEFAULT_COMPARTMENT_ID     = 1
 )
 
-const ( /* winnt.h:5229:3: */
+const ( /* winnt.h:4908:3: */
+	MemExtendedParameterInvalidType         = 0
+	MemExtendedParameterAddressRequirements = 1
+	MemExtendedParameterNumaNode            = 2
+	MemExtendedParameterPartitionHandle     = 3
+	MemExtendedParameterUserPhysicalHandle  = 4
+	MemExtendedParameterAttributeFlags      = 5
+	MemExtendedParameterMax                 = 6
+)
+
+const ( /* winnt.h:4946:3: */
+	MemSectionExtendedParameterInvalidType       = 0
+	MemSectionExtendedParameterUserPhysicalFlags = 1
+	MemSectionExtendedParameterNumaNode          = 2
+	MemSectionExtendedParameterMax               = 3
+)
+
+const ( /* winnt.h:5346:3: */
 	PowerSystemUnspecified = 0
 	PowerSystemWorking     = 1
 	PowerSystemSleeping1   = 2
@@ -12405,7 +12587,7 @@ const ( /* winnt.h:5229:3: */
 	PowerSystemMaximum     = 7
 )
 
-const ( /* winnt.h:5235:3: */
+const ( /* winnt.h:5352:3: */
 	PowerActionNone          = 0
 	PowerActionReserved      = 1
 	PowerActionSleep         = 2
@@ -12416,7 +12598,7 @@ const ( /* winnt.h:5235:3: */
 	PowerActionWarmEject     = 7
 )
 
-const ( /* winnt.h:5241:3: */
+const ( /* winnt.h:5358:3: */
 	PowerDeviceUnspecified = 0
 	PowerDeviceD0          = 1
 	PowerDeviceD1          = 2
@@ -12425,13 +12607,13 @@ const ( /* winnt.h:5241:3: */
 	PowerDeviceMaximum     = 5
 )
 
-const ( /* winnt.h:5246:3: */
+const ( /* winnt.h:5363:3: */
 	PowerMonitorOff = 0
 	PowerMonitorOn  = 1
 	PowerMonitorDim = 2
 )
 
-const ( /* winnt.h:5250:3: */
+const ( /* winnt.h:5367:3: */
 	PowerUserPresent    = 0
 	PowerUserNotPresent = 1
 	PowerUserInactive   = 2
@@ -12439,19 +12621,19 @@ const ( /* winnt.h:5250:3: */
 	PowerUserInvalid    = 3
 )
 
-const ( /* winnt.h:5266:3: */
+const ( /* winnt.h:5383:3: */
 	LT_DONT_CARE      = 0
 	LT_LOWEST_LATENCY = 1
 )
 
-const ( /* winnt.h:5281:3: */
+const ( /* winnt.h:5398:3: */
 	PowerRequestDisplayRequired   = 0
 	PowerRequestSystemRequired    = 1
 	PowerRequestAwayModeRequired  = 2
 	PowerRequestExecutionRequired = 3
 )
 
-const ( /* winnt.h:5309:5: */
+const ( /* winnt.h:5426:5: */
 	SystemPowerPolicyAc                = 0
 	SystemPowerPolicyDc                = 1
 	VerifySystemPolicyAc               = 2
@@ -12535,13 +12717,13 @@ const ( /* winnt.h:5309:5: */
 	PowerInformationLevelMaximum       = 80
 )
 
-const ( /* winnt.h:5393:5: */
+const ( /* winnt.h:5510:5: */
 	UserNotPresent = 0
 	UserPresent    = 1
 	UserUnknown    = 255
 )
 
-const ( /* winnt.h:5429:5: */
+const ( /* winnt.h:5546:5: */
 	MonitorRequestReasonUnknown                 = 0
 	MonitorRequestReasonPowerButton             = 1
 	MonitorRequestReasonRemoteConnection        = 2
@@ -12559,14 +12741,14 @@ const ( /* winnt.h:5429:5: */
 	MonitorRequestReasonMax                     = 14
 )
 
-const ( /* winnt.h:5459:5: */
+const ( /* winnt.h:5576:5: */
 	PoAc               = 0
 	PoDc               = 1
 	PoHot              = 2
 	PoConditionMaximum = 3
 )
 
-const ( /* winnt.h:5486:5: */
+const ( /* winnt.h:5603:5: */
 	PlatformRoleUnspecified       = 0
 	PlatformRoleDesktop           = 1
 	PlatformRoleMobile            = 2
@@ -12579,24 +12761,24 @@ const ( /* winnt.h:5486:5: */
 	PlatformRoleMaximum           = 9
 )
 
-const ( /* winnt.h:6623:5: */
+const ( /* winnt.h:6740:5: */
 	IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = 1
 )
 
-const ( /* winnt.h:7494:5: */
+const ( /* winnt.h:7611:5: */
 	IMPORT_OBJECT_CODE  = 0
 	IMPORT_OBJECT_DATA  = 1
 	IMPORT_OBJECT_CONST = 2
 )
 
-const ( /* winnt.h:7498:5: */
+const ( /* winnt.h:7615:5: */
 	IMPORT_OBJECT_ORDINAL         = 0
 	IMPORT_OBJECT_NAME            = 1
 	IMPORT_OBJECT_NAME_NO_PREFIX  = 2
 	IMPORT_OBJECT_NAME_UNDECORATE = 3
 )
 
-const ( /* winnt.h:7504:5: */
+const ( /* winnt.h:7621:5: */
 	COMIMAGE_FLAGS_ILONLY                = 1
 	COMIMAGE_FLAGS_32BITREQUIRED         = 2
 	COMIMAGE_FLAGS_IL_LIBRARY            = 4
@@ -12621,7 +12803,7 @@ const ( /* winnt.h:7504:5: */
 	MAX_PACKAGE_NAME                     = 1024
 )
 
-const ( /* winnt.h:7909:5: */
+const ( /* winnt.h:8028:5: */
 	UmsThreadInvalidInfoClass = 0
 	UmsThreadUserContext      = 1
 	UmsThreadPriority         = 2
@@ -12632,18 +12814,18 @@ const ( /* winnt.h:7909:5: */
 	UmsThreadMaxInfoClass     = 7
 )
 
-const ( /* winnt.h:7920:5: */
+const ( /* winnt.h:8039:5: */
 	UmsSchedulerStartup       = 0
 	UmsSchedulerThreadBlocked = 1
 	UmsSchedulerThreadYield   = 2
 )
 
-const ( /* winnt.h:7995:5: */
+const ( /* winnt.h:8114:5: */
 	HeapCompatibilityInformation      = 0
 	HeapEnableTerminationOnCorruption = 1
 )
 
-const ( /* winnt.h:8023:5: */
+const ( /* winnt.h:8142:5: */
 	ActivationContextBasicInformation                      = 1
 	ActivationContextDetailedInformation                   = 2
 	AssemblyDetailedInformationInActivationContext         = 3
@@ -12656,7 +12838,7 @@ const ( /* winnt.h:8023:5: */
 	FileInformationInAssemblyOfAssemblyInActivationContxt  = 4
 )
 
-const ( /* winnt.h:8036:5: */
+const ( /* winnt.h:8155:5: */
 	ACTCTX_RUN_LEVEL_UNSPECIFIED       = 0
 	ACTCTX_RUN_LEVEL_AS_INVOKER        = 1
 	ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE = 2
@@ -12664,13 +12846,13 @@ const ( /* winnt.h:8036:5: */
 	ACTCTX_RUN_LEVEL_NUMBERS           = 4
 )
 
-const ( /* winnt.h:8044:5: */
+const ( /* winnt.h:8163:5: */
 	ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN    = 0
 	ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS         = 1
 	ACTCTX_COMPATIBILITY_ELEMENT_TYPE_MITIGATION = 2
 )
 
-const ( /* winnt.h:8465:5: */
+const ( /* winnt.h:8584:5: */
 	DriverType               = 1
 	FileSystemType           = 2
 	Win32ServiceOwnProcess   = 16
@@ -12679,7 +12861,7 @@ const ( /* winnt.h:8465:5: */
 	RecognizerType           = 8
 )
 
-const ( /* winnt.h:8470:5: */
+const ( /* winnt.h:8589:5: */
 	BootLoad    = 0
 	SystemLoad  = 1
 	AutoLoad    = 2
@@ -12687,14 +12869,14 @@ const ( /* winnt.h:8470:5: */
 	DisableLoad = 4
 )
 
-const ( /* winnt.h:8475:5: */
+const ( /* winnt.h:8594:5: */
 	IgnoreError   = 0
 	NormalError   = 1
 	SevereError   = 2
 	CriticalError = 3
 )
 
-const ( /* winnt.h:8675:5: */
+const ( /* winnt.h:8794:5: */
 	TapeDriveProblemNone         = 0
 	TapeDriveReadWriteWarning    = 1
 	TapeDriveReadWriteError      = 2
@@ -12711,7 +12893,7 @@ const ( /* winnt.h:8675:5: */
 	TapeDriveSnappedTape         = 13
 )
 
-const ( /* winnt.h:8685:3: */
+const ( /* winnt.h:8804:3: */
 	TP_CALLBACK_PRIORITY_HIGH    = 0
 	TP_CALLBACK_PRIORITY_NORMAL  = 1
 	TP_CALLBACK_PRIORITY_LOW     = 2
@@ -12719,19 +12901,19 @@ const ( /* winnt.h:8685:3: */
 	TP_CALLBACK_PRIORITY_COUNT   = 3
 )
 
-const ( /* winnt.h:8878:7: */
+const ( /* winnt.h:8997:7: */
 	TransactionOutcomeUndetermined = 1
 	TransactionOutcomeCommitted    = 2
 	TransactionOutcomeAborted      = 3
 )
 
-const ( /* winnt.h:8884:7: */
+const ( /* winnt.h:9003:7: */
 	TransactionStateNormal          = 1
 	TransactionStateIndoubt         = 2
 	TransactionStateCommittedNotify = 3
 )
 
-const ( /* winnt.h:8956:7: */
+const ( /* winnt.h:9075:7: */
 	TransactionBasicInformation              = 0
 	TransactionPropertiesInformation         = 1
 	TransactionEnlistmentInformation         = 2
@@ -12740,7 +12922,7 @@ const ( /* winnt.h:8956:7: */
 	TransactionDTCPrivateInformation         = 5
 )
 
-const ( /* winnt.h:8965:7: */
+const ( /* winnt.h:9084:7: */
 	TransactionManagerBasicInformation             = 0
 	TransactionManagerLogInformation               = 1
 	TransactionManagerLogPathInformation           = 2
@@ -12749,18 +12931,18 @@ const ( /* winnt.h:8965:7: */
 	TransactionManagerOldestTransactionInformation = 5
 )
 
-const ( /* winnt.h:8974:7: */
+const ( /* winnt.h:9093:7: */
 	ResourceManagerBasicInformation      = 0
 	ResourceManagerCompletionInformation = 1
 )
 
-const ( /* winnt.h:8991:7: */
+const ( /* winnt.h:9110:7: */
 	EnlistmentBasicInformation    = 0
 	EnlistmentRecoveryInformation = 1
 	EnlistmentCrmInformation      = 2
 )
 
-const ( /* winnt.h:9006:7: */
+const ( /* winnt.h:9125:7: */
 	KTMOBJECT_TRANSACTION         = 0
 	KTMOBJECT_TRANSACTION_MANAGER = 1
 	KTMOBJECT_RESOURCE_MANAGER    = 2
@@ -12781,6 +12963,19 @@ const ( /* winsvc.h:139:3: */
 
 const ( /* winsvc.h:143:3: */
 	SC_ENUM_PROCESS_INFO = 0
+)
+
+const ( /* winuser.h:2440:3: */
+	DCDC_DEFAULT             = 0
+	DCDC_DISABLE_FONT_UPDATE = 1
+	DCDC_DISABLE_RELAYOUT    = 2
+)
+
+const ( /* winuser.h:2449:3: */
+	DDC_DEFAULT                  = 0
+	DDC_DISABLE_ALL              = 1
+	DDC_DISABLE_RESIZE           = 2
+	DDC_DISABLE_CONTROL_RELAYOUT = 4
 )
 
 type ptrdiff_t = int64 /* <builtin>:3:26 */
@@ -14863,20 +15058,20 @@ type fts5_api1 = struct {
 // FTS5 EXTENSION REGISTRATION API
 type fts5_api = fts5_api1 /* sqlite3.h:12312:25 */
 
-type ssize_t = int64 /* crtdefs.h:45:35 */
+type ssize_t = int64 /* corecrt.h:50:35 */
 
-type rsize_t = size_t /* crtdefs.h:52:16 */
+type rsize_t = size_t /* corecrt.h:57:16 */
 
-type intptr_t = int64 /* crtdefs.h:62:35 */
+type intptr_t = int64 /* corecrt.h:67:35 */
 
-type uintptr_t = uint64 /* crtdefs.h:75:44 */
+type uintptr_t = uint64 /* corecrt.h:80:44 */
 
-type wint_t = uint16   /* crtdefs.h:106:24 */
-type wctype_t = uint16 /* crtdefs.h:107:24 */
+type wint_t = uint16   /* corecrt.h:111:24 */
+type wctype_t = uint16 /* corecrt.h:112:24 */
 
-type errno_t = int32 /* crtdefs.h:113:13 */
+type errno_t = int32 /* corecrt.h:118:13 */
 
-type time_t = int64 /* crtdefs.h:138:20 */
+type time_t = int64 /* corecrt.h:143:20 */
 
 type threadlocaleinfostruct = struct {
 	refcount      int32
@@ -14902,36 +15097,29 @@ type threadlocaleinfostruct = struct {
 	pclmap              uintptr
 	pcumap              uintptr
 	lc_time_curr        uintptr
-} /* crtdefs.h:422:1 */
+} /* corecrt.h:435:1 */
 
-type pthreadlocinfo = uintptr /* crtdefs.h:424:39 */
-type pthreadmbcinfo = uintptr /* crtdefs.h:425:36 */
+type pthreadlocinfo = uintptr /* corecrt.h:437:39 */
+type pthreadmbcinfo = uintptr /* corecrt.h:438:36 */
 
 type localeinfo_struct = struct {
 	locinfo pthreadlocinfo
 	mbcinfo pthreadmbcinfo
-} /* crtdefs.h:428:9 */
+} /* corecrt.h:441:9 */
 
-type _locale_tstruct = localeinfo_struct /* crtdefs.h:431:3 */
-type _locale_t = uintptr                 /* crtdefs.h:431:19 */
+type _locale_tstruct = localeinfo_struct /* corecrt.h:444:3 */
+type _locale_t = uintptr                 /* corecrt.h:444:19 */
 
 type tagLC_ID = struct {
 	wLanguage uint16
 	wCountry  uint16
 	wCodePage uint16
-} /* crtdefs.h:422:1 */
+} /* corecrt.h:435:1 */
 
-type LC_ID = tagLC_ID  /* crtdefs.h:439:3 */
-type LPLC_ID = uintptr /* crtdefs.h:439:9 */
+type LC_ID = tagLC_ID  /* corecrt.h:452:3 */
+type LPLC_ID = uintptr /* corecrt.h:452:9 */
 
-type threadlocinfo = threadlocaleinfostruct /* crtdefs.h:468:3 */
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// Undefine __mingw_<printf> macros.
+type threadlocinfo = threadlocaleinfostruct /* corecrt.h:487:3 */
 
 type _iobuf = struct {
 	_ptr      uintptr
@@ -14943,9 +15131,9 @@ type _iobuf = struct {
 	_charbuf  int32
 	_bufsiz   int32
 	_tmpfname uintptr
-} /* stdio.h:26:3 */
+} /* stdio.h:24:3 */
 
-type FILE = _iobuf /* stdio.h:36:25 */
+type FILE = _iobuf /* stdio.h:34:25 */
 
 type _off_t = int32  /* _mingw_off_t.h:5:16 */
 type off32_t = int32 /* _mingw_off_t.h:7:16 */
@@ -14955,11 +15143,28 @@ type off64_t = int64  /* _mingw_off_t.h:15:39 */
 
 type off_t = off64_t /* _mingw_off_t.h:24:17 */
 
-type fpos_t = int64 /* stdio.h:104:37 */
+type fpos_t = int64 /* stdio.h:102:37 */
 
-func vsnwprintf(tls *libc.TLS, s uintptr, n size_t, format uintptr, arg va_list) int32 { /* stdio.h:1213:15: */
-	return libc.X_vsnwprintf(tls, s, n, format, arg)
+func fprintf(tls *libc.TLS, __stream uintptr, __format uintptr, va uintptr) int32 { /* stdio.h:343:5: */
+	var __retval int32
+	var __local_argv uintptr
+	__local_argv = va
+	__retval = libc.X__mingw_vfprintf(tls, __stream, __format, __local_argv)
+	_ = __local_argv
+	return __retval
+}
 
+func printf(tls *libc.TLS, __format uintptr, va uintptr) int32 { /* stdio.h:354:5: */
+	var __retval int32
+	var __local_argv uintptr
+	__local_argv = va
+	__retval = libc.X__mingw_vfprintf(tls, libc.X__acrt_iob_func(tls, uint32(1)), __format, __local_argv)
+	_ = __local_argv
+	return __retval
+}
+
+func vsnwprintf(tls *libc.TLS, __stream uintptr, __n size_t, __format uintptr, __local_argv uintptr) int32 { /* stdio.h:1145:5: */
+	return libc.X__mingw_vsnwprintf(tls, __stream, __n, __format, __local_argv)
 }
 
 // *
@@ -14975,13 +15180,6 @@ func vsnwprintf(tls *libc.TLS, s uintptr, n size_t, format uintptr, arg va_list)
 func vswprintf(tls *libc.TLS, __stream uintptr, __count size_t, __format uintptr, __local_argv uintptr) int32 { /* swprintf.inl:27:5: */
 	return vsnwprintf(tls, __stream, __count, __format, __local_argv)
 }
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// Define __mingw_<printf> macros.
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -15005,7 +15203,7 @@ func vswprintf(tls *libc.TLS, __stream uintptr, __count size_t, __format uintptr
 
 // _WIN32_IE
 
-// Mappings Between IE Version  and Windows Version
+// Mappings Between IE Version and Windows Version
 
 // NTDDI_VERSION
 
@@ -15029,6 +15227,11 @@ func vswprintf(tls *libc.TLS, __stream uintptr, __count size_t, __format uintptr
 //    For Obj-C the 'interface' is a keyword, but interface is used
 //    in midl-code too.  To resolve this conflict for at least the
 //    main windows API header, we define it here temporary.
+
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -15165,7 +15368,7 @@ type PEXCEPTION_HANDLER = uintptr /* excpt.h:87:33 */
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -15195,11 +15398,6 @@ type PEXCEPTION_HANDLER = uintptr /* excpt.h:87:33 */
 // No warranty is given; refer to the file DISCLAIMER within this package.
 
 // *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// *
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER within this package.
 
@@ -15211,19 +15409,37 @@ type PEXCEPTION_HANDLER = uintptr /* excpt.h:87:33 */
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
 // *
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER within this package.
+
+// *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-// Pointer parameters
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-// Optional pointer parameters
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-// Output pointer parameters
+// Input parameters
+
+// Output parameters
+
+// Inout parameters
+
+// Pointer to pointer parameters
 
 // Output reference parameters
 
 // Return values
+
+// Optional pointer parameters
 
 // Other common annotations
 
@@ -15254,7 +15470,15 @@ type PEXCEPTION_HANDLER = uintptr /* excpt.h:87:33 */
 // ABSTRACT:        This header stubs out Driver Verifier annotations to
 //                  allow drivers using them to compile with our header set.
 
-// Stubs
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
+
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
 type ULONG = uint32    /* minwindef.h:24:29 */
 type PULONG = uintptr  /* minwindef.h:25:17 */
@@ -15288,6 +15512,9 @@ type LPCVOID = uintptr /* minwindef.h:156:22 */
 type INT = int32       /* minwindef.h:158:15 */
 type UINT = uint32     /* minwindef.h:159:24 */
 type PUINT = uintptr   /* minwindef.h:160:24 */
+
+// GCC 8 has already defined _xgetbv, Clang 9 has _xgetbv defined as a macro
+// redirecting to the __builtin_ia32_xgetbv builtin.
 
 // *****************************************************
 
@@ -15613,16 +15840,16 @@ type PEXCEPTION_ROUTINE = uintptr /* winnt.h:709:31 */
 
 // ??? #define SUBLANG_ROMANIAN_MOLDOVA                  0x01 ???
 
-type KSPIN_LOCK = ULONG_PTR /* winnt.h:1383:21 */
-type PKSPIN_LOCK = uintptr  /* winnt.h:1384:22 */
+type KSPIN_LOCK = ULONG_PTR /* winnt.h:1384:21 */
+type PKSPIN_LOCK = uintptr  /* winnt.h:1385:22 */
 
 type _M128A = struct {
 	Low  ULONGLONG
 	High LONGLONG
 } /* excpt.h:17:3 */
 
-type M128A = _M128A   /* winnt.h:1389:7 */
-type PM128A = uintptr /* winnt.h:1389:13 */
+type M128A = _M128A   /* winnt.h:1390:7 */
+type PM128A = uintptr /* winnt.h:1390:13 */
 
 type _XSAVE_FORMAT = struct {
 	ControlWord    WORD
@@ -15641,26 +15868,26 @@ type _XSAVE_FORMAT = struct {
 	FloatRegisters [8]M128A
 	XmmRegisters   [16]M128A
 	Reserved4      [96]BYTE
-} /* winnt.h:1391:13 */
+} /* winnt.h:1392:13 */
 
-type XSAVE_FORMAT = _XSAVE_FORMAT /* winnt.h:1414:7 */
-type PXSAVE_FORMAT = uintptr      /* winnt.h:1414:20 */
+type XSAVE_FORMAT = _XSAVE_FORMAT /* winnt.h:1415:7 */
+type PXSAVE_FORMAT = uintptr      /* winnt.h:1415:20 */
 
 type _XSAVE_AREA_HEADER = struct {
 	Mask     DWORD64
 	Reserved [7]DWORD64
-} /* winnt.h:1416:13 */
+} /* winnt.h:1417:13 */
 
-type XSAVE_AREA_HEADER = _XSAVE_AREA_HEADER /* winnt.h:1419:7 */
-type PXSAVE_AREA_HEADER = uintptr           /* winnt.h:1419:25 */
+type XSAVE_AREA_HEADER = _XSAVE_AREA_HEADER /* winnt.h:1420:7 */
+type PXSAVE_AREA_HEADER = uintptr           /* winnt.h:1420:25 */
 
 type _XSAVE_AREA = struct {
 	LegacyState XSAVE_FORMAT
 	Header      XSAVE_AREA_HEADER
-} /* winnt.h:1421:13 */
+} /* winnt.h:1422:13 */
 
-type XSAVE_AREA = _XSAVE_AREA /* winnt.h:1424:7 */
-type PXSAVE_AREA = uintptr    /* winnt.h:1424:18 */
+type XSAVE_AREA = _XSAVE_AREA /* winnt.h:1425:7 */
+type PXSAVE_AREA = uintptr    /* winnt.h:1425:18 */
 
 type _XSTATE_CONTEXT = struct {
 	Mask      DWORD64
@@ -15668,10 +15895,10 @@ type _XSTATE_CONTEXT = struct {
 	Reserved1 DWORD
 	Area      PXSAVE_AREA
 	Buffer    PVOID
-} /* winnt.h:1426:13 */
+} /* winnt.h:1427:13 */
 
-type XSTATE_CONTEXT = _XSTATE_CONTEXT /* winnt.h:1438:7 */
-type PXSTATE_CONTEXT = uintptr        /* winnt.h:1438:22 */
+type XSTATE_CONTEXT = _XSTATE_CONTEXT /* winnt.h:1439:7 */
+type PXSTATE_CONTEXT = uintptr        /* winnt.h:1439:22 */
 
 type _SCOPE_TABLE_AMD64 = struct {
 	Count       DWORD
@@ -15681,99 +15908,12 @@ type _SCOPE_TABLE_AMD64 = struct {
 		HandlerAddress DWORD
 		JumpTarget     DWORD
 	}
-} /* winnt.h:1440:13 */
+} /* winnt.h:1441:13 */
 
-type SCOPE_TABLE_AMD64 = _SCOPE_TABLE_AMD64 /* winnt.h:1448:7 */
-type PSCOPE_TABLE_AMD64 = uintptr           /* winnt.h:1448:25 */
+type SCOPE_TABLE_AMD64 = _SCOPE_TABLE_AMD64 /* winnt.h:1449:7 */
+type PSCOPE_TABLE_AMD64 = uintptr           /* winnt.h:1449:25 */
 
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
-//
-//    This file is part of GCC.
-//
-//    GCC is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 3, or (at your option)
-//    any later version.
-//
-//    GCC is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    Under Section 7 of GPL version 3, you are granted additional
-//    permissions described in the GCC Runtime Library Exception, version
-//    3.1, as published by the Free Software Foundation.
-//
-//    You should have received a copy of the GNU General Public License and
-//    a copy of the GCC Runtime Library Exception along with this program;
-//    see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Implemented from the specification included in the Intel C++ Compiler
-//    User Guide and Reference, version 9.0.
-
-// We need type definitions from the MMX header file.
-// Copyright (C) 2002-2018 Free Software Foundation, Inc.
-//
-//    This file is part of GCC.
-//
-//    GCC is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 3, or (at your option)
-//    any later version.
-//
-//    GCC is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    Under Section 7 of GPL version 3, you are granted additional
-//    permissions described in the GCC Runtime Library Exception, version
-//    3.1, as published by the Free Software Foundation.
-//
-//    You should have received a copy of the GNU General Public License and
-//    a copy of the GCC Runtime Library Exception along with this program;
-//    see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
-//    <http://www.gnu.org/licenses/>.
-
-// Implemented from the specification included in the Intel C++ Compiler
-//    User Guide and Reference, version 9.0.
-
-// Get _mm_malloc () and _mm_free ().
-// Copyright (C) 2004-2018 Free Software Foundation, Inc.
-//
-//    This file is part of GCC.
-//
-//    GCC is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 3, or (at your option)
-//    any later version.
-//
-//    GCC is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    Under Section 7 of GPL version 3, you are granted additional
-//    permissions described in the GCC Runtime Library Exception, version
-//    3.1, as published by the Free Software Foundation.
-//
-//    You should have received a copy of the GNU General Public License and
-//    a copy of the GCC Runtime Library Exception along with this program;
-//    see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
-//    <http://www.gnu.org/licenses/>.
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -15825,7 +15965,7 @@ type PSCOPE_TABLE_AMD64 = uintptr           /* winnt.h:1448:25 */
 //       are semantically identical, with a limit of 259 characters for the
 //       path name, plus one for a terminating NUL, for a total of 260.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -15882,40 +16022,40 @@ type PSCOPE_TABLE_AMD64 = uintptr           /* winnt.h:1448:25 */
 // This administrivia gets added to the end of limits.h
 //    if the system has its own version of limits.h.
 
-type _onexit_t = uintptr /* stdlib.h:49:15 */
+type _onexit_t = uintptr /* stdlib.h:50:15 */
 
 type _div_t = struct {
 	quot int32
 	rem  int32
-} /* stdlib.h:59:11 */
+} /* stdlib.h:60:11 */
 
-type div_t = _div_t /* stdlib.h:62:5 */
+type div_t = _div_t /* stdlib.h:63:5 */
 
 type _ldiv_t = struct {
 	quot int32
 	rem  int32
-} /* stdlib.h:64:11 */
+} /* stdlib.h:65:11 */
 
-type ldiv_t = _ldiv_t /* stdlib.h:67:5 */
+type ldiv_t = _ldiv_t /* stdlib.h:68:5 */
 
-type _LDOUBLE = struct{ ld [10]uint8 } /* stdlib.h:76:5 */
+type _LDOUBLE = struct{ ld [10]uint8 } /* stdlib.h:77:5 */
 
-type _CRT_DOUBLE = struct{ x float64 } /* stdlib.h:83:5 */
+type _CRT_DOUBLE = struct{ x float64 } /* stdlib.h:84:5 */
 
-type _CRT_FLOAT = struct{ f float32 } /* stdlib.h:87:5 */
+type _CRT_FLOAT = struct{ f float32 } /* stdlib.h:88:5 */
 
-type _LONGDOUBLE = struct{ x float64 } /* stdlib.h:94:5 */
+type _LONGDOUBLE = struct{ x float64 } /* stdlib.h:95:5 */
 
-type _LDBL12 = struct{ ld12 [12]uint8 } /* stdlib.h:101:5 */
+type _LDBL12 = struct{ ld12 [12]uint8 } /* stdlib.h:102:5 */
 
-type _purecall_handler = uintptr /* stdlib.h:142:16 */
+type _purecall_handler = uintptr /* stdlib.h:143:16 */
 
-type _invalid_parameter_handler = uintptr /* stdlib.h:147:16 */
+type _invalid_parameter_handler = uintptr /* stdlib.h:148:16 */
 
 type lldiv_t = struct {
 	quot int64
 	rem  int64
-} /* stdlib.h:699:61 */
+} /* stdlib.h:727:61 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -15956,12 +16096,12 @@ type _heapinfo = struct {
 // The structure used to walk through the heap with _heapwalk.
 type _HEAPINFO = _heapinfo /* malloc.h:50:5 */
 
-type _MM_PERM_ENUM = uint32 /* avx512fintrin.h:4288:3 */
+type _MM_PERM_ENUM = uint32 /* avx512fintrin.h:4359:3 */
 
 // Constants for mantissa extraction
-type _MM_MANTISSA_NORM_ENUM = uint32 /* avx512fintrin.h:8516:3 */
+type _MM_MANTISSA_NORM_ENUM = uint32 /* avx512fintrin.h:8692:3 */
 
-type _MM_MANTISSA_SIGN_ENUM = uint32 /* avx512fintrin.h:8523:3 */
+type _MM_MANTISSA_SIGN_ENUM = uint32 /* avx512fintrin.h:8699:3 */
 
 // unsigned char __readgsbyte(unsigned __LONG32 Offset); moved to psdk_inc/intrin-impl.h
 // unsigned short __readgsword(unsigned __LONG32 Offset); moved to psdk_inc/intrin-impl.h
@@ -15989,7 +16129,7 @@ type _XMM_SAVE_AREA32 = struct {
 	FloatRegisters [8]M128A
 	XmmRegisters   [16]M128A
 	Reserved4      [96]BYTE
-} /* winnt.h:1678:11 */
+} /* winnt.h:1679:11 */
 
 // unsigned char __readgsbyte(unsigned __LONG32 Offset); moved to psdk_inc/intrin-impl.h
 // unsigned short __readgsword(unsigned __LONG32 Offset); moved to psdk_inc/intrin-impl.h
@@ -16000,11 +16140,11 @@ type _XMM_SAVE_AREA32 = struct {
 // void __writegsword(unsigned __LONG32 Offset,unsigned short Data); moved to psdk_inc/intrin-impl.h
 // void __writegsdword(unsigned __LONG32 Offset,unsigned __LONG32 Data); moved to psdk_inc/intrin-impl.h
 
-type XMM_SAVE_AREA32 = _XMM_SAVE_AREA32 /* winnt.h:1695:5 */
-type PXMM_SAVE_AREA32 = uintptr         /* winnt.h:1695:21 */
+type XMM_SAVE_AREA32 = _XMM_SAVE_AREA32 /* winnt.h:1696:5 */
+type PXMM_SAVE_AREA32 = uintptr         /* winnt.h:1696:21 */
 
-type CONTEXT = _CONTEXT /* winnt.h:1769:5 */
-type PCONTEXT = uintptr /* winnt.h:1769:13 */
+type CONTEXT = _CONTEXT /* winnt.h:1770:5 */
+type PCONTEXT = uintptr /* winnt.h:1770:13 */
 
 type _RUNTIME_FUNCTION = struct {
 	BeginAddress DWORD
@@ -16012,11 +16152,11 @@ type _RUNTIME_FUNCTION = struct {
 	UnwindData   DWORD
 } /* excpt.h:45:3 */
 
-type RUNTIME_FUNCTION = _RUNTIME_FUNCTION /* winnt.h:1777:5 */
-type PRUNTIME_FUNCTION = uintptr          /* winnt.h:1777:22 */
+type RUNTIME_FUNCTION = _RUNTIME_FUNCTION /* winnt.h:1778:5 */
+type PRUNTIME_FUNCTION = uintptr          /* winnt.h:1778:22 */
 
-type PGET_RUNTIME_FUNCTION_CALLBACK = uintptr          /* winnt.h:1779:29 */
-type POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK = uintptr /* winnt.h:1780:17 */
+type PGET_RUNTIME_FUNCTION_CALLBACK = uintptr          /* winnt.h:1780:29 */
+type POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK = uintptr /* winnt.h:1781:17 */
 
 // LONG WINAPI InterlockedIncrement(LONG volatile *); moved to psdk_inc/intrin-impl.h
 // LONG WINAPI InterlockedDecrement(LONG volatile *); moved to psdk_inc/intrin-impl.h
@@ -16034,20 +16174,20 @@ type _LDT_ENTRY = struct {
 			BaseHi  BYTE
 		}
 	}
-} /* winnt.h:2415:13 */
+} /* winnt.h:2416:13 */
 
 // LONG WINAPI InterlockedIncrement(LONG volatile *); moved to psdk_inc/intrin-impl.h
 // LONG WINAPI InterlockedDecrement(LONG volatile *); moved to psdk_inc/intrin-impl.h
 // LONG WINAPI InterlockedExchange(LONG volatile *, LONG); moved to psdk_inc/intrin-impl.h
 
-type LDT_ENTRY = _LDT_ENTRY /* winnt.h:2438:7 */
-type PLDT_ENTRY = uintptr   /* winnt.h:2438:17 */
+type LDT_ENTRY = _LDT_ENTRY /* winnt.h:2439:7 */
+type PLDT_ENTRY = uintptr   /* winnt.h:2439:17 */
 
 // http://www.nynaeve.net/?p=99
 
-type EXCEPTION_RECORD = _EXCEPTION_RECORD /* winnt.h:2783:7 */
+type EXCEPTION_RECORD = _EXCEPTION_RECORD /* winnt.h:2784:7 */
 
-type PEXCEPTION_RECORD = uintptr /* winnt.h:2785:30 */
+type PEXCEPTION_RECORD = uintptr /* winnt.h:2786:30 */
 
 type _EXCEPTION_RECORD32 = struct {
 	ExceptionCode        DWORD
@@ -16056,10 +16196,10 @@ type _EXCEPTION_RECORD32 = struct {
 	ExceptionAddress     DWORD
 	NumberParameters     DWORD
 	ExceptionInformation [15]DWORD
-} /* winnt.h:2787:13 */
+} /* winnt.h:2788:13 */
 
-type EXCEPTION_RECORD32 = _EXCEPTION_RECORD32 /* winnt.h:2794:7 */
-type PEXCEPTION_RECORD32 = uintptr            /* winnt.h:2794:26 */
+type EXCEPTION_RECORD32 = _EXCEPTION_RECORD32 /* winnt.h:2795:7 */
+type PEXCEPTION_RECORD32 = uintptr            /* winnt.h:2795:26 */
 
 type _EXCEPTION_RECORD64 = struct {
 	ExceptionCode        DWORD
@@ -16069,13 +16209,13 @@ type _EXCEPTION_RECORD64 = struct {
 	NumberParameters     DWORD
 	__unusedAlignment    DWORD
 	ExceptionInformation [15]DWORD64
-} /* winnt.h:2796:13 */
+} /* winnt.h:2797:13 */
 
-type EXCEPTION_RECORD64 = _EXCEPTION_RECORD64 /* winnt.h:2804:7 */
-type PEXCEPTION_RECORD64 = uintptr            /* winnt.h:2804:26 */
+type EXCEPTION_RECORD64 = _EXCEPTION_RECORD64 /* winnt.h:2805:7 */
+type PEXCEPTION_RECORD64 = uintptr            /* winnt.h:2805:26 */
 
-type EXCEPTION_POINTERS = _EXCEPTION_POINTERS /* winnt.h:2809:7 */
-type PEXCEPTION_POINTERS = uintptr            /* winnt.h:2809:26 */
+type EXCEPTION_POINTERS = _EXCEPTION_POINTERS /* winnt.h:2810:7 */
+type PEXCEPTION_POINTERS = uintptr            /* winnt.h:2810:26 */
 
 // http://msdn.microsoft.com/en-us/library/ms680597(VS.85).aspx
 
@@ -16086,8 +16226,8 @@ type _UNWIND_HISTORY_TABLE_ENTRY = struct {
 
 // http://msdn.microsoft.com/en-us/library/ms680597(VS.85).aspx
 
-type UNWIND_HISTORY_TABLE_ENTRY = _UNWIND_HISTORY_TABLE_ENTRY /* winnt.h:2824:5 */
-type PUNWIND_HISTORY_TABLE_ENTRY = uintptr                    /* winnt.h:2824:33 */
+type UNWIND_HISTORY_TABLE_ENTRY = _UNWIND_HISTORY_TABLE_ENTRY /* winnt.h:2825:5 */
+type PUNWIND_HISTORY_TABLE_ENTRY = uintptr                    /* winnt.h:2825:33 */
 
 type _UNWIND_HISTORY_TABLE = struct {
 	Count       ULONG
@@ -16100,39 +16240,39 @@ type _UNWIND_HISTORY_TABLE = struct {
 	Entry       [12]UNWIND_HISTORY_TABLE_ENTRY
 } /* excpt.h:45:3 */
 
-type UNWIND_HISTORY_TABLE = _UNWIND_HISTORY_TABLE /* winnt.h:2839:5 */
-type PUNWIND_HISTORY_TABLE = uintptr              /* winnt.h:2839:27 */
-type DISPATCHER_CONTEXT = _DISPATCHER_CONTEXT     /* winnt.h:2844:38 */
-type PDISPATCHER_CONTEXT = uintptr                /* winnt.h:2845:38 */
+type UNWIND_HISTORY_TABLE = _UNWIND_HISTORY_TABLE /* winnt.h:2840:5 */
+type PUNWIND_HISTORY_TABLE = uintptr              /* winnt.h:2840:27 */
+type DISPATCHER_CONTEXT = _DISPATCHER_CONTEXT     /* winnt.h:2845:38 */
+type PDISPATCHER_CONTEXT = uintptr                /* winnt.h:2846:38 */
 
 // http://msdn.microsoft.com/en-us/library/ms680617(VS.85).aspx
 
 type _KNONVOLATILE_CONTEXT_POINTERS = struct {
 	FloatingContext [16]PM128A
 	IntegerContext  [16]PULONG64
-} /* winnt.h:2864:11 */
+} /* winnt.h:2865:11 */
 
 // http://msdn.microsoft.com/en-us/library/ms680617(VS.85).aspx
 
-type KNONVOLATILE_CONTEXT_POINTERS = _KNONVOLATILE_CONTEXT_POINTERS /* winnt.h:2868:5 */
-type PKNONVOLATILE_CONTEXT_POINTERS = uintptr                       /* winnt.h:2868:36 */
+type KNONVOLATILE_CONTEXT_POINTERS = _KNONVOLATILE_CONTEXT_POINTERS /* winnt.h:2869:5 */
+type PKNONVOLATILE_CONTEXT_POINTERS = uintptr                       /* winnt.h:2869:36 */
 
-type PACCESS_TOKEN = PVOID        /* winnt.h:2871:19 */
-type PSECURITY_DESCRIPTOR = PVOID /* winnt.h:2872:19 */
-type PSID = PVOID                 /* winnt.h:2873:19 */
-type PCLAIMS_BLOB = PVOID         /* winnt.h:2874:19 */
-type ACCESS_MASK = DWORD          /* winnt.h:2875:19 */
-type PACCESS_MASK = uintptr       /* winnt.h:2876:25 */
+type PACCESS_TOKEN = PVOID        /* winnt.h:2872:19 */
+type PSECURITY_DESCRIPTOR = PVOID /* winnt.h:2873:19 */
+type PSID = PVOID                 /* winnt.h:2874:19 */
+type PCLAIMS_BLOB = PVOID         /* winnt.h:2875:19 */
+type ACCESS_MASK = DWORD          /* winnt.h:2876:19 */
+type PACCESS_MASK = uintptr       /* winnt.h:2877:25 */
 
 type _GENERIC_MAPPING = struct {
 	GenericRead    ACCESS_MASK
 	GenericWrite   ACCESS_MASK
 	GenericExecute ACCESS_MASK
 	GenericAll     ACCESS_MASK
-} /* winnt.h:2902:13 */
+} /* winnt.h:2903:13 */
 
-type GENERIC_MAPPING = _GENERIC_MAPPING /* winnt.h:2907:7 */
-type PGENERIC_MAPPING = uintptr         /* winnt.h:2908:29 */
+type GENERIC_MAPPING = _GENERIC_MAPPING /* winnt.h:2908:7 */
+type PGENERIC_MAPPING = uintptr         /* winnt.h:2909:29 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -16141,70 +16281,70 @@ type PGENERIC_MAPPING = uintptr         /* winnt.h:2908:29 */
 type _LUID_AND_ATTRIBUTES = struct {
 	Luid       LUID
 	Attributes DWORD
-} /* winnt.h:2911:13 */
+} /* winnt.h:2912:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type LUID_AND_ATTRIBUTES = _LUID_AND_ATTRIBUTES         /* winnt.h:2914:7 */
-type PLUID_AND_ATTRIBUTES = uintptr                     /* winnt.h:2914:27 */
-type LUID_AND_ATTRIBUTES_ARRAY = [1]LUID_AND_ATTRIBUTES /* winnt.h:2915:33 */
-type PLUID_AND_ATTRIBUTES_ARRAY = uintptr               /* winnt.h:2916:39 */
+type LUID_AND_ATTRIBUTES = _LUID_AND_ATTRIBUTES         /* winnt.h:2915:7 */
+type PLUID_AND_ATTRIBUTES = uintptr                     /* winnt.h:2915:27 */
+type LUID_AND_ATTRIBUTES_ARRAY = [1]LUID_AND_ATTRIBUTES /* winnt.h:2916:33 */
+type PLUID_AND_ATTRIBUTES_ARRAY = uintptr               /* winnt.h:2917:39 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type _SID_IDENTIFIER_AUTHORITY = struct{ Value [6]BYTE } /* winnt.h:2921:13 */
+type _SID_IDENTIFIER_AUTHORITY = struct{ Value [6]BYTE } /* winnt.h:2922:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type SID_IDENTIFIER_AUTHORITY = _SID_IDENTIFIER_AUTHORITY /* winnt.h:2923:7 */
-type PSID_IDENTIFIER_AUTHORITY = uintptr                  /* winnt.h:2923:32 */
+type SID_IDENTIFIER_AUTHORITY = _SID_IDENTIFIER_AUTHORITY /* winnt.h:2924:7 */
+type PSID_IDENTIFIER_AUTHORITY = uintptr                  /* winnt.h:2924:32 */
 
 type _SID = struct {
 	Revision            BYTE
 	SubAuthorityCount   BYTE
 	IdentifierAuthority SID_IDENTIFIER_AUTHORITY
 	SubAuthority        [1]DWORD
-} /* winnt.h:2928:13 */
+} /* winnt.h:2929:13 */
 
-type SID = _SID      /* winnt.h:2933:7 */
-type PISID = uintptr /* winnt.h:2933:11 */
+type SID = _SID      /* winnt.h:2934:7 */
+type PISID = uintptr /* winnt.h:2934:11 */
 
-type SID_NAME_USE = uint32   /* winnt.h:2947:7 */
-type PSID_NAME_USE = uintptr /* winnt.h:2947:20 */
+type SID_NAME_USE = uint32   /* winnt.h:2948:7 */
+type PSID_NAME_USE = uintptr /* winnt.h:2948:20 */
 
 type _SID_AND_ATTRIBUTES = struct {
 	Sid        PSID
 	Attributes DWORD
 	_          [4]byte
-} /* winnt.h:2949:13 */
+} /* winnt.h:2950:13 */
 
-type SID_AND_ATTRIBUTES = _SID_AND_ATTRIBUTES /* winnt.h:2956:7 */
-type PSID_AND_ATTRIBUTES = uintptr            /* winnt.h:2956:26 */
+type SID_AND_ATTRIBUTES = _SID_AND_ATTRIBUTES /* winnt.h:2957:7 */
+type PSID_AND_ATTRIBUTES = uintptr            /* winnt.h:2957:26 */
 
-type SID_AND_ATTRIBUTES_ARRAY = [1]SID_AND_ATTRIBUTES /* winnt.h:2958:32 */
-type PSID_AND_ATTRIBUTES_ARRAY = uintptr              /* winnt.h:2959:38 */
+type SID_AND_ATTRIBUTES_ARRAY = [1]SID_AND_ATTRIBUTES /* winnt.h:2959:32 */
+type PSID_AND_ATTRIBUTES_ARRAY = uintptr              /* winnt.h:2960:38 */
 
-type SID_HASH_ENTRY = ULONG_PTR /* winnt.h:2961:23 */
-type PSID_HASH_ENTRY = uintptr  /* winnt.h:2961:39 */
+type SID_HASH_ENTRY = ULONG_PTR /* winnt.h:2962:23 */
+type PSID_HASH_ENTRY = uintptr  /* winnt.h:2962:39 */
 
 type _SID_AND_ATTRIBUTES_HASH = struct {
 	SidCount DWORD
 	_        [4]byte
 	SidAttr  PSID_AND_ATTRIBUTES
 	Hash     [32]SID_HASH_ENTRY
-} /* winnt.h:2963:13 */
+} /* winnt.h:2964:13 */
 
-type SID_AND_ATTRIBUTES_HASH = _SID_AND_ATTRIBUTES_HASH /* winnt.h:2967:7 */
-type PSID_AND_ATTRIBUTES_HASH = uintptr                 /* winnt.h:2967:32 */
+type SID_AND_ATTRIBUTES_HASH = _SID_AND_ATTRIBUTES_HASH /* winnt.h:2968:7 */
+type PSID_AND_ATTRIBUTES_HASH = uintptr                 /* winnt.h:2968:32 */
 
-type WELL_KNOWN_SID_TYPE = uint32 /* winnt.h:3251:3 */
+type WELL_KNOWN_SID_TYPE = uint32 /* winnt.h:3256:3 */
 
 type _ACL = struct {
 	AclRevision BYTE
@@ -16212,83 +16352,83 @@ type _ACL = struct {
 	AclSize     WORD
 	AceCount    WORD
 	Sbz2        WORD
-} /* winnt.h:3281:13 */
+} /* winnt.h:3286:13 */
 
-type ACL = _ACL     /* winnt.h:3287:7 */
-type PACL = uintptr /* winnt.h:3288:17 */
+type ACL = _ACL     /* winnt.h:3292:7 */
+type PACL = uintptr /* winnt.h:3293:17 */
 
 type _ACE_HEADER = struct {
 	AceType  BYTE
 	AceFlags BYTE
 	AceSize  WORD
-} /* winnt.h:3290:13 */
+} /* winnt.h:3295:13 */
 
-type ACE_HEADER = _ACE_HEADER /* winnt.h:3294:7 */
-type PACE_HEADER = uintptr    /* winnt.h:3295:24 */
+type ACE_HEADER = _ACE_HEADER /* winnt.h:3299:7 */
+type PACE_HEADER = uintptr    /* winnt.h:3300:24 */
 
 type _ACCESS_ALLOWED_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3341:13 */
+} /* winnt.h:3346:13 */
 
-type ACCESS_ALLOWED_ACE = _ACCESS_ALLOWED_ACE /* winnt.h:3345:7 */
+type ACCESS_ALLOWED_ACE = _ACCESS_ALLOWED_ACE /* winnt.h:3350:7 */
 
-type PACCESS_ALLOWED_ACE = uintptr /* winnt.h:3347:32 */
+type PACCESS_ALLOWED_ACE = uintptr /* winnt.h:3352:32 */
 
 type _ACCESS_DENIED_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3349:13 */
+} /* winnt.h:3354:13 */
 
-type ACCESS_DENIED_ACE = _ACCESS_DENIED_ACE /* winnt.h:3353:7 */
-type PACCESS_DENIED_ACE = uintptr           /* winnt.h:3354:31 */
+type ACCESS_DENIED_ACE = _ACCESS_DENIED_ACE /* winnt.h:3358:7 */
+type PACCESS_DENIED_ACE = uintptr           /* winnt.h:3359:31 */
 
 type _SYSTEM_AUDIT_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3356:13 */
+} /* winnt.h:3361:13 */
 
-type SYSTEM_AUDIT_ACE = _SYSTEM_AUDIT_ACE /* winnt.h:3360:7 */
-type PSYSTEM_AUDIT_ACE = uintptr          /* winnt.h:3361:30 */
+type SYSTEM_AUDIT_ACE = _SYSTEM_AUDIT_ACE /* winnt.h:3365:7 */
+type PSYSTEM_AUDIT_ACE = uintptr          /* winnt.h:3366:30 */
 
 type _SYSTEM_ALARM_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3363:13 */
+} /* winnt.h:3368:13 */
 
-type SYSTEM_ALARM_ACE = _SYSTEM_ALARM_ACE /* winnt.h:3367:7 */
-type PSYSTEM_ALARM_ACE = uintptr          /* winnt.h:3368:30 */
+type SYSTEM_ALARM_ACE = _SYSTEM_ALARM_ACE /* winnt.h:3372:7 */
+type PSYSTEM_ALARM_ACE = uintptr          /* winnt.h:3373:30 */
 
 type _SYSTEM_RESOURCE_ATTRIBUTE_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3370:13 */
+} /* winnt.h:3375:13 */
 
-type SYSTEM_RESOURCE_ATTRIBUTE_ACE = _SYSTEM_RESOURCE_ATTRIBUTE_ACE /* winnt.h:3374:7 */
-type PSYSTEM_RESOURCE_ATTRIBUTE_ACE = uintptr                       /* winnt.h:3374:37 */
+type SYSTEM_RESOURCE_ATTRIBUTE_ACE = _SYSTEM_RESOURCE_ATTRIBUTE_ACE /* winnt.h:3379:7 */
+type PSYSTEM_RESOURCE_ATTRIBUTE_ACE = uintptr                       /* winnt.h:3379:37 */
 
 type _SYSTEM_SCOPED_POLICY_ID_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3376:13 */
+} /* winnt.h:3381:13 */
 
-type SYSTEM_SCOPED_POLICY_ID_ACE = _SYSTEM_SCOPED_POLICY_ID_ACE /* winnt.h:3380:7 */
-type PSYSTEM_SCOPED_POLICY_ID_ACE = uintptr                     /* winnt.h:3380:35 */
+type SYSTEM_SCOPED_POLICY_ID_ACE = _SYSTEM_SCOPED_POLICY_ID_ACE /* winnt.h:3385:7 */
+type PSYSTEM_SCOPED_POLICY_ID_ACE = uintptr                     /* winnt.h:3385:35 */
 
 type _SYSTEM_MANDATORY_LABEL_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3382:13 */
+} /* winnt.h:3387:13 */
 
-type SYSTEM_MANDATORY_LABEL_ACE = _SYSTEM_MANDATORY_LABEL_ACE /* winnt.h:3386:7 */
-type PSYSTEM_MANDATORY_LABEL_ACE = uintptr                    /* winnt.h:3386:35 */
+type SYSTEM_MANDATORY_LABEL_ACE = _SYSTEM_MANDATORY_LABEL_ACE /* winnt.h:3391:7 */
+type PSYSTEM_MANDATORY_LABEL_ACE = uintptr                    /* winnt.h:3391:35 */
 
 type _ACCESS_ALLOWED_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16297,10 +16437,10 @@ type _ACCESS_ALLOWED_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3394:13 */
+} /* winnt.h:3399:13 */
 
-type ACCESS_ALLOWED_OBJECT_ACE = _ACCESS_ALLOWED_OBJECT_ACE /* winnt.h:3401:7 */
-type PACCESS_ALLOWED_OBJECT_ACE = uintptr                   /* winnt.h:3401:33 */
+type ACCESS_ALLOWED_OBJECT_ACE = _ACCESS_ALLOWED_OBJECT_ACE /* winnt.h:3406:7 */
+type PACCESS_ALLOWED_OBJECT_ACE = uintptr                   /* winnt.h:3406:33 */
 
 type _ACCESS_DENIED_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16309,10 +16449,10 @@ type _ACCESS_DENIED_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3403:13 */
+} /* winnt.h:3408:13 */
 
-type ACCESS_DENIED_OBJECT_ACE = _ACCESS_DENIED_OBJECT_ACE /* winnt.h:3410:7 */
-type PACCESS_DENIED_OBJECT_ACE = uintptr                  /* winnt.h:3410:32 */
+type ACCESS_DENIED_OBJECT_ACE = _ACCESS_DENIED_OBJECT_ACE /* winnt.h:3415:7 */
+type PACCESS_DENIED_OBJECT_ACE = uintptr                  /* winnt.h:3415:32 */
 
 type _SYSTEM_AUDIT_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16321,10 +16461,10 @@ type _SYSTEM_AUDIT_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3412:13 */
+} /* winnt.h:3417:13 */
 
-type SYSTEM_AUDIT_OBJECT_ACE = _SYSTEM_AUDIT_OBJECT_ACE /* winnt.h:3419:7 */
-type PSYSTEM_AUDIT_OBJECT_ACE = uintptr                 /* winnt.h:3419:31 */
+type SYSTEM_AUDIT_OBJECT_ACE = _SYSTEM_AUDIT_OBJECT_ACE /* winnt.h:3424:7 */
+type PSYSTEM_AUDIT_OBJECT_ACE = uintptr                 /* winnt.h:3424:31 */
 
 type _SYSTEM_ALARM_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16333,46 +16473,46 @@ type _SYSTEM_ALARM_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3421:13 */
+} /* winnt.h:3426:13 */
 
-type SYSTEM_ALARM_OBJECT_ACE = _SYSTEM_ALARM_OBJECT_ACE /* winnt.h:3428:7 */
-type PSYSTEM_ALARM_OBJECT_ACE = uintptr                 /* winnt.h:3428:31 */
+type SYSTEM_ALARM_OBJECT_ACE = _SYSTEM_ALARM_OBJECT_ACE /* winnt.h:3433:7 */
+type PSYSTEM_ALARM_OBJECT_ACE = uintptr                 /* winnt.h:3433:31 */
 
 type _ACCESS_ALLOWED_CALLBACK_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3430:13 */
+} /* winnt.h:3435:13 */
 
-type ACCESS_ALLOWED_CALLBACK_ACE = _ACCESS_ALLOWED_CALLBACK_ACE /* winnt.h:3434:7 */
-type PACCESS_ALLOWED_CALLBACK_ACE = uintptr                     /* winnt.h:3434:35 */
+type ACCESS_ALLOWED_CALLBACK_ACE = _ACCESS_ALLOWED_CALLBACK_ACE /* winnt.h:3439:7 */
+type PACCESS_ALLOWED_CALLBACK_ACE = uintptr                     /* winnt.h:3439:35 */
 
 type _ACCESS_DENIED_CALLBACK_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3436:13 */
+} /* winnt.h:3441:13 */
 
-type ACCESS_DENIED_CALLBACK_ACE = _ACCESS_DENIED_CALLBACK_ACE /* winnt.h:3440:7 */
-type PACCESS_DENIED_CALLBACK_ACE = uintptr                    /* winnt.h:3440:34 */
+type ACCESS_DENIED_CALLBACK_ACE = _ACCESS_DENIED_CALLBACK_ACE /* winnt.h:3445:7 */
+type PACCESS_DENIED_CALLBACK_ACE = uintptr                    /* winnt.h:3445:34 */
 
 type _SYSTEM_AUDIT_CALLBACK_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3442:13 */
+} /* winnt.h:3447:13 */
 
-type SYSTEM_AUDIT_CALLBACK_ACE = _SYSTEM_AUDIT_CALLBACK_ACE /* winnt.h:3446:7 */
-type PSYSTEM_AUDIT_CALLBACK_ACE = uintptr                   /* winnt.h:3446:33 */
+type SYSTEM_AUDIT_CALLBACK_ACE = _SYSTEM_AUDIT_CALLBACK_ACE /* winnt.h:3451:7 */
+type PSYSTEM_AUDIT_CALLBACK_ACE = uintptr                   /* winnt.h:3451:33 */
 
 type _SYSTEM_ALARM_CALLBACK_ACE = struct {
 	Header   ACE_HEADER
 	Mask     ACCESS_MASK
 	SidStart DWORD
-} /* winnt.h:3448:13 */
+} /* winnt.h:3453:13 */
 
-type SYSTEM_ALARM_CALLBACK_ACE = _SYSTEM_ALARM_CALLBACK_ACE /* winnt.h:3452:7 */
-type PSYSTEM_ALARM_CALLBACK_ACE = uintptr                   /* winnt.h:3452:33 */
+type SYSTEM_ALARM_CALLBACK_ACE = _SYSTEM_ALARM_CALLBACK_ACE /* winnt.h:3457:7 */
+type PSYSTEM_ALARM_CALLBACK_ACE = uintptr                   /* winnt.h:3457:33 */
 
 type _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16381,10 +16521,10 @@ type _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3454:13 */
+} /* winnt.h:3459:13 */
 
-type ACCESS_ALLOWED_CALLBACK_OBJECT_ACE = _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE /* winnt.h:3462:7 */
-type PACCESS_ALLOWED_CALLBACK_OBJECT_ACE = uintptr                            /* winnt.h:3462:42 */
+type ACCESS_ALLOWED_CALLBACK_OBJECT_ACE = _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE /* winnt.h:3467:7 */
+type PACCESS_ALLOWED_CALLBACK_OBJECT_ACE = uintptr                            /* winnt.h:3467:42 */
 
 type _ACCESS_DENIED_CALLBACK_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16393,10 +16533,10 @@ type _ACCESS_DENIED_CALLBACK_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3464:13 */
+} /* winnt.h:3469:13 */
 
-type ACCESS_DENIED_CALLBACK_OBJECT_ACE = _ACCESS_DENIED_CALLBACK_OBJECT_ACE /* winnt.h:3471:7 */
-type PACCESS_DENIED_CALLBACK_OBJECT_ACE = uintptr                           /* winnt.h:3471:41 */
+type ACCESS_DENIED_CALLBACK_OBJECT_ACE = _ACCESS_DENIED_CALLBACK_OBJECT_ACE /* winnt.h:3476:7 */
+type PACCESS_DENIED_CALLBACK_OBJECT_ACE = uintptr                           /* winnt.h:3476:41 */
 
 type _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16405,10 +16545,10 @@ type _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3473:13 */
+} /* winnt.h:3478:13 */
 
-type SYSTEM_AUDIT_CALLBACK_OBJECT_ACE = _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE /* winnt.h:3480:7 */
-type PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE = uintptr                          /* winnt.h:3480:40 */
+type SYSTEM_AUDIT_CALLBACK_OBJECT_ACE = _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE /* winnt.h:3485:7 */
+type PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE = uintptr                          /* winnt.h:3485:40 */
 
 type _SYSTEM_ALARM_CALLBACK_OBJECT_ACE = struct {
 	Header              ACE_HEADER
@@ -16417,29 +16557,29 @@ type _SYSTEM_ALARM_CALLBACK_OBJECT_ACE = struct {
 	ObjectType          GUID
 	InheritedObjectType GUID
 	SidStart            DWORD
-} /* winnt.h:3482:13 */
+} /* winnt.h:3487:13 */
 
-type SYSTEM_ALARM_CALLBACK_OBJECT_ACE = _SYSTEM_ALARM_CALLBACK_OBJECT_ACE /* winnt.h:3490:7 */
-type PSYSTEM_ALARM_CALLBACK_OBJECT_ACE = uintptr                          /* winnt.h:3490:40 */
+type SYSTEM_ALARM_CALLBACK_OBJECT_ACE = _SYSTEM_ALARM_CALLBACK_OBJECT_ACE /* winnt.h:3495:7 */
+type PSYSTEM_ALARM_CALLBACK_OBJECT_ACE = uintptr                          /* winnt.h:3495:40 */
 
-type ACL_INFORMATION_CLASS = uint32 /* winnt.h:3497:7 */
+type ACL_INFORMATION_CLASS = uint32 /* winnt.h:3502:7 */
 
-type _ACL_REVISION_INFORMATION = struct{ AclRevision DWORD } /* winnt.h:3499:13 */
+type _ACL_REVISION_INFORMATION = struct{ AclRevision DWORD } /* winnt.h:3504:13 */
 
-type ACL_REVISION_INFORMATION = _ACL_REVISION_INFORMATION /* winnt.h:3501:7 */
-type PACL_REVISION_INFORMATION = uintptr                  /* winnt.h:3502:38 */
+type ACL_REVISION_INFORMATION = _ACL_REVISION_INFORMATION /* winnt.h:3506:7 */
+type PACL_REVISION_INFORMATION = uintptr                  /* winnt.h:3507:38 */
 
 type _ACL_SIZE_INFORMATION = struct {
 	AceCount      DWORD
 	AclBytesInUse DWORD
 	AclBytesFree  DWORD
-} /* winnt.h:3504:13 */
+} /* winnt.h:3509:13 */
 
-type ACL_SIZE_INFORMATION = _ACL_SIZE_INFORMATION /* winnt.h:3508:7 */
-type PACL_SIZE_INFORMATION = uintptr              /* winnt.h:3509:34 */
+type ACL_SIZE_INFORMATION = _ACL_SIZE_INFORMATION /* winnt.h:3513:7 */
+type PACL_SIZE_INFORMATION = uintptr              /* winnt.h:3514:34 */
 
-type SECURITY_DESCRIPTOR_CONTROL = WORD     /* winnt.h:3516:18 */
-type PSECURITY_DESCRIPTOR_CONTROL = uintptr /* winnt.h:3516:46 */
+type SECURITY_DESCRIPTOR_CONTROL = WORD     /* winnt.h:3521:18 */
+type PSECURITY_DESCRIPTOR_CONTROL = uintptr /* winnt.h:3521:46 */
 
 type _SECURITY_DESCRIPTOR_RELATIVE = struct {
 	Revision BYTE
@@ -16449,10 +16589,10 @@ type _SECURITY_DESCRIPTOR_RELATIVE = struct {
 	Group    DWORD
 	Sacl     DWORD
 	Dacl     DWORD
-} /* winnt.h:3533:13 */
+} /* winnt.h:3538:13 */
 
-type SECURITY_DESCRIPTOR_RELATIVE = _SECURITY_DESCRIPTOR_RELATIVE /* winnt.h:3541:7 */
-type PISECURITY_DESCRIPTOR_RELATIVE = uintptr                     /* winnt.h:3541:36 */
+type SECURITY_DESCRIPTOR_RELATIVE = _SECURITY_DESCRIPTOR_RELATIVE /* winnt.h:3546:7 */
+type PISECURITY_DESCRIPTOR_RELATIVE = uintptr                     /* winnt.h:3546:36 */
 
 type _SECURITY_DESCRIPTOR = struct {
 	Revision BYTE
@@ -16463,49 +16603,49 @@ type _SECURITY_DESCRIPTOR = struct {
 	Group    PSID
 	Sacl     PACL
 	Dacl     PACL
-} /* winnt.h:3543:13 */
+} /* winnt.h:3548:13 */
 
-type SECURITY_DESCRIPTOR = _SECURITY_DESCRIPTOR /* winnt.h:3551:7 */
-type PISECURITY_DESCRIPTOR = uintptr            /* winnt.h:3551:27 */
+type SECURITY_DESCRIPTOR = _SECURITY_DESCRIPTOR /* winnt.h:3556:7 */
+type PISECURITY_DESCRIPTOR = uintptr            /* winnt.h:3556:27 */
 
 type _OBJECT_TYPE_LIST = struct {
 	Level      WORD
 	Sbz        WORD
 	_          [4]byte
 	ObjectType uintptr
-} /* winnt.h:3553:13 */
+} /* winnt.h:3558:13 */
 
-type OBJECT_TYPE_LIST = _OBJECT_TYPE_LIST /* winnt.h:3557:7 */
-type POBJECT_TYPE_LIST = uintptr          /* winnt.h:3557:24 */
+type OBJECT_TYPE_LIST = _OBJECT_TYPE_LIST /* winnt.h:3562:7 */
+type POBJECT_TYPE_LIST = uintptr          /* winnt.h:3562:24 */
 
-type AUDIT_EVENT_TYPE = uint32   /* winnt.h:3567:7 */
-type PAUDIT_EVENT_TYPE = uintptr /* winnt.h:3567:24 */
+type AUDIT_EVENT_TYPE = uint32   /* winnt.h:3572:7 */
+type PAUDIT_EVENT_TYPE = uintptr /* winnt.h:3572:24 */
 
 type _PRIVILEGE_SET = struct {
 	PrivilegeCount DWORD
 	Control        DWORD
 	Privilege      [1]LUID_AND_ATTRIBUTES
-} /* winnt.h:3585:13 */
+} /* winnt.h:3590:13 */
 
-type PRIVILEGE_SET = _PRIVILEGE_SET /* winnt.h:3589:7 */
-type PPRIVILEGE_SET = uintptr       /* winnt.h:3589:21 */
+type PRIVILEGE_SET = _PRIVILEGE_SET /* winnt.h:3594:7 */
+type PPRIVILEGE_SET = uintptr       /* winnt.h:3594:21 */
 
-type ACCESS_REASON_TYPE = uint32 /* winnt.h:3614:7 */
-type ACCESS_REASON = DWORD       /* winnt.h:3615:19 */
+type ACCESS_REASON_TYPE = uint32 /* winnt.h:3619:7 */
+type ACCESS_REASON = DWORD       /* winnt.h:3620:19 */
 
-type _ACCESS_REASONS = struct{ Data [32]ACCESS_REASON } /* winnt.h:3617:13 */
+type _ACCESS_REASONS = struct{ Data [32]ACCESS_REASON } /* winnt.h:3622:13 */
 
-type ACCESS_REASONS = _ACCESS_REASONS /* winnt.h:3619:7 */
-type PACCESS_REASONS = uintptr        /* winnt.h:3619:22 */
+type ACCESS_REASONS = _ACCESS_REASONS /* winnt.h:3624:7 */
+type PACCESS_REASONS = uintptr        /* winnt.h:3624:22 */
 
 type _SE_SECURITY_DESCRIPTOR = struct {
 	Size               DWORD
 	Flags              DWORD
 	SecurityDescriptor PSECURITY_DESCRIPTOR
-} /* winnt.h:3625:13 */
+} /* winnt.h:3630:13 */
 
-type SE_SECURITY_DESCRIPTOR = _SE_SECURITY_DESCRIPTOR /* winnt.h:3629:7 */
-type PSE_SECURITY_DESCRIPTOR = uintptr                /* winnt.h:3629:30 */
+type SE_SECURITY_DESCRIPTOR = _SE_SECURITY_DESCRIPTOR /* winnt.h:3634:7 */
+type PSE_SECURITY_DESCRIPTOR = uintptr                /* winnt.h:3634:30 */
 
 type _SE_ACCESS_REQUEST = struct {
 	Size                    DWORD
@@ -16518,10 +16658,10 @@ type _SE_ACCESS_REQUEST = struct {
 	ObjectTypeListCount     DWORD
 	_                       [4]byte
 	ObjectTypeList          POBJECT_TYPE_LIST
-} /* winnt.h:3631:13 */
+} /* winnt.h:3636:13 */
 
-type SE_ACCESS_REQUEST = _SE_ACCESS_REQUEST /* winnt.h:3640:7 */
-type PSE_ACCESS_REQUEST = uintptr           /* winnt.h:3640:25 */
+type SE_ACCESS_REQUEST = _SE_ACCESS_REQUEST /* winnt.h:3645:7 */
+type PSE_ACCESS_REQUEST = uintptr           /* winnt.h:3645:25 */
 
 type _SE_ACCESS_REPLY = struct {
 	Size            DWORD
@@ -16530,69 +16670,69 @@ type _SE_ACCESS_REPLY = struct {
 	AccessStatus    PDWORD
 	AccessReason    PACCESS_REASONS
 	Privileges      uintptr
-} /* winnt.h:3642:13 */
+} /* winnt.h:3647:13 */
 
-type SE_ACCESS_REPLY = _SE_ACCESS_REPLY /* winnt.h:3649:7 */
-type PSE_ACCESS_REPLY = uintptr         /* winnt.h:3649:23 */
+type SE_ACCESS_REPLY = _SE_ACCESS_REPLY /* winnt.h:3654:7 */
+type PSE_ACCESS_REPLY = uintptr         /* winnt.h:3654:23 */
 
-type SECURITY_IMPERSONATION_LEVEL = uint32   /* winnt.h:3689:7 */
-type PSECURITY_IMPERSONATION_LEVEL = uintptr /* winnt.h:3689:36 */
+type SECURITY_IMPERSONATION_LEVEL = uint32   /* winnt.h:3694:7 */
+type PSECURITY_IMPERSONATION_LEVEL = uintptr /* winnt.h:3694:36 */
 
-type TOKEN_TYPE = uint32   /* winnt.h:3716:7 */
-type PTOKEN_TYPE = uintptr /* winnt.h:3717:24 */
+type TOKEN_TYPE = uint32   /* winnt.h:3721:7 */
+type PTOKEN_TYPE = uintptr /* winnt.h:3722:24 */
 
-type TOKEN_ELEVATION_TYPE = uint32   /* winnt.h:3723:7 */
-type PTOKEN_ELEVATION_TYPE = uintptr /* winnt.h:3723:29 */
+type TOKEN_ELEVATION_TYPE = uint32   /* winnt.h:3728:7 */
+type PTOKEN_ELEVATION_TYPE = uintptr /* winnt.h:3728:29 */
 
-type TOKEN_INFORMATION_CLASS = uint32   /* winnt.h:3767:7 */
-type PTOKEN_INFORMATION_CLASS = uintptr /* winnt.h:3767:31 */
+type TOKEN_INFORMATION_CLASS = uint32   /* winnt.h:3772:7 */
+type PTOKEN_INFORMATION_CLASS = uintptr /* winnt.h:3772:31 */
 
-type _TOKEN_USER = struct{ User SID_AND_ATTRIBUTES } /* winnt.h:3769:13 */
+type _TOKEN_USER = struct{ User SID_AND_ATTRIBUTES } /* winnt.h:3774:13 */
 
-type TOKEN_USER = _TOKEN_USER /* winnt.h:3771:7 */
-type PTOKEN_USER = uintptr    /* winnt.h:3771:18 */
+type TOKEN_USER = _TOKEN_USER /* winnt.h:3776:7 */
+type PTOKEN_USER = uintptr    /* winnt.h:3776:18 */
 
 type _TOKEN_GROUPS = struct {
 	GroupCount DWORD
 	_          [4]byte
 	Groups     [1]SID_AND_ATTRIBUTES
-} /* winnt.h:3773:13 */
+} /* winnt.h:3778:13 */
 
-type TOKEN_GROUPS = _TOKEN_GROUPS /* winnt.h:3780:7 */
-type PTOKEN_GROUPS = uintptr      /* winnt.h:3780:20 */
+type TOKEN_GROUPS = _TOKEN_GROUPS /* winnt.h:3785:7 */
+type PTOKEN_GROUPS = uintptr      /* winnt.h:3785:20 */
 
 type _TOKEN_PRIVILEGES = struct {
 	PrivilegeCount DWORD
 	Privileges     [1]LUID_AND_ATTRIBUTES
-} /* winnt.h:3782:13 */
+} /* winnt.h:3787:13 */
 
-type TOKEN_PRIVILEGES = _TOKEN_PRIVILEGES /* winnt.h:3785:7 */
-type PTOKEN_PRIVILEGES = uintptr          /* winnt.h:3785:24 */
+type TOKEN_PRIVILEGES = _TOKEN_PRIVILEGES /* winnt.h:3790:7 */
+type PTOKEN_PRIVILEGES = uintptr          /* winnt.h:3790:24 */
 
-type _TOKEN_OWNER = struct{ Owner PSID } /* winnt.h:3787:13 */
+type _TOKEN_OWNER = struct{ Owner PSID } /* winnt.h:3792:13 */
 
-type TOKEN_OWNER = _TOKEN_OWNER /* winnt.h:3789:7 */
-type PTOKEN_OWNER = uintptr     /* winnt.h:3789:19 */
+type TOKEN_OWNER = _TOKEN_OWNER /* winnt.h:3794:7 */
+type PTOKEN_OWNER = uintptr     /* winnt.h:3794:19 */
 
-type _TOKEN_PRIMARY_GROUP = struct{ PrimaryGroup PSID } /* winnt.h:3791:13 */
+type _TOKEN_PRIMARY_GROUP = struct{ PrimaryGroup PSID } /* winnt.h:3796:13 */
 
-type TOKEN_PRIMARY_GROUP = _TOKEN_PRIMARY_GROUP /* winnt.h:3793:7 */
-type PTOKEN_PRIMARY_GROUP = uintptr             /* winnt.h:3793:27 */
+type TOKEN_PRIMARY_GROUP = _TOKEN_PRIMARY_GROUP /* winnt.h:3798:7 */
+type PTOKEN_PRIMARY_GROUP = uintptr             /* winnt.h:3798:27 */
 
-type _TOKEN_DEFAULT_DACL = struct{ DefaultDacl PACL } /* winnt.h:3795:13 */
+type _TOKEN_DEFAULT_DACL = struct{ DefaultDacl PACL } /* winnt.h:3800:13 */
 
-type TOKEN_DEFAULT_DACL = _TOKEN_DEFAULT_DACL /* winnt.h:3797:7 */
-type PTOKEN_DEFAULT_DACL = uintptr            /* winnt.h:3797:26 */
+type TOKEN_DEFAULT_DACL = _TOKEN_DEFAULT_DACL /* winnt.h:3802:7 */
+type PTOKEN_DEFAULT_DACL = uintptr            /* winnt.h:3802:26 */
 
-type _TOKEN_USER_CLAIMS = struct{ UserClaims PCLAIMS_BLOB } /* winnt.h:3799:13 */
+type _TOKEN_USER_CLAIMS = struct{ UserClaims PCLAIMS_BLOB } /* winnt.h:3804:13 */
 
-type TOKEN_USER_CLAIMS = _TOKEN_USER_CLAIMS /* winnt.h:3801:7 */
-type PTOKEN_USER_CLAIMS = uintptr           /* winnt.h:3801:25 */
+type TOKEN_USER_CLAIMS = _TOKEN_USER_CLAIMS /* winnt.h:3806:7 */
+type PTOKEN_USER_CLAIMS = uintptr           /* winnt.h:3806:25 */
 
-type _TOKEN_DEVICE_CLAIMS = struct{ DeviceClaims PCLAIMS_BLOB } /* winnt.h:3803:13 */
+type _TOKEN_DEVICE_CLAIMS = struct{ DeviceClaims PCLAIMS_BLOB } /* winnt.h:3808:13 */
 
-type TOKEN_DEVICE_CLAIMS = _TOKEN_DEVICE_CLAIMS /* winnt.h:3805:7 */
-type PTOKEN_DEVICE_CLAIMS = uintptr             /* winnt.h:3805:27 */
+type TOKEN_DEVICE_CLAIMS = _TOKEN_DEVICE_CLAIMS /* winnt.h:3810:7 */
+type PTOKEN_DEVICE_CLAIMS = uintptr             /* winnt.h:3810:27 */
 
 type _TOKEN_GROUPS_AND_PRIVILEGES = struct {
 	SidCount            DWORD
@@ -16605,30 +16745,30 @@ type _TOKEN_GROUPS_AND_PRIVILEGES = struct {
 	PrivilegeLength     DWORD
 	Privileges          PLUID_AND_ATTRIBUTES
 	AuthenticationId    LUID
-} /* winnt.h:3807:13 */
+} /* winnt.h:3812:13 */
 
-type TOKEN_GROUPS_AND_PRIVILEGES = _TOKEN_GROUPS_AND_PRIVILEGES /* winnt.h:3818:7 */
-type PTOKEN_GROUPS_AND_PRIVILEGES = uintptr                     /* winnt.h:3818:35 */
+type TOKEN_GROUPS_AND_PRIVILEGES = _TOKEN_GROUPS_AND_PRIVILEGES /* winnt.h:3823:7 */
+type PTOKEN_GROUPS_AND_PRIVILEGES = uintptr                     /* winnt.h:3823:35 */
 
-type _TOKEN_LINKED_TOKEN = struct{ LinkedToken HANDLE } /* winnt.h:3820:13 */
+type _TOKEN_LINKED_TOKEN = struct{ LinkedToken HANDLE } /* winnt.h:3825:13 */
 
-type TOKEN_LINKED_TOKEN = _TOKEN_LINKED_TOKEN /* winnt.h:3822:7 */
-type PTOKEN_LINKED_TOKEN = uintptr            /* winnt.h:3822:26 */
+type TOKEN_LINKED_TOKEN = _TOKEN_LINKED_TOKEN /* winnt.h:3827:7 */
+type PTOKEN_LINKED_TOKEN = uintptr            /* winnt.h:3827:26 */
 
-type _TOKEN_ELEVATION = struct{ TokenIsElevated DWORD } /* winnt.h:3824:13 */
+type _TOKEN_ELEVATION = struct{ TokenIsElevated DWORD } /* winnt.h:3829:13 */
 
-type TOKEN_ELEVATION = _TOKEN_ELEVATION /* winnt.h:3826:7 */
-type PTOKEN_ELEVATION = uintptr         /* winnt.h:3826:23 */
+type TOKEN_ELEVATION = _TOKEN_ELEVATION /* winnt.h:3831:7 */
+type PTOKEN_ELEVATION = uintptr         /* winnt.h:3831:23 */
 
-type _TOKEN_MANDATORY_LABEL = struct{ Label SID_AND_ATTRIBUTES } /* winnt.h:3828:13 */
+type _TOKEN_MANDATORY_LABEL = struct{ Label SID_AND_ATTRIBUTES } /* winnt.h:3833:13 */
 
-type TOKEN_MANDATORY_LABEL = _TOKEN_MANDATORY_LABEL /* winnt.h:3830:7 */
-type PTOKEN_MANDATORY_LABEL = uintptr               /* winnt.h:3830:29 */
+type TOKEN_MANDATORY_LABEL = _TOKEN_MANDATORY_LABEL /* winnt.h:3835:7 */
+type PTOKEN_MANDATORY_LABEL = uintptr               /* winnt.h:3835:29 */
 
-type _TOKEN_MANDATORY_POLICY = struct{ Policy DWORD } /* winnt.h:3838:13 */
+type _TOKEN_MANDATORY_POLICY = struct{ Policy DWORD } /* winnt.h:3843:13 */
 
-type TOKEN_MANDATORY_POLICY = _TOKEN_MANDATORY_POLICY /* winnt.h:3840:7 */
-type PTOKEN_MANDATORY_POLICY = uintptr                /* winnt.h:3840:30 */
+type TOKEN_MANDATORY_POLICY = _TOKEN_MANDATORY_POLICY /* winnt.h:3845:7 */
+type PTOKEN_MANDATORY_POLICY = uintptr                /* winnt.h:3845:30 */
 
 type _TOKEN_ACCESS_INFORMATION = struct {
 	SidHash            PSID_AND_ATTRIBUTES_HASH
@@ -16643,23 +16783,23 @@ type _TOKEN_ACCESS_INFORMATION = struct {
 	_                  [4]byte
 	PackageSid         PSID
 	CapabilitiesHash   PSID_AND_ATTRIBUTES_HASH
-} /* winnt.h:3842:13 */
+} /* winnt.h:3847:13 */
 
-type TOKEN_ACCESS_INFORMATION = _TOKEN_ACCESS_INFORMATION /* winnt.h:3854:7 */
-type PTOKEN_ACCESS_INFORMATION = uintptr                  /* winnt.h:3854:32 */
+type TOKEN_ACCESS_INFORMATION = _TOKEN_ACCESS_INFORMATION /* winnt.h:3859:7 */
+type PTOKEN_ACCESS_INFORMATION = uintptr                  /* winnt.h:3859:32 */
 
-type _TOKEN_AUDIT_POLICY = struct{ PerUserPolicy [29]UCHAR } /* winnt.h:3858:13 */
+type _TOKEN_AUDIT_POLICY = struct{ PerUserPolicy [29]UCHAR } /* winnt.h:3863:13 */
 
-type TOKEN_AUDIT_POLICY = _TOKEN_AUDIT_POLICY /* winnt.h:3860:7 */
-type PTOKEN_AUDIT_POLICY = uintptr            /* winnt.h:3860:27 */
+type TOKEN_AUDIT_POLICY = _TOKEN_AUDIT_POLICY /* winnt.h:3865:7 */
+type PTOKEN_AUDIT_POLICY = uintptr            /* winnt.h:3865:27 */
 
 type _TOKEN_SOURCE = struct {
 	SourceName       [8]CHAR
 	SourceIdentifier LUID
-} /* winnt.h:3864:13 */
+} /* winnt.h:3869:13 */
 
-type TOKEN_SOURCE = _TOKEN_SOURCE /* winnt.h:3867:7 */
-type PTOKEN_SOURCE = uintptr      /* winnt.h:3867:20 */
+type TOKEN_SOURCE = _TOKEN_SOURCE /* winnt.h:3872:7 */
+type PTOKEN_SOURCE = uintptr      /* winnt.h:3872:20 */
 
 type _TOKEN_STATISTICS = struct {
 	TokenId            LUID
@@ -16672,50 +16812,50 @@ type _TOKEN_STATISTICS = struct {
 	GroupCount         DWORD
 	PrivilegeCount     DWORD
 	ModifiedId         LUID
-} /* winnt.h:3869:13 */
+} /* winnt.h:3874:13 */
 
-type TOKEN_STATISTICS = _TOKEN_STATISTICS /* winnt.h:3880:7 */
-type PTOKEN_STATISTICS = uintptr          /* winnt.h:3880:24 */
+type TOKEN_STATISTICS = _TOKEN_STATISTICS /* winnt.h:3885:7 */
+type PTOKEN_STATISTICS = uintptr          /* winnt.h:3885:24 */
 
 type _TOKEN_CONTROL = struct {
 	TokenId          LUID
 	AuthenticationId LUID
 	ModifiedId       LUID
 	TokenSource      TOKEN_SOURCE
-} /* winnt.h:3882:13 */
+} /* winnt.h:3887:13 */
 
-type TOKEN_CONTROL = _TOKEN_CONTROL /* winnt.h:3887:7 */
-type PTOKEN_CONTROL = uintptr       /* winnt.h:3887:21 */
+type TOKEN_CONTROL = _TOKEN_CONTROL /* winnt.h:3892:7 */
+type PTOKEN_CONTROL = uintptr       /* winnt.h:3892:21 */
 
-type _TOKEN_ORIGIN = struct{ OriginatingLogonSession LUID } /* winnt.h:3889:13 */
+type _TOKEN_ORIGIN = struct{ OriginatingLogonSession LUID } /* winnt.h:3894:13 */
 
-type TOKEN_ORIGIN = _TOKEN_ORIGIN /* winnt.h:3891:7 */
-type PTOKEN_ORIGIN = uintptr      /* winnt.h:3891:20 */
+type TOKEN_ORIGIN = _TOKEN_ORIGIN /* winnt.h:3896:7 */
+type PTOKEN_ORIGIN = uintptr      /* winnt.h:3896:20 */
 
-type MANDATORY_LEVEL = uint32   /* winnt.h:3901:7 */
-type PMANDATORY_LEVEL = uintptr /* winnt.h:3901:23 */
+type MANDATORY_LEVEL = uint32   /* winnt.h:3906:7 */
+type PMANDATORY_LEVEL = uintptr /* winnt.h:3906:23 */
 
-type _TOKEN_APPCONTAINER_INFORMATION = struct{ TokenAppContainer PSID } /* winnt.h:3903:13 */
+type _TOKEN_APPCONTAINER_INFORMATION = struct{ TokenAppContainer PSID } /* winnt.h:3908:13 */
 
-type TOKEN_APPCONTAINER_INFORMATION = _TOKEN_APPCONTAINER_INFORMATION /* winnt.h:3905:7 */
-type PTOKEN_APPCONTAINER_INFORMATION = uintptr                        /* winnt.h:3905:38 */
+type TOKEN_APPCONTAINER_INFORMATION = _TOKEN_APPCONTAINER_INFORMATION /* winnt.h:3910:7 */
+type PTOKEN_APPCONTAINER_INFORMATION = uintptr                        /* winnt.h:3910:38 */
 
 type _CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = struct {
 	Version DWORD64
 	Name    PWSTR
-} /* winnt.h:3915:13 */
+} /* winnt.h:3920:13 */
 
-type CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = _CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE /* winnt.h:3918:7 */
-type PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = uintptr                             /* winnt.h:3918:43 */
+type CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = _CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE /* winnt.h:3923:7 */
+type PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = uintptr                             /* winnt.h:3923:43 */
 
 type _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = struct {
 	pValue      PVOID
 	ValueLength DWORD
 	_           [4]byte
-} /* winnt.h:3920:13 */
+} /* winnt.h:3925:13 */
 
-type CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE /* winnt.h:3923:7 */
-type PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = uintptr                                     /* winnt.h:3923:52 */
+type CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE /* winnt.h:3928:7 */
+type PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = uintptr                                     /* winnt.h:3928:52 */
 
 type _CLAIM_SECURITY_ATTRIBUTE_V1 = struct {
 	Name       PWSTR
@@ -16725,10 +16865,10 @@ type _CLAIM_SECURITY_ATTRIBUTE_V1 = struct {
 	ValueCount DWORD
 	_          [4]byte
 	Values     struct{ pInt64 PLONG64 }
-} /* winnt.h:3936:13 */
+} /* winnt.h:3941:13 */
 
-type CLAIM_SECURITY_ATTRIBUTE_V1 = _CLAIM_SECURITY_ATTRIBUTE_V1 /* winnt.h:3949:7 */
-type PCLAIM_SECURITY_ATTRIBUTE_V1 = uintptr                     /* winnt.h:3949:35 */
+type CLAIM_SECURITY_ATTRIBUTE_V1 = _CLAIM_SECURITY_ATTRIBUTE_V1 /* winnt.h:3954:7 */
+type PCLAIM_SECURITY_ATTRIBUTE_V1 = uintptr                     /* winnt.h:3954:35 */
 
 type _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = struct {
 	Name       DWORD
@@ -16737,23 +16877,23 @@ type _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = struct {
 	Flags      DWORD
 	ValueCount DWORD
 	Values     struct{ pInt64 [1]DWORD }
-} /* winnt.h:3951:13 */
+} /* winnt.h:3956:13 */
 
-type CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 /* winnt.h:3964:7 */
-type PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = uintptr                              /* winnt.h:3964:44 */
+type CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 /* winnt.h:3969:7 */
+type PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = uintptr                              /* winnt.h:3969:44 */
 
 type _CLAIM_SECURITY_ATTRIBUTES_INFORMATION = struct {
 	Version        WORD
 	Reserved       WORD
 	AttributeCount DWORD
 	Attribute      struct{ pAttributeV1 PCLAIM_SECURITY_ATTRIBUTE_V1 }
-} /* winnt.h:3970:13 */
+} /* winnt.h:3975:13 */
 
-type CLAIM_SECURITY_ATTRIBUTES_INFORMATION = _CLAIM_SECURITY_ATTRIBUTES_INFORMATION /* winnt.h:3977:7 */
-type PCLAIM_SECURITY_ATTRIBUTES_INFORMATION = uintptr                               /* winnt.h:3977:45 */
+type CLAIM_SECURITY_ATTRIBUTES_INFORMATION = _CLAIM_SECURITY_ATTRIBUTES_INFORMATION /* winnt.h:3982:7 */
+type PCLAIM_SECURITY_ATTRIBUTES_INFORMATION = uintptr                               /* winnt.h:3982:45 */
 
-type SECURITY_CONTEXT_TRACKING_MODE = BOOLEAN  /* winnt.h:3982:21 */
-type PSECURITY_CONTEXT_TRACKING_MODE = uintptr /* winnt.h:3982:52 */
+type SECURITY_CONTEXT_TRACKING_MODE = BOOLEAN  /* winnt.h:3987:21 */
+type PSECURITY_CONTEXT_TRACKING_MODE = uintptr /* winnt.h:3987:52 */
 
 type _SECURITY_QUALITY_OF_SERVICE = struct {
 	Length              DWORD
@@ -16761,10 +16901,10 @@ type _SECURITY_QUALITY_OF_SERVICE = struct {
 	ContextTrackingMode SECURITY_CONTEXT_TRACKING_MODE
 	EffectiveOnly       BOOLEAN
 	_                   [2]byte
-} /* winnt.h:3984:13 */
+} /* winnt.h:3989:13 */
 
-type SECURITY_QUALITY_OF_SERVICE = _SECURITY_QUALITY_OF_SERVICE /* winnt.h:3989:7 */
-type PSECURITY_QUALITY_OF_SERVICE = uintptr                     /* winnt.h:3989:35 */
+type SECURITY_QUALITY_OF_SERVICE = _SECURITY_QUALITY_OF_SERVICE /* winnt.h:3994:7 */
+type PSECURITY_QUALITY_OF_SERVICE = uintptr                     /* winnt.h:3994:35 */
 
 type _SE_IMPERSONATION_STATE = struct {
 	Token         PACCESS_TOKEN
@@ -16772,47 +16912,47 @@ type _SE_IMPERSONATION_STATE = struct {
 	EffectiveOnly BOOLEAN
 	_             [2]byte
 	Level         SECURITY_IMPERSONATION_LEVEL
-} /* winnt.h:3991:13 */
+} /* winnt.h:3996:13 */
 
-type SE_IMPERSONATION_STATE = _SE_IMPERSONATION_STATE /* winnt.h:3996:7 */
-type PSE_IMPERSONATION_STATE = uintptr                /* winnt.h:3996:30 */
+type SE_IMPERSONATION_STATE = _SE_IMPERSONATION_STATE /* winnt.h:4001:7 */
+type PSE_IMPERSONATION_STATE = uintptr                /* winnt.h:4001:30 */
 
-type SECURITY_INFORMATION = DWORD    /* winnt.h:4003:19 */
-type PSECURITY_INFORMATION = uintptr /* winnt.h:4003:40 */
+type SECURITY_INFORMATION = DWORD    /* winnt.h:4008:19 */
+type PSECURITY_INFORMATION = uintptr /* winnt.h:4008:40 */
 
-type SE_LEARNING_MODE_DATA_TYPE = uint32 /* winnt.h:4023:7 */
+type SE_LEARNING_MODE_DATA_TYPE = uint32 /* winnt.h:4028:7 */
 
 type _SECURITY_CAPABILITIES = struct {
 	AppContainerSid PSID
 	Capabilities    PSID_AND_ATTRIBUTES
 	CapabilityCount DWORD
 	Reserved        DWORD
-} /* winnt.h:4027:13 */
+} /* winnt.h:4032:13 */
 
-type SECURITY_CAPABILITIES = _SECURITY_CAPABILITIES /* winnt.h:4032:7 */
-type PSECURITY_CAPABILITIES = uintptr               /* winnt.h:4032:29 */
-type LPSECURITY_CAPABILITIES = uintptr              /* winnt.h:4032:53 */
+type SECURITY_CAPABILITIES = _SECURITY_CAPABILITIES /* winnt.h:4037:7 */
+type PSECURITY_CAPABILITIES = uintptr               /* winnt.h:4037:29 */
+type LPSECURITY_CAPABILITIES = uintptr              /* winnt.h:4037:53 */
 
 type _JOB_SET_ARRAY = struct {
 	JobHandle   HANDLE
 	MemberLevel DWORD
 	Flags       DWORD
-} /* winnt.h:4087:13 */
+} /* winnt.h:4092:13 */
 
-type JOB_SET_ARRAY = _JOB_SET_ARRAY /* winnt.h:4091:7 */
-type PJOB_SET_ARRAY = uintptr       /* winnt.h:4091:21 */
+type JOB_SET_ARRAY = _JOB_SET_ARRAY /* winnt.h:4096:7 */
+type PJOB_SET_ARRAY = uintptr       /* winnt.h:4096:21 */
 
 type _EXCEPTION_REGISTRATION_RECORD = struct {
 	__0 struct{ Next uintptr }
 	__8 struct{ Handler PEXCEPTION_ROUTINE }
-} /* winnt.h:4097:13 */
+} /* winnt.h:4102:13 */
 
-type EXCEPTION_REGISTRATION_RECORD = _EXCEPTION_REGISTRATION_RECORD /* winnt.h:4106:7 */
+type EXCEPTION_REGISTRATION_RECORD = _EXCEPTION_REGISTRATION_RECORD /* winnt.h:4111:7 */
 
-type PEXCEPTION_REGISTRATION_RECORD = uintptr /* winnt.h:4108:43 */
+type PEXCEPTION_REGISTRATION_RECORD = uintptr /* winnt.h:4113:43 */
 
-type EXCEPTION_REGISTRATION = EXCEPTION_REGISTRATION_RECORD   /* winnt.h:4110:43 */
-type PEXCEPTION_REGISTRATION = PEXCEPTION_REGISTRATION_RECORD /* winnt.h:4111:44 */
+type EXCEPTION_REGISTRATION = EXCEPTION_REGISTRATION_RECORD   /* winnt.h:4115:43 */
+type PEXCEPTION_REGISTRATION = PEXCEPTION_REGISTRATION_RECORD /* winnt.h:4116:44 */
 
 type _NT_TIB = struct {
 	ExceptionList        uintptr
@@ -16822,10 +16962,10 @@ type _NT_TIB = struct {
 	__32                 struct{ FiberData PVOID }
 	ArbitraryUserPointer PVOID
 	Self                 uintptr
-} /* winnt.h:4116:28 */
+} /* winnt.h:4121:28 */
 
-type NT_TIB = _NT_TIB  /* winnt.h:4127:7 */
-type PNT_TIB = uintptr /* winnt.h:4128:20 */
+type NT_TIB = _NT_TIB  /* winnt.h:4132:7 */
+type PNT_TIB = uintptr /* winnt.h:4133:20 */
 
 type _NT_TIB32 = struct {
 	ExceptionList        DWORD
@@ -16835,10 +16975,10 @@ type _NT_TIB32 = struct {
 	__16                 struct{ FiberData DWORD }
 	ArbitraryUserPointer DWORD
 	Self                 DWORD
-} /* winnt.h:4131:28 */
+} /* winnt.h:4136:28 */
 
-type NT_TIB32 = _NT_TIB32 /* winnt.h:4142:7 */
-type PNT_TIB32 = uintptr  /* winnt.h:4142:16 */
+type NT_TIB32 = _NT_TIB32 /* winnt.h:4147:7 */
+type PNT_TIB32 = uintptr  /* winnt.h:4147:16 */
 
 type _NT_TIB64 = struct {
 	ExceptionList        DWORD64
@@ -16848,20 +16988,20 @@ type _NT_TIB64 = struct {
 	__32                 struct{ FiberData DWORD64 }
 	ArbitraryUserPointer DWORD64
 	Self                 DWORD64
-} /* winnt.h:4144:28 */
+} /* winnt.h:4149:28 */
 
-type NT_TIB64 = _NT_TIB64 /* winnt.h:4155:7 */
-type PNT_TIB64 = uintptr  /* winnt.h:4155:16 */
+type NT_TIB64 = _NT_TIB64 /* winnt.h:4160:7 */
+type PNT_TIB64 = uintptr  /* winnt.h:4160:16 */
 
 type _UMS_CREATE_THREAD_ATTRIBUTES = struct {
 	UmsVersion        DWORD
 	_                 [4]byte
 	UmsContext        PVOID
 	UmsCompletionList PVOID
-} /* winnt.h:4166:13 */
+} /* winnt.h:4171:13 */
 
-type UMS_CREATE_THREAD_ATTRIBUTES = _UMS_CREATE_THREAD_ATTRIBUTES /* winnt.h:4170:7 */
-type PUMS_CREATE_THREAD_ATTRIBUTES = uintptr                      /* winnt.h:4170:36 */
+type UMS_CREATE_THREAD_ATTRIBUTES = _UMS_CREATE_THREAD_ATTRIBUTES /* winnt.h:4175:7 */
+type PUMS_CREATE_THREAD_ATTRIBUTES = uintptr                      /* winnt.h:4175:36 */
 
 type _QUOTA_LIMITS = struct {
 	PagedPoolLimit        SIZE_T
@@ -16870,15 +17010,15 @@ type _QUOTA_LIMITS = struct {
 	MaximumWorkingSetSize SIZE_T
 	PagefileLimit         SIZE_T
 	TimeLimit             LARGE_INTEGER
-} /* winnt.h:4172:13 */
+} /* winnt.h:4177:13 */
 
-type QUOTA_LIMITS = _QUOTA_LIMITS /* winnt.h:4179:7 */
-type PQUOTA_LIMITS = uintptr      /* winnt.h:4179:20 */
+type QUOTA_LIMITS = _QUOTA_LIMITS /* winnt.h:4184:7 */
+type PQUOTA_LIMITS = uintptr      /* winnt.h:4184:20 */
 
-type _RATE_QUOTA_LIMIT = struct{ RateData DWORD } /* winnt.h:4187:13 */
+type _RATE_QUOTA_LIMIT = struct{ RateData DWORD } /* winnt.h:4192:13 */
 
-type RATE_QUOTA_LIMIT = _RATE_QUOTA_LIMIT /* winnt.h:4193:7 */
-type PRATE_QUOTA_LIMIT = uintptr          /* winnt.h:4193:25 */
+type RATE_QUOTA_LIMIT = _RATE_QUOTA_LIMIT /* winnt.h:4198:7 */
+type PRATE_QUOTA_LIMIT = uintptr          /* winnt.h:4198:25 */
 
 type _QUOTA_LIMITS_EX = struct {
 	PagedPoolLimit        SIZE_T
@@ -16893,10 +17033,10 @@ type _QUOTA_LIMITS_EX = struct {
 	Reserved4             SIZE_T
 	Flags                 DWORD
 	CpuRateLimit          RATE_QUOTA_LIMIT
-} /* winnt.h:4195:13 */
+} /* winnt.h:4200:13 */
 
-type QUOTA_LIMITS_EX = _QUOTA_LIMITS_EX /* winnt.h:4208:7 */
-type PQUOTA_LIMITS_EX = uintptr         /* winnt.h:4208:23 */
+type QUOTA_LIMITS_EX = _QUOTA_LIMITS_EX /* winnt.h:4213:7 */
+type PQUOTA_LIMITS_EX = uintptr         /* winnt.h:4213:23 */
 
 type _IO_COUNTERS = struct {
 	ReadOperationCount  ULONGLONG
@@ -16905,75 +17045,75 @@ type _IO_COUNTERS = struct {
 	ReadTransferCount   ULONGLONG
 	WriteTransferCount  ULONGLONG
 	OtherTransferCount  ULONGLONG
-} /* winnt.h:4210:13 */
+} /* winnt.h:4215:13 */
 
-type IO_COUNTERS = _IO_COUNTERS /* winnt.h:4217:7 */
-type PIO_COUNTERS = uintptr     /* winnt.h:4218:25 */
+type IO_COUNTERS = _IO_COUNTERS /* winnt.h:4222:7 */
+type PIO_COUNTERS = uintptr     /* winnt.h:4223:25 */
 
-type HARDWARE_COUNTER_TYPE = uint32   /* winnt.h:4226:7 */
-type PHARDWARE_COUNTER_TYPE = uintptr /* winnt.h:4226:30 */
+type HARDWARE_COUNTER_TYPE = uint32   /* winnt.h:4231:7 */
+type PHARDWARE_COUNTER_TYPE = uintptr /* winnt.h:4231:30 */
 
-type PROCESS_MITIGATION_POLICY = uint32   /* winnt.h:4241:7 */
-type PPROCESS_MITIGATION_POLICY = uintptr /* winnt.h:4241:33 */
+type PROCESS_MITIGATION_POLICY = uint32   /* winnt.h:4246:7 */
+type PPROCESS_MITIGATION_POLICY = uintptr /* winnt.h:4246:33 */
 
-type _PROCESS_MITIGATION_ASLR_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4243:13 */
+type _PROCESS_MITIGATION_ASLR_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4248:13 */
 
-type PROCESS_MITIGATION_ASLR_POLICY = _PROCESS_MITIGATION_ASLR_POLICY /* winnt.h:4254:7 */
-type PPROCESS_MITIGATION_ASLR_POLICY = uintptr                        /* winnt.h:4254:38 */
+type PROCESS_MITIGATION_ASLR_POLICY = _PROCESS_MITIGATION_ASLR_POLICY /* winnt.h:4259:7 */
+type PPROCESS_MITIGATION_ASLR_POLICY = uintptr                        /* winnt.h:4259:38 */
 
 type _PROCESS_MITIGATION_DEP_POLICY = struct {
 	__0       struct{ Flags DWORD }
 	Permanent BOOLEAN
 	_         [3]byte
-} /* winnt.h:4256:13 */
+} /* winnt.h:4261:13 */
 
-type PROCESS_MITIGATION_DEP_POLICY = _PROCESS_MITIGATION_DEP_POLICY /* winnt.h:4266:7 */
-type PPROCESS_MITIGATION_DEP_POLICY = uintptr                       /* winnt.h:4266:37 */
+type PROCESS_MITIGATION_DEP_POLICY = _PROCESS_MITIGATION_DEP_POLICY /* winnt.h:4271:7 */
+type PPROCESS_MITIGATION_DEP_POLICY = uintptr                       /* winnt.h:4271:37 */
 
-type _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4268:13 */
+type _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4273:13 */
 
-type PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY /* winnt.h:4277:7 */
-type PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = uintptr                                       /* winnt.h:4277:53 */
+type PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY /* winnt.h:4282:7 */
+type PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = uintptr                                       /* winnt.h:4282:53 */
 
-type _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4279:13 */
+type _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4284:13 */
 
-type PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY /* winnt.h:4287:7 */
-type PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = uintptr                                       /* winnt.h:4287:53 */
+type PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY /* winnt.h:4292:7 */
+type PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = uintptr                                       /* winnt.h:4292:53 */
 
-type _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4289:13 */
+type _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4294:13 */
 
-type PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY /* winnt.h:4297:7 */
-type PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = uintptr                                           /* winnt.h:4297:57 */
+type PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY /* winnt.h:4302:7 */
+type PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = uintptr                                           /* winnt.h:4302:57 */
 
-type _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4299:13 */
+type _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4304:13 */
 
-type PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY /* winnt.h:4309:7 */
-type PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = uintptr                                      /* winnt.h:4309:53 */
+type PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY /* winnt.h:4314:7 */
+type PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = uintptr                                      /* winnt.h:4314:53 */
 
-type _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4311:13 */
+type _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4316:13 */
 
-type PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY /* winnt.h:4321:7 */
-type PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = uintptr                                    /* winnt.h:4321:51 */
+type PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY /* winnt.h:4326:7 */
+type PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = uintptr                                    /* winnt.h:4326:51 */
 
 type _PROCESS_MITIGATION_DYNAMIC_CODE_POLICY = struct {
 	__0 struct {
 		Flags DWORD
 		_     [4]byte
 	}
-} /* winnt.h:4323:13 */
+} /* winnt.h:4328:13 */
 
-type PROCESS_MITIGATION_DYNAMIC_CODE_POLICY = _PROCESS_MITIGATION_DYNAMIC_CODE_POLICY /* winnt.h:4333:7 */
-type PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY = uintptr                                /* winnt.h:4333:47 */
+type PROCESS_MITIGATION_DYNAMIC_CODE_POLICY = _PROCESS_MITIGATION_DYNAMIC_CODE_POLICY /* winnt.h:4338:7 */
+type PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY = uintptr                                /* winnt.h:4338:47 */
 
-type _PROCESS_MITIGATION_FONT_DISABLE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4335:13 */
+type _PROCESS_MITIGATION_FONT_DISABLE_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4340:13 */
 
-type PROCESS_MITIGATION_FONT_DISABLE_POLICY = _PROCESS_MITIGATION_FONT_DISABLE_POLICY /* winnt.h:4344:7 */
-type PPROCESS_MITIGATION_FONT_DISABLE_POLICY = uintptr                                /* winnt.h:4344:47 */
+type PROCESS_MITIGATION_FONT_DISABLE_POLICY = _PROCESS_MITIGATION_FONT_DISABLE_POLICY /* winnt.h:4349:7 */
+type PPROCESS_MITIGATION_FONT_DISABLE_POLICY = uintptr                                /* winnt.h:4349:47 */
 
-type _PROCESS_MITIGATION_IMAGE_LOAD_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4346:13 */
+type _PROCESS_MITIGATION_IMAGE_LOAD_POLICY = struct{ __0 struct{ Flags DWORD } } /* winnt.h:4351:13 */
 
-type PROCESS_MITIGATION_IMAGE_LOAD_POLICY = _PROCESS_MITIGATION_IMAGE_LOAD_POLICY /* winnt.h:4356:7 */
-type PPROCESS_MITIGATION_IMAGE_LOAD_POLICY = uintptr                              /* winnt.h:4356:45 */
+type PROCESS_MITIGATION_IMAGE_LOAD_POLICY = _PROCESS_MITIGATION_IMAGE_LOAD_POLICY /* winnt.h:4361:7 */
+type PPROCESS_MITIGATION_IMAGE_LOAD_POLICY = uintptr                              /* winnt.h:4361:45 */
 
 type _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION = struct {
 	TotalUserTime             LARGE_INTEGER
@@ -16984,10 +17124,10 @@ type _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION = struct {
 	TotalProcesses            DWORD
 	ActiveProcesses           DWORD
 	TotalTerminatedProcesses  DWORD
-} /* winnt.h:4358:13 */
+} /* winnt.h:4363:13 */
 
-type JOBOBJECT_BASIC_ACCOUNTING_INFORMATION = _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION /* winnt.h:4367:7 */
-type PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION = uintptr                                /* winnt.h:4367:46 */
+type JOBOBJECT_BASIC_ACCOUNTING_INFORMATION = _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION /* winnt.h:4372:7 */
+type PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION = uintptr                                /* winnt.h:4372:46 */
 
 type _JOBOBJECT_BASIC_LIMIT_INFORMATION = struct {
 	PerProcessUserTimeLimit LARGE_INTEGER
@@ -17001,10 +17141,10 @@ type _JOBOBJECT_BASIC_LIMIT_INFORMATION = struct {
 	Affinity                ULONG_PTR
 	PriorityClass           DWORD
 	SchedulingClass         DWORD
-} /* winnt.h:4369:13 */
+} /* winnt.h:4374:13 */
 
-type JOBOBJECT_BASIC_LIMIT_INFORMATION = _JOBOBJECT_BASIC_LIMIT_INFORMATION /* winnt.h:4379:7 */
-type PJOBOBJECT_BASIC_LIMIT_INFORMATION = uintptr                           /* winnt.h:4379:41 */
+type JOBOBJECT_BASIC_LIMIT_INFORMATION = _JOBOBJECT_BASIC_LIMIT_INFORMATION /* winnt.h:4384:7 */
+type PJOBOBJECT_BASIC_LIMIT_INFORMATION = uintptr                           /* winnt.h:4384:41 */
 
 type _JOBOBJECT_EXTENDED_LIMIT_INFORMATION = struct {
 	BasicLimitInformation JOBOBJECT_BASIC_LIMIT_INFORMATION
@@ -17013,24 +17153,24 @@ type _JOBOBJECT_EXTENDED_LIMIT_INFORMATION = struct {
 	JobMemoryLimit        SIZE_T
 	PeakProcessMemoryUsed SIZE_T
 	PeakJobMemoryUsed     SIZE_T
-} /* winnt.h:4381:13 */
+} /* winnt.h:4386:13 */
 
-type JOBOBJECT_EXTENDED_LIMIT_INFORMATION = _JOBOBJECT_EXTENDED_LIMIT_INFORMATION /* winnt.h:4388:7 */
-type PJOBOBJECT_EXTENDED_LIMIT_INFORMATION = uintptr                              /* winnt.h:4388:44 */
+type JOBOBJECT_EXTENDED_LIMIT_INFORMATION = _JOBOBJECT_EXTENDED_LIMIT_INFORMATION /* winnt.h:4393:7 */
+type PJOBOBJECT_EXTENDED_LIMIT_INFORMATION = uintptr                              /* winnt.h:4393:44 */
 
 type _JOBOBJECT_BASIC_PROCESS_ID_LIST = struct {
 	NumberOfAssignedProcesses DWORD
 	NumberOfProcessIdsInList  DWORD
 	ProcessIdList             [1]ULONG_PTR
-} /* winnt.h:4390:13 */
+} /* winnt.h:4395:13 */
 
-type JOBOBJECT_BASIC_PROCESS_ID_LIST = _JOBOBJECT_BASIC_PROCESS_ID_LIST /* winnt.h:4394:7 */
-type PJOBOBJECT_BASIC_PROCESS_ID_LIST = uintptr                         /* winnt.h:4394:39 */
+type JOBOBJECT_BASIC_PROCESS_ID_LIST = _JOBOBJECT_BASIC_PROCESS_ID_LIST /* winnt.h:4399:7 */
+type PJOBOBJECT_BASIC_PROCESS_ID_LIST = uintptr                         /* winnt.h:4399:39 */
 
-type _JOBOBJECT_BASIC_UI_RESTRICTIONS = struct{ UIRestrictionsClass DWORD } /* winnt.h:4396:13 */
+type _JOBOBJECT_BASIC_UI_RESTRICTIONS = struct{ UIRestrictionsClass DWORD } /* winnt.h:4401:13 */
 
-type JOBOBJECT_BASIC_UI_RESTRICTIONS = _JOBOBJECT_BASIC_UI_RESTRICTIONS /* winnt.h:4398:7 */
-type PJOBOBJECT_BASIC_UI_RESTRICTIONS = uintptr                         /* winnt.h:4398:39 */
+type JOBOBJECT_BASIC_UI_RESTRICTIONS = _JOBOBJECT_BASIC_UI_RESTRICTIONS /* winnt.h:4403:7 */
+type PJOBOBJECT_BASIC_UI_RESTRICTIONS = uintptr                         /* winnt.h:4403:39 */
 
 type _JOBOBJECT_SECURITY_LIMIT_INFORMATION = struct {
 	SecurityLimitFlags DWORD
@@ -17039,40 +17179,40 @@ type _JOBOBJECT_SECURITY_LIMIT_INFORMATION = struct {
 	SidsToDisable      PTOKEN_GROUPS
 	PrivilegesToDelete PTOKEN_PRIVILEGES
 	RestrictedSids     PTOKEN_GROUPS
-} /* winnt.h:4400:13 */
+} /* winnt.h:4405:13 */
 
-type JOBOBJECT_SECURITY_LIMIT_INFORMATION = _JOBOBJECT_SECURITY_LIMIT_INFORMATION /* winnt.h:4406:7 */
-type PJOBOBJECT_SECURITY_LIMIT_INFORMATION = uintptr                              /* winnt.h:4406:44 */
+type JOBOBJECT_SECURITY_LIMIT_INFORMATION = _JOBOBJECT_SECURITY_LIMIT_INFORMATION /* winnt.h:4411:7 */
+type PJOBOBJECT_SECURITY_LIMIT_INFORMATION = uintptr                              /* winnt.h:4411:44 */
 
-type _JOBOBJECT_END_OF_JOB_TIME_INFORMATION = struct{ EndOfJobTimeAction DWORD } /* winnt.h:4408:13 */
+type _JOBOBJECT_END_OF_JOB_TIME_INFORMATION = struct{ EndOfJobTimeAction DWORD } /* winnt.h:4413:13 */
 
-type JOBOBJECT_END_OF_JOB_TIME_INFORMATION = _JOBOBJECT_END_OF_JOB_TIME_INFORMATION /* winnt.h:4410:7 */
-type PJOBOBJECT_END_OF_JOB_TIME_INFORMATION = uintptr                               /* winnt.h:4410:45 */
+type JOBOBJECT_END_OF_JOB_TIME_INFORMATION = _JOBOBJECT_END_OF_JOB_TIME_INFORMATION /* winnt.h:4415:7 */
+type PJOBOBJECT_END_OF_JOB_TIME_INFORMATION = uintptr                               /* winnt.h:4415:45 */
 
 type _JOBOBJECT_ASSOCIATE_COMPLETION_PORT = struct {
 	CompletionKey  PVOID
 	CompletionPort HANDLE
-} /* winnt.h:4412:13 */
+} /* winnt.h:4417:13 */
 
-type JOBOBJECT_ASSOCIATE_COMPLETION_PORT = _JOBOBJECT_ASSOCIATE_COMPLETION_PORT /* winnt.h:4415:7 */
-type PJOBOBJECT_ASSOCIATE_COMPLETION_PORT = uintptr                             /* winnt.h:4415:43 */
+type JOBOBJECT_ASSOCIATE_COMPLETION_PORT = _JOBOBJECT_ASSOCIATE_COMPLETION_PORT /* winnt.h:4420:7 */
+type PJOBOBJECT_ASSOCIATE_COMPLETION_PORT = uintptr                             /* winnt.h:4420:43 */
 
 type _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = struct {
 	BasicInfo JOBOBJECT_BASIC_ACCOUNTING_INFORMATION
 	IoInfo    IO_COUNTERS
-} /* winnt.h:4417:13 */
+} /* winnt.h:4422:13 */
 
-type JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION /* winnt.h:4420:7 */
-type PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = uintptr                                       /* winnt.h:4420:53 */
+type JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION /* winnt.h:4425:7 */
+type PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = uintptr                                       /* winnt.h:4425:53 */
 
-type _JOBOBJECT_JOBSET_INFORMATION = struct{ MemberLevel DWORD } /* winnt.h:4422:13 */
+type _JOBOBJECT_JOBSET_INFORMATION = struct{ MemberLevel DWORD } /* winnt.h:4427:13 */
 
-type JOBOBJECT_JOBSET_INFORMATION = _JOBOBJECT_JOBSET_INFORMATION /* winnt.h:4424:7 */
-type PJOBOBJECT_JOBSET_INFORMATION = uintptr                      /* winnt.h:4424:36 */
+type JOBOBJECT_JOBSET_INFORMATION = _JOBOBJECT_JOBSET_INFORMATION /* winnt.h:4429:7 */
+type PJOBOBJECT_JOBSET_INFORMATION = uintptr                      /* winnt.h:4429:36 */
 
-type JOBOBJECT_RATE_CONTROL_TOLERANCE = uint32 /* winnt.h:4430:7 */
+type JOBOBJECT_RATE_CONTROL_TOLERANCE = uint32 /* winnt.h:4435:7 */
 
-type JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = uint32 /* winnt.h:4436:7 */
+type JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = uint32 /* winnt.h:4441:7 */
 
 type _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = struct {
 	IoReadBytesLimit             DWORD64
@@ -17083,10 +17223,10 @@ type _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = struct {
 	RateControlToleranceInterval JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
 	LimitFlags                   DWORD
 	_                            [4]byte
-} /* winnt.h:4438:13 */
+} /* winnt.h:4443:13 */
 
-type JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION /* winnt.h:4446:7 */
-type PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = uintptr                                  /* winnt.h:4446:48 */
+type JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION /* winnt.h:4451:7 */
+type PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = uintptr                                  /* winnt.h:4451:48 */
 
 type _JOBOBJECT_LIMIT_VIOLATION_INFORMATION = struct {
 	LimitFlags                DWORD
@@ -17101,27 +17241,27 @@ type _JOBOBJECT_LIMIT_VIOLATION_INFORMATION = struct {
 	JobMemoryLimit            DWORD64
 	RateControlTolerance      JOBOBJECT_RATE_CONTROL_TOLERANCE
 	RateControlToleranceLimit JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
-} /* winnt.h:4448:13 */
+} /* winnt.h:4453:13 */
 
-type JOBOBJECT_LIMIT_VIOLATION_INFORMATION = _JOBOBJECT_LIMIT_VIOLATION_INFORMATION /* winnt.h:4461:7 */
-type PJOBOBJECT_LIMIT_VIOLATION_INFORMATION = uintptr                               /* winnt.h:4461:45 */
+type JOBOBJECT_LIMIT_VIOLATION_INFORMATION = _JOBOBJECT_LIMIT_VIOLATION_INFORMATION /* winnt.h:4466:7 */
+type PJOBOBJECT_LIMIT_VIOLATION_INFORMATION = uintptr                               /* winnt.h:4466:45 */
 
 type _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION = struct {
 	ControlFlags DWORD
 	__4          struct{ CpuRate DWORD }
-} /* winnt.h:4463:13 */
+} /* winnt.h:4468:13 */
 
-type JOBOBJECT_CPU_RATE_CONTROL_INFORMATION = _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION /* winnt.h:4469:7 */
-type PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION = uintptr                                /* winnt.h:4469:46 */
+type JOBOBJECT_CPU_RATE_CONTROL_INFORMATION = _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION /* winnt.h:4474:7 */
+type PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION = uintptr                                /* winnt.h:4474:46 */
 
-type JOBOBJECTINFOCLASS = uint32 /* winnt.h:4573:7 */
+type JOBOBJECTINFOCLASS = uint32 /* winnt.h:4578:7 */
 
-type FIRMWARE_TYPE = uint32   /* winnt.h:4580:7 */
-type PFIRMWARE_TYPE = uintptr /* winnt.h:4580:21 */
+type FIRMWARE_TYPE = uint32   /* winnt.h:4585:7 */
+type PFIRMWARE_TYPE = uintptr /* winnt.h:4585:21 */
 
-type LOGICAL_PROCESSOR_RELATIONSHIP = uint32 /* winnt.h:4603:7 */
+type LOGICAL_PROCESSOR_RELATIONSHIP = uint32 /* winnt.h:4608:7 */
 
-type PROCESSOR_CACHE_TYPE = uint32 /* winnt.h:4609:7 */
+type PROCESSOR_CACHE_TYPE = uint32 /* winnt.h:4614:7 */
 
 type _CACHE_DESCRIPTOR = struct {
 	Level         BYTE
@@ -17129,10 +17269,10 @@ type _CACHE_DESCRIPTOR = struct {
 	LineSize      WORD
 	Size          DWORD
 	Type          PROCESSOR_CACHE_TYPE
-} /* winnt.h:4613:13 */
+} /* winnt.h:4618:13 */
 
-type CACHE_DESCRIPTOR = _CACHE_DESCRIPTOR /* winnt.h:4619:7 */
-type PCACHE_DESCRIPTOR = uintptr          /* winnt.h:4619:24 */
+type CACHE_DESCRIPTOR = _CACHE_DESCRIPTOR /* winnt.h:4624:7 */
+type PCACHE_DESCRIPTOR = uintptr          /* winnt.h:4624:24 */
 
 type _SYSTEM_LOGICAL_PROCESSOR_INFORMATION = struct {
 	ProcessorMask ULONG_PTR
@@ -17143,29 +17283,29 @@ type _SYSTEM_LOGICAL_PROCESSOR_INFORMATION = struct {
 		ProcessorCore struct{ Flags BYTE }
 		_             [15]byte
 	}
-} /* winnt.h:4621:13 */
+} /* winnt.h:4626:13 */
 
-type SYSTEM_LOGICAL_PROCESSOR_INFORMATION = _SYSTEM_LOGICAL_PROCESSOR_INFORMATION /* winnt.h:4634:7 */
-type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION = uintptr                              /* winnt.h:4634:44 */
+type SYSTEM_LOGICAL_PROCESSOR_INFORMATION = _SYSTEM_LOGICAL_PROCESSOR_INFORMATION /* winnt.h:4639:7 */
+type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION = uintptr                              /* winnt.h:4639:44 */
 
 type _PROCESSOR_RELATIONSHIP = struct {
 	Flags      BYTE
 	Reserved   [21]BYTE
 	GroupCount WORD
 	GroupMask  [1]GROUP_AFFINITY
-} /* winnt.h:4636:13 */
+} /* winnt.h:4641:13 */
 
-type PROCESSOR_RELATIONSHIP = _PROCESSOR_RELATIONSHIP /* winnt.h:4641:7 */
-type PPROCESSOR_RELATIONSHIP = uintptr                /* winnt.h:4641:30 */
+type PROCESSOR_RELATIONSHIP = _PROCESSOR_RELATIONSHIP /* winnt.h:4646:7 */
+type PPROCESSOR_RELATIONSHIP = uintptr                /* winnt.h:4646:30 */
 
 type _NUMA_NODE_RELATIONSHIP = struct {
 	NodeNumber DWORD
 	Reserved   [20]BYTE
 	GroupMask  GROUP_AFFINITY
-} /* winnt.h:4643:13 */
+} /* winnt.h:4648:13 */
 
-type NUMA_NODE_RELATIONSHIP = _NUMA_NODE_RELATIONSHIP /* winnt.h:4647:7 */
-type PNUMA_NODE_RELATIONSHIP = uintptr                /* winnt.h:4647:30 */
+type NUMA_NODE_RELATIONSHIP = _NUMA_NODE_RELATIONSHIP /* winnt.h:4652:7 */
+type PNUMA_NODE_RELATIONSHIP = uintptr                /* winnt.h:4652:30 */
 
 type _CACHE_RELATIONSHIP = struct {
 	Level         BYTE
@@ -17175,30 +17315,30 @@ type _CACHE_RELATIONSHIP = struct {
 	Type          PROCESSOR_CACHE_TYPE
 	Reserved      [20]BYTE
 	GroupMask     GROUP_AFFINITY
-} /* winnt.h:4649:13 */
+} /* winnt.h:4654:13 */
 
-type CACHE_RELATIONSHIP = _CACHE_RELATIONSHIP /* winnt.h:4657:7 */
-type PCACHE_RELATIONSHIP = uintptr            /* winnt.h:4657:26 */
+type CACHE_RELATIONSHIP = _CACHE_RELATIONSHIP /* winnt.h:4662:7 */
+type PCACHE_RELATIONSHIP = uintptr            /* winnt.h:4662:26 */
 
 type _PROCESSOR_GROUP_INFO = struct {
 	MaximumProcessorCount BYTE
 	ActiveProcessorCount  BYTE
 	Reserved              [38]BYTE
 	ActiveProcessorMask   KAFFINITY
-} /* winnt.h:4659:13 */
+} /* winnt.h:4664:13 */
 
-type PROCESSOR_GROUP_INFO = _PROCESSOR_GROUP_INFO /* winnt.h:4664:7 */
-type PPROCESSOR_GROUP_INFO = uintptr              /* winnt.h:4664:28 */
+type PROCESSOR_GROUP_INFO = _PROCESSOR_GROUP_INFO /* winnt.h:4669:7 */
+type PPROCESSOR_GROUP_INFO = uintptr              /* winnt.h:4669:28 */
 
 type _GROUP_RELATIONSHIP = struct {
 	MaximumGroupCount WORD
 	ActiveGroupCount  WORD
 	Reserved          [20]BYTE
 	GroupInfo         [1]PROCESSOR_GROUP_INFO
-} /* winnt.h:4666:13 */
+} /* winnt.h:4671:13 */
 
-type GROUP_RELATIONSHIP = _GROUP_RELATIONSHIP /* winnt.h:4671:7 */
-type PGROUP_RELATIONSHIP = uintptr            /* winnt.h:4671:26 */
+type GROUP_RELATIONSHIP = _GROUP_RELATIONSHIP /* winnt.h:4676:7 */
+type PGROUP_RELATIONSHIP = uintptr            /* winnt.h:4676:26 */
 
 type _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = struct {
 	Relationship LOGICAL_PROCESSOR_RELATIONSHIP
@@ -17207,23 +17347,23 @@ type _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = struct {
 		Processor PROCESSOR_RELATIONSHIP
 		_         [32]byte
 	}
-} /* winnt.h:4673:5 */
+} /* winnt.h:4678:5 */
 
-type SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX /* winnt.h:4684:61 */
-type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = uintptr                                 /* winnt.h:4684:101 */
+type SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX /* winnt.h:4689:61 */
+type PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = uintptr                                 /* winnt.h:4689:101 */
 
-type _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = struct{ CycleTime DWORD64 } /* winnt.h:4686:13 */
+type _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = struct{ CycleTime DWORD64 } /* winnt.h:4691:13 */
 
-type SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION /* winnt.h:4688:7 */
-type PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = uintptr                                 /* winnt.h:4688:47 */
+type SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION /* winnt.h:4693:7 */
+type PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = uintptr                                 /* winnt.h:4693:47 */
 
 type _XSTATE_FEATURE = struct {
 	Offset DWORD
 	Size   DWORD
-} /* winnt.h:4771:13 */
+} /* winnt.h:4785:13 */
 
-type XSTATE_FEATURE = _XSTATE_FEATURE /* winnt.h:4774:7 */
-type PXSTATE_FEATURE = uintptr        /* winnt.h:4774:22 */
+type XSTATE_FEATURE = _XSTATE_FEATURE /* winnt.h:4788:7 */
+type PXSTATE_FEATURE = uintptr        /* winnt.h:4788:22 */
 
 type _XSTATE_CONFIGURATION = struct {
 	EnabledFeatures         DWORD64
@@ -17232,10 +17372,10 @@ type _XSTATE_CONFIGURATION = struct {
 	OptimizedSave           uint8 /* DWORD OptimizedSave: 1 */
 	_                       [3]byte
 	Features                [64]XSTATE_FEATURE
-} /* winnt.h:4776:13 */
+} /* winnt.h:4790:13 */
 
-type XSTATE_CONFIGURATION = _XSTATE_CONFIGURATION /* winnt.h:4782:7 */
-type PXSTATE_CONFIGURATION = uintptr              /* winnt.h:4782:28 */
+type XSTATE_CONFIGURATION = _XSTATE_CONFIGURATION /* winnt.h:4796:7 */
+type PXSTATE_CONFIGURATION = uintptr              /* winnt.h:4796:28 */
 
 type _MEMORY_BASIC_INFORMATION = struct {
 	BaseAddress       PVOID
@@ -17247,10 +17387,10 @@ type _MEMORY_BASIC_INFORMATION = struct {
 	Protect           DWORD
 	Type              DWORD
 	_                 [4]byte
-} /* winnt.h:4784:13 */
+} /* winnt.h:4798:13 */
 
-type MEMORY_BASIC_INFORMATION = _MEMORY_BASIC_INFORMATION /* winnt.h:4792:7 */
-type PMEMORY_BASIC_INFORMATION = uintptr                  /* winnt.h:4792:32 */
+type MEMORY_BASIC_INFORMATION = _MEMORY_BASIC_INFORMATION /* winnt.h:4806:7 */
+type PMEMORY_BASIC_INFORMATION = uintptr                  /* winnt.h:4806:32 */
 
 type _MEMORY_BASIC_INFORMATION32 = struct {
 	BaseAddress       DWORD
@@ -17260,10 +17400,10 @@ type _MEMORY_BASIC_INFORMATION32 = struct {
 	State             DWORD
 	Protect           DWORD
 	Type              DWORD
-} /* winnt.h:4794:13 */
+} /* winnt.h:4808:13 */
 
-type MEMORY_BASIC_INFORMATION32 = _MEMORY_BASIC_INFORMATION32 /* winnt.h:4802:7 */
-type PMEMORY_BASIC_INFORMATION32 = uintptr                    /* winnt.h:4802:34 */
+type MEMORY_BASIC_INFORMATION32 = _MEMORY_BASIC_INFORMATION32 /* winnt.h:4816:7 */
+type PMEMORY_BASIC_INFORMATION32 = uintptr                    /* winnt.h:4816:34 */
 
 type _MEMORY_BASIC_INFORMATION64 = struct {
 	BaseAddress       ULONGLONG
@@ -17275,18 +17415,49 @@ type _MEMORY_BASIC_INFORMATION64 = struct {
 	Protect           DWORD
 	Type              DWORD
 	__alignment2      DWORD
-} /* winnt.h:4804:13 */
+} /* winnt.h:4818:13 */
 
-type MEMORY_BASIC_INFORMATION64 = _MEMORY_BASIC_INFORMATION64 /* winnt.h:4814:7 */
-type PMEMORY_BASIC_INFORMATION64 = uintptr                    /* winnt.h:4814:34 */
+type MEMORY_BASIC_INFORMATION64 = _MEMORY_BASIC_INFORMATION64 /* winnt.h:4828:7 */
+type PMEMORY_BASIC_INFORMATION64 = uintptr                    /* winnt.h:4828:34 */
 
-type FILE_ID_1281 = struct {
-	LowPart  ULONGLONG
-	HighPart ULONGLONG
-} /* winnt.h:4981:13 */
+type _CFG_CALL_TARGET_INFO = struct {
+	Offset ULONG_PTR
+	Flags  ULONG_PTR
+} /* winnt.h:4834:11 */
 
-type FILE_ID_128 = FILE_ID_1281 /* winnt.h:4984:7 */
-type PFILE_ID_128 = uintptr     /* winnt.h:4984:20 */
+type CFG_CALL_TARGET_INFO = _CFG_CALL_TARGET_INFO /* winnt.h:4837:5 */
+type PCFG_CALL_TARGET_INFO = uintptr              /* winnt.h:4837:27 */
+
+type _MEM_ADDRESS_REQUIREMENTS = struct {
+	LowestStartingAddress PVOID
+	HighestEndingAddress  PVOID
+	Alignment             SIZE_T
+} /* winnt.h:4896:11 */
+
+type MEM_ADDRESS_REQUIREMENTS = _MEM_ADDRESS_REQUIREMENTS /* winnt.h:4900:5 */
+type PMEM_ADDRESS_REQUIREMENTS = uintptr                  /* winnt.h:4900:31 */
+
+type MEM_EXTENDED_PARAMETER_TYPE = uint32   /* winnt.h:4916:5 */
+type PMEM_EXTENDED_PARAMETER_TYPE = uintptr /* winnt.h:4916:34 */
+
+type MEM_EXTENDED_PARAMETER1 = struct {
+	__0 struct {
+		_    [0]uint64
+		Type uint64 /* DWORD64 Type: 8, DWORD64 Reserved: 56 */
+	}
+	__8 struct{ ULong64 DWORD64 }
+} /* winnt.h:4920:11 */
+
+type MEM_EXTENDED_PARAMETER = MEM_EXTENDED_PARAMETER1 /* winnt.h:4932:5 */
+type PMEM_EXTENDED_PARAMETER = uintptr                /* winnt.h:4932:29 */
+
+type MEM_SECTION_EXTENDED_PARAMETER_TYPE = uint32   /* winnt.h:4951:5 */
+type PMEM_SECTION_EXTENDED_PARAMETER_TYPE = uintptr /* winnt.h:4951:42 */
+
+type FILE_ID_1281 = struct{ Identifier [16]BYTE } /* winnt.h:5069:13 */
+
+type FILE_ID_128 = FILE_ID_1281 /* winnt.h:5071:7 */
+type PFILE_ID_128 = uintptr     /* winnt.h:5071:20 */
 
 type _FILE_NOTIFY_INFORMATION = struct {
 	NextEntryOffset DWORD
@@ -17294,15 +17465,15 @@ type _FILE_NOTIFY_INFORMATION = struct {
 	FileNameLength  DWORD
 	FileName        [1]WCHAR
 	_               [2]byte
-} /* winnt.h:4986:13 */
+} /* winnt.h:5073:13 */
 
-type FILE_NOTIFY_INFORMATION = _FILE_NOTIFY_INFORMATION /* winnt.h:4991:7 */
-type PFILE_NOTIFY_INFORMATION = uintptr                 /* winnt.h:4991:31 */
+type FILE_NOTIFY_INFORMATION = _FILE_NOTIFY_INFORMATION /* winnt.h:5078:7 */
+type PFILE_NOTIFY_INFORMATION = uintptr                 /* winnt.h:5078:31 */
 
-type _FILE_SEGMENT_ELEMENT = struct{ Buffer PVOID64 } /* winnt.h:4993:13 */
+type _FILE_SEGMENT_ELEMENT = struct{ Buffer PVOID64 } /* winnt.h:5080:13 */
 
-type FILE_SEGMENT_ELEMENT = _FILE_SEGMENT_ELEMENT /* winnt.h:4996:7 */
-type PFILE_SEGMENT_ELEMENT = uintptr              /* winnt.h:4996:28 */
+type FILE_SEGMENT_ELEMENT = _FILE_SEGMENT_ELEMENT /* winnt.h:5083:7 */
+type PFILE_SEGMENT_ELEMENT = uintptr              /* winnt.h:5083:28 */
 
 type _REPARSE_GUID_DATA_BUFFER = struct {
 	ReparseTag           DWORD
@@ -17311,33 +17482,33 @@ type _REPARSE_GUID_DATA_BUFFER = struct {
 	ReparseGuid          GUID
 	GenericReparseBuffer struct{ DataBuffer [1]BYTE }
 	_                    [3]byte
-} /* winnt.h:4998:13 */
+} /* winnt.h:5085:13 */
 
-type REPARSE_GUID_DATA_BUFFER = _REPARSE_GUID_DATA_BUFFER /* winnt.h:5006:7 */
-type PREPARSE_GUID_DATA_BUFFER = uintptr                  /* winnt.h:5006:32 */
+type REPARSE_GUID_DATA_BUFFER = _REPARSE_GUID_DATA_BUFFER /* winnt.h:5093:7 */
+type PREPARSE_GUID_DATA_BUFFER = uintptr                  /* winnt.h:5093:32 */
 
-type SYSTEM_POWER_STATE = uint32   /* winnt.h:5231:5 */
-type PSYSTEM_POWER_STATE = uintptr /* winnt.h:5231:24 */
+type SYSTEM_POWER_STATE = uint32   /* winnt.h:5348:5 */
+type PSYSTEM_POWER_STATE = uintptr /* winnt.h:5348:24 */
 
-type POWER_ACTION = uint32   /* winnt.h:5239:5 */
-type PPOWER_ACTION = uintptr /* winnt.h:5239:18 */
+type POWER_ACTION = uint32   /* winnt.h:5356:5 */
+type PPOWER_ACTION = uintptr /* winnt.h:5356:18 */
 
-type DEVICE_POWER_STATE = uint32   /* winnt.h:5244:5 */
-type PDEVICE_POWER_STATE = uintptr /* winnt.h:5244:24 */
+type DEVICE_POWER_STATE = uint32   /* winnt.h:5361:5 */
+type PDEVICE_POWER_STATE = uintptr /* winnt.h:5361:24 */
 
-type MONITOR_DISPLAY_STATE = uint32   /* winnt.h:5248:5 */
-type PMONITOR_DISPLAY_STATE = uintptr /* winnt.h:5248:28 */
+type MONITOR_DISPLAY_STATE = uint32   /* winnt.h:5365:5 */
+type PMONITOR_DISPLAY_STATE = uintptr /* winnt.h:5365:28 */
 
-type USER_ACTIVITY_PRESENCE = uint32   /* winnt.h:5256:5 */
-type PUSER_ACTIVITY_PRESENCE = uintptr /* winnt.h:5256:28 */
+type USER_ACTIVITY_PRESENCE = uint32   /* winnt.h:5373:5 */
+type PUSER_ACTIVITY_PRESENCE = uintptr /* winnt.h:5373:28 */
 
-type EXECUTION_STATE = DWORD    /* winnt.h:5264:17 */
-type PEXECUTION_STATE = uintptr /* winnt.h:5264:34 */
+type EXECUTION_STATE = DWORD    /* winnt.h:5381:17 */
+type PEXECUTION_STATE = uintptr /* winnt.h:5381:34 */
 
-type LATENCY_TIME = uint32 /* winnt.h:5268:5 */
+type LATENCY_TIME = uint32 /* winnt.h:5385:5 */
 
-type POWER_REQUEST_TYPE = uint32   /* winnt.h:5286:5 */
-type PPOWER_REQUEST_TYPE = uintptr /* winnt.h:5286:24 */
+type POWER_REQUEST_TYPE = uint32   /* winnt.h:5403:5 */
+type PPOWER_REQUEST_TYPE = uintptr /* winnt.h:5403:24 */
 
 type CM_Power_Data_s = struct {
 	PD_Size                 DWORD
@@ -17348,87 +17519,87 @@ type CM_Power_Data_s = struct {
 	PD_D3Latency            DWORD
 	PD_PowerStateMapping    [7]DEVICE_POWER_STATE
 	PD_DeepestSystemWake    SYSTEM_POWER_STATE
-} /* winnt.h:5298:13 */
+} /* winnt.h:5415:13 */
 
-type CM_POWER_DATA = CM_Power_Data_s /* winnt.h:5307:7 */
-type PCM_POWER_DATA = uintptr        /* winnt.h:5307:21 */
+type CM_POWER_DATA = CM_Power_Data_s /* winnt.h:5424:7 */
+type PCM_POWER_DATA = uintptr        /* winnt.h:5424:21 */
 
-type POWER_INFORMATION_LEVEL = uint32 /* winnt.h:5391:7 */
+type POWER_INFORMATION_LEVEL = uint32 /* winnt.h:5508:7 */
 
-type POWER_USER_PRESENCE_TYPE = uint32   /* winnt.h:5397:7 */
-type PPOWER_USER_PRESENCE_TYPE = uintptr /* winnt.h:5397:32 */
+type POWER_USER_PRESENCE_TYPE = uint32   /* winnt.h:5514:7 */
+type PPOWER_USER_PRESENCE_TYPE = uintptr /* winnt.h:5514:32 */
 
-type _POWER_USER_PRESENCE = struct{ UserPresence POWER_USER_PRESENCE_TYPE } /* winnt.h:5399:13 */
+type _POWER_USER_PRESENCE = struct{ UserPresence POWER_USER_PRESENCE_TYPE } /* winnt.h:5516:13 */
 
-type POWER_USER_PRESENCE = _POWER_USER_PRESENCE /* winnt.h:5401:7 */
-type PPOWER_USER_PRESENCE = uintptr             /* winnt.h:5401:27 */
+type POWER_USER_PRESENCE = _POWER_USER_PRESENCE /* winnt.h:5518:7 */
+type PPOWER_USER_PRESENCE = uintptr             /* winnt.h:5518:27 */
 
 type _POWER_SESSION_CONNECT = struct {
 	Connected BOOLEAN
 	Console   BOOLEAN
-} /* winnt.h:5403:13 */
+} /* winnt.h:5520:13 */
 
-type POWER_SESSION_CONNECT = _POWER_SESSION_CONNECT /* winnt.h:5406:7 */
-type PPOWER_SESSION_CONNECT = uintptr               /* winnt.h:5406:29 */
+type POWER_SESSION_CONNECT = _POWER_SESSION_CONNECT /* winnt.h:5523:7 */
+type PPOWER_SESSION_CONNECT = uintptr               /* winnt.h:5523:29 */
 
 type _POWER_SESSION_TIMEOUTS = struct {
 	InputTimeout   DWORD
 	DisplayTimeout DWORD
-} /* winnt.h:5408:13 */
+} /* winnt.h:5525:13 */
 
-type POWER_SESSION_TIMEOUTS = _POWER_SESSION_TIMEOUTS /* winnt.h:5411:7 */
-type PPOWER_SESSION_TIMEOUTS = uintptr                /* winnt.h:5411:30 */
+type POWER_SESSION_TIMEOUTS = _POWER_SESSION_TIMEOUTS /* winnt.h:5528:7 */
+type PPOWER_SESSION_TIMEOUTS = uintptr                /* winnt.h:5528:30 */
 
 type _POWER_SESSION_RIT_STATE = struct {
 	Active        BOOLEAN
 	_             [3]byte
 	LastInputTime DWORD
-} /* winnt.h:5413:13 */
+} /* winnt.h:5530:13 */
 
-type POWER_SESSION_RIT_STATE = _POWER_SESSION_RIT_STATE /* winnt.h:5416:7 */
-type PPOWER_SESSION_RIT_STATE = uintptr                 /* winnt.h:5416:31 */
+type POWER_SESSION_RIT_STATE = _POWER_SESSION_RIT_STATE /* winnt.h:5533:7 */
+type PPOWER_SESSION_RIT_STATE = uintptr                 /* winnt.h:5533:31 */
 
 type _POWER_SESSION_WINLOGON = struct {
 	SessionId DWORD
 	Console   BOOLEAN
 	Locked    BOOLEAN
 	_         [2]byte
-} /* winnt.h:5418:13 */
+} /* winnt.h:5535:13 */
 
-type POWER_SESSION_WINLOGON = _POWER_SESSION_WINLOGON /* winnt.h:5422:7 */
-type PPOWER_SESSION_WINLOGON = uintptr                /* winnt.h:5422:30 */
+type POWER_SESSION_WINLOGON = _POWER_SESSION_WINLOGON /* winnt.h:5539:7 */
+type PPOWER_SESSION_WINLOGON = uintptr                /* winnt.h:5539:30 */
 
 type _POWER_IDLE_RESILIENCY = struct {
 	CoalescingTimeout    DWORD
 	IdleResiliencyPeriod DWORD
-} /* winnt.h:5424:13 */
+} /* winnt.h:5541:13 */
 
-type POWER_IDLE_RESILIENCY = _POWER_IDLE_RESILIENCY /* winnt.h:5427:7 */
-type PPOWER_IDLE_RESILIENCY = uintptr               /* winnt.h:5427:29 */
+type POWER_IDLE_RESILIENCY = _POWER_IDLE_RESILIENCY /* winnt.h:5544:7 */
+type PPOWER_IDLE_RESILIENCY = uintptr               /* winnt.h:5544:29 */
 
-type POWER_MONITOR_REQUEST_REASON = uint32 /* winnt.h:5445:7 */
+type POWER_MONITOR_REQUEST_REASON = uint32 /* winnt.h:5562:7 */
 
 type _POWER_MONITOR_INVOCATION = struct {
 	On            BOOLEAN
 	Console       BOOLEAN
 	_             [2]byte
 	RequestReason POWER_MONITOR_REQUEST_REASON
-} /* winnt.h:5447:13 */
+} /* winnt.h:5564:13 */
 
-type POWER_MONITOR_INVOCATION = _POWER_MONITOR_INVOCATION /* winnt.h:5451:7 */
-type PPOWER_MONITOR_INVOCATION = uintptr                  /* winnt.h:5451:32 */
+type POWER_MONITOR_INVOCATION = _POWER_MONITOR_INVOCATION /* winnt.h:5568:7 */
+type PPOWER_MONITOR_INVOCATION = uintptr                  /* winnt.h:5568:32 */
 
 type _RESUME_PERFORMANCE = struct {
 	PostTimeMs              DWORD
 	_                       [4]byte
 	TotalResumeTimeMs       ULONGLONG
 	ResumeCompleteTimestamp ULONGLONG
-} /* winnt.h:5453:13 */
+} /* winnt.h:5570:13 */
 
-type RESUME_PERFORMANCE = _RESUME_PERFORMANCE /* winnt.h:5457:7 */
-type PRESUME_PERFORMANCE = uintptr            /* winnt.h:5457:26 */
+type RESUME_PERFORMANCE = _RESUME_PERFORMANCE /* winnt.h:5574:7 */
+type PRESUME_PERFORMANCE = uintptr            /* winnt.h:5574:26 */
 
-type SYSTEM_POWER_CONDITION = uint32 /* winnt.h:5464:7 */
+type SYSTEM_POWER_CONDITION = uint32 /* winnt.h:5581:7 */
 
 type SET_POWER_SETTING_VALUE = struct {
 	Version        DWORD
@@ -17437,41 +17608,41 @@ type SET_POWER_SETTING_VALUE = struct {
 	DataLength     DWORD
 	Data           [1]BYTE
 	_              [3]byte
-}                                       /* winnt.h:5472:7 */
-type PSET_POWER_SETTING_VALUE = uintptr /* winnt.h:5472:31 */
+}                                       /* winnt.h:5589:7 */
+type PSET_POWER_SETTING_VALUE = uintptr /* winnt.h:5589:31 */
 
-type NOTIFY_USER_POWER_SETTING = struct{ Guid GUID } /* winnt.h:5478:7 */
-type PNOTIFY_USER_POWER_SETTING = uintptr            /* winnt.h:5478:33 */
+type NOTIFY_USER_POWER_SETTING = struct{ Guid GUID } /* winnt.h:5595:7 */
+type PNOTIFY_USER_POWER_SETTING = uintptr            /* winnt.h:5595:33 */
 
 type _APPLICATIONLAUNCH_SETTING_VALUE = struct {
 	ActivationTime   LARGE_INTEGER
 	Flags            DWORD
 	ButtonInstanceID DWORD
-} /* winnt.h:5480:13 */
+} /* winnt.h:5597:13 */
 
-type APPLICATIONLAUNCH_SETTING_VALUE = _APPLICATIONLAUNCH_SETTING_VALUE /* winnt.h:5484:7 */
-type PAPPLICATIONLAUNCH_SETTING_VALUE = uintptr                         /* winnt.h:5484:39 */
+type APPLICATIONLAUNCH_SETTING_VALUE = _APPLICATIONLAUNCH_SETTING_VALUE /* winnt.h:5601:7 */
+type PAPPLICATIONLAUNCH_SETTING_VALUE = uintptr                         /* winnt.h:5601:39 */
 
-type POWER_PLATFORM_ROLE = uint32   /* winnt.h:5497:7 */
-type PPOWER_PLATFORM_ROLE = uintptr /* winnt.h:5497:27 */
+type POWER_PLATFORM_ROLE = uint32   /* winnt.h:5614:7 */
+type PPOWER_PLATFORM_ROLE = uintptr /* winnt.h:5614:27 */
 
-type _POWER_PLATFORM_INFORMATION = struct{ AoAc BOOLEAN } /* winnt.h:5499:13 */
+type _POWER_PLATFORM_INFORMATION = struct{ AoAc BOOLEAN } /* winnt.h:5616:13 */
 
-type POWER_PLATFORM_INFORMATION = _POWER_PLATFORM_INFORMATION /* winnt.h:5501:7 */
-type PPOWER_PLATFORM_INFORMATION = uintptr                    /* winnt.h:5501:34 */
+type POWER_PLATFORM_INFORMATION = _POWER_PLATFORM_INFORMATION /* winnt.h:5618:7 */
+type PPOWER_PLATFORM_INFORMATION = uintptr                    /* winnt.h:5618:34 */
 
 type BATTERY_REPORTING_SCALE = struct {
 	Granularity DWORD
 	Capacity    DWORD
-}                                       /* winnt.h:5520:7 */
-type PBATTERY_REPORTING_SCALE = uintptr /* winnt.h:5520:31 */
+}                                       /* winnt.h:5637:7 */
+type PBATTERY_REPORTING_SCALE = uintptr /* winnt.h:5637:31 */
 
 type PPM_WMI_LEGACY_PERFSTATE = struct {
 	Frequency        DWORD
 	Flags            DWORD
 	PercentFrequency DWORD
-}                                        /* winnt.h:5526:7 */
-type PPPM_WMI_LEGACY_PERFSTATE = uintptr /* winnt.h:5526:32 */
+}                                        /* winnt.h:5643:7 */
+type PPPM_WMI_LEGACY_PERFSTATE = uintptr /* winnt.h:5643:32 */
 
 type PPM_WMI_IDLE_STATE = struct {
 	Latency        DWORD
@@ -17485,8 +17656,8 @@ type PPM_WMI_IDLE_STATE = struct {
 	Context        DWORD
 	IdleHandler    DWORD
 	Reserved1      DWORD
-}                                  /* winnt.h:5540:7 */
-type PPPM_WMI_IDLE_STATE = uintptr /* winnt.h:5540:26 */
+}                                  /* winnt.h:5657:7 */
+type PPPM_WMI_IDLE_STATE = uintptr /* winnt.h:5657:26 */
 
 type PPM_WMI_IDLE_STATES = struct {
 	Type             DWORD
@@ -17495,8 +17666,8 @@ type PPM_WMI_IDLE_STATES = struct {
 	OldState         DWORD
 	TargetProcessors DWORD64
 	State            [1]PPM_WMI_IDLE_STATE
-}                                   /* winnt.h:5549:7 */
-type PPPM_WMI_IDLE_STATES = uintptr /* winnt.h:5549:27 */
+}                                   /* winnt.h:5666:7 */
+type PPPM_WMI_IDLE_STATES = uintptr /* winnt.h:5666:27 */
 
 type PPM_WMI_IDLE_STATES_EX = struct {
 	Type             DWORD
@@ -17505,8 +17676,8 @@ type PPM_WMI_IDLE_STATES_EX = struct {
 	OldState         DWORD
 	TargetProcessors PVOID
 	State            [1]PPM_WMI_IDLE_STATE
-}                                      /* winnt.h:5558:7 */
-type PPPM_WMI_IDLE_STATES_EX = uintptr /* winnt.h:5558:30 */
+}                                      /* winnt.h:5675:7 */
+type PPPM_WMI_IDLE_STATES_EX = uintptr /* winnt.h:5675:30 */
 
 type PPM_WMI_PERF_STATE = struct {
 	Frequency        DWORD
@@ -17524,8 +17695,8 @@ type PPM_WMI_PERF_STATE = struct {
 	Reserved1        DWORD
 	Reserved2        DWORD64
 	Reserved3        DWORD64
-}                                  /* winnt.h:5575:7 */
-type PPPM_WMI_PERF_STATE = uintptr /* winnt.h:5575:26 */
+}                                  /* winnt.h:5692:7 */
+type PPPM_WMI_PERF_STATE = uintptr /* winnt.h:5692:26 */
 
 type PPM_WMI_PERF_STATES = struct {
 	Count             DWORD
@@ -17550,8 +17721,8 @@ type PPM_WMI_PERF_STATES = struct {
 	Reserved1         DWORD
 	Reserved2         DWORD64
 	State             [1]PPM_WMI_PERF_STATE
-}                                   /* winnt.h:5599:7 */
-type PPPM_WMI_PERF_STATES = uintptr /* winnt.h:5599:27 */
+}                                   /* winnt.h:5716:7 */
+type PPPM_WMI_PERF_STATES = uintptr /* winnt.h:5716:27 */
 
 type PPM_WMI_PERF_STATES_EX = struct {
 	Count             DWORD
@@ -17576,8 +17747,8 @@ type PPM_WMI_PERF_STATES_EX = struct {
 	Reserved1         DWORD
 	Reserved2         DWORD64
 	State             [1]PPM_WMI_PERF_STATE
-}                                      /* winnt.h:5623:7 */
-type PPPM_WMI_PERF_STATES_EX = uintptr /* winnt.h:5623:30 */
+}                                      /* winnt.h:5740:7 */
+type PPPM_WMI_PERF_STATES_EX = uintptr /* winnt.h:5740:30 */
 
 type PPM_IDLE_STATE_ACCOUNTING = struct {
 	IdleTransitions    DWORD
@@ -17586,8 +17757,8 @@ type PPM_IDLE_STATE_ACCOUNTING = struct {
 	_                  [4]byte
 	TotalTime          DWORD64
 	IdleTimeBuckets    [6]DWORD
-}                                         /* winnt.h:5634:7 */
-type PPPM_IDLE_STATE_ACCOUNTING = uintptr /* winnt.h:5634:33 */
+}                                         /* winnt.h:5751:7 */
+type PPPM_IDLE_STATE_ACCOUNTING = uintptr /* winnt.h:5751:33 */
 
 type PPM_IDLE_ACCOUNTING = struct {
 	StateCount       DWORD
@@ -17596,8 +17767,8 @@ type PPM_IDLE_ACCOUNTING = struct {
 	_                [4]byte
 	StartTime        DWORD64
 	State            [1]PPM_IDLE_STATE_ACCOUNTING
-}                                   /* winnt.h:5642:7 */
-type PPPM_IDLE_ACCOUNTING = uintptr /* winnt.h:5642:27 */
+}                                   /* winnt.h:5759:7 */
+type PPPM_IDLE_ACCOUNTING = uintptr /* winnt.h:5759:27 */
 
 type PPM_IDLE_STATE_BUCKET_EX = struct {
 	TotalTimeUs DWORD64
@@ -17605,8 +17776,8 @@ type PPM_IDLE_STATE_BUCKET_EX = struct {
 	MaxTimeUs   DWORD
 	Count       DWORD
 	_           [4]byte
-}                                        /* winnt.h:5649:7 */
-type PPPM_IDLE_STATE_BUCKET_EX = uintptr /* winnt.h:5649:32 */
+}                                        /* winnt.h:5766:7 */
+type PPPM_IDLE_STATE_BUCKET_EX = uintptr /* winnt.h:5766:32 */
 
 type PPM_IDLE_STATE_ACCOUNTING_EX = struct {
 	TotalTime            DWORD64
@@ -17617,8 +17788,8 @@ type PPM_IDLE_STATE_ACCOUNTING_EX = struct {
 	MaxTimeUs            DWORD
 	CancelledTransitions DWORD
 	IdleTimeBuckets      [16]PPM_IDLE_STATE_BUCKET_EX
-}                                            /* winnt.h:5660:7 */
-type PPPM_IDLE_STATE_ACCOUNTING_EX = uintptr /* winnt.h:5660:36 */
+}                                            /* winnt.h:5777:7 */
+type PPPM_IDLE_STATE_ACCOUNTING_EX = uintptr /* winnt.h:5777:36 */
 
 type PPM_IDLE_ACCOUNTING_EX = struct {
 	StateCount       DWORD
@@ -17627,8 +17798,8 @@ type PPM_IDLE_ACCOUNTING_EX = struct {
 	AbortCount       DWORD
 	StartTime        DWORD64
 	State            [1]PPM_IDLE_STATE_ACCOUNTING_EX
-}                                      /* winnt.h:5669:7 */
-type PPPM_IDLE_ACCOUNTING_EX = uintptr /* winnt.h:5669:30 */
+}                                      /* winnt.h:5786:7 */
+type PPPM_IDLE_ACCOUNTING_EX = uintptr /* winnt.h:5786:30 */
 
 type PPM_PERFSTATE_EVENT = struct {
 	State     DWORD
@@ -17636,8 +17807,8 @@ type PPM_PERFSTATE_EVENT = struct {
 	Latency   DWORD
 	Speed     DWORD
 	Processor DWORD
-}                                   /* winnt.h:5713:7 */
-type PPPM_PERFSTATE_EVENT = uintptr /* winnt.h:5713:27 */
+}                                   /* winnt.h:5830:7 */
+type PPPM_PERFSTATE_EVENT = uintptr /* winnt.h:5830:27 */
 
 type PPM_PERFSTATE_DOMAIN_EVENT = struct {
 	State      DWORD
@@ -17645,43 +17816,43 @@ type PPM_PERFSTATE_DOMAIN_EVENT = struct {
 	Speed      DWORD
 	_          [4]byte
 	Processors DWORD64
-}                                          /* winnt.h:5720:7 */
-type PPPM_PERFSTATE_DOMAIN_EVENT = uintptr /* winnt.h:5720:34 */
+}                                          /* winnt.h:5837:7 */
+type PPPM_PERFSTATE_DOMAIN_EVENT = uintptr /* winnt.h:5837:34 */
 
 type PPM_IDLESTATE_EVENT = struct {
 	NewState   DWORD
 	OldState   DWORD
 	Processors DWORD64
-}                                   /* winnt.h:5726:7 */
-type PPPM_IDLESTATE_EVENT = uintptr /* winnt.h:5726:27 */
+}                                   /* winnt.h:5843:7 */
+type PPPM_IDLESTATE_EVENT = uintptr /* winnt.h:5843:27 */
 
 type PPM_THERMALCHANGE_EVENT = struct {
 	ThermalConstraint DWORD
 	_                 [4]byte
 	Processors        DWORD64
-}                                       /* winnt.h:5731:7 */
-type PPPM_THERMALCHANGE_EVENT = uintptr /* winnt.h:5731:31 */
+}                                       /* winnt.h:5848:7 */
+type PPPM_THERMALCHANGE_EVENT = uintptr /* winnt.h:5848:31 */
 type PPM_THERMAL_POLICY_EVENT = struct {
 	Mode       BYTE
 	_          [7]byte
 	Processors DWORD64
-}                                        /* winnt.h:5735:7 */
-type PPPM_THERMAL_POLICY_EVENT = uintptr /* winnt.h:5735:32 */
+}                                        /* winnt.h:5852:7 */
+type PPPM_THERMAL_POLICY_EVENT = uintptr /* winnt.h:5852:32 */
 
 type POWER_ACTION_POLICY = struct {
 	Action    POWER_ACTION
 	Flags     DWORD
 	EventCode DWORD
-}                                   /* winnt.h:5752:7 */
-type PPOWER_ACTION_POLICY = uintptr /* winnt.h:5752:27 */
+}                                   /* winnt.h:5869:7 */
+type PPOWER_ACTION_POLICY = uintptr /* winnt.h:5869:27 */
 
 type PROCESSOR_IDLESTATE_INFO = struct {
 	TimeCheck      DWORD
 	DemotePercent  BYTE
 	PromotePercent BYTE
 	Spare          [2]BYTE
-}                                        /* winnt.h:5787:7 */
-type PPROCESSOR_IDLESTATE_INFO = uintptr /* winnt.h:5787:32 */
+}                                        /* winnt.h:5904:7 */
+type PPROCESSOR_IDLESTATE_INFO = uintptr /* winnt.h:5904:32 */
 
 type SYSTEM_POWER_LEVEL = struct {
 	Enable         BOOLEAN
@@ -17689,8 +17860,8 @@ type SYSTEM_POWER_LEVEL = struct {
 	BatteryLevel   DWORD
 	PowerPolicy    POWER_ACTION_POLICY
 	MinSystemState SYSTEM_POWER_STATE
-}                                  /* winnt.h:5795:7 */
-type PSYSTEM_POWER_LEVEL = uintptr /* winnt.h:5795:26 */
+}                                  /* winnt.h:5912:7 */
+type PSYSTEM_POWER_LEVEL = uintptr /* winnt.h:5912:26 */
 
 type _SYSTEM_POWER_POLICY = struct {
 	Revision                    DWORD
@@ -17722,18 +17893,18 @@ type _SYSTEM_POWER_POLICY = struct {
 	ForcedThrottle              BYTE
 	MinThrottle                 BYTE
 	OverThrottled               POWER_ACTION_POLICY
-} /* winnt.h:5797:13 */
+} /* winnt.h:5914:13 */
 
-type SYSTEM_POWER_POLICY = _SYSTEM_POWER_POLICY /* winnt.h:5826:7 */
-type PSYSTEM_POWER_POLICY = uintptr             /* winnt.h:5826:27 */
+type SYSTEM_POWER_POLICY = _SYSTEM_POWER_POLICY /* winnt.h:5943:7 */
+type PSYSTEM_POWER_POLICY = uintptr             /* winnt.h:5943:27 */
 
 type PROCESSOR_IDLESTATE_POLICY = struct {
 	Revision    WORD
 	Flags       struct{ AsWORD WORD }
 	PolicyCount DWORD
 	Policy      [3]PROCESSOR_IDLESTATE_INFO
-}                                          /* winnt.h:5846:7 */
-type PPROCESSOR_IDLESTATE_POLICY = uintptr /* winnt.h:5846:34 */
+}                                          /* winnt.h:5963:7 */
+type PPROCESSOR_IDLESTATE_POLICY = uintptr /* winnt.h:5963:34 */
 
 type _PROCESSOR_POWER_POLICY_INFO = struct {
 	TimeCheck      DWORD
@@ -17743,10 +17914,10 @@ type _PROCESSOR_POWER_POLICY_INFO = struct {
 	PromotePercent BYTE
 	Spare          [2]BYTE
 	AllowDemotion  uint32 /* DWORD AllowDemotion: 1, DWORD AllowPromotion: 1, DWORD Reserved: 30 */
-} /* winnt.h:5848:13 */
+} /* winnt.h:5965:13 */
 
-type PROCESSOR_POWER_POLICY_INFO = _PROCESSOR_POWER_POLICY_INFO /* winnt.h:5858:7 */
-type PPROCESSOR_POWER_POLICY_INFO = uintptr                     /* winnt.h:5858:35 */
+type PROCESSOR_POWER_POLICY_INFO = _PROCESSOR_POWER_POLICY_INFO /* winnt.h:5975:7 */
+type PPROCESSOR_POWER_POLICY_INFO = uintptr                     /* winnt.h:5975:35 */
 
 type _PROCESSOR_POWER_POLICY = struct {
 	Revision        DWORD
@@ -17756,10 +17927,10 @@ type _PROCESSOR_POWER_POLICY = struct {
 	_               [4]byte
 	PolicyCount     DWORD
 	Policy          [3]PROCESSOR_POWER_POLICY_INFO
-} /* winnt.h:5860:13 */
+} /* winnt.h:5977:13 */
 
-type PROCESSOR_POWER_POLICY = _PROCESSOR_POWER_POLICY /* winnt.h:5868:7 */
-type PPROCESSOR_POWER_POLICY = uintptr                /* winnt.h:5868:30 */
+type PROCESSOR_POWER_POLICY = _PROCESSOR_POWER_POLICY /* winnt.h:5985:7 */
+type PPROCESSOR_POWER_POLICY = uintptr                /* winnt.h:5985:30 */
 
 type PROCESSOR_PERFSTATE_POLICY = struct {
 	Revision         DWORD
@@ -17772,8 +17943,8 @@ type PROCESSOR_PERFSTATE_POLICY = struct {
 	DecreaseTime     DWORD
 	IncreasePercent  DWORD
 	DecreasePercent  DWORD
-}                                          /* winnt.h:5892:7 */
-type PPROCESSOR_PERFSTATE_POLICY = uintptr /* winnt.h:5892:34 */
+}                                          /* winnt.h:6009:7 */
+type PPROCESSOR_PERFSTATE_POLICY = uintptr /* winnt.h:6009:34 */
 
 type _ADMINISTRATOR_POWER_POLICY = struct {
 	MinSleep           SYSTEM_POWER_STATE
@@ -17782,10 +17953,10 @@ type _ADMINISTRATOR_POWER_POLICY = struct {
 	MaxVideoTimeout    DWORD
 	MinSpindownTimeout DWORD
 	MaxSpindownTimeout DWORD
-} /* winnt.h:5894:13 */
+} /* winnt.h:6011:13 */
 
-type ADMINISTRATOR_POWER_POLICY = _ADMINISTRATOR_POWER_POLICY /* winnt.h:5901:7 */
-type PADMINISTRATOR_POWER_POLICY = uintptr                    /* winnt.h:5901:34 */
+type ADMINISTRATOR_POWER_POLICY = _ADMINISTRATOR_POWER_POLICY /* winnt.h:6018:7 */
+type PADMINISTRATOR_POWER_POLICY = uintptr                    /* winnt.h:6018:34 */
 
 type SYSTEM_POWER_CAPABILITIES = struct {
 	PowerButtonPresent     BOOLEAN
@@ -17817,8 +17988,8 @@ type SYSTEM_POWER_CAPABILITIES = struct {
 	RtcWake                SYSTEM_POWER_STATE
 	MinDeviceWakeState     SYSTEM_POWER_STATE
 	DefaultLowLatencyWake  SYSTEM_POWER_STATE
-}                                         /* winnt.h:5933:7 */
-type PSYSTEM_POWER_CAPABILITIES = uintptr /* winnt.h:5933:33 */
+}                                         /* winnt.h:6050:7 */
+type PSYSTEM_POWER_CAPABILITIES = uintptr /* winnt.h:6050:33 */
 
 type SYSTEM_BATTERY_STATE = struct {
 	AcOnLine          BOOLEAN
@@ -17832,8 +18003,8 @@ type SYSTEM_BATTERY_STATE = struct {
 	EstimatedTime     DWORD
 	DefaultAlert1     DWORD
 	DefaultAlert2     DWORD
-}                                    /* winnt.h:5947:7 */
-type PSYSTEM_BATTERY_STATE = uintptr /* winnt.h:5947:28 */
+}                                    /* winnt.h:6064:7 */
+type PSYSTEM_BATTERY_STATE = uintptr /* winnt.h:6064:28 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -17865,7 +18036,7 @@ type _IMAGE_DOS_HEADER = struct {
 	e_oeminfo  WORD
 	e_res2     [10]WORD
 	e_lfanew   LONG
-} /* winnt.h:5959:13 */
+} /* winnt.h:6076:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -17877,8 +18048,8 @@ type _IMAGE_DOS_HEADER = struct {
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMAGE_DOS_HEADER = _IMAGE_DOS_HEADER /* winnt.h:5979:7 */
-type PIMAGE_DOS_HEADER = uintptr          /* winnt.h:5979:24 */
+type IMAGE_DOS_HEADER = _IMAGE_DOS_HEADER /* winnt.h:6096:7 */
+type PIMAGE_DOS_HEADER = uintptr          /* winnt.h:6096:24 */
 
 type _IMAGE_OS2_HEADER = struct {
 	ne_magic        WORD
@@ -17911,10 +18082,10 @@ type _IMAGE_OS2_HEADER = struct {
 	ne_psegrefbytes WORD
 	ne_swaparea     WORD
 	ne_expver       WORD
-} /* winnt.h:5981:13 */
+} /* winnt.h:6098:13 */
 
-type IMAGE_OS2_HEADER = _IMAGE_OS2_HEADER /* winnt.h:6012:7 */
-type PIMAGE_OS2_HEADER = uintptr          /* winnt.h:6012:24 */
+type IMAGE_OS2_HEADER = _IMAGE_OS2_HEADER /* winnt.h:6129:7 */
+type PIMAGE_OS2_HEADER = uintptr          /* winnt.h:6129:24 */
 
 type _IMAGE_VXD_HEADER = struct {
 	e32_magic        WORD
@@ -17968,10 +18139,10 @@ type _IMAGE_VXD_HEADER = struct {
 	e32_winreslen    DWORD
 	e32_devid        WORD
 	e32_ddkver       WORD
-} /* winnt.h:6014:13 */
+} /* winnt.h:6131:13 */
 
-type IMAGE_VXD_HEADER = _IMAGE_VXD_HEADER /* winnt.h:6066:7 */
-type PIMAGE_VXD_HEADER = uintptr          /* winnt.h:6066:24 */
+type IMAGE_VXD_HEADER = _IMAGE_VXD_HEADER /* winnt.h:6183:7 */
+type PIMAGE_VXD_HEADER = uintptr          /* winnt.h:6183:24 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -17986,23 +18157,23 @@ type _IMAGE_FILE_HEADER = struct {
 	NumberOfSymbols      DWORD
 	SizeOfOptionalHeader WORD
 	Characteristics      WORD
-} /* winnt.h:6070:13 */
+} /* winnt.h:6187:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMAGE_FILE_HEADER = _IMAGE_FILE_HEADER /* winnt.h:6078:7 */
-type PIMAGE_FILE_HEADER = uintptr           /* winnt.h:6078:25 */
+type IMAGE_FILE_HEADER = _IMAGE_FILE_HEADER /* winnt.h:6195:7 */
+type PIMAGE_FILE_HEADER = uintptr           /* winnt.h:6195:25 */
 
 type _IMAGE_DATA_DIRECTORY = struct {
 	VirtualAddress DWORD
 	Size           DWORD
-} /* winnt.h:6131:13 */
+} /* winnt.h:6248:13 */
 
-type IMAGE_DATA_DIRECTORY = _IMAGE_DATA_DIRECTORY /* winnt.h:6134:7 */
-type PIMAGE_DATA_DIRECTORY = uintptr              /* winnt.h:6134:28 */
+type IMAGE_DATA_DIRECTORY = _IMAGE_DATA_DIRECTORY /* winnt.h:6251:7 */
+type PIMAGE_DATA_DIRECTORY = uintptr              /* winnt.h:6251:28 */
 
 type _IMAGE_OPTIONAL_HEADER = struct {
 	Magic                       WORD
@@ -18036,10 +18207,10 @@ type _IMAGE_OPTIONAL_HEADER = struct {
 	LoaderFlags                 DWORD
 	NumberOfRvaAndSizes         DWORD
 	DataDirectory               [16]IMAGE_DATA_DIRECTORY
-} /* winnt.h:6138:13 */
+} /* winnt.h:6255:13 */
 
-type IMAGE_OPTIONAL_HEADER32 = _IMAGE_OPTIONAL_HEADER /* winnt.h:6171:7 */
-type PIMAGE_OPTIONAL_HEADER32 = uintptr               /* winnt.h:6171:31 */
+type IMAGE_OPTIONAL_HEADER32 = _IMAGE_OPTIONAL_HEADER /* winnt.h:6288:7 */
+type PIMAGE_OPTIONAL_HEADER32 = uintptr               /* winnt.h:6288:31 */
 
 type _IMAGE_ROM_OPTIONAL_HEADER = struct {
 	Magic                   WORD
@@ -18055,10 +18226,10 @@ type _IMAGE_ROM_OPTIONAL_HEADER = struct {
 	GprMask                 DWORD
 	CprMask                 [4]DWORD
 	GpValue                 DWORD
-} /* winnt.h:6173:13 */
+} /* winnt.h:6290:13 */
 
-type IMAGE_ROM_OPTIONAL_HEADER = _IMAGE_ROM_OPTIONAL_HEADER /* winnt.h:6187:7 */
-type PIMAGE_ROM_OPTIONAL_HEADER = uintptr                   /* winnt.h:6187:33 */
+type IMAGE_ROM_OPTIONAL_HEADER = _IMAGE_ROM_OPTIONAL_HEADER /* winnt.h:6304:7 */
+type PIMAGE_ROM_OPTIONAL_HEADER = uintptr                   /* winnt.h:6304:33 */
 
 type _IMAGE_OPTIONAL_HEADER64 = struct {
 	Magic                       WORD
@@ -18091,42 +18262,42 @@ type _IMAGE_OPTIONAL_HEADER64 = struct {
 	LoaderFlags                 DWORD
 	NumberOfRvaAndSizes         DWORD
 	DataDirectory               [16]IMAGE_DATA_DIRECTORY
-} /* winnt.h:6189:13 */
+} /* winnt.h:6306:13 */
 
-type IMAGE_OPTIONAL_HEADER64 = _IMAGE_OPTIONAL_HEADER64 /* winnt.h:6220:7 */
-type PIMAGE_OPTIONAL_HEADER64 = uintptr                 /* winnt.h:6220:31 */
+type IMAGE_OPTIONAL_HEADER64 = _IMAGE_OPTIONAL_HEADER64 /* winnt.h:6337:7 */
+type PIMAGE_OPTIONAL_HEADER64 = uintptr                 /* winnt.h:6337:31 */
 
-type IMAGE_OPTIONAL_HEADER = IMAGE_OPTIONAL_HEADER64   /* winnt.h:6232:37 */
-type PIMAGE_OPTIONAL_HEADER = PIMAGE_OPTIONAL_HEADER64 /* winnt.h:6233:38 */
+type IMAGE_OPTIONAL_HEADER = IMAGE_OPTIONAL_HEADER64   /* winnt.h:6349:37 */
+type PIMAGE_OPTIONAL_HEADER = PIMAGE_OPTIONAL_HEADER64 /* winnt.h:6350:38 */
 
 type _IMAGE_NT_HEADERS64 = struct {
 	Signature      DWORD
 	FileHeader     IMAGE_FILE_HEADER
 	OptionalHeader IMAGE_OPTIONAL_HEADER64
-} /* winnt.h:6243:13 */
+} /* winnt.h:6360:13 */
 
-type IMAGE_NT_HEADERS64 = _IMAGE_NT_HEADERS64 /* winnt.h:6247:7 */
-type PIMAGE_NT_HEADERS64 = uintptr            /* winnt.h:6247:26 */
+type IMAGE_NT_HEADERS64 = _IMAGE_NT_HEADERS64 /* winnt.h:6364:7 */
+type PIMAGE_NT_HEADERS64 = uintptr            /* winnt.h:6364:26 */
 
 type _IMAGE_NT_HEADERS = struct {
 	Signature      DWORD
 	FileHeader     IMAGE_FILE_HEADER
 	OptionalHeader IMAGE_OPTIONAL_HEADER32
-} /* winnt.h:6249:13 */
+} /* winnt.h:6366:13 */
 
-type IMAGE_NT_HEADERS32 = _IMAGE_NT_HEADERS /* winnt.h:6253:7 */
-type PIMAGE_NT_HEADERS32 = uintptr          /* winnt.h:6253:26 */
+type IMAGE_NT_HEADERS32 = _IMAGE_NT_HEADERS /* winnt.h:6370:7 */
+type PIMAGE_NT_HEADERS32 = uintptr          /* winnt.h:6370:26 */
 
 type _IMAGE_ROM_HEADERS = struct {
 	FileHeader     IMAGE_FILE_HEADER
 	OptionalHeader IMAGE_ROM_OPTIONAL_HEADER
-} /* winnt.h:6255:13 */
+} /* winnt.h:6372:13 */
 
-type IMAGE_ROM_HEADERS = _IMAGE_ROM_HEADERS /* winnt.h:6258:7 */
-type PIMAGE_ROM_HEADERS = uintptr           /* winnt.h:6258:25 */
+type IMAGE_ROM_HEADERS = _IMAGE_ROM_HEADERS /* winnt.h:6375:7 */
+type PIMAGE_ROM_HEADERS = uintptr           /* winnt.h:6375:25 */
 
-type IMAGE_NT_HEADERS = IMAGE_NT_HEADERS64   /* winnt.h:6261:32 */
-type PIMAGE_NT_HEADERS = PIMAGE_NT_HEADERS64 /* winnt.h:6262:33 */
+type IMAGE_NT_HEADERS = IMAGE_NT_HEADERS64   /* winnt.h:6378:32 */
+type PIMAGE_NT_HEADERS = PIMAGE_NT_HEADERS64 /* winnt.h:6379:33 */
 
 type ANON_OBJECT_HEADER1 = struct {
 	Sig1          WORD
@@ -18136,9 +18307,9 @@ type ANON_OBJECT_HEADER1 = struct {
 	TimeDateStamp DWORD
 	ClassID       CLSID
 	SizeOfData    DWORD
-} /* winnt.h:6313:13 */
+} /* winnt.h:6430:13 */
 
-type ANON_OBJECT_HEADER = ANON_OBJECT_HEADER1 /* winnt.h:6321:7 */
+type ANON_OBJECT_HEADER = ANON_OBJECT_HEADER1 /* winnt.h:6438:7 */
 
 type ANON_OBJECT_HEADER_V21 = struct {
 	Sig1           WORD
@@ -18151,9 +18322,9 @@ type ANON_OBJECT_HEADER_V21 = struct {
 	Flags          DWORD
 	MetaDataSize   DWORD
 	MetaDataOffset DWORD
-} /* winnt.h:6323:13 */
+} /* winnt.h:6440:13 */
 
-type ANON_OBJECT_HEADER_V2 = ANON_OBJECT_HEADER_V21 /* winnt.h:6334:7 */
+type ANON_OBJECT_HEADER_V2 = ANON_OBJECT_HEADER_V21 /* winnt.h:6451:7 */
 
 type ANON_OBJECT_HEADER_BIGOBJ1 = struct {
 	Sig1                 WORD
@@ -18169,9 +18340,9 @@ type ANON_OBJECT_HEADER_BIGOBJ1 = struct {
 	NumberOfSections     DWORD
 	PointerToSymbolTable DWORD
 	NumberOfSymbols      DWORD
-} /* winnt.h:6336:13 */
+} /* winnt.h:6453:13 */
 
-type ANON_OBJECT_HEADER_BIGOBJ = ANON_OBJECT_HEADER_BIGOBJ1 /* winnt.h:6350:7 */
+type ANON_OBJECT_HEADER_BIGOBJ = ANON_OBJECT_HEADER_BIGOBJ1 /* winnt.h:6467:7 */
 
 type _IMAGE_SECTION_HEADER = struct {
 	Name                 [8]BYTE
@@ -18184,10 +18355,10 @@ type _IMAGE_SECTION_HEADER = struct {
 	NumberOfRelocations  WORD
 	NumberOfLinenumbers  WORD
 	Characteristics      DWORD
-} /* winnt.h:6354:13 */
+} /* winnt.h:6471:13 */
 
-type IMAGE_SECTION_HEADER = _IMAGE_SECTION_HEADER /* winnt.h:6368:7 */
-type PIMAGE_SECTION_HEADER = uintptr              /* winnt.h:6368:28 */
+type IMAGE_SECTION_HEADER = _IMAGE_SECTION_HEADER /* winnt.h:6485:7 */
+type PIMAGE_SECTION_HEADER = uintptr              /* winnt.h:6485:28 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -18204,14 +18375,14 @@ type _IMAGE_SYMBOL = struct {
 	StorageClass       BYTE
 	NumberOfAuxSymbols BYTE
 	_                  [2]byte
-} /* winnt.h:6418:13 */
+} /* winnt.h:6535:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type IMAGE_SYMBOL = _IMAGE_SYMBOL /* winnt.h:6432:7 */
-type PIMAGE_SYMBOL = uintptr      /* winnt.h:6433:36 */
+type IMAGE_SYMBOL = _IMAGE_SYMBOL /* winnt.h:6549:7 */
+type PIMAGE_SYMBOL = uintptr      /* winnt.h:6550:36 */
 
 type _IMAGE_SYMBOL_EX = struct {
 	N struct {
@@ -18223,10 +18394,10 @@ type _IMAGE_SYMBOL_EX = struct {
 	Type               WORD
 	StorageClass       BYTE
 	NumberOfAuxSymbols BYTE
-} /* winnt.h:6437:13 */
+} /* winnt.h:6554:13 */
 
-type IMAGE_SYMBOL_EX = _IMAGE_SYMBOL_EX /* winnt.h:6451:7 */
-type PIMAGE_SYMBOL_EX = uintptr         /* winnt.h:6451:33 */
+type IMAGE_SYMBOL_EX = _IMAGE_SYMBOL_EX /* winnt.h:6568:7 */
+type PIMAGE_SYMBOL_EX = uintptr         /* winnt.h:6568:33 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -18238,14 +18409,14 @@ type IMAGE_AUX_SYMBOL_TOKEN_DEF1 = struct {
 	_                [2]byte
 	SymbolTableIndex DWORD
 	rgbReserved      [12]BYTE
-} /* winnt.h:6544:13 */
+} /* winnt.h:6661:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type IMAGE_AUX_SYMBOL_TOKEN_DEF = IMAGE_AUX_SYMBOL_TOKEN_DEF1 /* winnt.h:6549:7 */
-type PIMAGE_AUX_SYMBOL_TOKEN_DEF = uintptr                    /* winnt.h:6549:44 */
+type IMAGE_AUX_SYMBOL_TOKEN_DEF = IMAGE_AUX_SYMBOL_TOKEN_DEF1 /* winnt.h:6666:7 */
+type PIMAGE_AUX_SYMBOL_TOKEN_DEF = uintptr                    /* winnt.h:6666:44 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
@@ -18270,15 +18441,15 @@ type _IMAGE_AUX_SYMBOL = struct {
 		TvIndex WORD
 		_       [2]byte
 	}
-} /* winnt.h:6552:13 */
+} /* winnt.h:6669:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMAGE_AUX_SYMBOL = _IMAGE_AUX_SYMBOL /* winnt.h:6589:7 */
-type PIMAGE_AUX_SYMBOL = uintptr          /* winnt.h:6589:34 */
+type IMAGE_AUX_SYMBOL = _IMAGE_AUX_SYMBOL /* winnt.h:6706:7 */
+type PIMAGE_AUX_SYMBOL = uintptr          /* winnt.h:6706:34 */
 
 type _IMAGE_AUX_SYMBOL_EX = struct {
 	Sym struct {
@@ -18287,31 +18458,31 @@ type _IMAGE_AUX_SYMBOL_EX = struct {
 		rgbReserved         [12]BYTE
 	}
 	_ [4]byte
-} /* winnt.h:6591:13 */
+} /* winnt.h:6708:13 */
 
-type IMAGE_AUX_SYMBOL_EX = _IMAGE_AUX_SYMBOL_EX /* winnt.h:6619:7 */
-type PIMAGE_AUX_SYMBOL_EX = uintptr             /* winnt.h:6619:37 */
+type IMAGE_AUX_SYMBOL_EX = _IMAGE_AUX_SYMBOL_EX /* winnt.h:6736:7 */
+type PIMAGE_AUX_SYMBOL_EX = uintptr             /* winnt.h:6736:37 */
 
-type IMAGE_AUX_SYMBOL_TYPE = uint32 /* winnt.h:6625:7 */
+type IMAGE_AUX_SYMBOL_TYPE = uint32 /* winnt.h:6742:7 */
 
 type _IMAGE_RELOCATION = struct {
 	u                struct{ VirtualAddress DWORD }
 	SymbolTableIndex DWORD
 	Type             WORD
 	_                [2]byte
-} /* winnt.h:6639:13 */
+} /* winnt.h:6756:13 */
 
-type IMAGE_RELOCATION = _IMAGE_RELOCATION /* winnt.h:6646:7 */
-type PIMAGE_RELOCATION = uintptr          /* winnt.h:6647:40 */
+type IMAGE_RELOCATION = _IMAGE_RELOCATION /* winnt.h:6763:7 */
+type PIMAGE_RELOCATION = uintptr          /* winnt.h:6764:40 */
 
 type _IMAGE_LINENUMBER = struct {
 	Type       struct{ SymbolTableIndex DWORD }
 	Linenumber WORD
 	_          [2]byte
-} /* winnt.h:6977:13 */
+} /* winnt.h:7094:13 */
 
-type IMAGE_LINENUMBER = _IMAGE_LINENUMBER /* winnt.h:6983:7 */
-type PIMAGE_LINENUMBER = uintptr          /* winnt.h:6984:40 */
+type IMAGE_LINENUMBER = _IMAGE_LINENUMBER /* winnt.h:7100:7 */
+type PIMAGE_LINENUMBER = uintptr          /* winnt.h:7101:40 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -18321,15 +18492,15 @@ type PIMAGE_LINENUMBER = uintptr          /* winnt.h:6984:40 */
 type _IMAGE_BASE_RELOCATION = struct {
 	VirtualAddress DWORD
 	SizeOfBlock    DWORD
-} /* winnt.h:6990:13 */
+} /* winnt.h:7107:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMAGE_BASE_RELOCATION = _IMAGE_BASE_RELOCATION /* winnt.h:6993:7 */
-type PIMAGE_BASE_RELOCATION = uintptr               /* winnt.h:6994:45 */
+type IMAGE_BASE_RELOCATION = _IMAGE_BASE_RELOCATION /* winnt.h:7110:7 */
+type PIMAGE_BASE_RELOCATION = uintptr               /* winnt.h:7111:45 */
 
 type _IMAGE_ARCHIVE_MEMBER_HEADER = struct {
 	Name      [16]BYTE
@@ -18339,10 +18510,10 @@ type _IMAGE_ARCHIVE_MEMBER_HEADER = struct {
 	Mode      [8]BYTE
 	Size      [10]BYTE
 	EndHeader [2]BYTE
-} /* winnt.h:7017:13 */
+} /* winnt.h:7134:13 */
 
-type IMAGE_ARCHIVE_MEMBER_HEADER = _IMAGE_ARCHIVE_MEMBER_HEADER /* winnt.h:7025:7 */
-type PIMAGE_ARCHIVE_MEMBER_HEADER = uintptr                     /* winnt.h:7025:35 */
+type IMAGE_ARCHIVE_MEMBER_HEADER = _IMAGE_ARCHIVE_MEMBER_HEADER /* winnt.h:7142:7 */
+type PIMAGE_ARCHIVE_MEMBER_HEADER = uintptr                     /* winnt.h:7142:35 */
 
 type _IMAGE_EXPORT_DIRECTORY = struct {
 	Characteristics       DWORD
@@ -18356,19 +18527,19 @@ type _IMAGE_EXPORT_DIRECTORY = struct {
 	AddressOfFunctions    DWORD
 	AddressOfNames        DWORD
 	AddressOfNameOrdinals DWORD
-} /* winnt.h:7029:13 */
+} /* winnt.h:7146:13 */
 
-type IMAGE_EXPORT_DIRECTORY = _IMAGE_EXPORT_DIRECTORY /* winnt.h:7041:7 */
-type PIMAGE_EXPORT_DIRECTORY = uintptr                /* winnt.h:7041:30 */
+type IMAGE_EXPORT_DIRECTORY = _IMAGE_EXPORT_DIRECTORY /* winnt.h:7158:7 */
+type PIMAGE_EXPORT_DIRECTORY = uintptr                /* winnt.h:7158:30 */
 
 type _IMAGE_IMPORT_BY_NAME = struct {
 	Hint WORD
 	Name [1]CHAR
 	_    [1]byte
-} /* winnt.h:7043:13 */
+} /* winnt.h:7160:13 */
 
-type IMAGE_IMPORT_BY_NAME = _IMAGE_IMPORT_BY_NAME /* winnt.h:7046:7 */
-type PIMAGE_IMPORT_BY_NAME = uintptr              /* winnt.h:7046:28 */
+type IMAGE_IMPORT_BY_NAME = _IMAGE_IMPORT_BY_NAME /* winnt.h:7163:7 */
+type PIMAGE_IMPORT_BY_NAME = uintptr              /* winnt.h:7163:28 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -18377,15 +18548,15 @@ type PIMAGE_IMPORT_BY_NAME = uintptr              /* winnt.h:7046:28 */
 
 type _IMAGE_THUNK_DATA64 = struct {
 	u1 struct{ ForwarderString ULONGLONG }
-} /* winnt.h:7050:13 */
+} /* winnt.h:7167:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMAGE_THUNK_DATA64 = _IMAGE_THUNK_DATA64 /* winnt.h:7057:7 */
-type PIMAGE_THUNK_DATA64 = uintptr            /* winnt.h:7058:32 */
+type IMAGE_THUNK_DATA64 = _IMAGE_THUNK_DATA64 /* winnt.h:7174:7 */
+type PIMAGE_THUNK_DATA64 = uintptr            /* winnt.h:7175:32 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -18394,17 +18565,17 @@ type PIMAGE_THUNK_DATA64 = uintptr            /* winnt.h:7058:32 */
 
 type _IMAGE_THUNK_DATA32 = struct {
 	u1 struct{ ForwarderString DWORD }
-} /* winnt.h:7062:13 */
+} /* winnt.h:7179:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMAGE_THUNK_DATA32 = _IMAGE_THUNK_DATA32 /* winnt.h:7069:7 */
-type PIMAGE_THUNK_DATA32 = uintptr            /* winnt.h:7070:32 */
+type IMAGE_THUNK_DATA32 = _IMAGE_THUNK_DATA32 /* winnt.h:7186:7 */
+type PIMAGE_THUNK_DATA32 = uintptr            /* winnt.h:7187:32 */
 
-type PIMAGE_TLS_CALLBACK = uintptr /* winnt.h:7079:18 */
+type PIMAGE_TLS_CALLBACK = uintptr /* winnt.h:7196:18 */
 
 type _IMAGE_TLS_DIRECTORY64 = struct {
 	StartAddressOfRawData ULONGLONG
@@ -18413,10 +18584,10 @@ type _IMAGE_TLS_DIRECTORY64 = struct {
 	AddressOfCallBacks    ULONGLONG
 	SizeOfZeroFill        DWORD
 	Characteristics       DWORD
-} /* winnt.h:7081:13 */
+} /* winnt.h:7198:13 */
 
-type IMAGE_TLS_DIRECTORY64 = _IMAGE_TLS_DIRECTORY64 /* winnt.h:7088:7 */
-type PIMAGE_TLS_DIRECTORY64 = uintptr               /* winnt.h:7089:35 */
+type IMAGE_TLS_DIRECTORY64 = _IMAGE_TLS_DIRECTORY64 /* winnt.h:7205:7 */
+type PIMAGE_TLS_DIRECTORY64 = uintptr               /* winnt.h:7206:35 */
 
 type _IMAGE_TLS_DIRECTORY32 = struct {
 	StartAddressOfRawData DWORD
@@ -18425,15 +18596,15 @@ type _IMAGE_TLS_DIRECTORY32 = struct {
 	AddressOfCallBacks    DWORD
 	SizeOfZeroFill        DWORD
 	Characteristics       DWORD
-} /* winnt.h:7091:13 */
+} /* winnt.h:7208:13 */
 
-type IMAGE_TLS_DIRECTORY32 = _IMAGE_TLS_DIRECTORY32 /* winnt.h:7098:7 */
-type PIMAGE_TLS_DIRECTORY32 = uintptr               /* winnt.h:7099:35 */
+type IMAGE_TLS_DIRECTORY32 = _IMAGE_TLS_DIRECTORY32 /* winnt.h:7215:7 */
+type PIMAGE_TLS_DIRECTORY32 = uintptr               /* winnt.h:7216:35 */
 
-type IMAGE_THUNK_DATA = IMAGE_THUNK_DATA64         /* winnt.h:7104:32 */
-type PIMAGE_THUNK_DATA = PIMAGE_THUNK_DATA64       /* winnt.h:7105:33 */
-type IMAGE_TLS_DIRECTORY = IMAGE_TLS_DIRECTORY64   /* winnt.h:7107:35 */
-type PIMAGE_TLS_DIRECTORY = PIMAGE_TLS_DIRECTORY64 /* winnt.h:7108:36 */
+type IMAGE_THUNK_DATA = IMAGE_THUNK_DATA64         /* winnt.h:7221:32 */
+type PIMAGE_THUNK_DATA = PIMAGE_THUNK_DATA64       /* winnt.h:7222:33 */
+type IMAGE_TLS_DIRECTORY = IMAGE_TLS_DIRECTORY64   /* winnt.h:7224:35 */
+type PIMAGE_TLS_DIRECTORY = PIMAGE_TLS_DIRECTORY64 /* winnt.h:7225:36 */
 
 type _IMAGE_IMPORT_DESCRIPTOR = struct {
 	u              struct{ Characteristics DWORD }
@@ -18441,28 +18612,28 @@ type _IMAGE_IMPORT_DESCRIPTOR = struct {
 	ForwarderChain DWORD
 	Name           DWORD
 	FirstThunk     DWORD
-} /* winnt.h:7119:13 */
+} /* winnt.h:7236:13 */
 
-type IMAGE_IMPORT_DESCRIPTOR = _IMAGE_IMPORT_DESCRIPTOR /* winnt.h:7129:7 */
-type PIMAGE_IMPORT_DESCRIPTOR = uintptr                 /* winnt.h:7130:47 */
+type IMAGE_IMPORT_DESCRIPTOR = _IMAGE_IMPORT_DESCRIPTOR /* winnt.h:7246:7 */
+type PIMAGE_IMPORT_DESCRIPTOR = uintptr                 /* winnt.h:7247:47 */
 
 type _IMAGE_BOUND_IMPORT_DESCRIPTOR = struct {
 	TimeDateStamp               DWORD
 	OffsetModuleName            WORD
 	NumberOfModuleForwarderRefs WORD
-} /* winnt.h:7132:13 */
+} /* winnt.h:7249:13 */
 
-type IMAGE_BOUND_IMPORT_DESCRIPTOR = _IMAGE_BOUND_IMPORT_DESCRIPTOR /* winnt.h:7136:7 */
-type PIMAGE_BOUND_IMPORT_DESCRIPTOR = uintptr                       /* winnt.h:7136:37 */
+type IMAGE_BOUND_IMPORT_DESCRIPTOR = _IMAGE_BOUND_IMPORT_DESCRIPTOR /* winnt.h:7253:7 */
+type PIMAGE_BOUND_IMPORT_DESCRIPTOR = uintptr                       /* winnt.h:7253:37 */
 
 type _IMAGE_BOUND_FORWARDER_REF = struct {
 	TimeDateStamp    DWORD
 	OffsetModuleName WORD
 	Reserved         WORD
-} /* winnt.h:7138:13 */
+} /* winnt.h:7255:13 */
 
-type IMAGE_BOUND_FORWARDER_REF = _IMAGE_BOUND_FORWARDER_REF /* winnt.h:7142:7 */
-type PIMAGE_BOUND_FORWARDER_REF = uintptr                   /* winnt.h:7142:33 */
+type IMAGE_BOUND_FORWARDER_REF = _IMAGE_BOUND_FORWARDER_REF /* winnt.h:7259:7 */
+type PIMAGE_BOUND_FORWARDER_REF = uintptr                   /* winnt.h:7259:33 */
 
 type _IMAGE_DELAYLOAD_DESCRIPTOR = struct {
 	Attributes                 struct{ AllAttributes DWORD }
@@ -18473,11 +18644,11 @@ type _IMAGE_DELAYLOAD_DESCRIPTOR = struct {
 	BoundImportAddressTableRVA DWORD
 	UnloadInformationTableRVA  DWORD
 	TimeDateStamp              DWORD
-} /* winnt.h:7144:13 */
+} /* winnt.h:7261:13 */
 
-type IMAGE_DELAYLOAD_DESCRIPTOR = _IMAGE_DELAYLOAD_DESCRIPTOR /* winnt.h:7159:7 */
-type PIMAGE_DELAYLOAD_DESCRIPTOR = uintptr                    /* winnt.h:7159:34 */
-type PCIMAGE_DELAYLOAD_DESCRIPTOR = uintptr                   /* winnt.h:7160:46 */
+type IMAGE_DELAYLOAD_DESCRIPTOR = _IMAGE_DELAYLOAD_DESCRIPTOR /* winnt.h:7276:7 */
+type PIMAGE_DELAYLOAD_DESCRIPTOR = uintptr                    /* winnt.h:7276:34 */
+type PCIMAGE_DELAYLOAD_DESCRIPTOR = uintptr                   /* winnt.h:7277:46 */
 
 type _IMAGE_RESOURCE_DIRECTORY = struct {
 	Characteristics      DWORD
@@ -18486,10 +18657,10 @@ type _IMAGE_RESOURCE_DIRECTORY = struct {
 	MinorVersion         WORD
 	NumberOfNamedEntries WORD
 	NumberOfIdEntries    WORD
-} /* winnt.h:7162:13 */
+} /* winnt.h:7279:13 */
 
-type IMAGE_RESOURCE_DIRECTORY = _IMAGE_RESOURCE_DIRECTORY /* winnt.h:7169:7 */
-type PIMAGE_RESOURCE_DIRECTORY = uintptr                  /* winnt.h:7169:32 */
+type IMAGE_RESOURCE_DIRECTORY = _IMAGE_RESOURCE_DIRECTORY /* winnt.h:7286:7 */
+type PIMAGE_RESOURCE_DIRECTORY = uintptr                  /* winnt.h:7286:32 */
 
 type _IMAGE_RESOURCE_DIRECTORY_ENTRY = struct {
 	u struct {
@@ -18499,37 +18670,37 @@ type _IMAGE_RESOURCE_DIRECTORY_ENTRY = struct {
 		}
 	}
 	u2 struct{ OffsetToData DWORD }
-} /* winnt.h:7174:13 */
+} /* winnt.h:7291:13 */
 
-type IMAGE_RESOURCE_DIRECTORY_ENTRY = _IMAGE_RESOURCE_DIRECTORY_ENTRY /* winnt.h:7190:7 */
-type PIMAGE_RESOURCE_DIRECTORY_ENTRY = uintptr                        /* winnt.h:7190:38 */
+type IMAGE_RESOURCE_DIRECTORY_ENTRY = _IMAGE_RESOURCE_DIRECTORY_ENTRY /* winnt.h:7307:7 */
+type PIMAGE_RESOURCE_DIRECTORY_ENTRY = uintptr                        /* winnt.h:7307:38 */
 
 type _IMAGE_RESOURCE_DIRECTORY_STRING = struct {
 	Length     WORD
 	NameString [1]CHAR
 	_          [1]byte
-} /* winnt.h:7192:13 */
+} /* winnt.h:7309:13 */
 
-type IMAGE_RESOURCE_DIRECTORY_STRING = _IMAGE_RESOURCE_DIRECTORY_STRING /* winnt.h:7195:7 */
-type PIMAGE_RESOURCE_DIRECTORY_STRING = uintptr                         /* winnt.h:7195:39 */
+type IMAGE_RESOURCE_DIRECTORY_STRING = _IMAGE_RESOURCE_DIRECTORY_STRING /* winnt.h:7312:7 */
+type PIMAGE_RESOURCE_DIRECTORY_STRING = uintptr                         /* winnt.h:7312:39 */
 
 type _IMAGE_RESOURCE_DIR_STRING_U = struct {
 	Length     WORD
 	NameString [1]WCHAR
-} /* winnt.h:7197:13 */
+} /* winnt.h:7314:13 */
 
-type IMAGE_RESOURCE_DIR_STRING_U = _IMAGE_RESOURCE_DIR_STRING_U /* winnt.h:7200:7 */
-type PIMAGE_RESOURCE_DIR_STRING_U = uintptr                     /* winnt.h:7200:35 */
+type IMAGE_RESOURCE_DIR_STRING_U = _IMAGE_RESOURCE_DIR_STRING_U /* winnt.h:7317:7 */
+type PIMAGE_RESOURCE_DIR_STRING_U = uintptr                     /* winnt.h:7317:35 */
 
 type _IMAGE_RESOURCE_DATA_ENTRY = struct {
 	OffsetToData DWORD
 	Size         DWORD
 	CodePage     DWORD
 	Reserved     DWORD
-} /* winnt.h:7202:13 */
+} /* winnt.h:7319:13 */
 
-type IMAGE_RESOURCE_DATA_ENTRY = _IMAGE_RESOURCE_DATA_ENTRY /* winnt.h:7207:7 */
-type PIMAGE_RESOURCE_DATA_ENTRY = uintptr                   /* winnt.h:7207:33 */
+type IMAGE_RESOURCE_DATA_ENTRY = _IMAGE_RESOURCE_DATA_ENTRY /* winnt.h:7324:7 */
+type PIMAGE_RESOURCE_DATA_ENTRY = uintptr                   /* winnt.h:7324:33 */
 
 type IMAGE_LOAD_CONFIG_DIRECTORY32 = struct {
 	Size                          DWORD
@@ -18552,8 +18723,8 @@ type IMAGE_LOAD_CONFIG_DIRECTORY32 = struct {
 	SecurityCookie                DWORD
 	SEHandlerTable                DWORD
 	SEHandlerCount                DWORD
-}                                             /* winnt.h:7230:7 */
-type PIMAGE_LOAD_CONFIG_DIRECTORY32 = uintptr /* winnt.h:7230:37 */
+}                                             /* winnt.h:7347:7 */
+type PIMAGE_LOAD_CONFIG_DIRECTORY32 = uintptr /* winnt.h:7347:37 */
 
 type IMAGE_LOAD_CONFIG_DIRECTORY64 = struct {
 	Size                          DWORD
@@ -18576,19 +18747,19 @@ type IMAGE_LOAD_CONFIG_DIRECTORY64 = struct {
 	SecurityCookie                ULONGLONG
 	SEHandlerTable                ULONGLONG
 	SEHandlerCount                ULONGLONG
-}                                             /* winnt.h:7253:7 */
-type PIMAGE_LOAD_CONFIG_DIRECTORY64 = uintptr /* winnt.h:7253:37 */
+}                                             /* winnt.h:7370:7 */
+type PIMAGE_LOAD_CONFIG_DIRECTORY64 = uintptr /* winnt.h:7370:37 */
 
-type IMAGE_LOAD_CONFIG_DIRECTORY = IMAGE_LOAD_CONFIG_DIRECTORY64   /* winnt.h:7256:43 */
-type PIMAGE_LOAD_CONFIG_DIRECTORY = PIMAGE_LOAD_CONFIG_DIRECTORY64 /* winnt.h:7257:44 */
+type IMAGE_LOAD_CONFIG_DIRECTORY = IMAGE_LOAD_CONFIG_DIRECTORY64   /* winnt.h:7373:43 */
+type PIMAGE_LOAD_CONFIG_DIRECTORY = PIMAGE_LOAD_CONFIG_DIRECTORY64 /* winnt.h:7374:44 */
 
 type _IMAGE_CE_RUNTIME_FUNCTION_ENTRY = struct {
 	FuncStart DWORD
 	PrologLen uint32 /* DWORD PrologLen: 8, DWORD FuncLen: 22, DWORD ThirtyTwoBit: 1, DWORD ExceptionFlag: 1 */
-} /* winnt.h:7263:13 */
+} /* winnt.h:7380:13 */
 
-type IMAGE_CE_RUNTIME_FUNCTION_ENTRY = _IMAGE_CE_RUNTIME_FUNCTION_ENTRY /* winnt.h:7269:7 */
-type PIMAGE_CE_RUNTIME_FUNCTION_ENTRY = uintptr                         /* winnt.h:7269:39 */
+type IMAGE_CE_RUNTIME_FUNCTION_ENTRY = _IMAGE_CE_RUNTIME_FUNCTION_ENTRY /* winnt.h:7386:7 */
+type PIMAGE_CE_RUNTIME_FUNCTION_ENTRY = uintptr                         /* winnt.h:7386:39 */
 
 type _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = struct {
 	BeginAddress     ULONGLONG
@@ -18596,10 +18767,10 @@ type _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = struct {
 	ExceptionHandler ULONGLONG
 	HandlerData      ULONGLONG
 	PrologEndAddress ULONGLONG
-} /* winnt.h:7271:13 */
+} /* winnt.h:7388:13 */
 
-type IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY /* winnt.h:7277:7 */
-type PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = uintptr                              /* winnt.h:7277:44 */
+type IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY /* winnt.h:7394:7 */
+type PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = uintptr                              /* winnt.h:7394:44 */
 
 type _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = struct {
 	BeginAddress     DWORD
@@ -18607,41 +18778,41 @@ type _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = struct {
 	ExceptionHandler DWORD
 	HandlerData      DWORD
 	PrologEndAddress DWORD
-} /* winnt.h:7279:13 */
+} /* winnt.h:7396:13 */
 
-type IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY /* winnt.h:7285:7 */
-type PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = uintptr                            /* winnt.h:7285:42 */
+type IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY /* winnt.h:7402:7 */
+type PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = uintptr                            /* winnt.h:7402:42 */
 
 type _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY = struct {
 	BeginAddress DWORD
 	u            struct{ UnwindData DWORD }
-} /* winnt.h:7287:13 */
+} /* winnt.h:7404:13 */
 
-type IMAGE_ARM_RUNTIME_FUNCTION_ENTRY = _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY /* winnt.h:7303:7 */
-type PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY = uintptr                          /* winnt.h:7303:40 */
+type IMAGE_ARM_RUNTIME_FUNCTION_ENTRY = _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY /* winnt.h:7420:7 */
+type PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY = uintptr                          /* winnt.h:7420:40 */
 
 type _IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = struct {
 	BeginAddress DWORD
 	u            struct{ UnwindData DWORD }
-} /* winnt.h:7305:13 */
+} /* winnt.h:7422:13 */
 
-type IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = _IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY /* winnt.h:7319:7 */
-type PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = uintptr                            /* winnt.h:7319:42 */
+type IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = _IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY /* winnt.h:7436:7 */
+type PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = uintptr                            /* winnt.h:7436:42 */
 
 type _IMAGE_RUNTIME_FUNCTION_ENTRY1 = struct {
 	BeginAddress DWORD
 	EndAddress   DWORD
 	u            struct{ UnwindInfoAddress DWORD }
-} /* winnt.h:7321:13 */
+} /* winnt.h:7438:13 */
 
-type _IMAGE_RUNTIME_FUNCTION_ENTRY = _IMAGE_RUNTIME_FUNCTION_ENTRY1 /* winnt.h:7328:7 */
-type _PIMAGE_RUNTIME_FUNCTION_ENTRY = uintptr                       /* winnt.h:7328:37 */
+type _IMAGE_RUNTIME_FUNCTION_ENTRY = _IMAGE_RUNTIME_FUNCTION_ENTRY1 /* winnt.h:7445:7 */
+type _PIMAGE_RUNTIME_FUNCTION_ENTRY = uintptr                       /* winnt.h:7445:37 */
 
-type IMAGE_IA64_RUNTIME_FUNCTION_ENTRY = _IMAGE_RUNTIME_FUNCTION_ENTRY   /* winnt.h:7330:43 */
-type PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY = _PIMAGE_RUNTIME_FUNCTION_ENTRY /* winnt.h:7331:44 */
+type IMAGE_IA64_RUNTIME_FUNCTION_ENTRY = _IMAGE_RUNTIME_FUNCTION_ENTRY   /* winnt.h:7447:43 */
+type PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY = _PIMAGE_RUNTIME_FUNCTION_ENTRY /* winnt.h:7448:44 */
 
-type IMAGE_RUNTIME_FUNCTION_ENTRY = _IMAGE_RUNTIME_FUNCTION_ENTRY   /* winnt.h:7345:43 */
-type PIMAGE_RUNTIME_FUNCTION_ENTRY = _PIMAGE_RUNTIME_FUNCTION_ENTRY /* winnt.h:7346:44 */
+type IMAGE_RUNTIME_FUNCTION_ENTRY = _IMAGE_RUNTIME_FUNCTION_ENTRY   /* winnt.h:7462:43 */
+type PIMAGE_RUNTIME_FUNCTION_ENTRY = _PIMAGE_RUNTIME_FUNCTION_ENTRY /* winnt.h:7463:44 */
 
 type _IMAGE_DEBUG_DIRECTORY = struct {
 	Characteristics  DWORD
@@ -18652,10 +18823,10 @@ type _IMAGE_DEBUG_DIRECTORY = struct {
 	SizeOfData       DWORD
 	AddressOfRawData DWORD
 	PointerToRawData DWORD
-} /* winnt.h:7349:13 */
+} /* winnt.h:7466:13 */
 
-type IMAGE_DEBUG_DIRECTORY = _IMAGE_DEBUG_DIRECTORY /* winnt.h:7358:7 */
-type PIMAGE_DEBUG_DIRECTORY = uintptr               /* winnt.h:7358:29 */
+type IMAGE_DEBUG_DIRECTORY = _IMAGE_DEBUG_DIRECTORY /* winnt.h:7475:7 */
+type PIMAGE_DEBUG_DIRECTORY = uintptr               /* winnt.h:7475:29 */
 
 type _IMAGE_COFF_SYMBOLS_HEADER = struct {
 	NumberOfSymbols      DWORD
@@ -18666,10 +18837,10 @@ type _IMAGE_COFF_SYMBOLS_HEADER = struct {
 	RvaToLastByteOfCode  DWORD
 	RvaToFirstByteOfData DWORD
 	RvaToLastByteOfData  DWORD
-} /* winnt.h:7373:13 */
+} /* winnt.h:7490:13 */
 
-type IMAGE_COFF_SYMBOLS_HEADER = _IMAGE_COFF_SYMBOLS_HEADER /* winnt.h:7382:7 */
-type PIMAGE_COFF_SYMBOLS_HEADER = uintptr                   /* winnt.h:7382:33 */
+type IMAGE_COFF_SYMBOLS_HEADER = _IMAGE_COFF_SYMBOLS_HEADER /* winnt.h:7499:7 */
+type PIMAGE_COFF_SYMBOLS_HEADER = uintptr                   /* winnt.h:7499:33 */
 
 type _FPO_DATA = struct {
 	ulOffStart DWORD
@@ -18677,10 +18848,10 @@ type _FPO_DATA = struct {
 	cdwLocals  DWORD
 	cdwParams  WORD
 	cbProlog   uint16 /* WORD cbProlog: 8, WORD cbRegs: 3, WORD fHasSEH: 1, WORD fUseBP: 1, WORD reserved: 1, WORD cbFrame: 2 */
-} /* winnt.h:7389:13 */
+} /* winnt.h:7506:13 */
 
-type FPO_DATA = _FPO_DATA /* winnt.h:7400:7 */
-type PFPO_DATA = uintptr  /* winnt.h:7400:16 */
+type FPO_DATA = _FPO_DATA /* winnt.h:7517:7 */
+type PFPO_DATA = uintptr  /* winnt.h:7517:16 */
 
 type _IMAGE_DEBUG_MISC = struct {
 	DataType DWORD
@@ -18689,28 +18860,28 @@ type _IMAGE_DEBUG_MISC = struct {
 	Reserved [3]BYTE
 	Data     [1]BYTE
 	_        [3]byte
-} /* winnt.h:7405:13 */
+} /* winnt.h:7522:13 */
 
-type IMAGE_DEBUG_MISC = _IMAGE_DEBUG_MISC /* winnt.h:7411:7 */
-type PIMAGE_DEBUG_MISC = uintptr          /* winnt.h:7411:24 */
+type IMAGE_DEBUG_MISC = _IMAGE_DEBUG_MISC /* winnt.h:7528:7 */
+type PIMAGE_DEBUG_MISC = uintptr          /* winnt.h:7528:24 */
 
 type _IMAGE_FUNCTION_ENTRY = struct {
 	StartingAddress DWORD
 	EndingAddress   DWORD
 	EndOfPrologue   DWORD
-} /* winnt.h:7413:13 */
+} /* winnt.h:7530:13 */
 
-type IMAGE_FUNCTION_ENTRY = _IMAGE_FUNCTION_ENTRY /* winnt.h:7417:7 */
-type PIMAGE_FUNCTION_ENTRY = uintptr              /* winnt.h:7417:28 */
+type IMAGE_FUNCTION_ENTRY = _IMAGE_FUNCTION_ENTRY /* winnt.h:7534:7 */
+type PIMAGE_FUNCTION_ENTRY = uintptr              /* winnt.h:7534:28 */
 
 type _IMAGE_FUNCTION_ENTRY64 = struct {
 	StartingAddress ULONGLONG
 	EndingAddress   ULONGLONG
 	u               struct{ EndOfPrologue ULONGLONG }
-} /* winnt.h:7419:13 */
+} /* winnt.h:7536:13 */
 
-type IMAGE_FUNCTION_ENTRY64 = _IMAGE_FUNCTION_ENTRY64 /* winnt.h:7426:7 */
-type PIMAGE_FUNCTION_ENTRY64 = uintptr                /* winnt.h:7426:30 */
+type IMAGE_FUNCTION_ENTRY64 = _IMAGE_FUNCTION_ENTRY64 /* winnt.h:7543:7 */
+type PIMAGE_FUNCTION_ENTRY64 = uintptr                /* winnt.h:7543:30 */
 
 type _IMAGE_SEPARATE_DEBUG_HEADER = struct {
 	Signature          WORD
@@ -18726,10 +18897,10 @@ type _IMAGE_SEPARATE_DEBUG_HEADER = struct {
 	DebugDirectorySize DWORD
 	SectionAlignment   DWORD
 	Reserved           [2]DWORD
-} /* winnt.h:7428:13 */
+} /* winnt.h:7545:13 */
 
-type IMAGE_SEPARATE_DEBUG_HEADER = _IMAGE_SEPARATE_DEBUG_HEADER /* winnt.h:7442:7 */
-type PIMAGE_SEPARATE_DEBUG_HEADER = uintptr                     /* winnt.h:7442:35 */
+type IMAGE_SEPARATE_DEBUG_HEADER = _IMAGE_SEPARATE_DEBUG_HEADER /* winnt.h:7559:7 */
+type PIMAGE_SEPARATE_DEBUG_HEADER = uintptr                     /* winnt.h:7559:35 */
 
 type _NON_PAGED_DEBUG_INFO = struct {
 	Signature       WORD
@@ -18741,27 +18912,27 @@ type _NON_PAGED_DEBUG_INFO = struct {
 	CheckSum        DWORD
 	SizeOfImage     DWORD
 	ImageBase       ULONGLONG
-} /* winnt.h:7444:13 */
+} /* winnt.h:7561:13 */
 
-type NON_PAGED_DEBUG_INFO = _NON_PAGED_DEBUG_INFO /* winnt.h:7454:7 */
-type PNON_PAGED_DEBUG_INFO = uintptr              /* winnt.h:7454:28 */
+type NON_PAGED_DEBUG_INFO = _NON_PAGED_DEBUG_INFO /* winnt.h:7571:7 */
+type PNON_PAGED_DEBUG_INFO = uintptr              /* winnt.h:7571:28 */
 
 type _ImageArchitectureHeader = struct {
 	AmaskValue    uint32 /* unsigned AmaskValue: 1, int Adummy1: 7, unsigned AmaskShift: 8, int Adummy2: 16 */
 	_             [4]byte
 	FirstEntryRVA DWORD
-} /* winnt.h:7462:13 */
+} /* winnt.h:7579:13 */
 
-type IMAGE_ARCHITECTURE_HEADER = _ImageArchitectureHeader /* winnt.h:7468:7 */
-type PIMAGE_ARCHITECTURE_HEADER = uintptr                 /* winnt.h:7468:33 */
+type IMAGE_ARCHITECTURE_HEADER = _ImageArchitectureHeader /* winnt.h:7585:7 */
+type PIMAGE_ARCHITECTURE_HEADER = uintptr                 /* winnt.h:7585:33 */
 
 type _ImageArchitectureEntry = struct {
 	FixupInstRVA DWORD
 	NewInst      DWORD
-} /* winnt.h:7470:13 */
+} /* winnt.h:7587:13 */
 
-type IMAGE_ARCHITECTURE_ENTRY = _ImageArchitectureEntry /* winnt.h:7473:7 */
-type PIMAGE_ARCHITECTURE_ENTRY = uintptr                /* winnt.h:7473:32 */
+type IMAGE_ARCHITECTURE_ENTRY = _ImageArchitectureEntry /* winnt.h:7590:7 */
+type PIMAGE_ARCHITECTURE_ENTRY = uintptr                /* winnt.h:7590:32 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
@@ -18776,20 +18947,20 @@ type IMPORT_OBJECT_HEADER1 = struct {
 	SizeOfData    DWORD
 	__16          struct{ Ordinal WORD }
 	Type          uint16 /* WORD Type: 2, WORD NameType: 3, WORD Reserved: 11 */
-} /* winnt.h:7478:13 */
+} /* winnt.h:7595:13 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type IMPORT_OBJECT_HEADER = IMPORT_OBJECT_HEADER1 /* winnt.h:7492:7 */
+type IMPORT_OBJECT_HEADER = IMPORT_OBJECT_HEADER1 /* winnt.h:7609:7 */
 
-type IMPORT_OBJECT_TYPE = uint32 /* winnt.h:7496:7 */
+type IMPORT_OBJECT_TYPE = uint32 /* winnt.h:7613:7 */
 
-type IMPORT_OBJECT_NAME_TYPE = uint32 /* winnt.h:7500:7 */
+type IMPORT_OBJECT_NAME_TYPE = uint32 /* winnt.h:7617:7 */
 
-type ReplacesCorHdrNumericDefines = uint32 /* winnt.h:7511:7 */
+type ReplacesCorHdrNumericDefines = uint32 /* winnt.h:7628:7 */
 
 type IMAGE_COR20_HEADER1 = struct {
 	cb                      DWORD
@@ -18804,41 +18975,41 @@ type IMAGE_COR20_HEADER1 = struct {
 	VTableFixups            IMAGE_DATA_DIRECTORY
 	ExportAddressTableJumps IMAGE_DATA_DIRECTORY
 	ManagedNativeHeader     IMAGE_DATA_DIRECTORY
-} /* winnt.h:7513:13 */
+} /* winnt.h:7630:13 */
 
-type IMAGE_COR20_HEADER = IMAGE_COR20_HEADER1 /* winnt.h:7529:7 */
-type PIMAGE_COR20_HEADER = uintptr            /* winnt.h:7529:26 */
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-type _SLIST_ENTRY = struct{ Next uintptr } /* winnt.h:7607:13 */
+type IMAGE_COR20_HEADER = IMAGE_COR20_HEADER1 /* winnt.h:7646:7 */
+type PIMAGE_COR20_HEADER = uintptr            /* winnt.h:7646:26 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type SLIST_ENTRY = _SLIST_ENTRY /* winnt.h:7609:7 */
-type PSLIST_ENTRY = uintptr     /* winnt.h:7609:19 */
+type _SLIST_ENTRY = struct{ Next uintptr } /* winnt.h:7726:13 */
+
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
+
+type SLIST_ENTRY = _SLIST_ENTRY /* winnt.h:7728:7 */
+type PSLIST_ENTRY = uintptr     /* winnt.h:7728:19 */
 
 type _SLIST_HEADER = struct {
 	s struct {
 		Alignment ULONGLONG
 		Region    ULONGLONG
 	}
-} /* winnt.h:7611:13 */
+} /* winnt.h:7730:13 */
 
-type SLIST_HEADER = _SLIST_HEADER /* winnt.h:7632:7 */
-type PSLIST_HEADER = uintptr      /* winnt.h:7632:20 */
+type SLIST_HEADER = _SLIST_HEADER /* winnt.h:7751:7 */
+type PSLIST_HEADER = uintptr      /* winnt.h:7751:20 */
 
-type _RTL_RUN_ONCE = struct{ Ptr PVOID } /* winnt.h:7661:9 */
+type _RTL_RUN_ONCE = struct{ Ptr PVOID } /* winnt.h:7780:9 */
 
-type RTL_RUN_ONCE = _RTL_RUN_ONCE    /* winnt.h:7661:45 */
-type PRTL_RUN_ONCE = uintptr         /* winnt.h:7661:59 */
-type PRTL_RUN_ONCE_INIT_FN = uintptr /* winnt.h:7662:15 */
+type RTL_RUN_ONCE = _RTL_RUN_ONCE    /* winnt.h:7780:45 */
+type PRTL_RUN_ONCE = uintptr         /* winnt.h:7780:59 */
+type PRTL_RUN_ONCE_INIT_FN = uintptr /* winnt.h:7781:15 */
 
 type _RTL_BARRIER = struct {
 	Reserved1 DWORD
@@ -18846,37 +19017,37 @@ type _RTL_BARRIER = struct {
 	Reserved3 [2]ULONG_PTR
 	Reserved4 DWORD
 	Reserved5 DWORD
-} /* winnt.h:7671:11 */
+} /* winnt.h:7790:11 */
 
-type RTL_BARRIER = _RTL_BARRIER /* winnt.h:7677:5 */
-type PRTL_BARRIER = uintptr     /* winnt.h:7677:17 */
+type RTL_BARRIER = _RTL_BARRIER /* winnt.h:7796:5 */
+type PRTL_BARRIER = uintptr     /* winnt.h:7796:17 */
 
 type _MESSAGE_RESOURCE_ENTRY = struct {
 	Length WORD
 	Flags  WORD
 	Text   [1]BYTE
 	_      [1]byte
-} /* winnt.h:7780:13 */
+} /* winnt.h:7899:13 */
 
-type MESSAGE_RESOURCE_ENTRY = _MESSAGE_RESOURCE_ENTRY /* winnt.h:7784:7 */
-type PMESSAGE_RESOURCE_ENTRY = uintptr                /* winnt.h:7784:30 */
+type MESSAGE_RESOURCE_ENTRY = _MESSAGE_RESOURCE_ENTRY /* winnt.h:7903:7 */
+type PMESSAGE_RESOURCE_ENTRY = uintptr                /* winnt.h:7903:30 */
 
 type _MESSAGE_RESOURCE_BLOCK = struct {
 	LowId           DWORD
 	HighId          DWORD
 	OffsetToEntries DWORD
-} /* winnt.h:7802:13 */
+} /* winnt.h:7921:13 */
 
-type MESSAGE_RESOURCE_BLOCK = _MESSAGE_RESOURCE_BLOCK /* winnt.h:7806:7 */
-type PMESSAGE_RESOURCE_BLOCK = uintptr                /* winnt.h:7806:30 */
+type MESSAGE_RESOURCE_BLOCK = _MESSAGE_RESOURCE_BLOCK /* winnt.h:7925:7 */
+type PMESSAGE_RESOURCE_BLOCK = uintptr                /* winnt.h:7925:30 */
 
 type _MESSAGE_RESOURCE_DATA = struct {
 	NumberOfBlocks DWORD
 	Blocks         [1]MESSAGE_RESOURCE_BLOCK
-} /* winnt.h:7808:13 */
+} /* winnt.h:7927:13 */
 
-type MESSAGE_RESOURCE_DATA = _MESSAGE_RESOURCE_DATA /* winnt.h:7811:7 */
-type PMESSAGE_RESOURCE_DATA = uintptr               /* winnt.h:7811:29 */
+type MESSAGE_RESOURCE_DATA = _MESSAGE_RESOURCE_DATA /* winnt.h:7930:7 */
+type PMESSAGE_RESOURCE_DATA = uintptr               /* winnt.h:7930:29 */
 
 type _OSVERSIONINFOA = struct {
 	dwOSVersionInfoSize DWORD
@@ -18885,11 +19056,11 @@ type _OSVERSIONINFOA = struct {
 	dwBuildNumber       DWORD
 	dwPlatformId        DWORD
 	szCSDVersion        [128]CHAR
-} /* winnt.h:7813:13 */
+} /* winnt.h:7932:13 */
 
-type OSVERSIONINFOA = _OSVERSIONINFOA /* winnt.h:7820:7 */
-type POSVERSIONINFOA = uintptr        /* winnt.h:7820:22 */
-type LPOSVERSIONINFOA = uintptr       /* winnt.h:7820:39 */
+type OSVERSIONINFOA = _OSVERSIONINFOA /* winnt.h:7939:7 */
+type POSVERSIONINFOA = uintptr        /* winnt.h:7939:22 */
+type LPOSVERSIONINFOA = uintptr       /* winnt.h:7939:39 */
 
 type _OSVERSIONINFOW = struct {
 	dwOSVersionInfoSize DWORD
@@ -18898,17 +19069,17 @@ type _OSVERSIONINFOW = struct {
 	dwBuildNumber       DWORD
 	dwPlatformId        DWORD
 	szCSDVersion        [128]WCHAR
-} /* winnt.h:7822:13 */
+} /* winnt.h:7941:13 */
 
-type OSVERSIONINFOW = _OSVERSIONINFOW     /* winnt.h:7829:7 */
-type POSVERSIONINFOW = uintptr            /* winnt.h:7829:22 */
-type LPOSVERSIONINFOW = uintptr           /* winnt.h:7829:39 */
-type RTL_OSVERSIONINFOW = _OSVERSIONINFOW /* winnt.h:7829:57 */
-type PRTL_OSVERSIONINFOW = uintptr        /* winnt.h:7829:76 */
+type OSVERSIONINFOW = _OSVERSIONINFOW     /* winnt.h:7948:7 */
+type POSVERSIONINFOW = uintptr            /* winnt.h:7948:22 */
+type LPOSVERSIONINFOW = uintptr           /* winnt.h:7948:39 */
+type RTL_OSVERSIONINFOW = _OSVERSIONINFOW /* winnt.h:7948:57 */
+type PRTL_OSVERSIONINFOW = uintptr        /* winnt.h:7948:76 */
 
-type OSVERSIONINFO = OSVERSIONINFOA     /* winnt.h:7831:5 */
-type POSVERSIONINFO = POSVERSIONINFOA   /* winnt.h:7832:5 */
-type LPOSVERSIONINFO = LPOSVERSIONINFOA /* winnt.h:7833:5 */
+type OSVERSIONINFO = OSVERSIONINFOA     /* winnt.h:7950:5 */
+type POSVERSIONINFO = POSVERSIONINFOA   /* winnt.h:7951:5 */
+type LPOSVERSIONINFO = LPOSVERSIONINFOA /* winnt.h:7952:5 */
 
 type _OSVERSIONINFOEXA = struct {
 	dwOSVersionInfoSize DWORD
@@ -18922,11 +19093,11 @@ type _OSVERSIONINFOEXA = struct {
 	wSuiteMask          WORD
 	wProductType        BYTE
 	wReserved           BYTE
-} /* winnt.h:7835:13 */
+} /* winnt.h:7954:13 */
 
-type OSVERSIONINFOEXA = _OSVERSIONINFOEXA /* winnt.h:7847:7 */
-type POSVERSIONINFOEXA = uintptr          /* winnt.h:7847:24 */
-type LPOSVERSIONINFOEXA = uintptr         /* winnt.h:7847:43 */
+type OSVERSIONINFOEXA = _OSVERSIONINFOEXA /* winnt.h:7966:7 */
+type POSVERSIONINFOEXA = uintptr          /* winnt.h:7966:24 */
+type LPOSVERSIONINFOEXA = uintptr         /* winnt.h:7966:43 */
 
 type _OSVERSIONINFOEXW = struct {
 	dwOSVersionInfoSize DWORD
@@ -18940,24 +19111,24 @@ type _OSVERSIONINFOEXW = struct {
 	wSuiteMask          WORD
 	wProductType        BYTE
 	wReserved           BYTE
-} /* winnt.h:7849:13 */
+} /* winnt.h:7968:13 */
 
-type OSVERSIONINFOEXW = _OSVERSIONINFOEXW     /* winnt.h:7861:7 */
-type POSVERSIONINFOEXW = uintptr              /* winnt.h:7861:24 */
-type LPOSVERSIONINFOEXW = uintptr             /* winnt.h:7861:43 */
-type RTL_OSVERSIONINFOEXW = _OSVERSIONINFOEXW /* winnt.h:7861:63 */
-type PRTL_OSVERSIONINFOEXW = uintptr          /* winnt.h:7861:84 */
+type OSVERSIONINFOEXW = _OSVERSIONINFOEXW     /* winnt.h:7980:7 */
+type POSVERSIONINFOEXW = uintptr              /* winnt.h:7980:24 */
+type LPOSVERSIONINFOEXW = uintptr             /* winnt.h:7980:43 */
+type RTL_OSVERSIONINFOEXW = _OSVERSIONINFOEXW /* winnt.h:7980:63 */
+type PRTL_OSVERSIONINFOEXW = uintptr          /* winnt.h:7980:84 */
 
-type OSVERSIONINFOEX = OSVERSIONINFOEXA     /* winnt.h:7863:5 */
-type POSVERSIONINFOEX = POSVERSIONINFOEXA   /* winnt.h:7864:5 */
-type LPOSVERSIONINFOEX = LPOSVERSIONINFOEXA /* winnt.h:7865:5 */
+type OSVERSIONINFOEX = OSVERSIONINFOEXA     /* winnt.h:7982:5 */
+type POSVERSIONINFOEX = POSVERSIONINFOEXA   /* winnt.h:7983:5 */
+type LPOSVERSIONINFOEX = LPOSVERSIONINFOEXA /* winnt.h:7984:5 */
 
-type RTL_UMS_THREAD_INFO_CLASS = uint32   /* winnt.h:7918:7 */
-type PRTL_UMS_THREAD_INFO_CLASS = uintptr /* winnt.h:7918:33 */
+type RTL_UMS_THREAD_INFO_CLASS = uint32   /* winnt.h:8037:7 */
+type PRTL_UMS_THREAD_INFO_CLASS = uintptr /* winnt.h:8037:33 */
 
-type RTL_UMS_SCHEDULER_REASON = uint32        /* winnt.h:7924:7 */
-type PRTL_UMS_SCHEDULER_REASON = uintptr      /* winnt.h:7924:32 */
-type PRTL_UMS_SCHEDULER_ENTRY_POINT = uintptr /* winnt.h:7927:43 */
+type RTL_UMS_SCHEDULER_REASON = uint32        /* winnt.h:8043:7 */
+type PRTL_UMS_SCHEDULER_REASON = uintptr      /* winnt.h:8043:32 */
+type PRTL_UMS_SCHEDULER_ENTRY_POINT = uintptr /* winnt.h:8046:43 */
 
 type _RTL_CRITICAL_SECTION_DEBUG = struct {
 	Type                      WORD
@@ -18970,7 +19141,7 @@ type _RTL_CRITICAL_SECTION_DEBUG = struct {
 	Flags                     DWORD
 	CreatorBackTraceIndexHigh WORD
 	SpareWORD                 WORD
-} /* winnt.h:7947:13 */
+} /* winnt.h:8066:13 */
 
 type _RTL_CRITICAL_SECTION = struct {
 	DebugInfo      PRTL_CRITICAL_SECTION_DEBUG
@@ -18979,63 +19150,63 @@ type _RTL_CRITICAL_SECTION = struct {
 	OwningThread   HANDLE
 	LockSemaphore  HANDLE
 	SpinCount      ULONG_PTR
-} /* winnt.h:7947:13 */
+} /* winnt.h:8066:13 */
 
-type RTL_CRITICAL_SECTION_DEBUG = _RTL_CRITICAL_SECTION_DEBUG /* winnt.h:7957:7 */
-type PRTL_CRITICAL_SECTION_DEBUG = uintptr                    /* winnt.h:7957:34 */
-type RTL_RESOURCE_DEBUG = _RTL_CRITICAL_SECTION_DEBUG         /* winnt.h:7957:63 */
-type PRTL_RESOURCE_DEBUG = uintptr                            /* winnt.h:7957:82 */
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type RTL_CRITICAL_SECTION = _RTL_CRITICAL_SECTION /* winnt.h:7981:7 */
-type PRTL_CRITICAL_SECTION = uintptr              /* winnt.h:7981:28 */
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-type _RTL_SRWLOCK = struct{ Ptr PVOID } /* winnt.h:7984:13 */
+type RTL_CRITICAL_SECTION_DEBUG = _RTL_CRITICAL_SECTION_DEBUG /* winnt.h:8076:7 */
+type PRTL_CRITICAL_SECTION_DEBUG = uintptr                    /* winnt.h:8076:34 */
+type RTL_RESOURCE_DEBUG = _RTL_CRITICAL_SECTION_DEBUG         /* winnt.h:8076:63 */
+type PRTL_RESOURCE_DEBUG = uintptr                            /* winnt.h:8076:82 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
+type RTL_CRITICAL_SECTION = _RTL_CRITICAL_SECTION /* winnt.h:8100:7 */
+type PRTL_CRITICAL_SECTION = uintptr              /* winnt.h:8100:28 */
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type RTL_SRWLOCK = _RTL_SRWLOCK                    /* winnt.h:7984:48 */
-type PRTL_SRWLOCK = uintptr                        /* winnt.h:7984:60 */
-type _RTL_CONDITION_VARIABLE = struct{ Ptr PVOID } /* winnt.h:7985:13 */
+type _RTL_SRWLOCK = struct{ Ptr PVOID } /* winnt.h:8103:13 */
 
-type RTL_CONDITION_VARIABLE = _RTL_CONDITION_VARIABLE /* winnt.h:7985:59 */
-type PRTL_CONDITION_VARIABLE = uintptr                /* winnt.h:7985:82 */
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type PAPCFUNC = uintptr                    /* winnt.h:7992:18 */
-type PVECTORED_EXCEPTION_HANDLER = uintptr /* winnt.h:7993:18 */
+type RTL_SRWLOCK = _RTL_SRWLOCK                    /* winnt.h:8103:48 */
+type PRTL_SRWLOCK = uintptr                        /* winnt.h:8103:60 */
+type _RTL_CONDITION_VARIABLE = struct{ Ptr PVOID } /* winnt.h:8104:13 */
 
-type HEAP_INFORMATION_CLASS = uint32 /* winnt.h:7998:7 */
+type RTL_CONDITION_VARIABLE = _RTL_CONDITION_VARIABLE /* winnt.h:8104:59 */
+type PRTL_CONDITION_VARIABLE = uintptr                /* winnt.h:8104:82 */
 
-type WORKERCALLBACKFUNC = uintptr                  /* winnt.h:8000:18 */
-type APC_CALLBACK_FUNCTION = uintptr               /* winnt.h:8001:18 */
-type WAITORTIMERCALLBACKFUNC = uintptr             /* winnt.h:8002:18 */
-type WAITORTIMERCALLBACK = WAITORTIMERCALLBACKFUNC /* winnt.h:8003:37 */
-type PFLS_CALLBACK_FUNCTION = uintptr              /* winnt.h:8004:18 */
-type PSECURE_MEMORY_CACHE_CALLBACK = uintptr       /* winnt.h:8005:21 */
+type PAPCFUNC = uintptr                    /* winnt.h:8111:18 */
+type PVECTORED_EXCEPTION_HANDLER = uintptr /* winnt.h:8112:18 */
 
-type ACTIVATION_CONTEXT_INFO_CLASS = uint32 /* winnt.h:8034:7 */
+type HEAP_INFORMATION_CLASS = uint32 /* winnt.h:8117:7 */
 
-type ACTCTX_REQUESTED_RUN_LEVEL = uint32 /* winnt.h:8042:7 */
+type WORKERCALLBACKFUNC = uintptr                  /* winnt.h:8119:18 */
+type APC_CALLBACK_FUNCTION = uintptr               /* winnt.h:8120:18 */
+type WAITORTIMERCALLBACKFUNC = uintptr             /* winnt.h:8121:18 */
+type WAITORTIMERCALLBACK = WAITORTIMERCALLBACKFUNC /* winnt.h:8122:37 */
+type PFLS_CALLBACK_FUNCTION = uintptr              /* winnt.h:8123:18 */
+type PSECURE_MEMORY_CACHE_CALLBACK = uintptr       /* winnt.h:8124:21 */
 
-type ACTCTX_COMPATIBILITY_ELEMENT_TYPE = uint32 /* winnt.h:8048:7 */
+type ACTIVATION_CONTEXT_INFO_CLASS = uint32 /* winnt.h:8153:7 */
+
+type ACTCTX_REQUESTED_RUN_LEVEL = uint32 /* winnt.h:8161:7 */
+
+type ACTCTX_COMPATIBILITY_ELEMENT_TYPE = uint32 /* winnt.h:8167:7 */
 
 type _ACTIVATION_CONTEXT_QUERY_INDEX = struct {
 	ulAssemblyIndex       DWORD
 	ulFileIndexInAssembly DWORD
-} /* winnt.h:8050:13 */
+} /* winnt.h:8169:13 */
 
-type ACTIVATION_CONTEXT_QUERY_INDEX = _ACTIVATION_CONTEXT_QUERY_INDEX /* winnt.h:8053:7 */
-type PACTIVATION_CONTEXT_QUERY_INDEX = uintptr                        /* winnt.h:8053:38 */
+type ACTIVATION_CONTEXT_QUERY_INDEX = _ACTIVATION_CONTEXT_QUERY_INDEX /* winnt.h:8172:7 */
+type PACTIVATION_CONTEXT_QUERY_INDEX = uintptr                        /* winnt.h:8172:38 */
 
 type _ASSEMBLY_FILE_DETAILED_INFORMATION = struct {
 	ulFlags          DWORD
@@ -19044,10 +19215,10 @@ type _ASSEMBLY_FILE_DETAILED_INFORMATION = struct {
 	_                [4]byte
 	lpFileName       PCWSTR
 	lpFilePath       PCWSTR
-} /* winnt.h:8055:13 */
+} /* winnt.h:8174:13 */
 
-type ASSEMBLY_FILE_DETAILED_INFORMATION = _ASSEMBLY_FILE_DETAILED_INFORMATION /* winnt.h:8061:7 */
-type PASSEMBLY_FILE_DETAILED_INFORMATION = uintptr                            /* winnt.h:8061:42 */
+type ASSEMBLY_FILE_DETAILED_INFORMATION = _ASSEMBLY_FILE_DETAILED_INFORMATION /* winnt.h:8180:7 */
+type PASSEMBLY_FILE_DETAILED_INFORMATION = uintptr                            /* winnt.h:8180:42 */
 
 type _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = struct {
 	ulFlags                           DWORD
@@ -19070,48 +19241,48 @@ type _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = struct {
 	lpAssemblyDirectoryName           PCWSTR
 	ulFileCount                       DWORD
 	_                                 [4]byte
-} /* winnt.h:8063:13 */
+} /* winnt.h:8182:13 */
 
-type ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION /* winnt.h:8083:7 */
-type PACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = uintptr                                          /* winnt.h:8083:56 */
+type ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION /* winnt.h:8202:7 */
+type PACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = uintptr                                          /* winnt.h:8202:56 */
 
 type _ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = struct {
 	ulFlags  DWORD
 	RunLevel ACTCTX_REQUESTED_RUN_LEVEL
 	UiAccess DWORD
-} /* winnt.h:8085:13 */
+} /* winnt.h:8204:13 */
 
-type ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = _ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION /* winnt.h:8089:7 */
-type PACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = uintptr                                  /* winnt.h:8089:48 */
+type ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = _ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION /* winnt.h:8208:7 */
+type PACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = uintptr                                  /* winnt.h:8208:48 */
 
 type _COMPATIBILITY_CONTEXT_ELEMENT = struct {
 	Id   GUID
 	Type ACTCTX_COMPATIBILITY_ELEMENT_TYPE
-} /* winnt.h:8091:13 */
+} /* winnt.h:8210:13 */
 
-type COMPATIBILITY_CONTEXT_ELEMENT = _COMPATIBILITY_CONTEXT_ELEMENT /* winnt.h:8094:7 */
-type PCOMPATIBILITY_CONTEXT_ELEMENT = uintptr                       /* winnt.h:8094:37 */
+type COMPATIBILITY_CONTEXT_ELEMENT = _COMPATIBILITY_CONTEXT_ELEMENT /* winnt.h:8213:7 */
+type PCOMPATIBILITY_CONTEXT_ELEMENT = uintptr                       /* winnt.h:8213:37 */
 
 //Vista: {e2011457-1546-43c5-a5fe-008deee3d3f0}
 //Seven: {35138b9a-5d96-4fbd-8e2d-a2440225f93a}
 type _ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = struct {
 	_            [0]uint32
 	ElementCount DWORD
-} /* winnt.h:8098:13 */
+} /* winnt.h:8217:13 */
 
 //Vista: {e2011457-1546-43c5-a5fe-008deee3d3f0}
 //Seven: {35138b9a-5d96-4fbd-8e2d-a2440225f93a}
-type ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = _ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION /* winnt.h:8101:7 */
-type PACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = uintptr                                      /* winnt.h:8101:52 */
+type ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = _ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION /* winnt.h:8220:7 */
+type PACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = uintptr                                      /* winnt.h:8220:52 */
 
 type _SUPPORTED_OS_INFO = struct {
 	OsCount         WORD
 	MitigationExist WORD
 	OsList          [4]WORD
-} /* winnt.h:8105:13 */
+} /* winnt.h:8224:13 */
 
-type SUPPORTED_OS_INFO = _SUPPORTED_OS_INFO /* winnt.h:8109:7 */
-type PSUPPORTED_OS_INFO = uintptr           /* winnt.h:8109:25 */
+type SUPPORTED_OS_INFO = _SUPPORTED_OS_INFO /* winnt.h:8228:7 */
+type PSUPPORTED_OS_INFO = uintptr           /* winnt.h:8228:25 */
 
 type _ACTIVATION_CONTEXT_DETAILED_INFORMATION = struct {
 	dwFlags                      DWORD
@@ -19127,31 +19298,31 @@ type _ACTIVATION_CONTEXT_DETAILED_INFORMATION = struct {
 	lpRootManifestPath           PCWSTR
 	lpRootConfigurationPath      PCWSTR
 	lpAppDirPath                 PCWSTR
-} /* winnt.h:8111:13 */
+} /* winnt.h:8230:13 */
 
-type ACTIVATION_CONTEXT_DETAILED_INFORMATION = _ACTIVATION_CONTEXT_DETAILED_INFORMATION /* winnt.h:8124:7 */
-type PACTIVATION_CONTEXT_DETAILED_INFORMATION = uintptr                                 /* winnt.h:8124:47 */
+type ACTIVATION_CONTEXT_DETAILED_INFORMATION = _ACTIVATION_CONTEXT_DETAILED_INFORMATION /* winnt.h:8243:7 */
+type PACTIVATION_CONTEXT_DETAILED_INFORMATION = uintptr                                 /* winnt.h:8243:47 */
 
-type PCACTIVATION_CONTEXT_QUERY_INDEX = uintptr                   /* winnt.h:8126:58 */
-type PCASSEMBLY_FILE_DETAILED_INFORMATION = uintptr               /* winnt.h:8127:54 */
-type PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = uintptr /* winnt.h:8128:76 */
-type PCACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = uintptr         /* winnt.h:8129:68 */
-type PCCOMPATIBILITY_CONTEXT_ELEMENT = uintptr                    /* winnt.h:8130:57 */
-type PCACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = uintptr     /* winnt.h:8131:72 */
-type PCACTIVATION_CONTEXT_DETAILED_INFORMATION = uintptr          /* winnt.h:8132:67 */
+type PCACTIVATION_CONTEXT_QUERY_INDEX = uintptr                   /* winnt.h:8245:58 */
+type PCASSEMBLY_FILE_DETAILED_INFORMATION = uintptr               /* winnt.h:8246:54 */
+type PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION = uintptr /* winnt.h:8247:76 */
+type PCACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION = uintptr         /* winnt.h:8248:68 */
+type PCCOMPATIBILITY_CONTEXT_ELEMENT = uintptr                    /* winnt.h:8249:57 */
+type PCACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION = uintptr     /* winnt.h:8250:72 */
+type PCACTIVATION_CONTEXT_DETAILED_INFORMATION = uintptr          /* winnt.h:8251:67 */
 
-type RTL_VERIFIER_DLL_LOAD_CALLBACK = uintptr      /* winnt.h:8149:18 */
-type RTL_VERIFIER_DLL_UNLOAD_CALLBACK = uintptr    /* winnt.h:8150:18 */
-type RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK = uintptr /* winnt.h:8151:18 */
+type RTL_VERIFIER_DLL_LOAD_CALLBACK = uintptr      /* winnt.h:8268:18 */
+type RTL_VERIFIER_DLL_UNLOAD_CALLBACK = uintptr    /* winnt.h:8269:18 */
+type RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK = uintptr /* winnt.h:8270:18 */
 
 type _RTL_VERIFIER_THUNK_DESCRIPTOR = struct {
 	ThunkName       PCHAR
 	ThunkOldAddress PVOID
 	ThunkNewAddress PVOID
-} /* winnt.h:8153:13 */
+} /* winnt.h:8272:13 */
 
-type RTL_VERIFIER_THUNK_DESCRIPTOR = _RTL_VERIFIER_THUNK_DESCRIPTOR /* winnt.h:8157:7 */
-type PRTL_VERIFIER_THUNK_DESCRIPTOR = uintptr                       /* winnt.h:8157:37 */
+type RTL_VERIFIER_THUNK_DESCRIPTOR = _RTL_VERIFIER_THUNK_DESCRIPTOR /* winnt.h:8276:7 */
+type PRTL_VERIFIER_THUNK_DESCRIPTOR = uintptr                       /* winnt.h:8276:37 */
 
 type _RTL_VERIFIER_DLL_DESCRIPTOR = struct {
 	DllName    PWCHAR
@@ -19159,10 +19330,10 @@ type _RTL_VERIFIER_DLL_DESCRIPTOR = struct {
 	_          [4]byte
 	DllAddress PVOID
 	DllThunks  PRTL_VERIFIER_THUNK_DESCRIPTOR
-} /* winnt.h:8159:13 */
+} /* winnt.h:8278:13 */
 
-type RTL_VERIFIER_DLL_DESCRIPTOR = _RTL_VERIFIER_DLL_DESCRIPTOR /* winnt.h:8164:7 */
-type PRTL_VERIFIER_DLL_DESCRIPTOR = uintptr                     /* winnt.h:8164:35 */
+type RTL_VERIFIER_DLL_DESCRIPTOR = _RTL_VERIFIER_DLL_DESCRIPTOR /* winnt.h:8283:7 */
+type PRTL_VERIFIER_DLL_DESCRIPTOR = uintptr                     /* winnt.h:8283:35 */
 
 type _RTL_VERIFIER_PROVIDER_DESCRIPTOR = struct {
 	Length                        DWORD
@@ -19177,19 +19348,19 @@ type _RTL_VERIFIER_PROVIDER_DESCRIPTOR = struct {
 	RtlpDebugPageHeapCreate       PVOID
 	RtlpDebugPageHeapDestroy      PVOID
 	ProviderNtdllHeapFreeCallback RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK
-} /* winnt.h:8166:13 */
+} /* winnt.h:8285:13 */
 
-type RTL_VERIFIER_PROVIDER_DESCRIPTOR = _RTL_VERIFIER_PROVIDER_DESCRIPTOR /* winnt.h:8178:7 */
-type PRTL_VERIFIER_PROVIDER_DESCRIPTOR = uintptr                          /* winnt.h:8178:40 */
+type RTL_VERIFIER_PROVIDER_DESCRIPTOR = _RTL_VERIFIER_PROVIDER_DESCRIPTOR /* winnt.h:8297:7 */
+type PRTL_VERIFIER_PROVIDER_DESCRIPTOR = uintptr                          /* winnt.h:8297:40 */
 
 type _HARDWARE_COUNTER_DATA = struct {
 	Type     HARDWARE_COUNTER_TYPE
 	Reserved DWORD
 	Value    DWORD64
-} /* winnt.h:8291:13 */
+} /* winnt.h:8410:13 */
 
-type HARDWARE_COUNTER_DATA = _HARDWARE_COUNTER_DATA /* winnt.h:8295:7 */
-type PHARDWARE_COUNTER_DATA = uintptr               /* winnt.h:8295:29 */
+type HARDWARE_COUNTER_DATA = _HARDWARE_COUNTER_DATA /* winnt.h:8414:7 */
+type PHARDWARE_COUNTER_DATA = uintptr               /* winnt.h:8414:29 */
 
 type _PERFORMANCE_DATA = struct {
 	Size               WORD
@@ -19201,10 +19372,10 @@ type _PERFORMANCE_DATA = struct {
 	RetryCount         DWORD
 	Reserved           DWORD
 	HwCounters         [16]HARDWARE_COUNTER_DATA
-} /* winnt.h:8297:13 */
+} /* winnt.h:8416:13 */
 
-type PERFORMANCE_DATA = _PERFORMANCE_DATA /* winnt.h:8307:7 */
-type PPERFORMANCE_DATA = uintptr          /* winnt.h:8307:24 */
+type PERFORMANCE_DATA = _PERFORMANCE_DATA /* winnt.h:8426:7 */
+type PPERFORMANCE_DATA = uintptr          /* winnt.h:8426:24 */
 
 type _EVENTLOGRECORD = struct {
 	Length              DWORD
@@ -19223,72 +19394,72 @@ type _EVENTLOGRECORD = struct {
 	UserSidOffset       DWORD
 	DataLength          DWORD
 	DataOffset          DWORD
-} /* winnt.h:8338:13 */
+} /* winnt.h:8457:13 */
 
-type EVENTLOGRECORD = _EVENTLOGRECORD /* winnt.h:8355:7 */
-type PEVENTLOGRECORD = uintptr        /* winnt.h:8355:22 */
+type EVENTLOGRECORD = _EVENTLOGRECORD /* winnt.h:8474:7 */
+type PEVENTLOGRECORD = uintptr        /* winnt.h:8474:22 */
 
 type _EVENTSFORLOGFILE = struct {
 	_                [0]uint32
 	ulSize           DWORD
 	szLogicalLogFile [256]WCHAR
 	ulNumRecords     DWORD
-} /* winnt.h:8359:13 */
+} /* winnt.h:8478:13 */
 
-type EVENTSFORLOGFILE = _EVENTSFORLOGFILE /* winnt.h:8364:7 */
-type PEVENTSFORLOGFILE = uintptr          /* winnt.h:8364:24 */
+type EVENTSFORLOGFILE = _EVENTSFORLOGFILE /* winnt.h:8483:7 */
+type PEVENTSFORLOGFILE = uintptr          /* winnt.h:8483:24 */
 
 type _PACKEDEVENTINFO = struct {
 	_                     [0]uint32
 	ulSize                DWORD
 	ulNumEventsForLogFile DWORD
-} /* winnt.h:8366:13 */
+} /* winnt.h:8485:13 */
 
-type PACKEDEVENTINFO = _PACKEDEVENTINFO /* winnt.h:8370:7 */
-type PPACKEDEVENTINFO = uintptr         /* winnt.h:8370:23 */
+type PACKEDEVENTINFO = _PACKEDEVENTINFO /* winnt.h:8489:7 */
+type PPACKEDEVENTINFO = uintptr         /* winnt.h:8489:23 */
 
-type SERVICE_NODE_TYPE = uint32 /* winnt.h:8468:7 */
+type SERVICE_NODE_TYPE = uint32 /* winnt.h:8587:7 */
 
-type SERVICE_LOAD_TYPE = uint32 /* winnt.h:8473:7 */
+type SERVICE_LOAD_TYPE = uint32 /* winnt.h:8592:7 */
 
-type SERVICE_ERROR_TYPE = uint32 /* winnt.h:8477:7 */
+type SERVICE_ERROR_TYPE = uint32 /* winnt.h:8596:7 */
 
 type _TAPE_ERASE = struct {
 	Type      DWORD
 	Immediate BOOLEAN
 	_         [3]byte
-} /* winnt.h:8496:13 */
+} /* winnt.h:8615:13 */
 
-type TAPE_ERASE = _TAPE_ERASE /* winnt.h:8499:7 */
-type PTAPE_ERASE = uintptr    /* winnt.h:8499:18 */
+type TAPE_ERASE = _TAPE_ERASE /* winnt.h:8618:7 */
+type PTAPE_ERASE = uintptr    /* winnt.h:8618:18 */
 
 type _TAPE_PREPARE = struct {
 	Operation DWORD
 	Immediate BOOLEAN
 	_         [3]byte
-} /* winnt.h:8508:13 */
+} /* winnt.h:8627:13 */
 
-type TAPE_PREPARE = _TAPE_PREPARE /* winnt.h:8511:7 */
-type PTAPE_PREPARE = uintptr      /* winnt.h:8511:20 */
+type TAPE_PREPARE = _TAPE_PREPARE /* winnt.h:8630:7 */
+type PTAPE_PREPARE = uintptr      /* winnt.h:8630:20 */
 
 type _TAPE_WRITE_MARKS = struct {
 	Type      DWORD
 	Count     DWORD
 	Immediate BOOLEAN
 	_         [3]byte
-} /* winnt.h:8518:13 */
+} /* winnt.h:8637:13 */
 
-type TAPE_WRITE_MARKS = _TAPE_WRITE_MARKS /* winnt.h:8522:7 */
-type PTAPE_WRITE_MARKS = uintptr          /* winnt.h:8522:24 */
+type TAPE_WRITE_MARKS = _TAPE_WRITE_MARKS /* winnt.h:8641:7 */
+type PTAPE_WRITE_MARKS = uintptr          /* winnt.h:8641:24 */
 
 type _TAPE_GET_POSITION = struct {
 	Type      DWORD
 	Partition DWORD
 	Offset    LARGE_INTEGER
-} /* winnt.h:8528:13 */
+} /* winnt.h:8647:13 */
 
-type TAPE_GET_POSITION = _TAPE_GET_POSITION /* winnt.h:8532:7 */
-type PTAPE_GET_POSITION = uintptr           /* winnt.h:8532:25 */
+type TAPE_GET_POSITION = _TAPE_GET_POSITION /* winnt.h:8651:7 */
+type PTAPE_GET_POSITION = uintptr           /* winnt.h:8651:25 */
 
 type _TAPE_SET_POSITION = struct {
 	Method    DWORD
@@ -19296,10 +19467,10 @@ type _TAPE_SET_POSITION = struct {
 	Offset    LARGE_INTEGER
 	Immediate BOOLEAN
 	_         [7]byte
-} /* winnt.h:8545:13 */
+} /* winnt.h:8664:13 */
 
-type TAPE_SET_POSITION = _TAPE_SET_POSITION /* winnt.h:8550:7 */
-type PTAPE_SET_POSITION = uintptr           /* winnt.h:8550:25 */
+type TAPE_SET_POSITION = _TAPE_SET_POSITION /* winnt.h:8669:7 */
+type PTAPE_SET_POSITION = uintptr           /* winnt.h:8669:25 */
 
 type _TAPE_GET_DRIVE_PARAMETERS = struct {
 	ECC                   BOOLEAN
@@ -19313,10 +19484,10 @@ type _TAPE_GET_DRIVE_PARAMETERS = struct {
 	FeaturesLow           DWORD
 	FeaturesHigh          DWORD
 	EOTWarningZoneSize    DWORD
-} /* winnt.h:8619:13 */
+} /* winnt.h:8738:13 */
 
-type TAPE_GET_DRIVE_PARAMETERS = _TAPE_GET_DRIVE_PARAMETERS /* winnt.h:8631:7 */
-type PTAPE_GET_DRIVE_PARAMETERS = uintptr                   /* winnt.h:8631:33 */
+type TAPE_GET_DRIVE_PARAMETERS = _TAPE_GET_DRIVE_PARAMETERS /* winnt.h:8750:7 */
+type PTAPE_GET_DRIVE_PARAMETERS = uintptr                   /* winnt.h:8750:33 */
 
 type _TAPE_SET_DRIVE_PARAMETERS = struct {
 	ECC                BOOLEAN
@@ -19324,10 +19495,10 @@ type _TAPE_SET_DRIVE_PARAMETERS = struct {
 	DataPadding        BOOLEAN
 	ReportSetmarks     BOOLEAN
 	EOTWarningZoneSize DWORD
-} /* winnt.h:8633:13 */
+} /* winnt.h:8752:13 */
 
-type TAPE_SET_DRIVE_PARAMETERS = _TAPE_SET_DRIVE_PARAMETERS /* winnt.h:8639:7 */
-type PTAPE_SET_DRIVE_PARAMETERS = uintptr                   /* winnt.h:8639:33 */
+type TAPE_SET_DRIVE_PARAMETERS = _TAPE_SET_DRIVE_PARAMETERS /* winnt.h:8758:7 */
+type PTAPE_SET_DRIVE_PARAMETERS = uintptr                   /* winnt.h:8758:33 */
 
 type _TAPE_GET_MEDIA_PARAMETERS = struct {
 	Capacity       LARGE_INTEGER
@@ -19336,53 +19507,53 @@ type _TAPE_GET_MEDIA_PARAMETERS = struct {
 	PartitionCount DWORD
 	WriteProtected BOOLEAN
 	_              [7]byte
-} /* winnt.h:8641:13 */
+} /* winnt.h:8760:13 */
 
-type TAPE_GET_MEDIA_PARAMETERS = _TAPE_GET_MEDIA_PARAMETERS /* winnt.h:8647:7 */
-type PTAPE_GET_MEDIA_PARAMETERS = uintptr                   /* winnt.h:8647:33 */
+type TAPE_GET_MEDIA_PARAMETERS = _TAPE_GET_MEDIA_PARAMETERS /* winnt.h:8766:7 */
+type PTAPE_GET_MEDIA_PARAMETERS = uintptr                   /* winnt.h:8766:33 */
 
-type _TAPE_SET_MEDIA_PARAMETERS = struct{ BlockSize DWORD } /* winnt.h:8649:13 */
+type _TAPE_SET_MEDIA_PARAMETERS = struct{ BlockSize DWORD } /* winnt.h:8768:13 */
 
-type TAPE_SET_MEDIA_PARAMETERS = _TAPE_SET_MEDIA_PARAMETERS /* winnt.h:8651:7 */
-type PTAPE_SET_MEDIA_PARAMETERS = uintptr                   /* winnt.h:8651:33 */
+type TAPE_SET_MEDIA_PARAMETERS = _TAPE_SET_MEDIA_PARAMETERS /* winnt.h:8770:7 */
+type PTAPE_SET_MEDIA_PARAMETERS = uintptr                   /* winnt.h:8770:33 */
 
 type _TAPE_CREATE_PARTITION = struct {
 	Method DWORD
 	Count  DWORD
 	Size   DWORD
-} /* winnt.h:8657:13 */
+} /* winnt.h:8776:13 */
 
-type TAPE_CREATE_PARTITION = _TAPE_CREATE_PARTITION /* winnt.h:8661:7 */
-type PTAPE_CREATE_PARTITION = uintptr               /* winnt.h:8661:29 */
+type TAPE_CREATE_PARTITION = _TAPE_CREATE_PARTITION /* winnt.h:8780:7 */
+type PTAPE_CREATE_PARTITION = uintptr               /* winnt.h:8780:29 */
 
 type _TAPE_WMI_OPERATIONS = struct {
 	Method         DWORD
 	DataBufferSize DWORD
 	DataBuffer     PVOID
-} /* winnt.h:8669:13 */
+} /* winnt.h:8788:13 */
 
-type TAPE_WMI_OPERATIONS = _TAPE_WMI_OPERATIONS /* winnt.h:8673:7 */
-type PTAPE_WMI_OPERATIONS = uintptr             /* winnt.h:8673:27 */
+type TAPE_WMI_OPERATIONS = _TAPE_WMI_OPERATIONS /* winnt.h:8792:7 */
+type PTAPE_WMI_OPERATIONS = uintptr             /* winnt.h:8792:27 */
 
-type TAPE_DRIVE_PROBLEM_TYPE = uint32 /* winnt.h:8677:7 */
+type TAPE_DRIVE_PROBLEM_TYPE = uint32 /* winnt.h:8796:7 */
 
-type TP_VERSION = DWORD              /* winnt.h:8680:17 */
-type PTP_VERSION = uintptr           /* winnt.h:8680:28 */
-type PTP_CALLBACK_INSTANCE = uintptr /* winnt.h:8681:61 */
-type PTP_SIMPLE_CALLBACK = uintptr   /* winnt.h:8682:16 */
-type PTP_POOL = uintptr              /* winnt.h:8683:35 */
+type TP_VERSION = DWORD              /* winnt.h:8799:17 */
+type PTP_VERSION = uintptr           /* winnt.h:8799:28 */
+type PTP_CALLBACK_INSTANCE = uintptr /* winnt.h:8800:61 */
+type PTP_SIMPLE_CALLBACK = uintptr   /* winnt.h:8801:16 */
+type PTP_POOL = uintptr              /* winnt.h:8802:35 */
 
-type TP_CALLBACK_PRIORITY = uint32 /* winnt.h:8691:5 */
+type TP_CALLBACK_PRIORITY = uint32 /* winnt.h:8810:5 */
 
 type _TP_POOL_STACK_INFORMATION = struct {
 	StackReserve SIZE_T
 	StackCommit  SIZE_T
-} /* winnt.h:8693:11 */
+} /* winnt.h:8812:11 */
 
-type TP_POOL_STACK_INFORMATION = _TP_POOL_STACK_INFORMATION /* winnt.h:8696:5 */
-type PTP_POOL_STACK_INFORMATION = uintptr                   /* winnt.h:8696:32 */
-type PTP_CLEANUP_GROUP = uintptr                            /* winnt.h:8698:53 */
-type PTP_CLEANUP_GROUP_CANCEL_CALLBACK = uintptr            /* winnt.h:8699:16 */
+type TP_POOL_STACK_INFORMATION = _TP_POOL_STACK_INFORMATION /* winnt.h:8815:5 */
+type PTP_POOL_STACK_INFORMATION = uintptr                   /* winnt.h:8815:32 */
+type PTP_CLEANUP_GROUP = uintptr                            /* winnt.h:8817:53 */
+type PTP_CLEANUP_GROUP_CANCEL_CALLBACK = uintptr            /* winnt.h:8818:16 */
 
 type _TP_CALLBACK_ENVIRON_V1 = struct {
 	Version                    TP_VERSION
@@ -19395,19 +19566,19 @@ type _TP_CALLBACK_ENVIRON_V1 = struct {
 	FinalizationCallback       PTP_SIMPLE_CALLBACK
 	u                          struct{ Flags DWORD }
 	_                          [4]byte
-} /* winnt.h:8723:11 */
+} /* winnt.h:8842:11 */
 
-type TP_CALLBACK_ENVIRON_V1 = _TP_CALLBACK_ENVIRON_V1 /* winnt.h:8739:5 */
-type TP_CALLBACK_ENVIRON = TP_CALLBACK_ENVIRON_V1     /* winnt.h:8740:34 */
-type PTP_CALLBACK_ENVIRON = uintptr                   /* winnt.h:8740:54 */
-type PTP_WORK = uintptr                               /* winnt.h:8743:35 */
-type PTP_WORK_CALLBACK = uintptr                      /* winnt.h:8744:16 */
-type PTP_TIMER = uintptr                              /* winnt.h:8745:37 */
-type PTP_TIMER_CALLBACK = uintptr                     /* winnt.h:8746:16 */
-type TP_WAIT_RESULT = DWORD                           /* winnt.h:8747:17 */
-type PTP_WAIT = uintptr                               /* winnt.h:8748:35 */
-type PTP_WAIT_CALLBACK = uintptr                      /* winnt.h:8749:16 */
-type PTP_IO = uintptr                                 /* winnt.h:8750:31 */
+type TP_CALLBACK_ENVIRON_V1 = _TP_CALLBACK_ENVIRON_V1 /* winnt.h:8858:5 */
+type TP_CALLBACK_ENVIRON = TP_CALLBACK_ENVIRON_V1     /* winnt.h:8859:34 */
+type PTP_CALLBACK_ENVIRON = uintptr                   /* winnt.h:8859:54 */
+type PTP_WORK = uintptr                               /* winnt.h:8862:35 */
+type PTP_WORK_CALLBACK = uintptr                      /* winnt.h:8863:16 */
+type PTP_TIMER = uintptr                              /* winnt.h:8864:37 */
+type PTP_TIMER_CALLBACK = uintptr                     /* winnt.h:8865:16 */
+type TP_WAIT_RESULT = DWORD                           /* winnt.h:8866:17 */
+type PTP_WAIT = uintptr                               /* winnt.h:8867:35 */
+type PTP_WAIT_CALLBACK = uintptr                      /* winnt.h:8868:16 */
+type PTP_IO = uintptr                                 /* winnt.h:8869:31 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -19511,50 +19682,50 @@ type KCRM_PROTOCOL_BLOB = _KCRM_PROTOCOL_BLOB /* ktmtypes.h:145:5 */
 type PKCRM_PROTOCOL_BLOB = uintptr            /* ktmtypes.h:145:24 */
 type PRKCRM_PROTOCOL_BLOB = uintptr           /* ktmtypes.h:145:45 */
 
-type TRANSACTION_OUTCOME = uint32 /* winnt.h:8882:9 */
+type TRANSACTION_OUTCOME = uint32 /* winnt.h:9001:9 */
 
-type TRANSACTION_STATE = uint32 /* winnt.h:8888:9 */
+type TRANSACTION_STATE = uint32 /* winnt.h:9007:9 */
 
 type _TRANSACTION_BASIC_INFORMATION = struct {
 	TransactionId GUID
 	State         DWORD
 	Outcome       DWORD
-} /* winnt.h:8890:15 */
+} /* winnt.h:9009:15 */
 
-type TRANSACTION_BASIC_INFORMATION = _TRANSACTION_BASIC_INFORMATION /* winnt.h:8894:9 */
-type PTRANSACTION_BASIC_INFORMATION = uintptr                       /* winnt.h:8894:39 */
+type TRANSACTION_BASIC_INFORMATION = _TRANSACTION_BASIC_INFORMATION /* winnt.h:9013:9 */
+type PTRANSACTION_BASIC_INFORMATION = uintptr                       /* winnt.h:9013:39 */
 
 type _TRANSACTIONMANAGER_BASIC_INFORMATION = struct {
 	TmIdentity   GUID
 	VirtualClock LARGE_INTEGER
-} /* winnt.h:8896:15 */
+} /* winnt.h:9015:15 */
 
-type TRANSACTIONMANAGER_BASIC_INFORMATION = _TRANSACTIONMANAGER_BASIC_INFORMATION /* winnt.h:8899:9 */
-type PTRANSACTIONMANAGER_BASIC_INFORMATION = uintptr                              /* winnt.h:8899:46 */
+type TRANSACTIONMANAGER_BASIC_INFORMATION = _TRANSACTIONMANAGER_BASIC_INFORMATION /* winnt.h:9018:9 */
+type PTRANSACTIONMANAGER_BASIC_INFORMATION = uintptr                              /* winnt.h:9018:46 */
 
-type _TRANSACTIONMANAGER_LOG_INFORMATION = struct{ LogIdentity GUID } /* winnt.h:8901:15 */
+type _TRANSACTIONMANAGER_LOG_INFORMATION = struct{ LogIdentity GUID } /* winnt.h:9020:15 */
 
-type TRANSACTIONMANAGER_LOG_INFORMATION = _TRANSACTIONMANAGER_LOG_INFORMATION /* winnt.h:8903:9 */
-type PTRANSACTIONMANAGER_LOG_INFORMATION = uintptr                            /* winnt.h:8903:44 */
+type TRANSACTIONMANAGER_LOG_INFORMATION = _TRANSACTIONMANAGER_LOG_INFORMATION /* winnt.h:9022:9 */
+type PTRANSACTIONMANAGER_LOG_INFORMATION = uintptr                            /* winnt.h:9022:44 */
 
 type _TRANSACTIONMANAGER_LOGPATH_INFORMATION = struct {
 	LogPathLength DWORD
 	LogPath       [1]WCHAR
 	_             [2]byte
-} /* winnt.h:8905:15 */
+} /* winnt.h:9024:15 */
 
-type TRANSACTIONMANAGER_LOGPATH_INFORMATION = _TRANSACTIONMANAGER_LOGPATH_INFORMATION /* winnt.h:8908:9 */
-type PTRANSACTIONMANAGER_LOGPATH_INFORMATION = uintptr                                /* winnt.h:8908:48 */
+type TRANSACTIONMANAGER_LOGPATH_INFORMATION = _TRANSACTIONMANAGER_LOGPATH_INFORMATION /* winnt.h:9027:9 */
+type PTRANSACTIONMANAGER_LOGPATH_INFORMATION = uintptr                                /* winnt.h:9027:48 */
 
-type _TRANSACTIONMANAGER_RECOVERY_INFORMATION = struct{ LastRecoveredLsn ULONGLONG } /* winnt.h:8910:15 */
+type _TRANSACTIONMANAGER_RECOVERY_INFORMATION = struct{ LastRecoveredLsn ULONGLONG } /* winnt.h:9029:15 */
 
-type TRANSACTIONMANAGER_RECOVERY_INFORMATION = _TRANSACTIONMANAGER_RECOVERY_INFORMATION /* winnt.h:8912:9 */
-type PTRANSACTIONMANAGER_RECOVERY_INFORMATION = uintptr                                 /* winnt.h:8912:49 */
+type TRANSACTIONMANAGER_RECOVERY_INFORMATION = _TRANSACTIONMANAGER_RECOVERY_INFORMATION /* winnt.h:9031:9 */
+type PTRANSACTIONMANAGER_RECOVERY_INFORMATION = uintptr                                 /* winnt.h:9031:49 */
 
-type _TRANSACTIONMANAGER_OLDEST_INFORMATION = struct{ OldestTransactionGuid GUID } /* winnt.h:8914:15 */
+type _TRANSACTIONMANAGER_OLDEST_INFORMATION = struct{ OldestTransactionGuid GUID } /* winnt.h:9033:15 */
 
-type TRANSACTIONMANAGER_OLDEST_INFORMATION = _TRANSACTIONMANAGER_OLDEST_INFORMATION /* winnt.h:8916:9 */
-type PTRANSACTIONMANAGER_OLDEST_INFORMATION = uintptr                               /* winnt.h:8916:47 */
+type TRANSACTIONMANAGER_OLDEST_INFORMATION = _TRANSACTIONMANAGER_OLDEST_INFORMATION /* winnt.h:9035:9 */
+type PTRANSACTIONMANAGER_OLDEST_INFORMATION = uintptr                               /* winnt.h:9035:47 */
 
 type _TRANSACTION_PROPERTIES_INFORMATION = struct {
 	IsolationLevel    DWORD
@@ -19564,105 +19735,105 @@ type _TRANSACTION_PROPERTIES_INFORMATION = struct {
 	DescriptionLength DWORD
 	Description       [1]WCHAR
 	_                 [6]byte
-} /* winnt.h:8918:15 */
+} /* winnt.h:9037:15 */
 
-type TRANSACTION_PROPERTIES_INFORMATION = _TRANSACTION_PROPERTIES_INFORMATION /* winnt.h:8925:9 */
-type PTRANSACTION_PROPERTIES_INFORMATION = uintptr                            /* winnt.h:8925:44 */
+type TRANSACTION_PROPERTIES_INFORMATION = _TRANSACTION_PROPERTIES_INFORMATION /* winnt.h:9044:9 */
+type PTRANSACTION_PROPERTIES_INFORMATION = uintptr                            /* winnt.h:9044:44 */
 
-type _TRANSACTION_BIND_INFORMATION = struct{ TmHandle HANDLE } /* winnt.h:8927:15 */
+type _TRANSACTION_BIND_INFORMATION = struct{ TmHandle HANDLE } /* winnt.h:9046:15 */
 
-type TRANSACTION_BIND_INFORMATION = _TRANSACTION_BIND_INFORMATION /* winnt.h:8929:9 */
-type PTRANSACTION_BIND_INFORMATION = uintptr                      /* winnt.h:8929:38 */
+type TRANSACTION_BIND_INFORMATION = _TRANSACTION_BIND_INFORMATION /* winnt.h:9048:9 */
+type PTRANSACTION_BIND_INFORMATION = uintptr                      /* winnt.h:9048:38 */
 
 type _TRANSACTION_ENLISTMENT_PAIR = struct {
 	EnlistmentId      GUID
 	ResourceManagerId GUID
-} /* winnt.h:8931:15 */
+} /* winnt.h:9050:15 */
 
-type TRANSACTION_ENLISTMENT_PAIR = _TRANSACTION_ENLISTMENT_PAIR /* winnt.h:8934:9 */
-type PTRANSACTION_ENLISTMENT_PAIR = uintptr                     /* winnt.h:8934:37 */
+type TRANSACTION_ENLISTMENT_PAIR = _TRANSACTION_ENLISTMENT_PAIR /* winnt.h:9053:9 */
+type PTRANSACTION_ENLISTMENT_PAIR = uintptr                     /* winnt.h:9053:37 */
 
 type _TRANSACTION_ENLISTMENTS_INFORMATION = struct {
 	NumberOfEnlistments DWORD
 	EnlistmentPair      [1]TRANSACTION_ENLISTMENT_PAIR
-} /* winnt.h:8936:15 */
+} /* winnt.h:9055:15 */
 
-type TRANSACTION_ENLISTMENTS_INFORMATION = _TRANSACTION_ENLISTMENTS_INFORMATION /* winnt.h:8939:9 */
-type PTRANSACTION_ENLISTMENTS_INFORMATION = uintptr                             /* winnt.h:8939:45 */
+type TRANSACTION_ENLISTMENTS_INFORMATION = _TRANSACTION_ENLISTMENTS_INFORMATION /* winnt.h:9058:9 */
+type PTRANSACTION_ENLISTMENTS_INFORMATION = uintptr                             /* winnt.h:9058:45 */
 
-type _TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION = struct{ SuperiorEnlistmentPair TRANSACTION_ENLISTMENT_PAIR } /* winnt.h:8941:15 */
+type _TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION = struct{ SuperiorEnlistmentPair TRANSACTION_ENLISTMENT_PAIR } /* winnt.h:9060:15 */
 
-type TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION = _TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION /* winnt.h:8943:9 */
-type PTRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION = uintptr                                     /* winnt.h:8943:53 */
+type TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION = _TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION /* winnt.h:9062:9 */
+type PTRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION = uintptr                                     /* winnt.h:9062:53 */
 
 type _RESOURCEMANAGER_BASIC_INFORMATION = struct {
 	ResourceManagerId GUID
 	DescriptionLength DWORD
 	Description       [1]WCHAR
 	_                 [2]byte
-} /* winnt.h:8945:15 */
+} /* winnt.h:9064:15 */
 
-type RESOURCEMANAGER_BASIC_INFORMATION = _RESOURCEMANAGER_BASIC_INFORMATION /* winnt.h:8949:9 */
-type PRESOURCEMANAGER_BASIC_INFORMATION = uintptr                           /* winnt.h:8949:43 */
+type RESOURCEMANAGER_BASIC_INFORMATION = _RESOURCEMANAGER_BASIC_INFORMATION /* winnt.h:9068:9 */
+type PRESOURCEMANAGER_BASIC_INFORMATION = uintptr                           /* winnt.h:9068:43 */
 
 type _RESOURCEMANAGER_COMPLETION_INFORMATION = struct {
 	IoCompletionPortHandle HANDLE
 	CompletionKey          ULONG_PTR
-} /* winnt.h:8951:15 */
+} /* winnt.h:9070:15 */
 
-type RESOURCEMANAGER_COMPLETION_INFORMATION = _RESOURCEMANAGER_COMPLETION_INFORMATION /* winnt.h:8954:9 */
-type PRESOURCEMANAGER_COMPLETION_INFORMATION = uintptr                                /* winnt.h:8954:48 */
+type RESOURCEMANAGER_COMPLETION_INFORMATION = _RESOURCEMANAGER_COMPLETION_INFORMATION /* winnt.h:9073:9 */
+type PRESOURCEMANAGER_COMPLETION_INFORMATION = uintptr                                /* winnt.h:9073:48 */
 
-type TRANSACTION_INFORMATION_CLASS = uint32 /* winnt.h:8963:9 */
+type TRANSACTION_INFORMATION_CLASS = uint32 /* winnt.h:9082:9 */
 
-type TRANSACTIONMANAGER_INFORMATION_CLASS = uint32 /* winnt.h:8972:9 */
+type TRANSACTIONMANAGER_INFORMATION_CLASS = uint32 /* winnt.h:9091:9 */
 
-type RESOURCEMANAGER_INFORMATION_CLASS = uint32 /* winnt.h:8977:9 */
+type RESOURCEMANAGER_INFORMATION_CLASS = uint32 /* winnt.h:9096:9 */
 
 type _ENLISTMENT_BASIC_INFORMATION = struct {
 	EnlistmentId      GUID
 	TransactionId     GUID
 	ResourceManagerId GUID
-} /* winnt.h:8979:15 */
+} /* winnt.h:9098:15 */
 
-type ENLISTMENT_BASIC_INFORMATION = _ENLISTMENT_BASIC_INFORMATION /* winnt.h:8983:9 */
-type PENLISTMENT_BASIC_INFORMATION = uintptr                      /* winnt.h:8983:38 */
+type ENLISTMENT_BASIC_INFORMATION = _ENLISTMENT_BASIC_INFORMATION /* winnt.h:9102:9 */
+type PENLISTMENT_BASIC_INFORMATION = uintptr                      /* winnt.h:9102:38 */
 
 type _ENLISTMENT_CRM_INFORMATION = struct {
 	CrmTransactionManagerId GUID
 	CrmResourceManagerId    GUID
 	CrmEnlistmentId         GUID
-} /* winnt.h:8985:15 */
+} /* winnt.h:9104:15 */
 
-type ENLISTMENT_CRM_INFORMATION = _ENLISTMENT_CRM_INFORMATION /* winnt.h:8989:9 */
-type PENLISTMENT_CRM_INFORMATION = uintptr                    /* winnt.h:8989:36 */
+type ENLISTMENT_CRM_INFORMATION = _ENLISTMENT_CRM_INFORMATION /* winnt.h:9108:9 */
+type PENLISTMENT_CRM_INFORMATION = uintptr                    /* winnt.h:9108:36 */
 
-type ENLISTMENT_INFORMATION_CLASS = uint32 /* winnt.h:8995:9 */
+type ENLISTMENT_INFORMATION_CLASS = uint32 /* winnt.h:9114:9 */
 
-type _TRANSACTION_LIST_ENTRY = struct{ UOW GUID } /* winnt.h:8997:15 */
+type _TRANSACTION_LIST_ENTRY = struct{ UOW GUID } /* winnt.h:9116:15 */
 
-type TRANSACTION_LIST_ENTRY = _TRANSACTION_LIST_ENTRY /* winnt.h:8999:9 */
-type PTRANSACTION_LIST_ENTRY = uintptr                /* winnt.h:8999:32 */
+type TRANSACTION_LIST_ENTRY = _TRANSACTION_LIST_ENTRY /* winnt.h:9118:9 */
+type PTRANSACTION_LIST_ENTRY = uintptr                /* winnt.h:9118:32 */
 
 type _TRANSACTION_LIST_INFORMATION = struct {
 	NumberOfTransactions   DWORD
 	TransactionInformation [1]TRANSACTION_LIST_ENTRY
-} /* winnt.h:9001:15 */
+} /* winnt.h:9120:15 */
 
-type TRANSACTION_LIST_INFORMATION = _TRANSACTION_LIST_INFORMATION /* winnt.h:9004:9 */
-type PTRANSACTION_LIST_INFORMATION = uintptr                      /* winnt.h:9004:38 */
+type TRANSACTION_LIST_INFORMATION = _TRANSACTION_LIST_INFORMATION /* winnt.h:9123:9 */
+type PTRANSACTION_LIST_INFORMATION = uintptr                      /* winnt.h:9123:38 */
 
-type KTMOBJECT_TYPE = uint32   /* winnt.h:9012:9 */
-type PKTMOBJECT_TYPE = uintptr /* winnt.h:9012:24 */
+type KTMOBJECT_TYPE = uint32   /* winnt.h:9131:9 */
+type PKTMOBJECT_TYPE = uintptr /* winnt.h:9131:24 */
 
 type _KTMOBJECT_CURSOR = struct {
 	LastQuery     GUID
 	ObjectIdCount DWORD
 	ObjectIds     [1]GUID
-} /* winnt.h:9014:15 */
+} /* winnt.h:9133:15 */
 
-type KTMOBJECT_CURSOR = _KTMOBJECT_CURSOR /* winnt.h:9018:9 */
-type PKTMOBJECT_CURSOR = uintptr          /* winnt.h:9018:26 */
+type KTMOBJECT_CURSOR = _KTMOBJECT_CURSOR /* winnt.h:9137:9 */
+type PKTMOBJECT_CURSOR = uintptr          /* winnt.h:9137:26 */
 
 // Field Names From (See _fields_ section)
 // FIXME: Verify these against documentation
@@ -19681,7 +19852,7 @@ type _WOW64_FLOATING_SAVE_AREA = struct {
 	DataSelector  DWORD
 	RegisterArea  [80]BYTE
 	Cr0NpxState   DWORD
-} /* winnt.h:9055:9 */
+} /* winnt.h:9174:9 */
 
 // Field Names From (See _fields_ section)
 // FIXME: Verify these against documentation
@@ -19690,8 +19861,8 @@ type _WOW64_FLOATING_SAVE_AREA = struct {
 // WOW64_FLOATING_SAVE_AREA - http://packages.python.org/winappdbg/winappdbg.win32.context_amd64.WOW64_FLOATING_SAVE_AREA-class.html
 // WOW64_CONTEXT - http://packages.python.org/winappdbg/winappdbg.win32.context_amd64.WOW64_CONTEXT-class.html
 
-type WOW64_FLOATING_SAVE_AREA = _WOW64_FLOATING_SAVE_AREA /* winnt.h:9065:3 */
-type PWOW64_FLOATING_SAVE_AREA = uintptr                  /* winnt.h:9065:29 */
+type WOW64_FLOATING_SAVE_AREA = _WOW64_FLOATING_SAVE_AREA /* winnt.h:9184:3 */
+type PWOW64_FLOATING_SAVE_AREA = uintptr                  /* winnt.h:9184:29 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -19723,14 +19894,14 @@ type _WOW64_CONTEXT = struct {
 	Esp               DWORD
 	SegSs             DWORD
 	ExtendedRegisters [512]BYTE
-} /* winnt.h:9068:9 */
+} /* winnt.h:9187:9 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type WOW64_CONTEXT = _WOW64_CONTEXT /* winnt.h:9094:3 */
-type PWOW64_CONTEXT = uintptr       /* winnt.h:9094:18 */
+type WOW64_CONTEXT = _WOW64_CONTEXT /* winnt.h:9213:3 */
+type PWOW64_CONTEXT = uintptr       /* winnt.h:9213:18 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
@@ -19748,23 +19919,23 @@ type _WOW64_LDT_ENTRY = struct {
 			BaseHi  BYTE
 		}
 	}
-} /* winnt.h:9097:9 */
+} /* winnt.h:9216:9 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type WOW64_LDT_ENTRY = _WOW64_LDT_ENTRY /* winnt.h:9120:3 */
-type PWOW64_LDT_ENTRY = uintptr         /* winnt.h:9120:20 */
+type WOW64_LDT_ENTRY = _WOW64_LDT_ENTRY /* winnt.h:9239:3 */
+type PWOW64_LDT_ENTRY = uintptr         /* winnt.h:9239:20 */
 
 type _WOW64_DESCRIPTOR_TABLE_ENTRY = struct {
 	Selector   DWORD
 	Descriptor WOW64_LDT_ENTRY
-} /* winnt.h:9122:13 */
+} /* winnt.h:9241:13 */
 
-type WOW64_DESCRIPTOR_TABLE_ENTRY = _WOW64_DESCRIPTOR_TABLE_ENTRY /* winnt.h:9125:7 */
-type PWOW64_DESCRIPTOR_TABLE_ENTRY = uintptr                      /* winnt.h:9125:36 */
+type WOW64_DESCRIPTOR_TABLE_ENTRY = _WOW64_DESCRIPTOR_TABLE_ENTRY /* winnt.h:9244:7 */
+type PWOW64_DESCRIPTOR_TABLE_ENTRY = uintptr                      /* winnt.h:9244:36 */
 
 type WPARAM = UINT_PTR  /* minwindef.h:166:20 */
 type LPARAM = LONG_PTR  /* minwindef.h:167:20 */
@@ -19833,136 +20004,148 @@ type LPFILETIME = uintptr /* minwindef.h:225:25 */
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER within this package.
 
-type HWND__ = struct{ unused int32 } /* windef.h:25:1 */
+type HWND__ = struct{ unused int32 } /* windef.h:26:1 */
 
-type HWND = uintptr                   /* windef.h:25:1 */
-type HHOOK__ = struct{ unused int32 } /* windef.h:26:1 */
+type HWND = uintptr                   /* windef.h:26:1 */
+type HHOOK__ = struct{ unused int32 } /* windef.h:27:1 */
 
-type HHOOK = uintptr /* windef.h:26:1 */
+type HHOOK = uintptr /* windef.h:27:1 */
 
-type HGDIOBJ = uintptr /* windef.h:37:16 */
+type HGDIOBJ = uintptr /* windef.h:38:16 */
 
-type HACCEL__ = struct{ unused int32 } /* windef.h:42:1 */
+type HACCEL__ = struct{ unused int32 } /* windef.h:43:1 */
 
-type HACCEL = uintptr                   /* windef.h:42:1 */
-type HBITMAP__ = struct{ unused int32 } /* windef.h:43:1 */
+type HACCEL = uintptr                   /* windef.h:43:1 */
+type HBITMAP__ = struct{ unused int32 } /* windef.h:44:1 */
 
-type HBITMAP = uintptr                 /* windef.h:43:1 */
-type HBRUSH__ = struct{ unused int32 } /* windef.h:44:1 */
+type HBITMAP = uintptr                 /* windef.h:44:1 */
+type HBRUSH__ = struct{ unused int32 } /* windef.h:45:1 */
 
-type HBRUSH = uintptr                       /* windef.h:44:1 */
-type HCOLORSPACE__ = struct{ unused int32 } /* windef.h:45:1 */
+type HBRUSH = uintptr                       /* windef.h:45:1 */
+type HCOLORSPACE__ = struct{ unused int32 } /* windef.h:46:1 */
 
-type HCOLORSPACE = uintptr          /* windef.h:45:1 */
-type HDC__ = struct{ unused int32 } /* windef.h:46:1 */
+type HCOLORSPACE = uintptr          /* windef.h:46:1 */
+type HDC__ = struct{ unused int32 } /* windef.h:47:1 */
 
-type HDC = uintptr                    /* windef.h:46:1 */
-type HGLRC__ = struct{ unused int32 } /* windef.h:47:1 */
+type HDC = uintptr                    /* windef.h:47:1 */
+type HGLRC__ = struct{ unused int32 } /* windef.h:48:1 */
 
-type HGLRC = uintptr                  /* windef.h:47:1 */
-type HDESK__ = struct{ unused int32 } /* windef.h:48:1 */
+type HGLRC = uintptr                  /* windef.h:48:1 */
+type HDESK__ = struct{ unused int32 } /* windef.h:49:1 */
 
-type HDESK = uintptr                         /* windef.h:48:1 */
-type HENHMETAFILE__ = struct{ unused int32 } /* windef.h:49:1 */
+type HDESK = uintptr                         /* windef.h:49:1 */
+type HENHMETAFILE__ = struct{ unused int32 } /* windef.h:50:1 */
 
-type HENHMETAFILE = uintptr           /* windef.h:49:1 */
-type HFONT__ = struct{ unused int32 } /* windef.h:50:1 */
+type HENHMETAFILE = uintptr           /* windef.h:50:1 */
+type HFONT__ = struct{ unused int32 } /* windef.h:51:1 */
 
-type HFONT = uintptr                  /* windef.h:50:1 */
-type HICON__ = struct{ unused int32 } /* windef.h:51:1 */
+type HFONT = uintptr                  /* windef.h:51:1 */
+type HICON__ = struct{ unused int32 } /* windef.h:52:1 */
 
-type HICON = uintptr                  /* windef.h:51:1 */
-type HMENU__ = struct{ unused int32 } /* windef.h:52:1 */
+type HICON = uintptr                  /* windef.h:52:1 */
+type HMENU__ = struct{ unused int32 } /* windef.h:53:1 */
 
-type HMENU = uintptr                     /* windef.h:52:1 */
-type HPALETTE__ = struct{ unused int32 } /* windef.h:53:1 */
+type HMENU = uintptr                     /* windef.h:53:1 */
+type HPALETTE__ = struct{ unused int32 } /* windef.h:54:1 */
 
-type HPALETTE = uintptr              /* windef.h:53:1 */
-type HPEN__ = struct{ unused int32 } /* windef.h:54:1 */
+type HPALETTE = uintptr              /* windef.h:54:1 */
+type HPEN__ = struct{ unused int32 } /* windef.h:55:1 */
 
-type HPEN = uintptr                      /* windef.h:54:1 */
-type HMONITOR__ = struct{ unused int32 } /* windef.h:55:1 */
+type HPEN = uintptr                      /* windef.h:55:1 */
+type HMONITOR__ = struct{ unused int32 } /* windef.h:56:1 */
 
-type HMONITOR = uintptr                       /* windef.h:55:1 */
-type HWINEVENTHOOK__ = struct{ unused int32 } /* windef.h:57:1 */
+type HMONITOR = uintptr                       /* windef.h:56:1 */
+type HWINEVENTHOOK__ = struct{ unused int32 } /* windef.h:58:1 */
 
-type HWINEVENTHOOK = uintptr /* windef.h:57:1 */
+type HWINEVENTHOOK = uintptr /* windef.h:58:1 */
 
-type HCURSOR = HICON  /* windef.h:59:15 */
-type COLORREF = DWORD /* windef.h:60:15 */
+type HCURSOR = HICON  /* windef.h:60:15 */
+type COLORREF = DWORD /* windef.h:61:15 */
 
-type HUMPD__ = struct{ unused int32 } /* windef.h:64:1 */
+type HUMPD__ = struct{ unused int32 } /* windef.h:65:1 */
 
-type HUMPD = uintptr /* windef.h:64:1 */
+type HUMPD = uintptr /* windef.h:65:1 */
 
-type LPCOLORREF = uintptr /* windef.h:66:15 */
+type LPCOLORREF = uintptr /* windef.h:67:15 */
 
 type tagRECT = struct {
 	left   LONG
 	top    LONG
 	right  LONG
 	bottom LONG
-} /* windef.h:72:9 */
+} /* windef.h:73:9 */
 
-type RECT = tagRECT   /* windef.h:77:3 */
-type PRECT = uintptr  /* windef.h:77:8 */
-type NPRECT = uintptr /* windef.h:77:15 */
-type LPRECT = uintptr /* windef.h:77:23 */
+type RECT = tagRECT   /* windef.h:78:3 */
+type PRECT = uintptr  /* windef.h:78:8 */
+type NPRECT = uintptr /* windef.h:78:15 */
+type LPRECT = uintptr /* windef.h:78:23 */
 
-type LPCRECT = uintptr /* windef.h:79:20 */
+type LPCRECT = uintptr /* windef.h:80:20 */
 
 type _RECTL = struct {
 	left   LONG
 	top    LONG
 	right  LONG
 	bottom LONG
-} /* windef.h:81:9 */
+} /* windef.h:82:9 */
 
-type RECTL = _RECTL    /* windef.h:86:3 */
-type PRECTL = uintptr  /* windef.h:86:9 */
-type LPRECTL = uintptr /* windef.h:86:17 */
+type RECTL = _RECTL    /* windef.h:87:3 */
+type PRECTL = uintptr  /* windef.h:87:9 */
+type LPRECTL = uintptr /* windef.h:87:17 */
 
-type LPCRECTL = uintptr /* windef.h:88:21 */
+type LPCRECTL = uintptr /* windef.h:89:21 */
 
 type tagPOINT = struct {
 	x LONG
 	y LONG
-} /* windef.h:90:9 */
+} /* windef.h:91:9 */
 
-type POINT = tagPOINT  /* windef.h:93:3 */
-type PPOINT = uintptr  /* windef.h:93:9 */
-type NPPOINT = uintptr /* windef.h:93:17 */
-type LPPOINT = uintptr /* windef.h:93:26 */
+type POINT = tagPOINT  /* windef.h:94:3 */
+type PPOINT = uintptr  /* windef.h:94:9 */
+type NPPOINT = uintptr /* windef.h:94:17 */
+type LPPOINT = uintptr /* windef.h:94:26 */
 
 type _POINTL = struct {
 	x LONG
 	y LONG
-} /* windef.h:95:9 */
+} /* windef.h:96:9 */
 
-type POINTL = _POINTL  /* windef.h:98:3 */
-type PPOINTL = uintptr /* windef.h:98:10 */
+type POINTL = _POINTL  /* windef.h:99:3 */
+type PPOINTL = uintptr /* windef.h:99:10 */
 
 type tagSIZE = struct {
 	cx LONG
 	cy LONG
-} /* windef.h:100:9 */
+} /* windef.h:101:9 */
 
-type SIZE = tagSIZE   /* windef.h:103:3 */
-type PSIZE = uintptr  /* windef.h:103:8 */
-type LPSIZE = uintptr /* windef.h:103:15 */
+type SIZE = tagSIZE   /* windef.h:104:3 */
+type PSIZE = uintptr  /* windef.h:104:8 */
+type LPSIZE = uintptr /* windef.h:104:15 */
 
-type SIZEL = SIZE      /* windef.h:105:14 */
-type PSIZEL = uintptr  /* windef.h:106:14 */
-type LPSIZEL = uintptr /* windef.h:106:22 */
+type SIZEL = SIZE      /* windef.h:106:14 */
+type PSIZEL = uintptr  /* windef.h:107:14 */
+type LPSIZEL = uintptr /* windef.h:107:22 */
 
 type tagPOINTS = struct {
 	x SHORT
 	y SHORT
-} /* windef.h:108:9 */
+} /* windef.h:109:9 */
 
-type POINTS = tagPOINTS /* windef.h:111:3 */
-type PPOINTS = uintptr  /* windef.h:111:10 */
-type LPPOINTS = uintptr /* windef.h:111:19 */
+type POINTS = tagPOINTS /* windef.h:112:3 */
+type PPOINTS = uintptr  /* windef.h:112:10 */
+type LPPOINTS = uintptr /* windef.h:112:19 */
+
+type APP_LOCAL_DEVICE_ID1 = struct{ value [32]BYTE } /* windef.h:116:9 */
+
+type APP_LOCAL_DEVICE_ID = APP_LOCAL_DEVICE_ID1 /* windef.h:118:3 */
+
+type DPI_AWARENESS_CONTEXT__ = struct{ unused int32 } /* windef.h:155:1 */
+
+type DPI_AWARENESS_CONTEXT = uintptr /* windef.h:155:1 */
+
+type DPI_AWARENESS = int32 /* windef.h:162:3 */
+
+type DPI_HOSTING_BEHAVIOR = int32 /* windef.h:174:3 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -20066,9 +20249,9 @@ type _WIN32_FIND_DATAA = struct {
 	_                  [2]byte
 } /* minwinbase.h:61:11 */
 
-type WIN32_FIND_DATAA = _WIN32_FIND_DATAA /* minwinbase.h:72:5 */
-type PWIN32_FIND_DATAA = uintptr          /* minwinbase.h:72:23 */
-type LPWIN32_FIND_DATAA = uintptr         /* minwinbase.h:72:43 */
+type WIN32_FIND_DATAA = _WIN32_FIND_DATAA /* minwinbase.h:77:5 */
+type PWIN32_FIND_DATAA = uintptr          /* minwinbase.h:77:23 */
+type LPWIN32_FIND_DATAA = uintptr         /* minwinbase.h:77:43 */
 
 type _WIN32_FIND_DATAW = struct {
 	dwFileAttributes   DWORD
@@ -20081,30 +20264,30 @@ type _WIN32_FIND_DATAW = struct {
 	dwReserved1        DWORD
 	cFileName          [260]WCHAR
 	cAlternateFileName [14]WCHAR
-} /* minwinbase.h:74:11 */
+} /* minwinbase.h:79:11 */
 
-type WIN32_FIND_DATAW = _WIN32_FIND_DATAW /* minwinbase.h:85:5 */
-type PWIN32_FIND_DATAW = uintptr          /* minwinbase.h:85:23 */
-type LPWIN32_FIND_DATAW = uintptr         /* minwinbase.h:85:43 */
+type WIN32_FIND_DATAW = _WIN32_FIND_DATAW /* minwinbase.h:95:5 */
+type PWIN32_FIND_DATAW = uintptr          /* minwinbase.h:95:23 */
+type LPWIN32_FIND_DATAW = uintptr         /* minwinbase.h:95:43 */
 
-type WIN32_FIND_DATA = WIN32_FIND_DATAA     /* minwinbase.h:87:3 */
-type PWIN32_FIND_DATA = PWIN32_FIND_DATAA   /* minwinbase.h:88:3 */
-type LPWIN32_FIND_DATA = LPWIN32_FIND_DATAA /* minwinbase.h:89:3 */
+type WIN32_FIND_DATA = WIN32_FIND_DATAA     /* minwinbase.h:97:3 */
+type PWIN32_FIND_DATA = PWIN32_FIND_DATAA   /* minwinbase.h:98:3 */
+type LPWIN32_FIND_DATA = LPWIN32_FIND_DATAA /* minwinbase.h:99:3 */
 
-type FINDEX_INFO_LEVELS = uint32 /* minwinbase.h:95:5 */
+type FINDEX_INFO_LEVELS = uint32 /* minwinbase.h:106:5 */
 
-type FINDEX_SEARCH_OPS = uint32 /* minwinbase.h:105:5 */
+type FINDEX_SEARCH_OPS = uint32 /* minwinbase.h:119:5 */
 
-type GET_FILEEX_INFO_LEVELS = uint32 /* minwinbase.h:110:5 */
+type GET_FILEEX_INFO_LEVELS = uint32 /* minwinbase.h:134:5 */
 
-type CRITICAL_SECTION = RTL_CRITICAL_SECTION                /* minwinbase.h:141:32 */
-type PCRITICAL_SECTION = PRTL_CRITICAL_SECTION              /* minwinbase.h:142:33 */
-type LPCRITICAL_SECTION = PRTL_CRITICAL_SECTION             /* minwinbase.h:143:33 */
-type CRITICAL_SECTION_DEBUG = RTL_CRITICAL_SECTION_DEBUG    /* minwinbase.h:144:38 */
-type PCRITICAL_SECTION_DEBUG = PRTL_CRITICAL_SECTION_DEBUG  /* minwinbase.h:145:39 */
-type LPCRITICAL_SECTION_DEBUG = PRTL_CRITICAL_SECTION_DEBUG /* minwinbase.h:146:39 */
+type CRITICAL_SECTION = RTL_CRITICAL_SECTION                /* minwinbase.h:171:32 */
+type PCRITICAL_SECTION = PRTL_CRITICAL_SECTION              /* minwinbase.h:172:33 */
+type LPCRITICAL_SECTION = PRTL_CRITICAL_SECTION             /* minwinbase.h:173:33 */
+type CRITICAL_SECTION_DEBUG = RTL_CRITICAL_SECTION_DEBUG    /* minwinbase.h:174:38 */
+type PCRITICAL_SECTION_DEBUG = PRTL_CRITICAL_SECTION_DEBUG  /* minwinbase.h:175:39 */
+type LPCRITICAL_SECTION_DEBUG = PRTL_CRITICAL_SECTION_DEBUG /* minwinbase.h:176:39 */
 
-type LPOVERLAPPED_COMPLETION_ROUTINE = uintptr /* minwinbase.h:148:16 */
+type LPOVERLAPPED_COMPLETION_ROUTINE = uintptr /* minwinbase.h:178:16 */
 
 type _PROCESS_HEAP_ENTRY = struct {
 	lpData       PVOID
@@ -20119,11 +20302,11 @@ type _PROCESS_HEAP_ENTRY = struct {
 			_          [4]byte
 		}
 	}
-} /* minwinbase.h:153:11 */
+} /* minwinbase.h:183:11 */
 
-type PROCESS_HEAP_ENTRY = _PROCESS_HEAP_ENTRY /* minwinbase.h:171:5 */
-type LPPROCESS_HEAP_ENTRY = uintptr           /* minwinbase.h:171:24 */
-type PPROCESS_HEAP_ENTRY = uintptr            /* minwinbase.h:171:46 */
+type PROCESS_HEAP_ENTRY = _PROCESS_HEAP_ENTRY /* minwinbase.h:201:5 */
+type LPPROCESS_HEAP_ENTRY = uintptr           /* minwinbase.h:201:24 */
+type PPROCESS_HEAP_ENTRY = uintptr            /* minwinbase.h:201:46 */
 
 type _REASON_CONTEXT = struct {
 	Version ULONG
@@ -20136,31 +20319,34 @@ type _REASON_CONTEXT = struct {
 			ReasonStrings         uintptr
 		}
 	}
-} /* minwinbase.h:179:11 */
+} /* minwinbase.h:210:11 */
 
-type REASON_CONTEXT = _REASON_CONTEXT /* minwinbase.h:191:5 */
-type PREASON_CONTEXT = uintptr        /* minwinbase.h:191:21 */
+type REASON_CONTEXT = _REASON_CONTEXT /* minwinbase.h:222:5 */
+type PREASON_CONTEXT = uintptr        /* minwinbase.h:222:21 */
 
-type PTHREAD_START_ROUTINE = uintptr                /* minwinbase.h:203:17 */
-type LPTHREAD_START_ROUTINE = PTHREAD_START_ROUTINE /* minwinbase.h:204:33 */
+type PTHREAD_START_ROUTINE = uintptr                /* minwinbase.h:234:17 */
+type LPTHREAD_START_ROUTINE = PTHREAD_START_ROUTINE /* minwinbase.h:235:33 */
+
+type PENCLAVE_ROUTINE = uintptr           /* minwinbase.h:237:18 */
+type LPENCLAVE_ROUTINE = PENCLAVE_ROUTINE /* minwinbase.h:238:28 */
 
 type _EXCEPTION_DEBUG_INFO = struct {
 	ExceptionRecord EXCEPTION_RECORD
 	dwFirstChance   DWORD
 	_               [4]byte
-} /* minwinbase.h:206:11 */
+} /* minwinbase.h:240:11 */
 
-type EXCEPTION_DEBUG_INFO = _EXCEPTION_DEBUG_INFO /* minwinbase.h:209:5 */
-type LPEXCEPTION_DEBUG_INFO = uintptr             /* minwinbase.h:209:27 */
+type EXCEPTION_DEBUG_INFO = _EXCEPTION_DEBUG_INFO /* minwinbase.h:243:5 */
+type LPEXCEPTION_DEBUG_INFO = uintptr             /* minwinbase.h:243:27 */
 
 type _CREATE_THREAD_DEBUG_INFO = struct {
 	hThread           HANDLE
 	lpThreadLocalBase LPVOID
 	lpStartAddress    LPTHREAD_START_ROUTINE
-} /* minwinbase.h:211:11 */
+} /* minwinbase.h:245:11 */
 
-type CREATE_THREAD_DEBUG_INFO = _CREATE_THREAD_DEBUG_INFO /* minwinbase.h:215:5 */
-type LPCREATE_THREAD_DEBUG_INFO = uintptr                 /* minwinbase.h:215:31 */
+type CREATE_THREAD_DEBUG_INFO = _CREATE_THREAD_DEBUG_INFO /* minwinbase.h:249:5 */
+type LPCREATE_THREAD_DEBUG_INFO = uintptr                 /* minwinbase.h:249:31 */
 
 type _CREATE_PROCESS_DEBUG_INFO = struct {
 	hFile                 HANDLE
@@ -20174,20 +20360,20 @@ type _CREATE_PROCESS_DEBUG_INFO = struct {
 	lpImageName           LPVOID
 	fUnicode              WORD
 	_                     [6]byte
-} /* minwinbase.h:217:11 */
+} /* minwinbase.h:251:11 */
 
-type CREATE_PROCESS_DEBUG_INFO = _CREATE_PROCESS_DEBUG_INFO /* minwinbase.h:228:5 */
-type LPCREATE_PROCESS_DEBUG_INFO = uintptr                  /* minwinbase.h:228:32 */
+type CREATE_PROCESS_DEBUG_INFO = _CREATE_PROCESS_DEBUG_INFO /* minwinbase.h:262:5 */
+type LPCREATE_PROCESS_DEBUG_INFO = uintptr                  /* minwinbase.h:262:32 */
 
-type _EXIT_THREAD_DEBUG_INFO = struct{ dwExitCode DWORD } /* minwinbase.h:230:11 */
+type _EXIT_THREAD_DEBUG_INFO = struct{ dwExitCode DWORD } /* minwinbase.h:264:11 */
 
-type EXIT_THREAD_DEBUG_INFO = _EXIT_THREAD_DEBUG_INFO /* minwinbase.h:232:5 */
-type LPEXIT_THREAD_DEBUG_INFO = uintptr               /* minwinbase.h:232:29 */
+type EXIT_THREAD_DEBUG_INFO = _EXIT_THREAD_DEBUG_INFO /* minwinbase.h:266:5 */
+type LPEXIT_THREAD_DEBUG_INFO = uintptr               /* minwinbase.h:266:29 */
 
-type _EXIT_PROCESS_DEBUG_INFO = struct{ dwExitCode DWORD } /* minwinbase.h:234:11 */
+type _EXIT_PROCESS_DEBUG_INFO = struct{ dwExitCode DWORD } /* minwinbase.h:268:11 */
 
-type EXIT_PROCESS_DEBUG_INFO = _EXIT_PROCESS_DEBUG_INFO /* minwinbase.h:236:5 */
-type LPEXIT_PROCESS_DEBUG_INFO = uintptr                /* minwinbase.h:236:30 */
+type EXIT_PROCESS_DEBUG_INFO = _EXIT_PROCESS_DEBUG_INFO /* minwinbase.h:270:5 */
+type LPEXIT_PROCESS_DEBUG_INFO = uintptr                /* minwinbase.h:270:30 */
 
 type _LOAD_DLL_DEBUG_INFO = struct {
 	hFile                 HANDLE
@@ -20197,33 +20383,33 @@ type _LOAD_DLL_DEBUG_INFO = struct {
 	lpImageName           LPVOID
 	fUnicode              WORD
 	_                     [6]byte
-} /* minwinbase.h:238:11 */
+} /* minwinbase.h:272:11 */
 
-type LOAD_DLL_DEBUG_INFO = _LOAD_DLL_DEBUG_INFO /* minwinbase.h:245:5 */
-type LPLOAD_DLL_DEBUG_INFO = uintptr            /* minwinbase.h:245:26 */
+type LOAD_DLL_DEBUG_INFO = _LOAD_DLL_DEBUG_INFO /* minwinbase.h:279:5 */
+type LPLOAD_DLL_DEBUG_INFO = uintptr            /* minwinbase.h:279:26 */
 
-type _UNLOAD_DLL_DEBUG_INFO = struct{ lpBaseOfDll LPVOID } /* minwinbase.h:247:11 */
+type _UNLOAD_DLL_DEBUG_INFO = struct{ lpBaseOfDll LPVOID } /* minwinbase.h:281:11 */
 
-type UNLOAD_DLL_DEBUG_INFO = _UNLOAD_DLL_DEBUG_INFO /* minwinbase.h:249:5 */
-type LPUNLOAD_DLL_DEBUG_INFO = uintptr              /* minwinbase.h:249:28 */
+type UNLOAD_DLL_DEBUG_INFO = _UNLOAD_DLL_DEBUG_INFO /* minwinbase.h:283:5 */
+type LPUNLOAD_DLL_DEBUG_INFO = uintptr              /* minwinbase.h:283:28 */
 
 type _OUTPUT_DEBUG_STRING_INFO = struct {
 	lpDebugStringData  LPSTR
 	fUnicode           WORD
 	nDebugStringLength WORD
 	_                  [4]byte
-} /* minwinbase.h:251:11 */
+} /* minwinbase.h:285:11 */
 
-type OUTPUT_DEBUG_STRING_INFO = _OUTPUT_DEBUG_STRING_INFO /* minwinbase.h:255:5 */
-type LPOUTPUT_DEBUG_STRING_INFO = uintptr                 /* minwinbase.h:255:31 */
+type OUTPUT_DEBUG_STRING_INFO = _OUTPUT_DEBUG_STRING_INFO /* minwinbase.h:289:5 */
+type LPOUTPUT_DEBUG_STRING_INFO = uintptr                 /* minwinbase.h:289:31 */
 
 type _RIP_INFO = struct {
 	dwError DWORD
 	dwType  DWORD
-} /* minwinbase.h:257:11 */
+} /* minwinbase.h:291:11 */
 
-type RIP_INFO = _RIP_INFO /* minwinbase.h:260:5 */
-type LPRIP_INFO = uintptr /* minwinbase.h:260:15 */
+type RIP_INFO = _RIP_INFO /* minwinbase.h:294:5 */
+type LPRIP_INFO = uintptr /* minwinbase.h:294:15 */
 
 type _DEBUG_EVENT = struct {
 	dwDebugEventCode DWORD
@@ -20231,12 +20417,12 @@ type _DEBUG_EVENT = struct {
 	dwThreadId       DWORD
 	_                [4]byte
 	u                struct{ Exception EXCEPTION_DEBUG_INFO }
-} /* minwinbase.h:262:11 */
+} /* minwinbase.h:296:11 */
 
-type DEBUG_EVENT = _DEBUG_EVENT /* minwinbase.h:277:5 */
-type LPDEBUG_EVENT = uintptr    /* minwinbase.h:277:18 */
+type DEBUG_EVENT = _DEBUG_EVENT /* minwinbase.h:311:5 */
+type LPDEBUG_EVENT = uintptr    /* minwinbase.h:311:18 */
 
-type LPCONTEXT = PCONTEXT                  /* minwinbase.h:280:20 */
+type LPCONTEXT = PCONTEXT                  /* minwinbase.h:314:20 */
 type BEM_FREE_INTERFACE_CALLBACK = uintptr /* bemapiset.h:21:16 */
 
 // *
@@ -20264,11 +20450,11 @@ type _BY_HANDLE_FILE_INFORMATION = struct {
 	nNumberOfLinks       DWORD
 	nFileIndexHigh       DWORD
 	nFileIndexLow        DWORD
-} /* fileapi.h:38:11 */
+} /* fileapi.h:36:11 */
 
-type BY_HANDLE_FILE_INFORMATION = _BY_HANDLE_FILE_INFORMATION /* fileapi.h:49:5 */
-type PBY_HANDLE_FILE_INFORMATION = uintptr                    /* fileapi.h:49:33 */
-type LPBY_HANDLE_FILE_INFORMATION = uintptr                   /* fileapi.h:50:5 */
+type BY_HANDLE_FILE_INFORMATION = _BY_HANDLE_FILE_INFORMATION /* fileapi.h:47:5 */
+type PBY_HANDLE_FILE_INFORMATION = uintptr                    /* fileapi.h:47:33 */
+type LPBY_HANDLE_FILE_INFORMATION = uintptr                   /* fileapi.h:48:5 */
 
 type _WIN32_FILE_ATTRIBUTE_DATA = struct {
 	dwFileAttributes DWORD
@@ -20277,10 +20463,10 @@ type _WIN32_FILE_ATTRIBUTE_DATA = struct {
 	ftLastWriteTime  FILETIME
 	nFileSizeHigh    DWORD
 	nFileSizeLow     DWORD
-} /* fileapi.h:129:11 */
+} /* fileapi.h:142:11 */
 
-type WIN32_FILE_ATTRIBUTE_DATA = _WIN32_FILE_ATTRIBUTE_DATA /* fileapi.h:136:5 */
-type LPWIN32_FILE_ATTRIBUTE_DATA = uintptr                  /* fileapi.h:136:32 */
+type WIN32_FILE_ATTRIBUTE_DATA = _WIN32_FILE_ATTRIBUTE_DATA /* fileapi.h:149:5 */
+type LPWIN32_FILE_ATTRIBUTE_DATA = uintptr                  /* fileapi.h:149:32 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -20366,6 +20552,28 @@ type PGET_MODULE_HANDLE_EXW = uintptr /* libloaderapi.h:42:19 */
 type DLL_DIRECTORY_COOKIE = PVOID    /* libloaderapi.h:45:17 */
 type PDLL_DIRECTORY_COOKIE = uintptr /* libloaderapi.h:45:39 */
 
+type _REDIRECTION_FUNCTION_DESCRIPTOR = struct {
+	DllName           PCSTR
+	FunctionName      PCSTR
+	RedirectionTarget PVOID
+} /* libloaderapi.h:158:9 */
+
+type REDIRECTION_FUNCTION_DESCRIPTOR = _REDIRECTION_FUNCTION_DESCRIPTOR /* libloaderapi.h:162:3 */
+type PREDIRECTION_FUNCTION_DESCRIPTOR = uintptr                         /* libloaderapi.h:162:36 */
+
+type PCREDIRECTION_FUNCTION_DESCRIPTOR = uintptr /* libloaderapi.h:164:47 */
+
+type _REDIRECTION_DESCRIPTOR = struct {
+	Version       ULONG
+	FunctionCount ULONG
+	Redirections  PCREDIRECTION_FUNCTION_DESCRIPTOR
+} /* libloaderapi.h:166:9 */
+
+type REDIRECTION_DESCRIPTOR = _REDIRECTION_DESCRIPTOR /* libloaderapi.h:170:3 */
+type PREDIRECTION_DESCRIPTOR = uintptr                /* libloaderapi.h:170:27 */
+
+type PCREDIRECTION_DESCRIPTOR = uintptr /* libloaderapi.h:172:38 */
+
 // *
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER within this package.
@@ -20379,17 +20587,6 @@ type PDLL_DIRECTORY_COOKIE = uintptr /* libloaderapi.h:45:39 */
 // No warranty is given; refer to the file DISCLAIMER within this package.
 
 type MEMORY_RESOURCE_NOTIFICATION_TYPE = uint32 /* memoryapi.h:21:5 */
-
-type _PROCESS_INFORMATION = struct {
-	hProcess    HANDLE
-	hThread     HANDLE
-	dwProcessId DWORD
-	dwThreadId  DWORD
-} /* processthreadsapi.h:28:11 */
-
-type PROCESS_INFORMATION = _PROCESS_INFORMATION /* processthreadsapi.h:33:5 */
-type PPROCESS_INFORMATION = uintptr             /* processthreadsapi.h:33:26 */
-type LPPROCESS_INFORMATION = uintptr            /* processthreadsapi.h:33:49 */
 
 type _STARTUPINFOA = struct {
 	cb              DWORD
@@ -20412,10 +20609,10 @@ type _STARTUPINFOA = struct {
 	hStdInput       HANDLE
 	hStdOutput      HANDLE
 	hStdError       HANDLE
-} /* processthreadsapi.h:35:11 */
+} /* processthreadsapi.h:51:11 */
 
-type STARTUPINFOA = _STARTUPINFOA /* processthreadsapi.h:54:5 */
-type LPSTARTUPINFOA = uintptr     /* processthreadsapi.h:54:19 */
+type STARTUPINFOA = _STARTUPINFOA /* processthreadsapi.h:70:5 */
+type LPSTARTUPINFOA = uintptr     /* processthreadsapi.h:70:19 */
 
 type _STARTUPINFOW = struct {
 	cb              DWORD
@@ -20438,16 +20635,27 @@ type _STARTUPINFOW = struct {
 	hStdInput       HANDLE
 	hStdOutput      HANDLE
 	hStdError       HANDLE
-} /* processthreadsapi.h:56:11 */
+} /* processthreadsapi.h:72:11 */
 
-type STARTUPINFOW = _STARTUPINFOW /* processthreadsapi.h:75:5 */
-type LPSTARTUPINFOW = uintptr     /* processthreadsapi.h:75:19 */
+type STARTUPINFOW = _STARTUPINFOW /* processthreadsapi.h:91:5 */
+type LPSTARTUPINFOW = uintptr     /* processthreadsapi.h:91:19 */
 
-type STARTUPINFO = STARTUPINFOA     /* processthreadsapi.h:77:3 */
-type LPSTARTUPINFO = LPSTARTUPINFOA /* processthreadsapi.h:78:3 */
+type STARTUPINFO = STARTUPINFOA     /* processthreadsapi.h:93:3 */
+type LPSTARTUPINFO = LPSTARTUPINFOA /* processthreadsapi.h:94:3 */
 
-type PPROC_THREAD_ATTRIBUTE_LIST = uintptr  /* processthreadsapi.h:80:46 */
-type LPPROC_THREAD_ATTRIBUTE_LIST = uintptr /* processthreadsapi.h:80:76 */
+type _PROCESS_INFORMATION = struct {
+	hProcess    HANDLE
+	hThread     HANDLE
+	dwProcessId DWORD
+	dwThreadId  DWORD
+} /* processthreadsapi.h:96:11 */
+
+type PROCESS_INFORMATION = _PROCESS_INFORMATION /* processthreadsapi.h:101:5 */
+type PPROCESS_INFORMATION = uintptr             /* processthreadsapi.h:101:26 */
+type LPPROCESS_INFORMATION = uintptr            /* processthreadsapi.h:101:49 */
+
+type PPROC_THREAD_ATTRIBUTE_LIST = uintptr  /* processthreadsapi.h:106:46 */
+type LPPROC_THREAD_ATTRIBUTE_LIST = uintptr /* processthreadsapi.h:106:76 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -20650,6 +20858,9 @@ type PTP_WIN32_IO_CALLBACK = uintptr /* threadpoolapiset.h:18:16 */
 
 // *****************************************************
 
+// GCC 8 has already defined _xgetbv, Clang 9 has _xgetbv defined as a macro
+// redirecting to the __builtin_ia32_xgetbv builtin.
+
 // *****************************************************
 
 type PFIBER_START_ROUTINE = uintptr               /* winbase.h:160:16 */
@@ -20789,16 +21000,12 @@ type OFSTRUCT = _OFSTRUCT /* winbase.h:627:5 */
 type LPOFSTRUCT = uintptr /* winbase.h:627:15 */
 type POFSTRUCT = uintptr  /* winbase.h:627:27 */
 
-// TODO: Add RTL_UMS... to winnt.h header and add UMS-base API.
+type THREAD_INFORMATION_CLASS = uint32 /* winbase.h:1188:5 */
 
-type THREAD_INFORMATION_CLASS = uint32 /* winbase.h:1195:5 */
+type DEP_SYSTEM_POLICY_TYPE = uint32 /* winbase.h:1285:5 */
 
-type PROCESS_INFORMATION_CLASS = uint32 /* winbase.h:1200:5 */
-
-type DEP_SYSTEM_POLICY_TYPE = uint32 /* winbase.h:1304:5 */
-
-type PFE_EXPORT_FUNC = uintptr /* winbase.h:1387:17 */
-type PFE_IMPORT_FUNC = uintptr /* winbase.h:1388:17 */
+type PFE_EXPORT_FUNC = uintptr /* winbase.h:1378:17 */
+type PFE_IMPORT_FUNC = uintptr /* winbase.h:1379:17 */
 
 type _WIN32_STREAM_ID = struct {
 	dwStreamId         DWORD
@@ -20807,53 +21014,55 @@ type _WIN32_STREAM_ID = struct {
 	dwStreamNameSize   DWORD
 	cStreamName        [1]WCHAR
 	_                  [2]byte
-} /* winbase.h:1465:11 */
+} /* winbase.h:1456:11 */
 
-type WIN32_STREAM_ID = _WIN32_STREAM_ID /* winbase.h:1471:5 */
-type LPWIN32_STREAM_ID = uintptr        /* winbase.h:1471:21 */
+type WIN32_STREAM_ID = _WIN32_STREAM_ID /* winbase.h:1462:5 */
+type LPWIN32_STREAM_ID = uintptr        /* winbase.h:1462:21 */
 
-type PGET_SYSTEM_WOW64_DIRECTORY_A = uintptr /* winbase.h:1856:16 */
-type PGET_SYSTEM_WOW64_DIRECTORY_W = uintptr /* winbase.h:1857:16 */
+type PROCESS_INFORMATION_CLASS = uint32 /* winbase.h:1573:5 */
 
-type LPPROGRESS_ROUTINE = uintptr /* winbase.h:1960:17 */
+type PGET_SYSTEM_WOW64_DIRECTORY_A = uintptr /* winbase.h:1887:16 */
+type PGET_SYSTEM_WOW64_DIRECTORY_W = uintptr /* winbase.h:1888:16 */
 
-type STREAM_INFO_LEVELS = uint32 /* winbase.h:2150:5 */
+type LPPROGRESS_ROUTINE = uintptr /* winbase.h:2005:17 */
+
+type STREAM_INFO_LEVELS = uint32 /* winbase.h:2219:5 */
 
 type _WIN32_FIND_STREAM_DATA = struct {
 	StreamSize  LARGE_INTEGER
 	cStreamName [296]WCHAR
-} /* winbase.h:2152:11 */
+} /* winbase.h:2221:11 */
 
-type WIN32_FIND_STREAM_DATA = _WIN32_FIND_STREAM_DATA /* winbase.h:2155:5 */
-type PWIN32_FIND_STREAM_DATA = uintptr                /* winbase.h:2155:28 */
+type WIN32_FIND_STREAM_DATA = _WIN32_FIND_STREAM_DATA /* winbase.h:2224:5 */
+type PWIN32_FIND_STREAM_DATA = uintptr                /* winbase.h:2224:28 */
 
-type _EVENTLOG_FULL_INFORMATION = struct{ dwFull DWORD } /* winbase.h:2227:11 */
+type _EVENTLOG_FULL_INFORMATION = struct{ dwFull DWORD } /* winbase.h:2282:11 */
 
-type EVENTLOG_FULL_INFORMATION = _EVENTLOG_FULL_INFORMATION /* winbase.h:2229:5 */
-type LPEVENTLOG_FULL_INFORMATION = uintptr                  /* winbase.h:2229:31 */
+type EVENTLOG_FULL_INFORMATION = _EVENTLOG_FULL_INFORMATION /* winbase.h:2284:5 */
+type LPEVENTLOG_FULL_INFORMATION = uintptr                  /* winbase.h:2284:31 */
 
 type tagHW_PROFILE_INFOA = struct {
 	dwDockInfo      DWORD
 	szHwProfileGuid [39]CHAR
 	szHwProfileName [80]CHAR
 	_               [1]byte
-} /* winbase.h:2444:11 */
+} /* winbase.h:2478:11 */
 
-type HW_PROFILE_INFOA = tagHW_PROFILE_INFOA /* winbase.h:2448:5 */
-type LPHW_PROFILE_INFOA = uintptr           /* winbase.h:2448:22 */
+type HW_PROFILE_INFOA = tagHW_PROFILE_INFOA /* winbase.h:2482:5 */
+type LPHW_PROFILE_INFOA = uintptr           /* winbase.h:2482:22 */
 
 type tagHW_PROFILE_INFOW = struct {
 	dwDockInfo      DWORD
 	szHwProfileGuid [39]WCHAR
 	szHwProfileName [80]WCHAR
 	_               [2]byte
-} /* winbase.h:2450:11 */
+} /* winbase.h:2484:11 */
 
-type HW_PROFILE_INFOW = tagHW_PROFILE_INFOW /* winbase.h:2454:5 */
-type LPHW_PROFILE_INFOW = uintptr           /* winbase.h:2454:22 */
+type HW_PROFILE_INFOW = tagHW_PROFILE_INFOW /* winbase.h:2488:5 */
+type LPHW_PROFILE_INFOW = uintptr           /* winbase.h:2488:22 */
 
-type HW_PROFILE_INFO = HW_PROFILE_INFOA     /* winbase.h:2456:3 */
-type LPHW_PROFILE_INFO = LPHW_PROFILE_INFOA /* winbase.h:2457:3 */
+type HW_PROFILE_INFO = HW_PROFILE_INFOA     /* winbase.h:2490:3 */
+type LPHW_PROFILE_INFO = LPHW_PROFILE_INFOA /* winbase.h:2491:3 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -20956,10 +21165,10 @@ type _SYSTEM_POWER_STATUS = struct {
 	Reserved1           BYTE
 	BatteryLifeTime     DWORD
 	BatteryFullLifeTime DWORD
-} /* winbase.h:2495:11 */
+} /* winbase.h:2571:11 */
 
-type SYSTEM_POWER_STATUS = _SYSTEM_POWER_STATUS /* winbase.h:2502:5 */
-type LPSYSTEM_POWER_STATUS = uintptr            /* winbase.h:2502:25 */
+type SYSTEM_POWER_STATUS = _SYSTEM_POWER_STATUS /* winbase.h:2578:5 */
+type LPSYSTEM_POWER_STATUS = uintptr            /* winbase.h:2578:25 */
 
 type tagACTCTXA = struct {
 	cbSize                 ULONG
@@ -20972,10 +21181,10 @@ type tagACTCTXA = struct {
 	lpResourceName         LPCSTR
 	lpApplicationName      LPCSTR
 	hModule                HMODULE
-} /* winbase.h:2573:11 */
+} /* winbase.h:2649:11 */
 
-type ACTCTXA = tagACTCTXA /* winbase.h:2583:5 */
-type PACTCTXA = uintptr   /* winbase.h:2583:13 */
+type ACTCTXA = tagACTCTXA /* winbase.h:2659:5 */
+type PACTCTXA = uintptr   /* winbase.h:2659:13 */
 
 type tagACTCTXW = struct {
 	cbSize                 ULONG
@@ -20988,18 +21197,18 @@ type tagACTCTXW = struct {
 	lpResourceName         LPCWSTR
 	lpApplicationName      LPCWSTR
 	hModule                HMODULE
-} /* winbase.h:2585:11 */
+} /* winbase.h:2661:11 */
 
-type ACTCTXW = tagACTCTXW /* winbase.h:2595:5 */
-type PACTCTXW = uintptr   /* winbase.h:2595:13 */
+type ACTCTXW = tagACTCTXW /* winbase.h:2671:5 */
+type PACTCTXW = uintptr   /* winbase.h:2671:13 */
 
-type ACTCTX = ACTCTXA   /* winbase.h:2597:3 */
-type PACTCTX = PACTCTXA /* winbase.h:2598:3 */
+type ACTCTX = ACTCTXA   /* winbase.h:2673:3 */
+type PACTCTX = PACTCTXA /* winbase.h:2674:3 */
 
-type PCACTCTXA = uintptr /* winbase.h:2600:25 */
-type PCACTCTXW = uintptr /* winbase.h:2601:25 */
+type PCACTCTXA = uintptr /* winbase.h:2676:25 */
+type PCACTCTXW = uintptr /* winbase.h:2677:25 */
 
-type PCACTCTX = PCACTCTXA /* winbase.h:2603:3 */
+type PCACTCTX = PCACTCTXA /* winbase.h:2679:3 */
 
 type tagACTCTX_SECTION_KEYED_DATA_2600 = struct {
 	cbSize                    ULONG
@@ -21016,12 +21225,12 @@ type tagACTCTX_SECTION_KEYED_DATA_2600 = struct {
 	hActCtx                   HANDLE
 	ulAssemblyRosterIndex     ULONG
 	_                         [4]byte
-} /* winbase.h:2617:11 */
+} /* winbase.h:2693:11 */
 
-type ACTCTX_SECTION_KEYED_DATA_2600 = tagACTCTX_SECTION_KEYED_DATA_2600 /* winbase.h:2628:5 */
-type PACTCTX_SECTION_KEYED_DATA_2600 = uintptr                          /* winbase.h:2628:36 */
+type ACTCTX_SECTION_KEYED_DATA_2600 = tagACTCTX_SECTION_KEYED_DATA_2600 /* winbase.h:2704:5 */
+type PACTCTX_SECTION_KEYED_DATA_2600 = uintptr                          /* winbase.h:2704:36 */
 
-type PCACTCTX_SECTION_KEYED_DATA_2600 = uintptr /* winbase.h:2630:48 */
+type PCACTCTX_SECTION_KEYED_DATA_2600 = uintptr /* winbase.h:2706:48 */
 
 type tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = struct {
 	lpInformation             PVOID
@@ -21031,12 +21240,12 @@ type tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = struct {
 	lpSectionGlobalDataBase   PVOID
 	ulSectionGlobalDataLength ULONG
 	_                         [4]byte
-} /* winbase.h:2632:11 */
+} /* winbase.h:2708:11 */
 
-type ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA /* winbase.h:2638:5 */
-type PACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = uintptr                                       /* winbase.h:2638:49 */
+type ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA /* winbase.h:2714:5 */
+type PACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = uintptr                                       /* winbase.h:2714:49 */
 
-type PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = uintptr /* winbase.h:2640:61 */
+type PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA = uintptr /* winbase.h:2716:61 */
 
 type tagACTCTX_SECTION_KEYED_DATA = struct {
 	cbSize                    ULONG
@@ -21054,27 +21263,27 @@ type tagACTCTX_SECTION_KEYED_DATA = struct {
 	ulAssemblyRosterIndex     ULONG
 	ulFlags                   ULONG
 	AssemblyMetadata          ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
-} /* winbase.h:2642:11 */
+} /* winbase.h:2718:11 */
 
-type ACTCTX_SECTION_KEYED_DATA = tagACTCTX_SECTION_KEYED_DATA /* winbase.h:2655:5 */
-type PACTCTX_SECTION_KEYED_DATA = uintptr                     /* winbase.h:2655:31 */
+type ACTCTX_SECTION_KEYED_DATA = tagACTCTX_SECTION_KEYED_DATA /* winbase.h:2731:5 */
+type PACTCTX_SECTION_KEYED_DATA = uintptr                     /* winbase.h:2731:31 */
 
-type PCACTCTX_SECTION_KEYED_DATA = uintptr /* winbase.h:2657:43 */
+type PCACTCTX_SECTION_KEYED_DATA = uintptr /* winbase.h:2733:43 */
 
 type _ACTIVATION_CONTEXT_BASIC_INFORMATION = struct {
 	hActCtx HANDLE
 	dwFlags DWORD
 	_       [4]byte
-} /* winbase.h:2670:11 */
+} /* winbase.h:2746:11 */
 
-type ACTIVATION_CONTEXT_BASIC_INFORMATION = _ACTIVATION_CONTEXT_BASIC_INFORMATION /* winbase.h:2673:5 */
-type PACTIVATION_CONTEXT_BASIC_INFORMATION = uintptr                              /* winbase.h:2673:42 */
+type ACTIVATION_CONTEXT_BASIC_INFORMATION = _ACTIVATION_CONTEXT_BASIC_INFORMATION /* winbase.h:2749:5 */
+type PACTIVATION_CONTEXT_BASIC_INFORMATION = uintptr                              /* winbase.h:2749:42 */
 
-type PCACTIVATION_CONTEXT_BASIC_INFORMATION = uintptr /* winbase.h:2675:62 */
+type PCACTIVATION_CONTEXT_BASIC_INFORMATION = uintptr /* winbase.h:2751:62 */
 
-type PQUERYACTCTXW_FUNC = uintptr /* winbase.h:2687:19 */
+type PQUERYACTCTXW_FUNC = uintptr /* winbase.h:2763:19 */
 
-type APPLICATION_RECOVERY_CALLBACK = uintptr /* winbase.h:2707:17 */
+type APPLICATION_RECOVERY_CALLBACK = uintptr /* winbase.h:2783:17 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21126,10 +21335,10 @@ type PPSINJECTDATA = uintptr      /* wingdi.h:339:18 */
 type _PSFEATURE_OUTPUT = struct {
 	bPageIndependent WINBOOL
 	bSetPageDevice   WINBOOL
-} /* wingdi.h:391:11 */
+} /* wingdi.h:393:11 */
 
-type PSFEATURE_OUTPUT = _PSFEATURE_OUTPUT /* wingdi.h:394:5 */
-type PPSFEATURE_OUTPUT = uintptr          /* wingdi.h:394:22 */
+type PSFEATURE_OUTPUT = _PSFEATURE_OUTPUT /* wingdi.h:396:5 */
+type PPSFEATURE_OUTPUT = uintptr          /* wingdi.h:396:22 */
 
 type _PSFEATURE_CUSTPAPER = struct {
 	lOrientation  LONG
@@ -21137,10 +21346,10 @@ type _PSFEATURE_CUSTPAPER = struct {
 	lHeight       LONG
 	lWidthOffset  LONG
 	lHeightOffset LONG
-} /* wingdi.h:396:11 */
+} /* wingdi.h:398:11 */
 
-type PSFEATURE_CUSTPAPER = _PSFEATURE_CUSTPAPER /* wingdi.h:402:5 */
-type PPSFEATURE_CUSTPAPER = uintptr             /* wingdi.h:402:25 */
+type PSFEATURE_CUSTPAPER = _PSFEATURE_CUSTPAPER /* wingdi.h:404:5 */
+type PPSFEATURE_CUSTPAPER = uintptr             /* wingdi.h:404:25 */
 
 type tagXFORM = struct {
 	eM11 FLOAT
@@ -21149,11 +21358,11 @@ type tagXFORM = struct {
 	eM22 FLOAT
 	eDx  FLOAT
 	eDy  FLOAT
-} /* wingdi.h:450:11 */
+} /* wingdi.h:452:11 */
 
-type XFORM = tagXFORM  /* wingdi.h:457:5 */
-type PXFORM = uintptr  /* wingdi.h:457:11 */
-type LPXFORM = uintptr /* wingdi.h:457:19 */
+type XFORM = tagXFORM  /* wingdi.h:459:5 */
+type PXFORM = uintptr  /* wingdi.h:459:11 */
+type LPXFORM = uintptr /* wingdi.h:459:19 */
 
 type tagBITMAP = struct {
 	bmType       LONG
@@ -21164,12 +21373,12 @@ type tagBITMAP = struct {
 	bmBitsPixel  WORD
 	_            [4]byte
 	bmBits       LPVOID
-} /* wingdi.h:459:11 */
+} /* wingdi.h:461:11 */
 
-type BITMAP = tagBITMAP /* wingdi.h:467:5 */
-type PBITMAP = uintptr  /* wingdi.h:467:12 */
-type NPBITMAP = uintptr /* wingdi.h:467:21 */
-type LPBITMAP = uintptr /* wingdi.h:467:31 */
+type BITMAP = tagBITMAP /* wingdi.h:469:5 */
+type PBITMAP = uintptr  /* wingdi.h:469:12 */
+type NPBITMAP = uintptr /* wingdi.h:469:21 */
+type LPBITMAP = uintptr /* wingdi.h:469:31 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21179,13 +21388,16 @@ type tagRGBTRIPLE = struct {
 	rgbtBlue  BYTE
 	rgbtGreen BYTE
 	rgbtRed   BYTE
-} /* wingdi.h:470:11 */
+} /* wingdi.h:472:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type RGBTRIPLE = tagRGBTRIPLE /* wingdi.h:474:5 */
+type RGBTRIPLE = tagRGBTRIPLE /* wingdi.h:476:5 */
+type PRGBTRIPLE = uintptr     /* wingdi.h:476:15 */
+type NPRGBTRIPLE = uintptr    /* wingdi.h:476:27 */
+type LPRGBTRIPLE = uintptr    /* wingdi.h:476:40 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
@@ -21196,42 +21408,42 @@ type tagRGBQUAD = struct {
 	rgbGreen    BYTE
 	rgbRed      BYTE
 	rgbReserved BYTE
-} /* wingdi.h:477:11 */
+} /* wingdi.h:479:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type RGBQUAD = tagRGBQUAD /* wingdi.h:482:5 */
+type RGBQUAD = tagRGBQUAD /* wingdi.h:484:5 */
 
-type LPRGBQUAD = uintptr /* wingdi.h:486:19 */
+type LPRGBQUAD = uintptr /* wingdi.h:488:19 */
 
-type LCSCSTYPE = LONG /* wingdi.h:499:16 */
+type LCSCSTYPE = LONG /* wingdi.h:501:16 */
 
-type LCSGAMUTMATCH = LONG /* wingdi.h:502:16 */
+type LCSGAMUTMATCH = LONG /* wingdi.h:504:16 */
 
-type FXPT16DOT16 = int32     /* wingdi.h:526:20 */
-type LPFXPT16DOT16 = uintptr /* wingdi.h:526:32 */
-type FXPT2DOT30 = int32      /* wingdi.h:527:20 */
-type LPFXPT2DOT30 = uintptr  /* wingdi.h:527:31 */
+type FXPT16DOT16 = int32     /* wingdi.h:528:20 */
+type LPFXPT16DOT16 = uintptr /* wingdi.h:528:32 */
+type FXPT2DOT30 = int32      /* wingdi.h:529:20 */
+type LPFXPT2DOT30 = uintptr  /* wingdi.h:529:31 */
 
 type tagCIEXYZ = struct {
 	ciexyzX FXPT2DOT30
 	ciexyzY FXPT2DOT30
 	ciexyzZ FXPT2DOT30
-} /* wingdi.h:529:11 */
+} /* wingdi.h:531:11 */
 
-type CIEXYZ = tagCIEXYZ /* wingdi.h:533:5 */
-type LPCIEXYZ = uintptr /* wingdi.h:536:18 */
+type CIEXYZ = tagCIEXYZ /* wingdi.h:535:5 */
+type LPCIEXYZ = uintptr /* wingdi.h:538:18 */
 type tagICEXYZTRIPLE = struct {
 	ciexyzRed   CIEXYZ
 	ciexyzGreen CIEXYZ
 	ciexyzBlue  CIEXYZ
-} /* wingdi.h:539:11 */
+} /* wingdi.h:541:11 */
 
-type CIEXYZTRIPLE = tagICEXYZTRIPLE /* wingdi.h:543:5 */
-type LPCIEXYZTRIPLE = uintptr       /* wingdi.h:546:24 */
+type CIEXYZTRIPLE = tagICEXYZTRIPLE /* wingdi.h:545:5 */
+type LPCIEXYZTRIPLE = uintptr       /* wingdi.h:548:24 */
 
 type tagLOGCOLORSPACEA = struct {
 	lcsSignature  DWORD
@@ -21244,10 +21456,10 @@ type tagLOGCOLORSPACEA = struct {
 	lcsGammaGreen DWORD
 	lcsGammaBlue  DWORD
 	lcsFilename   [260]CHAR
-} /* wingdi.h:550:11 */
+} /* wingdi.h:552:11 */
 
-type LOGCOLORSPACEA = tagLOGCOLORSPACEA /* wingdi.h:561:5 */
-type LPLOGCOLORSPACEA = uintptr         /* wingdi.h:561:20 */
+type LOGCOLORSPACEA = tagLOGCOLORSPACEA /* wingdi.h:563:5 */
+type LPLOGCOLORSPACEA = uintptr         /* wingdi.h:563:20 */
 
 type tagLOGCOLORSPACEW = struct {
 	lcsSignature  DWORD
@@ -21260,13 +21472,13 @@ type tagLOGCOLORSPACEW = struct {
 	lcsGammaGreen DWORD
 	lcsGammaBlue  DWORD
 	lcsFilename   [260]WCHAR
-} /* wingdi.h:563:11 */
+} /* wingdi.h:565:11 */
 
-type LOGCOLORSPACEW = tagLOGCOLORSPACEW /* wingdi.h:574:5 */
-type LPLOGCOLORSPACEW = uintptr         /* wingdi.h:574:20 */
+type LOGCOLORSPACEW = tagLOGCOLORSPACEW /* wingdi.h:576:5 */
+type LPLOGCOLORSPACEW = uintptr         /* wingdi.h:576:20 */
 
-type LOGCOLORSPACE = LOGCOLORSPACEA     /* wingdi.h:576:3 */
-type LPLOGCOLORSPACE = LPLOGCOLORSPACEA /* wingdi.h:577:3 */
+type LOGCOLORSPACE = LOGCOLORSPACEA     /* wingdi.h:578:3 */
+type LPLOGCOLORSPACE = LPLOGCOLORSPACEA /* wingdi.h:579:3 */
 
 type tagBITMAPCOREHEADER = struct {
 	bcSize     DWORD
@@ -21274,11 +21486,11 @@ type tagBITMAPCOREHEADER = struct {
 	bcHeight   WORD
 	bcPlanes   WORD
 	bcBitCount WORD
-} /* wingdi.h:581:11 */
+} /* wingdi.h:583:11 */
 
-type BITMAPCOREHEADER = tagBITMAPCOREHEADER /* wingdi.h:587:5 */
-type LPBITMAPCOREHEADER = uintptr           /* wingdi.h:587:22 */
-type PBITMAPCOREHEADER = uintptr            /* wingdi.h:587:42 */
+type BITMAPCOREHEADER = tagBITMAPCOREHEADER /* wingdi.h:589:5 */
+type LPBITMAPCOREHEADER = uintptr           /* wingdi.h:589:22 */
+type PBITMAPCOREHEADER = uintptr            /* wingdi.h:589:42 */
 
 type tagBITMAPINFOHEADER = struct {
 	biSize          DWORD
@@ -21292,11 +21504,11 @@ type tagBITMAPINFOHEADER = struct {
 	biYPelsPerMeter LONG
 	biClrUsed       DWORD
 	biClrImportant  DWORD
-} /* wingdi.h:591:11 */
+} /* wingdi.h:593:11 */
 
-type BITMAPINFOHEADER = tagBITMAPINFOHEADER /* wingdi.h:603:5 */
-type LPBITMAPINFOHEADER = uintptr           /* wingdi.h:603:22 */
-type PBITMAPINFOHEADER = uintptr            /* wingdi.h:603:42 */
+type BITMAPINFOHEADER = tagBITMAPINFOHEADER /* wingdi.h:605:5 */
+type LPBITMAPINFOHEADER = uintptr           /* wingdi.h:605:22 */
+type PBITMAPINFOHEADER = uintptr            /* wingdi.h:605:42 */
 
 type BITMAPV4HEADER = struct {
 	bV4Size          DWORD
@@ -21319,9 +21531,9 @@ type BITMAPV4HEADER = struct {
 	bV4GammaRed      DWORD
 	bV4GammaGreen    DWORD
 	bV4GammaBlue     DWORD
-}                               /* wingdi.h:628:5 */
-type LPBITMAPV4HEADER = uintptr /* wingdi.h:628:20 */
-type PBITMAPV4HEADER = uintptr  /* wingdi.h:628:38 */
+}                               /* wingdi.h:630:5 */
+type LPBITMAPV4HEADER = uintptr /* wingdi.h:630:20 */
+type PBITMAPV4HEADER = uintptr  /* wingdi.h:630:38 */
 
 type BITMAPV5HEADER = struct {
 	bV5Size          DWORD
@@ -21348,28 +21560,28 @@ type BITMAPV5HEADER = struct {
 	bV5ProfileData   DWORD
 	bV5ProfileSize   DWORD
 	bV5Reserved      DWORD
-}                               /* wingdi.h:655:5 */
-type LPBITMAPV5HEADER = uintptr /* wingdi.h:655:20 */
-type PBITMAPV5HEADER = uintptr  /* wingdi.h:655:38 */
+}                               /* wingdi.h:657:5 */
+type LPBITMAPV5HEADER = uintptr /* wingdi.h:657:20 */
+type PBITMAPV5HEADER = uintptr  /* wingdi.h:657:38 */
 
 type tagBITMAPINFO = struct {
 	bmiHeader BITMAPINFOHEADER
 	bmiColors [1]RGBQUAD
-} /* wingdi.h:669:11 */
+} /* wingdi.h:671:11 */
 
-type BITMAPINFO = tagBITMAPINFO /* wingdi.h:672:5 */
-type LPBITMAPINFO = uintptr     /* wingdi.h:672:16 */
-type PBITMAPINFO = uintptr      /* wingdi.h:672:30 */
+type BITMAPINFO = tagBITMAPINFO /* wingdi.h:674:5 */
+type LPBITMAPINFO = uintptr     /* wingdi.h:674:16 */
+type PBITMAPINFO = uintptr      /* wingdi.h:674:30 */
 
 type tagBITMAPCOREINFO = struct {
 	bmciHeader BITMAPCOREHEADER
 	bmciColors [1]RGBTRIPLE
 	_          [1]byte
-} /* wingdi.h:676:11 */
+} /* wingdi.h:678:11 */
 
-type BITMAPCOREINFO = tagBITMAPCOREINFO /* wingdi.h:679:5 */
-type LPBITMAPCOREINFO = uintptr         /* wingdi.h:679:20 */
-type PBITMAPCOREINFO = uintptr          /* wingdi.h:679:38 */
+type BITMAPCOREINFO = tagBITMAPCOREINFO /* wingdi.h:681:5 */
+type LPBITMAPCOREINFO = uintptr         /* wingdi.h:681:20 */
+type PBITMAPCOREINFO = uintptr          /* wingdi.h:681:38 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21382,15 +21594,15 @@ type tagBITMAPFILEHEADER = struct {
 	bfReserved1 WORD
 	bfReserved2 WORD
 	bfOffBits   DWORD
-} /* wingdi.h:682:11 */
+} /* wingdi.h:684:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type BITMAPFILEHEADER = tagBITMAPFILEHEADER /* wingdi.h:688:5 */
-type LPBITMAPFILEHEADER = uintptr           /* wingdi.h:688:22 */
-type PBITMAPFILEHEADER = uintptr            /* wingdi.h:688:42 */
+type BITMAPFILEHEADER = tagBITMAPFILEHEADER /* wingdi.h:690:5 */
+type LPBITMAPFILEHEADER = uintptr           /* wingdi.h:690:22 */
+type PBITMAPFILEHEADER = uintptr            /* wingdi.h:690:42 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
@@ -21399,53 +21611,53 @@ type PBITMAPFILEHEADER = uintptr            /* wingdi.h:688:42 */
 type tagFONTSIGNATURE = struct {
 	fsUsb [4]DWORD
 	fsCsb [2]DWORD
-} /* wingdi.h:697:11 */
+} /* wingdi.h:699:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type FONTSIGNATURE = tagFONTSIGNATURE /* wingdi.h:700:5 */
-type PFONTSIGNATURE = uintptr         /* wingdi.h:700:19 */
-type LPFONTSIGNATURE = uintptr        /* wingdi.h:700:35 */
+type FONTSIGNATURE = tagFONTSIGNATURE /* wingdi.h:702:5 */
+type PFONTSIGNATURE = uintptr         /* wingdi.h:702:19 */
+type LPFONTSIGNATURE = uintptr        /* wingdi.h:702:35 */
 
 type tagCHARSETINFO = struct {
 	ciCharset UINT
 	ciACP     UINT
 	fs        FONTSIGNATURE
-} /* wingdi.h:702:11 */
+} /* wingdi.h:704:11 */
 
-type CHARSETINFO = tagCHARSETINFO /* wingdi.h:706:5 */
-type PCHARSETINFO = uintptr       /* wingdi.h:706:17 */
-type NPCHARSETINFO = uintptr      /* wingdi.h:706:31 */
-type LPCHARSETINFO = uintptr      /* wingdi.h:706:46 */
+type CHARSETINFO = tagCHARSETINFO /* wingdi.h:708:5 */
+type PCHARSETINFO = uintptr       /* wingdi.h:708:17 */
+type NPCHARSETINFO = uintptr      /* wingdi.h:708:31 */
+type LPCHARSETINFO = uintptr      /* wingdi.h:708:46 */
 
 type tagLOCALESIGNATURE = struct {
 	lsUsb          [4]DWORD
 	lsCsbDefault   [2]DWORD
 	lsCsbSupported [2]DWORD
-} /* wingdi.h:715:11 */
+} /* wingdi.h:717:11 */
 
-type LOCALESIGNATURE = tagLOCALESIGNATURE /* wingdi.h:719:5 */
-type PLOCALESIGNATURE = uintptr           /* wingdi.h:719:21 */
-type LPLOCALESIGNATURE = uintptr          /* wingdi.h:719:39 */
+type LOCALESIGNATURE = tagLOCALESIGNATURE /* wingdi.h:721:5 */
+type PLOCALESIGNATURE = uintptr           /* wingdi.h:721:21 */
+type LPLOCALESIGNATURE = uintptr          /* wingdi.h:721:39 */
 
-type tagHANDLETABLE = struct{ objectHandle [1]HGDIOBJ } /* wingdi.h:725:11 */
+type tagHANDLETABLE = struct{ objectHandle [1]HGDIOBJ } /* wingdi.h:727:11 */
 
-type HANDLETABLE = tagHANDLETABLE /* wingdi.h:727:5 */
-type PHANDLETABLE = uintptr       /* wingdi.h:727:17 */
-type LPHANDLETABLE = uintptr      /* wingdi.h:727:31 */
+type HANDLETABLE = tagHANDLETABLE /* wingdi.h:729:5 */
+type PHANDLETABLE = uintptr       /* wingdi.h:729:17 */
+type LPHANDLETABLE = uintptr      /* wingdi.h:729:31 */
 
 type tagMETARECORD = struct {
 	rdSize     DWORD
 	rdFunction WORD
 	rdParm     [1]WORD
-} /* wingdi.h:729:11 */
+} /* wingdi.h:731:11 */
 
-type METARECORD = tagMETARECORD /* wingdi.h:733:5 */
-type PMETARECORD = uintptr      /* wingdi.h:736:42 */
-type LPMETARECORD = uintptr     /* wingdi.h:739:42 */
+type METARECORD = tagMETARECORD /* wingdi.h:735:5 */
+type PMETARECORD = uintptr      /* wingdi.h:738:42 */
+type LPMETARECORD = uintptr     /* wingdi.h:741:42 */
 
 type tagMETAFILEPICT = struct {
 	mm   LONG
@@ -21453,10 +21665,10 @@ type tagMETAFILEPICT = struct {
 	yExt LONG
 	_    [4]byte
 	hMF  HMETAFILE
-} /* wingdi.h:741:11 */
+} /* wingdi.h:743:11 */
 
-type METAFILEPICT = tagMETAFILEPICT /* wingdi.h:746:5 */
-type LPMETAFILEPICT = uintptr       /* wingdi.h:746:18 */
+type METAFILEPICT = tagMETAFILEPICT /* wingdi.h:748:5 */
+type LPMETAFILEPICT = uintptr       /* wingdi.h:748:18 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21473,15 +21685,15 @@ type tagMETAHEADER = struct {
 	mtMaxRecord    DWORD
 	mtNoParameters WORD
 	_              [2]byte
-} /* wingdi.h:751:11 */
+} /* wingdi.h:753:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type METAHEADER = tagMETAHEADER /* wingdi.h:759:5 */
-type PMETAHEADER = uintptr      /* wingdi.h:760:42 */
-type LPMETAHEADER = uintptr     /* wingdi.h:761:42 */
+type METAHEADER = tagMETAHEADER /* wingdi.h:761:5 */
+type PMETAHEADER = uintptr      /* wingdi.h:762:42 */
+type LPMETAHEADER = uintptr     /* wingdi.h:763:42 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21492,16 +21704,16 @@ type tagENHMETARECORD = struct {
 	iType DWORD
 	nSize DWORD
 	dParm [1]DWORD
-} /* wingdi.h:767:11 */
+} /* wingdi.h:769:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type ENHMETARECORD = tagENHMETARECORD /* wingdi.h:771:5 */
-type PENHMETARECORD = uintptr         /* wingdi.h:771:19 */
-type LPENHMETARECORD = uintptr        /* wingdi.h:771:35 */
+type ENHMETARECORD = tagENHMETARECORD /* wingdi.h:773:5 */
+type PENHMETARECORD = uintptr         /* wingdi.h:773:19 */
+type LPENHMETARECORD = uintptr        /* wingdi.h:773:35 */
 
 type tagENHMETAHEADER = struct {
 	iType          DWORD
@@ -21523,13 +21735,13 @@ type tagENHMETAHEADER = struct {
 	offPixelFormat DWORD
 	bOpenGL        DWORD
 	szlMicrometers SIZEL
-} /* wingdi.h:773:11 */
+} /* wingdi.h:775:11 */
 
-type ENHMETAHEADER = tagENHMETAHEADER /* wingdi.h:793:5 */
-type PENHMETAHEADER = uintptr         /* wingdi.h:793:19 */
-type LPENHMETAHEADER = uintptr        /* wingdi.h:793:35 */
+type ENHMETAHEADER = tagENHMETAHEADER /* wingdi.h:795:5 */
+type PENHMETAHEADER = uintptr         /* wingdi.h:795:19 */
+type LPENHMETAHEADER = uintptr        /* wingdi.h:795:35 */
 
-type BCHAR = BYTE /* wingdi.h:807:16 */
+type BCHAR = BYTE /* wingdi.h:809:16 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21558,17 +21770,17 @@ type tagTEXTMETRICA = struct {
 	tmPitchAndFamily   BYTE
 	tmCharSet          BYTE
 	_                  [3]byte
-} /* wingdi.h:816:11 */
+} /* wingdi.h:818:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type TEXTMETRICA = tagTEXTMETRICA /* wingdi.h:837:5 */
-type PTEXTMETRICA = uintptr       /* wingdi.h:837:17 */
-type NPTEXTMETRICA = uintptr      /* wingdi.h:837:31 */
-type LPTEXTMETRICA = uintptr      /* wingdi.h:837:46 */
+type TEXTMETRICA = tagTEXTMETRICA /* wingdi.h:839:5 */
+type PTEXTMETRICA = uintptr       /* wingdi.h:839:17 */
+type NPTEXTMETRICA = uintptr      /* wingdi.h:839:31 */
+type LPTEXTMETRICA = uintptr      /* wingdi.h:839:46 */
 
 type tagTEXTMETRICW = struct {
 	tmHeight           LONG
@@ -21592,17 +21804,17 @@ type tagTEXTMETRICW = struct {
 	tmPitchAndFamily   BYTE
 	tmCharSet          BYTE
 	_                  [3]byte
-} /* wingdi.h:839:11 */
+} /* wingdi.h:841:11 */
 
-type TEXTMETRICW = tagTEXTMETRICW /* wingdi.h:860:5 */
-type PTEXTMETRICW = uintptr       /* wingdi.h:860:17 */
-type NPTEXTMETRICW = uintptr      /* wingdi.h:860:31 */
-type LPTEXTMETRICW = uintptr      /* wingdi.h:860:46 */
+type TEXTMETRICW = tagTEXTMETRICW /* wingdi.h:862:5 */
+type PTEXTMETRICW = uintptr       /* wingdi.h:862:17 */
+type NPTEXTMETRICW = uintptr      /* wingdi.h:862:31 */
+type LPTEXTMETRICW = uintptr      /* wingdi.h:862:46 */
 
-type TEXTMETRIC = TEXTMETRICA     /* wingdi.h:862:3 */
-type PTEXTMETRIC = PTEXTMETRICA   /* wingdi.h:863:3 */
-type NPTEXTMETRIC = NPTEXTMETRICA /* wingdi.h:864:3 */
-type LPTEXTMETRIC = LPTEXTMETRICA /* wingdi.h:865:3 */
+type TEXTMETRIC = TEXTMETRICA     /* wingdi.h:864:3 */
+type PTEXTMETRIC = PTEXTMETRICA   /* wingdi.h:865:3 */
+type NPTEXTMETRIC = NPTEXTMETRICA /* wingdi.h:866:3 */
+type LPTEXTMETRIC = LPTEXTMETRICA /* wingdi.h:867:3 */
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
@@ -21638,7 +21850,7 @@ type tagNEWTEXTMETRICA = struct {
 	ntmSizeEM          UINT
 	ntmCellHeight      UINT
 	ntmAvgWidth        UINT
-} /* wingdi.h:883:11 */
+} /* wingdi.h:885:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21649,10 +21861,10 @@ type tagNEWTEXTMETRICA = struct {
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-type NEWTEXTMETRICA = tagNEWTEXTMETRICA /* wingdi.h:908:5 */
-type PNEWTEXTMETRICA = uintptr          /* wingdi.h:908:20 */
-type NPNEWTEXTMETRICA = uintptr         /* wingdi.h:908:37 */
-type LPNEWTEXTMETRICA = uintptr         /* wingdi.h:908:55 */
+type NEWTEXTMETRICA = tagNEWTEXTMETRICA /* wingdi.h:910:5 */
+type PNEWTEXTMETRICA = uintptr          /* wingdi.h:910:20 */
+type NPNEWTEXTMETRICA = uintptr         /* wingdi.h:910:37 */
+type LPNEWTEXTMETRICA = uintptr         /* wingdi.h:910:55 */
 
 type tagNEWTEXTMETRICW = struct {
 	tmHeight           LONG
@@ -21680,17 +21892,17 @@ type tagNEWTEXTMETRICW = struct {
 	ntmSizeEM          UINT
 	ntmCellHeight      UINT
 	ntmAvgWidth        UINT
-} /* wingdi.h:910:11 */
+} /* wingdi.h:912:11 */
 
-type NEWTEXTMETRICW = tagNEWTEXTMETRICW /* wingdi.h:935:5 */
-type PNEWTEXTMETRICW = uintptr          /* wingdi.h:935:20 */
-type NPNEWTEXTMETRICW = uintptr         /* wingdi.h:935:37 */
-type LPNEWTEXTMETRICW = uintptr         /* wingdi.h:935:55 */
+type NEWTEXTMETRICW = tagNEWTEXTMETRICW /* wingdi.h:937:5 */
+type PNEWTEXTMETRICW = uintptr          /* wingdi.h:937:20 */
+type NPNEWTEXTMETRICW = uintptr         /* wingdi.h:937:37 */
+type LPNEWTEXTMETRICW = uintptr         /* wingdi.h:937:55 */
 
-type NEWTEXTMETRIC = NEWTEXTMETRICA     /* wingdi.h:937:3 */
-type PNEWTEXTMETRIC = PNEWTEXTMETRICA   /* wingdi.h:938:3 */
-type NPNEWTEXTMETRIC = NPNEWTEXTMETRICA /* wingdi.h:939:3 */
-type LPNEWTEXTMETRIC = LPNEWTEXTMETRICA /* wingdi.h:940:3 */
+type NEWTEXTMETRIC = NEWTEXTMETRICA     /* wingdi.h:939:3 */
+type PNEWTEXTMETRIC = PNEWTEXTMETRICA   /* wingdi.h:940:3 */
+type NPNEWTEXTMETRIC = NPNEWTEXTMETRICA /* wingdi.h:941:3 */
+type LPNEWTEXTMETRIC = LPNEWTEXTMETRICA /* wingdi.h:942:3 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -21700,23 +21912,23 @@ type LPNEWTEXTMETRIC = LPNEWTEXTMETRICA /* wingdi.h:940:3 */
 type tagNEWTEXTMETRICEXA = struct {
 	ntmTm      NEWTEXTMETRICA
 	ntmFontSig FONTSIGNATURE
-} /* wingdi.h:944:11 */
+} /* wingdi.h:946:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type NEWTEXTMETRICEXA = tagNEWTEXTMETRICEXA /* wingdi.h:947:5 */
+type NEWTEXTMETRICEXA = tagNEWTEXTMETRICEXA /* wingdi.h:949:5 */
 
 type tagNEWTEXTMETRICEXW = struct {
 	ntmTm      NEWTEXTMETRICW
 	ntmFontSig FONTSIGNATURE
-} /* wingdi.h:949:11 */
+} /* wingdi.h:951:11 */
 
-type NEWTEXTMETRICEXW = tagNEWTEXTMETRICEXW /* wingdi.h:952:5 */
+type NEWTEXTMETRICEXW = tagNEWTEXTMETRICEXW /* wingdi.h:954:5 */
 
-type NEWTEXTMETRICEX = NEWTEXTMETRICEXA /* wingdi.h:954:3 */
+type NEWTEXTMETRICEX = NEWTEXTMETRICEXA /* wingdi.h:956:3 */
 
 type tagPELARRAY = struct {
 	paXCount LONG
@@ -21725,48 +21937,48 @@ type tagPELARRAY = struct {
 	paYExt   LONG
 	paRGBs   BYTE
 	_        [3]byte
-} /* wingdi.h:959:11 */
+} /* wingdi.h:961:11 */
 
-type PELARRAY = tagPELARRAY /* wingdi.h:965:5 */
-type PPELARRAY = uintptr    /* wingdi.h:965:14 */
-type NPPELARRAY = uintptr   /* wingdi.h:965:25 */
-type LPPELARRAY = uintptr   /* wingdi.h:965:37 */
+type PELARRAY = tagPELARRAY /* wingdi.h:967:5 */
+type PPELARRAY = uintptr    /* wingdi.h:967:14 */
+type NPPELARRAY = uintptr   /* wingdi.h:967:25 */
+type LPPELARRAY = uintptr   /* wingdi.h:967:37 */
 type tagLOGBRUSH = struct {
 	lbStyle UINT
 	lbColor COLORREF
 	lbHatch ULONG_PTR
-} /* wingdi.h:968:11 */
+} /* wingdi.h:970:11 */
 
-type LOGBRUSH = tagLOGBRUSH /* wingdi.h:972:5 */
-type PLOGBRUSH = uintptr    /* wingdi.h:972:14 */
-type NPLOGBRUSH = uintptr   /* wingdi.h:972:25 */
-type LPLOGBRUSH = uintptr   /* wingdi.h:972:37 */
+type LOGBRUSH = tagLOGBRUSH /* wingdi.h:974:5 */
+type PLOGBRUSH = uintptr    /* wingdi.h:974:14 */
+type NPLOGBRUSH = uintptr   /* wingdi.h:974:25 */
+type LPLOGBRUSH = uintptr   /* wingdi.h:974:37 */
 
 type tagLOGBRUSH32 = struct {
 	lbStyle UINT
 	lbColor COLORREF
 	lbHatch ULONG
-} /* wingdi.h:974:11 */
+} /* wingdi.h:976:11 */
 
-type LOGBRUSH32 = tagLOGBRUSH32 /* wingdi.h:978:5 */
-type PLOGBRUSH32 = uintptr      /* wingdi.h:978:16 */
-type NPLOGBRUSH32 = uintptr     /* wingdi.h:978:29 */
-type LPLOGBRUSH32 = uintptr     /* wingdi.h:978:43 */
-type PATTERN = LOGBRUSH         /* wingdi.h:981:20 */
-type PPATTERN = uintptr         /* wingdi.h:982:19 */
-type NPPATTERN = uintptr        /* wingdi.h:983:19 */
-type LPPATTERN = uintptr        /* wingdi.h:984:19 */
+type LOGBRUSH32 = tagLOGBRUSH32 /* wingdi.h:980:5 */
+type PLOGBRUSH32 = uintptr      /* wingdi.h:980:16 */
+type NPLOGBRUSH32 = uintptr     /* wingdi.h:980:29 */
+type LPLOGBRUSH32 = uintptr     /* wingdi.h:980:43 */
+type PATTERN = LOGBRUSH         /* wingdi.h:983:20 */
+type PPATTERN = uintptr         /* wingdi.h:984:19 */
+type NPPATTERN = uintptr        /* wingdi.h:985:19 */
+type LPPATTERN = uintptr        /* wingdi.h:986:19 */
 
 type tagLOGPEN = struct {
 	lopnStyle UINT
 	lopnWidth POINT
 	lopnColor COLORREF
-} /* wingdi.h:988:11 */
+} /* wingdi.h:990:11 */
 
-type LOGPEN = tagLOGPEN /* wingdi.h:992:5 */
-type PLOGPEN = uintptr  /* wingdi.h:992:12 */
-type NPLOGPEN = uintptr /* wingdi.h:992:21 */
-type LPLOGPEN = uintptr /* wingdi.h:992:31 */
+type LOGPEN = tagLOGPEN /* wingdi.h:994:5 */
+type PLOGPEN = uintptr  /* wingdi.h:994:12 */
+type NPLOGPEN = uintptr /* wingdi.h:994:21 */
+type LPLOGPEN = uintptr /* wingdi.h:994:31 */
 
 type tagEXTLOGPEN = struct {
 	elpPenStyle   DWORD
@@ -21776,12 +21988,12 @@ type tagEXTLOGPEN = struct {
 	elpHatch      ULONG_PTR
 	elpNumEntries DWORD
 	elpStyleEntry [1]DWORD
-} /* wingdi.h:996:11 */
+} /* wingdi.h:998:11 */
 
-type EXTLOGPEN = tagEXTLOGPEN /* wingdi.h:1004:5 */
-type PEXTLOGPEN = uintptr     /* wingdi.h:1004:15 */
-type NPEXTLOGPEN = uintptr    /* wingdi.h:1004:27 */
-type LPEXTLOGPEN = uintptr    /* wingdi.h:1004:40 */
+type EXTLOGPEN = tagEXTLOGPEN /* wingdi.h:1006:5 */
+type PEXTLOGPEN = uintptr     /* wingdi.h:1006:15 */
+type NPEXTLOGPEN = uintptr    /* wingdi.h:1006:27 */
+type LPEXTLOGPEN = uintptr    /* wingdi.h:1006:40 */
 
 type tagEXTLOGPEN32 = struct {
 	elpPenStyle   DWORD
@@ -21791,34 +22003,34 @@ type tagEXTLOGPEN32 = struct {
 	elpHatch      ULONG
 	elpNumEntries DWORD
 	elpStyleEntry [1]DWORD
-} /* wingdi.h:1008:11 */
+} /* wingdi.h:1010:11 */
 
-type EXTLOGPEN32 = tagEXTLOGPEN32 /* wingdi.h:1016:5 */
-type PEXTLOGPEN32 = uintptr       /* wingdi.h:1016:18 */
-type NPEXTLOGPEN32 = uintptr      /* wingdi.h:1016:33 */
-type LPEXTLOGPEN32 = uintptr      /* wingdi.h:1016:49 */
+type EXTLOGPEN32 = tagEXTLOGPEN32 /* wingdi.h:1018:5 */
+type PEXTLOGPEN32 = uintptr       /* wingdi.h:1018:18 */
+type NPEXTLOGPEN32 = uintptr      /* wingdi.h:1018:33 */
+type LPEXTLOGPEN32 = uintptr      /* wingdi.h:1018:49 */
 
 type tagPALETTEENTRY = struct {
 	peRed   BYTE
 	peGreen BYTE
 	peBlue  BYTE
 	peFlags BYTE
-} /* wingdi.h:1020:11 */
+} /* wingdi.h:1022:11 */
 
-type PALETTEENTRY = tagPALETTEENTRY /* wingdi.h:1025:5 */
-type PPALETTEENTRY = uintptr        /* wingdi.h:1025:18 */
-type LPPALETTEENTRY = uintptr       /* wingdi.h:1025:33 */
+type PALETTEENTRY = tagPALETTEENTRY /* wingdi.h:1027:5 */
+type PPALETTEENTRY = uintptr        /* wingdi.h:1027:18 */
+type LPPALETTEENTRY = uintptr       /* wingdi.h:1027:33 */
 
 type tagLOGPALETTE = struct {
 	palVersion    WORD
 	palNumEntries WORD
 	palPalEntry   [1]PALETTEENTRY
-} /* wingdi.h:1030:11 */
+} /* wingdi.h:1032:11 */
 
-type LOGPALETTE = tagLOGPALETTE /* wingdi.h:1034:5 */
-type PLOGPALETTE = uintptr      /* wingdi.h:1034:16 */
-type NPLOGPALETTE = uintptr     /* wingdi.h:1034:29 */
-type LPLOGPALETTE = uintptr     /* wingdi.h:1034:43 */
+type LOGPALETTE = tagLOGPALETTE /* wingdi.h:1036:5 */
+type PLOGPALETTE = uintptr      /* wingdi.h:1036:16 */
+type NPLOGPALETTE = uintptr     /* wingdi.h:1036:29 */
+type LPLOGPALETTE = uintptr     /* wingdi.h:1036:43 */
 
 type tagLOGFONTA = struct {
 	lfHeight         LONG
@@ -21835,12 +22047,12 @@ type tagLOGFONTA = struct {
 	lfQuality        BYTE
 	lfPitchAndFamily BYTE
 	lfFaceName       [32]CHAR
-} /* wingdi.h:1041:11 */
+} /* wingdi.h:1043:11 */
 
-type LOGFONTA = tagLOGFONTA /* wingdi.h:1056:5 */
-type PLOGFONTA = uintptr    /* wingdi.h:1056:14 */
-type NPLOGFONTA = uintptr   /* wingdi.h:1056:25 */
-type LPLOGFONTA = uintptr   /* wingdi.h:1056:37 */
+type LOGFONTA = tagLOGFONTA /* wingdi.h:1058:5 */
+type PLOGFONTA = uintptr    /* wingdi.h:1058:14 */
+type NPLOGFONTA = uintptr   /* wingdi.h:1058:25 */
+type LPLOGFONTA = uintptr   /* wingdi.h:1058:37 */
 
 type tagLOGFONTW = struct {
 	lfHeight         LONG
@@ -21857,61 +22069,61 @@ type tagLOGFONTW = struct {
 	lfQuality        BYTE
 	lfPitchAndFamily BYTE
 	lfFaceName       [32]WCHAR
-} /* wingdi.h:1058:11 */
+} /* wingdi.h:1060:11 */
 
-type LOGFONTW = tagLOGFONTW /* wingdi.h:1073:5 */
-type PLOGFONTW = uintptr    /* wingdi.h:1073:14 */
-type NPLOGFONTW = uintptr   /* wingdi.h:1073:25 */
-type LPLOGFONTW = uintptr   /* wingdi.h:1073:37 */
+type LOGFONTW = tagLOGFONTW /* wingdi.h:1075:5 */
+type PLOGFONTW = uintptr    /* wingdi.h:1075:14 */
+type NPLOGFONTW = uintptr   /* wingdi.h:1075:25 */
+type LPLOGFONTW = uintptr   /* wingdi.h:1075:37 */
 
-type LOGFONT = LOGFONTA     /* wingdi.h:1075:3 */
-type PLOGFONT = PLOGFONTA   /* wingdi.h:1076:3 */
-type NPLOGFONT = NPLOGFONTA /* wingdi.h:1077:3 */
-type LPLOGFONT = LPLOGFONTA /* wingdi.h:1078:3 */
+type LOGFONT = LOGFONTA     /* wingdi.h:1077:3 */
+type PLOGFONT = PLOGFONTA   /* wingdi.h:1078:3 */
+type NPLOGFONT = NPLOGFONTA /* wingdi.h:1079:3 */
+type LPLOGFONT = LPLOGFONTA /* wingdi.h:1080:3 */
 
 type tagENUMLOGFONTA = struct {
 	elfLogFont  LOGFONTA
 	elfFullName [64]BYTE
 	elfStyle    [32]BYTE
-} /* wingdi.h:1084:11 */
+} /* wingdi.h:1086:11 */
 
-type ENUMLOGFONTA = tagENUMLOGFONTA /* wingdi.h:1088:5 */
-type LPENUMLOGFONTA = uintptr       /* wingdi.h:1088:18 */
+type ENUMLOGFONTA = tagENUMLOGFONTA /* wingdi.h:1090:5 */
+type LPENUMLOGFONTA = uintptr       /* wingdi.h:1090:18 */
 
 type tagENUMLOGFONTW = struct {
 	elfLogFont  LOGFONTW
 	elfFullName [64]WCHAR
 	elfStyle    [32]WCHAR
-} /* wingdi.h:1090:11 */
+} /* wingdi.h:1092:11 */
 
-type ENUMLOGFONTW = tagENUMLOGFONTW /* wingdi.h:1094:5 */
-type LPENUMLOGFONTW = uintptr       /* wingdi.h:1094:18 */
+type ENUMLOGFONTW = tagENUMLOGFONTW /* wingdi.h:1096:5 */
+type LPENUMLOGFONTW = uintptr       /* wingdi.h:1096:18 */
 
-type ENUMLOGFONT = ENUMLOGFONTA     /* wingdi.h:1096:3 */
-type LPENUMLOGFONT = LPENUMLOGFONTA /* wingdi.h:1097:3 */
+type ENUMLOGFONT = ENUMLOGFONTA     /* wingdi.h:1098:3 */
+type LPENUMLOGFONT = LPENUMLOGFONTA /* wingdi.h:1099:3 */
 
 type tagENUMLOGFONTEXA = struct {
 	elfLogFont  LOGFONTA
 	elfFullName [64]BYTE
 	elfStyle    [32]BYTE
 	elfScript   [32]BYTE
-} /* wingdi.h:1099:11 */
+} /* wingdi.h:1101:11 */
 
-type ENUMLOGFONTEXA = tagENUMLOGFONTEXA /* wingdi.h:1104:5 */
-type LPENUMLOGFONTEXA = uintptr         /* wingdi.h:1104:20 */
+type ENUMLOGFONTEXA = tagENUMLOGFONTEXA /* wingdi.h:1106:5 */
+type LPENUMLOGFONTEXA = uintptr         /* wingdi.h:1106:20 */
 
 type tagENUMLOGFONTEXW = struct {
 	elfLogFont  LOGFONTW
 	elfFullName [64]WCHAR
 	elfStyle    [32]WCHAR
 	elfScript   [32]WCHAR
-} /* wingdi.h:1106:11 */
+} /* wingdi.h:1108:11 */
 
-type ENUMLOGFONTEXW = tagENUMLOGFONTEXW /* wingdi.h:1111:5 */
-type LPENUMLOGFONTEXW = uintptr         /* wingdi.h:1111:20 */
+type ENUMLOGFONTEXW = tagENUMLOGFONTEXW /* wingdi.h:1113:5 */
+type LPENUMLOGFONTEXW = uintptr         /* wingdi.h:1113:20 */
 
-type ENUMLOGFONTEX = ENUMLOGFONTEXA     /* wingdi.h:1113:3 */
-type LPENUMLOGFONTEX = LPENUMLOGFONTEXA /* wingdi.h:1114:3 */
+type ENUMLOGFONTEX = ENUMLOGFONTEXA     /* wingdi.h:1115:3 */
+type LPENUMLOGFONTEX = LPENUMLOGFONTEXA /* wingdi.h:1116:3 */
 
 type tagPANOSE = struct {
 	bFamilyType      BYTE
@@ -21924,10 +22136,10 @@ type tagPANOSE = struct {
 	bLetterform      BYTE
 	bMidline         BYTE
 	bXHeight         BYTE
-} /* wingdi.h:1235:11 */
+} /* wingdi.h:1237:11 */
 
-type PANOSE = tagPANOSE /* wingdi.h:1246:5 */
-type LPPANOSE = uintptr /* wingdi.h:1246:12 */
+type PANOSE = tagPANOSE /* wingdi.h:1248:5 */
+type LPPANOSE = uintptr /* wingdi.h:1248:12 */
 
 type tagEXTLOGFONTA = struct {
 	elfLogFont   LOGFONTA
@@ -21941,12 +22153,12 @@ type tagEXTLOGFONTA = struct {
 	elfCulture   DWORD
 	elfPanose    PANOSE
 	_            [2]byte
-} /* wingdi.h:1356:11 */
+} /* wingdi.h:1358:11 */
 
-type EXTLOGFONTA = tagEXTLOGFONTA /* wingdi.h:1367:5 */
-type PEXTLOGFONTA = uintptr       /* wingdi.h:1367:17 */
-type NPEXTLOGFONTA = uintptr      /* wingdi.h:1367:31 */
-type LPEXTLOGFONTA = uintptr      /* wingdi.h:1367:46 */
+type EXTLOGFONTA = tagEXTLOGFONTA /* wingdi.h:1369:5 */
+type PEXTLOGFONTA = uintptr       /* wingdi.h:1369:17 */
+type NPEXTLOGFONTA = uintptr      /* wingdi.h:1369:31 */
+type LPEXTLOGFONTA = uintptr      /* wingdi.h:1369:46 */
 
 type tagEXTLOGFONTW = struct {
 	elfLogFont   LOGFONTW
@@ -21960,17 +22172,17 @@ type tagEXTLOGFONTW = struct {
 	elfCulture   DWORD
 	elfPanose    PANOSE
 	_            [2]byte
-} /* wingdi.h:1369:11 */
+} /* wingdi.h:1371:11 */
 
-type EXTLOGFONTW = tagEXTLOGFONTW /* wingdi.h:1380:5 */
-type PEXTLOGFONTW = uintptr       /* wingdi.h:1380:17 */
-type NPEXTLOGFONTW = uintptr      /* wingdi.h:1380:31 */
-type LPEXTLOGFONTW = uintptr      /* wingdi.h:1380:46 */
+type EXTLOGFONTW = tagEXTLOGFONTW /* wingdi.h:1382:5 */
+type PEXTLOGFONTW = uintptr       /* wingdi.h:1382:17 */
+type NPEXTLOGFONTW = uintptr      /* wingdi.h:1382:31 */
+type LPEXTLOGFONTW = uintptr      /* wingdi.h:1382:46 */
 
-type EXTLOGFONT = EXTLOGFONTA     /* wingdi.h:1382:3 */
-type PEXTLOGFONT = PEXTLOGFONTA   /* wingdi.h:1383:3 */
-type NPEXTLOGFONT = NPEXTLOGFONTA /* wingdi.h:1384:3 */
-type LPEXTLOGFONT = LPEXTLOGFONTA /* wingdi.h:1385:3 */
+type EXTLOGFONT = EXTLOGFONTA     /* wingdi.h:1384:3 */
+type PEXTLOGFONT = PEXTLOGFONTA   /* wingdi.h:1385:3 */
+type NPEXTLOGFONT = NPEXTLOGFONTA /* wingdi.h:1386:3 */
+type LPEXTLOGFONT = LPEXTLOGFONTA /* wingdi.h:1387:3 */
 
 type _devicemodeA = struct {
 	dmDeviceName    [32]BYTE
@@ -22012,12 +22224,12 @@ type _devicemodeA = struct {
 	dmReserved2        DWORD
 	dmPanningWidth     DWORD
 	dmPanningHeight    DWORD
-} /* wingdi.h:1669:11 */
+} /* wingdi.h:1671:11 */
 
-type DEVMODEA = _devicemodeA /* wingdi.h:1716:5 */
-type PDEVMODEA = uintptr     /* wingdi.h:1716:14 */
-type NPDEVMODEA = uintptr    /* wingdi.h:1716:25 */
-type LPDEVMODEA = uintptr    /* wingdi.h:1716:37 */
+type DEVMODEA = _devicemodeA /* wingdi.h:1718:5 */
+type PDEVMODEA = uintptr     /* wingdi.h:1718:14 */
+type NPDEVMODEA = uintptr    /* wingdi.h:1718:25 */
+type LPDEVMODEA = uintptr    /* wingdi.h:1718:37 */
 
 type _devicemodeW = struct {
 	dmDeviceName    [32]WCHAR
@@ -22059,17 +22271,17 @@ type _devicemodeW = struct {
 	dmReserved2        DWORD
 	dmPanningWidth     DWORD
 	dmPanningHeight    DWORD
-} /* wingdi.h:1718:11 */
+} /* wingdi.h:1720:11 */
 
-type DEVMODEW = _devicemodeW /* wingdi.h:1765:5 */
-type PDEVMODEW = uintptr     /* wingdi.h:1765:14 */
-type NPDEVMODEW = uintptr    /* wingdi.h:1765:25 */
-type LPDEVMODEW = uintptr    /* wingdi.h:1765:37 */
+type DEVMODEW = _devicemodeW /* wingdi.h:1767:5 */
+type PDEVMODEW = uintptr     /* wingdi.h:1767:14 */
+type NPDEVMODEW = uintptr    /* wingdi.h:1767:25 */
+type LPDEVMODEW = uintptr    /* wingdi.h:1767:37 */
 
-type DEVMODE = DEVMODEA     /* wingdi.h:1767:3 */
-type PDEVMODE = PDEVMODEA   /* wingdi.h:1768:3 */
-type NPDEVMODE = NPDEVMODEA /* wingdi.h:1769:3 */
-type LPDEVMODE = LPDEVMODEA /* wingdi.h:1770:3 */
+type DEVMODE = DEVMODEA     /* wingdi.h:1769:3 */
+type PDEVMODE = PDEVMODEA   /* wingdi.h:1770:3 */
+type NPDEVMODE = NPDEVMODEA /* wingdi.h:1771:3 */
+type LPDEVMODE = LPDEVMODEA /* wingdi.h:1772:3 */
 
 type _DISPLAY_DEVICEA = struct {
 	cb           DWORD
@@ -22078,11 +22290,11 @@ type _DISPLAY_DEVICEA = struct {
 	StateFlags   DWORD
 	DeviceID     [128]CHAR
 	DeviceKey    [128]CHAR
-} /* wingdi.h:2021:11 */
+} /* wingdi.h:2023:11 */
 
-type DISPLAY_DEVICEA = _DISPLAY_DEVICEA /* wingdi.h:2028:5 */
-type PDISPLAY_DEVICEA = uintptr         /* wingdi.h:2028:21 */
-type LPDISPLAY_DEVICEA = uintptr        /* wingdi.h:2028:39 */
+type DISPLAY_DEVICEA = _DISPLAY_DEVICEA /* wingdi.h:2030:5 */
+type PDISPLAY_DEVICEA = uintptr         /* wingdi.h:2030:21 */
+type LPDISPLAY_DEVICEA = uintptr        /* wingdi.h:2030:39 */
 
 type _DISPLAY_DEVICEW = struct {
 	cb           DWORD
@@ -22091,15 +22303,15 @@ type _DISPLAY_DEVICEW = struct {
 	StateFlags   DWORD
 	DeviceID     [128]WCHAR
 	DeviceKey    [128]WCHAR
-} /* wingdi.h:2030:11 */
+} /* wingdi.h:2032:11 */
 
-type DISPLAY_DEVICEW = _DISPLAY_DEVICEW /* wingdi.h:2037:5 */
-type PDISPLAY_DEVICEW = uintptr         /* wingdi.h:2037:21 */
-type LPDISPLAY_DEVICEW = uintptr        /* wingdi.h:2037:39 */
+type DISPLAY_DEVICEW = _DISPLAY_DEVICEW /* wingdi.h:2039:5 */
+type PDISPLAY_DEVICEW = uintptr         /* wingdi.h:2039:21 */
+type LPDISPLAY_DEVICEW = uintptr        /* wingdi.h:2039:39 */
 
-type DISPLAY_DEVICE = DISPLAY_DEVICEA     /* wingdi.h:2039:3 */
-type PDISPLAY_DEVICE = PDISPLAY_DEVICEA   /* wingdi.h:2040:3 */
-type LPDISPLAY_DEVICE = LPDISPLAY_DEVICEA /* wingdi.h:2041:3 */
+type DISPLAY_DEVICE = DISPLAY_DEVICEA     /* wingdi.h:2041:3 */
+type PDISPLAY_DEVICE = PDISPLAY_DEVICEA   /* wingdi.h:2042:3 */
+type LPDISPLAY_DEVICE = LPDISPLAY_DEVICEA /* wingdi.h:2043:3 */
 
 type _RGNDATAHEADER = struct {
 	dwSize   DWORD
@@ -22107,43 +22319,43 @@ type _RGNDATAHEADER = struct {
 	nCount   DWORD
 	nRgnSize DWORD
 	rcBound  RECT
-} /* wingdi.h:2315:11 */
+} /* wingdi.h:2422:11 */
 
-type RGNDATAHEADER = _RGNDATAHEADER /* wingdi.h:2321:5 */
-type PRGNDATAHEADER = uintptr       /* wingdi.h:2321:19 */
+type RGNDATAHEADER = _RGNDATAHEADER /* wingdi.h:2428:5 */
+type PRGNDATAHEADER = uintptr       /* wingdi.h:2428:19 */
 
 type _RGNDATA = struct {
 	rdh    RGNDATAHEADER
 	Buffer [1]int8
 	_      [3]byte
-} /* wingdi.h:2323:11 */
+} /* wingdi.h:2430:11 */
 
-type RGNDATA = _RGNDATA  /* wingdi.h:2326:5 */
-type PRGNDATA = uintptr  /* wingdi.h:2326:13 */
-type NPRGNDATA = uintptr /* wingdi.h:2326:23 */
-type LPRGNDATA = uintptr /* wingdi.h:2326:34 */
+type RGNDATA = _RGNDATA  /* wingdi.h:2433:5 */
+type PRGNDATA = uintptr  /* wingdi.h:2433:13 */
+type NPRGNDATA = uintptr /* wingdi.h:2433:23 */
+type LPRGNDATA = uintptr /* wingdi.h:2433:34 */
 
 type _ABC = struct {
 	abcA int32
 	abcB UINT
 	abcC int32
-} /* wingdi.h:2332:11 */
+} /* wingdi.h:2439:11 */
 
-type ABC = _ABC      /* wingdi.h:2336:5 */
-type PABC = uintptr  /* wingdi.h:2336:9 */
-type NPABC = uintptr /* wingdi.h:2336:15 */
-type LPABC = uintptr /* wingdi.h:2336:22 */
+type ABC = _ABC      /* wingdi.h:2443:5 */
+type PABC = uintptr  /* wingdi.h:2443:9 */
+type NPABC = uintptr /* wingdi.h:2443:15 */
+type LPABC = uintptr /* wingdi.h:2443:22 */
 
 type _ABCFLOAT = struct {
 	abcfA FLOAT
 	abcfB FLOAT
 	abcfC FLOAT
-} /* wingdi.h:2338:11 */
+} /* wingdi.h:2445:11 */
 
-type ABCFLOAT = _ABCFLOAT /* wingdi.h:2342:5 */
-type PABCFLOAT = uintptr  /* wingdi.h:2342:14 */
-type NPABCFLOAT = uintptr /* wingdi.h:2342:25 */
-type LPABCFLOAT = uintptr /* wingdi.h:2342:37 */
+type ABCFLOAT = _ABCFLOAT /* wingdi.h:2449:5 */
+type PABCFLOAT = uintptr  /* wingdi.h:2449:14 */
+type NPABCFLOAT = uintptr /* wingdi.h:2449:25 */
+type LPABCFLOAT = uintptr /* wingdi.h:2449:37 */
 
 type _OUTLINETEXTMETRICA = struct {
 	otmSize                UINT
@@ -22180,12 +22392,12 @@ type _OUTLINETEXTMETRICA = struct {
 	otmpFaceName           PSTR
 	otmpStyleName          PSTR
 	otmpFullName           PSTR
-} /* wingdi.h:2348:11 */
+} /* wingdi.h:2455:11 */
 
-type OUTLINETEXTMETRICA = _OUTLINETEXTMETRICA /* wingdi.h:2381:5 */
-type POUTLINETEXTMETRICA = uintptr            /* wingdi.h:2381:24 */
-type NPOUTLINETEXTMETRICA = uintptr           /* wingdi.h:2381:45 */
-type LPOUTLINETEXTMETRICA = uintptr           /* wingdi.h:2381:67 */
+type OUTLINETEXTMETRICA = _OUTLINETEXTMETRICA /* wingdi.h:2488:5 */
+type POUTLINETEXTMETRICA = uintptr            /* wingdi.h:2488:24 */
+type NPOUTLINETEXTMETRICA = uintptr           /* wingdi.h:2488:45 */
+type LPOUTLINETEXTMETRICA = uintptr           /* wingdi.h:2488:67 */
 
 type _OUTLINETEXTMETRICW = struct {
 	otmSize                UINT
@@ -22221,17 +22433,17 @@ type _OUTLINETEXTMETRICW = struct {
 	otmpFaceName           PSTR
 	otmpStyleName          PSTR
 	otmpFullName           PSTR
-} /* wingdi.h:2383:11 */
+} /* wingdi.h:2490:11 */
 
-type OUTLINETEXTMETRICW = _OUTLINETEXTMETRICW /* wingdi.h:2416:5 */
-type POUTLINETEXTMETRICW = uintptr            /* wingdi.h:2416:24 */
-type NPOUTLINETEXTMETRICW = uintptr           /* wingdi.h:2416:45 */
-type LPOUTLINETEXTMETRICW = uintptr           /* wingdi.h:2416:67 */
+type OUTLINETEXTMETRICW = _OUTLINETEXTMETRICW /* wingdi.h:2523:5 */
+type POUTLINETEXTMETRICW = uintptr            /* wingdi.h:2523:24 */
+type NPOUTLINETEXTMETRICW = uintptr           /* wingdi.h:2523:45 */
+type LPOUTLINETEXTMETRICW = uintptr           /* wingdi.h:2523:67 */
 
-type OUTLINETEXTMETRIC = OUTLINETEXTMETRICA     /* wingdi.h:2418:3 */
-type POUTLINETEXTMETRIC = POUTLINETEXTMETRICA   /* wingdi.h:2419:3 */
-type NPOUTLINETEXTMETRIC = NPOUTLINETEXTMETRICA /* wingdi.h:2420:3 */
-type LPOUTLINETEXTMETRIC = LPOUTLINETEXTMETRICA /* wingdi.h:2421:3 */
+type OUTLINETEXTMETRIC = OUTLINETEXTMETRICA     /* wingdi.h:2525:3 */
+type POUTLINETEXTMETRIC = POUTLINETEXTMETRICA   /* wingdi.h:2526:3 */
+type NPOUTLINETEXTMETRIC = NPOUTLINETEXTMETRICA /* wingdi.h:2527:3 */
+type LPOUTLINETEXTMETRIC = LPOUTLINETEXTMETRICA /* wingdi.h:2528:3 */
 
 type tagPOLYTEXTA = struct {
 	x       int32
@@ -22243,12 +22455,12 @@ type tagPOLYTEXTA = struct {
 	rcl     RECT
 	_       [4]byte
 	pdx     uintptr
-} /* wingdi.h:2426:11 */
+} /* wingdi.h:2533:11 */
 
-type POLYTEXTA = tagPOLYTEXTA /* wingdi.h:2434:5 */
-type PPOLYTEXTA = uintptr     /* wingdi.h:2434:15 */
-type NPPOLYTEXTA = uintptr    /* wingdi.h:2434:27 */
-type LPPOLYTEXTA = uintptr    /* wingdi.h:2434:40 */
+type POLYTEXTA = tagPOLYTEXTA /* wingdi.h:2541:5 */
+type PPOLYTEXTA = uintptr     /* wingdi.h:2541:15 */
+type NPPOLYTEXTA = uintptr    /* wingdi.h:2541:27 */
+type LPPOLYTEXTA = uintptr    /* wingdi.h:2541:40 */
 
 type tagPOLYTEXTW = struct {
 	x       int32
@@ -22260,34 +22472,34 @@ type tagPOLYTEXTW = struct {
 	rcl     RECT
 	_       [4]byte
 	pdx     uintptr
-} /* wingdi.h:2436:11 */
+} /* wingdi.h:2543:11 */
 
-type POLYTEXTW = tagPOLYTEXTW /* wingdi.h:2444:5 */
-type PPOLYTEXTW = uintptr     /* wingdi.h:2444:15 */
-type NPPOLYTEXTW = uintptr    /* wingdi.h:2444:27 */
-type LPPOLYTEXTW = uintptr    /* wingdi.h:2444:40 */
+type POLYTEXTW = tagPOLYTEXTW /* wingdi.h:2551:5 */
+type PPOLYTEXTW = uintptr     /* wingdi.h:2551:15 */
+type NPPOLYTEXTW = uintptr    /* wingdi.h:2551:27 */
+type LPPOLYTEXTW = uintptr    /* wingdi.h:2551:40 */
 
-type POLYTEXT = POLYTEXTA     /* wingdi.h:2446:3 */
-type PPOLYTEXT = PPOLYTEXTA   /* wingdi.h:2447:3 */
-type NPPOLYTEXT = NPPOLYTEXTA /* wingdi.h:2448:3 */
-type LPPOLYTEXT = LPPOLYTEXTA /* wingdi.h:2449:3 */
+type POLYTEXT = POLYTEXTA     /* wingdi.h:2553:3 */
+type PPOLYTEXT = PPOLYTEXTA   /* wingdi.h:2554:3 */
+type NPPOLYTEXT = NPPOLYTEXTA /* wingdi.h:2555:3 */
+type LPPOLYTEXT = LPPOLYTEXTA /* wingdi.h:2556:3 */
 
 type _FIXED = struct {
 	fract WORD
 	value int16
-} /* wingdi.h:2453:11 */
+} /* wingdi.h:2560:11 */
 
-type FIXED = _FIXED /* wingdi.h:2456:5 */
+type FIXED = _FIXED /* wingdi.h:2563:5 */
 
 type _MAT2 = struct {
 	eM11 FIXED
 	eM12 FIXED
 	eM21 FIXED
 	eM22 FIXED
-} /* wingdi.h:2458:11 */
+} /* wingdi.h:2565:11 */
 
-type MAT2 = _MAT2     /* wingdi.h:2463:5 */
-type LPMAT2 = uintptr /* wingdi.h:2463:10 */
+type MAT2 = _MAT2     /* wingdi.h:2570:5 */
+type LPMAT2 = uintptr /* wingdi.h:2570:10 */
 
 type _GLYPHMETRICS = struct {
 	gmBlackBoxX     UINT
@@ -22295,36 +22507,36 @@ type _GLYPHMETRICS = struct {
 	gmptGlyphOrigin POINT
 	gmCellIncX      int16
 	gmCellIncY      int16
-} /* wingdi.h:2465:11 */
+} /* wingdi.h:2572:11 */
 
-type GLYPHMETRICS = _GLYPHMETRICS /* wingdi.h:2471:5 */
-type LPGLYPHMETRICS = uintptr     /* wingdi.h:2471:18 */
+type GLYPHMETRICS = _GLYPHMETRICS /* wingdi.h:2578:5 */
+type LPGLYPHMETRICS = uintptr     /* wingdi.h:2578:18 */
 
 type tagPOINTFX = struct {
 	x FIXED
 	y FIXED
-} /* wingdi.h:2491:11 */
+} /* wingdi.h:2598:11 */
 
-type POINTFX = tagPOINTFX /* wingdi.h:2494:5 */
-type LPPOINTFX = uintptr  /* wingdi.h:2494:13 */
+type POINTFX = tagPOINTFX /* wingdi.h:2601:5 */
+type LPPOINTFX = uintptr  /* wingdi.h:2601:13 */
 
 type tagTTPOLYCURVE = struct {
 	wType WORD
 	cpfx  WORD
 	apfx  [1]POINTFX
-} /* wingdi.h:2496:11 */
+} /* wingdi.h:2603:11 */
 
-type TTPOLYCURVE = tagTTPOLYCURVE /* wingdi.h:2500:5 */
-type LPTTPOLYCURVE = uintptr      /* wingdi.h:2500:17 */
+type TTPOLYCURVE = tagTTPOLYCURVE /* wingdi.h:2607:5 */
+type LPTTPOLYCURVE = uintptr      /* wingdi.h:2607:17 */
 
 type tagTTPOLYGONHEADER = struct {
 	cb       DWORD
 	dwType   DWORD
 	pfxStart POINTFX
-} /* wingdi.h:2502:11 */
+} /* wingdi.h:2609:11 */
 
-type TTPOLYGONHEADER = tagTTPOLYGONHEADER /* wingdi.h:2506:5 */
-type LPTTPOLYGONHEADER = uintptr          /* wingdi.h:2506:21 */
+type TTPOLYGONHEADER = tagTTPOLYGONHEADER /* wingdi.h:2613:5 */
+type LPTTPOLYGONHEADER = uintptr          /* wingdi.h:2613:21 */
 
 type tagGCP_RESULTSA = struct {
 	lStructSize DWORD
@@ -22337,10 +22549,10 @@ type tagGCP_RESULTSA = struct {
 	lpGlyphs    LPWSTR
 	nGlyphs     UINT
 	nMaxFit     int32
-} /* wingdi.h:2549:11 */
+} /* wingdi.h:2656:11 */
 
-type GCP_RESULTSA = tagGCP_RESULTSA /* wingdi.h:2559:5 */
-type LPGCP_RESULTSA = uintptr       /* wingdi.h:2559:18 */
+type GCP_RESULTSA = tagGCP_RESULTSA /* wingdi.h:2666:5 */
+type LPGCP_RESULTSA = uintptr       /* wingdi.h:2666:18 */
 type tagGCP_RESULTSW = struct {
 	lStructSize DWORD
 	_           [4]byte
@@ -22352,22 +22564,22 @@ type tagGCP_RESULTSW = struct {
 	lpGlyphs    LPWSTR
 	nGlyphs     UINT
 	nMaxFit     int32
-} /* wingdi.h:2560:11 */
+} /* wingdi.h:2667:11 */
 
-type GCP_RESULTSW = tagGCP_RESULTSW /* wingdi.h:2570:5 */
-type LPGCP_RESULTSW = uintptr       /* wingdi.h:2570:18 */
+type GCP_RESULTSW = tagGCP_RESULTSW /* wingdi.h:2677:5 */
+type LPGCP_RESULTSW = uintptr       /* wingdi.h:2677:18 */
 
-type GCP_RESULTS = GCP_RESULTSA     /* wingdi.h:2572:3 */
-type LPGCP_RESULTS = LPGCP_RESULTSA /* wingdi.h:2573:3 */
+type GCP_RESULTS = GCP_RESULTSA     /* wingdi.h:2679:3 */
+type LPGCP_RESULTS = LPGCP_RESULTSA /* wingdi.h:2680:3 */
 
 type _RASTERIZER_STATUS = struct {
 	nSize       int16
 	wFlags      int16
 	nLanguageID int16
-} /* wingdi.h:2575:11 */
+} /* wingdi.h:2682:11 */
 
-type RASTERIZER_STATUS = _RASTERIZER_STATUS /* wingdi.h:2579:5 */
-type LPRASTERIZER_STATUS = uintptr          /* wingdi.h:2579:23 */
+type RASTERIZER_STATUS = _RASTERIZER_STATUS /* wingdi.h:2686:5 */
+type LPRASTERIZER_STATUS = uintptr          /* wingdi.h:2686:23 */
 
 type tagPIXELFORMATDESCRIPTOR = struct {
 	nSize           WORD
@@ -22396,34 +22608,34 @@ type tagPIXELFORMATDESCRIPTOR = struct {
 	dwLayerMask     DWORD
 	dwVisibleMask   DWORD
 	dwDamageMask    DWORD
-} /* wingdi.h:2586:11 */
+} /* wingdi.h:2693:11 */
 
-type PIXELFORMATDESCRIPTOR = tagPIXELFORMATDESCRIPTOR /* wingdi.h:2613:5 */
-type PPIXELFORMATDESCRIPTOR = uintptr                 /* wingdi.h:2613:27 */
-type LPPIXELFORMATDESCRIPTOR = uintptr                /* wingdi.h:2613:51 */
+type PIXELFORMATDESCRIPTOR = tagPIXELFORMATDESCRIPTOR /* wingdi.h:2720:5 */
+type PPIXELFORMATDESCRIPTOR = uintptr                 /* wingdi.h:2720:27 */
+type LPPIXELFORMATDESCRIPTOR = uintptr                /* wingdi.h:2720:51 */
 
-type OLDFONTENUMPROCA = uintptr /* wingdi.h:2646:15 */
-type OLDFONTENUMPROCW = uintptr /* wingdi.h:2647:15 */
+type OLDFONTENUMPROCA = uintptr /* wingdi.h:2753:15 */
+type OLDFONTENUMPROCW = uintptr /* wingdi.h:2754:15 */
 
-type FONTENUMPROCA = OLDFONTENUMPROCA /* wingdi.h:2657:28 */
-type FONTENUMPROCW = OLDFONTENUMPROCW /* wingdi.h:2658:28 */
+type FONTENUMPROCA = OLDFONTENUMPROCA /* wingdi.h:2764:28 */
+type FONTENUMPROCW = OLDFONTENUMPROCW /* wingdi.h:2765:28 */
 
-type FONTENUMPROC = FONTENUMPROCA /* wingdi.h:2660:3 */
+type FONTENUMPROC = FONTENUMPROCA /* wingdi.h:2767:3 */
 
-type GOBJENUMPROC = uintptr /* wingdi.h:2662:15 */
-type LINEDDAPROC = uintptr  /* wingdi.h:2663:16 */
+type GOBJENUMPROC = uintptr /* wingdi.h:2769:15 */
+type LINEDDAPROC = uintptr  /* wingdi.h:2770:16 */
 
-type LPFNDEVMODE = uintptr /* wingdi.h:2725:16 */
-type LPFNDEVCAPS = uintptr /* wingdi.h:2726:17 */
+type LPFNDEVMODE = uintptr /* wingdi.h:2832:16 */
+type LPFNDEVCAPS = uintptr /* wingdi.h:2833:17 */
 
 type tagWCRANGE = struct {
 	wcLow   WCHAR
 	cGlyphs USHORT
-} /* wingdi.h:2906:11 */
+} /* wingdi.h:3013:11 */
 
-type WCRANGE = tagWCRANGE /* wingdi.h:2909:5 */
-type PWCRANGE = uintptr   /* wingdi.h:2909:13 */
-type LPWCRANGE = uintptr  /* wingdi.h:2909:23 */
+type WCRANGE = tagWCRANGE /* wingdi.h:3016:5 */
+type PWCRANGE = uintptr   /* wingdi.h:3016:13 */
+type LPWCRANGE = uintptr  /* wingdi.h:3016:23 */
 
 type tagGLYPHSET = struct {
 	cbThis           DWORD
@@ -22431,114 +22643,114 @@ type tagGLYPHSET = struct {
 	cGlyphsSupported DWORD
 	cRanges          DWORD
 	ranges           [1]WCRANGE
-} /* wingdi.h:2911:11 */
+} /* wingdi.h:3018:11 */
 
-type GLYPHSET = tagGLYPHSET /* wingdi.h:2917:5 */
-type PGLYPHSET = uintptr    /* wingdi.h:2917:14 */
-type LPGLYPHSET = uintptr   /* wingdi.h:2917:25 */
+type GLYPHSET = tagGLYPHSET /* wingdi.h:3024:5 */
+type PGLYPHSET = uintptr    /* wingdi.h:3024:14 */
+type LPGLYPHSET = uintptr   /* wingdi.h:3024:25 */
 
 type tagDESIGNVECTOR = struct {
 	dvReserved DWORD
 	dvNumAxes  DWORD
 	dvValues   [16]LONG
-} /* wingdi.h:2937:11 */
+} /* wingdi.h:3046:11 */
 
-type DESIGNVECTOR = tagDESIGNVECTOR /* wingdi.h:2941:5 */
-type PDESIGNVECTOR = uintptr        /* wingdi.h:2941:18 */
-type LPDESIGNVECTOR = uintptr       /* wingdi.h:2941:33 */
+type DESIGNVECTOR = tagDESIGNVECTOR /* wingdi.h:3050:5 */
+type PDESIGNVECTOR = uintptr        /* wingdi.h:3050:18 */
+type LPDESIGNVECTOR = uintptr       /* wingdi.h:3050:33 */
 
 type tagAXISINFOA = struct {
 	axMinValue LONG
 	axMaxValue LONG
 	axAxisName [16]BYTE
-} /* wingdi.h:2958:11 */
+} /* wingdi.h:3067:11 */
 
-type AXISINFOA = tagAXISINFOA /* wingdi.h:2962:5 */
-type PAXISINFOA = uintptr     /* wingdi.h:2962:15 */
-type LPAXISINFOA = uintptr    /* wingdi.h:2962:27 */
+type AXISINFOA = tagAXISINFOA /* wingdi.h:3071:5 */
+type PAXISINFOA = uintptr     /* wingdi.h:3071:15 */
+type LPAXISINFOA = uintptr    /* wingdi.h:3071:27 */
 
 type tagAXISINFOW = struct {
 	axMinValue LONG
 	axMaxValue LONG
 	axAxisName [16]WCHAR
-} /* wingdi.h:2964:11 */
+} /* wingdi.h:3073:11 */
 
-type AXISINFOW = tagAXISINFOW /* wingdi.h:2968:5 */
-type PAXISINFOW = uintptr     /* wingdi.h:2968:15 */
-type LPAXISINFOW = uintptr    /* wingdi.h:2968:27 */
+type AXISINFOW = tagAXISINFOW /* wingdi.h:3077:5 */
+type PAXISINFOW = uintptr     /* wingdi.h:3077:15 */
+type LPAXISINFOW = uintptr    /* wingdi.h:3077:27 */
 
-type AXISINFO = AXISINFOA     /* wingdi.h:2970:3 */
-type PAXISINFO = PAXISINFOA   /* wingdi.h:2971:3 */
-type LPAXISINFO = LPAXISINFOA /* wingdi.h:2972:3 */
+type AXISINFO = AXISINFOA     /* wingdi.h:3079:3 */
+type PAXISINFO = PAXISINFOA   /* wingdi.h:3080:3 */
+type LPAXISINFO = LPAXISINFOA /* wingdi.h:3081:3 */
 
 type tagAXESLISTA = struct {
 	axlReserved DWORD
 	axlNumAxes  DWORD
 	axlAxisInfo [16]AXISINFOA
-} /* wingdi.h:2974:11 */
+} /* wingdi.h:3083:11 */
 
-type AXESLISTA = tagAXESLISTA /* wingdi.h:2978:5 */
-type PAXESLISTA = uintptr     /* wingdi.h:2978:15 */
-type LPAXESLISTA = uintptr    /* wingdi.h:2978:27 */
+type AXESLISTA = tagAXESLISTA /* wingdi.h:3087:5 */
+type PAXESLISTA = uintptr     /* wingdi.h:3087:15 */
+type LPAXESLISTA = uintptr    /* wingdi.h:3087:27 */
 
 type tagAXESLISTW = struct {
 	axlReserved DWORD
 	axlNumAxes  DWORD
 	axlAxisInfo [16]AXISINFOW
-} /* wingdi.h:2980:11 */
+} /* wingdi.h:3089:11 */
 
-type AXESLISTW = tagAXESLISTW /* wingdi.h:2984:5 */
-type PAXESLISTW = uintptr     /* wingdi.h:2984:15 */
-type LPAXESLISTW = uintptr    /* wingdi.h:2984:27 */
+type AXESLISTW = tagAXESLISTW /* wingdi.h:3093:5 */
+type PAXESLISTW = uintptr     /* wingdi.h:3093:15 */
+type LPAXESLISTW = uintptr    /* wingdi.h:3093:27 */
 
-type AXESLIST = AXESLISTA     /* wingdi.h:2986:3 */
-type PAXESLIST = PAXESLISTA   /* wingdi.h:2987:3 */
-type LPAXESLIST = LPAXESLISTA /* wingdi.h:2988:3 */
+type AXESLIST = AXESLISTA     /* wingdi.h:3095:3 */
+type PAXESLIST = PAXESLISTA   /* wingdi.h:3096:3 */
+type LPAXESLIST = LPAXESLISTA /* wingdi.h:3097:3 */
 
 type tagENUMLOGFONTEXDVA = struct {
 	elfEnumLogfontEx ENUMLOGFONTEXA
 	elfDesignVector  DESIGNVECTOR
-} /* wingdi.h:2990:11 */
+} /* wingdi.h:3099:11 */
 
-type ENUMLOGFONTEXDVA = tagENUMLOGFONTEXDVA /* wingdi.h:2993:5 */
-type PENUMLOGFONTEXDVA = uintptr            /* wingdi.h:2993:22 */
-type LPENUMLOGFONTEXDVA = uintptr           /* wingdi.h:2993:41 */
+type ENUMLOGFONTEXDVA = tagENUMLOGFONTEXDVA /* wingdi.h:3102:5 */
+type PENUMLOGFONTEXDVA = uintptr            /* wingdi.h:3102:22 */
+type LPENUMLOGFONTEXDVA = uintptr           /* wingdi.h:3102:41 */
 
 type tagENUMLOGFONTEXDVW = struct {
 	elfEnumLogfontEx ENUMLOGFONTEXW
 	elfDesignVector  DESIGNVECTOR
-} /* wingdi.h:2995:11 */
+} /* wingdi.h:3104:11 */
 
-type ENUMLOGFONTEXDVW = tagENUMLOGFONTEXDVW /* wingdi.h:2998:5 */
-type PENUMLOGFONTEXDVW = uintptr            /* wingdi.h:2998:22 */
-type LPENUMLOGFONTEXDVW = uintptr           /* wingdi.h:2998:41 */
+type ENUMLOGFONTEXDVW = tagENUMLOGFONTEXDVW /* wingdi.h:3107:5 */
+type PENUMLOGFONTEXDVW = uintptr            /* wingdi.h:3107:22 */
+type LPENUMLOGFONTEXDVW = uintptr           /* wingdi.h:3107:41 */
 
-type ENUMLOGFONTEXDV = ENUMLOGFONTEXDVA     /* wingdi.h:3000:3 */
-type PENUMLOGFONTEXDV = PENUMLOGFONTEXDVA   /* wingdi.h:3001:3 */
-type LPENUMLOGFONTEXDV = LPENUMLOGFONTEXDVA /* wingdi.h:3002:3 */
+type ENUMLOGFONTEXDV = ENUMLOGFONTEXDVA     /* wingdi.h:3109:3 */
+type PENUMLOGFONTEXDV = PENUMLOGFONTEXDVA   /* wingdi.h:3110:3 */
+type LPENUMLOGFONTEXDV = LPENUMLOGFONTEXDVA /* wingdi.h:3111:3 */
 
 type tagENUMTEXTMETRICA = struct {
 	etmNewTextMetricEx NEWTEXTMETRICEXA
 	etmAxesList        AXESLISTA
-} /* wingdi.h:3010:11 */
+} /* wingdi.h:3119:11 */
 
-type ENUMTEXTMETRICA = tagENUMTEXTMETRICA /* wingdi.h:3013:5 */
-type PENUMTEXTMETRICA = uintptr           /* wingdi.h:3013:21 */
-type LPENUMTEXTMETRICA = uintptr          /* wingdi.h:3013:39 */
+type ENUMTEXTMETRICA = tagENUMTEXTMETRICA /* wingdi.h:3122:5 */
+type PENUMTEXTMETRICA = uintptr           /* wingdi.h:3122:21 */
+type LPENUMTEXTMETRICA = uintptr          /* wingdi.h:3122:39 */
 type tagENUMTEXTMETRICW = struct {
 	etmNewTextMetricEx NEWTEXTMETRICEXW
 	etmAxesList        AXESLISTW
-} /* wingdi.h:3014:11 */
+} /* wingdi.h:3123:11 */
 
-type ENUMTEXTMETRICW = tagENUMTEXTMETRICW /* wingdi.h:3018:5 */
-type PENUMTEXTMETRICW = uintptr           /* wingdi.h:3018:21 */
-type LPENUMTEXTMETRICW = uintptr          /* wingdi.h:3018:39 */
+type ENUMTEXTMETRICW = tagENUMTEXTMETRICW /* wingdi.h:3127:5 */
+type PENUMTEXTMETRICW = uintptr           /* wingdi.h:3127:21 */
+type LPENUMTEXTMETRICW = uintptr          /* wingdi.h:3127:39 */
 
-type ENUMTEXTMETRIC = ENUMTEXTMETRICA     /* wingdi.h:3020:3 */
-type PENUMTEXTMETRIC = PENUMTEXTMETRICA   /* wingdi.h:3021:3 */
-type LPENUMTEXTMETRIC = LPENUMTEXTMETRICA /* wingdi.h:3022:3 */
+type ENUMTEXTMETRIC = ENUMTEXTMETRICA     /* wingdi.h:3129:3 */
+type PENUMTEXTMETRIC = PENUMTEXTMETRICA   /* wingdi.h:3130:3 */
+type LPENUMTEXTMETRIC = LPENUMTEXTMETRICA /* wingdi.h:3131:3 */
 
-type COLOR16 = USHORT /* wingdi.h:3124:18 */
+type COLOR16 = USHORT /* wingdi.h:3233:18 */
 
 type _TRIVERTEX = struct {
 	x     LONG
@@ -22547,42 +22759,42 @@ type _TRIVERTEX = struct {
 	Green COLOR16
 	Blue  COLOR16
 	Alpha COLOR16
-} /* wingdi.h:3126:11 */
+} /* wingdi.h:3235:11 */
 
-type TRIVERTEX = _TRIVERTEX /* wingdi.h:3133:5 */
-type PTRIVERTEX = uintptr   /* wingdi.h:3133:15 */
-type LPTRIVERTEX = uintptr  /* wingdi.h:3133:27 */
+type TRIVERTEX = _TRIVERTEX /* wingdi.h:3242:5 */
+type PTRIVERTEX = uintptr   /* wingdi.h:3242:15 */
+type LPTRIVERTEX = uintptr  /* wingdi.h:3242:27 */
 type _GRADIENT_TRIANGLE = struct {
 	Vertex1 ULONG
 	Vertex2 ULONG
 	Vertex3 ULONG
-} /* wingdi.h:3136:11 */
+} /* wingdi.h:3245:11 */
 
-type GRADIENT_TRIANGLE = _GRADIENT_TRIANGLE /* wingdi.h:3140:5 */
-type PGRADIENT_TRIANGLE = uintptr           /* wingdi.h:3140:23 */
-type LPGRADIENT_TRIANGLE = uintptr          /* wingdi.h:3140:43 */
+type GRADIENT_TRIANGLE = _GRADIENT_TRIANGLE /* wingdi.h:3249:5 */
+type PGRADIENT_TRIANGLE = uintptr           /* wingdi.h:3249:23 */
+type LPGRADIENT_TRIANGLE = uintptr          /* wingdi.h:3249:43 */
 
 type _GRADIENT_RECT = struct {
 	UpperLeft  ULONG
 	LowerRight ULONG
-} /* wingdi.h:3142:11 */
+} /* wingdi.h:3251:11 */
 
-type GRADIENT_RECT = _GRADIENT_RECT /* wingdi.h:3145:5 */
-type PGRADIENT_RECT = uintptr       /* wingdi.h:3145:19 */
-type LPGRADIENT_RECT = uintptr      /* wingdi.h:3145:35 */
+type GRADIENT_RECT = _GRADIENT_RECT /* wingdi.h:3254:5 */
+type PGRADIENT_RECT = uintptr       /* wingdi.h:3254:19 */
+type LPGRADIENT_RECT = uintptr      /* wingdi.h:3254:35 */
 type _BLENDFUNCTION = struct {
 	BlendOp             BYTE
 	BlendFlags          BYTE
 	SourceConstantAlpha BYTE
 	AlphaFormat         BYTE
-} /* wingdi.h:3148:11 */
+} /* wingdi.h:3257:11 */
 
-type BLENDFUNCTION = _BLENDFUNCTION /* wingdi.h:3153:5 */
-type PBLENDFUNCTION = uintptr       /* wingdi.h:3153:19 */
+type BLENDFUNCTION = _BLENDFUNCTION /* wingdi.h:3262:5 */
+type PBLENDFUNCTION = uintptr       /* wingdi.h:3262:19 */
 
-type MFENUMPROC = uintptr /* wingdi.h:3181:15 */
+type MFENUMPROC = uintptr /* wingdi.h:3290:15 */
 
-type ENHMFENUMPROC = uintptr /* wingdi.h:3185:15 */
+type ENHMFENUMPROC = uintptr /* wingdi.h:3294:15 */
 
 type tagDIBSECTION = struct {
 	dsBm        BITMAP
@@ -22592,11 +22804,11 @@ type tagDIBSECTION = struct {
 	dshSection  HANDLE
 	dsOffset    DWORD
 	_           [4]byte
-} /* wingdi.h:3217:11 */
+} /* wingdi.h:3326:11 */
 
-type DIBSECTION = tagDIBSECTION /* wingdi.h:3223:5 */
-type LPDIBSECTION = uintptr     /* wingdi.h:3223:16 */
-type PDIBSECTION = uintptr      /* wingdi.h:3223:30 */
+type DIBSECTION = tagDIBSECTION /* wingdi.h:3332:5 */
+type LPDIBSECTION = uintptr     /* wingdi.h:3332:16 */
+type PDIBSECTION = uintptr      /* wingdi.h:3332:30 */
 
 type tagCOLORADJUSTMENT = struct {
 	caSize            WORD
@@ -22611,13 +22823,13 @@ type tagCOLORADJUSTMENT = struct {
 	caBrightness      SHORT
 	caColorfulness    SHORT
 	caRedGreenTint    SHORT
-} /* wingdi.h:3265:11 */
+} /* wingdi.h:3379:11 */
 
-type COLORADJUSTMENT = tagCOLORADJUSTMENT /* wingdi.h:3278:5 */
-type PCOLORADJUSTMENT = uintptr           /* wingdi.h:3278:21 */
-type LPCOLORADJUSTMENT = uintptr          /* wingdi.h:3278:39 */
+type COLORADJUSTMENT = tagCOLORADJUSTMENT /* wingdi.h:3392:5 */
+type PCOLORADJUSTMENT = uintptr           /* wingdi.h:3392:21 */
+type LPCOLORADJUSTMENT = uintptr          /* wingdi.h:3392:39 */
 
-type ABORTPROC = uintptr /* wingdi.h:3284:19 */
+type ABORTPROC = uintptr /* wingdi.h:3398:19 */
 
 type _DOCINFOA = struct {
 	cbSize       int32
@@ -22627,10 +22839,10 @@ type _DOCINFOA = struct {
 	lpszDatatype LPCSTR
 	fwType       DWORD
 	_            [4]byte
-} /* wingdi.h:3286:11 */
+} /* wingdi.h:3400:11 */
 
-type DOCINFOA = _DOCINFOA /* wingdi.h:3292:5 */
-type LPDOCINFOA = uintptr /* wingdi.h:3292:14 */
+type DOCINFOA = _DOCINFOA /* wingdi.h:3406:5 */
+type LPDOCINFOA = uintptr /* wingdi.h:3406:14 */
 
 type _DOCINFOW = struct {
 	cbSize       int32
@@ -22640,33 +22852,33 @@ type _DOCINFOW = struct {
 	lpszDatatype LPCWSTR
 	fwType       DWORD
 	_            [4]byte
-} /* wingdi.h:3294:11 */
+} /* wingdi.h:3408:11 */
 
-type DOCINFOW = _DOCINFOW /* wingdi.h:3300:5 */
-type LPDOCINFOW = uintptr /* wingdi.h:3300:14 */
+type DOCINFOW = _DOCINFOW /* wingdi.h:3414:5 */
+type LPDOCINFOW = uintptr /* wingdi.h:3414:14 */
 
-type DOCINFO = DOCINFOA     /* wingdi.h:3302:3 */
-type LPDOCINFO = LPDOCINFOA /* wingdi.h:3303:3 */
+type DOCINFO = DOCINFOA     /* wingdi.h:3416:3 */
+type LPDOCINFO = LPDOCINFOA /* wingdi.h:3417:3 */
 
 type tagKERNINGPAIR = struct {
 	wFirst      WORD
 	wSecond     WORD
 	iKernAmount int32
-} /* wingdi.h:3373:11 */
+} /* wingdi.h:3487:11 */
 
-type KERNINGPAIR = tagKERNINGPAIR /* wingdi.h:3377:5 */
-type LPKERNINGPAIR = uintptr      /* wingdi.h:3377:17 */
+type KERNINGPAIR = tagKERNINGPAIR /* wingdi.h:3491:5 */
+type LPKERNINGPAIR = uintptr      /* wingdi.h:3491:17 */
 
-type ICMENUMPROCA = uintptr /* wingdi.h:3395:15 */
-type ICMENUMPROCW = uintptr /* wingdi.h:3396:15 */
+type ICMENUMPROCA = uintptr /* wingdi.h:3509:15 */
+type ICMENUMPROCW = uintptr /* wingdi.h:3510:15 */
 
 type tagEMR = struct {
 	iType DWORD
 	nSize DWORD
-} /* wingdi.h:3561:11 */
+} /* wingdi.h:3675:11 */
 
-type EMR = tagEMR   /* wingdi.h:3564:5 */
-type PEMR = uintptr /* wingdi.h:3564:9 */
+type EMR = tagEMR   /* wingdi.h:3678:5 */
+type PEMR = uintptr /* wingdi.h:3678:9 */
 
 type tagEMRTEXT = struct {
 	ptlReference POINTL
@@ -22675,124 +22887,124 @@ type tagEMRTEXT = struct {
 	fOptions     DWORD
 	rcl          RECTL
 	offDx        DWORD
-} /* wingdi.h:3566:11 */
+} /* wingdi.h:3680:11 */
 
-type EMRTEXT = tagEMRTEXT /* wingdi.h:3573:5 */
-type PEMRTEXT = uintptr   /* wingdi.h:3573:13 */
+type EMRTEXT = tagEMRTEXT /* wingdi.h:3687:5 */
+type PEMRTEXT = uintptr   /* wingdi.h:3687:13 */
 
-type tagABORTPATH = struct{ emr EMR } /* wingdi.h:3575:11 */
+type tagABORTPATH = struct{ emr EMR } /* wingdi.h:3689:11 */
 
-type EMRABORTPATH = tagABORTPATH      /* wingdi.h:3577:5 */
-type PEMRABORTPATH = uintptr          /* wingdi.h:3577:18 */
-type EMRBEGINPATH = tagABORTPATH      /* wingdi.h:3577:33 */
-type PEMRBEGINPATH = uintptr          /* wingdi.h:3577:46 */
-type EMRENDPATH = tagABORTPATH        /* wingdi.h:3577:61 */
-type PEMRENDPATH = uintptr            /* wingdi.h:3577:72 */
-type EMRCLOSEFIGURE = tagABORTPATH    /* wingdi.h:3577:85 */
-type PEMRCLOSEFIGURE = uintptr        /* wingdi.h:3577:100 */
-type EMRFLATTENPATH = tagABORTPATH    /* wingdi.h:3577:117 */
-type PEMRFLATTENPATH = uintptr        /* wingdi.h:3577:132 */
-type EMRWIDENPATH = tagABORTPATH      /* wingdi.h:3577:149 */
-type PEMRWIDENPATH = uintptr          /* wingdi.h:3577:162 */
-type EMRSETMETARGN = tagABORTPATH     /* wingdi.h:3577:177 */
-type PEMRSETMETARGN = uintptr         /* wingdi.h:3577:191 */
-type EMRSAVEDC = tagABORTPATH         /* wingdi.h:3577:207 */
-type PEMRSAVEDC = uintptr             /* wingdi.h:3577:217 */
-type EMRREALIZEPALETTE = tagABORTPATH /* wingdi.h:3577:229 */
-type PEMRREALIZEPALETTE = uintptr     /* wingdi.h:3577:247 */
+type EMRABORTPATH = tagABORTPATH      /* wingdi.h:3691:5 */
+type PEMRABORTPATH = uintptr          /* wingdi.h:3691:18 */
+type EMRBEGINPATH = tagABORTPATH      /* wingdi.h:3691:33 */
+type PEMRBEGINPATH = uintptr          /* wingdi.h:3691:46 */
+type EMRENDPATH = tagABORTPATH        /* wingdi.h:3691:61 */
+type PEMRENDPATH = uintptr            /* wingdi.h:3691:72 */
+type EMRCLOSEFIGURE = tagABORTPATH    /* wingdi.h:3691:85 */
+type PEMRCLOSEFIGURE = uintptr        /* wingdi.h:3691:100 */
+type EMRFLATTENPATH = tagABORTPATH    /* wingdi.h:3691:117 */
+type PEMRFLATTENPATH = uintptr        /* wingdi.h:3691:132 */
+type EMRWIDENPATH = tagABORTPATH      /* wingdi.h:3691:149 */
+type PEMRWIDENPATH = uintptr          /* wingdi.h:3691:162 */
+type EMRSETMETARGN = tagABORTPATH     /* wingdi.h:3691:177 */
+type PEMRSETMETARGN = uintptr         /* wingdi.h:3691:191 */
+type EMRSAVEDC = tagABORTPATH         /* wingdi.h:3691:207 */
+type PEMRSAVEDC = uintptr             /* wingdi.h:3691:217 */
+type EMRREALIZEPALETTE = tagABORTPATH /* wingdi.h:3691:229 */
+type PEMRREALIZEPALETTE = uintptr     /* wingdi.h:3691:247 */
 
 type tagEMRSELECTCLIPPATH = struct {
 	emr   EMR
 	iMode DWORD
-} /* wingdi.h:3579:11 */
+} /* wingdi.h:3693:11 */
 
-type EMRSELECTCLIPPATH = tagEMRSELECTCLIPPATH    /* wingdi.h:3582:5 */
-type PEMRSELECTCLIPPATH = uintptr                /* wingdi.h:3582:23 */
-type EMRSETBKMODE = tagEMRSELECTCLIPPATH         /* wingdi.h:3582:43 */
-type PEMRSETBKMODE = uintptr                     /* wingdi.h:3582:56 */
-type EMRSETMAPMODE = tagEMRSELECTCLIPPATH        /* wingdi.h:3582:71 */
-type PEMRSETMAPMODE = uintptr                    /* wingdi.h:3582:85 */
-type EMRSETLAYOUT = tagEMRSELECTCLIPPATH         /* wingdi.h:3582:101 */
-type PEMRSETLAYOUT = uintptr                     /* wingdi.h:3582:114 */
-type EMRSETPOLYFILLMODE = tagEMRSELECTCLIPPATH   /* wingdi.h:3583:5 */
-type PEMRSETPOLYFILLMODE = uintptr               /* wingdi.h:3583:24 */
-type EMRSETROP2 = tagEMRSELECTCLIPPATH           /* wingdi.h:3583:45 */
-type PEMRSETROP2 = uintptr                       /* wingdi.h:3583:56 */
-type EMRSETSTRETCHBLTMODE = tagEMRSELECTCLIPPATH /* wingdi.h:3583:69 */
-type PEMRSETSTRETCHBLTMODE = uintptr             /* wingdi.h:3583:90 */
-type EMRSETICMMODE = tagEMRSELECTCLIPPATH        /* wingdi.h:3583:113 */
-type PEMRSETICMMODE = uintptr                    /* wingdi.h:3584:5 */
-type EMRSETTEXTALIGN = tagEMRSELECTCLIPPATH      /* wingdi.h:3584:21 */
-type PEMRSETTEXTALIGN = uintptr                  /* wingdi.h:3584:37 */
+type EMRSELECTCLIPPATH = tagEMRSELECTCLIPPATH    /* wingdi.h:3696:5 */
+type PEMRSELECTCLIPPATH = uintptr                /* wingdi.h:3696:23 */
+type EMRSETBKMODE = tagEMRSELECTCLIPPATH         /* wingdi.h:3696:43 */
+type PEMRSETBKMODE = uintptr                     /* wingdi.h:3696:56 */
+type EMRSETMAPMODE = tagEMRSELECTCLIPPATH        /* wingdi.h:3696:71 */
+type PEMRSETMAPMODE = uintptr                    /* wingdi.h:3696:85 */
+type EMRSETLAYOUT = tagEMRSELECTCLIPPATH         /* wingdi.h:3696:101 */
+type PEMRSETLAYOUT = uintptr                     /* wingdi.h:3696:114 */
+type EMRSETPOLYFILLMODE = tagEMRSELECTCLIPPATH   /* wingdi.h:3697:5 */
+type PEMRSETPOLYFILLMODE = uintptr               /* wingdi.h:3697:24 */
+type EMRSETROP2 = tagEMRSELECTCLIPPATH           /* wingdi.h:3697:45 */
+type PEMRSETROP2 = uintptr                       /* wingdi.h:3697:56 */
+type EMRSETSTRETCHBLTMODE = tagEMRSELECTCLIPPATH /* wingdi.h:3697:69 */
+type PEMRSETSTRETCHBLTMODE = uintptr             /* wingdi.h:3697:90 */
+type EMRSETICMMODE = tagEMRSELECTCLIPPATH        /* wingdi.h:3697:113 */
+type PEMRSETICMMODE = uintptr                    /* wingdi.h:3698:5 */
+type EMRSETTEXTALIGN = tagEMRSELECTCLIPPATH      /* wingdi.h:3698:21 */
+type PEMRSETTEXTALIGN = uintptr                  /* wingdi.h:3698:37 */
 
 type tagEMRSETMITERLIMIT = struct {
 	emr         EMR
 	eMiterLimit FLOAT
-} /* wingdi.h:3586:11 */
+} /* wingdi.h:3700:11 */
 
-type EMRSETMITERLIMIT = tagEMRSETMITERLIMIT /* wingdi.h:3589:5 */
-type PEMRSETMITERLIMIT = uintptr            /* wingdi.h:3589:22 */
+type EMRSETMITERLIMIT = tagEMRSETMITERLIMIT /* wingdi.h:3703:5 */
+type PEMRSETMITERLIMIT = uintptr            /* wingdi.h:3703:22 */
 
 type tagEMRRESTOREDC = struct {
 	emr       EMR
 	iRelative LONG
-} /* wingdi.h:3591:11 */
+} /* wingdi.h:3705:11 */
 
-type EMRRESTOREDC = tagEMRRESTOREDC /* wingdi.h:3594:5 */
-type PEMRRESTOREDC = uintptr        /* wingdi.h:3594:18 */
+type EMRRESTOREDC = tagEMRRESTOREDC /* wingdi.h:3708:5 */
+type PEMRRESTOREDC = uintptr        /* wingdi.h:3708:18 */
 
 type tagEMRSETARCDIRECTION = struct {
 	emr           EMR
 	iArcDirection DWORD
-} /* wingdi.h:3596:11 */
+} /* wingdi.h:3710:11 */
 
-type EMRSETARCDIRECTION = tagEMRSETARCDIRECTION /* wingdi.h:3600:5 */
-type PEMRSETARCDIRECTION = uintptr              /* wingdi.h:3600:24 */
+type EMRSETARCDIRECTION = tagEMRSETARCDIRECTION /* wingdi.h:3714:5 */
+type PEMRSETARCDIRECTION = uintptr              /* wingdi.h:3714:24 */
 
 type tagEMRSETMAPPERFLAGS = struct {
 	emr     EMR
 	dwFlags DWORD
-} /* wingdi.h:3602:11 */
+} /* wingdi.h:3716:11 */
 
-type EMRSETMAPPERFLAGS = tagEMRSETMAPPERFLAGS /* wingdi.h:3605:5 */
-type PEMRSETMAPPERFLAGS = uintptr             /* wingdi.h:3605:23 */
+type EMRSETMAPPERFLAGS = tagEMRSETMAPPERFLAGS /* wingdi.h:3719:5 */
+type PEMRSETMAPPERFLAGS = uintptr             /* wingdi.h:3719:23 */
 
 type tagEMRSETTEXTCOLOR = struct {
 	emr     EMR
 	crColor COLORREF
-} /* wingdi.h:3607:11 */
+} /* wingdi.h:3721:11 */
 
-type EMRSETBKCOLOR = tagEMRSETTEXTCOLOR   /* wingdi.h:3610:5 */
-type PEMRSETBKCOLOR = uintptr             /* wingdi.h:3610:19 */
-type EMRSETTEXTCOLOR = tagEMRSETTEXTCOLOR /* wingdi.h:3610:35 */
-type PEMRSETTEXTCOLOR = uintptr           /* wingdi.h:3610:51 */
+type EMRSETBKCOLOR = tagEMRSETTEXTCOLOR   /* wingdi.h:3724:5 */
+type PEMRSETBKCOLOR = uintptr             /* wingdi.h:3724:19 */
+type EMRSETTEXTCOLOR = tagEMRSETTEXTCOLOR /* wingdi.h:3724:35 */
+type PEMRSETTEXTCOLOR = uintptr           /* wingdi.h:3724:51 */
 
 type tagEMRSELECTOBJECT = struct {
 	emr      EMR
 	ihObject DWORD
-} /* wingdi.h:3612:11 */
+} /* wingdi.h:3726:11 */
 
-type EMRSELECTOBJECT = tagEMRSELECTOBJECT /* wingdi.h:3615:5 */
-type PEMRSELECTOBJECT = uintptr           /* wingdi.h:3615:21 */
-type EMRDELETEOBJECT = tagEMRSELECTOBJECT /* wingdi.h:3615:39 */
-type PEMRDELETEOBJECT = uintptr           /* wingdi.h:3615:55 */
+type EMRSELECTOBJECT = tagEMRSELECTOBJECT /* wingdi.h:3729:5 */
+type PEMRSELECTOBJECT = uintptr           /* wingdi.h:3729:21 */
+type EMRDELETEOBJECT = tagEMRSELECTOBJECT /* wingdi.h:3729:39 */
+type PEMRDELETEOBJECT = uintptr           /* wingdi.h:3729:55 */
 
 type tagEMRSELECTPALETTE = struct {
 	emr   EMR
 	ihPal DWORD
-} /* wingdi.h:3617:11 */
+} /* wingdi.h:3731:11 */
 
-type EMRSELECTPALETTE = tagEMRSELECTPALETTE /* wingdi.h:3620:5 */
-type PEMRSELECTPALETTE = uintptr            /* wingdi.h:3620:22 */
+type EMRSELECTPALETTE = tagEMRSELECTPALETTE /* wingdi.h:3734:5 */
+type PEMRSELECTPALETTE = uintptr            /* wingdi.h:3734:22 */
 
 type tagEMRRESIZEPALETTE = struct {
 	emr      EMR
 	ihPal    DWORD
 	cEntries DWORD
-} /* wingdi.h:3622:11 */
+} /* wingdi.h:3736:11 */
 
-type EMRRESIZEPALETTE = tagEMRRESIZEPALETTE /* wingdi.h:3626:5 */
-type PEMRRESIZEPALETTE = uintptr            /* wingdi.h:3626:22 */
+type EMRRESIZEPALETTE = tagEMRRESIZEPALETTE /* wingdi.h:3740:5 */
+type PEMRRESIZEPALETTE = uintptr            /* wingdi.h:3740:22 */
 
 type tagEMRSETPALETTEENTRIES = struct {
 	emr         EMR
@@ -22800,100 +23012,100 @@ type tagEMRSETPALETTEENTRIES = struct {
 	iStart      DWORD
 	cEntries    DWORD
 	aPalEntries [1]PALETTEENTRY
-} /* wingdi.h:3628:11 */
+} /* wingdi.h:3742:11 */
 
-type EMRSETPALETTEENTRIES = tagEMRSETPALETTEENTRIES /* wingdi.h:3634:5 */
-type PEMRSETPALETTEENTRIES = uintptr                /* wingdi.h:3634:26 */
+type EMRSETPALETTEENTRIES = tagEMRSETPALETTEENTRIES /* wingdi.h:3748:5 */
+type PEMRSETPALETTEENTRIES = uintptr                /* wingdi.h:3748:26 */
 
 type tagEMRSETCOLORADJUSTMENT = struct {
 	emr             EMR
 	ColorAdjustment COLORADJUSTMENT
-} /* wingdi.h:3636:11 */
+} /* wingdi.h:3750:11 */
 
-type EMRSETCOLORADJUSTMENT = tagEMRSETCOLORADJUSTMENT /* wingdi.h:3639:5 */
-type PEMRSETCOLORADJUSTMENT = uintptr                 /* wingdi.h:3639:27 */
+type EMRSETCOLORADJUSTMENT = tagEMRSETCOLORADJUSTMENT /* wingdi.h:3753:5 */
+type PEMRSETCOLORADJUSTMENT = uintptr                 /* wingdi.h:3753:27 */
 
 type tagEMRGDICOMMENT = struct {
 	emr    EMR
 	cbData DWORD
 	Data   [1]BYTE
 	_      [3]byte
-} /* wingdi.h:3641:11 */
+} /* wingdi.h:3755:11 */
 
-type EMRGDICOMMENT = tagEMRGDICOMMENT /* wingdi.h:3645:5 */
-type PEMRGDICOMMENT = uintptr         /* wingdi.h:3645:19 */
+type EMRGDICOMMENT = tagEMRGDICOMMENT /* wingdi.h:3759:5 */
+type PEMRGDICOMMENT = uintptr         /* wingdi.h:3759:19 */
 
 type tagEMREOF = struct {
 	emr           EMR
 	nPalEntries   DWORD
 	offPalEntries DWORD
 	nSizeLast     DWORD
-} /* wingdi.h:3647:11 */
+} /* wingdi.h:3761:11 */
 
-type EMREOF = tagEMREOF /* wingdi.h:3652:5 */
-type PEMREOF = uintptr  /* wingdi.h:3652:12 */
+type EMREOF = tagEMREOF /* wingdi.h:3766:5 */
+type PEMREOF = uintptr  /* wingdi.h:3766:12 */
 
 type tagEMRLINETO = struct {
 	emr EMR
 	ptl POINTL
-} /* wingdi.h:3654:11 */
+} /* wingdi.h:3768:11 */
 
-type EMRLINETO = tagEMRLINETO   /* wingdi.h:3657:5 */
-type PEMRLINETO = uintptr       /* wingdi.h:3657:15 */
-type EMRMOVETOEX = tagEMRLINETO /* wingdi.h:3657:27 */
-type PEMRMOVETOEX = uintptr     /* wingdi.h:3657:39 */
+type EMRLINETO = tagEMRLINETO   /* wingdi.h:3771:5 */
+type PEMRLINETO = uintptr       /* wingdi.h:3771:15 */
+type EMRMOVETOEX = tagEMRLINETO /* wingdi.h:3771:27 */
+type PEMRMOVETOEX = uintptr     /* wingdi.h:3771:39 */
 
 type tagEMROFFSETCLIPRGN = struct {
 	emr       EMR
 	ptlOffset POINTL
-} /* wingdi.h:3659:11 */
+} /* wingdi.h:3773:11 */
 
-type EMROFFSETCLIPRGN = tagEMROFFSETCLIPRGN /* wingdi.h:3662:5 */
-type PEMROFFSETCLIPRGN = uintptr            /* wingdi.h:3662:22 */
+type EMROFFSETCLIPRGN = tagEMROFFSETCLIPRGN /* wingdi.h:3776:5 */
+type PEMROFFSETCLIPRGN = uintptr            /* wingdi.h:3776:22 */
 
 type tagEMRFILLPATH = struct {
 	emr       EMR
 	rclBounds RECTL
-} /* wingdi.h:3664:11 */
+} /* wingdi.h:3778:11 */
 
-type EMRFILLPATH = tagEMRFILLPATH          /* wingdi.h:3667:5 */
-type PEMRFILLPATH = uintptr                /* wingdi.h:3667:17 */
-type EMRSTROKEANDFILLPATH = tagEMRFILLPATH /* wingdi.h:3667:31 */
-type PEMRSTROKEANDFILLPATH = uintptr       /* wingdi.h:3667:52 */
-type EMRSTROKEPATH = tagEMRFILLPATH        /* wingdi.h:3667:75 */
-type PEMRSTROKEPATH = uintptr              /* wingdi.h:3667:89 */
+type EMRFILLPATH = tagEMRFILLPATH          /* wingdi.h:3781:5 */
+type PEMRFILLPATH = uintptr                /* wingdi.h:3781:17 */
+type EMRSTROKEANDFILLPATH = tagEMRFILLPATH /* wingdi.h:3781:31 */
+type PEMRSTROKEANDFILLPATH = uintptr       /* wingdi.h:3781:52 */
+type EMRSTROKEPATH = tagEMRFILLPATH        /* wingdi.h:3781:75 */
+type PEMRSTROKEPATH = uintptr              /* wingdi.h:3781:89 */
 
 type tagEMREXCLUDECLIPRECT = struct {
 	emr     EMR
 	rclClip RECTL
-} /* wingdi.h:3669:11 */
+} /* wingdi.h:3783:11 */
 
-type EMREXCLUDECLIPRECT = tagEMREXCLUDECLIPRECT   /* wingdi.h:3672:5 */
-type PEMREXCLUDECLIPRECT = uintptr                /* wingdi.h:3672:24 */
-type EMRINTERSECTCLIPRECT = tagEMREXCLUDECLIPRECT /* wingdi.h:3672:45 */
-type PEMRINTERSECTCLIPRECT = uintptr              /* wingdi.h:3672:66 */
+type EMREXCLUDECLIPRECT = tagEMREXCLUDECLIPRECT   /* wingdi.h:3786:5 */
+type PEMREXCLUDECLIPRECT = uintptr                /* wingdi.h:3786:24 */
+type EMRINTERSECTCLIPRECT = tagEMREXCLUDECLIPRECT /* wingdi.h:3786:45 */
+type PEMRINTERSECTCLIPRECT = uintptr              /* wingdi.h:3786:66 */
 
 type tagEMRSETVIEWPORTORGEX = struct {
 	emr       EMR
 	ptlOrigin POINTL
-} /* wingdi.h:3674:11 */
+} /* wingdi.h:3788:11 */
 
-type EMRSETVIEWPORTORGEX = tagEMRSETVIEWPORTORGEX /* wingdi.h:3677:5 */
-type PEMRSETVIEWPORTORGEX = uintptr               /* wingdi.h:3677:25 */
-type EMRSETWINDOWORGEX = tagEMRSETVIEWPORTORGEX   /* wingdi.h:3677:47 */
-type PEMRSETWINDOWORGEX = uintptr                 /* wingdi.h:3677:65 */
-type EMRSETBRUSHORGEX = tagEMRSETVIEWPORTORGEX    /* wingdi.h:3677:85 */
-type PEMRSETBRUSHORGEX = uintptr                  /* wingdi.h:3677:102 */
+type EMRSETVIEWPORTORGEX = tagEMRSETVIEWPORTORGEX /* wingdi.h:3791:5 */
+type PEMRSETVIEWPORTORGEX = uintptr               /* wingdi.h:3791:25 */
+type EMRSETWINDOWORGEX = tagEMRSETVIEWPORTORGEX   /* wingdi.h:3791:47 */
+type PEMRSETWINDOWORGEX = uintptr                 /* wingdi.h:3791:65 */
+type EMRSETBRUSHORGEX = tagEMRSETVIEWPORTORGEX    /* wingdi.h:3791:85 */
+type PEMRSETBRUSHORGEX = uintptr                  /* wingdi.h:3791:102 */
 
 type tagEMRSETVIEWPORTEXTEX = struct {
 	emr       EMR
 	szlExtent SIZEL
-} /* wingdi.h:3679:11 */
+} /* wingdi.h:3793:11 */
 
-type EMRSETVIEWPORTEXTEX = tagEMRSETVIEWPORTEXTEX /* wingdi.h:3682:5 */
-type PEMRSETVIEWPORTEXTEX = uintptr               /* wingdi.h:3682:25 */
-type EMRSETWINDOWEXTEX = tagEMRSETVIEWPORTEXTEX   /* wingdi.h:3682:47 */
-type PEMRSETWINDOWEXTEX = uintptr                 /* wingdi.h:3682:65 */
+type EMRSETVIEWPORTEXTEX = tagEMRSETVIEWPORTEXTEX /* wingdi.h:3796:5 */
+type PEMRSETVIEWPORTEXTEX = uintptr               /* wingdi.h:3796:25 */
+type EMRSETWINDOWEXTEX = tagEMRSETVIEWPORTEXTEX   /* wingdi.h:3796:47 */
+type PEMRSETWINDOWEXTEX = uintptr                 /* wingdi.h:3796:65 */
 
 type tagEMRSCALEVIEWPORTEXTEX = struct {
 	emr    EMR
@@ -22901,83 +23113,83 @@ type tagEMRSCALEVIEWPORTEXTEX = struct {
 	xDenom LONG
 	yNum   LONG
 	yDenom LONG
-} /* wingdi.h:3684:11 */
+} /* wingdi.h:3798:11 */
 
-type EMRSCALEVIEWPORTEXTEX = tagEMRSCALEVIEWPORTEXTEX /* wingdi.h:3690:5 */
-type PEMRSCALEVIEWPORTEXTEX = uintptr                 /* wingdi.h:3690:27 */
-type EMRSCALEWINDOWEXTEX = tagEMRSCALEVIEWPORTEXTEX   /* wingdi.h:3690:51 */
-type PEMRSCALEWINDOWEXTEX = uintptr                   /* wingdi.h:3690:71 */
+type EMRSCALEVIEWPORTEXTEX = tagEMRSCALEVIEWPORTEXTEX /* wingdi.h:3804:5 */
+type PEMRSCALEVIEWPORTEXTEX = uintptr                 /* wingdi.h:3804:27 */
+type EMRSCALEWINDOWEXTEX = tagEMRSCALEVIEWPORTEXTEX   /* wingdi.h:3804:51 */
+type PEMRSCALEWINDOWEXTEX = uintptr                   /* wingdi.h:3804:71 */
 
 type tagEMRSETWORLDTRANSFORM = struct {
 	emr   EMR
 	xform XFORM
-} /* wingdi.h:3692:11 */
+} /* wingdi.h:3806:11 */
 
-type EMRSETWORLDTRANSFORM = tagEMRSETWORLDTRANSFORM /* wingdi.h:3695:5 */
-type PEMRSETWORLDTRANSFORM = uintptr                /* wingdi.h:3695:26 */
+type EMRSETWORLDTRANSFORM = tagEMRSETWORLDTRANSFORM /* wingdi.h:3809:5 */
+type PEMRSETWORLDTRANSFORM = uintptr                /* wingdi.h:3809:26 */
 
 type tagEMRMODIFYWORLDTRANSFORM = struct {
 	emr   EMR
 	xform XFORM
 	iMode DWORD
-} /* wingdi.h:3697:11 */
+} /* wingdi.h:3811:11 */
 
-type EMRMODIFYWORLDTRANSFORM = tagEMRMODIFYWORLDTRANSFORM /* wingdi.h:3701:5 */
-type PEMRMODIFYWORLDTRANSFORM = uintptr                   /* wingdi.h:3701:29 */
+type EMRMODIFYWORLDTRANSFORM = tagEMRMODIFYWORLDTRANSFORM /* wingdi.h:3815:5 */
+type PEMRMODIFYWORLDTRANSFORM = uintptr                   /* wingdi.h:3815:29 */
 
 type tagEMRSETPIXELV = struct {
 	emr      EMR
 	ptlPixel POINTL
 	crColor  COLORREF
-} /* wingdi.h:3703:11 */
+} /* wingdi.h:3817:11 */
 
-type EMRSETPIXELV = tagEMRSETPIXELV /* wingdi.h:3707:5 */
-type PEMRSETPIXELV = uintptr        /* wingdi.h:3707:18 */
+type EMRSETPIXELV = tagEMRSETPIXELV /* wingdi.h:3821:5 */
+type PEMRSETPIXELV = uintptr        /* wingdi.h:3821:18 */
 
 type tagEMREXTFLOODFILL = struct {
 	emr      EMR
 	ptlStart POINTL
 	crColor  COLORREF
 	iMode    DWORD
-} /* wingdi.h:3709:11 */
+} /* wingdi.h:3823:11 */
 
-type EMREXTFLOODFILL = tagEMREXTFLOODFILL /* wingdi.h:3714:5 */
-type PEMREXTFLOODFILL = uintptr           /* wingdi.h:3714:21 */
+type EMREXTFLOODFILL = tagEMREXTFLOODFILL /* wingdi.h:3828:5 */
+type PEMREXTFLOODFILL = uintptr           /* wingdi.h:3828:21 */
 
 type tagEMRELLIPSE = struct {
 	emr    EMR
 	rclBox RECTL
-} /* wingdi.h:3716:11 */
+} /* wingdi.h:3830:11 */
 
-type EMRELLIPSE = tagEMRELLIPSE   /* wingdi.h:3719:5 */
-type PEMRELLIPSE = uintptr        /* wingdi.h:3719:16 */
-type EMRRECTANGLE = tagEMRELLIPSE /* wingdi.h:3719:29 */
-type PEMRRECTANGLE = uintptr      /* wingdi.h:3719:42 */
+type EMRELLIPSE = tagEMRELLIPSE   /* wingdi.h:3833:5 */
+type PEMRELLIPSE = uintptr        /* wingdi.h:3833:16 */
+type EMRRECTANGLE = tagEMRELLIPSE /* wingdi.h:3833:29 */
+type PEMRRECTANGLE = uintptr      /* wingdi.h:3833:42 */
 
 type tagEMRROUNDRECT = struct {
 	emr       EMR
 	rclBox    RECTL
 	szlCorner SIZEL
-} /* wingdi.h:3721:11 */
+} /* wingdi.h:3835:11 */
 
-type EMRROUNDRECT = tagEMRROUNDRECT /* wingdi.h:3725:5 */
-type PEMRROUNDRECT = uintptr        /* wingdi.h:3725:18 */
+type EMRROUNDRECT = tagEMRROUNDRECT /* wingdi.h:3839:5 */
+type PEMRROUNDRECT = uintptr        /* wingdi.h:3839:18 */
 
 type tagEMRARC = struct {
 	emr      EMR
 	rclBox   RECTL
 	ptlStart POINTL
 	ptlEnd   POINTL
-} /* wingdi.h:3727:11 */
+} /* wingdi.h:3841:11 */
 
-type EMRARC = tagEMRARC   /* wingdi.h:3732:5 */
-type PEMRARC = uintptr    /* wingdi.h:3732:12 */
-type EMRARCTO = tagEMRARC /* wingdi.h:3732:21 */
-type PEMRARCTO = uintptr  /* wingdi.h:3732:30 */
-type EMRCHORD = tagEMRARC /* wingdi.h:3732:41 */
-type PEMRCHORD = uintptr  /* wingdi.h:3732:50 */
-type EMRPIE = tagEMRARC   /* wingdi.h:3732:61 */
-type PEMRPIE = uintptr    /* wingdi.h:3732:68 */
+type EMRARC = tagEMRARC   /* wingdi.h:3846:5 */
+type PEMRARC = uintptr    /* wingdi.h:3846:12 */
+type EMRARCTO = tagEMRARC /* wingdi.h:3846:21 */
+type PEMRARCTO = uintptr  /* wingdi.h:3846:30 */
+type EMRCHORD = tagEMRARC /* wingdi.h:3846:41 */
+type PEMRCHORD = uintptr  /* wingdi.h:3846:50 */
+type EMRPIE = tagEMRARC   /* wingdi.h:3846:61 */
+type PEMRPIE = uintptr    /* wingdi.h:3846:68 */
 
 type tagEMRANGLEARC = struct {
 	emr         EMR
@@ -22985,46 +23197,46 @@ type tagEMRANGLEARC = struct {
 	nRadius     DWORD
 	eStartAngle FLOAT
 	eSweepAngle FLOAT
-} /* wingdi.h:3734:11 */
+} /* wingdi.h:3848:11 */
 
-type EMRANGLEARC = tagEMRANGLEARC /* wingdi.h:3740:5 */
-type PEMRANGLEARC = uintptr       /* wingdi.h:3740:17 */
+type EMRANGLEARC = tagEMRANGLEARC /* wingdi.h:3854:5 */
+type PEMRANGLEARC = uintptr       /* wingdi.h:3854:17 */
 
 type tagEMRPOLYLINE = struct {
 	emr       EMR
 	rclBounds RECTL
 	cptl      DWORD
 	aptl      [1]POINTL
-} /* wingdi.h:3742:11 */
+} /* wingdi.h:3856:11 */
 
-type EMRPOLYLINE = tagEMRPOLYLINE     /* wingdi.h:3747:5 */
-type PEMRPOLYLINE = uintptr           /* wingdi.h:3747:17 */
-type EMRPOLYBEZIER = tagEMRPOLYLINE   /* wingdi.h:3747:31 */
-type PEMRPOLYBEZIER = uintptr         /* wingdi.h:3747:45 */
-type EMRPOLYGON = tagEMRPOLYLINE      /* wingdi.h:3747:61 */
-type PEMRPOLYGON = uintptr            /* wingdi.h:3747:72 */
-type EMRPOLYBEZIERTO = tagEMRPOLYLINE /* wingdi.h:3747:85 */
-type PEMRPOLYBEZIERTO = uintptr       /* wingdi.h:3747:101 */
-type EMRPOLYLINETO = tagEMRPOLYLINE   /* wingdi.h:3747:119 */
-type PEMRPOLYLINETO = uintptr         /* wingdi.h:3747:133 */
+type EMRPOLYLINE = tagEMRPOLYLINE     /* wingdi.h:3861:5 */
+type PEMRPOLYLINE = uintptr           /* wingdi.h:3861:17 */
+type EMRPOLYBEZIER = tagEMRPOLYLINE   /* wingdi.h:3861:31 */
+type PEMRPOLYBEZIER = uintptr         /* wingdi.h:3861:45 */
+type EMRPOLYGON = tagEMRPOLYLINE      /* wingdi.h:3861:61 */
+type PEMRPOLYGON = uintptr            /* wingdi.h:3861:72 */
+type EMRPOLYBEZIERTO = tagEMRPOLYLINE /* wingdi.h:3861:85 */
+type PEMRPOLYBEZIERTO = uintptr       /* wingdi.h:3861:101 */
+type EMRPOLYLINETO = tagEMRPOLYLINE   /* wingdi.h:3861:119 */
+type PEMRPOLYLINETO = uintptr         /* wingdi.h:3861:133 */
 
 type tagEMRPOLYLINE16 = struct {
 	emr       EMR
 	rclBounds RECTL
 	cpts      DWORD
 	apts      [1]POINTS
-} /* wingdi.h:3749:11 */
+} /* wingdi.h:3863:11 */
 
-type EMRPOLYLINE16 = tagEMRPOLYLINE16     /* wingdi.h:3754:5 */
-type PEMRPOLYLINE16 = uintptr             /* wingdi.h:3754:19 */
-type EMRPOLYBEZIER16 = tagEMRPOLYLINE16   /* wingdi.h:3754:35 */
-type PEMRPOLYBEZIER16 = uintptr           /* wingdi.h:3754:51 */
-type EMRPOLYGON16 = tagEMRPOLYLINE16      /* wingdi.h:3754:69 */
-type PEMRPOLYGON16 = uintptr              /* wingdi.h:3754:82 */
-type EMRPOLYBEZIERTO16 = tagEMRPOLYLINE16 /* wingdi.h:3754:97 */
-type PEMRPOLYBEZIERTO16 = uintptr         /* wingdi.h:3754:115 */
-type EMRPOLYLINETO16 = tagEMRPOLYLINE16   /* wingdi.h:3754:135 */
-type PEMRPOLYLINETO16 = uintptr           /* wingdi.h:3754:151 */
+type EMRPOLYLINE16 = tagEMRPOLYLINE16     /* wingdi.h:3868:5 */
+type PEMRPOLYLINE16 = uintptr             /* wingdi.h:3868:19 */
+type EMRPOLYBEZIER16 = tagEMRPOLYLINE16   /* wingdi.h:3868:35 */
+type PEMRPOLYBEZIER16 = uintptr           /* wingdi.h:3868:51 */
+type EMRPOLYGON16 = tagEMRPOLYLINE16      /* wingdi.h:3868:69 */
+type PEMRPOLYGON16 = uintptr              /* wingdi.h:3868:82 */
+type EMRPOLYBEZIERTO16 = tagEMRPOLYLINE16 /* wingdi.h:3868:97 */
+type PEMRPOLYBEZIERTO16 = uintptr         /* wingdi.h:3868:115 */
+type EMRPOLYLINETO16 = tagEMRPOLYLINE16   /* wingdi.h:3868:135 */
+type PEMRPOLYLINETO16 = uintptr           /* wingdi.h:3868:151 */
 
 type tagEMRPOLYDRAW = struct {
 	emr       EMR
@@ -23033,10 +23245,10 @@ type tagEMRPOLYDRAW = struct {
 	aptl      [1]POINTL
 	abTypes   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:3756:11 */
+} /* wingdi.h:3870:11 */
 
-type EMRPOLYDRAW = tagEMRPOLYDRAW /* wingdi.h:3762:5 */
-type PEMRPOLYDRAW = uintptr       /* wingdi.h:3762:17 */
+type EMRPOLYDRAW = tagEMRPOLYDRAW /* wingdi.h:3876:5 */
+type PEMRPOLYDRAW = uintptr       /* wingdi.h:3876:17 */
 
 type tagEMRPOLYDRAW16 = struct {
 	emr       EMR
@@ -23045,10 +23257,10 @@ type tagEMRPOLYDRAW16 = struct {
 	apts      [1]POINTS
 	abTypes   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:3764:11 */
+} /* wingdi.h:3878:11 */
 
-type EMRPOLYDRAW16 = tagEMRPOLYDRAW16 /* wingdi.h:3770:5 */
-type PEMRPOLYDRAW16 = uintptr         /* wingdi.h:3770:19 */
+type EMRPOLYDRAW16 = tagEMRPOLYDRAW16 /* wingdi.h:3884:5 */
+type PEMRPOLYDRAW16 = uintptr         /* wingdi.h:3884:19 */
 
 type tagEMRPOLYPOLYLINE = struct {
 	emr         EMR
@@ -23057,12 +23269,12 @@ type tagEMRPOLYPOLYLINE = struct {
 	cptl        DWORD
 	aPolyCounts [1]DWORD
 	aptl        [1]POINTL
-} /* wingdi.h:3772:11 */
+} /* wingdi.h:3886:11 */
 
-type EMRPOLYPOLYLINE = tagEMRPOLYPOLYLINE /* wingdi.h:3779:5 */
-type PEMRPOLYPOLYLINE = uintptr           /* wingdi.h:3779:21 */
-type EMRPOLYPOLYGON = tagEMRPOLYPOLYLINE  /* wingdi.h:3779:39 */
-type PEMRPOLYPOLYGON = uintptr            /* wingdi.h:3779:54 */
+type EMRPOLYPOLYLINE = tagEMRPOLYPOLYLINE /* wingdi.h:3893:5 */
+type PEMRPOLYPOLYLINE = uintptr           /* wingdi.h:3893:21 */
+type EMRPOLYPOLYGON = tagEMRPOLYPOLYLINE  /* wingdi.h:3893:39 */
+type PEMRPOLYPOLYGON = uintptr            /* wingdi.h:3893:54 */
 
 type tagEMRPOLYPOLYLINE16 = struct {
 	emr         EMR
@@ -23071,12 +23283,12 @@ type tagEMRPOLYPOLYLINE16 = struct {
 	cpts        DWORD
 	aPolyCounts [1]DWORD
 	apts        [1]POINTS
-} /* wingdi.h:3781:11 */
+} /* wingdi.h:3895:11 */
 
-type EMRPOLYPOLYLINE16 = tagEMRPOLYPOLYLINE16 /* wingdi.h:3788:5 */
-type PEMRPOLYPOLYLINE16 = uintptr             /* wingdi.h:3788:23 */
-type EMRPOLYPOLYGON16 = tagEMRPOLYPOLYLINE16  /* wingdi.h:3788:43 */
-type PEMRPOLYPOLYGON16 = uintptr              /* wingdi.h:3788:60 */
+type EMRPOLYPOLYLINE16 = tagEMRPOLYPOLYLINE16 /* wingdi.h:3902:5 */
+type PEMRPOLYPOLYLINE16 = uintptr             /* wingdi.h:3902:23 */
+type EMRPOLYPOLYGON16 = tagEMRPOLYPOLYLINE16  /* wingdi.h:3902:43 */
+type PEMRPOLYPOLYGON16 = uintptr              /* wingdi.h:3902:60 */
 
 type tagEMRINVERTRGN = struct {
 	emr       EMR
@@ -23084,12 +23296,12 @@ type tagEMRINVERTRGN = struct {
 	cbRgnData DWORD
 	RgnData   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:3790:11 */
+} /* wingdi.h:3904:11 */
 
-type EMRINVERTRGN = tagEMRINVERTRGN /* wingdi.h:3795:5 */
-type PEMRINVERTRGN = uintptr        /* wingdi.h:3795:18 */
-type EMRPAINTRGN = tagEMRINVERTRGN  /* wingdi.h:3795:33 */
-type PEMRPAINTRGN = uintptr         /* wingdi.h:3795:45 */
+type EMRINVERTRGN = tagEMRINVERTRGN /* wingdi.h:3909:5 */
+type PEMRINVERTRGN = uintptr        /* wingdi.h:3909:18 */
+type EMRPAINTRGN = tagEMRINVERTRGN  /* wingdi.h:3909:33 */
+type PEMRPAINTRGN = uintptr         /* wingdi.h:3909:45 */
 
 type tagEMRFILLRGN = struct {
 	emr       EMR
@@ -23098,10 +23310,10 @@ type tagEMRFILLRGN = struct {
 	ihBrush   DWORD
 	RgnData   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:3797:11 */
+} /* wingdi.h:3911:11 */
 
-type EMRFILLRGN = tagEMRFILLRGN /* wingdi.h:3803:5 */
-type PEMRFILLRGN = uintptr      /* wingdi.h:3803:16 */
+type EMRFILLRGN = tagEMRFILLRGN /* wingdi.h:3917:5 */
+type PEMRFILLRGN = uintptr      /* wingdi.h:3917:16 */
 
 type tagEMRFRAMERGN = struct {
 	emr       EMR
@@ -23111,10 +23323,10 @@ type tagEMRFRAMERGN = struct {
 	szlStroke SIZEL
 	RgnData   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:3805:11 */
+} /* wingdi.h:3919:11 */
 
-type EMRFRAMERGN = tagEMRFRAMERGN /* wingdi.h:3812:5 */
-type PEMRFRAMERGN = uintptr       /* wingdi.h:3812:17 */
+type EMRFRAMERGN = tagEMRFRAMERGN /* wingdi.h:3926:5 */
+type PEMRFRAMERGN = uintptr       /* wingdi.h:3926:17 */
 
 type tagEMREXTSELECTCLIPRGN = struct {
 	emr       EMR
@@ -23122,10 +23334,10 @@ type tagEMREXTSELECTCLIPRGN = struct {
 	iMode     DWORD
 	RgnData   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:3814:11 */
+} /* wingdi.h:3928:11 */
 
-type EMREXTSELECTCLIPRGN = tagEMREXTSELECTCLIPRGN /* wingdi.h:3819:5 */
-type PEMREXTSELECTCLIPRGN = uintptr               /* wingdi.h:3819:25 */
+type EMREXTSELECTCLIPRGN = tagEMREXTSELECTCLIPRGN /* wingdi.h:3933:5 */
+type PEMREXTSELECTCLIPRGN = uintptr               /* wingdi.h:3933:25 */
 
 type tagEMREXTTEXTOUTA = struct {
 	emr           EMR
@@ -23134,12 +23346,12 @@ type tagEMREXTTEXTOUTA = struct {
 	exScale       FLOAT
 	eyScale       FLOAT
 	emrtext       EMRTEXT
-} /* wingdi.h:3821:11 */
+} /* wingdi.h:3935:11 */
 
-type EMREXTTEXTOUTA = tagEMREXTTEXTOUTA /* wingdi.h:3828:5 */
-type PEMREXTTEXTOUTA = uintptr          /* wingdi.h:3828:20 */
-type EMREXTTEXTOUTW = tagEMREXTTEXTOUTA /* wingdi.h:3828:37 */
-type PEMREXTTEXTOUTW = uintptr          /* wingdi.h:3828:52 */
+type EMREXTTEXTOUTA = tagEMREXTTEXTOUTA /* wingdi.h:3942:5 */
+type PEMREXTTEXTOUTA = uintptr          /* wingdi.h:3942:20 */
+type EMREXTTEXTOUTW = tagEMREXTTEXTOUTA /* wingdi.h:3942:37 */
+type PEMREXTTEXTOUTW = uintptr          /* wingdi.h:3942:52 */
 
 type tagEMRPOLYTEXTOUTA = struct {
 	emr           EMR
@@ -23149,12 +23361,12 @@ type tagEMRPOLYTEXTOUTA = struct {
 	eyScale       FLOAT
 	cStrings      LONG
 	aemrtext      [1]EMRTEXT
-} /* wingdi.h:3830:11 */
+} /* wingdi.h:3944:11 */
 
-type EMRPOLYTEXTOUTA = tagEMRPOLYTEXTOUTA /* wingdi.h:3838:5 */
-type PEMRPOLYTEXTOUTA = uintptr           /* wingdi.h:3838:21 */
-type EMRPOLYTEXTOUTW = tagEMRPOLYTEXTOUTA /* wingdi.h:3838:39 */
-type PEMRPOLYTEXTOUTW = uintptr           /* wingdi.h:3838:55 */
+type EMRPOLYTEXTOUTA = tagEMRPOLYTEXTOUTA /* wingdi.h:3952:5 */
+type PEMRPOLYTEXTOUTA = uintptr           /* wingdi.h:3952:21 */
+type EMRPOLYTEXTOUTW = tagEMRPOLYTEXTOUTA /* wingdi.h:3952:39 */
+type PEMRPOLYTEXTOUTW = uintptr           /* wingdi.h:3952:55 */
 
 type tagEMRBITBLT = struct {
 	emr          EMR
@@ -23173,10 +23385,10 @@ type tagEMRBITBLT = struct {
 	cbBmiSrc     DWORD
 	offBitsSrc   DWORD
 	cbBitsSrc    DWORD
-} /* wingdi.h:3840:11 */
+} /* wingdi.h:3954:11 */
 
-type EMRBITBLT = tagEMRBITBLT /* wingdi.h:3857:5 */
-type PEMRBITBLT = uintptr     /* wingdi.h:3857:15 */
+type EMRBITBLT = tagEMRBITBLT /* wingdi.h:3971:5 */
+type PEMRBITBLT = uintptr     /* wingdi.h:3971:15 */
 
 type tagEMRSTRETCHBLT = struct {
 	emr          EMR
@@ -23197,10 +23409,10 @@ type tagEMRSTRETCHBLT = struct {
 	cbBitsSrc    DWORD
 	cxSrc        LONG
 	cySrc        LONG
-} /* wingdi.h:3859:11 */
+} /* wingdi.h:3973:11 */
 
-type EMRSTRETCHBLT = tagEMRSTRETCHBLT /* wingdi.h:3878:5 */
-type PEMRSTRETCHBLT = uintptr         /* wingdi.h:3878:19 */
+type EMRSTRETCHBLT = tagEMRSTRETCHBLT /* wingdi.h:3992:5 */
+type PEMRSTRETCHBLT = uintptr         /* wingdi.h:3992:19 */
 
 type tagEMRMASKBLT = struct {
 	emr          EMR
@@ -23226,10 +23438,10 @@ type tagEMRMASKBLT = struct {
 	cbBmiMask    DWORD
 	offBitsMask  DWORD
 	cbBitsMask   DWORD
-} /* wingdi.h:3880:11 */
+} /* wingdi.h:3994:11 */
 
-type EMRMASKBLT = tagEMRMASKBLT /* wingdi.h:3904:5 */
-type PEMRMASKBLT = uintptr      /* wingdi.h:3904:16 */
+type EMRMASKBLT = tagEMRMASKBLT /* wingdi.h:4018:5 */
+type PEMRMASKBLT = uintptr      /* wingdi.h:4018:16 */
 
 type tagEMRPLGBLT = struct {
 	emr          EMR
@@ -23253,10 +23465,10 @@ type tagEMRPLGBLT = struct {
 	cbBmiMask    DWORD
 	offBitsMask  DWORD
 	cbBitsMask   DWORD
-} /* wingdi.h:3906:11 */
+} /* wingdi.h:4020:11 */
 
-type EMRPLGBLT = tagEMRPLGBLT /* wingdi.h:3928:5 */
-type PEMRPLGBLT = uintptr     /* wingdi.h:3928:15 */
+type EMRPLGBLT = tagEMRPLGBLT /* wingdi.h:4042:5 */
+type PEMRPLGBLT = uintptr     /* wingdi.h:4042:15 */
 
 type tagEMRSETDIBITSTODEVICE = struct {
 	emr        EMR
@@ -23274,10 +23486,10 @@ type tagEMRSETDIBITSTODEVICE = struct {
 	iUsageSrc  DWORD
 	iStartScan DWORD
 	cScans     DWORD
-} /* wingdi.h:3930:11 */
+} /* wingdi.h:4044:11 */
 
-type EMRSETDIBITSTODEVICE = tagEMRSETDIBITSTODEVICE /* wingdi.h:3946:5 */
-type PEMRSETDIBITSTODEVICE = uintptr                /* wingdi.h:3946:26 */
+type EMRSETDIBITSTODEVICE = tagEMRSETDIBITSTODEVICE /* wingdi.h:4060:5 */
+type PEMRSETDIBITSTODEVICE = uintptr                /* wingdi.h:4060:26 */
 
 type tagEMRSTRETCHDIBITS = struct {
 	emr        EMR
@@ -23296,37 +23508,37 @@ type tagEMRSTRETCHDIBITS = struct {
 	dwRop      DWORD
 	cxDest     LONG
 	cyDest     LONG
-} /* wingdi.h:3948:11 */
+} /* wingdi.h:4062:11 */
 
-type EMRSTRETCHDIBITS = tagEMRSTRETCHDIBITS /* wingdi.h:3965:5 */
-type PEMRSTRETCHDIBITS = uintptr            /* wingdi.h:3965:22 */
+type EMRSTRETCHDIBITS = tagEMRSTRETCHDIBITS /* wingdi.h:4079:5 */
+type PEMRSTRETCHDIBITS = uintptr            /* wingdi.h:4079:22 */
 
 type tagEMREXTCREATEFONTINDIRECTW = struct {
 	emr    EMR
 	ihFont DWORD
 	elfw   EXTLOGFONTW
-} /* wingdi.h:3967:11 */
+} /* wingdi.h:4081:11 */
 
-type EMREXTCREATEFONTINDIRECTW = tagEMREXTCREATEFONTINDIRECTW /* wingdi.h:3971:5 */
-type PEMREXTCREATEFONTINDIRECTW = uintptr                     /* wingdi.h:3971:31 */
+type EMREXTCREATEFONTINDIRECTW = tagEMREXTCREATEFONTINDIRECTW /* wingdi.h:4085:5 */
+type PEMREXTCREATEFONTINDIRECTW = uintptr                     /* wingdi.h:4085:31 */
 
 type tagEMRCREATEPALETTE = struct {
 	emr   EMR
 	ihPal DWORD
 	lgpl  LOGPALETTE
-} /* wingdi.h:3973:11 */
+} /* wingdi.h:4087:11 */
 
-type EMRCREATEPALETTE = tagEMRCREATEPALETTE /* wingdi.h:3977:5 */
-type PEMRCREATEPALETTE = uintptr            /* wingdi.h:3977:22 */
+type EMRCREATEPALETTE = tagEMRCREATEPALETTE /* wingdi.h:4091:5 */
+type PEMRCREATEPALETTE = uintptr            /* wingdi.h:4091:22 */
 
 type tagEMRCREATEPEN = struct {
 	emr   EMR
 	ihPen DWORD
 	lopn  LOGPEN
-} /* wingdi.h:3979:11 */
+} /* wingdi.h:4093:11 */
 
-type EMRCREATEPEN = tagEMRCREATEPEN /* wingdi.h:3983:5 */
-type PEMRCREATEPEN = uintptr        /* wingdi.h:3983:18 */
+type EMRCREATEPEN = tagEMRCREATEPEN /* wingdi.h:4097:5 */
+type PEMRCREATEPEN = uintptr        /* wingdi.h:4097:18 */
 
 type tagEMREXTCREATEPEN = struct {
 	emr     EMR
@@ -23337,19 +23549,19 @@ type tagEMREXTCREATEPEN = struct {
 	cbBits  DWORD
 	_       [4]byte
 	elp     EXTLOGPEN
-} /* wingdi.h:3985:11 */
+} /* wingdi.h:4099:11 */
 
-type EMREXTCREATEPEN = tagEMREXTCREATEPEN /* wingdi.h:3993:5 */
-type PEMREXTCREATEPEN = uintptr           /* wingdi.h:3993:21 */
+type EMREXTCREATEPEN = tagEMREXTCREATEPEN /* wingdi.h:4107:5 */
+type PEMREXTCREATEPEN = uintptr           /* wingdi.h:4107:21 */
 
 type tagEMRCREATEBRUSHINDIRECT = struct {
 	emr     EMR
 	ihBrush DWORD
 	lb      LOGBRUSH32
-} /* wingdi.h:3995:11 */
+} /* wingdi.h:4109:11 */
 
-type EMRCREATEBRUSHINDIRECT = tagEMRCREATEBRUSHINDIRECT /* wingdi.h:3999:5 */
-type PEMRCREATEBRUSHINDIRECT = uintptr                  /* wingdi.h:3999:28 */
+type EMRCREATEBRUSHINDIRECT = tagEMRCREATEBRUSHINDIRECT /* wingdi.h:4113:5 */
+type PEMRCREATEBRUSHINDIRECT = uintptr                  /* wingdi.h:4113:28 */
 
 type tagEMRCREATEMONOBRUSH = struct {
 	emr     EMR
@@ -23359,10 +23571,10 @@ type tagEMRCREATEMONOBRUSH = struct {
 	cbBmi   DWORD
 	offBits DWORD
 	cbBits  DWORD
-} /* wingdi.h:4001:11 */
+} /* wingdi.h:4115:11 */
 
-type EMRCREATEMONOBRUSH = tagEMRCREATEMONOBRUSH /* wingdi.h:4009:5 */
-type PEMRCREATEMONOBRUSH = uintptr              /* wingdi.h:4009:24 */
+type EMRCREATEMONOBRUSH = tagEMRCREATEMONOBRUSH /* wingdi.h:4123:5 */
+type PEMRCREATEMONOBRUSH = uintptr              /* wingdi.h:4123:24 */
 
 type tagEMRCREATEDIBPATTERNBRUSHPT = struct {
 	emr     EMR
@@ -23372,30 +23584,30 @@ type tagEMRCREATEDIBPATTERNBRUSHPT = struct {
 	cbBmi   DWORD
 	offBits DWORD
 	cbBits  DWORD
-} /* wingdi.h:4011:11 */
+} /* wingdi.h:4125:11 */
 
-type EMRCREATEDIBPATTERNBRUSHPT = tagEMRCREATEDIBPATTERNBRUSHPT /* wingdi.h:4019:5 */
-type PEMRCREATEDIBPATTERNBRUSHPT = uintptr                      /* wingdi.h:4019:32 */
+type EMRCREATEDIBPATTERNBRUSHPT = tagEMRCREATEDIBPATTERNBRUSHPT /* wingdi.h:4133:5 */
+type PEMRCREATEDIBPATTERNBRUSHPT = uintptr                      /* wingdi.h:4133:32 */
 
 type tagEMRFORMAT = struct {
 	dSignature DWORD
 	nVersion   DWORD
 	cbData     DWORD
 	offData    DWORD
-} /* wingdi.h:4021:11 */
+} /* wingdi.h:4135:11 */
 
-type EMRFORMAT = tagEMRFORMAT /* wingdi.h:4026:5 */
-type PEMRFORMAT = uintptr     /* wingdi.h:4026:15 */
+type EMRFORMAT = tagEMRFORMAT /* wingdi.h:4140:5 */
+type PEMRFORMAT = uintptr     /* wingdi.h:4140:15 */
 
 type tagEMRGLSRECORD = struct {
 	emr    EMR
 	cbData DWORD
 	Data   [1]BYTE
 	_      [3]byte
-} /* wingdi.h:4028:11 */
+} /* wingdi.h:4142:11 */
 
-type EMRGLSRECORD = tagEMRGLSRECORD /* wingdi.h:4032:5 */
-type PEMRGLSRECORD = uintptr        /* wingdi.h:4032:18 */
+type EMRGLSRECORD = tagEMRGLSRECORD /* wingdi.h:4146:5 */
+type PEMRGLSRECORD = uintptr        /* wingdi.h:4146:18 */
 
 type tagEMRGLSBOUNDEDRECORD = struct {
 	emr       EMR
@@ -23403,39 +23615,39 @@ type tagEMRGLSBOUNDEDRECORD = struct {
 	cbData    DWORD
 	Data      [1]BYTE
 	_         [3]byte
-} /* wingdi.h:4034:11 */
+} /* wingdi.h:4148:11 */
 
-type EMRGLSBOUNDEDRECORD = tagEMRGLSBOUNDEDRECORD /* wingdi.h:4039:5 */
-type PEMRGLSBOUNDEDRECORD = uintptr               /* wingdi.h:4039:25 */
+type EMRGLSBOUNDEDRECORD = tagEMRGLSBOUNDEDRECORD /* wingdi.h:4153:5 */
+type PEMRGLSBOUNDEDRECORD = uintptr               /* wingdi.h:4153:25 */
 
 type tagEMRPIXELFORMAT = struct {
 	emr EMR
 	pfd PIXELFORMATDESCRIPTOR
-} /* wingdi.h:4041:11 */
+} /* wingdi.h:4155:11 */
 
-type EMRPIXELFORMAT = tagEMRPIXELFORMAT /* wingdi.h:4044:5 */
-type PEMRPIXELFORMAT = uintptr          /* wingdi.h:4044:20 */
+type EMRPIXELFORMAT = tagEMRPIXELFORMAT /* wingdi.h:4158:5 */
+type PEMRPIXELFORMAT = uintptr          /* wingdi.h:4158:20 */
 
 type tagEMRCREATECOLORSPACE = struct {
 	emr  EMR
 	ihCS DWORD
 	lcs  LOGCOLORSPACEA
-} /* wingdi.h:4046:11 */
+} /* wingdi.h:4160:11 */
 
-type EMRCREATECOLORSPACE = tagEMRCREATECOLORSPACE /* wingdi.h:4050:5 */
-type PEMRCREATECOLORSPACE = uintptr               /* wingdi.h:4050:25 */
+type EMRCREATECOLORSPACE = tagEMRCREATECOLORSPACE /* wingdi.h:4164:5 */
+type PEMRCREATECOLORSPACE = uintptr               /* wingdi.h:4164:25 */
 
 type tagEMRSETCOLORSPACE = struct {
 	emr  EMR
 	ihCS DWORD
-} /* wingdi.h:4052:11 */
+} /* wingdi.h:4166:11 */
 
-type EMRSETCOLORSPACE = tagEMRSETCOLORSPACE    /* wingdi.h:4055:5 */
-type PEMRSETCOLORSPACE = uintptr               /* wingdi.h:4055:22 */
-type EMRSELECTCOLORSPACE = tagEMRSETCOLORSPACE /* wingdi.h:4055:41 */
-type PEMRSELECTCOLORSPACE = uintptr            /* wingdi.h:4055:61 */
-type EMRDELETECOLORSPACE = tagEMRSETCOLORSPACE /* wingdi.h:4055:83 */
-type PEMRDELETECOLORSPACE = uintptr            /* wingdi.h:4055:103 */
+type EMRSETCOLORSPACE = tagEMRSETCOLORSPACE    /* wingdi.h:4169:5 */
+type PEMRSETCOLORSPACE = uintptr               /* wingdi.h:4169:22 */
+type EMRSELECTCOLORSPACE = tagEMRSETCOLORSPACE /* wingdi.h:4169:41 */
+type PEMRSELECTCOLORSPACE = uintptr            /* wingdi.h:4169:61 */
+type EMRDELETECOLORSPACE = tagEMRSETCOLORSPACE /* wingdi.h:4169:83 */
+type PEMRDELETECOLORSPACE = uintptr            /* wingdi.h:4169:103 */
 
 type tagEMREXTESCAPE = struct {
 	emr       EMR
@@ -23443,12 +23655,12 @@ type tagEMREXTESCAPE = struct {
 	cbEscData INT
 	EscData   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:4057:11 */
+} /* wingdi.h:4171:11 */
 
-type EMREXTESCAPE = tagEMREXTESCAPE  /* wingdi.h:4062:5 */
-type PEMREXTESCAPE = uintptr         /* wingdi.h:4062:18 */
-type EMRDRAWESCAPE = tagEMREXTESCAPE /* wingdi.h:4062:33 */
-type PEMRDRAWESCAPE = uintptr        /* wingdi.h:4062:47 */
+type EMREXTESCAPE = tagEMREXTESCAPE  /* wingdi.h:4176:5 */
+type PEMREXTESCAPE = uintptr         /* wingdi.h:4176:18 */
+type EMRDRAWESCAPE = tagEMREXTESCAPE /* wingdi.h:4176:33 */
+type PEMRDRAWESCAPE = uintptr        /* wingdi.h:4176:47 */
 
 type tagEMRNAMEDESCAPE = struct {
 	emr       EMR
@@ -23457,10 +23669,10 @@ type tagEMRNAMEDESCAPE = struct {
 	cbEscData INT
 	EscData   [1]BYTE
 	_         [3]byte
-} /* wingdi.h:4064:11 */
+} /* wingdi.h:4178:11 */
 
-type EMRNAMEDESCAPE = tagEMRNAMEDESCAPE /* wingdi.h:4070:5 */
-type PEMRNAMEDESCAPE = uintptr          /* wingdi.h:4070:20 */
+type EMRNAMEDESCAPE = tagEMRNAMEDESCAPE /* wingdi.h:4184:5 */
+type PEMRNAMEDESCAPE = uintptr          /* wingdi.h:4184:20 */
 
 type tagEMRSETICMPROFILE = struct {
 	emr     EMR
@@ -23469,14 +23681,14 @@ type tagEMRSETICMPROFILE = struct {
 	cbData  DWORD
 	Data    [1]BYTE
 	_       [3]byte
-} /* wingdi.h:4074:11 */
+} /* wingdi.h:4188:11 */
 
-type EMRSETICMPROFILE = tagEMRSETICMPROFILE  /* wingdi.h:4080:5 */
-type PEMRSETICMPROFILE = uintptr             /* wingdi.h:4080:22 */
-type EMRSETICMPROFILEA = tagEMRSETICMPROFILE /* wingdi.h:4080:41 */
-type PEMRSETICMPROFILEA = uintptr            /* wingdi.h:4080:59 */
-type EMRSETICMPROFILEW = tagEMRSETICMPROFILE /* wingdi.h:4080:79 */
-type PEMRSETICMPROFILEW = uintptr            /* wingdi.h:4080:97 */
+type EMRSETICMPROFILE = tagEMRSETICMPROFILE  /* wingdi.h:4194:5 */
+type PEMRSETICMPROFILE = uintptr             /* wingdi.h:4194:22 */
+type EMRSETICMPROFILEA = tagEMRSETICMPROFILE /* wingdi.h:4194:41 */
+type PEMRSETICMPROFILEA = uintptr            /* wingdi.h:4194:59 */
+type EMRSETICMPROFILEW = tagEMRSETICMPROFILE /* wingdi.h:4194:79 */
+type PEMRSETICMPROFILEW = uintptr            /* wingdi.h:4194:97 */
 
 type tagEMRCREATECOLORSPACEW = struct {
 	emr     EMR
@@ -23486,10 +23698,10 @@ type tagEMRCREATECOLORSPACEW = struct {
 	cbData  DWORD
 	Data    [1]BYTE
 	_       [3]byte
-} /* wingdi.h:4084:11 */
+} /* wingdi.h:4198:11 */
 
-type EMRCREATECOLORSPACEW = tagEMRCREATECOLORSPACEW /* wingdi.h:4091:5 */
-type PEMRCREATECOLORSPACEW = uintptr                /* wingdi.h:4091:26 */
+type EMRCREATECOLORSPACEW = tagEMRCREATECOLORSPACEW /* wingdi.h:4205:5 */
+type PEMRCREATECOLORSPACEW = uintptr                /* wingdi.h:4205:26 */
 
 type tagCOLORMATCHTOTARGET = struct {
 	emr      EMR
@@ -23499,10 +23711,10 @@ type tagCOLORMATCHTOTARGET = struct {
 	cbData   DWORD
 	Data     [1]BYTE
 	_        [3]byte
-} /* wingdi.h:4095:11 */
+} /* wingdi.h:4209:11 */
 
-type EMRCOLORMATCHTOTARGET = tagCOLORMATCHTOTARGET /* wingdi.h:4102:5 */
-type PEMRCOLORMATCHTOTARGET = uintptr              /* wingdi.h:4102:27 */
+type EMRCOLORMATCHTOTARGET = tagCOLORMATCHTOTARGET /* wingdi.h:4216:5 */
+type PEMRCOLORMATCHTOTARGET = uintptr              /* wingdi.h:4216:27 */
 
 type tagCOLORCORRECTPALETTE = struct {
 	emr         EMR
@@ -23510,10 +23722,10 @@ type tagCOLORCORRECTPALETTE = struct {
 	nFirstEntry DWORD
 	nPalEntries DWORD
 	nReserved   DWORD
-} /* wingdi.h:4104:11 */
+} /* wingdi.h:4218:11 */
 
-type EMRCOLORCORRECTPALETTE = tagCOLORCORRECTPALETTE /* wingdi.h:4110:5 */
-type PEMRCOLORCORRECTPALETTE = uintptr               /* wingdi.h:4110:28 */
+type EMRCOLORCORRECTPALETTE = tagCOLORCORRECTPALETTE /* wingdi.h:4224:5 */
+type PEMRCOLORCORRECTPALETTE = uintptr               /* wingdi.h:4224:28 */
 
 type tagEMRALPHABLEND = struct {
 	emr          EMR
@@ -23534,10 +23746,10 @@ type tagEMRALPHABLEND = struct {
 	cbBitsSrc    DWORD
 	cxSrc        LONG
 	cySrc        LONG
-} /* wingdi.h:4112:11 */
+} /* wingdi.h:4226:11 */
 
-type EMRALPHABLEND = tagEMRALPHABLEND /* wingdi.h:4131:5 */
-type PEMRALPHABLEND = uintptr         /* wingdi.h:4131:19 */
+type EMRALPHABLEND = tagEMRALPHABLEND /* wingdi.h:4245:5 */
+type PEMRALPHABLEND = uintptr         /* wingdi.h:4245:19 */
 
 type tagEMRGRADIENTFILL = struct {
 	emr       EMR
@@ -23546,10 +23758,10 @@ type tagEMRGRADIENTFILL = struct {
 	nTri      DWORD
 	ulMode    ULONG
 	Ver       [1]TRIVERTEX
-} /* wingdi.h:4133:11 */
+} /* wingdi.h:4247:11 */
 
-type EMRGRADIENTFILL = tagEMRGRADIENTFILL /* wingdi.h:4140:5 */
-type PEMRGRADIENTFILL = uintptr           /* wingdi.h:4140:21 */
+type EMRGRADIENTFILL = tagEMRGRADIENTFILL /* wingdi.h:4254:5 */
+type PEMRGRADIENTFILL = uintptr           /* wingdi.h:4254:21 */
 
 type tagEMRTRANSPARENTBLT = struct {
 	emr          EMR
@@ -23570,18 +23782,18 @@ type tagEMRTRANSPARENTBLT = struct {
 	cbBitsSrc    DWORD
 	cxSrc        LONG
 	cySrc        LONG
-} /* wingdi.h:4142:11 */
+} /* wingdi.h:4256:11 */
 
-type EMRTRANSPARENTBLT = tagEMRTRANSPARENTBLT /* wingdi.h:4161:5 */
-type PEMRTRANSPARENTBLT = uintptr             /* wingdi.h:4161:23 */
+type EMRTRANSPARENTBLT = tagEMRTRANSPARENTBLT /* wingdi.h:4275:5 */
+type PEMRTRANSPARENTBLT = uintptr             /* wingdi.h:4275:23 */
 
 type _POINTFLOAT = struct {
 	x FLOAT
 	y FLOAT
-} /* wingdi.h:4188:11 */
+} /* wingdi.h:4302:11 */
 
-type POINTFLOAT = _POINTFLOAT /* wingdi.h:4191:5 */
-type PPOINTFLOAT = uintptr    /* wingdi.h:4191:16 */
+type POINTFLOAT = _POINTFLOAT /* wingdi.h:4305:5 */
+type PPOINTFLOAT = uintptr    /* wingdi.h:4305:16 */
 
 type _GLYPHMETRICSFLOAT = struct {
 	gmfBlackBoxX     FLOAT
@@ -23589,11 +23801,11 @@ type _GLYPHMETRICSFLOAT = struct {
 	gmfptGlyphOrigin POINTFLOAT
 	gmfCellIncX      FLOAT
 	gmfCellIncY      FLOAT
-} /* wingdi.h:4193:11 */
+} /* wingdi.h:4307:11 */
 
-type GLYPHMETRICSFLOAT = _GLYPHMETRICSFLOAT /* wingdi.h:4199:5 */
-type PGLYPHMETRICSFLOAT = uintptr           /* wingdi.h:4199:23 */
-type LPGLYPHMETRICSFLOAT = uintptr          /* wingdi.h:4199:43 */
+type GLYPHMETRICSFLOAT = _GLYPHMETRICSFLOAT /* wingdi.h:4313:5 */
+type PGLYPHMETRICSFLOAT = uintptr           /* wingdi.h:4313:23 */
+type LPGLYPHMETRICSFLOAT = uintptr          /* wingdi.h:4313:43 */
 
 type tagLAYERPLANEDESCRIPTOR = struct {
 	nSize           WORD
@@ -23620,21 +23832,21 @@ type tagLAYERPLANEDESCRIPTOR = struct {
 	iLayerPlane     BYTE
 	bReserved       BYTE
 	crTransparent   COLORREF
-} /* wingdi.h:4209:11 */
+} /* wingdi.h:4323:11 */
 
-type LAYERPLANEDESCRIPTOR = tagLAYERPLANEDESCRIPTOR /* wingdi.h:4234:5 */
-type PLAYERPLANEDESCRIPTOR = uintptr                /* wingdi.h:4234:26 */
-type LPLAYERPLANEDESCRIPTOR = uintptr               /* wingdi.h:4234:49 */
+type LAYERPLANEDESCRIPTOR = tagLAYERPLANEDESCRIPTOR /* wingdi.h:4348:5 */
+type PLAYERPLANEDESCRIPTOR = uintptr                /* wingdi.h:4348:26 */
+type LPLAYERPLANEDESCRIPTOR = uintptr               /* wingdi.h:4348:49 */
 
 type _WGLSWAP = struct {
 	hdc     HDC
 	uiFlags UINT
 	_       [4]byte
-} /* wingdi.h:4288:11 */
+} /* wingdi.h:4402:11 */
 
-type WGLSWAP = _WGLSWAP  /* wingdi.h:4291:5 */
-type PWGLSWAP = uintptr  /* wingdi.h:4291:13 */
-type LPWGLSWAP = uintptr /* wingdi.h:4291:23 */
+type WGLSWAP = _WGLSWAP  /* wingdi.h:4405:5 */
+type PWGLSWAP = uintptr  /* wingdi.h:4405:13 */
+type LPWGLSWAP = uintptr /* wingdi.h:4405:23 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -23692,7 +23904,7 @@ type LPWGLSWAP = uintptr /* wingdi.h:4291:23 */
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-// Copyright (C) 1989-2018 Free Software Foundation, Inc.
+// Copyright (C) 1989-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -23770,7 +23982,7 @@ type DESKTOPENUMPROC = DESKTOPENUMPROCA /* winuser.h:114:3 */
 type tagCBT_CREATEWNDA = struct {
 	lpcs            uintptr
 	hwndInsertAfter HWND
-} /* winuser.h:456:11 */
+} /* winuser.h:494:11 */
 
 type tagCREATESTRUCTA = struct {
 	lpCreateParams LPVOID
@@ -23787,15 +23999,15 @@ type tagCREATESTRUCTA = struct {
 	lpszClass      LPCSTR
 	dwExStyle      DWORD
 	_              [4]byte
-} /* winuser.h:456:11 */
+} /* winuser.h:494:11 */
 
-type CBT_CREATEWNDA = tagCBT_CREATEWNDA /* winuser.h:459:5 */
-type LPCBT_CREATEWNDA = uintptr         /* winuser.h:459:20 */
+type CBT_CREATEWNDA = tagCBT_CREATEWNDA /* winuser.h:497:5 */
+type LPCBT_CREATEWNDA = uintptr         /* winuser.h:497:20 */
 
 type tagCBT_CREATEWNDW = struct {
 	lpcs            uintptr
 	hwndInsertAfter HWND
-} /* winuser.h:461:11 */
+} /* winuser.h:499:11 */
 
 type tagCREATESTRUCTW = struct {
 	lpCreateParams LPVOID
@@ -23812,36 +24024,36 @@ type tagCREATESTRUCTW = struct {
 	lpszClass      LPCWSTR
 	dwExStyle      DWORD
 	_              [4]byte
-} /* winuser.h:461:11 */
+} /* winuser.h:499:11 */
 
-type CBT_CREATEWNDW = tagCBT_CREATEWNDW /* winuser.h:464:5 */
-type LPCBT_CREATEWNDW = uintptr         /* winuser.h:464:20 */
+type CBT_CREATEWNDW = tagCBT_CREATEWNDW /* winuser.h:502:5 */
+type LPCBT_CREATEWNDW = uintptr         /* winuser.h:502:20 */
 
-type CBT_CREATEWND = CBT_CREATEWNDA     /* winuser.h:466:3 */
-type LPCBT_CREATEWND = LPCBT_CREATEWNDA /* winuser.h:467:3 */
+type CBT_CREATEWND = CBT_CREATEWNDA     /* winuser.h:504:3 */
+type LPCBT_CREATEWND = LPCBT_CREATEWNDA /* winuser.h:505:3 */
 
 type tagCBTACTIVATESTRUCT = struct {
 	fMouse     WINBOOL
 	_          [4]byte
 	hWndActive HWND
-} /* winuser.h:469:11 */
+} /* winuser.h:507:11 */
 
-type CBTACTIVATESTRUCT = tagCBTACTIVATESTRUCT /* winuser.h:472:5 */
-type LPCBTACTIVATESTRUCT = uintptr            /* winuser.h:472:23 */
+type CBTACTIVATESTRUCT = tagCBTACTIVATESTRUCT /* winuser.h:510:5 */
+type LPCBTACTIVATESTRUCT = uintptr            /* winuser.h:510:23 */
 
 type tagWTSSESSION_NOTIFICATION = struct {
 	cbSize      DWORD
 	dwSessionId DWORD
-} /* winuser.h:476:11 */
+} /* winuser.h:514:11 */
 
-type WTSSESSION_NOTIFICATION = tagWTSSESSION_NOTIFICATION /* winuser.h:479:5 */
-type PWTSSESSION_NOTIFICATION = uintptr                   /* winuser.h:479:29 */
+type WTSSESSION_NOTIFICATION = tagWTSSESSION_NOTIFICATION /* winuser.h:517:5 */
+type PWTSSESSION_NOTIFICATION = uintptr                   /* winuser.h:517:29 */
 
 type SHELLHOOKINFO = struct {
 	hwnd HWND
 	rc   RECT
-}                              /* winuser.h:600:5 */
-type LPSHELLHOOKINFO = uintptr /* winuser.h:600:19 */
+}                              /* winuser.h:638:5 */
+type LPSHELLHOOKINFO = uintptr /* winuser.h:638:19 */
 
 type tagEVENTMSG = struct {
 	message UINT
@@ -23849,16 +24061,16 @@ type tagEVENTMSG = struct {
 	paramH  UINT
 	time    DWORD
 	hwnd    HWND
-} /* winuser.h:602:11 */
+} /* winuser.h:640:11 */
 
-type EVENTMSG = tagEVENTMSG  /* winuser.h:608:5 */
-type PEVENTMSGMSG = uintptr  /* winuser.h:608:14 */
-type NPEVENTMSGMSG = uintptr /* winuser.h:608:28 */
-type LPEVENTMSGMSG = uintptr /* winuser.h:608:43 */
+type EVENTMSG = tagEVENTMSG  /* winuser.h:646:5 */
+type PEVENTMSGMSG = uintptr  /* winuser.h:646:14 */
+type NPEVENTMSGMSG = uintptr /* winuser.h:646:28 */
+type LPEVENTMSGMSG = uintptr /* winuser.h:646:43 */
 
-type PEVENTMSG = uintptr  /* winuser.h:610:30 */
-type NPEVENTMSG = uintptr /* winuser.h:610:41 */
-type LPEVENTMSG = uintptr /* winuser.h:610:53 */
+type PEVENTMSG = uintptr  /* winuser.h:648:30 */
+type NPEVENTMSG = uintptr /* winuser.h:648:41 */
+type LPEVENTMSG = uintptr /* winuser.h:648:53 */
 
 type tagCWPSTRUCT = struct {
 	lParam  LPARAM
@@ -23866,12 +24078,12 @@ type tagCWPSTRUCT = struct {
 	message UINT
 	_       [4]byte
 	hwnd    HWND
-} /* winuser.h:612:11 */
+} /* winuser.h:650:11 */
 
-type CWPSTRUCT = tagCWPSTRUCT /* winuser.h:617:5 */
-type PCWPSTRUCT = uintptr     /* winuser.h:617:15 */
-type NPCWPSTRUCT = uintptr    /* winuser.h:617:27 */
-type LPCWPSTRUCT = uintptr    /* winuser.h:617:40 */
+type CWPSTRUCT = tagCWPSTRUCT /* winuser.h:655:5 */
+type PCWPSTRUCT = uintptr     /* winuser.h:655:15 */
+type NPCWPSTRUCT = uintptr    /* winuser.h:655:27 */
+type LPCWPSTRUCT = uintptr    /* winuser.h:655:40 */
 
 type tagCWPRETSTRUCT = struct {
 	lResult LRESULT
@@ -23880,12 +24092,12 @@ type tagCWPRETSTRUCT = struct {
 	message UINT
 	_       [4]byte
 	hwnd    HWND
-} /* winuser.h:619:11 */
+} /* winuser.h:657:11 */
 
-type CWPRETSTRUCT = tagCWPRETSTRUCT /* winuser.h:625:5 */
-type PCWPRETSTRUCT = uintptr        /* winuser.h:625:18 */
-type NPCWPRETSTRUCT = uintptr       /* winuser.h:625:33 */
-type LPCWPRETSTRUCT = uintptr       /* winuser.h:625:49 */
+type CWPRETSTRUCT = tagCWPRETSTRUCT /* winuser.h:663:5 */
+type PCWPRETSTRUCT = uintptr        /* winuser.h:663:18 */
+type NPCWPRETSTRUCT = uintptr       /* winuser.h:663:33 */
+type LPCWPRETSTRUCT = uintptr       /* winuser.h:663:49 */
 
 type tagKBDLLHOOKSTRUCT = struct {
 	vkCode      DWORD
@@ -23893,11 +24105,11 @@ type tagKBDLLHOOKSTRUCT = struct {
 	flags       DWORD
 	time        DWORD
 	dwExtraInfo ULONG_PTR
-} /* winuser.h:636:11 */
+} /* winuser.h:676:11 */
 
-type KBDLLHOOKSTRUCT = tagKBDLLHOOKSTRUCT /* winuser.h:642:5 */
-type LPKBDLLHOOKSTRUCT = uintptr          /* winuser.h:642:21 */
-type PKBDLLHOOKSTRUCT = uintptr           /* winuser.h:642:40 */
+type KBDLLHOOKSTRUCT = tagKBDLLHOOKSTRUCT /* winuser.h:682:5 */
+type LPKBDLLHOOKSTRUCT = uintptr          /* winuser.h:682:21 */
+type PKBDLLHOOKSTRUCT = uintptr           /* winuser.h:682:40 */
 
 type tagMSLLHOOKSTRUCT = struct {
 	pt          POINT
@@ -23906,11 +24118,11 @@ type tagMSLLHOOKSTRUCT = struct {
 	time        DWORD
 	_           [4]byte
 	dwExtraInfo ULONG_PTR
-} /* winuser.h:644:11 */
+} /* winuser.h:684:11 */
 
-type MSLLHOOKSTRUCT = tagMSLLHOOKSTRUCT /* winuser.h:650:5 */
-type LPMSLLHOOKSTRUCT = uintptr         /* winuser.h:650:20 */
-type PMSLLHOOKSTRUCT = uintptr          /* winuser.h:650:38 */
+type MSLLHOOKSTRUCT = tagMSLLHOOKSTRUCT /* winuser.h:690:5 */
+type LPMSLLHOOKSTRUCT = uintptr         /* winuser.h:690:20 */
+type PMSLLHOOKSTRUCT = uintptr          /* winuser.h:690:38 */
 
 type tagDEBUGHOOKINFO = struct {
 	idThread          DWORD
@@ -23919,12 +24131,12 @@ type tagDEBUGHOOKINFO = struct {
 	wParam            WPARAM
 	code              int32
 	_                 [4]byte
-} /* winuser.h:652:11 */
+} /* winuser.h:692:11 */
 
-type DEBUGHOOKINFO = tagDEBUGHOOKINFO /* winuser.h:658:5 */
-type PDEBUGHOOKINFO = uintptr         /* winuser.h:658:19 */
-type NPDEBUGHOOKINFO = uintptr        /* winuser.h:658:35 */
-type LPDEBUGHOOKINFO = uintptr        /* winuser.h:658:52 */
+type DEBUGHOOKINFO = tagDEBUGHOOKINFO /* winuser.h:698:5 */
+type PDEBUGHOOKINFO = uintptr         /* winuser.h:698:19 */
+type NPDEBUGHOOKINFO = uintptr        /* winuser.h:698:35 */
+type LPDEBUGHOOKINFO = uintptr        /* winuser.h:698:52 */
 
 type tagMOUSEHOOKSTRUCT = struct {
 	pt           POINT
@@ -23932,21 +24144,21 @@ type tagMOUSEHOOKSTRUCT = struct {
 	wHitTestCode UINT
 	_            [4]byte
 	dwExtraInfo  ULONG_PTR
-} /* winuser.h:660:11 */
+} /* winuser.h:700:11 */
 
-type MOUSEHOOKSTRUCT = tagMOUSEHOOKSTRUCT /* winuser.h:665:5 */
-type LPMOUSEHOOKSTRUCT = uintptr          /* winuser.h:665:21 */
-type PMOUSEHOOKSTRUCT = uintptr           /* winuser.h:665:40 */
+type MOUSEHOOKSTRUCT = tagMOUSEHOOKSTRUCT /* winuser.h:705:5 */
+type LPMOUSEHOOKSTRUCT = uintptr          /* winuser.h:705:21 */
+type PMOUSEHOOKSTRUCT = uintptr           /* winuser.h:705:40 */
 
 type tagMOUSEHOOKSTRUCTEX = struct {
 	__unnamed MOUSEHOOKSTRUCT
 	mouseData DWORD
 	_         [4]byte
-} /* winuser.h:672:11 */
+} /* winuser.h:712:11 */
 
-type MOUSEHOOKSTRUCTEX = tagMOUSEHOOKSTRUCTEX /* winuser.h:675:5 */
-type LPMOUSEHOOKSTRUCTEX = uintptr            /* winuser.h:675:23 */
-type PMOUSEHOOKSTRUCTEX = uintptr             /* winuser.h:675:44 */
+type MOUSEHOOKSTRUCTEX = tagMOUSEHOOKSTRUCTEX /* winuser.h:715:5 */
+type LPMOUSEHOOKSTRUCTEX = uintptr            /* winuser.h:715:23 */
+type PMOUSEHOOKSTRUCTEX = uintptr             /* winuser.h:715:44 */
 
 type tagHARDWAREHOOKSTRUCT = struct {
 	hwnd    HWND
@@ -23954,11 +24166,11 @@ type tagHARDWAREHOOKSTRUCT = struct {
 	_       [4]byte
 	wParam  WPARAM
 	lParam  LPARAM
-} /* winuser.h:678:11 */
+} /* winuser.h:718:11 */
 
-type HARDWAREHOOKSTRUCT = tagHARDWAREHOOKSTRUCT /* winuser.h:683:5 */
-type LPHARDWAREHOOKSTRUCT = uintptr             /* winuser.h:683:24 */
-type PHARDWAREHOOKSTRUCT = uintptr              /* winuser.h:683:46 */
+type HARDWAREHOOKSTRUCT = tagHARDWAREHOOKSTRUCT /* winuser.h:723:5 */
+type LPHARDWAREHOOKSTRUCT = uintptr             /* winuser.h:723:24 */
+type PHARDWAREHOOKSTRUCT = uintptr              /* winuser.h:723:46 */
 
 type tagMOUSEMOVEPOINT = struct {
 	x           int32
@@ -23966,20 +24178,20 @@ type tagMOUSEMOVEPOINT = struct {
 	time        DWORD
 	_           [4]byte
 	dwExtraInfo ULONG_PTR
-} /* winuser.h:719:11 */
+} /* winuser.h:759:11 */
 
-type MOUSEMOVEPOINT = tagMOUSEMOVEPOINT /* winuser.h:724:5 */
-type PMOUSEMOVEPOINT = uintptr          /* winuser.h:724:20 */
-type LPMOUSEMOVEPOINT = uintptr         /* winuser.h:724:37 */
+type MOUSEMOVEPOINT = tagMOUSEMOVEPOINT /* winuser.h:764:5 */
+type PMOUSEMOVEPOINT = uintptr          /* winuser.h:764:20 */
+type LPMOUSEMOVEPOINT = uintptr         /* winuser.h:764:37 */
 
 type tagUSEROBJECTFLAGS = struct {
 	fInherit  WINBOOL
 	fReserved WINBOOL
 	dwFlags   DWORD
-} /* winuser.h:825:11 */
+} /* winuser.h:866:11 */
 
-type USEROBJECTFLAGS = tagUSEROBJECTFLAGS /* winuser.h:829:5 */
-type PUSEROBJECTFLAGS = uintptr           /* winuser.h:829:21 */
+type USEROBJECTFLAGS = tagUSEROBJECTFLAGS /* winuser.h:870:5 */
+type PUSEROBJECTFLAGS = uintptr           /* winuser.h:870:21 */
 
 type tagWNDCLASSEXA = struct {
 	cbSize        UINT
@@ -23994,12 +24206,12 @@ type tagWNDCLASSEXA = struct {
 	lpszMenuName  LPCSTR
 	lpszClassName LPCSTR
 	hIconSm       HICON
-} /* winuser.h:842:11 */
+} /* winuser.h:883:11 */
 
-type WNDCLASSEXA = tagWNDCLASSEXA /* winuser.h:855:5 */
-type PWNDCLASSEXA = uintptr       /* winuser.h:855:17 */
-type NPWNDCLASSEXA = uintptr      /* winuser.h:855:31 */
-type LPWNDCLASSEXA = uintptr      /* winuser.h:855:46 */
+type WNDCLASSEXA = tagWNDCLASSEXA /* winuser.h:896:5 */
+type PWNDCLASSEXA = uintptr       /* winuser.h:896:17 */
+type NPWNDCLASSEXA = uintptr      /* winuser.h:896:31 */
+type LPWNDCLASSEXA = uintptr      /* winuser.h:896:46 */
 
 type tagWNDCLASSEXW = struct {
 	cbSize        UINT
@@ -24014,17 +24226,17 @@ type tagWNDCLASSEXW = struct {
 	lpszMenuName  LPCWSTR
 	lpszClassName LPCWSTR
 	hIconSm       HICON
-} /* winuser.h:857:11 */
+} /* winuser.h:898:11 */
 
-type WNDCLASSEXW = tagWNDCLASSEXW /* winuser.h:870:5 */
-type PWNDCLASSEXW = uintptr       /* winuser.h:870:17 */
-type NPWNDCLASSEXW = uintptr      /* winuser.h:870:31 */
-type LPWNDCLASSEXW = uintptr      /* winuser.h:870:46 */
+type WNDCLASSEXW = tagWNDCLASSEXW /* winuser.h:911:5 */
+type PWNDCLASSEXW = uintptr       /* winuser.h:911:17 */
+type NPWNDCLASSEXW = uintptr      /* winuser.h:911:31 */
+type LPWNDCLASSEXW = uintptr      /* winuser.h:911:46 */
 
-type WNDCLASSEX = WNDCLASSEXA     /* winuser.h:872:3 */
-type PWNDCLASSEX = PWNDCLASSEXA   /* winuser.h:873:3 */
-type NPWNDCLASSEX = NPWNDCLASSEXA /* winuser.h:874:3 */
-type LPWNDCLASSEX = LPWNDCLASSEXA /* winuser.h:875:3 */
+type WNDCLASSEX = WNDCLASSEXA     /* winuser.h:913:3 */
+type PWNDCLASSEX = PWNDCLASSEXA   /* winuser.h:914:3 */
+type NPWNDCLASSEX = NPWNDCLASSEXA /* winuser.h:915:3 */
+type LPWNDCLASSEX = LPWNDCLASSEXA /* winuser.h:916:3 */
 
 type tagWNDCLASSA = struct {
 	style         UINT
@@ -24038,12 +24250,12 @@ type tagWNDCLASSA = struct {
 	hbrBackground HBRUSH
 	lpszMenuName  LPCSTR
 	lpszClassName LPCSTR
-} /* winuser.h:877:11 */
+} /* winuser.h:918:11 */
 
-type WNDCLASSA = tagWNDCLASSA /* winuser.h:888:5 */
-type PWNDCLASSA = uintptr     /* winuser.h:888:15 */
-type NPWNDCLASSA = uintptr    /* winuser.h:888:27 */
-type LPWNDCLASSA = uintptr    /* winuser.h:888:40 */
+type WNDCLASSA = tagWNDCLASSA /* winuser.h:929:5 */
+type PWNDCLASSA = uintptr     /* winuser.h:929:15 */
+type NPWNDCLASSA = uintptr    /* winuser.h:929:27 */
+type LPWNDCLASSA = uintptr    /* winuser.h:929:40 */
 
 type tagWNDCLASSW = struct {
 	style         UINT
@@ -24057,17 +24269,17 @@ type tagWNDCLASSW = struct {
 	hbrBackground HBRUSH
 	lpszMenuName  LPCWSTR
 	lpszClassName LPCWSTR
-} /* winuser.h:890:11 */
+} /* winuser.h:931:11 */
 
-type WNDCLASSW = tagWNDCLASSW /* winuser.h:901:5 */
-type PWNDCLASSW = uintptr     /* winuser.h:901:15 */
-type NPWNDCLASSW = uintptr    /* winuser.h:901:27 */
-type LPWNDCLASSW = uintptr    /* winuser.h:901:40 */
+type WNDCLASSW = tagWNDCLASSW /* winuser.h:942:5 */
+type PWNDCLASSW = uintptr     /* winuser.h:942:15 */
+type NPWNDCLASSW = uintptr    /* winuser.h:942:27 */
+type LPWNDCLASSW = uintptr    /* winuser.h:942:40 */
 
-type WNDCLASS = WNDCLASSA     /* winuser.h:903:3 */
-type PWNDCLASS = PWNDCLASSA   /* winuser.h:904:3 */
-type NPWNDCLASS = NPWNDCLASSA /* winuser.h:905:3 */
-type LPWNDCLASS = LPWNDCLASSA /* winuser.h:906:3 */
+type WNDCLASS = WNDCLASSA     /* winuser.h:944:3 */
+type PWNDCLASS = PWNDCLASSA   /* winuser.h:945:3 */
+type NPWNDCLASS = NPWNDCLASSA /* winuser.h:946:3 */
+type LPWNDCLASS = LPWNDCLASSA /* winuser.h:947:3 */
 
 type tagMSG = struct {
 	hwnd    HWND
@@ -24078,12 +24290,12 @@ type tagMSG = struct {
 	time    DWORD
 	pt      POINT
 	_       [4]byte
-} /* winuser.h:914:11 */
+} /* winuser.h:955:11 */
 
-type MSG = tagMSG    /* winuser.h:921:5 */
-type PMSG = uintptr  /* winuser.h:921:9 */
-type NPMSG = uintptr /* winuser.h:921:15 */
-type LPMSG = uintptr /* winuser.h:921:22 */
+type MSG = tagMSG    /* winuser.h:962:5 */
+type PMSG = uintptr  /* winuser.h:962:9 */
+type NPMSG = uintptr /* winuser.h:962:15 */
+type LPMSG = uintptr /* winuser.h:962:22 */
 
 type tagMINMAXINFO = struct {
 	ptReserved     POINT
@@ -24091,39 +24303,39 @@ type tagMINMAXINFO = struct {
 	ptMaxPosition  POINT
 	ptMinTrackSize POINT
 	ptMaxTrackSize POINT
-} /* winuser.h:1031:11 */
+} /* winuser.h:1072:11 */
 
-type MINMAXINFO = tagMINMAXINFO /* winuser.h:1037:5 */
-type PMINMAXINFO = uintptr      /* winuser.h:1037:16 */
-type LPMINMAXINFO = uintptr     /* winuser.h:1037:29 */
+type MINMAXINFO = tagMINMAXINFO /* winuser.h:1078:5 */
+type PMINMAXINFO = uintptr      /* winuser.h:1078:16 */
+type LPMINMAXINFO = uintptr     /* winuser.h:1078:29 */
 
 type tagCOPYDATASTRUCT = struct {
 	dwData ULONG_PTR
 	cbData DWORD
 	_      [4]byte
 	lpData PVOID
-} /* winuser.h:1074:11 */
+} /* winuser.h:1115:11 */
 
-type COPYDATASTRUCT = tagCOPYDATASTRUCT /* winuser.h:1078:5 */
-type PCOPYDATASTRUCT = uintptr          /* winuser.h:1078:20 */
+type COPYDATASTRUCT = tagCOPYDATASTRUCT /* winuser.h:1119:5 */
+type PCOPYDATASTRUCT = uintptr          /* winuser.h:1119:20 */
 
 type tagMDINEXTMENU = struct {
 	hmenuIn   HMENU
 	hmenuNext HMENU
 	hwndNext  HWND
-} /* winuser.h:1080:11 */
+} /* winuser.h:1121:11 */
 
-type MDINEXTMENU = tagMDINEXTMENU /* winuser.h:1084:5 */
-type PMDINEXTMENU = uintptr       /* winuser.h:1084:17 */
-type LPMDINEXTMENU = uintptr      /* winuser.h:1084:31 */
+type MDINEXTMENU = tagMDINEXTMENU /* winuser.h:1125:5 */
+type PMDINEXTMENU = uintptr       /* winuser.h:1125:17 */
+type LPMDINEXTMENU = uintptr      /* winuser.h:1125:31 */
 
 type POWERBROADCAST_SETTING = struct {
 	PowerSetting GUID
 	DataLength   DWORD
 	Data         [1]UCHAR
 	_            [3]byte
-}                                      /* winuser.h:1268:5 */
-type PPOWERBROADCAST_SETTING = uintptr /* winuser.h:1268:28 */
+}                                      /* winuser.h:1317:5 */
+type PPOWERBROADCAST_SETTING = uintptr /* winuser.h:1317:28 */
 
 type tagWINDOWPOS = struct {
 	hwnd            HWND
@@ -24134,19 +24346,19 @@ type tagWINDOWPOS = struct {
 	cy              int32
 	flags           UINT
 	_               [4]byte
-} /* winuser.h:1462:11 */
+} /* winuser.h:1520:11 */
 
-type WINDOWPOS = tagWINDOWPOS /* winuser.h:1470:5 */
-type LPWINDOWPOS = uintptr    /* winuser.h:1470:15 */
-type PWINDOWPOS = uintptr     /* winuser.h:1470:28 */
+type WINDOWPOS = tagWINDOWPOS /* winuser.h:1528:5 */
+type LPWINDOWPOS = uintptr    /* winuser.h:1528:15 */
+type PWINDOWPOS = uintptr     /* winuser.h:1528:28 */
 
 type tagNCCALCSIZE_PARAMS = struct {
 	rgrc  [3]RECT
 	lppos PWINDOWPOS
-} /* winuser.h:1472:11 */
+} /* winuser.h:1530:11 */
 
-type NCCALCSIZE_PARAMS = tagNCCALCSIZE_PARAMS /* winuser.h:1475:5 */
-type LPNCCALCSIZE_PARAMS = uintptr            /* winuser.h:1475:23 */
+type NCCALCSIZE_PARAMS = tagNCCALCSIZE_PARAMS /* winuser.h:1533:5 */
+type LPNCCALCSIZE_PARAMS = uintptr            /* winuser.h:1533:23 */
 
 type tagTRACKMOUSEEVENT = struct {
 	cbSize      DWORD
@@ -24154,20 +24366,20 @@ type tagTRACKMOUSEEVENT = struct {
 	hwndTrack   HWND
 	dwHoverTime DWORD
 	_           [4]byte
-} /* winuser.h:1509:11 */
+} /* winuser.h:1567:11 */
 
-type TRACKMOUSEEVENT = tagTRACKMOUSEEVENT /* winuser.h:1514:5 */
-type LPTRACKMOUSEEVENT = uintptr          /* winuser.h:1514:21 */
+type TRACKMOUSEEVENT = tagTRACKMOUSEEVENT /* winuser.h:1572:5 */
+type LPTRACKMOUSEEVENT = uintptr          /* winuser.h:1572:21 */
 
 type tagACCEL = struct {
 	fVirt BYTE
 	_     [1]byte
 	key   WORD
 	cmd   WORD
-} /* winuser.h:1753:11 */
+} /* winuser.h:1817:11 */
 
-type ACCEL = tagACCEL  /* winuser.h:1757:5 */
-type LPACCEL = uintptr /* winuser.h:1757:11 */
+type ACCEL = tagACCEL  /* winuser.h:1821:5 */
+type LPACCEL = uintptr /* winuser.h:1821:11 */
 
 type tagPAINTSTRUCT = struct {
 	hdc         HDC
@@ -24177,21 +24389,21 @@ type tagPAINTSTRUCT = struct {
 	fIncUpdate  WINBOOL
 	rgbReserved [32]BYTE
 	_           [4]byte
-} /* winuser.h:1759:11 */
+} /* winuser.h:1823:11 */
 
-type PAINTSTRUCT = tagPAINTSTRUCT /* winuser.h:1766:5 */
-type PPAINTSTRUCT = uintptr       /* winuser.h:1766:17 */
-type NPPAINTSTRUCT = uintptr      /* winuser.h:1766:31 */
-type LPPAINTSTRUCT = uintptr      /* winuser.h:1766:46 */
+type PAINTSTRUCT = tagPAINTSTRUCT /* winuser.h:1830:5 */
+type PPAINTSTRUCT = uintptr       /* winuser.h:1830:17 */
+type NPPAINTSTRUCT = uintptr      /* winuser.h:1830:31 */
+type LPPAINTSTRUCT = uintptr      /* winuser.h:1830:46 */
 
-type CREATESTRUCTA = tagCREATESTRUCTA /* winuser.h:1781:5 */
-type LPCREATESTRUCTA = uintptr        /* winuser.h:1781:19 */
+type CREATESTRUCTA = tagCREATESTRUCTA /* winuser.h:1845:5 */
+type LPCREATESTRUCTA = uintptr        /* winuser.h:1845:19 */
 
-type CREATESTRUCTW = tagCREATESTRUCTW /* winuser.h:1796:5 */
-type LPCREATESTRUCTW = uintptr        /* winuser.h:1796:19 */
+type CREATESTRUCTW = tagCREATESTRUCTW /* winuser.h:1860:5 */
+type LPCREATESTRUCTW = uintptr        /* winuser.h:1860:19 */
 
-type CREATESTRUCT = CREATESTRUCTA     /* winuser.h:1798:3 */
-type LPCREATESTRUCT = LPCREATESTRUCTA /* winuser.h:1799:3 */
+type CREATESTRUCT = CREATESTRUCTA     /* winuser.h:1862:3 */
+type LPCREATESTRUCT = LPCREATESTRUCTA /* winuser.h:1863:3 */
 
 type tagWINDOWPLACEMENT = struct {
 	length           UINT
@@ -24200,30 +24412,30 @@ type tagWINDOWPLACEMENT = struct {
 	ptMinPosition    POINT
 	ptMaxPosition    POINT
 	rcNormalPosition RECT
-} /* winuser.h:1801:11 */
+} /* winuser.h:1865:11 */
 
-type WINDOWPLACEMENT = tagWINDOWPLACEMENT /* winuser.h:1808:5 */
-type PWINDOWPLACEMENT = uintptr           /* winuser.h:1809:27 */
-type LPWINDOWPLACEMENT = uintptr          /* winuser.h:1809:45 */
+type WINDOWPLACEMENT = tagWINDOWPLACEMENT /* winuser.h:1872:5 */
+type PWINDOWPLACEMENT = uintptr           /* winuser.h:1873:27 */
+type LPWINDOWPLACEMENT = uintptr          /* winuser.h:1873:45 */
 
 type tagNMHDR = struct {
 	hwndFrom HWND
 	idFrom   UINT_PTR
 	code     UINT
 	_        [4]byte
-} /* winuser.h:1817:11 */
+} /* winuser.h:1881:11 */
 
-type NMHDR = tagNMHDR /* winuser.h:1821:5 */
+type NMHDR = tagNMHDR /* winuser.h:1885:5 */
 
-type LPNMHDR = uintptr /* winuser.h:1825:17 */
+type LPNMHDR = uintptr /* winuser.h:1889:17 */
 
 type tagSTYLESTRUCT = struct {
 	styleOld DWORD
 	styleNew DWORD
-} /* winuser.h:1827:11 */
+} /* winuser.h:1891:11 */
 
-type STYLESTRUCT = tagSTYLESTRUCT /* winuser.h:1830:5 */
-type LPSTYLESTRUCT = uintptr      /* winuser.h:1830:17 */
+type STYLESTRUCT = tagSTYLESTRUCT /* winuser.h:1894:5 */
+type LPSTYLESTRUCT = uintptr      /* winuser.h:1894:17 */
 
 type tagMEASUREITEMSTRUCT = struct {
 	CtlType    UINT
@@ -24233,11 +24445,11 @@ type tagMEASUREITEMSTRUCT = struct {
 	itemHeight UINT
 	_          [4]byte
 	itemData   ULONG_PTR
-} /* winuser.h:1856:11 */
+} /* winuser.h:1920:11 */
 
-type MEASUREITEMSTRUCT = tagMEASUREITEMSTRUCT /* winuser.h:1863:5 */
-type PMEASUREITEMSTRUCT = uintptr             /* winuser.h:1863:23 */
-type LPMEASUREITEMSTRUCT = uintptr            /* winuser.h:1863:43 */
+type MEASUREITEMSTRUCT = tagMEASUREITEMSTRUCT /* winuser.h:1927:5 */
+type PMEASUREITEMSTRUCT = uintptr             /* winuser.h:1927:23 */
+type LPMEASUREITEMSTRUCT = uintptr            /* winuser.h:1927:43 */
 
 type tagDRAWITEMSTRUCT = struct {
 	CtlType    UINT
@@ -24250,11 +24462,11 @@ type tagDRAWITEMSTRUCT = struct {
 	hDC        HDC
 	rcItem     RECT
 	itemData   ULONG_PTR
-} /* winuser.h:1865:11 */
+} /* winuser.h:1929:11 */
 
-type DRAWITEMSTRUCT = tagDRAWITEMSTRUCT /* winuser.h:1875:5 */
-type PDRAWITEMSTRUCT = uintptr          /* winuser.h:1875:20 */
-type LPDRAWITEMSTRUCT = uintptr         /* winuser.h:1875:37 */
+type DRAWITEMSTRUCT = tagDRAWITEMSTRUCT /* winuser.h:1939:5 */
+type PDRAWITEMSTRUCT = uintptr          /* winuser.h:1939:20 */
+type LPDRAWITEMSTRUCT = uintptr         /* winuser.h:1939:37 */
 
 type tagDELETEITEMSTRUCT = struct {
 	CtlType  UINT
@@ -24263,11 +24475,11 @@ type tagDELETEITEMSTRUCT = struct {
 	_        [4]byte
 	hwndItem HWND
 	itemData ULONG_PTR
-} /* winuser.h:1877:11 */
+} /* winuser.h:1941:11 */
 
-type DELETEITEMSTRUCT = tagDELETEITEMSTRUCT /* winuser.h:1883:5 */
-type PDELETEITEMSTRUCT = uintptr            /* winuser.h:1883:22 */
-type LPDELETEITEMSTRUCT = uintptr           /* winuser.h:1883:41 */
+type DELETEITEMSTRUCT = tagDELETEITEMSTRUCT /* winuser.h:1947:5 */
+type PDELETEITEMSTRUCT = uintptr            /* winuser.h:1947:22 */
+type LPDELETEITEMSTRUCT = uintptr           /* winuser.h:1947:41 */
 
 type tagCOMPAREITEMSTRUCT = struct {
 	CtlType    UINT
@@ -24281,11 +24493,11 @@ type tagCOMPAREITEMSTRUCT = struct {
 	itemData2  ULONG_PTR
 	dwLocaleId DWORD
 	_          [4]byte
-} /* winuser.h:1885:11 */
+} /* winuser.h:1949:11 */
 
-type COMPAREITEMSTRUCT = tagCOMPAREITEMSTRUCT /* winuser.h:1894:5 */
-type PCOMPAREITEMSTRUCT = uintptr             /* winuser.h:1894:23 */
-type LPCOMPAREITEMSTRUCT = uintptr            /* winuser.h:1894:43 */
+type COMPAREITEMSTRUCT = tagCOMPAREITEMSTRUCT /* winuser.h:1958:5 */
+type PCOMPAREITEMSTRUCT = uintptr             /* winuser.h:1958:23 */
+type LPCOMPAREITEMSTRUCT = uintptr            /* winuser.h:1958:43 */
 
 type BSMINFO = struct {
 	cbSize UINT
@@ -24293,16 +24505,16 @@ type BSMINFO = struct {
 	hdesk  HDESK
 	hwnd   HWND
 	luid   LUID
-}                       /* winuser.h:1997:5 */
-type PBSMINFO = uintptr /* winuser.h:1997:13 */
+}                       /* winuser.h:2063:5 */
+type PBSMINFO = uintptr /* winuser.h:2063:13 */
 
-type HDEVNOTIFY = PVOID    /* winuser.h:2030:17 */
-type PHDEVNOTIFY = uintptr /* winuser.h:2031:22 */
+type HDEVNOTIFY = PVOID    /* winuser.h:2096:17 */
+type PHDEVNOTIFY = uintptr /* winuser.h:2097:22 */
 
-type HPOWERNOTIFY = HANDLE   /* winuser.h:2054:18 */
-type PHPOWERNOTIFY = uintptr /* winuser.h:2055:24 */
+type HPOWERNOTIFY = HANDLE   /* winuser.h:2120:18 */
+type PHPOWERNOTIFY = uintptr /* winuser.h:2121:24 */
 
-type PREGISTERCLASSNAMEW = uintptr /* winuser.h:2132:19 */
+type PREGISTERCLASSNAMEW = uintptr /* winuser.h:2198:19 */
 
 type tagUPDATELAYEREDWINDOWINFO = struct {
 	cbSize   DWORD
@@ -24318,10 +24530,10 @@ type tagUPDATELAYEREDWINDOWINFO = struct {
 	dwFlags  DWORD
 	_        [4]byte
 	prcDirty uintptr
-} /* winuser.h:2155:11 */
+} /* winuser.h:2221:11 */
 
-type UPDATELAYEREDWINDOWINFO = tagUPDATELAYEREDWINDOWINFO /* winuser.h:2166:5 */
-type PUPDATELAYEREDWINDOWINFO = uintptr                   /* winuser.h:2166:29 */
+type UPDATELAYEREDWINDOWINFO = tagUPDATELAYEREDWINDOWINFO /* winuser.h:2232:5 */
+type PUPDATELAYEREDWINDOWINFO = uintptr                   /* winuser.h:2232:29 */
 
 type FLASHWINFO = struct {
 	cbSize    UINT
@@ -24331,8 +24543,8 @@ type FLASHWINFO = struct {
 	uCount    UINT
 	dwTimeout DWORD
 	_         [4]byte
-}                          /* winuser.h:2206:5 */
-type PFLASHWINFO = uintptr /* winuser.h:2206:16 */
+}                          /* winuser.h:2272:5 */
+type PFLASHWINFO = uintptr /* winuser.h:2272:16 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -24348,17 +24560,17 @@ type DLGTEMPLATE = struct {
 	cx              int16
 	cy              int16
 	_               [2]byte
-} /* winuser.h:2279:5 */
+} /* winuser.h:2346:5 */
 
-type LPDLGTEMPLATEA = uintptr /* winuser.h:2283:23 */
-type LPDLGTEMPLATEW = uintptr /* winuser.h:2284:23 */
+type LPDLGTEMPLATEA = uintptr /* winuser.h:2350:23 */
+type LPDLGTEMPLATEW = uintptr /* winuser.h:2351:23 */
 
-type LPDLGTEMPLATE = LPDLGTEMPLATEA /* winuser.h:2286:3 */
+type LPDLGTEMPLATE = LPDLGTEMPLATEA /* winuser.h:2353:3 */
 
-type LPCDLGTEMPLATEA = uintptr /* winuser.h:2290:29 */
-type LPCDLGTEMPLATEW = uintptr /* winuser.h:2291:29 */
+type LPCDLGTEMPLATEA = uintptr /* winuser.h:2357:29 */
+type LPCDLGTEMPLATEW = uintptr /* winuser.h:2358:29 */
 
-type LPCDLGTEMPLATE = LPCDLGTEMPLATEA /* winuser.h:2293:3 */
+type LPCDLGTEMPLATE = LPCDLGTEMPLATEA /* winuser.h:2360:3 */
 
 type DLGITEMTEMPLATE = struct {
 	style           DWORD
@@ -24369,17 +24581,21 @@ type DLGITEMTEMPLATE = struct {
 	cy              int16
 	id              WORD
 	_               [2]byte
-} /* winuser.h:2305:5 */
+} /* winuser.h:2372:5 */
 
-type PDLGITEMTEMPLATEA = uintptr /* winuser.h:2307:27 */
-type PDLGITEMTEMPLATEW = uintptr /* winuser.h:2308:27 */
+type PDLGITEMTEMPLATEA = uintptr /* winuser.h:2374:27 */
+type PDLGITEMTEMPLATEW = uintptr /* winuser.h:2375:27 */
 
-type PDLGITEMTEMPLATE = PDLGITEMTEMPLATEA /* winuser.h:2310:3 */
+type PDLGITEMTEMPLATE = PDLGITEMTEMPLATEA /* winuser.h:2377:3 */
 
-type LPDLGITEMTEMPLATEA = uintptr /* winuser.h:2312:27 */
-type LPDLGITEMTEMPLATEW = uintptr /* winuser.h:2313:27 */
+type LPDLGITEMTEMPLATEA = uintptr /* winuser.h:2379:27 */
+type LPDLGITEMTEMPLATEW = uintptr /* winuser.h:2380:27 */
 
-type LPDLGITEMTEMPLATE = LPDLGITEMTEMPLATEA /* winuser.h:2315:3 */
+type LPDLGITEMTEMPLATE = LPDLGITEMTEMPLATEA /* winuser.h:2382:3 */
+
+type DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS = uint32 /* winuser.h:2444:5 */
+
+type DIALOG_DPI_CHANGE_BEHAVIORS = uint32 /* winuser.h:2454:5 */
 
 type tagMOUSEINPUT = struct {
 	dx          LONG
@@ -24389,11 +24605,11 @@ type tagMOUSEINPUT = struct {
 	time        DWORD
 	_           [4]byte
 	dwExtraInfo ULONG_PTR
-} /* winuser.h:2646:11 */
+} /* winuser.h:2733:11 */
 
-type MOUSEINPUT = tagMOUSEINPUT /* winuser.h:2653:5 */
-type PMOUSEINPUT = uintptr      /* winuser.h:2653:16 */
-type LPMOUSEINPUT = uintptr     /* winuser.h:2653:29 */
+type MOUSEINPUT = tagMOUSEINPUT /* winuser.h:2740:5 */
+type PMOUSEINPUT = uintptr      /* winuser.h:2740:16 */
+type LPMOUSEINPUT = uintptr     /* winuser.h:2740:29 */
 
 type tagKEYBDINPUT = struct {
 	wVk         WORD
@@ -24402,46 +24618,46 @@ type tagKEYBDINPUT = struct {
 	time        DWORD
 	_           [4]byte
 	dwExtraInfo ULONG_PTR
-} /* winuser.h:2655:11 */
+} /* winuser.h:2742:11 */
 
-type KEYBDINPUT = tagKEYBDINPUT /* winuser.h:2661:5 */
-type PKEYBDINPUT = uintptr      /* winuser.h:2661:16 */
-type LPKEYBDINPUT = uintptr     /* winuser.h:2661:29 */
+type KEYBDINPUT = tagKEYBDINPUT /* winuser.h:2748:5 */
+type PKEYBDINPUT = uintptr      /* winuser.h:2748:16 */
+type LPKEYBDINPUT = uintptr     /* winuser.h:2748:29 */
 
 type tagHARDWAREINPUT = struct {
 	uMsg    DWORD
 	wParamL WORD
 	wParamH WORD
-} /* winuser.h:2663:11 */
+} /* winuser.h:2750:11 */
 
-type HARDWAREINPUT = tagHARDWAREINPUT /* winuser.h:2667:5 */
-type PHARDWAREINPUT = uintptr         /* winuser.h:2667:19 */
-type LPHARDWAREINPUT = uintptr        /* winuser.h:2667:35 */
+type HARDWAREINPUT = tagHARDWAREINPUT /* winuser.h:2754:5 */
+type PHARDWAREINPUT = uintptr         /* winuser.h:2754:19 */
+type LPHARDWAREINPUT = uintptr        /* winuser.h:2754:35 */
 
 type tagINPUT = struct {
 	__type DWORD
 	_      [4]byte
 	u      struct{ mi MOUSEINPUT }
-} /* winuser.h:2669:11 */
+} /* winuser.h:2756:11 */
 
-type INPUT = tagINPUT  /* winuser.h:2676:5 */
-type PINPUT = uintptr  /* winuser.h:2676:11 */
-type LPINPUT = uintptr /* winuser.h:2676:19 */
+type INPUT = tagINPUT  /* winuser.h:2763:5 */
+type PINPUT = uintptr  /* winuser.h:2763:11 */
+type LPINPUT = uintptr /* winuser.h:2763:19 */
 
 type tagLASTINPUTINFO = struct {
 	cbSize UINT
 	dwTime DWORD
-} /* winuser.h:2830:11 */
+} /* winuser.h:2967:11 */
 
-type LASTINPUTINFO = tagLASTINPUTINFO /* winuser.h:2833:5 */
-type PLASTINPUTINFO = uintptr         /* winuser.h:2833:19 */
+type LASTINPUTINFO = tagLASTINPUTINFO /* winuser.h:2970:5 */
+type PLASTINPUTINFO = uintptr         /* winuser.h:2970:19 */
 
 type tagTPMPARAMS = struct {
 	cbSize    UINT
 	rcExclude RECT
-} /* winuser.h:3152:11 */
+} /* winuser.h:3293:11 */
 
-type TPMPARAMS = tagTPMPARAMS /* winuser.h:3155:5 */
+type TPMPARAMS = tagTPMPARAMS /* winuser.h:3296:5 */
 
 type tagMENUINFO = struct {
 	cbSize          DWORD
@@ -24452,13 +24668,13 @@ type tagMENUINFO = struct {
 	dwContextHelpID DWORD
 	_               [4]byte
 	dwMenuData      ULONG_PTR
-} /* winuser.h:3157:11 */
+} /* winuser.h:3298:11 */
 
-type MENUINFO = tagMENUINFO /* winuser.h:3165:5 */
-type LPMENUINFO = uintptr   /* winuser.h:3165:14 */
+type MENUINFO = tagMENUINFO /* winuser.h:3306:5 */
+type LPMENUINFO = uintptr   /* winuser.h:3306:14 */
 
-type LPTPMPARAMS = uintptr /* winuser.h:3167:21 */
-type LPCMENUINFO = uintptr /* winuser.h:3168:26 */
+type LPTPMPARAMS = uintptr /* winuser.h:3308:21 */
+type LPCMENUINFO = uintptr /* winuser.h:3309:26 */
 
 type tagMENUGETOBJECTINFO = struct {
 	dwFlags DWORD
@@ -24466,10 +24682,10 @@ type tagMENUGETOBJECTINFO = struct {
 	hmenu   HMENU
 	riid    PVOID
 	pvObj   PVOID
-} /* winuser.h:3178:11 */
+} /* winuser.h:3319:11 */
 
-type MENUGETOBJECTINFO = tagMENUGETOBJECTINFO /* winuser.h:3184:5 */
-type PMENUGETOBJECTINFO = uintptr             /* winuser.h:3184:23 */
+type MENUGETOBJECTINFO = tagMENUGETOBJECTINFO /* winuser.h:3325:5 */
+type PMENUGETOBJECTINFO = uintptr             /* winuser.h:3325:23 */
 
 type tagMENUITEMINFOA = struct {
 	cbSize        UINT
@@ -24486,10 +24702,10 @@ type tagMENUITEMINFOA = struct {
 	cch           UINT
 	_             [4]byte
 	hbmpItem      HBITMAP
-} /* winuser.h:3186:11 */
+} /* winuser.h:3327:11 */
 
-type MENUITEMINFOA = tagMENUITEMINFOA /* winuser.h:3199:5 */
-type LPMENUITEMINFOA = uintptr        /* winuser.h:3199:19 */
+type MENUITEMINFOA = tagMENUITEMINFOA /* winuser.h:3340:5 */
+type LPMENUITEMINFOA = uintptr        /* winuser.h:3340:19 */
 
 type tagMENUITEMINFOW = struct {
 	cbSize        UINT
@@ -24506,18 +24722,18 @@ type tagMENUITEMINFOW = struct {
 	cch           UINT
 	_             [4]byte
 	hbmpItem      HBITMAP
-} /* winuser.h:3201:11 */
+} /* winuser.h:3342:11 */
 
-type MENUITEMINFOW = tagMENUITEMINFOW /* winuser.h:3214:5 */
-type LPMENUITEMINFOW = uintptr        /* winuser.h:3214:19 */
+type MENUITEMINFOW = tagMENUITEMINFOW /* winuser.h:3355:5 */
+type LPMENUITEMINFOW = uintptr        /* winuser.h:3355:19 */
 
-type MENUITEMINFO = MENUITEMINFOA     /* winuser.h:3216:3 */
-type LPMENUITEMINFO = LPMENUITEMINFOA /* winuser.h:3217:3 */
+type MENUITEMINFO = MENUITEMINFOA     /* winuser.h:3357:3 */
+type LPMENUITEMINFO = LPMENUITEMINFOA /* winuser.h:3358:3 */
 
-type LPCMENUITEMINFOA = uintptr /* winuser.h:3219:31 */
-type LPCMENUITEMINFOW = uintptr /* winuser.h:3220:31 */
+type LPCMENUITEMINFOA = uintptr /* winuser.h:3360:31 */
+type LPCMENUITEMINFOW = uintptr /* winuser.h:3361:31 */
 
-type LPCMENUITEMINFO = LPCMENUITEMINFOA /* winuser.h:3222:3 */
+type LPCMENUITEMINFO = LPCMENUITEMINFOA /* winuser.h:3363:3 */
 
 type tagDROPSTRUCT = struct {
 	hwndSource    HWND
@@ -24528,11 +24744,11 @@ type tagDROPSTRUCT = struct {
 	ptDrop        POINT
 	dwControlData DWORD
 	_             [4]byte
-} /* winuser.h:3270:11 */
+} /* winuser.h:3411:11 */
 
-type DROPSTRUCT = tagDROPSTRUCT /* winuser.h:3277:5 */
-type PDROPSTRUCT = uintptr      /* winuser.h:3277:16 */
-type LPDROPSTRUCT = uintptr     /* winuser.h:3277:29 */
+type DROPSTRUCT = tagDROPSTRUCT /* winuser.h:3418:5 */
+type PDROPSTRUCT = uintptr      /* winuser.h:3418:16 */
+type LPDROPSTRUCT = uintptr     /* winuser.h:3418:29 */
 
 type tagDRAWTEXTPARAMS = struct {
 	cbSize        UINT
@@ -24540,10 +24756,10 @@ type tagDRAWTEXTPARAMS = struct {
 	iLeftMargin   int32
 	iRightMargin  int32
 	uiLengthDrawn UINT
-} /* winuser.h:3324:11 */
+} /* winuser.h:3465:11 */
 
-type DRAWTEXTPARAMS = tagDRAWTEXTPARAMS /* winuser.h:3330:5 */
-type LPDRAWTEXTPARAMS = uintptr         /* winuser.h:3330:20 */
+type DRAWTEXTPARAMS = tagDRAWTEXTPARAMS /* winuser.h:3471:5 */
+type LPDRAWTEXTPARAMS = uintptr         /* winuser.h:3471:20 */
 
 type tagHELPINFO = struct {
 	cbSize       UINT
@@ -24553,12 +24769,12 @@ type tagHELPINFO = struct {
 	hItemHandle  HANDLE
 	dwContextId  DWORD_PTR
 	MousePos     POINT
-} /* winuser.h:3507:11 */
+} /* winuser.h:3652:11 */
 
-type HELPINFO = tagHELPINFO /* winuser.h:3514:5 */
-type LPHELPINFO = uintptr   /* winuser.h:3514:14 */
+type HELPINFO = tagHELPINFO /* winuser.h:3659:5 */
+type LPHELPINFO = uintptr   /* winuser.h:3659:14 */
 
-type MSGBOXCALLBACK = uintptr /* winuser.h:3571:16 */
+type MSGBOXCALLBACK = uintptr /* winuser.h:3716:16 */
 
 type tagMSGBOXPARAMSA = struct {
 	cbSize             UINT
@@ -24574,11 +24790,11 @@ type tagMSGBOXPARAMSA = struct {
 	lpfnMsgBoxCallback MSGBOXCALLBACK
 	dwLanguageId       DWORD
 	_                  [4]byte
-} /* winuser.h:3573:11 */
+} /* winuser.h:3718:11 */
 
-type MSGBOXPARAMSA = tagMSGBOXPARAMSA /* winuser.h:3584:5 */
-type PMSGBOXPARAMSA = uintptr         /* winuser.h:3584:19 */
-type LPMSGBOXPARAMSA = uintptr        /* winuser.h:3584:35 */
+type MSGBOXPARAMSA = tagMSGBOXPARAMSA /* winuser.h:3729:5 */
+type PMSGBOXPARAMSA = uintptr         /* winuser.h:3729:19 */
+type LPMSGBOXPARAMSA = uintptr        /* winuser.h:3729:35 */
 
 type tagMSGBOXPARAMSW = struct {
 	cbSize             UINT
@@ -24594,28 +24810,28 @@ type tagMSGBOXPARAMSW = struct {
 	lpfnMsgBoxCallback MSGBOXCALLBACK
 	dwLanguageId       DWORD
 	_                  [4]byte
-} /* winuser.h:3586:11 */
+} /* winuser.h:3731:11 */
 
-type MSGBOXPARAMSW = tagMSGBOXPARAMSW /* winuser.h:3597:5 */
-type PMSGBOXPARAMSW = uintptr         /* winuser.h:3597:19 */
-type LPMSGBOXPARAMSW = uintptr        /* winuser.h:3597:35 */
+type MSGBOXPARAMSW = tagMSGBOXPARAMSW /* winuser.h:3742:5 */
+type PMSGBOXPARAMSW = uintptr         /* winuser.h:3742:19 */
+type LPMSGBOXPARAMSW = uintptr        /* winuser.h:3742:35 */
 
-type MSGBOXPARAMS = MSGBOXPARAMSA     /* winuser.h:3599:3 */
-type PMSGBOXPARAMS = PMSGBOXPARAMSA   /* winuser.h:3600:3 */
-type LPMSGBOXPARAMS = LPMSGBOXPARAMSA /* winuser.h:3601:3 */
+type MSGBOXPARAMS = MSGBOXPARAMSA     /* winuser.h:3744:3 */
+type PMSGBOXPARAMS = PMSGBOXPARAMSA   /* winuser.h:3745:3 */
+type LPMSGBOXPARAMS = LPMSGBOXPARAMSA /* winuser.h:3746:3 */
 
 type MENUITEMTEMPLATEHEADER = struct {
 	versionNumber WORD
 	offset        WORD
-}                                      /* winuser.h:3910:5 */
-type PMENUITEMTEMPLATEHEADER = uintptr /* winuser.h:3910:28 */
+}                                      /* winuser.h:4059:5 */
+type PMENUITEMTEMPLATEHEADER = uintptr /* winuser.h:4059:28 */
 
 type MENUITEMTEMPLATE = struct {
 	mtOption WORD
 	mtID     WORD
 	mtString [1]WCHAR
-}                                /* winuser.h:3916:5 */
-type PMENUITEMTEMPLATE = uintptr /* winuser.h:3916:22 */
+}                                /* winuser.h:4065:5 */
+type PMENUITEMTEMPLATE = uintptr /* winuser.h:4065:22 */
 
 type _ICONINFO = struct {
 	fIcon    WINBOOL
@@ -24624,10 +24840,10 @@ type _ICONINFO = struct {
 	_        [4]byte
 	hbmMask  HBITMAP
 	hbmColor HBITMAP
-} /* winuser.h:3989:11 */
+} /* winuser.h:4142:11 */
 
-type ICONINFO = _ICONINFO /* winuser.h:3995:5 */
-type PICONINFO = uintptr  /* winuser.h:3996:20 */
+type ICONINFO = _ICONINFO /* winuser.h:4148:5 */
+type PICONINFO = uintptr  /* winuser.h:4149:20 */
 
 type tagCURSORSHAPE = struct {
 	xHotSpot  int32
@@ -24638,10 +24854,10 @@ type tagCURSORSHAPE = struct {
 	Planes    BYTE
 	BitsPixel BYTE
 	_         [2]byte
-} /* winuser.h:4013:11 */
+} /* winuser.h:4166:11 */
 
-type CURSORSHAPE = tagCURSORSHAPE /* winuser.h:4021:5 */
-type LPCURSORSHAPE = uintptr      /* winuser.h:4021:17 */
+type CURSORSHAPE = tagCURSORSHAPE /* winuser.h:4174:5 */
+type LPCURSORSHAPE = uintptr      /* winuser.h:4174:17 */
 
 type tagSCROLLINFO = struct {
 	cbSize    UINT
@@ -24651,11 +24867,11 @@ type tagSCROLLINFO = struct {
 	nPage     UINT
 	nPos      int32
 	nTrackPos int32
-} /* winuser.h:4701:11 */
+} /* winuser.h:4882:11 */
 
-type SCROLLINFO = tagSCROLLINFO /* winuser.h:4709:5 */
-type LPSCROLLINFO = uintptr     /* winuser.h:4709:16 */
-type LPCSCROLLINFO = uintptr    /* winuser.h:4710:28 */
+type SCROLLINFO = tagSCROLLINFO /* winuser.h:4890:5 */
+type LPSCROLLINFO = uintptr     /* winuser.h:4890:16 */
+type LPCSCROLLINFO = uintptr    /* winuser.h:4891:28 */
 
 type tagMDICREATESTRUCTA = struct {
 	szClass LPCSTR
@@ -24668,10 +24884,10 @@ type tagMDICREATESTRUCTA = struct {
 	style   DWORD
 	_       [4]byte
 	lParam  LPARAM
-} /* winuser.h:4728:11 */
+} /* winuser.h:4909:11 */
 
-type MDICREATESTRUCTA = tagMDICREATESTRUCTA /* winuser.h:4738:5 */
-type LPMDICREATESTRUCTA = uintptr           /* winuser.h:4738:22 */
+type MDICREATESTRUCTA = tagMDICREATESTRUCTA /* winuser.h:4919:5 */
+type LPMDICREATESTRUCTA = uintptr           /* winuser.h:4919:22 */
 
 type tagMDICREATESTRUCTW = struct {
 	szClass LPCWSTR
@@ -24684,49 +24900,49 @@ type tagMDICREATESTRUCTW = struct {
 	style   DWORD
 	_       [4]byte
 	lParam  LPARAM
-} /* winuser.h:4740:11 */
+} /* winuser.h:4921:11 */
 
-type MDICREATESTRUCTW = tagMDICREATESTRUCTW /* winuser.h:4750:5 */
-type LPMDICREATESTRUCTW = uintptr           /* winuser.h:4750:22 */
+type MDICREATESTRUCTW = tagMDICREATESTRUCTW /* winuser.h:4931:5 */
+type LPMDICREATESTRUCTW = uintptr           /* winuser.h:4931:22 */
 
-type MDICREATESTRUCT = MDICREATESTRUCTA     /* winuser.h:4752:3 */
-type LPMDICREATESTRUCT = LPMDICREATESTRUCTA /* winuser.h:4753:3 */
+type MDICREATESTRUCT = MDICREATESTRUCTA     /* winuser.h:4933:3 */
+type LPMDICREATESTRUCT = LPMDICREATESTRUCTA /* winuser.h:4934:3 */
 
 type tagCLIENTCREATESTRUCT = struct {
 	hWindowMenu  HANDLE
 	idFirstChild UINT
 	_            [4]byte
-} /* winuser.h:4755:11 */
+} /* winuser.h:4936:11 */
 
-type CLIENTCREATESTRUCT = tagCLIENTCREATESTRUCT /* winuser.h:4758:5 */
-type LPCLIENTCREATESTRUCT = uintptr             /* winuser.h:4758:24 */
+type CLIENTCREATESTRUCT = tagCLIENTCREATESTRUCT /* winuser.h:4939:5 */
+type LPCLIENTCREATESTRUCT = uintptr             /* winuser.h:4939:24 */
 
-type HELPPOLY = DWORD /* winuser.h:4784:17 */
+type HELPPOLY = DWORD /* winuser.h:4965:17 */
 
 type tagMULTIKEYHELPA = struct {
 	mkSize      DWORD
 	mkKeylist   CHAR
 	szKeyphrase [1]CHAR
 	_           [2]byte
-} /* winuser.h:4786:11 */
+} /* winuser.h:4967:11 */
 
-type MULTIKEYHELPA = tagMULTIKEYHELPA /* winuser.h:4790:5 */
-type PMULTIKEYHELPA = uintptr         /* winuser.h:4790:19 */
-type LPMULTIKEYHELPA = uintptr        /* winuser.h:4790:35 */
+type MULTIKEYHELPA = tagMULTIKEYHELPA /* winuser.h:4971:5 */
+type PMULTIKEYHELPA = uintptr         /* winuser.h:4971:19 */
+type LPMULTIKEYHELPA = uintptr        /* winuser.h:4971:35 */
 
 type tagMULTIKEYHELPW = struct {
 	mkSize      DWORD
 	mkKeylist   WCHAR
 	szKeyphrase [1]WCHAR
-} /* winuser.h:4792:11 */
+} /* winuser.h:4973:11 */
 
-type MULTIKEYHELPW = tagMULTIKEYHELPW /* winuser.h:4796:5 */
-type PMULTIKEYHELPW = uintptr         /* winuser.h:4796:19 */
-type LPMULTIKEYHELPW = uintptr        /* winuser.h:4796:35 */
+type MULTIKEYHELPW = tagMULTIKEYHELPW /* winuser.h:4977:5 */
+type PMULTIKEYHELPW = uintptr         /* winuser.h:4977:19 */
+type LPMULTIKEYHELPW = uintptr        /* winuser.h:4977:35 */
 
-type MULTIKEYHELP = MULTIKEYHELPA     /* winuser.h:4798:3 */
-type PMULTIKEYHELP = PMULTIKEYHELPA   /* winuser.h:4799:3 */
-type LPMULTIKEYHELP = LPMULTIKEYHELPA /* winuser.h:4800:3 */
+type MULTIKEYHELP = MULTIKEYHELPA     /* winuser.h:4979:3 */
+type PMULTIKEYHELP = PMULTIKEYHELPA   /* winuser.h:4980:3 */
+type LPMULTIKEYHELP = LPMULTIKEYHELPA /* winuser.h:4981:3 */
 
 type tagHELPWININFOA = struct {
 	wStructSize int32
@@ -24737,11 +24953,11 @@ type tagHELPWININFOA = struct {
 	wMax        int32
 	rgchMember  [2]CHAR
 	_           [2]byte
-} /* winuser.h:4802:11 */
+} /* winuser.h:4983:11 */
 
-type HELPWININFOA = tagHELPWININFOA /* winuser.h:4810:5 */
-type PHELPWININFOA = uintptr        /* winuser.h:4810:18 */
-type LPHELPWININFOA = uintptr       /* winuser.h:4810:33 */
+type HELPWININFOA = tagHELPWININFOA /* winuser.h:4991:5 */
+type PHELPWININFOA = uintptr        /* winuser.h:4991:18 */
+type LPHELPWININFOA = uintptr       /* winuser.h:4991:33 */
 
 type tagHELPWININFOW = struct {
 	wStructSize int32
@@ -24751,15 +24967,15 @@ type tagHELPWININFOW = struct {
 	dy          int32
 	wMax        int32
 	rgchMember  [2]WCHAR
-} /* winuser.h:4812:11 */
+} /* winuser.h:4993:11 */
 
-type HELPWININFOW = tagHELPWININFOW /* winuser.h:4820:5 */
-type PHELPWININFOW = uintptr        /* winuser.h:4820:18 */
-type LPHELPWININFOW = uintptr       /* winuser.h:4820:33 */
+type HELPWININFOW = tagHELPWININFOW /* winuser.h:5001:5 */
+type PHELPWININFOW = uintptr        /* winuser.h:5001:18 */
+type LPHELPWININFOW = uintptr       /* winuser.h:5001:33 */
 
-type HELPWININFO = HELPWININFOA     /* winuser.h:4822:3 */
-type PHELPWININFO = PHELPWININFOA   /* winuser.h:4823:3 */
-type LPHELPWININFO = LPHELPWININFOA /* winuser.h:4824:3 */
+type HELPWININFO = HELPWININFOA     /* winuser.h:5003:3 */
+type PHELPWININFO = PHELPWININFOA   /* winuser.h:5004:3 */
+type LPHELPWININFO = LPHELPWININFOA /* winuser.h:5005:3 */
 
 type tagNONCLIENTMETRICSA = struct {
 	cbSize           UINT
@@ -24777,11 +24993,11 @@ type tagNONCLIENTMETRICSA = struct {
 	lfMenuFont       LOGFONTA
 	lfStatusFont     LOGFONTA
 	lfMessageFont    LOGFONTA
-} /* winuser.h:5183:11 */
+} /* winuser.h:5408:11 */
 
-type NONCLIENTMETRICSA = tagNONCLIENTMETRICSA /* winuser.h:5202:5 */
-type PNONCLIENTMETRICSA = uintptr             /* winuser.h:5202:23 */
-type LPNONCLIENTMETRICSA = uintptr            /* winuser.h:5202:43 */
+type NONCLIENTMETRICSA = tagNONCLIENTMETRICSA /* winuser.h:5427:5 */
+type PNONCLIENTMETRICSA = uintptr             /* winuser.h:5427:23 */
+type LPNONCLIENTMETRICSA = uintptr            /* winuser.h:5427:43 */
 
 type tagNONCLIENTMETRICSW = struct {
 	cbSize           UINT
@@ -24799,15 +25015,15 @@ type tagNONCLIENTMETRICSW = struct {
 	lfMenuFont       LOGFONTW
 	lfStatusFont     LOGFONTW
 	lfMessageFont    LOGFONTW
-} /* winuser.h:5204:11 */
+} /* winuser.h:5429:11 */
 
-type NONCLIENTMETRICSW = tagNONCLIENTMETRICSW /* winuser.h:5223:5 */
-type PNONCLIENTMETRICSW = uintptr             /* winuser.h:5223:23 */
-type LPNONCLIENTMETRICSW = uintptr            /* winuser.h:5223:43 */
+type NONCLIENTMETRICSW = tagNONCLIENTMETRICSW /* winuser.h:5448:5 */
+type PNONCLIENTMETRICSW = uintptr             /* winuser.h:5448:23 */
+type LPNONCLIENTMETRICSW = uintptr            /* winuser.h:5448:43 */
 
-type NONCLIENTMETRICS = NONCLIENTMETRICSA     /* winuser.h:5225:3 */
-type PNONCLIENTMETRICS = PNONCLIENTMETRICSA   /* winuser.h:5226:3 */
-type LPNONCLIENTMETRICS = LPNONCLIENTMETRICSA /* winuser.h:5227:3 */
+type NONCLIENTMETRICS = NONCLIENTMETRICSA     /* winuser.h:5450:3 */
+type PNONCLIENTMETRICS = PNONCLIENTMETRICSA   /* winuser.h:5451:3 */
+type LPNONCLIENTMETRICS = LPNONCLIENTMETRICSA /* winuser.h:5452:3 */
 
 type tagMINIMIZEDMETRICS = struct {
 	cbSize   UINT
@@ -24815,11 +25031,11 @@ type tagMINIMIZEDMETRICS = struct {
 	iHorzGap int32
 	iVertGap int32
 	iArrange int32
-} /* winuser.h:5247:11 */
+} /* winuser.h:5472:11 */
 
-type MINIMIZEDMETRICS = tagMINIMIZEDMETRICS /* winuser.h:5253:5 */
-type PMINIMIZEDMETRICS = uintptr            /* winuser.h:5253:22 */
-type LPMINIMIZEDMETRICS = uintptr           /* winuser.h:5253:41 */
+type MINIMIZEDMETRICS = tagMINIMIZEDMETRICS /* winuser.h:5478:5 */
+type PMINIMIZEDMETRICS = uintptr            /* winuser.h:5478:22 */
+type LPMINIMIZEDMETRICS = uintptr           /* winuser.h:5478:41 */
 
 type tagICONMETRICSA = struct {
 	cbSize       UINT
@@ -24827,11 +25043,11 @@ type tagICONMETRICSA = struct {
 	iVertSpacing int32
 	iTitleWrap   int32
 	lfFont       LOGFONTA
-} /* winuser.h:5257:11 */
+} /* winuser.h:5482:11 */
 
-type ICONMETRICSA = tagICONMETRICSA /* winuser.h:5263:5 */
-type PICONMETRICSA = uintptr        /* winuser.h:5263:18 */
-type LPICONMETRICSA = uintptr       /* winuser.h:5263:33 */
+type ICONMETRICSA = tagICONMETRICSA /* winuser.h:5488:5 */
+type PICONMETRICSA = uintptr        /* winuser.h:5488:18 */
+type LPICONMETRICSA = uintptr       /* winuser.h:5488:33 */
 
 type tagICONMETRICSW = struct {
 	cbSize       UINT
@@ -24839,23 +25055,23 @@ type tagICONMETRICSW = struct {
 	iVertSpacing int32
 	iTitleWrap   int32
 	lfFont       LOGFONTW
-} /* winuser.h:5265:11 */
+} /* winuser.h:5490:11 */
 
-type ICONMETRICSW = tagICONMETRICSW /* winuser.h:5271:5 */
-type PICONMETRICSW = uintptr        /* winuser.h:5271:18 */
-type LPICONMETRICSW = uintptr       /* winuser.h:5271:33 */
+type ICONMETRICSW = tagICONMETRICSW /* winuser.h:5496:5 */
+type PICONMETRICSW = uintptr        /* winuser.h:5496:18 */
+type LPICONMETRICSW = uintptr       /* winuser.h:5496:33 */
 
-type ICONMETRICS = ICONMETRICSA     /* winuser.h:5273:3 */
-type PICONMETRICS = PICONMETRICSA   /* winuser.h:5274:3 */
-type LPICONMETRICS = LPICONMETRICSA /* winuser.h:5275:3 */
+type ICONMETRICS = ICONMETRICSA     /* winuser.h:5498:3 */
+type PICONMETRICS = PICONMETRICSA   /* winuser.h:5499:3 */
+type LPICONMETRICS = LPICONMETRICSA /* winuser.h:5500:3 */
 
 type tagANIMATIONINFO = struct {
 	cbSize      UINT
 	iMinAnimate int32
-} /* winuser.h:5279:11 */
+} /* winuser.h:5504:11 */
 
-type ANIMATIONINFO = tagANIMATIONINFO /* winuser.h:5282:5 */
-type LPANIMATIONINFO = uintptr        /* winuser.h:5282:19 */
+type ANIMATIONINFO = tagANIMATIONINFO /* winuser.h:5507:5 */
+type LPANIMATIONINFO = uintptr        /* winuser.h:5507:19 */
 
 type tagSERIALKEYSA = struct {
 	cbSize         UINT
@@ -24866,10 +25082,10 @@ type tagSERIALKEYSA = struct {
 	iPortState     UINT
 	iActive        UINT
 	_              [4]byte
-} /* winuser.h:5284:11 */
+} /* winuser.h:5509:11 */
 
-type SERIALKEYSA = tagSERIALKEYSA /* winuser.h:5292:5 */
-type LPSERIALKEYSA = uintptr      /* winuser.h:5292:17 */
+type SERIALKEYSA = tagSERIALKEYSA /* winuser.h:5517:5 */
+type LPSERIALKEYSA = uintptr      /* winuser.h:5517:17 */
 
 type tagSERIALKEYSW = struct {
 	cbSize         UINT
@@ -24880,34 +25096,34 @@ type tagSERIALKEYSW = struct {
 	iPortState     UINT
 	iActive        UINT
 	_              [4]byte
-} /* winuser.h:5294:11 */
+} /* winuser.h:5519:11 */
 
-type SERIALKEYSW = tagSERIALKEYSW /* winuser.h:5302:5 */
-type LPSERIALKEYSW = uintptr      /* winuser.h:5302:17 */
+type SERIALKEYSW = tagSERIALKEYSW /* winuser.h:5527:5 */
+type LPSERIALKEYSW = uintptr      /* winuser.h:5527:17 */
 
-type SERIALKEYS = SERIALKEYSA     /* winuser.h:5304:3 */
-type LPSERIALKEYS = LPSERIALKEYSA /* winuser.h:5305:3 */
+type SERIALKEYS = SERIALKEYSA     /* winuser.h:5529:3 */
+type LPSERIALKEYS = LPSERIALKEYSA /* winuser.h:5530:3 */
 
 type tagHIGHCONTRASTA = struct {
 	cbSize            UINT
 	dwFlags           DWORD
 	lpszDefaultScheme LPSTR
-} /* winuser.h:5307:11 */
+} /* winuser.h:5532:11 */
 
-type HIGHCONTRASTA = tagHIGHCONTRASTA /* winuser.h:5311:5 */
-type LPHIGHCONTRASTA = uintptr        /* winuser.h:5311:19 */
+type HIGHCONTRASTA = tagHIGHCONTRASTA /* winuser.h:5536:5 */
+type LPHIGHCONTRASTA = uintptr        /* winuser.h:5536:19 */
 
 type tagHIGHCONTRASTW = struct {
 	cbSize            UINT
 	dwFlags           DWORD
 	lpszDefaultScheme LPWSTR
-} /* winuser.h:5313:11 */
+} /* winuser.h:5538:11 */
 
-type HIGHCONTRASTW = tagHIGHCONTRASTW /* winuser.h:5317:5 */
-type LPHIGHCONTRASTW = uintptr        /* winuser.h:5317:19 */
+type HIGHCONTRASTW = tagHIGHCONTRASTW /* winuser.h:5542:5 */
+type LPHIGHCONTRASTW = uintptr        /* winuser.h:5542:19 */
 
-type HIGHCONTRAST = HIGHCONTRASTA     /* winuser.h:5319:3 */
-type LPHIGHCONTRAST = LPHIGHCONTRASTA /* winuser.h:5320:3 */
+type HIGHCONTRAST = HIGHCONTRASTA     /* winuser.h:5544:3 */
+type LPHIGHCONTRAST = LPHIGHCONTRASTA /* winuser.h:5545:3 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -24968,18 +25184,18 @@ type tagFILTERKEYS = struct {
 	iDelayMSec  DWORD
 	iRepeatMSec DWORD
 	iBounceMSec DWORD
-} /* winuser.h:5409:11 */
+} /* winuser.h:5641:11 */
 
-type FILTERKEYS = tagFILTERKEYS /* winuser.h:5416:5 */
-type LPFILTERKEYS = uintptr     /* winuser.h:5416:16 */
+type FILTERKEYS = tagFILTERKEYS /* winuser.h:5648:5 */
+type LPFILTERKEYS = uintptr     /* winuser.h:5648:16 */
 
 type tagSTICKYKEYS = struct {
 	cbSize  UINT
 	dwFlags DWORD
-} /* winuser.h:5428:11 */
+} /* winuser.h:5660:11 */
 
-type STICKYKEYS = tagSTICKYKEYS /* winuser.h:5431:5 */
-type LPSTICKYKEYS = uintptr     /* winuser.h:5431:16 */
+type STICKYKEYS = tagSTICKYKEYS /* winuser.h:5663:5 */
+type LPSTICKYKEYS = uintptr     /* winuser.h:5663:16 */
 
 type tagMOUSEKEYS = struct {
 	cbSize          UINT
@@ -24989,19 +25205,19 @@ type tagMOUSEKEYS = struct {
 	iCtrlSpeed      DWORD
 	dwReserved1     DWORD
 	dwReserved2     DWORD
-} /* winuser.h:5461:11 */
+} /* winuser.h:5693:11 */
 
-type MOUSEKEYS = tagMOUSEKEYS /* winuser.h:5469:5 */
-type LPMOUSEKEYS = uintptr    /* winuser.h:5469:15 */
+type MOUSEKEYS = tagMOUSEKEYS /* winuser.h:5701:5 */
+type LPMOUSEKEYS = uintptr    /* winuser.h:5701:15 */
 
 type tagACCESSTIMEOUT = struct {
 	cbSize       UINT
 	dwFlags      DWORD
 	iTimeOutMSec DWORD
-} /* winuser.h:5487:11 */
+} /* winuser.h:5719:11 */
 
-type ACCESSTIMEOUT = tagACCESSTIMEOUT /* winuser.h:5491:5 */
-type LPACCESSTIMEOUT = uintptr        /* winuser.h:5491:19 */
+type ACCESSTIMEOUT = tagACCESSTIMEOUT /* winuser.h:5723:5 */
+type LPACCESSTIMEOUT = uintptr        /* winuser.h:5723:19 */
 
 type tagSOUNDSENTRYA = struct {
 	cbSize                 UINT
@@ -25017,10 +25233,10 @@ type tagSOUNDSENTRYA = struct {
 	lpszWindowsEffectDLL   LPSTR
 	iWindowsEffectOrdinal  DWORD
 	_                      [4]byte
-} /* winuser.h:5512:11 */
+} /* winuser.h:5744:11 */
 
-type SOUNDSENTRYA = tagSOUNDSENTRYA /* winuser.h:5525:5 */
-type LPSOUNDSENTRYA = uintptr       /* winuser.h:5525:18 */
+type SOUNDSENTRYA = tagSOUNDSENTRYA /* winuser.h:5757:5 */
+type LPSOUNDSENTRYA = uintptr       /* winuser.h:5757:18 */
 
 type tagSOUNDSENTRYW = struct {
 	cbSize                 UINT
@@ -25036,31 +25252,31 @@ type tagSOUNDSENTRYW = struct {
 	lpszWindowsEffectDLL   LPWSTR
 	iWindowsEffectOrdinal  DWORD
 	_                      [4]byte
-} /* winuser.h:5527:11 */
+} /* winuser.h:5759:11 */
 
-type SOUNDSENTRYW = tagSOUNDSENTRYW /* winuser.h:5540:5 */
-type LPSOUNDSENTRYW = uintptr       /* winuser.h:5540:18 */
+type SOUNDSENTRYW = tagSOUNDSENTRYW /* winuser.h:5772:5 */
+type LPSOUNDSENTRYW = uintptr       /* winuser.h:5772:18 */
 
-type SOUNDSENTRY = SOUNDSENTRYA     /* winuser.h:5542:3 */
-type LPSOUNDSENTRY = LPSOUNDSENTRYA /* winuser.h:5543:3 */
+type SOUNDSENTRY = SOUNDSENTRYA     /* winuser.h:5774:3 */
+type LPSOUNDSENTRY = LPSOUNDSENTRYA /* winuser.h:5775:3 */
 
 type tagTOGGLEKEYS = struct {
 	cbSize  UINT
 	dwFlags DWORD
-} /* winuser.h:5555:11 */
+} /* winuser.h:5787:11 */
 
-type TOGGLEKEYS = tagTOGGLEKEYS /* winuser.h:5558:5 */
-type LPTOGGLEKEYS = uintptr     /* winuser.h:5558:16 */
+type TOGGLEKEYS = tagTOGGLEKEYS /* winuser.h:5790:5 */
+type LPTOGGLEKEYS = uintptr     /* winuser.h:5790:16 */
 
 type tagMONITORINFO = struct {
 	cbSize    DWORD
 	rcMonitor RECT
 	rcWork    RECT
 	dwFlags   DWORD
-} /* winuser.h:5560:11 */
+} /* winuser.h:5792:11 */
 
-type MONITORINFO = tagMONITORINFO /* winuser.h:5565:5 */
-type LPMONITORINFO = uintptr      /* winuser.h:5565:17 */
+type MONITORINFO = tagMONITORINFO /* winuser.h:5797:5 */
+type LPMONITORINFO = uintptr      /* winuser.h:5797:17 */
 
 type tagMONITORINFOEXA = struct {
 	__0 struct {
@@ -25070,10 +25286,10 @@ type tagMONITORINFOEXA = struct {
 		dwFlags   DWORD
 	}
 	szDevice [32]CHAR
-} /* winuser.h:5587:11 */
+} /* winuser.h:5819:11 */
 
-type MONITORINFOEXA = tagMONITORINFOEXA /* winuser.h:5595:5 */
-type LPMONITORINFOEXA = uintptr         /* winuser.h:5595:20 */
+type MONITORINFOEXA = tagMONITORINFOEXA /* winuser.h:5827:5 */
+type LPMONITORINFOEXA = uintptr         /* winuser.h:5827:20 */
 
 type tagMONITORINFOEXW = struct {
 	__0 struct {
@@ -25083,17 +25299,17 @@ type tagMONITORINFOEXW = struct {
 		dwFlags   DWORD
 	}
 	szDevice [32]WCHAR
-} /* winuser.h:5597:11 */
+} /* winuser.h:5829:11 */
 
-type MONITORINFOEXW = tagMONITORINFOEXW /* winuser.h:5605:5 */
-type LPMONITORINFOEXW = uintptr         /* winuser.h:5605:20 */
+type MONITORINFOEXW = tagMONITORINFOEXW /* winuser.h:5837:5 */
+type LPMONITORINFOEXW = uintptr         /* winuser.h:5837:20 */
 
-type MONITORINFOEX = MONITORINFOEXA     /* winuser.h:5607:3 */
-type LPMONITORINFOEX = LPMONITORINFOEXA /* winuser.h:5608:3 */
+type MONITORINFOEX = MONITORINFOEXA     /* winuser.h:5839:3 */
+type LPMONITORINFOEX = LPMONITORINFOEXA /* winuser.h:5840:3 */
 
-type MONITORENUMPROC = uintptr /* winuser.h:5611:19 */
+type MONITORENUMPROC = uintptr /* winuser.h:5843:19 */
 
-type WINEVENTPROC = uintptr /* winuser.h:5653:16 */
+type WINEVENTPROC = uintptr /* winuser.h:5885:16 */
 
 type tagGUITHREADINFO = struct {
 	cbSize        DWORD
@@ -25105,22 +25321,22 @@ type tagGUITHREADINFO = struct {
 	hwndMoveSize  HWND
 	hwndCaret     HWND
 	rcCaret       RECT
-} /* winuser.h:5830:11 */
+} /* winuser.h:6062:11 */
 
-type GUITHREADINFO = tagGUITHREADINFO /* winuser.h:5840:5 */
-type PGUITHREADINFO = uintptr         /* winuser.h:5840:19 */
-type LPGUITHREADINFO = uintptr        /* winuser.h:5840:35 */
+type GUITHREADINFO = tagGUITHREADINFO /* winuser.h:6072:5 */
+type PGUITHREADINFO = uintptr         /* winuser.h:6072:19 */
+type LPGUITHREADINFO = uintptr        /* winuser.h:6072:35 */
 
 type tagCURSORINFO = struct {
 	cbSize      DWORD
 	flags       DWORD
 	hCursor     HCURSOR
 	ptScreenPos POINT
-} /* winuser.h:5908:11 */
+} /* winuser.h:6167:11 */
 
-type CURSORINFO = tagCURSORINFO /* winuser.h:5913:5 */
-type PCURSORINFO = uintptr      /* winuser.h:5913:16 */
-type LPCURSORINFO = uintptr     /* winuser.h:5913:29 */
+type CURSORINFO = tagCURSORINFO /* winuser.h:6172:5 */
+type PCURSORINFO = uintptr      /* winuser.h:6172:16 */
+type LPCURSORINFO = uintptr     /* winuser.h:6172:29 */
 
 type tagWINDOWINFO = struct {
 	cbSize          DWORD
@@ -25133,21 +25349,21 @@ type tagWINDOWINFO = struct {
 	cyWindowBorders UINT
 	atomWindowType  ATOM
 	wCreatorVersion WORD
-} /* winuser.h:5922:11 */
+} /* winuser.h:6181:11 */
 
-type WINDOWINFO = tagWINDOWINFO /* winuser.h:5933:5 */
-type PWINDOWINFO = uintptr      /* winuser.h:5933:16 */
-type LPWINDOWINFO = uintptr     /* winuser.h:5933:29 */
+type WINDOWINFO = tagWINDOWINFO /* winuser.h:6192:5 */
+type PWINDOWINFO = uintptr      /* winuser.h:6192:16 */
+type LPWINDOWINFO = uintptr     /* winuser.h:6192:29 */
 
 type tagTITLEBARINFO = struct {
 	cbSize     DWORD
 	rcTitleBar RECT
 	rgstate    [6]DWORD
-} /* winuser.h:5939:11 */
+} /* winuser.h:6198:11 */
 
-type TITLEBARINFO = tagTITLEBARINFO /* winuser.h:5943:5 */
-type PTITLEBARINFO = uintptr        /* winuser.h:5943:18 */
-type LPTITLEBARINFO = uintptr       /* winuser.h:5943:33 */
+type TITLEBARINFO = tagTITLEBARINFO /* winuser.h:6202:5 */
+type PTITLEBARINFO = uintptr        /* winuser.h:6202:18 */
+type LPTITLEBARINFO = uintptr       /* winuser.h:6202:33 */
 
 type tagMENUBARINFO = struct {
 	cbSize      DWORD
@@ -25157,11 +25373,11 @@ type tagMENUBARINFO = struct {
 	hwndMenu    HWND
 	fBarFocused uint8 /* WINBOOL fBarFocused: 1, WINBOOL fFocused: 1 */
 	_           [7]byte
-} /* winuser.h:5956:11 */
+} /* winuser.h:6215:11 */
 
-type MENUBARINFO = tagMENUBARINFO /* winuser.h:5963:5 */
-type PMENUBARINFO = uintptr       /* winuser.h:5963:17 */
-type LPMENUBARINFO = uintptr      /* winuser.h:5963:31 */
+type MENUBARINFO = tagMENUBARINFO /* winuser.h:6222:5 */
+type PMENUBARINFO = uintptr       /* winuser.h:6222:17 */
+type LPMENUBARINFO = uintptr      /* winuser.h:6222:31 */
 
 type tagSCROLLBARINFO = struct {
 	cbSize        DWORD
@@ -25171,11 +25387,11 @@ type tagSCROLLBARINFO = struct {
 	xyThumbBottom int32
 	reserved      int32
 	rgstate       [6]DWORD
-} /* winuser.h:5967:11 */
+} /* winuser.h:6226:11 */
 
-type SCROLLBARINFO = tagSCROLLBARINFO /* winuser.h:5975:5 */
-type PSCROLLBARINFO = uintptr         /* winuser.h:5975:19 */
-type LPSCROLLBARINFO = uintptr        /* winuser.h:5975:35 */
+type SCROLLBARINFO = tagSCROLLBARINFO /* winuser.h:6234:5 */
+type PSCROLLBARINFO = uintptr         /* winuser.h:6234:19 */
+type LPSCROLLBARINFO = uintptr        /* winuser.h:6234:35 */
 
 type tagCOMBOBOXINFO = struct {
 	cbSize      DWORD
@@ -25185,11 +25401,11 @@ type tagCOMBOBOXINFO = struct {
 	hwndCombo   HWND
 	hwndItem    HWND
 	hwndList    HWND
-} /* winuser.h:5979:11 */
+} /* winuser.h:6238:11 */
 
-type COMBOBOXINFO = tagCOMBOBOXINFO /* winuser.h:5987:5 */
-type PCOMBOBOXINFO = uintptr        /* winuser.h:5987:18 */
-type LPCOMBOBOXINFO = uintptr       /* winuser.h:5987:33 */
+type COMBOBOXINFO = tagCOMBOBOXINFO /* winuser.h:6246:5 */
+type PCOMBOBOXINFO = uintptr        /* winuser.h:6246:18 */
+type LPCOMBOBOXINFO = uintptr       /* winuser.h:6246:33 */
 
 type tagALTTABINFO = struct {
 	cbSize    DWORD
@@ -25201,26 +25417,26 @@ type tagALTTABINFO = struct {
 	cxItem    int32
 	cyItem    int32
 	ptStart   POINT
-} /* winuser.h:6004:11 */
+} /* winuser.h:6263:11 */
 
-type ALTTABINFO = tagALTTABINFO /* winuser.h:6014:5 */
-type PALTTABINFO = uintptr      /* winuser.h:6014:16 */
-type LPALTTABINFO = uintptr     /* winuser.h:6014:29 */
+type ALTTABINFO = tagALTTABINFO /* winuser.h:6273:5 */
+type PALTTABINFO = uintptr      /* winuser.h:6273:16 */
+type LPALTTABINFO = uintptr     /* winuser.h:6273:29 */
 
-type HRAWINPUT__ = struct{ unused int32 } /* winuser.h:6028:3 */
+type HRAWINPUT__ = struct{ unused int32 } /* winuser.h:6287:3 */
 
-type HRAWINPUT = uintptr /* winuser.h:6028:3 */
+type HRAWINPUT = uintptr /* winuser.h:6287:3 */
 
 type tagRAWINPUTHEADER = struct {
 	dwType  DWORD
 	dwSize  DWORD
 	hDevice HANDLE
 	wParam  WPARAM
-} /* winuser.h:6037:11 */
+} /* winuser.h:6296:11 */
 
-type RAWINPUTHEADER = tagRAWINPUTHEADER /* winuser.h:6042:5 */
-type PRAWINPUTHEADER = uintptr          /* winuser.h:6042:20 */
-type LPRAWINPUTHEADER = uintptr         /* winuser.h:6042:37 */
+type RAWINPUTHEADER = tagRAWINPUTHEADER /* winuser.h:6301:5 */
+type PRAWINPUTHEADER = uintptr          /* winuser.h:6301:20 */
+type LPRAWINPUTHEADER = uintptr         /* winuser.h:6301:37 */
 
 type tagRAWMOUSE = struct {
 	usFlags            USHORT
@@ -25230,11 +25446,11 @@ type tagRAWMOUSE = struct {
 	lLastX             LONG
 	lLastY             LONG
 	ulExtraInformation ULONG
-} /* winuser.h:6050:11 */
+} /* winuser.h:6310:11 */
 
-type RAWMOUSE = tagRAWMOUSE /* winuser.h:6063:5 */
-type PRAWMOUSE = uintptr    /* winuser.h:6063:14 */
-type LPRAWMOUSE = uintptr   /* winuser.h:6063:25 */
+type RAWMOUSE = tagRAWMOUSE /* winuser.h:6323:5 */
+type PRAWMOUSE = uintptr    /* winuser.h:6323:14 */
+type LPRAWMOUSE = uintptr   /* winuser.h:6323:25 */
 
 type tagRAWKEYBOARD = struct {
 	MakeCode         USHORT
@@ -25243,41 +25459,41 @@ type tagRAWKEYBOARD = struct {
 	VKey             USHORT
 	Message          UINT
 	ExtraInformation ULONG
-} /* winuser.h:6094:11 */
+} /* winuser.h:6357:11 */
 
-type RAWKEYBOARD = tagRAWKEYBOARD /* winuser.h:6101:5 */
-type PRAWKEYBOARD = uintptr       /* winuser.h:6101:17 */
-type LPRAWKEYBOARD = uintptr      /* winuser.h:6101:31 */
+type RAWKEYBOARD = tagRAWKEYBOARD /* winuser.h:6364:5 */
+type PRAWKEYBOARD = uintptr       /* winuser.h:6364:17 */
+type LPRAWKEYBOARD = uintptr      /* winuser.h:6364:31 */
 
 type tagRAWHID = struct {
 	dwSizeHid DWORD
 	dwCount   DWORD
 	bRawData  [1]BYTE
 	_         [3]byte
-} /* winuser.h:6114:11 */
+} /* winuser.h:6377:11 */
 
-type RAWHID = tagRAWHID /* winuser.h:6118:5 */
-type PRAWHID = uintptr  /* winuser.h:6118:12 */
-type LPRAWHID = uintptr /* winuser.h:6118:21 */
+type RAWHID = tagRAWHID /* winuser.h:6381:5 */
+type PRAWHID = uintptr  /* winuser.h:6381:12 */
+type LPRAWHID = uintptr /* winuser.h:6381:21 */
 
 type tagRAWINPUT = struct {
 	header RAWINPUTHEADER
 	data   struct{ mouse RAWMOUSE }
-} /* winuser.h:6120:11 */
+} /* winuser.h:6383:11 */
 
-type RAWINPUT = tagRAWINPUT /* winuser.h:6127:5 */
-type PRAWINPUT = uintptr    /* winuser.h:6127:14 */
-type LPRAWINPUT = uintptr   /* winuser.h:6127:25 */
+type RAWINPUT = tagRAWINPUT /* winuser.h:6390:5 */
+type PRAWINPUT = uintptr    /* winuser.h:6390:14 */
+type LPRAWINPUT = uintptr   /* winuser.h:6390:25 */
 
 type tagRID_DEVICE_INFO_MOUSE = struct {
 	dwId                DWORD
 	dwNumberOfButtons   DWORD
 	dwSampleRate        DWORD
 	fHasHorizontalWheel WINBOOL
-} /* winuser.h:6150:11 */
+} /* winuser.h:6413:11 */
 
-type RID_DEVICE_INFO_MOUSE = tagRID_DEVICE_INFO_MOUSE /* winuser.h:6155:5 */
-type PRID_DEVICE_INFO_MOUSE = uintptr                 /* winuser.h:6155:27 */
+type RID_DEVICE_INFO_MOUSE = tagRID_DEVICE_INFO_MOUSE /* winuser.h:6418:5 */
+type PRID_DEVICE_INFO_MOUSE = uintptr                 /* winuser.h:6418:27 */
 
 type tagRID_DEVICE_INFO_KEYBOARD = struct {
 	dwType                 DWORD
@@ -25286,10 +25502,10 @@ type tagRID_DEVICE_INFO_KEYBOARD = struct {
 	dwNumberOfFunctionKeys DWORD
 	dwNumberOfIndicators   DWORD
 	dwNumberOfKeysTotal    DWORD
-} /* winuser.h:6157:11 */
+} /* winuser.h:6420:11 */
 
-type RID_DEVICE_INFO_KEYBOARD = tagRID_DEVICE_INFO_KEYBOARD /* winuser.h:6164:5 */
-type PRID_DEVICE_INFO_KEYBOARD = uintptr                    /* winuser.h:6164:30 */
+type RID_DEVICE_INFO_KEYBOARD = tagRID_DEVICE_INFO_KEYBOARD /* winuser.h:6427:5 */
+type PRID_DEVICE_INFO_KEYBOARD = uintptr                    /* winuser.h:6427:30 */
 
 type tagRID_DEVICE_INFO_HID = struct {
 	dwVendorId      DWORD
@@ -25297,10 +25513,10 @@ type tagRID_DEVICE_INFO_HID = struct {
 	dwVersionNumber DWORD
 	usUsagePage     USHORT
 	usUsage         USHORT
-} /* winuser.h:6166:11 */
+} /* winuser.h:6429:11 */
 
-type RID_DEVICE_INFO_HID = tagRID_DEVICE_INFO_HID /* winuser.h:6172:5 */
-type PRID_DEVICE_INFO_HID = uintptr               /* winuser.h:6172:25 */
+type RID_DEVICE_INFO_HID = tagRID_DEVICE_INFO_HID /* winuser.h:6435:5 */
+type PRID_DEVICE_INFO_HID = uintptr               /* winuser.h:6435:25 */
 
 type tagRID_DEVICE_INFO = struct {
 	cbSize DWORD
@@ -25309,33 +25525,33 @@ type tagRID_DEVICE_INFO = struct {
 		mouse RID_DEVICE_INFO_MOUSE
 		_     [8]byte
 	}
-} /* winuser.h:6174:11 */
+} /* winuser.h:6437:11 */
 
-type RID_DEVICE_INFO = tagRID_DEVICE_INFO /* winuser.h:6182:5 */
-type PRID_DEVICE_INFO = uintptr           /* winuser.h:6182:21 */
-type LPRID_DEVICE_INFO = uintptr          /* winuser.h:6182:39 */
+type RID_DEVICE_INFO = tagRID_DEVICE_INFO /* winuser.h:6445:5 */
+type PRID_DEVICE_INFO = uintptr           /* winuser.h:6445:21 */
+type LPRID_DEVICE_INFO = uintptr          /* winuser.h:6445:39 */
 
 type tagRAWINPUTDEVICE = struct {
 	usUsagePage USHORT
 	usUsage     USHORT
 	dwFlags     DWORD
 	hwndTarget  HWND
-} /* winuser.h:6190:11 */
+} /* winuser.h:6453:11 */
 
-type RAWINPUTDEVICE = tagRAWINPUTDEVICE /* winuser.h:6195:5 */
-type PRAWINPUTDEVICE = uintptr          /* winuser.h:6195:20 */
-type LPRAWINPUTDEVICE = uintptr         /* winuser.h:6195:37 */
+type RAWINPUTDEVICE = tagRAWINPUTDEVICE /* winuser.h:6458:5 */
+type PRAWINPUTDEVICE = uintptr          /* winuser.h:6458:20 */
+type LPRAWINPUTDEVICE = uintptr         /* winuser.h:6458:37 */
 
-type PCRAWINPUTDEVICE = uintptr /* winuser.h:6197:32 */
+type PCRAWINPUTDEVICE = uintptr /* winuser.h:6460:32 */
 
 type tagRAWINPUTDEVICELIST = struct {
 	hDevice HANDLE
 	dwType  DWORD
 	_       [4]byte
-} /* winuser.h:6224:11 */
+} /* winuser.h:6487:11 */
 
-type RAWINPUTDEVICELIST = tagRAWINPUTDEVICELIST /* winuser.h:6227:5 */
-type PRAWINPUTDEVICELIST = uintptr              /* winuser.h:6227:24 */
+type RAWINPUTDEVICELIST = tagRAWINPUTDEVICELIST /* winuser.h:6490:5 */
+type PRAWINPUTDEVICELIST = uintptr              /* winuser.h:6490:24 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -25529,7 +25745,7 @@ type PFILEMUIINFO = uintptr     /* winnls.h:883:17 */
 type _COORD = struct {
 	X SHORT
 	Y SHORT
-} /* wincon.h:17:11 */
+} /* wincon.h:20:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -25545,18 +25761,18 @@ type _COORD = struct {
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER within this package.
 
-type COORD = _COORD   /* wincon.h:20:5 */
-type PCOORD = uintptr /* wincon.h:20:11 */
+type COORD = _COORD   /* wincon.h:23:5 */
+type PCOORD = uintptr /* wincon.h:23:11 */
 
 type _SMALL_RECT = struct {
 	Left   SHORT
 	Top    SHORT
 	Right  SHORT
 	Bottom SHORT
-} /* wincon.h:22:11 */
+} /* wincon.h:25:11 */
 
-type SMALL_RECT = _SMALL_RECT /* wincon.h:27:5 */
-type PSMALL_RECT = uintptr    /* wincon.h:27:16 */
+type SMALL_RECT = _SMALL_RECT /* wincon.h:30:5 */
+type PSMALL_RECT = uintptr    /* wincon.h:30:16 */
 
 type _KEY_EVENT_RECORD = struct {
 	bKeyDown          WINBOOL
@@ -25565,52 +25781,52 @@ type _KEY_EVENT_RECORD = struct {
 	wVirtualScanCode  WORD
 	uChar             struct{ UnicodeChar WCHAR }
 	dwControlKeyState DWORD
-} /* wincon.h:29:11 */
+} /* wincon.h:32:11 */
 
-type KEY_EVENT_RECORD = _KEY_EVENT_RECORD /* wincon.h:39:5 */
-type PKEY_EVENT_RECORD = uintptr          /* wincon.h:39:22 */
+type KEY_EVENT_RECORD = _KEY_EVENT_RECORD /* wincon.h:42:5 */
+type PKEY_EVENT_RECORD = uintptr          /* wincon.h:42:22 */
 
 type _MOUSE_EVENT_RECORD = struct {
 	dwMousePosition   COORD
 	dwButtonState     DWORD
 	dwControlKeyState DWORD
 	dwEventFlags      DWORD
-} /* wincon.h:58:11 */
+} /* wincon.h:62:11 */
 
-type MOUSE_EVENT_RECORD = _MOUSE_EVENT_RECORD /* wincon.h:63:5 */
-type PMOUSE_EVENT_RECORD = uintptr            /* wincon.h:63:24 */
+type MOUSE_EVENT_RECORD = _MOUSE_EVENT_RECORD /* wincon.h:67:5 */
+type PMOUSE_EVENT_RECORD = uintptr            /* wincon.h:67:24 */
 
-type _WINDOW_BUFFER_SIZE_RECORD = struct{ dwSize COORD } /* wincon.h:78:11 */
+type _WINDOW_BUFFER_SIZE_RECORD = struct{ dwSize COORD } /* wincon.h:82:11 */
 
-type WINDOW_BUFFER_SIZE_RECORD = _WINDOW_BUFFER_SIZE_RECORD /* wincon.h:80:5 */
-type PWINDOW_BUFFER_SIZE_RECORD = uintptr                   /* wincon.h:80:31 */
+type WINDOW_BUFFER_SIZE_RECORD = _WINDOW_BUFFER_SIZE_RECORD /* wincon.h:84:5 */
+type PWINDOW_BUFFER_SIZE_RECORD = uintptr                   /* wincon.h:84:31 */
 
-type _MENU_EVENT_RECORD = struct{ dwCommandId UINT } /* wincon.h:82:11 */
+type _MENU_EVENT_RECORD = struct{ dwCommandId UINT } /* wincon.h:86:11 */
 
-type MENU_EVENT_RECORD = _MENU_EVENT_RECORD /* wincon.h:84:5 */
-type PMENU_EVENT_RECORD = uintptr           /* wincon.h:84:23 */
+type MENU_EVENT_RECORD = _MENU_EVENT_RECORD /* wincon.h:88:5 */
+type PMENU_EVENT_RECORD = uintptr           /* wincon.h:88:23 */
 
-type _FOCUS_EVENT_RECORD = struct{ bSetFocus WINBOOL } /* wincon.h:86:11 */
+type _FOCUS_EVENT_RECORD = struct{ bSetFocus WINBOOL } /* wincon.h:90:11 */
 
-type FOCUS_EVENT_RECORD = _FOCUS_EVENT_RECORD /* wincon.h:88:5 */
-type PFOCUS_EVENT_RECORD = uintptr            /* wincon.h:88:24 */
+type FOCUS_EVENT_RECORD = _FOCUS_EVENT_RECORD /* wincon.h:92:5 */
+type PFOCUS_EVENT_RECORD = uintptr            /* wincon.h:92:24 */
 
 type _INPUT_RECORD = struct {
 	EventType WORD
 	_         [2]byte
 	Event     struct{ KeyEvent KEY_EVENT_RECORD }
-} /* wincon.h:90:11 */
+} /* wincon.h:94:11 */
 
-type INPUT_RECORD = _INPUT_RECORD /* wincon.h:99:5 */
-type PINPUT_RECORD = uintptr      /* wincon.h:99:18 */
+type INPUT_RECORD = _INPUT_RECORD /* wincon.h:103:5 */
+type PINPUT_RECORD = uintptr      /* wincon.h:103:18 */
 
 type _CHAR_INFO = struct {
 	Char       struct{ UnicodeChar WCHAR }
 	Attributes WORD
-} /* wincon.h:107:11 */
+} /* wincon.h:111:11 */
 
-type CHAR_INFO = _CHAR_INFO /* wincon.h:113:5 */
-type PCHAR_INFO = uintptr   /* wincon.h:113:15 */
+type CHAR_INFO = _CHAR_INFO /* wincon.h:117:5 */
+type PCHAR_INFO = uintptr   /* wincon.h:117:15 */
 
 type _CONSOLE_SCREEN_BUFFER_INFO = struct {
 	dwSize              COORD
@@ -25618,37 +25834,37 @@ type _CONSOLE_SCREEN_BUFFER_INFO = struct {
 	wAttributes         WORD
 	srWindow            SMALL_RECT
 	dwMaximumWindowSize COORD
-} /* wincon.h:133:11 */
+} /* wincon.h:137:11 */
 
-type CONSOLE_SCREEN_BUFFER_INFO = _CONSOLE_SCREEN_BUFFER_INFO /* wincon.h:139:5 */
-type PCONSOLE_SCREEN_BUFFER_INFO = uintptr                    /* wincon.h:139:32 */
+type CONSOLE_SCREEN_BUFFER_INFO = _CONSOLE_SCREEN_BUFFER_INFO /* wincon.h:143:5 */
+type PCONSOLE_SCREEN_BUFFER_INFO = uintptr                    /* wincon.h:143:32 */
 
 type _CONSOLE_CURSOR_INFO = struct {
 	dwSize   DWORD
 	bVisible WINBOOL
-} /* wincon.h:141:11 */
+} /* wincon.h:145:11 */
 
-type CONSOLE_CURSOR_INFO = _CONSOLE_CURSOR_INFO /* wincon.h:144:5 */
-type PCONSOLE_CURSOR_INFO = uintptr             /* wincon.h:144:25 */
+type CONSOLE_CURSOR_INFO = _CONSOLE_CURSOR_INFO /* wincon.h:148:5 */
+type PCONSOLE_CURSOR_INFO = uintptr             /* wincon.h:148:25 */
 
 type _CONSOLE_FONT_INFO = struct {
 	nFont      DWORD
 	dwFontSize COORD
-} /* wincon.h:146:11 */
+} /* wincon.h:150:11 */
 
-type CONSOLE_FONT_INFO = _CONSOLE_FONT_INFO /* wincon.h:149:5 */
-type PCONSOLE_FONT_INFO = uintptr           /* wincon.h:149:23 */
+type CONSOLE_FONT_INFO = _CONSOLE_FONT_INFO /* wincon.h:153:5 */
+type PCONSOLE_FONT_INFO = uintptr           /* wincon.h:153:23 */
 
 type _CONSOLE_SELECTION_INFO = struct {
 	dwFlags           DWORD
 	dwSelectionAnchor COORD
 	srSelection       SMALL_RECT
-} /* wincon.h:151:11 */
+} /* wincon.h:155:11 */
 
-type CONSOLE_SELECTION_INFO = _CONSOLE_SELECTION_INFO /* wincon.h:155:5 */
-type PCONSOLE_SELECTION_INFO = uintptr                /* wincon.h:155:28 */
+type CONSOLE_SELECTION_INFO = _CONSOLE_SELECTION_INFO /* wincon.h:159:5 */
+type PCONSOLE_SELECTION_INFO = uintptr                /* wincon.h:159:28 */
 
-type PHANDLER_ROUTINE = uintptr /* wincon.h:163:19 */
+type PHANDLER_ROUTINE = uintptr /* wincon.h:167:19 */
 
 type _CONSOLE_FONT_INFOEX = struct {
 	cbSize     ULONG
@@ -25657,30 +25873,30 @@ type _CONSOLE_FONT_INFOEX = struct {
 	FontFamily UINT
 	FontWeight UINT
 	FaceName   [32]WCHAR
-} /* wincon.h:297:9 */
+} /* wincon.h:321:9 */
 
-type CONSOLE_FONT_INFOEX = _CONSOLE_FONT_INFOEX /* wincon.h:304:3 */
-type PCONSOLE_FONT_INFOEX = uintptr             /* wincon.h:304:24 */
+type CONSOLE_FONT_INFOEX = _CONSOLE_FONT_INFOEX /* wincon.h:328:3 */
+type PCONSOLE_FONT_INFOEX = uintptr             /* wincon.h:328:24 */
 
 type _CONSOLE_HISTORY_INFO = struct {
 	cbSize                 UINT
 	HistoryBufferSize      UINT
 	NumberOfHistoryBuffers UINT
 	dwFlags                DWORD
-} /* wincon.h:306:9 */
+} /* wincon.h:332:9 */
 
-type CONSOLE_HISTORY_INFO = _CONSOLE_HISTORY_INFO /* wincon.h:311:3 */
-type PCONSOLE_HISTORY_INFO = uintptr              /* wincon.h:311:25 */
+type CONSOLE_HISTORY_INFO = _CONSOLE_HISTORY_INFO /* wincon.h:337:3 */
+type PCONSOLE_HISTORY_INFO = uintptr              /* wincon.h:337:25 */
 
 type _CONSOLE_READCONSOLE_CONTROL = struct {
 	nLength           ULONG
 	nInitialChars     ULONG
 	dwCtrlWakeupMask  ULONG
 	dwControlKeyState ULONG
-} /* wincon.h:313:9 */
+} /* wincon.h:339:9 */
 
-type CONSOLE_READCONSOLE_CONTROL = _CONSOLE_READCONSOLE_CONTROL /* wincon.h:318:3 */
-type PCONSOLE_READCONSOLE_CONTROL = uintptr                     /* wincon.h:318:32 */
+type CONSOLE_READCONSOLE_CONTROL = _CONSOLE_READCONSOLE_CONTROL /* wincon.h:344:3 */
+type PCONSOLE_READCONSOLE_CONTROL = uintptr                     /* wincon.h:344:32 */
 
 type _CONSOLE_SCREEN_BUFFER_INFOEX = struct {
 	cbSize               ULONG
@@ -25692,15 +25908,10 @@ type _CONSOLE_SCREEN_BUFFER_INFOEX = struct {
 	wPopupAttributes     WORD
 	bFullscreenSupported WINBOOL
 	ColorTable           [16]COLORREF
-} /* wincon.h:320:9 */
+} /* wincon.h:346:9 */
 
-type CONSOLE_SCREEN_BUFFER_INFOEX = _CONSOLE_SCREEN_BUFFER_INFOEX /* wincon.h:330:3 */
-type PCONSOLE_SCREEN_BUFFER_INFOEX = uintptr                      /* wincon.h:330:33 */
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
+type CONSOLE_SCREEN_BUFFER_INFOEX = _CONSOLE_SCREEN_BUFFER_INFOEX /* wincon.h:356:3 */
+type PCONSOLE_SCREEN_BUFFER_INFOEX = uintptr                      /* wincon.h:356:33 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -25711,6 +25922,13 @@ type PCONSOLE_SCREEN_BUFFER_INFOEX = uintptr                      /* wincon.h:33
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
+
+// *
+// This file has no copyright assigned and is placed in the Public Domain.
+// This file is part of the mingw-w64 runtime package.
+// No warranty is given; refer to the file DISCLAIMER.PD within this package.
+
+// defines from verrsrc.h file
 
 type tagVS_FIXEDFILEINFO = struct {
 	dwSignature        DWORD
@@ -25726,7 +25944,7 @@ type tagVS_FIXEDFILEINFO = struct {
 	dwFileSubtype      DWORD
 	dwFileDateMS       DWORD
 	dwFileDateLS       DWORD
-} /* winver.h:113:11 */
+} /* winver.h:118:11 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -25743,7 +25961,9 @@ type tagVS_FIXEDFILEINFO = struct {
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
-type VS_FIXEDFILEINFO = tagVS_FIXEDFILEINFO /* winver.h:128:5 */
+// defines from verrsrc.h file
+
+type VS_FIXEDFILEINFO = tagVS_FIXEDFILEINFO /* winver.h:133:5 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -25759,17 +25979,17 @@ type VS_FIXEDFILEINFO = tagVS_FIXEDFILEINFO /* winver.h:128:5 */
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER within this package.
 
-type REGSAM = ACCESS_MASK /* winreg.h:35:23 */
-type LSTATUS = LONG       /* winreg.h:36:16 */
+type REGSAM = ACCESS_MASK /* winreg.h:43:23 */
+type LSTATUS = LONG       /* winreg.h:44:16 */
 
 type val_context = struct {
 	valuelen      int32
 	_             [4]byte
 	value_context LPVOID
 	val_buff_ptr  LPVOID
-} /* winreg.h:54:3 */
+} /* winreg.h:62:3 */
 
-type PVALCONTEXT = uintptr /* winreg.h:60:30 */
+type PVALCONTEXT = uintptr /* winreg.h:68:30 */
 
 type pvalueA = struct {
 	pv_valuename     LPSTR
@@ -25778,10 +25998,10 @@ type pvalueA = struct {
 	pv_value_context LPVOID
 	pv_type          DWORD
 	_                [4]byte
-} /* winreg.h:62:11 */
+} /* winreg.h:70:11 */
 
-type PVALUEA = pvalueA  /* winreg.h:67:4 */
-type PPVALUEA = uintptr /* winreg.h:67:12 */
+type PVALUEA = pvalueA  /* winreg.h:75:4 */
+type PPVALUEA = uintptr /* winreg.h:75:12 */
 
 type pvalueW = struct {
 	pv_valuename     LPWSTR
@@ -25790,15 +26010,15 @@ type pvalueW = struct {
 	pv_value_context LPVOID
 	pv_type          DWORD
 	_                [4]byte
-} /* winreg.h:69:11 */
+} /* winreg.h:77:11 */
 
-type PVALUEW = pvalueW  /* winreg.h:74:4 */
-type PPVALUEW = uintptr /* winreg.h:74:12 */
+type PVALUEW = pvalueW  /* winreg.h:82:4 */
+type PPVALUEW = uintptr /* winreg.h:82:12 */
 
-type PVALUE = PVALUEA   /* winreg.h:76:3 */
-type PPVALUE = PPVALUEA /* winreg.h:77:3 */
+type PVALUE = PVALUEA   /* winreg.h:84:3 */
+type PPVALUE = PPVALUEA /* winreg.h:85:3 */
 
-type PQUERYHANDLER = uintptr /* winreg.h:81:24 */
+type PQUERYHANDLER = uintptr /* winreg.h:89:24 */
 
 type provider_info = struct {
 	pi_R0_1val     PQUERYHANDLER
@@ -25808,11 +26028,11 @@ type provider_info = struct {
 	pi_flags       DWORD
 	_              [4]byte
 	pi_key_context LPVOID
-} /* winreg.h:83:11 */
+} /* winreg.h:91:11 */
 
-type REG_PROVIDER = provider_info /* winreg.h:90:5 */
+type REG_PROVIDER = provider_info /* winreg.h:98:5 */
 
-type PPROVIDER = uintptr /* winreg.h:92:32 */
+type PPROVIDER = uintptr /* winreg.h:100:32 */
 
 type value_entA = struct {
 	ve_valuename LPSTR
@@ -25821,10 +26041,10 @@ type value_entA = struct {
 	ve_valueptr  DWORD_PTR
 	ve_type      DWORD
 	_            [4]byte
-} /* winreg.h:94:11 */
+} /* winreg.h:102:11 */
 
-type VALENTA = value_entA /* winreg.h:99:5 */
-type PVALENTA = uintptr   /* winreg.h:99:13 */
+type VALENTA = value_entA /* winreg.h:107:5 */
+type PVALENTA = uintptr   /* winreg.h:107:13 */
 
 type value_entW = struct {
 	ve_valuename LPWSTR
@@ -25833,13 +26053,13 @@ type value_entW = struct {
 	ve_valueptr  DWORD_PTR
 	ve_type      DWORD
 	_            [4]byte
-} /* winreg.h:101:11 */
+} /* winreg.h:109:11 */
 
-type VALENTW = value_entW /* winreg.h:106:5 */
-type PVALENTW = uintptr   /* winreg.h:106:13 */
+type VALENTW = value_entW /* winreg.h:114:5 */
+type PVALENTW = uintptr   /* winreg.h:114:13 */
 
-type VALENT = VALENTA   /* winreg.h:108:3 */
-type PVALENT = PVALENTA /* winreg.h:109:3 */
+type VALENT = VALENTA   /* winreg.h:116:3 */
+type PVALENT = PVALENTA /* winreg.h:117:3 */
 
 // *
 // This file is part of the mingw-w64 runtime package.
@@ -26629,7 +26849,7 @@ func printWithPrefix(tls *libc.TLS, pOut uintptr, zPrefix uintptr, zMsg uintptr)
 		var i int32
 		for i = 0; ((*(*int8)(unsafe.Pointer(zMsg + uintptr(i))) != 0) && (int32(*(*int8)(unsafe.Pointer(zMsg + uintptr(i)))) != '\n')) && (int32(*(*int8)(unsafe.Pointer(zMsg + uintptr(i)))) != '\r'); i++ {
 		}
-		libc.Xfprintf(tls, pOut, ts /* "%s%.*s\n" */, libc.VaList(bp, zPrefix, i, zMsg))
+		fprintf(tls, pOut, ts /* "%s%.*s\n" */, libc.VaList(bp, zPrefix, i, zMsg))
 		zMsg += uintptr(i)
 		for (int32(*(*int8)(unsafe.Pointer(zMsg))) == '\n') || (int32(*(*int8)(unsafe.Pointer(zMsg))) == '\r') {
 			zMsg++
@@ -27855,8 +28075,8 @@ func usage(tls *libc.TLS, argv0 uintptr) { /* mptest.c:1241:13: */
 			zTail = ((argv0 + uintptr(i)) + uintptr(1))
 		}
 	}
-	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+1682 /* "Usage: %s DATABA..." */, libc.VaList(bp, zTail))
-	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)),
+	fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+1682 /* "Usage: %s DATABA..." */, libc.VaList(bp, zTail))
+	fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)),
 
 		ts+1721 /* "Options:\n   --er..." */, 0)
 	libc.Xexit(tls, 1)
@@ -27868,11 +28088,11 @@ func unrecognizedArguments(tls *libc.TLS, argv0 uintptr, nArg int32, azArg uintp
 	defer tls.Free(16)
 
 	var i int32
-	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2293 /* "%s: unrecognized..." */, libc.VaList(bp, argv0))
+	fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2293 /* "%s: unrecognized..." */, libc.VaList(bp, argv0))
 	for i = 0; i < nArg; i++ {
-		libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2321 /* " %s" */, libc.VaList(bp+8, *(*uintptr)(unsafe.Pointer(azArg + uintptr(i)*8))))
+		fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2321 /* " %s" */, libc.VaList(bp+8, *(*uintptr)(unsafe.Pointer(azArg + uintptr(i)*8))))
 	}
-	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2325 /* "\n" */, 0)
+	fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2325 /* "\n" */, 0)
 	libc.Xexit(tls, 1)
 }
 
@@ -27910,7 +28130,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 		usage(tls, *(*uintptr)(unsafe.Pointer(argv)))
 	}
 	if libc.Xstrcmp(tls, sqlite3.Xsqlite3_sourceid(tls), ts+2334 /* "2021-06-18 18:36..." */) != 0 {
-		libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)),
+		fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)),
 
 			ts+2419, /* "SQLite library a..." */
 			libc.VaList(bp, sqlite3.Xsqlite3_sourceid(tls), ts+2334 /* "2021-06-18 18:36..." */))
@@ -27967,21 +28187,21 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	} else {
 		var nTry int32 = 0
 		if g.iTrace > 0 {
-			libc.Xprintf(tls, ts+2611 /* "BEGIN: %s" */, libc.VaList(bp+64, *(*uintptr)(unsafe.Pointer(argv))))
+			printf(tls, ts+2611 /* "BEGIN: %s" */, libc.VaList(bp+64, *(*uintptr)(unsafe.Pointer(argv))))
 			for i = 1; i < argc; i++ {
-				libc.Xprintf(tls, ts+2321 /* " %s" */, libc.VaList(bp+72, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
+				printf(tls, ts+2321 /* " %s" */, libc.VaList(bp+72, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
 			}
-			libc.Xprintf(tls, ts+2325 /* "\n" */, 0)
-			libc.Xprintf(tls, ts+2621 /* "With SQLite 3.36..." */, 0)
+			printf(tls, ts+2325 /* "\n" */, 0)
+			printf(tls, ts+2621 /* "With SQLite 3.36..." */, 0)
 			for i = 0; (libc.AssignUintptr(&zCOption, sqlite3.Xsqlite3_compileoption_get(tls, i))) != uintptr(0); i++ {
-				libc.Xprintf(tls, ts+2726 /* "-DSQLITE_%s\n" */, libc.VaList(bp+80, zCOption))
+				printf(tls, ts+2726 /* "-DSQLITE_%s\n" */, libc.VaList(bp+80, zCOption))
 			}
 			libc.Xfflush(tls, libc.X__acrt_iob_func(tls, uint32(1)))
 		}
 		iClient = 0
 		for ok := true; ok; ok = (((rc != 0) && ((libc.PreIncInt32(&nTry, 1)) < 60)) && (sqlite3.Xsqlite3_sleep(tls, 1000) > 0)) {
 			if (nTry % 5) == 4 {
-				libc.Xprintf(tls, ts+2739, /* "... %strying to ..." */
+				printf(tls, ts+2739, /* "... %strying to ..." */
 					libc.VaList(bp+88, func() uintptr {
 						if nTry > 5 {
 							return ts + 2768 /* "still " */
@@ -28011,7 +28231,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	if zJMode != 0 {
 		if (sqlite3.Xsqlite3_stricmp(tls, zJMode, ts+2833 /* "persist" */) == 0) ||
 			(sqlite3.Xsqlite3_stricmp(tls, zJMode, ts+2841 /* "truncate" */) == 0) {
-			libc.Xprintf(tls, ts+2850 /* "Changing journal..." */, libc.VaList(bp+128, zJMode))
+			printf(tls, ts+2850 /* "Changing journal..." */, libc.VaList(bp+128, zJMode))
 			zJMode = ts + 2890 /* "DELETE" */
 		}
 		runSql(tls, ts+2897 /* "PRAGMA journal_m..." */, libc.VaList(bp+136, zJMode))
@@ -28114,12 +28334,12 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* mptest.c:1279:18:
 	maybeClose(tls, g.pLog)
 	maybeClose(tls, g.pErrLog)
 	if iClient == 0 {
-		libc.Xprintf(tls, ts+3626 /* "Summary: %d erro..." */, libc.VaList(bp+208, g.nError, g.nTest))
-		libc.Xprintf(tls, ts+3662 /* "END: %s" */, libc.VaList(bp+224, *(*uintptr)(unsafe.Pointer(argv))))
+		printf(tls, ts+3626 /* "Summary: %d erro..." */, libc.VaList(bp+208, g.nError, g.nTest))
+		printf(tls, ts+3662 /* "END: %s" */, libc.VaList(bp+224, *(*uintptr)(unsafe.Pointer(argv))))
 		for i = 1; i < argc; i++ {
-			libc.Xprintf(tls, ts+2321 /* " %s" */, libc.VaList(bp+232, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
+			printf(tls, ts+2321 /* " %s" */, libc.VaList(bp+232, *(*uintptr)(unsafe.Pointer(argv + uintptr(i)*8))))
 		}
-		libc.Xprintf(tls, ts+2325 /* "\n" */, 0)
+		printf(tls, ts+2325 /* "\n" */, 0)
 	}
 	return (libc.Bool32(g.nError > 0))
 }

@@ -585,6 +585,8 @@ func makeTestfixture(goos, goarch string, more []string) {
 		includes = []string{"-I/usr/local/include/tcl8.6"}
 	case "linux":
 		includes = []string{"-I/usr/include/tcl8.6"}
+	case "windows":
+		includes = []string{"-I/usr/include/tcl8.6"}
 	case "netbsd":
 		includes = []string{"-I/usr/pkg/include"}
 		defines = []string{

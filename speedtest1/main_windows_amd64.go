@@ -22,764 +22,775 @@ var _ types.Size_t
 func main() { libc.Start(main1) }
 
 const (
-	BUFSIZ                                          = 512
-	CHAR_BIT                                        = 8
-	CHAR_MAX                                        = 127
-	CHAR_MIN                                        = -128
-	EOF                                             = -1
-	EXIT_FAILURE                                    = 1
-	EXIT_SUCCESS                                    = 0
-	FILENAME_MAX                                    = 260
-	FOPEN_MAX                                       = 20
-	FTS5_TOKENIZE_AUX                               = 0x0008
-	FTS5_TOKENIZE_DOCUMENT                          = 0x0004
-	FTS5_TOKENIZE_PREFIX                            = 0x0002
-	FTS5_TOKENIZE_QUERY                             = 0x0001
-	FTS5_TOKEN_COLOCATED                            = 0x0001
-	FULLY_WITHIN                                    = 2
-	F_OK                                            = 0
-	HAVE_USLEEP                                     = 1
-	INT_MAX                                         = 2147483647
-	INT_MIN                                         = -2147483648
-	LLONG_MAX                                       = 9223372036854775807
-	LLONG_MIN                                       = -9223372036854775808
-	LONG_LONG_MAX                                   = 9223372036854775807
-	LONG_LONG_MIN                                   = -9223372036854775808
-	LONG_MAX                                        = 2147483647
-	LONG_MIN                                        = -2147483648
-	MB_LEN_MAX                                      = 5
-	MINGW_DDK_H                                     = 0
-	MINGW_DDRAW_VERSION                             = 7
-	MINGW_HAS_DDK_H                                 = 1
-	MINGW_HAS_DDRAW_H                               = 1
-	MINGW_HAS_SECURE_API                            = 1
-	MINGW_SDK_INIT                                  = 0
-	NAMEWIDTH                                       = 60
-	NDEBUG                                          = 1
-	NONAMELESSSTRUCT                                = 1
-	NONAMELESSUNION                                 = 1
-	NOT_WITHIN                                      = 0
-	PARTLY_WITHIN                                   = 1
-	PATH_MAX                                        = 260
-	RAND_MAX                                        = 0x7fff
-	R_OK                                            = 4
-	SCHAR_MAX                                       = 127
-	SCHAR_MIN                                       = -128
-	SEEK_CUR                                        = 1
-	SEEK_END                                        = 2
-	SEEK_SET                                        = 0
-	SHRT_MAX                                        = 32767
-	SHRT_MIN                                        = -32768
-	SIZE_MAX                                        = 18446744073709551615
-	SQLITE3_H                                       = 0
-	SQLITE3_TEXT                                    = 3
-	SQLITE_ABORT                                    = 4
-	SQLITE_ABORT_ROLLBACK                           = 516
-	SQLITE_ACCESS_EXISTS                            = 0
-	SQLITE_ACCESS_READ                              = 2
-	SQLITE_ACCESS_READWRITE                         = 1
-	SQLITE_ALTER_TABLE                              = 26
-	SQLITE_ANALYZE                                  = 28
-	SQLITE_ANY                                      = 5
-	SQLITE_API                                      = 0
-	SQLITE_APICALL                                  = 0
-	SQLITE_ATTACH                                   = 24
-	SQLITE_AUTH                                     = 23
-	SQLITE_AUTH_USER                                = 279
-	SQLITE_BLOB                                     = 4
-	SQLITE_BUSY                                     = 5
-	SQLITE_BUSY_RECOVERY                            = 261
-	SQLITE_BUSY_SNAPSHOT                            = 517
-	SQLITE_BUSY_TIMEOUT                             = 773
-	SQLITE_CALLBACK                                 = 0
-	SQLITE_CANTOPEN                                 = 14
-	SQLITE_CANTOPEN_CONVPATH                        = 1038
-	SQLITE_CANTOPEN_DIRTYWAL                        = 1294
-	SQLITE_CANTOPEN_FULLPATH                        = 782
-	SQLITE_CANTOPEN_ISDIR                           = 526
-	SQLITE_CANTOPEN_NOTEMPDIR                       = 270
-	SQLITE_CANTOPEN_SYMLINK                         = 1550
-	SQLITE_CDECL                                    = 0
-	SQLITE_CHANGESETAPPLY_INVERT                    = 0x0002
-	SQLITE_CHANGESETAPPLY_NOSAVEPOINT               = 0x0001
-	SQLITE_CHANGESETSTART_INVERT                    = 0x0002
-	SQLITE_CHANGESET_ABORT                          = 2
-	SQLITE_CHANGESET_CONFLICT                       = 3
-	SQLITE_CHANGESET_CONSTRAINT                     = 4
-	SQLITE_CHANGESET_DATA                           = 1
-	SQLITE_CHANGESET_FOREIGN_KEY                    = 5
-	SQLITE_CHANGESET_NOTFOUND                       = 2
-	SQLITE_CHANGESET_OMIT                           = 0
-	SQLITE_CHANGESET_REPLACE                        = 1
-	SQLITE_CHECKPOINT_FULL                          = 1
-	SQLITE_CHECKPOINT_PASSIVE                       = 0
-	SQLITE_CHECKPOINT_RESTART                       = 2
-	SQLITE_CHECKPOINT_TRUNCATE                      = 3
-	SQLITE_CONFIG_COVERING_INDEX_SCAN               = 20
-	SQLITE_CONFIG_GETMALLOC                         = 5
-	SQLITE_CONFIG_GETMUTEX                          = 11
-	SQLITE_CONFIG_GETPCACHE                         = 15
-	SQLITE_CONFIG_GETPCACHE2                        = 19
-	SQLITE_CONFIG_HEAP                              = 8
-	SQLITE_CONFIG_LOG                               = 16
-	SQLITE_CONFIG_LOOKASIDE                         = 13
-	SQLITE_CONFIG_MALLOC                            = 4
-	SQLITE_CONFIG_MEMDB_MAXSIZE                     = 29
-	SQLITE_CONFIG_MEMSTATUS                         = 9
-	SQLITE_CONFIG_MMAP_SIZE                         = 22
-	SQLITE_CONFIG_MULTITHREAD                       = 2
-	SQLITE_CONFIG_MUTEX                             = 10
-	SQLITE_CONFIG_PAGECACHE                         = 7
-	SQLITE_CONFIG_PCACHE                            = 14
-	SQLITE_CONFIG_PCACHE2                           = 18
-	SQLITE_CONFIG_PCACHE_HDRSZ                      = 24
-	SQLITE_CONFIG_PMASZ                             = 25
-	SQLITE_CONFIG_SCRATCH                           = 6
-	SQLITE_CONFIG_SERIALIZED                        = 3
-	SQLITE_CONFIG_SINGLETHREAD                      = 1
-	SQLITE_CONFIG_SMALL_MALLOC                      = 27
-	SQLITE_CONFIG_SORTERREF_SIZE                    = 28
-	SQLITE_CONFIG_SQLLOG                            = 21
-	SQLITE_CONFIG_STMTJRNL_SPILL                    = 26
-	SQLITE_CONFIG_URI                               = 17
-	SQLITE_CONFIG_WIN32_HEAPSIZE                    = 23
-	SQLITE_CONSTRAINT                               = 19
-	SQLITE_CONSTRAINT_CHECK                         = 275
-	SQLITE_CONSTRAINT_COMMITHOOK                    = 531
-	SQLITE_CONSTRAINT_FOREIGNKEY                    = 787
-	SQLITE_CONSTRAINT_FUNCTION                      = 1043
-	SQLITE_CONSTRAINT_NOTNULL                       = 1299
-	SQLITE_CONSTRAINT_PINNED                        = 2835
-	SQLITE_CONSTRAINT_PRIMARYKEY                    = 1555
-	SQLITE_CONSTRAINT_ROWID                         = 2579
-	SQLITE_CONSTRAINT_TRIGGER                       = 1811
-	SQLITE_CONSTRAINT_UNIQUE                        = 2067
-	SQLITE_CONSTRAINT_VTAB                          = 2323
-	SQLITE_COPY                                     = 0
-	SQLITE_CORE                                     = 1
-	SQLITE_CORRUPT                                  = 11
-	SQLITE_CORRUPT_INDEX                            = 779
-	SQLITE_CORRUPT_SEQUENCE                         = 523
-	SQLITE_CORRUPT_VTAB                             = 267
-	SQLITE_CREATE_INDEX                             = 1
-	SQLITE_CREATE_TABLE                             = 2
-	SQLITE_CREATE_TEMP_INDEX                        = 3
-	SQLITE_CREATE_TEMP_TABLE                        = 4
-	SQLITE_CREATE_TEMP_TRIGGER                      = 5
-	SQLITE_CREATE_TEMP_VIEW                         = 6
-	SQLITE_CREATE_TRIGGER                           = 7
-	SQLITE_CREATE_VIEW                              = 8
-	SQLITE_CREATE_VTABLE                            = 29
-	SQLITE_DBCONFIG_DEFENSIVE                       = 1010
-	SQLITE_DBCONFIG_DQS_DDL                         = 1014
-	SQLITE_DBCONFIG_DQS_DML                         = 1013
-	SQLITE_DBCONFIG_ENABLE_FKEY                     = 1002
-	SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER           = 1004
-	SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION           = 1005
-	SQLITE_DBCONFIG_ENABLE_QPSG                     = 1007
-	SQLITE_DBCONFIG_ENABLE_TRIGGER                  = 1003
-	SQLITE_DBCONFIG_ENABLE_VIEW                     = 1015
-	SQLITE_DBCONFIG_LEGACY_ALTER_TABLE              = 1012
-	SQLITE_DBCONFIG_LEGACY_FILE_FORMAT              = 1016
-	SQLITE_DBCONFIG_LOOKASIDE                       = 1001
-	SQLITE_DBCONFIG_MAINDBNAME                      = 1000
-	SQLITE_DBCONFIG_MAX                             = 1017
-	SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE                = 1006
-	SQLITE_DBCONFIG_RESET_DATABASE                  = 1009
-	SQLITE_DBCONFIG_TRIGGER_EQP                     = 1008
-	SQLITE_DBCONFIG_TRUSTED_SCHEMA                  = 1017
-	SQLITE_DBCONFIG_WRITABLE_SCHEMA                 = 1011
-	SQLITE_DBSTATUS_CACHE_HIT                       = 7
-	SQLITE_DBSTATUS_CACHE_MISS                      = 8
-	SQLITE_DBSTATUS_CACHE_SPILL                     = 12
-	SQLITE_DBSTATUS_CACHE_USED                      = 1
-	SQLITE_DBSTATUS_CACHE_USED_SHARED               = 11
-	SQLITE_DBSTATUS_CACHE_WRITE                     = 9
-	SQLITE_DBSTATUS_DEFERRED_FKS                    = 10
-	SQLITE_DBSTATUS_LOOKASIDE_HIT                   = 4
-	SQLITE_DBSTATUS_LOOKASIDE_MISS_FULL             = 6
-	SQLITE_DBSTATUS_LOOKASIDE_MISS_SIZE             = 5
-	SQLITE_DBSTATUS_LOOKASIDE_USED                  = 0
-	SQLITE_DBSTATUS_MAX                             = 12
-	SQLITE_DBSTATUS_SCHEMA_USED                     = 2
-	SQLITE_DBSTATUS_STMT_USED                       = 3
-	SQLITE_DELETE                                   = 9
-	SQLITE_DENY                                     = 1
-	SQLITE_DEPRECATED                               = 0
-	SQLITE_DESERIALIZE_FREEONCLOSE                  = 1
-	SQLITE_DESERIALIZE_READONLY                     = 4
-	SQLITE_DESERIALIZE_RESIZEABLE                   = 2
-	SQLITE_DETACH                                   = 25
-	SQLITE_DETERMINISTIC                            = 0x000000800
-	SQLITE_DIRECTONLY                               = 0x000080000
-	SQLITE_DONE                                     = 101
-	SQLITE_DROP_INDEX                               = 10
-	SQLITE_DROP_TABLE                               = 11
-	SQLITE_DROP_TEMP_INDEX                          = 12
-	SQLITE_DROP_TEMP_TABLE                          = 13
-	SQLITE_DROP_TEMP_TRIGGER                        = 14
-	SQLITE_DROP_TEMP_VIEW                           = 15
-	SQLITE_DROP_TRIGGER                             = 16
-	SQLITE_DROP_VIEW                                = 17
-	SQLITE_DROP_VTABLE                              = 30
-	SQLITE_EMPTY                                    = 16
-	SQLITE_ENABLE_COLUMN_METADATA                   = 1
-	SQLITE_ENABLE_FTS5                              = 1
-	SQLITE_ENABLE_GEOPOLY                           = 1
-	SQLITE_ENABLE_JSON1                             = 1
-	SQLITE_ENABLE_MEMORY_MANAGEMENT                 = 1
-	SQLITE_ENABLE_OFFSET_SQL_FUNC                   = 1
-	SQLITE_ENABLE_PREUPDATE_HOOK                    = 1
-	SQLITE_ENABLE_RBU                               = 1
-	SQLITE_ENABLE_RTREE                             = 1
-	SQLITE_ENABLE_SESSION                           = 1
-	SQLITE_ENABLE_SNAPSHOT                          = 1
-	SQLITE_ENABLE_STAT4                             = 1
-	SQLITE_ENABLE_UNLOCK_NOTIFY                     = 1
-	SQLITE_ERROR                                    = 1
-	SQLITE_ERROR_MISSING_COLLSEQ                    = 257
-	SQLITE_ERROR_RETRY                              = 513
-	SQLITE_ERROR_SNAPSHOT                           = 769
-	SQLITE_EXPERIMENTAL                             = 0
-	SQLITE_FAIL                                     = 3
-	SQLITE_FCNTL_BEGIN_ATOMIC_WRITE                 = 31
-	SQLITE_FCNTL_BUSYHANDLER                        = 15
-	SQLITE_FCNTL_CHUNK_SIZE                         = 6
-	SQLITE_FCNTL_CKPT_DONE                          = 37
-	SQLITE_FCNTL_CKPT_START                         = 39
-	SQLITE_FCNTL_CKSM_FILE                          = 41
-	SQLITE_FCNTL_COMMIT_ATOMIC_WRITE                = 32
-	SQLITE_FCNTL_COMMIT_PHASETWO                    = 22
-	SQLITE_FCNTL_DATA_VERSION                       = 35
-	SQLITE_FCNTL_EXTERNAL_READER                    = 40
-	SQLITE_FCNTL_FILE_POINTER                       = 7
-	SQLITE_FCNTL_GET_LOCKPROXYFILE                  = 2
-	SQLITE_FCNTL_HAS_MOVED                          = 20
-	SQLITE_FCNTL_JOURNAL_POINTER                    = 28
-	SQLITE_FCNTL_LAST_ERRNO                         = 4
-	SQLITE_FCNTL_LOCKSTATE                          = 1
-	SQLITE_FCNTL_LOCK_TIMEOUT                       = 34
-	SQLITE_FCNTL_MMAP_SIZE                          = 18
-	SQLITE_FCNTL_OVERWRITE                          = 11
-	SQLITE_FCNTL_PDB                                = 30
-	SQLITE_FCNTL_PERSIST_WAL                        = 10
-	SQLITE_FCNTL_POWERSAFE_OVERWRITE                = 13
-	SQLITE_FCNTL_PRAGMA                             = 14
-	SQLITE_FCNTL_RBU                                = 26
-	SQLITE_FCNTL_RESERVE_BYTES                      = 38
-	SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE              = 33
-	SQLITE_FCNTL_SET_LOCKPROXYFILE                  = 3
-	SQLITE_FCNTL_SIZE_HINT                          = 5
-	SQLITE_FCNTL_SIZE_LIMIT                         = 36
-	SQLITE_FCNTL_SYNC                               = 21
-	SQLITE_FCNTL_SYNC_OMITTED                       = 8
-	SQLITE_FCNTL_TEMPFILENAME                       = 16
-	SQLITE_FCNTL_TRACE                              = 19
-	SQLITE_FCNTL_VFSNAME                            = 12
-	SQLITE_FCNTL_VFS_POINTER                        = 27
-	SQLITE_FCNTL_WAL_BLOCK                          = 24
-	SQLITE_FCNTL_WIN32_AV_RETRY                     = 9
-	SQLITE_FCNTL_WIN32_GET_HANDLE                   = 29
-	SQLITE_FCNTL_WIN32_SET_HANDLE                   = 23
-	SQLITE_FCNTL_ZIPVFS                             = 25
-	SQLITE_FLOAT                                    = 2
-	SQLITE_FORMAT                                   = 24
-	SQLITE_FULL                                     = 13
-	SQLITE_FUNCTION                                 = 31
-	SQLITE_GET_LOCKPROXYFILE                        = 2
-	SQLITE_IGNORE                                   = 2
-	SQLITE_INDEX_CONSTRAINT_EQ                      = 2
-	SQLITE_INDEX_CONSTRAINT_FUNCTION                = 150
-	SQLITE_INDEX_CONSTRAINT_GE                      = 32
-	SQLITE_INDEX_CONSTRAINT_GLOB                    = 66
-	SQLITE_INDEX_CONSTRAINT_GT                      = 4
-	SQLITE_INDEX_CONSTRAINT_IS                      = 72
-	SQLITE_INDEX_CONSTRAINT_ISNOT                   = 69
-	SQLITE_INDEX_CONSTRAINT_ISNOTNULL               = 70
-	SQLITE_INDEX_CONSTRAINT_ISNULL                  = 71
-	SQLITE_INDEX_CONSTRAINT_LE                      = 8
-	SQLITE_INDEX_CONSTRAINT_LIKE                    = 65
-	SQLITE_INDEX_CONSTRAINT_LT                      = 16
-	SQLITE_INDEX_CONSTRAINT_MATCH                   = 64
-	SQLITE_INDEX_CONSTRAINT_NE                      = 68
-	SQLITE_INDEX_CONSTRAINT_REGEXP                  = 67
-	SQLITE_INDEX_SCAN_UNIQUE                        = 1
-	SQLITE_INNOCUOUS                                = 0x000200000
-	SQLITE_INSERT                                   = 18
-	SQLITE_INTEGER                                  = 1
-	SQLITE_INTERNAL                                 = 2
-	SQLITE_INTERRUPT                                = 9
-	SQLITE_IOCAP_ATOMIC                             = 0x00000001
-	SQLITE_IOCAP_ATOMIC16K                          = 0x00000040
-	SQLITE_IOCAP_ATOMIC1K                           = 0x00000004
-	SQLITE_IOCAP_ATOMIC2K                           = 0x00000008
-	SQLITE_IOCAP_ATOMIC32K                          = 0x00000080
-	SQLITE_IOCAP_ATOMIC4K                           = 0x00000010
-	SQLITE_IOCAP_ATOMIC512                          = 0x00000002
-	SQLITE_IOCAP_ATOMIC64K                          = 0x00000100
-	SQLITE_IOCAP_ATOMIC8K                           = 0x00000020
-	SQLITE_IOCAP_BATCH_ATOMIC                       = 0x00004000
-	SQLITE_IOCAP_IMMUTABLE                          = 0x00002000
-	SQLITE_IOCAP_POWERSAFE_OVERWRITE                = 0x00001000
-	SQLITE_IOCAP_SAFE_APPEND                        = 0x00000200
-	SQLITE_IOCAP_SEQUENTIAL                         = 0x00000400
-	SQLITE_IOCAP_UNDELETABLE_WHEN_OPEN              = 0x00000800
-	SQLITE_IOERR                                    = 10
-	SQLITE_IOERR_ACCESS                             = 3338
-	SQLITE_IOERR_AUTH                               = 7178
-	SQLITE_IOERR_BEGIN_ATOMIC                       = 7434
-	SQLITE_IOERR_BLOCKED                            = 2826
-	SQLITE_IOERR_CHECKRESERVEDLOCK                  = 3594
-	SQLITE_IOERR_CLOSE                              = 4106
-	SQLITE_IOERR_COMMIT_ATOMIC                      = 7690
-	SQLITE_IOERR_CONVPATH                           = 6666
-	SQLITE_IOERR_CORRUPTFS                          = 8458
-	SQLITE_IOERR_DATA                               = 8202
-	SQLITE_IOERR_DELETE                             = 2570
-	SQLITE_IOERR_DELETE_NOENT                       = 5898
-	SQLITE_IOERR_DIR_CLOSE                          = 4362
-	SQLITE_IOERR_DIR_FSYNC                          = 1290
-	SQLITE_IOERR_FSTAT                              = 1802
-	SQLITE_IOERR_FSYNC                              = 1034
-	SQLITE_IOERR_GETTEMPPATH                        = 6410
-	SQLITE_IOERR_LOCK                               = 3850
-	SQLITE_IOERR_MMAP                               = 6154
-	SQLITE_IOERR_NOMEM                              = 3082
-	SQLITE_IOERR_RDLOCK                             = 2314
-	SQLITE_IOERR_READ                               = 266
-	SQLITE_IOERR_ROLLBACK_ATOMIC                    = 7946
-	SQLITE_IOERR_SEEK                               = 5642
-	SQLITE_IOERR_SHMLOCK                            = 5130
-	SQLITE_IOERR_SHMMAP                             = 5386
-	SQLITE_IOERR_SHMOPEN                            = 4618
-	SQLITE_IOERR_SHMSIZE                            = 4874
-	SQLITE_IOERR_SHORT_READ                         = 522
-	SQLITE_IOERR_TRUNCATE                           = 1546
-	SQLITE_IOERR_UNLOCK                             = 2058
-	SQLITE_IOERR_VNODE                              = 6922
-	SQLITE_IOERR_WRITE                              = 778
-	SQLITE_LAST_ERRNO                               = 4
-	SQLITE_LIKE_DOESNT_MATCH_BLOBS                  = 1
-	SQLITE_LIMIT_ATTACHED                           = 7
-	SQLITE_LIMIT_COLUMN                             = 2
-	SQLITE_LIMIT_COMPOUND_SELECT                    = 4
-	SQLITE_LIMIT_EXPR_DEPTH                         = 3
-	SQLITE_LIMIT_FUNCTION_ARG                       = 6
-	SQLITE_LIMIT_LENGTH                             = 0
-	SQLITE_LIMIT_LIKE_PATTERN_LENGTH                = 8
-	SQLITE_LIMIT_SQL_LENGTH                         = 1
-	SQLITE_LIMIT_TRIGGER_DEPTH                      = 10
-	SQLITE_LIMIT_VARIABLE_NUMBER                    = 9
-	SQLITE_LIMIT_VDBE_OP                            = 5
-	SQLITE_LIMIT_WORKER_THREADS                     = 11
-	SQLITE_LOCKED                                   = 6
-	SQLITE_LOCKED_SHAREDCACHE                       = 262
-	SQLITE_LOCKED_VTAB                              = 518
-	SQLITE_LOCK_EXCLUSIVE                           = 4
-	SQLITE_LOCK_NONE                                = 0
-	SQLITE_LOCK_PENDING                             = 3
-	SQLITE_LOCK_RESERVED                            = 2
-	SQLITE_LOCK_SHARED                              = 1
-	SQLITE_MISMATCH                                 = 20
-	SQLITE_MISUSE                                   = 21
-	SQLITE_MUTEX_APPDEF                             = 1
-	SQLITE_MUTEX_FAST                               = 0
-	SQLITE_MUTEX_NOOP                               = 1
-	SQLITE_MUTEX_RECURSIVE                          = 1
-	SQLITE_MUTEX_STATIC_APP1                        = 8
-	SQLITE_MUTEX_STATIC_APP2                        = 9
-	SQLITE_MUTEX_STATIC_APP3                        = 10
-	SQLITE_MUTEX_STATIC_LRU                         = 6
-	SQLITE_MUTEX_STATIC_LRU2                        = 7
-	SQLITE_MUTEX_STATIC_MAIN                        = 2
-	SQLITE_MUTEX_STATIC_MASTER                      = 2
-	SQLITE_MUTEX_STATIC_MEM                         = 3
-	SQLITE_MUTEX_STATIC_MEM2                        = 4
-	SQLITE_MUTEX_STATIC_OPEN                        = 4
-	SQLITE_MUTEX_STATIC_PMEM                        = 7
-	SQLITE_MUTEX_STATIC_PRNG                        = 5
-	SQLITE_MUTEX_STATIC_VFS1                        = 11
-	SQLITE_MUTEX_STATIC_VFS2                        = 12
-	SQLITE_MUTEX_STATIC_VFS3                        = 13
-	SQLITE_NOLFS                                    = 22
-	SQLITE_NOMEM                                    = 7
-	SQLITE_NOTADB                                   = 26
-	SQLITE_NOTFOUND                                 = 12
-	SQLITE_NOTICE                                   = 27
-	SQLITE_NOTICE_RECOVER_ROLLBACK                  = 539
-	SQLITE_NOTICE_RECOVER_WAL                       = 283
-	SQLITE_NULL                                     = 5
-	SQLITE_OK                                       = 0
-	SQLITE_OK_LOAD_PERMANENTLY                      = 256
-	SQLITE_OK_SYMLINK                               = 512
-	SQLITE_OPEN_AUTOPROXY                           = 0x00000020
-	SQLITE_OPEN_CREATE                              = 0x00000004
-	SQLITE_OPEN_DELETEONCLOSE                       = 0x00000008
-	SQLITE_OPEN_EXCLUSIVE                           = 0x00000010
-	SQLITE_OPEN_FULLMUTEX                           = 0x00010000
-	SQLITE_OPEN_MAIN_DB                             = 0x00000100
-	SQLITE_OPEN_MAIN_JOURNAL                        = 0x00000800
-	SQLITE_OPEN_MASTER_JOURNAL                      = 0x00004000
-	SQLITE_OPEN_MEMORY                              = 0x00000080
-	SQLITE_OPEN_NOFOLLOW                            = 0x01000000
-	SQLITE_OPEN_NOMUTEX                             = 0x00008000
-	SQLITE_OPEN_PRIVATECACHE                        = 0x00040000
-	SQLITE_OPEN_READONLY                            = 0x00000001
-	SQLITE_OPEN_READWRITE                           = 0x00000002
-	SQLITE_OPEN_SHAREDCACHE                         = 0x00020000
-	SQLITE_OPEN_SUBJOURNAL                          = 0x00002000
-	SQLITE_OPEN_SUPER_JOURNAL                       = 0x00004000
-	SQLITE_OPEN_TEMP_DB                             = 0x00000200
-	SQLITE_OPEN_TEMP_JOURNAL                        = 0x00001000
-	SQLITE_OPEN_TRANSIENT_DB                        = 0x00000400
-	SQLITE_OPEN_URI                                 = 0x00000040
-	SQLITE_OPEN_WAL                                 = 0x00080000
-	SQLITE_OS_WIN                                   = 1
-	SQLITE_PERM                                     = 3
-	SQLITE_PRAGMA                                   = 19
-	SQLITE_PREPARE_NORMALIZE                        = 0x02
-	SQLITE_PREPARE_NO_VTAB                          = 0x04
-	SQLITE_PREPARE_PERSISTENT                       = 0x01
-	SQLITE_PROTOCOL                                 = 15
-	SQLITE_RANGE                                    = 25
-	SQLITE_READ                                     = 20
-	SQLITE_READONLY                                 = 8
-	SQLITE_READONLY_CANTINIT                        = 1288
-	SQLITE_READONLY_CANTLOCK                        = 520
-	SQLITE_READONLY_DBMOVED                         = 1032
-	SQLITE_READONLY_DIRECTORY                       = 1544
-	SQLITE_READONLY_RECOVERY                        = 264
-	SQLITE_READONLY_ROLLBACK                        = 776
-	SQLITE_RECURSIVE                                = 33
-	SQLITE_REINDEX                                  = 27
-	SQLITE_REPLACE                                  = 5
-	SQLITE_ROLLBACK                                 = 1
-	SQLITE_ROW                                      = 100
-	SQLITE_SAVEPOINT                                = 32
-	SQLITE_SCANSTAT_EST                             = 2
-	SQLITE_SCANSTAT_EXPLAIN                         = 4
-	SQLITE_SCANSTAT_NAME                            = 3
-	SQLITE_SCANSTAT_NLOOP                           = 0
-	SQLITE_SCANSTAT_NVISIT                          = 1
-	SQLITE_SCANSTAT_SELECTID                        = 5
-	SQLITE_SCHEMA                                   = 17
-	SQLITE_SELECT                                   = 21
-	SQLITE_SERIALIZE_NOCOPY                         = 0x001
-	SQLITE_SESSION_CONFIG_STRMSIZE                  = 1
-	SQLITE_SESSION_OBJCONFIG_SIZE                   = 1
-	SQLITE_SET_LOCKPROXYFILE                        = 3
-	SQLITE_SHM_EXCLUSIVE                            = 8
-	SQLITE_SHM_LOCK                                 = 2
-	SQLITE_SHM_NLOCK                                = 8
-	SQLITE_SHM_SHARED                               = 4
-	SQLITE_SHM_UNLOCK                               = 1
-	SQLITE_SOUNDEX                                  = 1
-	SQLITE_SOURCE_ID                                = "2021-06-18 18:36:39 5c9a6c06871cb9fe42814af9c039eb6da5427a6ec28f187af7ebfb62eafa66e5"
-	SQLITE_STATUS_MALLOC_COUNT                      = 9
-	SQLITE_STATUS_MALLOC_SIZE                       = 5
-	SQLITE_STATUS_MEMORY_USED                       = 0
-	SQLITE_STATUS_PAGECACHE_OVERFLOW                = 2
-	SQLITE_STATUS_PAGECACHE_SIZE                    = 7
-	SQLITE_STATUS_PAGECACHE_USED                    = 1
-	SQLITE_STATUS_PARSER_STACK                      = 6
-	SQLITE_STATUS_SCRATCH_OVERFLOW                  = 4
-	SQLITE_STATUS_SCRATCH_SIZE                      = 8
-	SQLITE_STATUS_SCRATCH_USED                      = 3
-	SQLITE_STDCALL                                  = 0
-	SQLITE_STMTSTATUS_AUTOINDEX                     = 3
-	SQLITE_STMTSTATUS_FULLSCAN_STEP                 = 1
-	SQLITE_STMTSTATUS_MEMUSED                       = 99
-	SQLITE_STMTSTATUS_REPREPARE                     = 5
-	SQLITE_STMTSTATUS_RUN                           = 6
-	SQLITE_STMTSTATUS_SORT                          = 2
-	SQLITE_STMTSTATUS_VM_STEP                       = 4
-	SQLITE_SUBTYPE                                  = 0x000100000
-	SQLITE_SYNC_DATAONLY                            = 0x00010
-	SQLITE_SYNC_FULL                                = 0x00003
-	SQLITE_SYNC_NORMAL                              = 0x00002
-	SQLITE_SYSAPI                                   = 0
-	SQLITE_TESTCTRL_ALWAYS                          = 13
-	SQLITE_TESTCTRL_ASSERT                          = 12
-	SQLITE_TESTCTRL_BENIGN_MALLOC_HOOKS             = 10
-	SQLITE_TESTCTRL_BITVEC_TEST                     = 8
-	SQLITE_TESTCTRL_BYTEORDER                       = 22
-	SQLITE_TESTCTRL_EXPLAIN_STMT                    = 19
-	SQLITE_TESTCTRL_EXTRA_SCHEMA_CHECKS             = 29
-	SQLITE_TESTCTRL_FAULT_INSTALL                   = 9
-	SQLITE_TESTCTRL_FIRST                           = 5
-	SQLITE_TESTCTRL_IMPOSTER                        = 25
-	SQLITE_TESTCTRL_INTERNAL_FUNCTIONS              = 17
-	SQLITE_TESTCTRL_ISINIT                          = 23
-	SQLITE_TESTCTRL_ISKEYWORD                       = 16
-	SQLITE_TESTCTRL_LAST                            = 32
-	SQLITE_TESTCTRL_LOCALTIME_FAULT                 = 18
-	SQLITE_TESTCTRL_NEVER_CORRUPT                   = 20
-	SQLITE_TESTCTRL_ONCE_RESET_THRESHOLD            = 19
-	SQLITE_TESTCTRL_OPTIMIZATIONS                   = 15
-	SQLITE_TESTCTRL_PARSER_COVERAGE                 = 26
-	SQLITE_TESTCTRL_PENDING_BYTE                    = 11
-	SQLITE_TESTCTRL_PRNG_RESET                      = 7
-	SQLITE_TESTCTRL_PRNG_RESTORE                    = 6
-	SQLITE_TESTCTRL_PRNG_SAVE                       = 5
-	SQLITE_TESTCTRL_PRNG_SEED                       = 28
-	SQLITE_TESTCTRL_RESERVE                         = 14
-	SQLITE_TESTCTRL_RESULT_INTREAL                  = 27
-	SQLITE_TESTCTRL_SCRATCHMALLOC                   = 17
-	SQLITE_TESTCTRL_SEEK_COUNT                      = 30
-	SQLITE_TESTCTRL_SORTER_MMAP                     = 24
-	SQLITE_TESTCTRL_TRACEFLAGS                      = 31
-	SQLITE_TESTCTRL_TUNE                            = 32
-	SQLITE_TESTCTRL_VDBE_COVERAGE                   = 21
-	SQLITE_TEXT                                     = 3
-	SQLITE_THREADSAFE                               = 1
-	SQLITE_TOOBIG                                   = 18
-	SQLITE_TRACE_CLOSE                              = 0x08
-	SQLITE_TRACE_PROFILE                            = 0x02
-	SQLITE_TRACE_ROW                                = 0x04
-	SQLITE_TRACE_STMT                               = 0x01
-	SQLITE_TRANSACTION                              = 22
-	SQLITE_TXN_NONE                                 = 0
-	SQLITE_TXN_READ                                 = 1
-	SQLITE_TXN_WRITE                                = 2
-	SQLITE_UPDATE                                   = 23
-	SQLITE_UTF16                                    = 4
-	SQLITE_UTF16BE                                  = 3
-	SQLITE_UTF16LE                                  = 2
-	SQLITE_UTF16_ALIGNED                            = 8
-	SQLITE_UTF8                                     = 1
-	SQLITE_VERSION                                  = "3.36.0"
-	SQLITE_VERSION_NUMBER                           = 3036000
-	SQLITE_VTAB_CONSTRAINT_SUPPORT                  = 1
-	SQLITE_VTAB_DIRECTONLY                          = 3
-	SQLITE_VTAB_INNOCUOUS                           = 2
-	SQLITE_WARNING                                  = 28
-	SQLITE_WARNING_AUTOINDEX                        = 284
-	SQLITE_WIN32_DATA_DIRECTORY_TYPE                = 1
-	SQLITE_WIN32_TEMP_DIRECTORY_TYPE                = 2
-	SSIZE_MAX                                       = 9223372036854775807
-	STDERR_FILENO                                   = 2
-	STDIN_FILENO                                    = 0
-	STDOUT_FILENO                                   = 1
-	SYS_OPEN                                        = 20
-	TMP_MAX                                         = 32767
-	UCHAR_MAX                                       = 255
-	UINT_MAX                                        = 4294967295
-	ULLONG_MAX                                      = 18446744073709551615
-	ULONG_LONG_MAX                                  = 18446744073709551615
-	ULONG_MAX                                       = 4294967295
-	UNALIGNED                                       = 0
-	USE___UUIDOF                                    = 1
-	USHRT_MAX                                       = 65535
-	WIN32                                           = 1
-	WIN64                                           = 1
-	WINNT                                           = 1
-	W_OK                                            = 2
-	X_OK                                            = 1
-	X_AGLOBAL                                       = 0
-	X_ALLOCA_S_HEAP_MARKER                          = 0xDDDD
-	X_ALLOCA_S_MARKER_SIZE                          = 16
-	X_ALLOCA_S_STACK_MARKER                         = 0xCCCC
-	X_ALLOCA_S_THRESHOLD                            = 1024
-	X_ALPHA                                         = 259
-	X_ANONYMOUS_STRUCT                              = 0
-	X_ANONYMOUS_UNION                               = 0
-	X_ANSI_STDARG_H_                                = 0
-	X_ARGMAX                                        = 100
-	X_A_ARCH                                        = 0x20
-	X_A_HIDDEN                                      = 0x02
-	X_A_NORMAL                                      = 0x00
-	X_A_RDONLY                                      = 0x01
-	X_A_SUBDIR                                      = 0x10
-	X_A_SYSTEM                                      = 0x04
-	X_BLANK                                         = 0x40
-	X_CALL_REPORTFAULT                              = 0x2
-	X_CONST_RETURN                                  = 0
-	X_CONTROL                                       = 0x20
-	X_CRTNOALIAS                                    = 0
-	X_CRTRESTRICT                                   = 0
-	X_CRT_ABS_DEFINED                               = 0
-	X_CRT_ALGO_DEFINED                              = 0
-	X_CRT_ALLOCATION_DEFINED                        = 0
-	X_CRT_ALTERNATIVE_IMPORTED                      = 0
-	X_CRT_ATOF_DEFINED                              = 0
-	X_CRT_CTYPEDATA_DEFINED                         = 0
-	X_CRT_DIRECTORY_DEFINED                         = 0
-	X_CRT_DOUBLE_DEC                                = 0
-	X_CRT_ERRNO_DEFINED                             = 0
-	X_CRT_MANAGED_HEAP_DEPRECATE                    = 0
-	X_CRT_MEMORY_DEFINED                            = 0
-	X_CRT_PACKING                                   = 8
-	X_CRT_PERROR_DEFINED                            = 0
-	X_CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES          = 0
-	X_CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_MEMORY   = 0
-	X_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES        = 0
-	X_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT  = 0
-	X_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_MEMORY = 0
-	X_CRT_SWAB_DEFINED                              = 0
-	X_CRT_SYSTEM_DEFINED                            = 0
-	X_CRT_TERMINATE_DEFINED                         = 0
-	X_CRT_WCTYPEDATA_DEFINED                        = 0
-	X_CRT_WPERROR_DEFINED                           = 0
-	X_CRT_WSYSTEM_DEFINED                           = 0
-	X_CTYPE_DEFINED                                 = 0
-	X_CVTBUFSIZE                                    = 349
-	X_DIGIT                                         = 0x4
-	X_DIV_T_DEFINED                                 = 0
-	X_DLL                                           = 0
-	X_ERRCODE_DEFINED                               = 0
-	X_FILE_DEFINED                                  = 0
-	X_FILE_OFFSET_BITS                              = 64
-	X_FILE_OFFSET_BITS_SET_FSEEKO                   = 0
-	X_FILE_OFFSET_BITS_SET_FTELLO                   = 0
-	X_FILE_OFFSET_BITS_SET_LSEEK                    = 0
-	X_FILE_OFFSET_BITS_SET_OFFT                     = 0
-	X_FINDDATA_T_DEFINED                            = 0
-	X_FPOS_T_DEFINED                                = 0
-	X_FREEA_INLINE                                  = 0
-	X_FREEENTRY                                     = 0
-	X_FSIZE_T_DEFINED                               = 0
-	X_FTS5_H                                        = 0
-	X_GCC_LIMITS_H_                                 = 0
-	X_HEAPBADBEGIN                                  = -3
-	X_HEAPBADNODE                                   = -4
-	X_HEAPBADPTR                                    = -6
-	X_HEAPEMPTY                                     = -1
-	X_HEAPEND                                       = -5
-	X_HEAPINFO_DEFINED                              = 0
-	X_HEAPOK                                        = -2
-	X_HEAP_MAXREQ                                   = 0xFFFFFFFFFFFFFFE0
-	X_HEX                                           = 0x80
-	X_I16_MAX                                       = 32767
-	X_I16_MIN                                       = -32768
-	X_I32_MAX                                       = 2147483647
-	X_I32_MIN                                       = -2147483648
-	X_I64_MAX                                       = 9223372036854775807
-	X_I64_MIN                                       = -9223372036854775808
-	X_I8_MAX                                        = 127
-	X_I8_MIN                                        = -128
-	X_INC_CRTDEFS                                   = 0
-	X_INC_CRTDEFS_MACRO                             = 0
-	X_INC_CTYPE                                     = 0
-	X_INC_LIMITS                                    = 0
-	X_INC_MINGW_SECAPI                              = 0
-	X_INC_STDARG                                    = 0
-	X_INC_STDIO                                     = 0
-	X_INC_STDIO_S                                   = 0
-	X_INC_STDLIB                                    = 0
-	X_INC_STDLIB_S                                  = 0
-	X_INC_STRING                                    = 0
-	X_INC_STRING_S                                  = 0
-	X_INC_SWPRINTF_INL                              = 0
-	X_INC_VADEFS                                    = 0
-	X_INC__MINGW_H                                  = 0
-	X_INT128_DEFINED                                = 0
-	X_INTEGRAL_MAX_BITS                             = 64
-	X_INTPTR_T_DEFINED                              = 0
-	X_IOB_ENTRIES                                   = 20
-	X_IOEOF                                         = 0x0010
-	X_IOERR                                         = 0x0020
-	X_IOFBF                                         = 0x0000
-	X_IOLBF                                         = 0x0040
-	X_IOMYBUF                                       = 0x0008
-	X_IONBF                                         = 0x0004
-	X_IOREAD                                        = 0x0001
-	X_IORW                                          = 0x0080
-	X_IOSTRG                                        = 0x0040
-	X_IOWRT                                         = 0x0002
-	X_IO_H_                                         = 0
-	X_LEADBYTE                                      = 0x8000
-	X_LIMITS_H___                                   = 0
-	X_LOWER                                         = 0x2
-	X_MALLOC_H_                                     = 0
-	X_MAX_DIR                                       = 256
-	X_MAX_DRIVE                                     = 3
-	X_MAX_ENV                                       = 32767
-	X_MAX_EXT                                       = 256
-	X_MAX_FNAME                                     = 256
-	X_MAX_PATH                                      = 260
-	X_MAX_WAIT_MALLOC_CRT                           = 60000
-	X_MM_MALLOC_H_INCLUDED                          = 0
-	X_MSC_VER                                       = 1900
-	X_MT                                            = 0
-	X_M_AMD64                                       = 100
-	X_M_X64                                         = 100
-	X_NFILE                                         = 512
-	X_NLSCMPERROR                                   = 2147483647
-	X_NLSCMP_DEFINED                                = 0
-	X_NSTREAM_                                      = 512
-	X_OFF64_T_DEFINED                               = 0
-	X_OFF_T_                                        = 0
-	X_OFF_T_DEFINED                                 = 0
-	X_OLD_P_OVERLAY                                 = 2
-	X_ONEXIT_T_DEFINED                              = 0
-	X_OUT_TO_DEFAULT                                = 0
-	X_OUT_TO_MSGBOX                                 = 2
-	X_OUT_TO_STDERR                                 = 1
-	X_PGLOBAL                                       = 0
-	X_PTRDIFF_T_                                    = 0
-	X_PTRDIFF_T_DEFINED                             = 0
-	X_PUNCT                                         = 0x10
-	X_P_DETACH                                      = 4
-	X_P_NOWAIT                                      = 1
-	X_P_NOWAITO                                     = 3
-	X_P_OVERLAY                                     = 2
-	X_P_WAIT                                        = 0
-	X_P_tmpdir                                      = "\\"
-	X_QSORT_S_DEFINED                               = 0
-	X_REPORT_ERRMODE                                = 3
-	X_RSIZE_T_DEFINED                               = 0
-	X_SECURECRT_FILL_BUFFER_PATTERN                 = 0xFD
-	X_SIZE_T_DEFINED                                = 0
-	X_SPACE                                         = 0x8
-	X_SPAWNV_DEFINED                                = 0
-	X_SQLITE3RTREE_H_                               = 0
-	X_SSIZE_T_DEFINED                               = 0
-	X_STDARG_H                                      = 0
-	X_STDIO_DEFINED                                 = 0
-	X_STDIO_S_DEFINED                               = 0
-	X_STDSTREAM_DEFINED                             = 0
-	X_SYS_OPEN                                      = 20
-	X_TAGLC_ID_DEFINED                              = 0
-	X_THREADLOCALEINFO                              = 0
-	X_TIME32_T_DEFINED                              = 0
-	X_TIME64_T_DEFINED                              = 0
-	X_TIME_T_DEFINED                                = 0
-	X_TWO_DIGIT_EXPONENT                            = 0x1
-	X_UI16_MAX                                      = 0xffff
-	X_UI32_MAX                                      = 0xffffffff
-	X_UI64_MAX                                      = 0xffffffffffffffff
-	X_UI8_MAX                                       = 0xff
-	X_UINTPTR_T_DEFINED                             = 0
-	X_UPPER                                         = 0x1
-	X_USEDENTRY                                     = 1
-	X_VA_LIST                                       = 0
-	X_VA_LIST_                                      = 0
-	X_VA_LIST_DEFINED                               = 0
-	X_VA_LIST_T_H                                   = 0
-	X_W64                                           = 0
-	X_WAIT_CHILD                                    = 0
-	X_WAIT_GRANDCHILD                               = 1
-	X_WCHAR_T_DEFINED                               = 0
-	X_WCTYPE_DEFINED                                = 0
-	X_WCTYPE_INLINE_DEFINED                         = 0
-	X_WCTYPE_T_DEFINED                              = 0
-	X_WConst_return                                 = 0
-	X_WFINDDATA_T_DEFINED                           = 0
-	X_WIN32                                         = 1
-	X_WIN32_WINNT                                   = 0x502
-	X_WIN64                                         = 1
-	X_WINT_T                                        = 0
-	X_WIO_DEFINED                                   = 0
-	X_WRITE_ABORT_MSG                               = 0x1
-	X_WSPAWN_DEFINED                                = 0
-	X_WSTDIO_DEFINED                                = 0
-	X_WSTDIO_S_DEFINED                              = 0
-	X_WSTDLIBP_DEFINED                              = 0
-	X_WSTDLIBP_S_DEFINED                            = 0
-	X_WSTDLIB_DEFINED                               = 0
-	X_WSTDLIB_S_DEFINED                             = 0
-	X_WSTRING_DEFINED                               = 0
-	X_WSTRING_S_DEFINED                             = 0
+	BUFSIZ                                                 = 512
+	CHAR_BIT                                               = 8
+	CHAR_MAX                                               = 127
+	CHAR_MIN                                               = -128
+	EOF                                                    = -1
+	EXIT_FAILURE                                           = 1
+	EXIT_SUCCESS                                           = 0
+	FILENAME_MAX                                           = 260
+	FOPEN_MAX                                              = 20
+	FTS5_TOKENIZE_AUX                                      = 0x0008
+	FTS5_TOKENIZE_DOCUMENT                                 = 0x0004
+	FTS5_TOKENIZE_PREFIX                                   = 0x0002
+	FTS5_TOKENIZE_QUERY                                    = 0x0001
+	FTS5_TOKEN_COLOCATED                                   = 0x0001
+	FULLY_WITHIN                                           = 2
+	F_OK                                                   = 0
+	HAVE_USLEEP                                            = 1
+	INT_MAX                                                = 2147483647
+	INT_MIN                                                = -2147483648
+	LLONG_MAX                                              = 9223372036854775807
+	LLONG_MIN                                              = -9223372036854775808
+	LONG_LONG_MAX                                          = 9223372036854775807
+	LONG_LONG_MIN                                          = -9223372036854775808
+	LONG_MAX                                               = 2147483647
+	LONG_MIN                                               = -2147483648
+	MB_LEN_MAX                                             = 5
+	MINGW_DDK_H                                            = 0
+	MINGW_HAS_DDK_H                                        = 1
+	MINGW_HAS_SECURE_API                                   = 1
+	MINGW_SDK_INIT                                         = 0
+	NAMEWIDTH                                              = 60
+	NDEBUG                                                 = 1
+	NONAMELESSSTRUCT                                       = 1
+	NONAMELESSUNION                                        = 1
+	NOT_WITHIN                                             = 0
+	PARTLY_WITHIN                                          = 1
+	PATH_MAX                                               = 260
+	RAND_MAX                                               = 0x7fff
+	R_OK                                                   = 4
+	SCHAR_MAX                                              = 127
+	SCHAR_MIN                                              = -128
+	SEEK_CUR                                               = 1
+	SEEK_END                                               = 2
+	SEEK_SET                                               = 0
+	SHRT_MAX                                               = 32767
+	SHRT_MIN                                               = -32768
+	SIZE_MAX                                               = 18446744073709551615
+	SQLITE3_H                                              = 0
+	SQLITE3_TEXT                                           = 3
+	SQLITE_ABORT                                           = 4
+	SQLITE_ABORT_ROLLBACK                                  = 516
+	SQLITE_ACCESS_EXISTS                                   = 0
+	SQLITE_ACCESS_READ                                     = 2
+	SQLITE_ACCESS_READWRITE                                = 1
+	SQLITE_ALTER_TABLE                                     = 26
+	SQLITE_ANALYZE                                         = 28
+	SQLITE_ANY                                             = 5
+	SQLITE_API                                             = 0
+	SQLITE_APICALL                                         = 0
+	SQLITE_ATTACH                                          = 24
+	SQLITE_AUTH                                            = 23
+	SQLITE_AUTH_USER                                       = 279
+	SQLITE_BLOB                                            = 4
+	SQLITE_BUSY                                            = 5
+	SQLITE_BUSY_RECOVERY                                   = 261
+	SQLITE_BUSY_SNAPSHOT                                   = 517
+	SQLITE_BUSY_TIMEOUT                                    = 773
+	SQLITE_CALLBACK                                        = 0
+	SQLITE_CANTOPEN                                        = 14
+	SQLITE_CANTOPEN_CONVPATH                               = 1038
+	SQLITE_CANTOPEN_DIRTYWAL                               = 1294
+	SQLITE_CANTOPEN_FULLPATH                               = 782
+	SQLITE_CANTOPEN_ISDIR                                  = 526
+	SQLITE_CANTOPEN_NOTEMPDIR                              = 270
+	SQLITE_CANTOPEN_SYMLINK                                = 1550
+	SQLITE_CDECL                                           = 0
+	SQLITE_CHANGESETAPPLY_INVERT                           = 0x0002
+	SQLITE_CHANGESETAPPLY_NOSAVEPOINT                      = 0x0001
+	SQLITE_CHANGESETSTART_INVERT                           = 0x0002
+	SQLITE_CHANGESET_ABORT                                 = 2
+	SQLITE_CHANGESET_CONFLICT                              = 3
+	SQLITE_CHANGESET_CONSTRAINT                            = 4
+	SQLITE_CHANGESET_DATA                                  = 1
+	SQLITE_CHANGESET_FOREIGN_KEY                           = 5
+	SQLITE_CHANGESET_NOTFOUND                              = 2
+	SQLITE_CHANGESET_OMIT                                  = 0
+	SQLITE_CHANGESET_REPLACE                               = 1
+	SQLITE_CHECKPOINT_FULL                                 = 1
+	SQLITE_CHECKPOINT_PASSIVE                              = 0
+	SQLITE_CHECKPOINT_RESTART                              = 2
+	SQLITE_CHECKPOINT_TRUNCATE                             = 3
+	SQLITE_CONFIG_COVERING_INDEX_SCAN                      = 20
+	SQLITE_CONFIG_GETMALLOC                                = 5
+	SQLITE_CONFIG_GETMUTEX                                 = 11
+	SQLITE_CONFIG_GETPCACHE                                = 15
+	SQLITE_CONFIG_GETPCACHE2                               = 19
+	SQLITE_CONFIG_HEAP                                     = 8
+	SQLITE_CONFIG_LOG                                      = 16
+	SQLITE_CONFIG_LOOKASIDE                                = 13
+	SQLITE_CONFIG_MALLOC                                   = 4
+	SQLITE_CONFIG_MEMDB_MAXSIZE                            = 29
+	SQLITE_CONFIG_MEMSTATUS                                = 9
+	SQLITE_CONFIG_MMAP_SIZE                                = 22
+	SQLITE_CONFIG_MULTITHREAD                              = 2
+	SQLITE_CONFIG_MUTEX                                    = 10
+	SQLITE_CONFIG_PAGECACHE                                = 7
+	SQLITE_CONFIG_PCACHE                                   = 14
+	SQLITE_CONFIG_PCACHE2                                  = 18
+	SQLITE_CONFIG_PCACHE_HDRSZ                             = 24
+	SQLITE_CONFIG_PMASZ                                    = 25
+	SQLITE_CONFIG_SCRATCH                                  = 6
+	SQLITE_CONFIG_SERIALIZED                               = 3
+	SQLITE_CONFIG_SINGLETHREAD                             = 1
+	SQLITE_CONFIG_SMALL_MALLOC                             = 27
+	SQLITE_CONFIG_SORTERREF_SIZE                           = 28
+	SQLITE_CONFIG_SQLLOG                                   = 21
+	SQLITE_CONFIG_STMTJRNL_SPILL                           = 26
+	SQLITE_CONFIG_URI                                      = 17
+	SQLITE_CONFIG_WIN32_HEAPSIZE                           = 23
+	SQLITE_CONSTRAINT                                      = 19
+	SQLITE_CONSTRAINT_CHECK                                = 275
+	SQLITE_CONSTRAINT_COMMITHOOK                           = 531
+	SQLITE_CONSTRAINT_FOREIGNKEY                           = 787
+	SQLITE_CONSTRAINT_FUNCTION                             = 1043
+	SQLITE_CONSTRAINT_NOTNULL                              = 1299
+	SQLITE_CONSTRAINT_PINNED                               = 2835
+	SQLITE_CONSTRAINT_PRIMARYKEY                           = 1555
+	SQLITE_CONSTRAINT_ROWID                                = 2579
+	SQLITE_CONSTRAINT_TRIGGER                              = 1811
+	SQLITE_CONSTRAINT_UNIQUE                               = 2067
+	SQLITE_CONSTRAINT_VTAB                                 = 2323
+	SQLITE_COPY                                            = 0
+	SQLITE_CORE                                            = 1
+	SQLITE_CORRUPT                                         = 11
+	SQLITE_CORRUPT_INDEX                                   = 779
+	SQLITE_CORRUPT_SEQUENCE                                = 523
+	SQLITE_CORRUPT_VTAB                                    = 267
+	SQLITE_CREATE_INDEX                                    = 1
+	SQLITE_CREATE_TABLE                                    = 2
+	SQLITE_CREATE_TEMP_INDEX                               = 3
+	SQLITE_CREATE_TEMP_TABLE                               = 4
+	SQLITE_CREATE_TEMP_TRIGGER                             = 5
+	SQLITE_CREATE_TEMP_VIEW                                = 6
+	SQLITE_CREATE_TRIGGER                                  = 7
+	SQLITE_CREATE_VIEW                                     = 8
+	SQLITE_CREATE_VTABLE                                   = 29
+	SQLITE_DBCONFIG_DEFENSIVE                              = 1010
+	SQLITE_DBCONFIG_DQS_DDL                                = 1014
+	SQLITE_DBCONFIG_DQS_DML                                = 1013
+	SQLITE_DBCONFIG_ENABLE_FKEY                            = 1002
+	SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER                  = 1004
+	SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION                  = 1005
+	SQLITE_DBCONFIG_ENABLE_QPSG                            = 1007
+	SQLITE_DBCONFIG_ENABLE_TRIGGER                         = 1003
+	SQLITE_DBCONFIG_ENABLE_VIEW                            = 1015
+	SQLITE_DBCONFIG_LEGACY_ALTER_TABLE                     = 1012
+	SQLITE_DBCONFIG_LEGACY_FILE_FORMAT                     = 1016
+	SQLITE_DBCONFIG_LOOKASIDE                              = 1001
+	SQLITE_DBCONFIG_MAINDBNAME                             = 1000
+	SQLITE_DBCONFIG_MAX                                    = 1017
+	SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE                       = 1006
+	SQLITE_DBCONFIG_RESET_DATABASE                         = 1009
+	SQLITE_DBCONFIG_TRIGGER_EQP                            = 1008
+	SQLITE_DBCONFIG_TRUSTED_SCHEMA                         = 1017
+	SQLITE_DBCONFIG_WRITABLE_SCHEMA                        = 1011
+	SQLITE_DBSTATUS_CACHE_HIT                              = 7
+	SQLITE_DBSTATUS_CACHE_MISS                             = 8
+	SQLITE_DBSTATUS_CACHE_SPILL                            = 12
+	SQLITE_DBSTATUS_CACHE_USED                             = 1
+	SQLITE_DBSTATUS_CACHE_USED_SHARED                      = 11
+	SQLITE_DBSTATUS_CACHE_WRITE                            = 9
+	SQLITE_DBSTATUS_DEFERRED_FKS                           = 10
+	SQLITE_DBSTATUS_LOOKASIDE_HIT                          = 4
+	SQLITE_DBSTATUS_LOOKASIDE_MISS_FULL                    = 6
+	SQLITE_DBSTATUS_LOOKASIDE_MISS_SIZE                    = 5
+	SQLITE_DBSTATUS_LOOKASIDE_USED                         = 0
+	SQLITE_DBSTATUS_MAX                                    = 12
+	SQLITE_DBSTATUS_SCHEMA_USED                            = 2
+	SQLITE_DBSTATUS_STMT_USED                              = 3
+	SQLITE_DELETE                                          = 9
+	SQLITE_DENY                                            = 1
+	SQLITE_DEPRECATED                                      = 0
+	SQLITE_DESERIALIZE_FREEONCLOSE                         = 1
+	SQLITE_DESERIALIZE_READONLY                            = 4
+	SQLITE_DESERIALIZE_RESIZEABLE                          = 2
+	SQLITE_DETACH                                          = 25
+	SQLITE_DETERMINISTIC                                   = 0x000000800
+	SQLITE_DIRECTONLY                                      = 0x000080000
+	SQLITE_DONE                                            = 101
+	SQLITE_DROP_INDEX                                      = 10
+	SQLITE_DROP_TABLE                                      = 11
+	SQLITE_DROP_TEMP_INDEX                                 = 12
+	SQLITE_DROP_TEMP_TABLE                                 = 13
+	SQLITE_DROP_TEMP_TRIGGER                               = 14
+	SQLITE_DROP_TEMP_VIEW                                  = 15
+	SQLITE_DROP_TRIGGER                                    = 16
+	SQLITE_DROP_VIEW                                       = 17
+	SQLITE_DROP_VTABLE                                     = 30
+	SQLITE_EMPTY                                           = 16
+	SQLITE_ENABLE_COLUMN_METADATA                          = 1
+	SQLITE_ENABLE_FTS5                                     = 1
+	SQLITE_ENABLE_GEOPOLY                                  = 1
+	SQLITE_ENABLE_JSON1                                    = 1
+	SQLITE_ENABLE_MEMORY_MANAGEMENT                        = 1
+	SQLITE_ENABLE_OFFSET_SQL_FUNC                          = 1
+	SQLITE_ENABLE_PREUPDATE_HOOK                           = 1
+	SQLITE_ENABLE_RBU                                      = 1
+	SQLITE_ENABLE_RTREE                                    = 1
+	SQLITE_ENABLE_SESSION                                  = 1
+	SQLITE_ENABLE_SNAPSHOT                                 = 1
+	SQLITE_ENABLE_STAT4                                    = 1
+	SQLITE_ENABLE_UNLOCK_NOTIFY                            = 1
+	SQLITE_ERROR                                           = 1
+	SQLITE_ERROR_MISSING_COLLSEQ                           = 257
+	SQLITE_ERROR_RETRY                                     = 513
+	SQLITE_ERROR_SNAPSHOT                                  = 769
+	SQLITE_EXPERIMENTAL                                    = 0
+	SQLITE_FAIL                                            = 3
+	SQLITE_FCNTL_BEGIN_ATOMIC_WRITE                        = 31
+	SQLITE_FCNTL_BUSYHANDLER                               = 15
+	SQLITE_FCNTL_CHUNK_SIZE                                = 6
+	SQLITE_FCNTL_CKPT_DONE                                 = 37
+	SQLITE_FCNTL_CKPT_START                                = 39
+	SQLITE_FCNTL_CKSM_FILE                                 = 41
+	SQLITE_FCNTL_COMMIT_ATOMIC_WRITE                       = 32
+	SQLITE_FCNTL_COMMIT_PHASETWO                           = 22
+	SQLITE_FCNTL_DATA_VERSION                              = 35
+	SQLITE_FCNTL_EXTERNAL_READER                           = 40
+	SQLITE_FCNTL_FILE_POINTER                              = 7
+	SQLITE_FCNTL_GET_LOCKPROXYFILE                         = 2
+	SQLITE_FCNTL_HAS_MOVED                                 = 20
+	SQLITE_FCNTL_JOURNAL_POINTER                           = 28
+	SQLITE_FCNTL_LAST_ERRNO                                = 4
+	SQLITE_FCNTL_LOCKSTATE                                 = 1
+	SQLITE_FCNTL_LOCK_TIMEOUT                              = 34
+	SQLITE_FCNTL_MMAP_SIZE                                 = 18
+	SQLITE_FCNTL_OVERWRITE                                 = 11
+	SQLITE_FCNTL_PDB                                       = 30
+	SQLITE_FCNTL_PERSIST_WAL                               = 10
+	SQLITE_FCNTL_POWERSAFE_OVERWRITE                       = 13
+	SQLITE_FCNTL_PRAGMA                                    = 14
+	SQLITE_FCNTL_RBU                                       = 26
+	SQLITE_FCNTL_RESERVE_BYTES                             = 38
+	SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE                     = 33
+	SQLITE_FCNTL_SET_LOCKPROXYFILE                         = 3
+	SQLITE_FCNTL_SIZE_HINT                                 = 5
+	SQLITE_FCNTL_SIZE_LIMIT                                = 36
+	SQLITE_FCNTL_SYNC                                      = 21
+	SQLITE_FCNTL_SYNC_OMITTED                              = 8
+	SQLITE_FCNTL_TEMPFILENAME                              = 16
+	SQLITE_FCNTL_TRACE                                     = 19
+	SQLITE_FCNTL_VFSNAME                                   = 12
+	SQLITE_FCNTL_VFS_POINTER                               = 27
+	SQLITE_FCNTL_WAL_BLOCK                                 = 24
+	SQLITE_FCNTL_WIN32_AV_RETRY                            = 9
+	SQLITE_FCNTL_WIN32_GET_HANDLE                          = 29
+	SQLITE_FCNTL_WIN32_SET_HANDLE                          = 23
+	SQLITE_FCNTL_ZIPVFS                                    = 25
+	SQLITE_FLOAT                                           = 2
+	SQLITE_FORMAT                                          = 24
+	SQLITE_FULL                                            = 13
+	SQLITE_FUNCTION                                        = 31
+	SQLITE_GET_LOCKPROXYFILE                               = 2
+	SQLITE_IGNORE                                          = 2
+	SQLITE_INDEX_CONSTRAINT_EQ                             = 2
+	SQLITE_INDEX_CONSTRAINT_FUNCTION                       = 150
+	SQLITE_INDEX_CONSTRAINT_GE                             = 32
+	SQLITE_INDEX_CONSTRAINT_GLOB                           = 66
+	SQLITE_INDEX_CONSTRAINT_GT                             = 4
+	SQLITE_INDEX_CONSTRAINT_IS                             = 72
+	SQLITE_INDEX_CONSTRAINT_ISNOT                          = 69
+	SQLITE_INDEX_CONSTRAINT_ISNOTNULL                      = 70
+	SQLITE_INDEX_CONSTRAINT_ISNULL                         = 71
+	SQLITE_INDEX_CONSTRAINT_LE                             = 8
+	SQLITE_INDEX_CONSTRAINT_LIKE                           = 65
+	SQLITE_INDEX_CONSTRAINT_LT                             = 16
+	SQLITE_INDEX_CONSTRAINT_MATCH                          = 64
+	SQLITE_INDEX_CONSTRAINT_NE                             = 68
+	SQLITE_INDEX_CONSTRAINT_REGEXP                         = 67
+	SQLITE_INDEX_SCAN_UNIQUE                               = 1
+	SQLITE_INNOCUOUS                                       = 0x000200000
+	SQLITE_INSERT                                          = 18
+	SQLITE_INTEGER                                         = 1
+	SQLITE_INTERNAL                                        = 2
+	SQLITE_INTERRUPT                                       = 9
+	SQLITE_IOCAP_ATOMIC                                    = 0x00000001
+	SQLITE_IOCAP_ATOMIC16K                                 = 0x00000040
+	SQLITE_IOCAP_ATOMIC1K                                  = 0x00000004
+	SQLITE_IOCAP_ATOMIC2K                                  = 0x00000008
+	SQLITE_IOCAP_ATOMIC32K                                 = 0x00000080
+	SQLITE_IOCAP_ATOMIC4K                                  = 0x00000010
+	SQLITE_IOCAP_ATOMIC512                                 = 0x00000002
+	SQLITE_IOCAP_ATOMIC64K                                 = 0x00000100
+	SQLITE_IOCAP_ATOMIC8K                                  = 0x00000020
+	SQLITE_IOCAP_BATCH_ATOMIC                              = 0x00004000
+	SQLITE_IOCAP_IMMUTABLE                                 = 0x00002000
+	SQLITE_IOCAP_POWERSAFE_OVERWRITE                       = 0x00001000
+	SQLITE_IOCAP_SAFE_APPEND                               = 0x00000200
+	SQLITE_IOCAP_SEQUENTIAL                                = 0x00000400
+	SQLITE_IOCAP_UNDELETABLE_WHEN_OPEN                     = 0x00000800
+	SQLITE_IOERR                                           = 10
+	SQLITE_IOERR_ACCESS                                    = 3338
+	SQLITE_IOERR_AUTH                                      = 7178
+	SQLITE_IOERR_BEGIN_ATOMIC                              = 7434
+	SQLITE_IOERR_BLOCKED                                   = 2826
+	SQLITE_IOERR_CHECKRESERVEDLOCK                         = 3594
+	SQLITE_IOERR_CLOSE                                     = 4106
+	SQLITE_IOERR_COMMIT_ATOMIC                             = 7690
+	SQLITE_IOERR_CONVPATH                                  = 6666
+	SQLITE_IOERR_CORRUPTFS                                 = 8458
+	SQLITE_IOERR_DATA                                      = 8202
+	SQLITE_IOERR_DELETE                                    = 2570
+	SQLITE_IOERR_DELETE_NOENT                              = 5898
+	SQLITE_IOERR_DIR_CLOSE                                 = 4362
+	SQLITE_IOERR_DIR_FSYNC                                 = 1290
+	SQLITE_IOERR_FSTAT                                     = 1802
+	SQLITE_IOERR_FSYNC                                     = 1034
+	SQLITE_IOERR_GETTEMPPATH                               = 6410
+	SQLITE_IOERR_LOCK                                      = 3850
+	SQLITE_IOERR_MMAP                                      = 6154
+	SQLITE_IOERR_NOMEM                                     = 3082
+	SQLITE_IOERR_RDLOCK                                    = 2314
+	SQLITE_IOERR_READ                                      = 266
+	SQLITE_IOERR_ROLLBACK_ATOMIC                           = 7946
+	SQLITE_IOERR_SEEK                                      = 5642
+	SQLITE_IOERR_SHMLOCK                                   = 5130
+	SQLITE_IOERR_SHMMAP                                    = 5386
+	SQLITE_IOERR_SHMOPEN                                   = 4618
+	SQLITE_IOERR_SHMSIZE                                   = 4874
+	SQLITE_IOERR_SHORT_READ                                = 522
+	SQLITE_IOERR_TRUNCATE                                  = 1546
+	SQLITE_IOERR_UNLOCK                                    = 2058
+	SQLITE_IOERR_VNODE                                     = 6922
+	SQLITE_IOERR_WRITE                                     = 778
+	SQLITE_LAST_ERRNO                                      = 4
+	SQLITE_LIKE_DOESNT_MATCH_BLOBS                         = 1
+	SQLITE_LIMIT_ATTACHED                                  = 7
+	SQLITE_LIMIT_COLUMN                                    = 2
+	SQLITE_LIMIT_COMPOUND_SELECT                           = 4
+	SQLITE_LIMIT_EXPR_DEPTH                                = 3
+	SQLITE_LIMIT_FUNCTION_ARG                              = 6
+	SQLITE_LIMIT_LENGTH                                    = 0
+	SQLITE_LIMIT_LIKE_PATTERN_LENGTH                       = 8
+	SQLITE_LIMIT_SQL_LENGTH                                = 1
+	SQLITE_LIMIT_TRIGGER_DEPTH                             = 10
+	SQLITE_LIMIT_VARIABLE_NUMBER                           = 9
+	SQLITE_LIMIT_VDBE_OP                                   = 5
+	SQLITE_LIMIT_WORKER_THREADS                            = 11
+	SQLITE_LOCKED                                          = 6
+	SQLITE_LOCKED_SHAREDCACHE                              = 262
+	SQLITE_LOCKED_VTAB                                     = 518
+	SQLITE_LOCK_EXCLUSIVE                                  = 4
+	SQLITE_LOCK_NONE                                       = 0
+	SQLITE_LOCK_PENDING                                    = 3
+	SQLITE_LOCK_RESERVED                                   = 2
+	SQLITE_LOCK_SHARED                                     = 1
+	SQLITE_MISMATCH                                        = 20
+	SQLITE_MISUSE                                          = 21
+	SQLITE_MUTEX_APPDEF                                    = 1
+	SQLITE_MUTEX_FAST                                      = 0
+	SQLITE_MUTEX_NOOP                                      = 1
+	SQLITE_MUTEX_RECURSIVE                                 = 1
+	SQLITE_MUTEX_STATIC_APP1                               = 8
+	SQLITE_MUTEX_STATIC_APP2                               = 9
+	SQLITE_MUTEX_STATIC_APP3                               = 10
+	SQLITE_MUTEX_STATIC_LRU                                = 6
+	SQLITE_MUTEX_STATIC_LRU2                               = 7
+	SQLITE_MUTEX_STATIC_MAIN                               = 2
+	SQLITE_MUTEX_STATIC_MASTER                             = 2
+	SQLITE_MUTEX_STATIC_MEM                                = 3
+	SQLITE_MUTEX_STATIC_MEM2                               = 4
+	SQLITE_MUTEX_STATIC_OPEN                               = 4
+	SQLITE_MUTEX_STATIC_PMEM                               = 7
+	SQLITE_MUTEX_STATIC_PRNG                               = 5
+	SQLITE_MUTEX_STATIC_VFS1                               = 11
+	SQLITE_MUTEX_STATIC_VFS2                               = 12
+	SQLITE_MUTEX_STATIC_VFS3                               = 13
+	SQLITE_NOLFS                                           = 22
+	SQLITE_NOMEM                                           = 7
+	SQLITE_NOTADB                                          = 26
+	SQLITE_NOTFOUND                                        = 12
+	SQLITE_NOTICE                                          = 27
+	SQLITE_NOTICE_RECOVER_ROLLBACK                         = 539
+	SQLITE_NOTICE_RECOVER_WAL                              = 283
+	SQLITE_NULL                                            = 5
+	SQLITE_OK                                              = 0
+	SQLITE_OK_LOAD_PERMANENTLY                             = 256
+	SQLITE_OK_SYMLINK                                      = 512
+	SQLITE_OPEN_AUTOPROXY                                  = 0x00000020
+	SQLITE_OPEN_CREATE                                     = 0x00000004
+	SQLITE_OPEN_DELETEONCLOSE                              = 0x00000008
+	SQLITE_OPEN_EXCLUSIVE                                  = 0x00000010
+	SQLITE_OPEN_FULLMUTEX                                  = 0x00010000
+	SQLITE_OPEN_MAIN_DB                                    = 0x00000100
+	SQLITE_OPEN_MAIN_JOURNAL                               = 0x00000800
+	SQLITE_OPEN_MASTER_JOURNAL                             = 0x00004000
+	SQLITE_OPEN_MEMORY                                     = 0x00000080
+	SQLITE_OPEN_NOFOLLOW                                   = 0x01000000
+	SQLITE_OPEN_NOMUTEX                                    = 0x00008000
+	SQLITE_OPEN_PRIVATECACHE                               = 0x00040000
+	SQLITE_OPEN_READONLY                                   = 0x00000001
+	SQLITE_OPEN_READWRITE                                  = 0x00000002
+	SQLITE_OPEN_SHAREDCACHE                                = 0x00020000
+	SQLITE_OPEN_SUBJOURNAL                                 = 0x00002000
+	SQLITE_OPEN_SUPER_JOURNAL                              = 0x00004000
+	SQLITE_OPEN_TEMP_DB                                    = 0x00000200
+	SQLITE_OPEN_TEMP_JOURNAL                               = 0x00001000
+	SQLITE_OPEN_TRANSIENT_DB                               = 0x00000400
+	SQLITE_OPEN_URI                                        = 0x00000040
+	SQLITE_OPEN_WAL                                        = 0x00080000
+	SQLITE_OS_WIN                                          = 1
+	SQLITE_PERM                                            = 3
+	SQLITE_PRAGMA                                          = 19
+	SQLITE_PREPARE_NORMALIZE                               = 0x02
+	SQLITE_PREPARE_NO_VTAB                                 = 0x04
+	SQLITE_PREPARE_PERSISTENT                              = 0x01
+	SQLITE_PROTOCOL                                        = 15
+	SQLITE_RANGE                                           = 25
+	SQLITE_READ                                            = 20
+	SQLITE_READONLY                                        = 8
+	SQLITE_READONLY_CANTINIT                               = 1288
+	SQLITE_READONLY_CANTLOCK                               = 520
+	SQLITE_READONLY_DBMOVED                                = 1032
+	SQLITE_READONLY_DIRECTORY                              = 1544
+	SQLITE_READONLY_RECOVERY                               = 264
+	SQLITE_READONLY_ROLLBACK                               = 776
+	SQLITE_RECURSIVE                                       = 33
+	SQLITE_REINDEX                                         = 27
+	SQLITE_REPLACE                                         = 5
+	SQLITE_ROLLBACK                                        = 1
+	SQLITE_ROW                                             = 100
+	SQLITE_SAVEPOINT                                       = 32
+	SQLITE_SCANSTAT_EST                                    = 2
+	SQLITE_SCANSTAT_EXPLAIN                                = 4
+	SQLITE_SCANSTAT_NAME                                   = 3
+	SQLITE_SCANSTAT_NLOOP                                  = 0
+	SQLITE_SCANSTAT_NVISIT                                 = 1
+	SQLITE_SCANSTAT_SELECTID                               = 5
+	SQLITE_SCHEMA                                          = 17
+	SQLITE_SELECT                                          = 21
+	SQLITE_SERIALIZE_NOCOPY                                = 0x001
+	SQLITE_SESSION_CONFIG_STRMSIZE                         = 1
+	SQLITE_SESSION_OBJCONFIG_SIZE                          = 1
+	SQLITE_SET_LOCKPROXYFILE                               = 3
+	SQLITE_SHM_EXCLUSIVE                                   = 8
+	SQLITE_SHM_LOCK                                        = 2
+	SQLITE_SHM_NLOCK                                       = 8
+	SQLITE_SHM_SHARED                                      = 4
+	SQLITE_SHM_UNLOCK                                      = 1
+	SQLITE_SOUNDEX                                         = 1
+	SQLITE_SOURCE_ID                                       = "2021-06-18 18:36:39 5c9a6c06871cb9fe42814af9c039eb6da5427a6ec28f187af7ebfb62eafa66e5"
+	SQLITE_STATUS_MALLOC_COUNT                             = 9
+	SQLITE_STATUS_MALLOC_SIZE                              = 5
+	SQLITE_STATUS_MEMORY_USED                              = 0
+	SQLITE_STATUS_PAGECACHE_OVERFLOW                       = 2
+	SQLITE_STATUS_PAGECACHE_SIZE                           = 7
+	SQLITE_STATUS_PAGECACHE_USED                           = 1
+	SQLITE_STATUS_PARSER_STACK                             = 6
+	SQLITE_STATUS_SCRATCH_OVERFLOW                         = 4
+	SQLITE_STATUS_SCRATCH_SIZE                             = 8
+	SQLITE_STATUS_SCRATCH_USED                             = 3
+	SQLITE_STDCALL                                         = 0
+	SQLITE_STMTSTATUS_AUTOINDEX                            = 3
+	SQLITE_STMTSTATUS_FULLSCAN_STEP                        = 1
+	SQLITE_STMTSTATUS_MEMUSED                              = 99
+	SQLITE_STMTSTATUS_REPREPARE                            = 5
+	SQLITE_STMTSTATUS_RUN                                  = 6
+	SQLITE_STMTSTATUS_SORT                                 = 2
+	SQLITE_STMTSTATUS_VM_STEP                              = 4
+	SQLITE_SUBTYPE                                         = 0x000100000
+	SQLITE_SYNC_DATAONLY                                   = 0x00010
+	SQLITE_SYNC_FULL                                       = 0x00003
+	SQLITE_SYNC_NORMAL                                     = 0x00002
+	SQLITE_SYSAPI                                          = 0
+	SQLITE_TESTCTRL_ALWAYS                                 = 13
+	SQLITE_TESTCTRL_ASSERT                                 = 12
+	SQLITE_TESTCTRL_BENIGN_MALLOC_HOOKS                    = 10
+	SQLITE_TESTCTRL_BITVEC_TEST                            = 8
+	SQLITE_TESTCTRL_BYTEORDER                              = 22
+	SQLITE_TESTCTRL_EXPLAIN_STMT                           = 19
+	SQLITE_TESTCTRL_EXTRA_SCHEMA_CHECKS                    = 29
+	SQLITE_TESTCTRL_FAULT_INSTALL                          = 9
+	SQLITE_TESTCTRL_FIRST                                  = 5
+	SQLITE_TESTCTRL_IMPOSTER                               = 25
+	SQLITE_TESTCTRL_INTERNAL_FUNCTIONS                     = 17
+	SQLITE_TESTCTRL_ISINIT                                 = 23
+	SQLITE_TESTCTRL_ISKEYWORD                              = 16
+	SQLITE_TESTCTRL_LAST                                   = 32
+	SQLITE_TESTCTRL_LOCALTIME_FAULT                        = 18
+	SQLITE_TESTCTRL_NEVER_CORRUPT                          = 20
+	SQLITE_TESTCTRL_ONCE_RESET_THRESHOLD                   = 19
+	SQLITE_TESTCTRL_OPTIMIZATIONS                          = 15
+	SQLITE_TESTCTRL_PARSER_COVERAGE                        = 26
+	SQLITE_TESTCTRL_PENDING_BYTE                           = 11
+	SQLITE_TESTCTRL_PRNG_RESET                             = 7
+	SQLITE_TESTCTRL_PRNG_RESTORE                           = 6
+	SQLITE_TESTCTRL_PRNG_SAVE                              = 5
+	SQLITE_TESTCTRL_PRNG_SEED                              = 28
+	SQLITE_TESTCTRL_RESERVE                                = 14
+	SQLITE_TESTCTRL_RESULT_INTREAL                         = 27
+	SQLITE_TESTCTRL_SCRATCHMALLOC                          = 17
+	SQLITE_TESTCTRL_SEEK_COUNT                             = 30
+	SQLITE_TESTCTRL_SORTER_MMAP                            = 24
+	SQLITE_TESTCTRL_TRACEFLAGS                             = 31
+	SQLITE_TESTCTRL_TUNE                                   = 32
+	SQLITE_TESTCTRL_VDBE_COVERAGE                          = 21
+	SQLITE_TEXT                                            = 3
+	SQLITE_THREADSAFE                                      = 1
+	SQLITE_TOOBIG                                          = 18
+	SQLITE_TRACE_CLOSE                                     = 0x08
+	SQLITE_TRACE_PROFILE                                   = 0x02
+	SQLITE_TRACE_ROW                                       = 0x04
+	SQLITE_TRACE_STMT                                      = 0x01
+	SQLITE_TRANSACTION                                     = 22
+	SQLITE_TXN_NONE                                        = 0
+	SQLITE_TXN_READ                                        = 1
+	SQLITE_TXN_WRITE                                       = 2
+	SQLITE_UPDATE                                          = 23
+	SQLITE_UTF16                                           = 4
+	SQLITE_UTF16BE                                         = 3
+	SQLITE_UTF16LE                                         = 2
+	SQLITE_UTF16_ALIGNED                                   = 8
+	SQLITE_UTF8                                            = 1
+	SQLITE_VERSION                                         = "3.36.0"
+	SQLITE_VERSION_NUMBER                                  = 3036000
+	SQLITE_VTAB_CONSTRAINT_SUPPORT                         = 1
+	SQLITE_VTAB_DIRECTONLY                                 = 3
+	SQLITE_VTAB_INNOCUOUS                                  = 2
+	SQLITE_WARNING                                         = 28
+	SQLITE_WARNING_AUTOINDEX                               = 284
+	SQLITE_WIN32_DATA_DIRECTORY_TYPE                       = 1
+	SQLITE_WIN32_TEMP_DIRECTORY_TYPE                       = 2
+	SSIZE_MAX                                              = 9223372036854775807
+	STDERR_FILENO                                          = 2
+	STDIN_FILENO                                           = 0
+	STDOUT_FILENO                                          = 1
+	SYS_OPEN                                               = 20
+	TMP_MAX                                                = 32767
+	TMP_MAX_S                                              = 32767
+	UCHAR_MAX                                              = 255
+	UINT_MAX                                               = 4294967295
+	ULLONG_MAX                                             = 18446744073709551615
+	ULONG_LONG_MAX                                         = 18446744073709551615
+	ULONG_MAX                                              = 4294967295
+	UNALIGNED                                              = 0
+	USE___UUIDOF                                           = 1
+	USHRT_MAX                                              = 65535
+	WIN32                                                  = 1
+	WIN64                                                  = 1
+	WINNT                                                  = 1
+	W_OK                                                   = 2
+	X_OK                                                   = 1
+	X_AGLOBAL                                              = 0
+	X_ALLOCA_S_HEAP_MARKER                                 = 0xDDDD
+	X_ALLOCA_S_MARKER_SIZE                                 = 16
+	X_ALLOCA_S_STACK_MARKER                                = 0xCCCC
+	X_ALLOCA_S_THRESHOLD                                   = 1024
+	X_ALPHA                                                = 259
+	X_ANONYMOUS_STRUCT                                     = 0
+	X_ANONYMOUS_UNION                                      = 0
+	X_ANSI_STDARG_H_                                       = 0
+	X_ARGMAX                                               = 100
+	X_A_ARCH                                               = 0x20
+	X_A_HIDDEN                                             = 0x02
+	X_A_NORMAL                                             = 0x00
+	X_A_RDONLY                                             = 0x01
+	X_A_SUBDIR                                             = 0x10
+	X_A_SYSTEM                                             = 0x04
+	X_BLANK                                                = 0x40
+	X_CALL_REPORTFAULT                                     = 0x2
+	X_CONST_RETURN                                         = 0
+	X_CONTROL                                              = 0x20
+	X_CRTNOALIAS                                           = 0
+	X_CRTRESTRICT                                          = 0
+	X_CRT_ABS_DEFINED                                      = 0
+	X_CRT_ALGO_DEFINED                                     = 0
+	X_CRT_ALLOCATION_DEFINED                               = 0
+	X_CRT_ALTERNATIVE_IMPORTED                             = 0
+	X_CRT_ATOF_DEFINED                                     = 0
+	X_CRT_CTYPEDATA_DEFINED                                = 0
+	X_CRT_DIRECTORY_DEFINED                                = 0
+	X_CRT_DOUBLE_DEC                                       = 0
+	X_CRT_ERRNO_DEFINED                                    = 0
+	X_CRT_INTERNAL_LOCAL_PRINTF_OPTIONS                    = 4
+	X_CRT_INTERNAL_LOCAL_SCANF_OPTIONS                     = 2
+	X_CRT_INTERNAL_PRINTF_LEGACY_MSVCRT_COMPATIBILITY      = 0x0008
+	X_CRT_INTERNAL_PRINTF_LEGACY_THREE_DIGIT_EXPONENTS     = 0x0010
+	X_CRT_INTERNAL_PRINTF_LEGACY_VSPRINTF_NULL_TERMINATION = 0x0001
+	X_CRT_INTERNAL_PRINTF_LEGACY_WIDE_SPECIFIERS           = 0x0004
+	X_CRT_INTERNAL_PRINTF_STANDARD_SNPRINTF_BEHAVIOR       = 0x0002
+	X_CRT_INTERNAL_SCANF_LEGACY_MSVCRT_COMPATIBILITY       = 0x0004
+	X_CRT_INTERNAL_SCANF_LEGACY_WIDE_SPECIFIERS            = 0x0002
+	X_CRT_INTERNAL_SCANF_SECURECRT                         = 0x0001
+	X_CRT_MANAGED_HEAP_DEPRECATE                           = 0
+	X_CRT_MEMORY_DEFINED                                   = 0
+	X_CRT_PACKING                                          = 8
+	X_CRT_PERROR_DEFINED                                   = 0
+	X_CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES                 = 0
+	X_CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_MEMORY          = 0
+	X_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES               = 0
+	X_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT         = 0
+	X_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_MEMORY        = 0
+	X_CRT_SWAB_DEFINED                                     = 0
+	X_CRT_SYSTEM_DEFINED                                   = 0
+	X_CRT_TERMINATE_DEFINED                                = 0
+	X_CRT_USE_WINAPI_FAMILY_DESKTOP_APP                    = 0
+	X_CRT_WCTYPEDATA_DEFINED                               = 0
+	X_CRT_WPERROR_DEFINED                                  = 0
+	X_CRT_WSYSTEM_DEFINED                                  = 0
+	X_CTYPE_DEFINED                                        = 0
+	X_CVTBUFSIZE                                           = 349
+	X_DIGIT                                                = 0x4
+	X_DIV_T_DEFINED                                        = 0
+	X_DLL                                                  = 0
+	X_ERRCODE_DEFINED                                      = 0
+	X_FILE_DEFINED                                         = 0
+	X_FILE_OFFSET_BITS                                     = 64
+	X_FILE_OFFSET_BITS_SET_FSEEKO                          = 0
+	X_FILE_OFFSET_BITS_SET_FTELLO                          = 0
+	X_FILE_OFFSET_BITS_SET_LSEEK                           = 0
+	X_FILE_OFFSET_BITS_SET_OFFT                            = 0
+	X_FINDDATA_T_DEFINED                                   = 0
+	X_FPOS_T_DEFINED                                       = 0
+	X_FREEA_INLINE                                         = 0
+	X_FREEENTRY                                            = 0
+	X_FSIZE_T_DEFINED                                      = 0
+	X_FTS5_H                                               = 0
+	X_GCC_LIMITS_H_                                        = 0
+	X_HEAPBADBEGIN                                         = -3
+	X_HEAPBADNODE                                          = -4
+	X_HEAPBADPTR                                           = -6
+	X_HEAPEMPTY                                            = -1
+	X_HEAPEND                                              = -5
+	X_HEAPINFO_DEFINED                                     = 0
+	X_HEAPOK                                               = -2
+	X_HEAP_MAXREQ                                          = 0xFFFFFFFFFFFFFFE0
+	X_HEX                                                  = 0x80
+	X_I16_MAX                                              = 32767
+	X_I16_MIN                                              = -32768
+	X_I32_MAX                                              = 2147483647
+	X_I32_MIN                                              = -2147483648
+	X_I64_MAX                                              = 9223372036854775807
+	X_I64_MIN                                              = -9223372036854775808
+	X_I8_MAX                                               = 127
+	X_I8_MIN                                               = -128
+	X_INC_CORECRT                                          = 0
+	X_INC_CORECRT_WSTDLIB                                  = 0
+	X_INC_CRTDEFS                                          = 0
+	X_INC_CRTDEFS_MACRO                                    = 0
+	X_INC_CTYPE                                            = 0
+	X_INC_LIMITS                                           = 0
+	X_INC_MINGW_SECAPI                                     = 0
+	X_INC_STDARG                                           = 0
+	X_INC_STDIO                                            = 0
+	X_INC_STDIO_S                                          = 0
+	X_INC_STDLIB                                           = 0
+	X_INC_STDLIB_S                                         = 0
+	X_INC_STRING                                           = 0
+	X_INC_STRING_S                                         = 0
+	X_INC_SWPRINTF_INL                                     = 0
+	X_INC_VADEFS                                           = 0
+	X_INC__MINGW_H                                         = 0
+	X_INT128_DEFINED                                       = 0
+	X_INTEGRAL_MAX_BITS                                    = 64
+	X_INTPTR_T_DEFINED                                     = 0
+	X_IOB_ENTRIES                                          = 20
+	X_IOEOF                                                = 0x0010
+	X_IOERR                                                = 0x0020
+	X_IOFBF                                                = 0x0000
+	X_IOLBF                                                = 0x0040
+	X_IOMYBUF                                              = 0x0008
+	X_IONBF                                                = 0x0004
+	X_IOREAD                                               = 0x0001
+	X_IORW                                                 = 0x0080
+	X_IOSTRG                                               = 0x0040
+	X_IOWRT                                                = 0x0002
+	X_IO_H_                                                = 0
+	X_LEADBYTE                                             = 0x8000
+	X_LIMITS_H___                                          = 0
+	X_LOWER                                                = 0x2
+	X_MALLOC_H_                                            = 0
+	X_MAX_DIR                                              = 256
+	X_MAX_DRIVE                                            = 3
+	X_MAX_ENV                                              = 32767
+	X_MAX_EXT                                              = 256
+	X_MAX_FNAME                                            = 256
+	X_MAX_PATH                                             = 260
+	X_MAX_WAIT_MALLOC_CRT                                  = 60000
+	X_MM_MALLOC_H_INCLUDED                                 = 0
+	X_MSC_VER                                              = 1900
+	X_MT                                                   = 0
+	X_M_AMD64                                              = 100
+	X_M_X64                                                = 100
+	X_NFILE                                                = 512
+	X_NLSCMPERROR                                          = 2147483647
+	X_NLSCMP_DEFINED                                       = 0
+	X_NSTREAM_                                             = 512
+	X_OFF64_T_DEFINED                                      = 0
+	X_OFF_T_                                               = 0
+	X_OFF_T_DEFINED                                        = 0
+	X_OLD_P_OVERLAY                                        = 2
+	X_ONEXIT_T_DEFINED                                     = 0
+	X_OUT_TO_DEFAULT                                       = 0
+	X_OUT_TO_MSGBOX                                        = 2
+	X_OUT_TO_STDERR                                        = 1
+	X_PGLOBAL                                              = 0
+	X_PTRDIFF_T_                                           = 0
+	X_PTRDIFF_T_DEFINED                                    = 0
+	X_PUNCT                                                = 0x10
+	X_P_DETACH                                             = 4
+	X_P_NOWAIT                                             = 1
+	X_P_NOWAITO                                            = 3
+	X_P_OVERLAY                                            = 2
+	X_P_WAIT                                               = 0
+	X_P_tmpdir                                             = "\\"
+	X_QSORT_S_DEFINED                                      = 0
+	X_REPORT_ERRMODE                                       = 3
+	X_RSIZE_T_DEFINED                                      = 0
+	X_SECURECRT_FILL_BUFFER_PATTERN                        = 0xFD
+	X_SIZE_T_DEFINED                                       = 0
+	X_SPACE                                                = 0x8
+	X_SPAWNV_DEFINED                                       = 0
+	X_SQLITE3RTREE_H_                                      = 0
+	X_SSIZE_T_DEFINED                                      = 0
+	X_STDARG_H                                             = 0
+	X_STDIO_CONFIG_DEFINED                                 = 0
+	X_STDIO_DEFINED                                        = 0
+	X_STDIO_S_DEFINED                                      = 0
+	X_STDSTREAM_DEFINED                                    = 0
+	X_SYS_OPEN                                             = 20
+	X_TAGLC_ID_DEFINED                                     = 0
+	X_THREADLOCALEINFO                                     = 0
+	X_TIME32_T_DEFINED                                     = 0
+	X_TIME64_T_DEFINED                                     = 0
+	X_TIME_T_DEFINED                                       = 0
+	X_TWO_DIGIT_EXPONENT                                   = 0x1
+	X_UI16_MAX                                             = 0xffff
+	X_UI32_MAX                                             = 0xffffffff
+	X_UI64_MAX                                             = 0xffffffffffffffff
+	X_UI8_MAX                                              = 0xff
+	X_UINTPTR_T_DEFINED                                    = 0
+	X_UPPER                                                = 0x1
+	X_USEDENTRY                                            = 1
+	X_VA_LIST                                              = 0
+	X_VA_LIST_                                             = 0
+	X_VA_LIST_DEFINED                                      = 0
+	X_VA_LIST_T_H                                          = 0
+	X_W64                                                  = 0
+	X_WAIT_CHILD                                           = 0
+	X_WAIT_GRANDCHILD                                      = 1
+	X_WCHAR_T_DEFINED                                      = 0
+	X_WCTYPE_DEFINED                                       = 0
+	X_WCTYPE_INLINE_DEFINED                                = 0
+	X_WCTYPE_T_DEFINED                                     = 0
+	X_WConst_return                                        = 0
+	X_WFINDDATA_T_DEFINED                                  = 0
+	X_WIN32                                                = 1
+	X_WIN32_WINNT                                          = 0x502
+	X_WIN64                                                = 1
+	X_WINT_T                                               = 0
+	X_WIO_DEFINED                                          = 0
+	X_WRITE_ABORT_MSG                                      = 0x1
+	X_WSPAWN_DEFINED                                       = 0
+	X_WSTDIO_DEFINED                                       = 0
+	X_WSTDIO_S_DEFINED                                     = 0
+	X_WSTDLIBP_DEFINED                                     = 0
+	X_WSTDLIB_DEFINED                                      = 0
+	X_WSTRING_DEFINED                                      = 0
+	X_WSTRING_S_DEFINED                                    = 0
 )
 
 type ptrdiff_t = int64 /* <builtin>:3:26 */
@@ -2867,20 +2878,20 @@ type fts5_api1 = struct {
 // FTS5 EXTENSION REGISTRATION API
 type fts5_api = fts5_api1 /* sqlite3.h:12312:25 */
 
-type ssize_t = int64 /* crtdefs.h:45:35 */
+type ssize_t = int64 /* corecrt.h:50:35 */
 
-type rsize_t = size_t /* crtdefs.h:52:16 */
+type rsize_t = size_t /* corecrt.h:57:16 */
 
-type intptr_t = int64 /* crtdefs.h:62:35 */
+type intptr_t = int64 /* corecrt.h:67:35 */
 
-type uintptr_t = uint64 /* crtdefs.h:75:44 */
+type uintptr_t = uint64 /* corecrt.h:80:44 */
 
-type wint_t = uint16   /* crtdefs.h:106:24 */
-type wctype_t = uint16 /* crtdefs.h:107:24 */
+type wint_t = uint16   /* corecrt.h:111:24 */
+type wctype_t = uint16 /* corecrt.h:112:24 */
 
-type errno_t = int32 /* crtdefs.h:113:13 */
+type errno_t = int32 /* corecrt.h:118:13 */
 
-type time_t = int64 /* crtdefs.h:138:20 */
+type time_t = int64 /* corecrt.h:143:20 */
 
 type threadlocaleinfostruct = struct {
 	refcount      int32
@@ -2906,29 +2917,29 @@ type threadlocaleinfostruct = struct {
 	pclmap              uintptr
 	pcumap              uintptr
 	lc_time_curr        uintptr
-} /* crtdefs.h:422:1 */
+} /* corecrt.h:435:1 */
 
-type pthreadlocinfo = uintptr /* crtdefs.h:424:39 */
-type pthreadmbcinfo = uintptr /* crtdefs.h:425:36 */
+type pthreadlocinfo = uintptr /* corecrt.h:437:39 */
+type pthreadmbcinfo = uintptr /* corecrt.h:438:36 */
 
 type localeinfo_struct = struct {
 	locinfo pthreadlocinfo
 	mbcinfo pthreadmbcinfo
-} /* crtdefs.h:428:9 */
+} /* corecrt.h:441:9 */
 
-type _locale_tstruct = localeinfo_struct /* crtdefs.h:431:3 */
-type _locale_t = uintptr                 /* crtdefs.h:431:19 */
+type _locale_tstruct = localeinfo_struct /* corecrt.h:444:3 */
+type _locale_t = uintptr                 /* corecrt.h:444:19 */
 
 type tagLC_ID = struct {
 	wLanguage uint16
 	wCountry  uint16
 	wCodePage uint16
-} /* crtdefs.h:422:1 */
+} /* corecrt.h:435:1 */
 
-type LC_ID = tagLC_ID  /* crtdefs.h:439:3 */
-type LPLC_ID = uintptr /* crtdefs.h:439:9 */
+type LC_ID = tagLC_ID  /* corecrt.h:452:3 */
+type LPLC_ID = uintptr /* corecrt.h:452:9 */
 
-type threadlocinfo = threadlocaleinfostruct /* crtdefs.h:468:3 */
+type threadlocinfo = threadlocaleinfostruct /* corecrt.h:487:3 */
 
 // Static assertion.  Requires support in the compiler.
 
@@ -2939,15 +2950,13 @@ type threadlocinfo = threadlocaleinfostruct /* crtdefs.h:468:3 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
+// This file is part of the Wine project.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
 // This file is part of the mingw-w64 runtime package.
 // No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// Undefine __mingw_<printf> macros.
 
 type _iobuf = struct {
 	_ptr      uintptr
@@ -2959,9 +2968,9 @@ type _iobuf = struct {
 	_charbuf  int32
 	_bufsiz   int32
 	_tmpfname uintptr
-} /* stdio.h:26:3 */
+} /* stdio.h:24:3 */
 
-type FILE = _iobuf /* stdio.h:36:25 */
+type FILE = _iobuf /* stdio.h:34:25 */
 
 type _off_t = int32  /* _mingw_off_t.h:5:16 */
 type off32_t = int32 /* _mingw_off_t.h:7:16 */
@@ -2971,11 +2980,32 @@ type off64_t = int64  /* _mingw_off_t.h:15:39 */
 
 type off_t = off64_t /* _mingw_off_t.h:24:17 */
 
-type fpos_t = int64 /* stdio.h:104:37 */
+type fpos_t = int64 /* stdio.h:102:37 */
 
-func vsnwprintf(tls *libc.TLS, s uintptr, n size_t, format uintptr, arg va_list) int32 { /* stdio.h:1213:15: */
-	return libc.X_vsnwprintf(tls, s, n, format, arg)
+func fprintf(tls *libc.TLS, __stream uintptr, __format uintptr, va uintptr) int32 { /* stdio.h:343:5: */
+	var __retval int32
+	var __local_argv uintptr
+	__local_argv = va
+	__retval = libc.X__mingw_vfprintf(tls, __stream, __format, __local_argv)
+	_ = __local_argv
+	return __retval
+}
 
+func printf(tls *libc.TLS, __format uintptr, va uintptr) int32 { /* stdio.h:354:5: */
+	var __retval int32
+	var __local_argv uintptr
+	__local_argv = va
+	__retval = libc.X__mingw_vfprintf(tls, libc.X__acrt_iob_func(tls, uint32(1)), __format, __local_argv)
+	_ = __local_argv
+	return __retval
+}
+
+func vfprintf(tls *libc.TLS, __stream uintptr, __format uintptr, __local_argv uintptr) int32 { /* stdio.h:395:5: */
+	return libc.X__mingw_vfprintf(tls, __stream, __format, __local_argv)
+}
+
+func vsnwprintf(tls *libc.TLS, __stream uintptr, __n size_t, __format uintptr, __local_argv uintptr) int32 { /* stdio.h:1145:5: */
+	return libc.X__mingw_vsnwprintf(tls, __stream, __n, __format, __local_argv)
 }
 
 // *
@@ -2992,24 +3022,7 @@ func vswprintf(tls *libc.TLS, __stream uintptr, __count size_t, __format uintptr
 	return vsnwprintf(tls, __stream, __count, __format, __local_argv)
 }
 
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// Define __mingw_<printf> macros.
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// *
-// This file has no copyright assigned and is placed in the Public Domain.
-// This file is part of the mingw-w64 runtime package.
-// No warranty is given; refer to the file DISCLAIMER.PD within this package.
-
-// Copyright (C) 1992-2018 Free Software Foundation, Inc.
+// Copyright (C) 1992-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -3061,7 +3074,7 @@ func vswprintf(tls *libc.TLS, __stream uintptr, __count size_t, __format uintptr
 //       are semantically identical, with a limit of 259 characters for the
 //       path name, plus one for a terminating NUL, for a total of 260.
 
-// Copyright (C) 1991-2018 Free Software Foundation, Inc.
+// Copyright (C) 1991-2020 Free Software Foundation, Inc.
 //
 // This file is part of GCC.
 //
@@ -3118,40 +3131,40 @@ func vswprintf(tls *libc.TLS, __stream uintptr, __count size_t, __format uintptr
 // This administrivia gets added to the end of limits.h
 //    if the system has its own version of limits.h.
 
-type _onexit_t = uintptr /* stdlib.h:49:15 */
+type _onexit_t = uintptr /* stdlib.h:50:15 */
 
 type _div_t = struct {
 	quot int32
 	rem  int32
-} /* stdlib.h:59:11 */
+} /* stdlib.h:60:11 */
 
-type div_t = _div_t /* stdlib.h:62:5 */
+type div_t = _div_t /* stdlib.h:63:5 */
 
 type _ldiv_t = struct {
 	quot int32
 	rem  int32
-} /* stdlib.h:64:11 */
+} /* stdlib.h:65:11 */
 
-type ldiv_t = _ldiv_t /* stdlib.h:67:5 */
+type ldiv_t = _ldiv_t /* stdlib.h:68:5 */
 
-type _LDOUBLE = struct{ ld [10]uint8 } /* stdlib.h:76:5 */
+type _LDOUBLE = struct{ ld [10]uint8 } /* stdlib.h:77:5 */
 
-type _CRT_DOUBLE = struct{ x float64 } /* stdlib.h:83:5 */
+type _CRT_DOUBLE = struct{ x float64 } /* stdlib.h:84:5 */
 
-type _CRT_FLOAT = struct{ f float32 } /* stdlib.h:87:5 */
+type _CRT_FLOAT = struct{ f float32 } /* stdlib.h:88:5 */
 
-type _LONGDOUBLE = struct{ x float64 } /* stdlib.h:94:5 */
+type _LONGDOUBLE = struct{ x float64 } /* stdlib.h:95:5 */
 
-type _LDBL12 = struct{ ld12 [12]uint8 } /* stdlib.h:101:5 */
+type _LDBL12 = struct{ ld12 [12]uint8 } /* stdlib.h:102:5 */
 
-type _purecall_handler = uintptr /* stdlib.h:142:16 */
+type _purecall_handler = uintptr /* stdlib.h:143:16 */
 
-type _invalid_parameter_handler = uintptr /* stdlib.h:147:16 */
+type _invalid_parameter_handler = uintptr /* stdlib.h:148:16 */
 
 type lldiv_t = struct {
 	quot int64
 	rem  int64
-} /* stdlib.h:699:61 */
+} /* stdlib.h:727:61 */
 
 // *
 // This file has no copyright assigned and is placed in the Public Domain.
@@ -3334,7 +3347,7 @@ func fatal_error(tls *libc.TLS, zMsg uintptr, va uintptr) { /* speedtest1.c:118:
 	var ap va_list
 	_ = ap
 	ap = va
-	libc.Xvfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), zMsg, ap)
+	vfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), zMsg, ap)
 	_ = ap
 	libc.Xexit(tls, 1)
 }
@@ -3490,12 +3503,16 @@ func speedtest1_timestamp(tls *libc.TLS) sqlite3_int64 { /* speedtest1.c:257:15:
 		clockVfs = sqlite3.Xsqlite3_vfs_find(tls, uintptr(0))
 	}
 	if ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).iVersion >= 2) && ((*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64 != uintptr(0)) {
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 136 /* &.xCurrentTimeInt64 */))))(tls, clockVfs, bp /* &t */)
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTimeInt64})).f(tls, clockVfs, bp /* &t */)
 	} else {
 		// var r float64 at bp+8, 8
 
-		(*(*func(*libc.TLS, uintptr, uintptr) int32)(unsafe.Pointer((clockVfs + 120 /* &.xCurrentTime */))))(tls, clockVfs, bp+8 /* &r */)
-		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (sqlite3_int64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
+		(*struct {
+			f func(*libc.TLS, uintptr, uintptr) int32
+		})(unsafe.Pointer(&struct{ uintptr }{(*sqlite3_vfs)(unsafe.Pointer(clockVfs)).xCurrentTime})).f(tls, clockVfs, bp+8 /* &r */)
+		*(*sqlite3_int64)(unsafe.Pointer(bp /* t */)) = (libc.Int64FromFloat64(*(*float64)(unsafe.Pointer(bp + 8 /* r */)) * 86400000.0))
 	}
 	return *(*sqlite3_int64)(unsafe.Pointer(bp /* t */))
 }
@@ -3624,9 +3641,9 @@ func speedtest1_begin_test(tls *libc.TLS, iTestNum int32, zTestName uintptr, va 
 		n = NAMEWIDTH
 	}
 	if g.bSqlOnly != 0 {
-		libc.Xprintf(tls, ts+2575 /* "/* %4d - %s%.*s ..." */, libc.VaList(bp, iTestNum, zName, (NAMEWIDTH-n), uintptr(unsafe.Pointer(&zDots))))
+		printf(tls, ts+2575 /* "/* %4d - %s%.*s ..." */, libc.VaList(bp, iTestNum, zName, (NAMEWIDTH-n), uintptr(unsafe.Pointer(&zDots))))
 	} else {
-		libc.Xprintf(tls, ts+2595 /* "%4d - %s%.*s " */, libc.VaList(bp+32, iTestNum, zName, (NAMEWIDTH-n), uintptr(unsafe.Pointer(&zDots))))
+		printf(tls, ts+2595 /* "%4d - %s%.*s " */, libc.VaList(bp+32, iTestNum, zName, (NAMEWIDTH-n), uintptr(unsafe.Pointer(&zDots))))
 		libc.Xfflush(tls, libc.X__acrt_iob_func(tls, uint32(1)))
 	}
 	sqlite3.Xsqlite3_free(tls, zName)
@@ -3647,7 +3664,7 @@ func speedtest1_end_test(tls *libc.TLS) { /* speedtest1.c:401:6: */
 	}
 	if !(g.bSqlOnly != 0) {
 		*(*sqlite3_int64)(unsafe.Pointer(uintptr(unsafe.Pointer(&g)) + 24 /* &.iTotal */)) += (iElapseTime)
-		libc.Xprintf(tls, ts+2632 /* "%4d.%03ds\n" */, libc.VaList(bp, (int32(iElapseTime/int64(1000))), (int32(iElapseTime%int64(1000)))))
+		printf(tls, ts+2632 /* "%4d.%03ds\n" */, libc.VaList(bp, (int32(iElapseTime/int64(1000))), (int32(iElapseTime%int64(1000)))))
 	}
 	if g.pStmt != 0 {
 		sqlite3.Xsqlite3_finalize(tls, g.pStmt)
@@ -3661,21 +3678,21 @@ func speedtest1_final(tls *libc.TLS) { /* speedtest1.c:415:6: */
 	defer tls.Free(48)
 
 	if !(g.bSqlOnly != 0) {
-		libc.Xprintf(tls, ts+2643 /* "       TOTAL%.*s..." */, libc.VaList(bp, (NAMEWIDTH-5), uintptr(unsafe.Pointer(&zDots)),
+		printf(tls, ts+2643 /* "       TOTAL%.*s..." */, libc.VaList(bp, (NAMEWIDTH-5), uintptr(unsafe.Pointer(&zDots)),
 			(int32(g.iTotal/int64(1000))), (int32(g.iTotal%int64(1000)))))
 	}
 	if g.bVerify != 0 {
 		var i int32
-		libc.Xprintf(tls, ts+2671 /* "Verification Has..." */, libc.VaList(bp+32, g.nResByte))
+		printf(tls, ts+2671 /* "Verification Has..." */, libc.VaList(bp+32, g.nResByte))
 		HashUpdate(tls, ts+2696 /* "\n" */, uint32(1))
 		HashFinal(tls)
 		for i = 0; i < 24; i++ {
-			libc.Xprintf(tls, ts+2698 /* "%02x" */, libc.VaList(bp+40, int32(*(*uint8)(unsafe.Pointer((uintptr(unsafe.Pointer(&g)) + 3136 /* &.hash */ + 259 /* &.r */) + uintptr(i))))))
+			printf(tls, ts+2698 /* "%02x" */, libc.VaList(bp+40, int32(*(*uint8)(unsafe.Pointer((uintptr(unsafe.Pointer(&g)) + 3136 /* &.hash */ + 259 /* &.r */) + uintptr(i))))))
 		}
 		if (g.hashFile != 0) && (g.hashFile != (libc.X__acrt_iob_func(tls, uint32(1)))) {
 			libc.Xfclose(tls, g.hashFile)
 		}
-		libc.Xprintf(tls, ts+2696 /* "\n" */, 0)
+		printf(tls, ts+2696 /* "\n" */, 0)
 	}
 }
 
@@ -3689,14 +3706,14 @@ func printSql(tls *libc.TLS, zSql uintptr) { /* speedtest1.c:438:13: */
 		n--
 	}
 	if g.bExplain != 0 {
-		libc.Xprintf(tls, ts+2703 /* "EXPLAIN " */, 0)
+		printf(tls, ts+2703 /* "EXPLAIN " */, 0)
 	}
-	libc.Xprintf(tls, ts+2712 /* "%.*s;\n" */, libc.VaList(bp, n, zSql))
+	printf(tls, ts+2712 /* "%.*s;\n" */, libc.VaList(bp, n, zSql))
 	if (g.bExplain != 0) &&
 		(((sqlite3.Xsqlite3_strglob(tls, ts+2719 /* "CREATE *" */, zSql) == 0) ||
 			(sqlite3.Xsqlite3_strglob(tls, ts+2728 /* "DROP *" */, zSql) == 0)) ||
 			(sqlite3.Xsqlite3_strglob(tls, ts+2735 /* "ALTER *" */, zSql) == 0)) {
-		libc.Xprintf(tls, ts+2712 /* "%.*s;\n" */, libc.VaList(bp+16, n, zSql))
+		printf(tls, ts+2712 /* "%.*s;\n" */, libc.VaList(bp+16, n, zSql))
 	}
 }
 
@@ -3881,7 +3898,7 @@ func traceCallback(tls *libc.TLS, NotUsed uintptr, zSql uintptr) { /* speedtest1
 	for (n > 0) && ((int32(*(*int8)(unsafe.Pointer(zSql + uintptr((n - 1))))) == ';') || (libc.Xisspace(tls, int32(uint8(*(*int8)(unsafe.Pointer(zSql + uintptr((n - 1))))))) != 0)) {
 		n--
 	}
-	libc.Xfprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2712 /* "%.*s;\n" */, libc.VaList(bp, n, zSql))
+	fprintf(tls, libc.X__acrt_iob_func(tls, uint32(2)), ts+2712 /* "%.*s;\n" */, libc.VaList(bp, n, zSql))
 }
 
 // Substitute random() function that gives the same random
@@ -4959,7 +4976,7 @@ func testset_debug1(tls *libc.TLS) { /* speedtest1.c:2083:6: */
 		x1 = swizzle(tls, i, n)
 		x2 = swizzle(tls, x1, n)
 		speedtest1_numbername(tls, x1, bp+32 /* &zNum[0] */, int32(unsafe.Sizeof([2000]int8{})))
-		libc.Xprintf(tls, ts+22756 /* "%5d %5d %5d %s\n" */, libc.VaList(bp, i, x1, x2, bp+32 /* &zNum[0] */))
+		printf(tls, ts+22756 /* "%5d %5d %5d %s\n" */, libc.VaList(bp, i, x1, x2, bp+32 /* &zNum[0] */))
 	}
 }
 
@@ -4967,7 +4984,7 @@ func xCompileOptions(tls *libc.TLS, pCtx uintptr, nVal int32, azVal uintptr, azC
 	bp := tls.Alloc(8)
 	defer tls.Free(8)
 
-	libc.Xprintf(tls, ts+22772 /* "-- Compile optio..." */, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(azVal))))
+	printf(tls, ts+22772 /* "-- Compile optio..." */, libc.VaList(bp, *(*uintptr)(unsafe.Pointer(azVal))))
 	return SQLITE_OK
 }
 
@@ -5010,7 +5027,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 	var rc int32 // API return code
 
 	// Display the version of SQLite being tested
-	libc.Xprintf(tls, ts+22800, /* "-- Speedtest1 fo..." */
+	printf(tls, ts+22800, /* "-- Speedtest1 fo..." */
 		libc.VaList(bp, sqlite3.Xsqlite3_libversion(tls), sqlite3.Xsqlite3_sourceid(tls)))
 
 	// Process command-line arguments
@@ -5169,7 +5186,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 				g.zWR = ts + 5975  /* "WITHOUT ROWID" */
 				g.zPK = ts + 23105 /* "PRIMARY KEY" */
 			} else if (libc.Xstrcmp(tls, z, ts+23316 /* "help" */) == 0) || (libc.Xstrcmp(tls, z, ts+23321 /* "?" */) == 0) {
-				libc.Xprintf(tls, uintptr(unsafe.Pointer(&zHelp)), libc.VaList(bp+152, *(*uintptr)(unsafe.Pointer(argv))))
+				printf(tls, uintptr(unsafe.Pointer(&zHelp)), libc.VaList(bp+152, *(*uintptr)(unsafe.Pointer(argv))))
 				libc.Xexit(tls, 0)
 			} else {
 				fatal_error(tls, ts+23323, /* "unknown option: ..." */
@@ -5277,7 +5294,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 	}
 
 	if g.bExplain != 0 {
-		libc.Xprintf(tls, ts+23889 /* ".explain\n.echo o..." */, 0)
+		printf(tls, ts+23889 /* ".explain\n.echo o..." */, 0)
 	}
 	for ok1 := true; ok1; ok1 = *(*int8)(unsafe.Pointer(zTSet)) != 0 {
 		var zThisTest uintptr = zTSet
@@ -5289,7 +5306,7 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 			zTSet = ts + 2212 /* "" */
 		}
 		if (g.iTotal > int64(0)) || (zComma != uintptr(0)) {
-			libc.Xprintf(tls, ts+23908 /* "       Begin tes..." */, libc.VaList(bp+384, zThisTest))
+			printf(tls, ts+23908 /* "       Begin tes..." */, libc.VaList(bp+384, zThisTest))
 		}
 		if libc.Xstrcmp(tls, zThisTest, ts+22795 /* "main" */) == 0 {
 			testset_main(tls)
@@ -5353,25 +5370,25 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 	// have been finalized
 	if showStats != 0 {
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_LOOKASIDE_USED, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24239 /* "-- Lookaside Slo..." */, libc.VaList(bp+416, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24239 /* "-- Lookaside Slo..." */, libc.VaList(bp+416, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_LOOKASIDE_HIT, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24284 /* "-- Successful lo..." */, libc.VaList(bp+432, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24284 /* "-- Successful lo..." */, libc.VaList(bp+432, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_LOOKASIDE_MISS_SIZE, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24320 /* "-- Lookaside siz..." */, libc.VaList(bp+440, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24320 /* "-- Lookaside siz..." */, libc.VaList(bp+440, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_LOOKASIDE_MISS_FULL, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24356 /* "-- Lookaside OOM..." */, libc.VaList(bp+448, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24356 /* "-- Lookaside OOM..." */, libc.VaList(bp+448, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_CACHE_USED, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24392 /* "-- Pager Heap Us..." */, libc.VaList(bp+456, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
+		printf(tls, ts+24392 /* "-- Pager Heap Us..." */, libc.VaList(bp+456, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_CACHE_HIT, bp+568 /* &iCur */, bp+572 /* &iHi */, 1)
-		libc.Xprintf(tls, ts+24434 /* "-- Page cache hi..." */, libc.VaList(bp+464, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
+		printf(tls, ts+24434 /* "-- Page cache hi..." */, libc.VaList(bp+464, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_CACHE_MISS, bp+568 /* &iCur */, bp+572 /* &iHi */, 1)
-		libc.Xprintf(tls, ts+24470 /* "-- Page cache mi..." */, libc.VaList(bp+472, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
+		printf(tls, ts+24470 /* "-- Page cache mi..." */, libc.VaList(bp+472, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_CACHE_WRITE, bp+568 /* &iCur */, bp+572 /* &iHi */, 1)
-		libc.Xprintf(tls, ts+24506 /* "-- Page cache wr..." */, libc.VaList(bp+480, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
+		printf(tls, ts+24506 /* "-- Page cache wr..." */, libc.VaList(bp+480, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_SCHEMA_USED, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24542 /* "-- Schema Heap U..." */, libc.VaList(bp+488, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
+		printf(tls, ts+24542 /* "-- Schema Heap U..." */, libc.VaList(bp+488, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
 		sqlite3.Xsqlite3_db_status(tls, g.db, SQLITE_DBSTATUS_STMT_USED, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24584 /* "-- Statement Hea..." */, libc.VaList(bp+496, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
+		printf(tls, ts+24584 /* "-- Statement Hea..." */, libc.VaList(bp+496, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */))))
 	}
 
 	sqlite3.Xsqlite3_close(tls, g.db)
@@ -5380,15 +5397,15 @@ func main1(tls *libc.TLS, argc int32, argv uintptr) int32 { /* speedtest1.c:2149
 	// has closed.  Memory usage should be zero at this point.
 	if showStats != 0 {
 		sqlite3.Xsqlite3_status(tls, SQLITE_STATUS_MEMORY_USED, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24626 /* "-- Memory Used (..." */, libc.VaList(bp+504, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24626 /* "-- Memory Used (..." */, libc.VaList(bp+504, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_status(tls, SQLITE_STATUS_MALLOC_COUNT, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24671 /* "-- Outstanding A..." */, libc.VaList(bp+520, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24671 /* "-- Outstanding A..." */, libc.VaList(bp+520, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_status(tls, SQLITE_STATUS_PAGECACHE_OVERFLOW, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24716 /* "-- Pcache Overfl..." */, libc.VaList(bp+536, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24716 /* "-- Pcache Overfl..." */, libc.VaList(bp+536, *(*int32)(unsafe.Pointer(bp + 568 /* iCur */)), *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_status(tls, SQLITE_STATUS_MALLOC_SIZE, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24761 /* "-- Largest Alloc..." */, libc.VaList(bp+552, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24761 /* "-- Largest Alloc..." */, libc.VaList(bp+552, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 		sqlite3.Xsqlite3_status(tls, SQLITE_STATUS_PAGECACHE_SIZE, bp+568 /* &iCur */, bp+572 /* &iHi */, 0)
-		libc.Xprintf(tls, ts+24803 /* "-- Largest Pcach..." */, libc.VaList(bp+560, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
+		printf(tls, ts+24803 /* "-- Largest Pcach..." */, libc.VaList(bp+560, *(*int32)(unsafe.Pointer(bp + 572 /* iHi */))))
 	}
 
 	// Release memory
