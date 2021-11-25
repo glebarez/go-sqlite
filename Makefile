@@ -92,7 +92,7 @@ linux_arm_on_linux_amd64:
 	CCGO_CPP=arm-linux-gnueabi-cpp TARGET_GOARCH=arm TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
 	GOOS=linux GOARCH=arm go build -v ./...
 
-linux_arm:
+linux_arm_on_linux_arm:
 	go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
 	GOOS=linux GOARCH=arm go build -v ./...
 
@@ -112,9 +112,15 @@ windows_386:
 	CCGO_CPP=i686-w64-mingw32-cpp TARGET_GOOS=windows TARGET_GOARCH=386 go generate 2>&1 | tee /tmp/log-generate-sqlite-windows-386
 	GOOS=windows GOARCH=386 go build -v ./...
 
-all_targets: linux_amd64 linux_386 linux_arm linux_arm64 linux_s390x windows_amd64 windows_386
+generate_all_targets_on_linux_amd64: linux_amd64 linux_386 linux_arm_on_linux_amd64 linux_arm64 linux_s390x windows_amd64 #TODO windows_386
 	gofmt -l -s -w .
 	echo done
+
+tcl_test_wine:
+	GOOS=windows GOARCH=amd64 go build -o testfixture.exe modernc.org/sqlite/internal/testfixture
+
+run_tcl_test_wine:
+	TCL_LIBRARY=Z:/home/jnml/src/modernc.org/tcl/assets wine testfixture.exe ./testdata/tcl/zipfile.test
 
 test:
 	go version | tee $(testlog)

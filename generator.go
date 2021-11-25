@@ -168,6 +168,7 @@ var (
 		"-DSQLITE_ENABLE_UNLOCK_NOTIFY", // Adds sqlite3_unlock_notify().
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MUTEX_APPDEF=1",
+		"-DSQLITE_MUTEX_NOOP",
 		"-DSQLITE_SOUNDEX",
 		"-DSQLITE_THREADSAFE=1",
 		//DONT "-DNDEBUG", // To enable GO_GENERATE=-DSQLITE_DEBUG
@@ -221,6 +222,7 @@ var (
 		"-DSQLITE_HAVE_ZLIB=1",          // testfixture
 		"-DSQLITE_LIKE_DOESNT_MATCH_BLOBS",
 		"-DSQLITE_MUTEX_APPDEF=1",
+		"-DSQLITE_MUTEX_NOOP",
 		"-DSQLITE_SOUNDEX",
 		"-DSQLITE_TEMP_STORE=1", // testfixture
 		"-DSQLITE_TEST",
@@ -394,16 +396,27 @@ func main() {
 	}
 	more = append(more, ndebug...)
 	download()
-	switch fmt.Sprintf("%s/%s", goos, goarch) {
-	case "linux/amd64":
-		// experimental pthreads support currently only on linux/amd64
-	default:
-		configProduction = append(configProduction, "-DSQLITE_MUTEX_NOOP")
-		configTest = append(configTest, "-DSQLITE_MUTEX_NOOP")
-	}
 	switch goos {
-	case "linux", "freebsd", "netbsd":
+	case "linux", "freebsd":
 		configProduction = append(configProduction, "-DSQLITE_OS_UNIX=1")
+	case "netbsd":
+		configProduction = append(configProduction, []string{
+			"-DSQLITE_OS_UNIX=1",
+			"-D__libc_cond_broadcast=pthread_cond_broadcast",
+			"-D__libc_cond_destroy=pthread_cond_destroy",
+			"-D__libc_cond_init=pthread_cond_init",
+			"-D__libc_cond_signal=pthread_cond_signal",
+			"-D__libc_cond_wait=pthread_cond_wait",
+			"-D__libc_mutex_destroy=pthread_mutex_destroy",
+			"-D__libc_mutex_init=pthread_mutex_init",
+			"-D__libc_mutex_lock=pthread_mutex_lock",
+			"-D__libc_mutex_trylock=pthread_mutex_trylock",
+			"-D__libc_mutex_unlock=pthread_mutex_unlock",
+			"-D__libc_mutexattr_destroy=pthread_mutexattr_destroy",
+			"-D__libc_mutexattr_init=pthread_mutexattr_init",
+			"-D__libc_mutexattr_settype=pthread_mutexattr_settype",
+			"-D__libc_thr_yield=sched_yield",
+		}...)
 	case "darwin":
 		configProduction = append(configProduction,
 			"-DSQLITE_OS_UNIX=1",
@@ -600,6 +613,9 @@ func makeTestfixture(goos, goarch string, more []string) {
 			"-D__libc_mutex_lock=pthread_mutex_lock",
 			"-D__libc_mutex_trylock=pthread_mutex_trylock",
 			"-D__libc_mutex_unlock=pthread_mutex_unlock",
+			"-D__libc_mutexattr_destroy=pthread_mutexattr_destroy",
+			"-D__libc_mutexattr_init=pthread_mutexattr_init",
+			"-D__libc_mutexattr_settype=pthread_mutexattr_settype",
 			"-D__libc_thr_yield=sched_yield",
 		}
 	}
