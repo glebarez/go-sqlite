@@ -96,9 +96,13 @@ linux_arm_on_linux_arm:
 	go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
 	GOOS=linux GOARCH=arm go build -v ./...
 
-linux_arm64:
+linux_arm64_on_linux_amd64:
 	CCGO_CPP=aarch64-linux-gnu-cpp TARGET_GOARCH=arm64 TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm64
 	GOOS=linux GOARCH=arm64 go build -v ./...
+
+linux_arm64_on_linux_arm64:
+	go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-arm
+	GOOS=linux GOARCH=arm go build -v ./...
 
 linux_s390x:
 	CCGO_CPP=s390x-linux-gnu-cpp TARGET_GOARCH=s390x TARGET_GOOS=linux go generate 2>&1 | tee /tmp/log-generate-sqlite-linux-s390x

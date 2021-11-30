@@ -51,7 +51,17 @@ func TestTclTest(t *testing.T) {
 		blacklist["symlink2.test"] = struct{}{}
 		blacklist["zipfile.test"] = struct{}{} //TODO
 	}
-	m, err := filepath.Glob(filepath.FromSlash("testdata/tcl/*"))
+	tclTests := "testdata/3.37.0/tcl/*"
+	switch fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH) {
+	case
+		"linux/s390x",
+		"netbsd/amd64",
+		"windows/386",
+		"windows/amd64":
+
+		tclTests = "testdata/3.36.0/tcl/*"
+	}
+	m, err := filepath.Glob(filepath.FromSlash(tclTests))
 	if err != nil {
 		t.Fatal(err)
 	}
