@@ -635,6 +635,7 @@ func makeTestfixture(goos, goarch string, more []string) {
 		[]string{
 			"-export-defines", "",
 			"-export-fields", "F",
+			"-ignore-unsupported-alignment",
 			"-trace-translation-units",
 			volatiles,
 			"-lmodernc.org/sqlite/libtest",
@@ -667,6 +668,7 @@ func makeSpeedTest(goos, goarch string, more []string) {
 			[]string{
 				"ccgo",
 				"-export-defines", "",
+				"-ignore-unsupported-alignment",
 				"-o", filepath.FromSlash(fmt.Sprintf("speedtest1/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
 				filepath.Join(sqliteSrcDir, "test", "speedtest1.c"),
@@ -690,6 +692,7 @@ func makeMpTest(goos, goarch string, more []string) {
 			[]string{
 				"ccgo",
 				"-export-defines", "",
+				"-ignore-unsupported-alignment",
 				"-o", filepath.FromSlash(fmt.Sprintf("internal/mptest/main_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
 				filepath.Join(sqliteSrcDir, "mptest", "mptest.c"),
@@ -718,6 +721,7 @@ func makeSqliteProduction(goos, goarch string, more []string) {
 				"-export-externs", "X",
 				"-export-fields", "F",
 				"-export-typedefs", "",
+				"-ignore-unsupported-alignment",
 				"-pkgname", "sqlite3",
 				"-o", filepath.FromSlash(fmt.Sprintf("lib/sqlite_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
@@ -745,6 +749,7 @@ func makeSqliteTest(goos, goarch string, more []string) {
 				"-export-externs", "X",
 				"-export-fields", "F",
 				"-export-typedefs", "",
+				"-ignore-unsupported-alignment",
 				"-pkgname", "sqlite3",
 				"-o", filepath.FromSlash(fmt.Sprintf("libtest/sqlite_%s_%s.go", goos, goarch)),
 				"-trace-translation-units",
