@@ -94,8 +94,8 @@ modernc.org/ccgo/v3 v3.12.65/go.mod h1:D6hQtKxPNZiY6wDBtehSGKFKmyXn53F8nGTpH+POm
 modernc.org/ccgo/v3 v3.12.66/go.mod h1:jUuxlCFZTUZLMV08s7B1ekHX5+LIAurKTTaugUr/EhQ=
 modernc.org/ccgo/v3 v3.12.67/go.mod h1:Bll3KwKvGROizP2Xj17GEGOTrlvB1XcVaBrC90ORO84=
 modernc.org/ccgo/v3 v3.12.73/go.mod h1:hngkB+nUUqzOf3iqsM48Gf1FZhY599qzVg1iX+BT3cQ=
-modernc.org/ccgo/v3 v3.12.78 h1:yinLezxvjgDrGouUmimNGvQe4UMy57F4QQiNFqzPuFA=
-modernc.org/ccgo/v3 v3.12.78/go.mod h1:p2A1duHoBBg1mFtYvnhAnQyI6vL0uw5PGYLSIgF6rYY=
+modernc.org/ccgo/v3 v3.12.80 h1:jS1e6Onyh1Ph8Rcux7NVlIzFzXT2pmuFIrNo9cS7NM0=
+modernc.org/ccgo/v3 v3.12.80/go.mod h1:p2A1duHoBBg1mFtYvnhAnQyI6vL0uw5PGYLSIgF6rYY=
 modernc.org/ccorpus v1.11.1 h1:K0qPfpVG1MJh5BYazccnmhywH4zHuOgJXgbjzyp6dWA=
 modernc.org/ccorpus v1.11.1/go.mod h1:2gEUTrWqdpH2pXsmTM1ZkjeSrUWDpjMu2T6m29L/ErQ=
 modernc.org/httpfs v1.0.6 h1:AAgIpFZRXuYnkjftxTAZwMIiwEqAfk8aVB2/oA6nAeM=
