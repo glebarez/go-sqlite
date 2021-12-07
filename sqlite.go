@@ -12,6 +12,7 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"io"
+	"log"
 	"math"
 	"net/url"
 	"reflect"
@@ -45,6 +46,8 @@ var (
 	_ driver.Tx                             = (*tx)(nil)
 	_ error                                 = (*Error)(nil)
 )
+
+var LogSqlStatements bool
 
 const (
 	driverName              = "sqlite"
@@ -781,7 +784,25 @@ func newConn(dsn string) (*conn, error) {
 		return nil, err
 	}
 
+	// register statement logger
+	if LogSqlStatements {
+		if sqlite3.Xsqlite3_trace_v2(c.tls, db, sqlite3.SQLITE_TRACE_STMT, *(*uintptr)(unsafe.Pointer(&struct {
+			f func(*libc.TLS, uint32, uintptr, uintptr, uintptr) int32
+		}{stmtLog})), 0) != 0 {
+			log.Fatal("failed to register tracing handler")
+		}
+	}
+
 	return c, nil
+}
+
+func stmtLog(tls *libc.TLS, type1 uint32, cd uintptr, pd uintptr, xd uintptr) int32 { /* tclsqlite.c:661:12: */
+	if type1 == uint32(sqlite3.SQLITE_TRACE_STMT) {
+		// get SQL string
+		stmtEx := libc.GoString(sqlite3.Xsqlite3_expanded_sql(tls, pd))
+		log.Println(strings.Trim(stmtEx, "\r\n\t "))
+	}
+	return sqlite3.SQLITE_OK
 }
 
 func applyQueryParams(c *conn, query string) error {
@@ -1387,5 +1408,8 @@ func newDriver() *Driver { return &Driver{} }
 //
 // The returned connection is only used by one goroutine at a time.
 func (d *Driver) Open(name string) (driver.Conn, error) {
+	if LogSqlStatements {
+		log.Println("new connection")
+	}
 	return newConn(name)
 }
