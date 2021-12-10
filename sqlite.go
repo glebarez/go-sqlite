@@ -703,9 +703,6 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 	if err != nil {
 		return nil, err
 	}
-	if nParams != len(args) {
-		return nil, fmt.Errorf("wrong number of query parameters")
-	}
 
 	// bind the required portion of args
 	var allocs []uintptr
