@@ -163,18 +163,21 @@ func (r *result) RowsAffected() (int64, error) {
 }
 
 type rows struct {
-	allocs  []uintptr
-	c       *conn
+	allocs  []uintptr // allocations made for this prepared statement (to be freed)
+	c       *conn     // connection
+	pstmt   uintptr   // correspodning prepared statement
 	columns []string
-	pstmt   uintptr
-
-	doStep bool
-	empty  bool
 }
 
-func newRows(c *conn, pstmt uintptr, allocs []uintptr, empty bool) (r *rows, err error) {
-	r = &rows{c: c, pstmt: pstmt, allocs: allocs, empty: empty}
+func newRows(c *conn, pstmt uintptr, allocs []uintptr) (r *rows, err error) {
+	// create rows
+	r = &rows{
+		c:      c,
+		pstmt:  pstmt,
+		allocs: allocs,
+	}
 
+	// deferred close if anything goes wrong
 	defer func() {
 		if err != nil {
 			r.Close()
@@ -182,12 +185,14 @@ func newRows(c *conn, pstmt uintptr, allocs []uintptr, empty bool) (r *rows, err
 		}
 	}()
 
-	n, err := c.columnCount(pstmt)
+	// get columns count
+	nCols, err := c.columnCount(pstmt)
 	if err != nil {
 		return nil, err
 	}
 
-	r.columns = make([]string, n)
+	// get column names
+	r.columns = make([]string, nCols)
 	for i := range r.columns {
 		if r.columns[i], err = r.c.columnName(pstmt, i); err != nil {
 			return nil, err
@@ -199,10 +204,13 @@ func newRows(c *conn, pstmt uintptr, allocs []uintptr, empty bool) (r *rows, err
 
 // Close closes the rows iterator.
 func (r *rows) Close() (err error) {
+	// free all allocations made for this rows
 	for _, v := range r.allocs {
 		r.c.free(v)
 	}
 	r.allocs = nil
+
+	// finalize prepared statement
 	return r.c.finalize(r.pstmt)
 }
 
@@ -217,20 +225,15 @@ func (r *rows) Columns() (c []string) {
 // provided slice will be the same size as the Columns() are wide.
 //
 // Next should return io.EOF when there are no more rows.
-func (r *rows) Next(dest []driver.Value) (err error) {
-	if r.empty {
-		return io.EOF
+func (r *rows) Next(dest []driver.Value) error {
+	// yet another step
+	rc, err := r.c.step(r.pstmt)
+	if err != nil {
+		return err
 	}
 
-	rc := sqlite3.SQLITE_ROW
-	if r.doStep {
-		if rc, err = r.c.step(r.pstmt); err != nil {
-			return err
-		}
-	}
-
-	r.doStep = true
-	switch rc {
+	// analyze error code
+	switch rc & 0xff {
 	case sqlite3.SQLITE_ROW:
 		if g, e := len(dest), len(r.columns); g != e {
 			return fmt.Errorf("sqlite: Next: have %v destination values, expected %v", g, e)
@@ -588,98 +591,135 @@ func (s *stmt) Query(args []driver.Value) (driver.Rows, error) { //TODO StmtQuer
 }
 
 func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Rows, err error) {
-	var pstmt uintptr
-	var done int32
+	var (
+		pstmt uintptr // C-pointer to prepared statement
+		done  int32   // done indicator (atomic usage)
+	)
+
+	// context honoring
 	if ctx != nil && ctx.Done() != nil {
 		donech := make(chan struct{})
 
 		go func() {
 			select {
 			case <-ctx.Done():
+				// set done indicator
 				atomic.AddInt32(&done, 1)
+
+				// interrupt in-fly queries
 				s.c.interrupt(s.c.db)
 			case <-donech:
 			}
 		}()
 
+		// stop context monitoring at exit
 		defer func() {
 			close(donech)
 		}()
 	}
 
-	var allocs []uintptr
-	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0 && atomic.LoadInt32(&done) == 0; {
-		if pstmt, err = s.c.prepareV2(&psql); err != nil {
+	// generally, query may contain multiple SQL statements
+	// here we execute every but the last statement
+	// we then create rows instance for deferred execution of the last statement
+
+	// loop on all but last statements
+	for pzTail := s.psql; ; {
+		// honor the context
+		if atomic.LoadInt32(&done) != 0 {
+			return nil, ctx.Err()
+		}
+
+		// prepare yet another portion of SQL string
+		if pstmt, err = s.c.prepareV2(&pzTail); err != nil {
 			return nil, err
 		}
 
+		// *pzTail is left pointing to what remains uncompiled
+		// so we can check if it was the last statement (if pzTail is NULL)
+		if *(*byte)(unsafe.Pointer(pzTail)) == 0 {
+			// it is the last statement, leave the prepared statement for the rows{} instance
+			break
+		}
+
+		// If the input text contains no SQL (if the input is an empty string or a comment) then *ppStmt is set to NULL
 		if pstmt == 0 {
+			// we can safely skip it
 			continue
 		}
 
-		err = func() (err error) {
-			n, err := s.c.bindParameterCount(pstmt)
-			if err != nil {
-				return err
-			}
-
-			if n != 0 {
-				if allocs, err = s.c.bind(pstmt, n, args); err != nil {
-					return err
-				}
-			}
-
-			rc, err := s.c.step(pstmt)
-			if err != nil {
-				return err
-			}
-
-			switch rc & 0xff {
-			case sqlite3.SQLITE_ROW:
-				if r != nil {
-					r.Close()
-				}
-				if r, err = newRows(s.c, pstmt, allocs, false); err != nil {
-					return err
-				}
-
-				pstmt = 0
-				return nil
-			case sqlite3.SQLITE_DONE:
-				if r == nil {
-					if r, err = newRows(s.c, pstmt, allocs, true); err != nil {
-						return err
-					}
-					pstmt = 0
-					return nil
-				}
-
-				// nop
-			default:
-				return s.c.errstr(int32(rc))
-			}
-
-			if *(*byte)(unsafe.Pointer(psql)) == 0 {
-				if r != nil {
-					r.Close()
-				}
-				if r, err = newRows(s.c, pstmt, allocs, true); err != nil {
-					return err
-				}
-
-				pstmt = 0
-			}
-			return nil
-		}()
-		if e := s.c.finalize(pstmt); e != nil && err == nil {
-			err = e
-		}
-
+		// This routine can be used to find the number of SQL parameters in a prepared statement
+		nParams, err := s.c.bindParameterCount(pstmt)
 		if err != nil {
 			return nil, err
 		}
+
+		if nParams > 0 {
+			// bind the required portion of args
+			if allocs, err := s.c.bind(pstmt, nParams, args); err != nil {
+				return nil, err
+			} else {
+				// defer free allocated data
+				defer func() {
+					for _, v := range allocs {
+						s.c.free(v)
+					}
+				}()
+			}
+
+			// shift the args to what has left after binding
+			args = args[nParams:]
+			for i := range args {
+				args[i].Ordinal = i + 1
+			}
+		}
+
+		// execute the statement
+		rc, err := s.c.step(pstmt)
+		if err != nil {
+			return nil, err
+		}
+
+		// inspect return code
+		switch rc & 0xff {
+		case sqlite3.SQLITE_ROW, sqlite3.SQLITE_DONE:
+			// we actually don't care if it is ROW or DONE
+			// we ain't going to read the results anyway
+		default:
+			// other RCs considered error
+			return nil, s.c.errstr(int32(rc))
+		}
+
+		// The application must finalize every prepared statement in order to avoid resource leaks.
+		if err := s.c.finalize(pstmt); err != nil {
+			return nil, err
+		}
 	}
-	return r, err
+
+	// OK, at this point, we've executed all but last statements in SQL query
+	// let's create rows{} object with prepared statement of the last statement in SQL query
+
+	// This routine can be used to find the number of SQL parameters in a prepared statement
+	nParams, err := s.c.bindParameterCount(pstmt)
+	if err != nil {
+		return nil, err
+	}
+	if nParams != len(args) {
+		return nil, fmt.Errorf("wrong number of query parameters")
+	}
+
+	// bind the required portion of args
+	var allocs []uintptr
+	allocs, err = s.c.bind(pstmt, nParams, args)
+	if err != nil {
+		return nil, err
+	}
+
+	// create rows
+	r, err = newRows(s.c, pstmt, allocs)
+	if err != nil {
+		return nil, err
+	}
+	return r, nil
 }
 
 type tx struct {
@@ -773,6 +813,15 @@ func newConn(dsn string) (*conn, error) {
 		return nil, err
 	}
 
+	// register statement logger
+	if LogSqlStatements {
+		if sqlite3.Xsqlite3_trace_v2(c.tls, db, sqlite3.SQLITE_TRACE_STMT, *(*uintptr)(unsafe.Pointer(&struct {
+			f func(*libc.TLS, uint32, uintptr, uintptr, uintptr) int32
+		}{stmtLog})), 0) != 0 {
+			log.Fatal("failed to register tracing handler")
+		}
+	}
+
 	c.db = db
 	if err = c.extendedResultCodes(true); err != nil {
 		c.Close()
@@ -782,15 +831,6 @@ func newConn(dsn string) (*conn, error) {
 	if err = applyQueryParams(c, query); err != nil {
 		c.Close()
 		return nil, err
-	}
-
-	// register statement logger
-	if LogSqlStatements {
-		if sqlite3.Xsqlite3_trace_v2(c.tls, db, sqlite3.SQLITE_TRACE_STMT, *(*uintptr)(unsafe.Pointer(&struct {
-			f func(*libc.TLS, uint32, uintptr, uintptr, uintptr) int32
-		}{stmtLog})), 0) != 0 {
-			log.Fatal("failed to register tracing handler")
-		}
 	}
 
 	return c, nil
