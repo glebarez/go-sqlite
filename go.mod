@@ -12,3 +12,9 @@ require (
 	modernc.org/tcl v1.9.1
 	modernc.org/z v1.2.20
 )
+
+retract (
+	v1.14.2 // non-working
+	v1.9.0 // non-working
+	v0.0.1 // early bird
+)
