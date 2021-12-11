@@ -1,14 +1,5 @@
-# sqlite
+# go-sqlite
+pure-Go port of SQLite.
 
-Package sqlite is a CGo-free port of SQLite.
+This is a conceptual fork of https://gitlab.com/cznic/sqlite
 
-SQLite is an in-process implementation of a self-contained, serverless,
-zero-configuration, transactional SQL database engine.
-
-Installation
-
-    $ go get modernc.org/sqlite
-
-Documentation: [godoc.org/modernc.org/sqlite](http://godoc.org/modernc.org/sqlite)
-
-Builders: [modern-c.appspot.com/-/builder/?importpath=modernc.org%2fsqlite](https://modern-c.appspot.com/-/builder/?importpath=modernc.org%2fsqlite)
