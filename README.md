@@ -1,5 +1,6 @@
 # go-sqlite
-pure-Go port of SQLite.
+Golang database driver for SQLite.
 
-This is a conceptual fork of https://gitlab.com/cznic/sqlite
+Does not use cgo.
 
+This driver is based on pure-Go SQLite implementation (https://gitlab.com/cznic/sqlite), so you don't need SQLite installed.
