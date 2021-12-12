@@ -998,7 +998,7 @@ func TestColumnTypes(t *testing.T) {
 	}
 
 	insertStatement := `INSERT INTO userinfo(username, departname, created) values("astaxie", "研发部门", "2012-12-09")`
-	_, err = db.Query(insertStatement)
+	_, err = db.Exec(insertStatement)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1007,6 +1007,7 @@ func TestColumnTypes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	rows2.Next() // trigger statement execution
 	defer rows2.Close()
 
 	columnTypes, err := rows2.ColumnTypes()
