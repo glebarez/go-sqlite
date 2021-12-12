@@ -8,9 +8,3 @@ require (
 	modernc.org/mathutil v1.4.1
 	modernc.org/sqlite v1.14.2
 )
-
-retract (
-	v1.14.2 // non-working
-	v1.9.0 // non-working
-	v0.0.1 // early bird
-)
