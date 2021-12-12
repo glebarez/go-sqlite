@@ -7,7 +7,6 @@ require (
 	modernc.org/libc v1.11.90
 	modernc.org/mathutil v1.4.1
 	modernc.org/sqlite v1.14.2
-	modernc.org/tcl v1.9.1 // indirect
 )
 
 retract (
