@@ -60,16 +60,7 @@ func TestTclTest(t *testing.T) {
 		// See https://gitlab.com/cznic/sqlite/-/issues/23#note_599920077 for details.
 		blacklist["symlink2.test"] = struct{}{}
 	}
-	tclTests := "testdata/3.37.0/tcl/*"
-	switch fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH) {
-	case
-		"linux/s390x",
-		"netbsd/amd64",
-		"windows/386",
-		"windows/amd64":
-
-		tclTests = "testdata/3.36.0/tcl/*"
-	}
+	tclTests := "testdata/tcl/*"
 	m, err := filepath.Glob(filepath.FromSlash(tclTests))
 	if err != nil {
 		t.Fatal(err)
