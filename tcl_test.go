@@ -50,6 +50,7 @@ func TestTclTest(t *testing.T) {
 		blacklist["tabfunc01.test"] = struct{}{}
 		blacklist["tclsqlite.test"] = struct{}{}
 		blacklist["vtabA.test"] = struct{}{}
+		blacklist["windowC.test"] = struct{}{}
 	}
 	switch runtime.GOOS {
 	case "freebsd":
@@ -102,6 +103,7 @@ func TestTclTest(t *testing.T) {
 
 	for _, v := range m {
 		if _, ok := blacklist[filepath.Base(v)]; ok {
+			trc("skipping %v", v)
 			continue
 		}
 
