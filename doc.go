@@ -21,7 +21,7 @@
 //	linux	amd64   3.37.0
 //	linux	arm     3.37.0
 //	linux	arm64   3.37.0
-//	windows	amd64   3.36.0  (Issue #80)
+//	windows	amd64   3.37.0
 //
 // Builders
 //
