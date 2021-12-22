@@ -301,6 +301,8 @@ var parseTimeFormats = []string{
 	"2006-01-02T15:04:05.999999999-07:00",
 	"2006-01-02 15:04:05.999999999",
 	"2006-01-02T15:04:05.999999999",
+	"2006-01-02 15:04:05",
+	"2006-01-02T15:04:05",
 	"2006-01-02 15:04",
 	"2006-01-02T15:04",
 	"2006-01-02",
@@ -348,11 +350,10 @@ var writeTimeFormats = map[string]string{
 }
 
 func (c *conn) formatTime(t time.Time) string {
-	// Before configurable write time formats were supported,
-	// time.Time.String was used. Maintain that default to
-	// keep existing driver users formatting times the same.
+	// default format is the first element from parseTimeFormats slice
+	// this is inspired by https://github.com/mattn/go-sqlite3/blob/85436841b33e86c07dce0fa2e88c31a97c96a22f/sqlite3.go#L1893
 	if c.writeTimeFormat == "" {
-		return t.String()
+		return t.Format(parseTimeFormats[0])
 	}
 	return t.Format(c.writeTimeFormat)
 }
