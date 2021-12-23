@@ -204,11 +204,11 @@ func TestScalar(t *testing.T) {
 		t.Fatal(g, e)
 	}
 
-	if g, e := a[0], (rec{12, 3.14, true, "foo", t1.String()}); g != e {
+	if g, e := a[0], (rec{12, 3.14, true, "foo", t1.Format(parseTimeFormats[0])}); g != e {
 		t.Fatal(g, e)
 	}
 
-	if g, e := a[1], (rec{34, 2.78, false, "bar", t2.String()}); g != e {
+	if g, e := a[1], (rec{34, 2.78, false, "bar", t2.Format(parseTimeFormats[0])}); g != e {
 		t.Fatal(g, e)
 	}
 }
@@ -1226,7 +1226,7 @@ func TestTimeFormat(t *testing.T) {
 		f string
 		w string
 	}{
-		{f: "", w: "2021-01-02 16:39:17.123456789 +0000 UTC"},
+		{f: "", w: "2021-01-02 16:39:17.123456789+00:00"},
 		{f: "sqlite", w: "2021-01-02 16:39:17.123456789+00:00"},
 	}
 	for _, c := range cases {
