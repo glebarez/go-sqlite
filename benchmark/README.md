@@ -15,17 +15,17 @@ Dark color scheme:
 go test -v . -dark
 ```
 
-### my results:
+### My results:
 
 #### Insert
 | On disk                                   | In memory                                |
 | :---------------------------------------- | :--------------------------------------- |
-| ![](out/benchmarkInsert_memory:false.png) | ![](out/benchmarkInsert_memory:true.png) |
+| ![](out/benchmarkInsert_memory_false.png) | ![](out/benchmarkInsert_memory_true.png) |
 
 #### Select
 | On disk                                   | In memory                                |
 | :---------------------------------------- | :--------------------------------------- |
-| ![](out/benchmarkSelect_memory:false.png) | ![](out/benchmarkSelect_memory:true.png) |
+| ![](out/benchmarkSelect_memory_false.png) | ![](out/benchmarkSelect_memory_true.png) |
 
 ## Adding benchmarks
 A specific type of benchmark function is currently automated:
@@ -39,10 +39,10 @@ You can implement benchmark functions of that type, then add them into ```allBen
 var allBenchmarksOfNRows = []bechmarkOfNRows{
 	benchmarkInsert, 
 	benchmarkSelect,
-	}
+}
 ```
 
-Elements of ```allBenchmarksOfNRows``` will be automatically evaluated and plotted when alternative plotting runner is used (e.g. ```go run .```)
+Elements of ```allBenchmarksOfNRows``` will be automatically evaluated and plotted when alternative runner is used.
 
 To make implemented benchmark available via go-test, you may write a simple stub like following (see [bench_test.go](bench_test.go)):
 ```go

@@ -95,7 +95,7 @@ func TestBenchmarkAndPlot(t *testing.T) {
 			}
 
 			// render graph into file
-			outputFilename := path.Join("out", fmt.Sprintf("%s_memory:%v.png", getFuncName(benchFunc), isMemoryDB))
+			outputFilename := path.Join("out", fmt.Sprintf("%s_memory_%v.png", getFuncName(benchFunc), isMemoryDB))
 			if err := graph.Render(outputFilename); err != nil {
 				log.Fatal(err)
 			}
