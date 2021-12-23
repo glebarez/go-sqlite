@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        go: ['1.16','1.17']
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2.1.5
+      with:
+        go-version: ${{ matrix.go }}
+
+    - uses: actions/checkout@v2.4.0
+
+    - name: go mod package cache
+      uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ matrix.go }}-${{ hashFiles('**/go.mod') }}
+
+    - name: Test
+      run: go test -v ./...
