@@ -17,8 +17,7 @@ Additional command line arguments:
 
 
 ## Current results
-```console
-root@vmi369792:~/sqldev/go-sqlite/benchmark# go test -v . -count=1
+```text
 === RUN   Test_BenchmarkSQLite
 
 goos:   linux
