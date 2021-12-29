@@ -20,24 +20,24 @@ Additional command line arguments:
 ```text
 === RUN   Test_BenchmarkSQLite
 
-goos:   linux
+goos:   darwin
 goarch: amd64
-cpu:    Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz
+cpu:    Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
 repeat: 1 time(s)
-in-memory SQLite: true
+in-memory SQLite: false
 
-bench_create_index                  |  3.23x | CGo: 159.612 ms/op | Pure-Go: 515.857 ms/op
-bench_select_on_string_comparison   |  3.66x | CGo:  30.391 ms/op | Pure-Go: 111.339 ms/op
-bench_select_with_index             |  3.85x | CGo:   0.009 ms/op | Pure-Go:   0.035 ms/op
-bench_select_without_index          |  2.37x | CGo:  13.812 ms/op | Pure-Go:  32.796 ms/op
-bench_insert                        |  1.82x | CGo:   0.014 ms/op | Pure-Go:   0.026 ms/op
-bench_insert_in_transaction         |  1.32x | CGo:   0.013 ms/op | Pure-Go:   0.017 ms/op
-bench_insert_into_indexed           |  1.68x | CGo:   0.015 ms/op | Pure-Go:   0.024 ms/op
-bench_insert_from_select            |  2.24x | CGo:  46.112 ms/op | Pure-Go: 103.090 ms/op
-bench_update_text_with_index        |  2.75x | CGo:   0.010 ms/op | Pure-Go:   0.027 ms/op
-bench_update_with_index             |  4.12x | CGo:   0.006 ms/op | Pure-Go:   0.024 ms/op
-bench_update_without_index          |  1.79x | CGo:  12.881 ms/op | Pure-Go:  23.078 ms/op
-bench_delete_without_index          |  1.02x | CGo: 414.220 ms/op | Pure-Go: 420.956 ms/op
-bench_delete_with_index             |  2.61x | CGo:  52.482 ms/op | Pure-Go: 137.178 ms/op
---- PASS: Test_BenchmarkSQLite (242.13s)
+bench_create_index                  |  1.80x | CGo: 120.880 ms/op | Pure-Go: 217.574 ms/op
+bench_select_on_string_comparison   |  2.25x | CGo:  19.326 ms/op | Pure-Go:  43.498 ms/op
+bench_select_with_index             |  5.84x | CGo:   0.002 ms/op | Pure-Go:   0.014 ms/op
+bench_select_without_index          |  1.50x | CGo:   6.071 ms/op | Pure-Go:   9.111 ms/op
+bench_insert                        |  1.17x | CGo:   0.481 ms/op | Pure-Go:   0.565 ms/op
+bench_insert_in_transaction         |  1.78x | CGo:   0.004 ms/op | Pure-Go:   0.006 ms/op
+bench_insert_into_indexed           |  1.62x | CGo:   0.008 ms/op | Pure-Go:   0.013 ms/op
+bench_insert_from_select            |  1.80x | CGo:  30.409 ms/op | Pure-Go:  54.703 ms/op
+bench_update_text_with_index        |  3.26x | CGo:   0.004 ms/op | Pure-Go:   0.013 ms/op
+bench_update_with_index             |  4.20x | CGo:   0.003 ms/op | Pure-Go:   0.011 ms/op
+bench_update_without_index          |  1.40x | CGo:   6.421 ms/op | Pure-Go:   9.010 ms/op
+bench_delete_without_index          |  1.28x | CGo: 180.734 ms/op | Pure-Go: 231.105 ms/op
+bench_delete_with_index             |  1.85x | CGo:  34.284 ms/op | Pure-Go:  63.569 ms/op
+--- PASS: Test_BenchmarkSQLite (171.62s)
 ```
