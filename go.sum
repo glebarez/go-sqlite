@@ -51,6 +51,7 @@ modernc.org/cc/v3 v3.35.15/go.mod h1:iPJg1pkwXqAV16SNgFBVYmggfMg6xhs+2oiO0vclK3g
 modernc.org/cc/v3 v3.35.16/go.mod h1:iPJg1pkwXqAV16SNgFBVYmggfMg6xhs+2oiO0vclK3g=
 modernc.org/cc/v3 v3.35.17/go.mod h1:iPJg1pkwXqAV16SNgFBVYmggfMg6xhs+2oiO0vclK3g=
 modernc.org/cc/v3 v3.35.18/go.mod h1:iPJg1pkwXqAV16SNgFBVYmggfMg6xhs+2oiO0vclK3g=
+modernc.org/cc/v3 v3.35.20/go.mod h1:iPJg1pkwXqAV16SNgFBVYmggfMg6xhs+2oiO0vclK3g=
 modernc.org/ccgo/v3 v3.9.5/go.mod h1:umuo2EP2oDSBnD3ckjaVUXMrmeAw8C8OSICVa0iFf60=
 modernc.org/ccgo/v3 v3.10.0/go.mod h1:c0yBmkRFi7uW4J7fwx/JiijwOjeAeR2NoSaRVFPmjMw=
 modernc.org/ccgo/v3 v3.11.0/go.mod h1:dGNposbDp9TOZ/1KBxghxtUp/bzErD0/0QW4hhSaBMI=
@@ -90,6 +91,7 @@ modernc.org/ccgo/v3 v3.12.88/go.mod h1:0MFzUHIuSIthpVZyMWiFYMwjiFnhrN5MkvBrUwON+
 modernc.org/ccgo/v3 v3.12.90/go.mod h1:obhSc3CdivCRpYZmrvO88TXlW0NvoSVvdh/ccRjJYko=
 modernc.org/ccgo/v3 v3.12.92/go.mod h1:5yDdN7ti9KWPi5bRVWPl8UNhpEAtCjuEE7ayQnzzqHA=
 modernc.org/ccgo/v3 v3.12.95/go.mod h1:ZcLyvtocXYi8uF+9Ebm3G8EF8HNY5hGomBqthDp4eC8=
+modernc.org/ccgo/v3 v3.13.1/go.mod h1:aBYVOUfIlcSnrsRVU8VRS35y2DIfpgkmVkYZ0tpIXi4=
 modernc.org/ccorpus v1.11.1/go.mod h1:2gEUTrWqdpH2pXsmTM1ZkjeSrUWDpjMu2T6m29L/ErQ=
 modernc.org/httpfs v1.0.6/go.mod h1:7dosgurJGp0sPaRanU53W4xZYKh14wfzX420oZADeHM=
 modernc.org/libc v1.9.8/go.mod h1:U1eq8YWr/Kc1RWCMFUWEdkTg8OTcfLw2kY8EDwl039w=
@@ -132,8 +134,9 @@ modernc.org/libc v1.11.98/go.mod h1:ynK5sbjsU77AP+nn61+k+wxUGRx9rOFcIqWYYMaDZ4c=
 modernc.org/libc v1.11.99/go.mod h1:wLLYgEiY2D17NbBOEp+mIJJJBGSiy7fLL4ZrGGZ+8jI=
 modernc.org/libc v1.11.101/go.mod h1:wLLYgEiY2D17NbBOEp+mIJJJBGSiy7fLL4ZrGGZ+8jI=
 modernc.org/libc v1.11.104/go.mod h1:2MH3DaF/gCU8i/UBiVE1VFRos4o523M7zipmwH8SIgQ=
-modernc.org/libc v1.12.0 h1:imI0tde8UeIAyoU/C09Pm6CmTZkJrO+QvthHRpf1rj0=
 modernc.org/libc v1.12.0/go.mod h1:2MH3DaF/gCU8i/UBiVE1VFRos4o523M7zipmwH8SIgQ=
+modernc.org/libc v1.13.0 h1:hcf0k9qtTeqHqlgHoZyJAJk+lCoA2U5MYpL+FGDfdrA=
+modernc.org/libc v1.13.0/go.mod h1:npFeGWjmZTjFeWALQLrvklVmAxv4m80jnG3+xI8FdJk=
 modernc.org/mathutil v1.1.1/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
 modernc.org/mathutil v1.2.2/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
 modernc.org/mathutil v1.4.0/go.mod h1:mZW8CKdRPY1v87qxC/wUdX5O1qDzXMP5TH3wjfpga6E=
