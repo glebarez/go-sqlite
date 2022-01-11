@@ -10,6 +10,7 @@ import (
 	"math/rand"
 	"path"
 	"reflect"
+	"regexp"
 	"runtime"
 	"strings"
 	"testing"
@@ -25,6 +26,17 @@ const (
 	// default name for test table
 	testTableName = "t1"
 )
+
+var (
+	matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
+	matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
+)
+
+func toSnakeCase(str string) string {
+	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
+}
 
 // mustExec executes SQL statements and panic if error occurs
 func mustExec(db *sql.DB, statements ...string) {
@@ -133,14 +145,16 @@ func createDB(tb testing.TB, inMemory bool, driverName string) *sql.DB {
 	}
 	db.SetMaxOpenConns(1)
 
-	// if !inMemory {
-	// 	// disable sync
-	// 	_, err = db.Exec(`PRAGMA synchronous = OFF`)
-	// 	if err != nil {
-	// 		tb.Fatal(err)
-	// 	}
-	// }
-
+	// when in on-disk mode - set synchronous = OFF
+	// this turns off fsync() sys call at every record inserted out of transaction scope
+	// thus we don't bother HDD/SSD too often during specific bechmarks
+	if !inMemory {
+		// disable sync
+		_, err = db.Exec(`PRAGMA synchronous = OFF`)
+		if err != nil {
+			tb.Fatal(err)
+		}
+	}
 	return db
 }
 
@@ -193,11 +207,6 @@ func pronounceNum(n uint32) string {
 	panic("must have returned already")
 }
 
-// fracDiv does a fractional division of 2 integers
-func fracDiv(x, y int64) float64 {
-	return float64(x) / float64(y)
-}
-
 // AvgVal provides average value with value contributions on-the-fly
 type avgVal struct {
 	// the current average value
@@ -208,7 +217,9 @@ type avgVal struct {
 }
 
 func (a *avgVal) contribFloat(v float64) {
-	a.val = (a.val*float64(a.numContributions) + v) / (float64(a.numContributions) + 1.)
+	nContrib := float64(a.numContributions)
+	a.val = (a.val*nContrib + v) / (nContrib + 1.)
+	a.numContributions++
 }
 
 func (a *avgVal) contribInt(v int64) {

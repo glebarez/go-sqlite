@@ -27,22 +27,22 @@ var (
 
 	// benchmark funcs to execute
 	funcs = []func(*testing.B, *sql.DB){
-		bench_create_index,
-		bench_select_on_string_comparison,
-		bench_select_with_index,
-		bench_select_without_index,
-		bench_insert,
-		bench_insert_in_transaction,
-		bench_insert_into_indexed,
-		bench_insert_from_select,
-		bench_update_text_with_index,
-		bench_update_with_index,
-		bench_update_without_index,
-		bench_delete_without_index,
-		bench_delete_with_index,
+		benchCreateIndex,
+		benchSelectOnStringComparison,
+		benchSelectWithIndex,
+		benchSelectWithoutIndex,
+		benchInsert,
+		benchInsertInTransaction,
+		benchInsertIntoIndexed,
+		benchInsertFromSelect,
+		benchUpdateTextWithIndex,
+		benchUpdateWithIndex,
+		benchUpdateWithoutIndex,
+		benchDeleteWithoutIndex,
+		benchDeleteWithIndex,
 
 		// due to very long run of this benchmark, it is disabled
-		// bench_drop_table,
+		// benchDropTable,
 	}
 )
 
@@ -53,7 +53,7 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func Test_BenchmarkSQLite(t *testing.T) {
+func TestBenchmarkSQLite(t *testing.T) {
 	// print info about CPU and OS
 	fmt.Println()
 	fmt.Printf("goos:   %s\n", runtime.GOOS)
@@ -69,8 +69,8 @@ func Test_BenchmarkSQLite(t *testing.T) {
 	for _, f := range funcs {
 
 		var (
-			nsPerOpBase avgVal
-			nsPerOp     avgVal
+			nsPerOpCGo    avgVal
+			nsPerOpPureGo avgVal
 		)
 
 		// run benchmark against different drivers
@@ -80,7 +80,7 @@ func Test_BenchmarkSQLite(t *testing.T) {
 			br := testing.Benchmark(func(b *testing.B) { f(b, db) })
 
 			// contribue metric to average
-			nsPerOpBase.contribInt(br.NsPerOp())
+			nsPerOpCGo.contribInt(br.NsPerOp())
 
 			// close DB
 			if err := db.Close(); err != nil {
@@ -92,7 +92,7 @@ func Test_BenchmarkSQLite(t *testing.T) {
 			br = testing.Benchmark(func(b *testing.B) { f(b, db) })
 
 			// contribue metric to average
-			nsPerOp.contribInt(br.NsPerOp())
+			nsPerOpPureGo.contribInt(br.NsPerOp())
 			// close DB
 			if err := db.Close(); err != nil {
 				t.Fatal(err)
@@ -101,10 +101,10 @@ func Test_BenchmarkSQLite(t *testing.T) {
 
 		// print result row
 		fmt.Printf("%-35s | %5.2fx | CGo: %7.3f ms/op | Pure-Go: %7.3f ms/op\n",
-			getFuncName(f),
-			nsPerOp.val/nsPerOpBase.val,
-			nsPerOpBase.val/1e6,
-			nsPerOp.val/1e6,
+			toSnakeCase(getFuncName(f)),
+			nsPerOpPureGo.val/nsPerOpCGo.val, // factor
+			nsPerOpCGo.val/1e6,               // ms/op
+			nsPerOpPureGo.val/1e6,            // ms/op
 		)
 	}
 }

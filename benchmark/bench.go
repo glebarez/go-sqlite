@@ -1,6 +1,11 @@
+// Copyright 2021 The Sqlite Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 package benchmark
 
-/* this file contains benchmarks inspired by https://www.sqlite.org/speed.html */
+/*
+this file contains benchmarks inspired by https://www.sqlite.org/speed.html
+*/
 
 import (
 	"database/sql"
@@ -10,7 +15,7 @@ import (
 )
 
 // corresponds to Test 1 from https://www.sqlite.org/speed.html
-func bench_insert(b *testing.B, db *sql.DB) {
+func benchInsert(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -21,7 +26,7 @@ func bench_insert(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 2 from https://www.sqlite.org/speed.html
-func bench_insert_in_transaction(b *testing.B, db *sql.DB) {
+func benchInsertInTransaction(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -32,7 +37,7 @@ func bench_insert_in_transaction(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 3 from https://www.sqlite.org/speed.html
-func bench_insert_into_indexed(b *testing.B, db *sql.DB) {
+func benchInsertIntoIndexed(b *testing.B, db *sql.DB) {
 	// create test table with indexed column
 	createTestTable(db, `c`)
 
@@ -42,7 +47,7 @@ func bench_insert_into_indexed(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 4 from https://www.sqlite.org/speed.html
-func bench_select_without_index(b *testing.B, db *sql.DB) {
+func benchSelectWithoutIndex(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -66,13 +71,15 @@ func bench_select_without_index(b *testing.B, db *sql.DB) {
 		// ...
 		for i := 0; i < b.N; i++ {
 			b := (i * 100) % maxGeneratedNum
-			stmt.Exec(b, b+1000)
+			if _, err := stmt.Exec(b, b+1000); err != nil {
+				panic(err)
+			}
 		}
 	})
 }
 
 // corresponds to Test 5 from https://www.sqlite.org/speed.html
-func bench_select_on_string_comparison(b *testing.B, db *sql.DB) {
+func benchSelectOnStringComparison(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -105,7 +112,7 @@ func bench_select_on_string_comparison(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 6 from https://www.sqlite.org/speed.html
-func bench_create_index(b *testing.B, db *sql.DB) {
+func benchCreateIndex(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -136,7 +143,7 @@ func bench_create_index(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 7 from https://www.sqlite.org/speed.html
-func bench_select_with_index(b *testing.B, db *sql.DB) {
+func benchSelectWithIndex(b *testing.B, db *sql.DB) {
 	// create test table with indexed field
 	createTestTable(db, `b`)
 
@@ -159,14 +166,17 @@ func bench_select_with_index(b *testing.B, db *sql.DB) {
 		// SELECT count(*), avg(b) FROM t2 WHERE b>=200 AND b<300;
 		for i := 0; i < b.N; i++ {
 			b := (i * 100) % maxGeneratedNum
-			stmt.Exec(b, b+100)
+			if _, err := stmt.Exec(b, b+100); err != nil {
+				panic(err)
+			}
+
 		}
 	})
 
 }
 
 // corresponds to Test 8 from https://www.sqlite.org/speed.html
-func bench_update_without_index(b *testing.B, db *sql.DB) {
+func benchUpdateWithoutIndex(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -189,14 +199,16 @@ func bench_update_without_index(b *testing.B, db *sql.DB) {
 		// UPDATE t1 SET b=b*2 WHERE a>=20 AND a<30;
 		for i := 0; i < b.N; i++ {
 			a := (i * 10) % testTableRowCount
-			stmt.Exec(a, a+10)
+			if _, err := stmt.Exec(a, a+10); err != nil {
+				panic(err)
+			}
 		}
 	})
 
 }
 
 // corresponds to Test 9 from https://www.sqlite.org/speed.html
-func bench_update_with_index(b *testing.B, db *sql.DB) {
+func benchUpdateWithIndex(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db, `a`)
 
@@ -218,16 +230,18 @@ func bench_update_with_index(b *testing.B, db *sql.DB) {
 		// UPDATE t2 SET b=121928 WHERE a=2;
 		// ...
 		for i := 0; i < b.N; i++ {
-			stmt.Exec(
+			if _, err := stmt.Exec(
 				rand.Uint32(),         // b = ?
 				i%testTableRowCount+1, // WHERE a=?
-			)
+			); err != nil {
+				panic(err)
+			}
 		}
 	})
 }
 
 // corresponds to Test 10 from https://www.sqlite.org/speed.html
-func bench_update_text_with_index(b *testing.B, db *sql.DB) {
+func benchUpdateTextWithIndex(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db, `a`)
 
@@ -249,16 +263,18 @@ func bench_update_text_with_index(b *testing.B, db *sql.DB) {
 		// UPDATE t2 SET c='three hundred sixty six thousand five hundred two' WHERE a=2;
 		for i := 0; i < b.N; i++ {
 			// generate new random number-as-words for c
-			stmt.Exec(
+			if _, err := stmt.Exec(
 				pronounceNum(uint32(rand.Int31n(maxGeneratedNum))), // SET c=?
 				i%testTableRowCount+1,                              // WHERE a=?
-			)
+			); err != nil {
+				panic(err)
+			}
 		}
 	})
 }
 
 // corresponds to Test 11 from https://www.sqlite.org/speed.html
-func bench_insert_from_select(b *testing.B, db *sql.DB) {
+func benchInsertFromSelect(b *testing.B, db *sql.DB) {
 	// create source table
 	createTestTable(db)
 	fillTestTableInTx(db, testTableRowCount)
@@ -292,7 +308,7 @@ func bench_insert_from_select(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 12 from https://www.sqlite.org/speed.html
-func bench_delete_without_index(b *testing.B, db *sql.DB) {
+func benchDeleteWithoutIndex(b *testing.B, db *sql.DB) {
 	// create test table
 	createTestTable(db)
 
@@ -319,7 +335,7 @@ func bench_delete_without_index(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 13 from https://www.sqlite.org/speed.html
-func bench_delete_with_index(b *testing.B, db *sql.DB) {
+func benchDeleteWithIndex(b *testing.B, db *sql.DB) {
 	// create test table with indexed column
 	createTestTable(db, `a`)
 
@@ -346,7 +362,7 @@ func bench_delete_with_index(b *testing.B, db *sql.DB) {
 }
 
 // corresponds to Test 16 from https://www.sqlite.org/speed.html
-func bench_drop_table(b *testing.B, db *sql.DB) {
+func benchDropTable(b *testing.B, db *sql.DB) {
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
 		createTestTable(db)
