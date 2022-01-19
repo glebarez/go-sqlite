@@ -1,0 +1,38 @@
+name: Badge Sqlite version
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    
+jobs:
+  create-sqlite-version-badge:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2.1.5
+      with:
+        go-version: 1.17
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: go mod package cache
+      uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-${{ hashFiles('go.mod') }}
+
+    - name: request sqlite_version()
+      run: echo "sqlite_version=$(go test . -run '^TestSQLiteVersion$' -v | grep sqlite_version | tr -s ' ' | cut -d' ' -f3)" >> $GITHUB_ENV
+      
+    - name: Make version badge 
+      uses: schneegans/dynamic-badges-action@v1.1.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 0fd7561eb29baf31d5362ffee1ae1702
+        filename: badge-sqlite-version-with-date.json
+        label: SQLite release
+        message: "${{ env.sqlite_version }}"
+        color: 2269d3
+        labelColor: 25292d

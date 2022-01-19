@@ -1,5 +1,5 @@
 [![Tests](https://github.com/glebarez/go-sqlite/actions/workflows/tests.yml/badge.svg)](https://github.com/glebarez/go-sqlite/actions/workflows/tests.yml)<br>
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/glebarez/fb4d23f63d866b3e1e58b26d2f5ed01f/raw/badge-sqlite-version.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/glebarez/0fd7561eb29baf31d5362ffee1ae1702/raw/badge-sqlite-version-with-date.json)
 
 # go-sqlite
 This is a pure-Go SQLite driver for Golang's native [database/sql](https://pkg.go.dev/database/sql) package.
