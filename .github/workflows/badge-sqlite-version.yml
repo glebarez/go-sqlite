@@ -24,7 +24,7 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('go.mod') }}
 
     - name: request sqlite_version()
-      run: echo "sqlite_version=$(go test . -run '^TestSQLiteVersion$' -v | grep sqlite_version | tr -s ' ' | cut -d' ' -f3)" >> $GITHUB_ENV
+      run: echo "sqlite_version=$(go test . -run '^TestSQLiteVersion$' -v | grep sqlite_version | tr -s ' ' | cut -d' ' -f3,4)" >> $GITHUB_ENV
       
     - name: Make version badge 
       uses: schneegans/dynamic-badges-action@v1.1.0

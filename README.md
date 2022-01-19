@@ -1,4 +1,4 @@
-[![Tests](https://github.com/glebarez/go-sqlite/actions/workflows/tests.yml/badge.svg)](https://github.com/glebarez/go-sqlite/actions/workflows/tests.yml)<br>
+[![Tests](https://github.com/glebarez/go-sqlite/actions/workflows/tests.yml/badge.svg)](https://github.com/glebarez/go-sqlite/actions/workflows/tests.yml)
 ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/glebarez/0fd7561eb29baf31d5362ffee1ae1702/raw/badge-sqlite-version-with-date.json)
 
 # go-sqlite
