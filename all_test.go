@@ -29,6 +29,7 @@ import (
 
 	"modernc.org/libc"
 	"modernc.org/mathutil"
+	sqlite3 "modernc.org/sqlite/lib"
 )
 
 func caller(s string, va ...interface{}) {
@@ -2135,5 +2136,71 @@ func TestConstraintUniqueError(t *testing.T) {
 
 	if errs, want := err.Error(), "constraint failed: UNIQUE constraint failed: hash.hashval (2067)"; errs != want {
 		t.Fatalf("got error string %q, want %q", errs, want)
+	}
+}
+
+// https://gitlab.com/cznic/sqlite/-/issues/92
+func TestBeginMode(t *testing.T) {
+	tempDir, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		os.RemoveAll(tempDir)
+	}()
+
+	tests := []struct {
+		mode string
+		want int32
+	}{
+		{"deferred", sqlite3.SQLITE_TXN_NONE},
+		{"immediate", sqlite3.SQLITE_TXN_WRITE},
+		// TODO: how to verify "exclusive" is working differently from immediate,
+		// short of concurrently trying to open the database again? This is only
+		// different in non-WAL journal modes.
+		{"exclusive", sqlite3.SQLITE_TXN_WRITE},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		for _, jm := range []string{"delete", "wal"} {
+			jm := jm
+			t.Run(jm+"/"+tt.mode, func(t *testing.T) {
+				// t.Parallel()
+
+				qs := fmt.Sprintf("?_txlock=%s&_pragma=journal_mode(%s)", tt.mode, jm)
+				db, err := sql.Open("sqlite", filepath.Join(tempDir, fmt.Sprintf("testbeginmode-%s.sqlite", tt.mode))+qs)
+				if err != nil {
+					t.Fatalf("Failed to open database: %v", err)
+				}
+				defer db.Close()
+				connection, err := db.Conn(context.Background())
+				if err != nil {
+					t.Fatalf("Failed to open connection: %v", err)
+				}
+
+				tx, err := connection.BeginTx(context.Background(), nil)
+				if err != nil {
+					t.Fatalf("Failed to begin transaction: %v", err)
+				}
+				defer tx.Rollback()
+				if err := connection.Raw(func(driverConn interface{}) error {
+					p, err := libc.CString("main")
+					if err != nil {
+						return err
+					}
+					c := driverConn.(*conn)
+					defer c.free(p)
+					got := sqlite3.Xsqlite3_txn_state(c.tls, c.db, p)
+					if got != tt.want {
+						return fmt.Errorf("in mode %s, got txn state %d, want %d", tt.mode, got, tt.want)
+					}
+					return nil
+				}); err != nil {
+					t.Fatalf("Failed to check txn state: %v", err)
+				}
+			})
+		}
 	}
 }
