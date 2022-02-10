@@ -17,6 +17,9 @@ jobs:
       uses: actions/setup-go@v2.2.0
       with:
         go-version: ${{ matrix.go }}
+        check-latest: true
+        
+    - run: go version
 
     - uses: actions/checkout@v2.4.0
 
