@@ -803,7 +803,7 @@ func TestIssue20(t *testing.T) {
 		os.RemoveAll(tempDir)
 	}()
 
-	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db")+"?_pragma=busy_timeout(10000)")
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db")+"?_pragma=busy_timeout(30000)")
 	if err != nil {
 		t.Fatalf("foo.db open fail: %v", err)
 	}
