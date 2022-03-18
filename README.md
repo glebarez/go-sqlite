@@ -3,8 +3,16 @@
 
 # go-sqlite
 This is a pure-Go SQLite driver for Golang's native [database/sql](https://pkg.go.dev/database/sql) package.
+The driver has [Go-based implementation of SQLite](https://gitlab.com/cznic/sqlite) embedded in itself (so, you don't need to install SQLite separately)
 
-This driver is based on pure-Go implementation of SQLite (https://gitlab.com/cznic/sqlite), and has SQLite embedded.
+Version support:
+
+| Version | SQLite | Go 1.16 support    | Go 1.17+ support   |
+| ------- | ------ | ------------------ | ------------------ |
+| v1.14.8 | 3.38.0 | :white_check_mark: | :white_check_mark: |
+| v1.15.0 | 3.38.1 | :x:                | :white_check_mark: |
+
+
 
 # Usage
 
@@ -36,3 +44,10 @@ func main() {
 - in-memory SQLite: ```":memory:"```
 - on-disk SQLite: ```"path/to/some.db"```
 - Foreign-key constraint activation: ```":memory:?_pragma=foreign_keys(1)"```
+
+## Settings PRAGMAs in connection string
+Any SQLIte pragma can be preset for a Database connection using ```_pragma``` query parameter. Examples:
+- [journal mode](https://www.sqlite.org/pragma.html#pragma_journal_mode): ```path/to/some.db?_pragma=journal_mode(WAL)```
+- [busy timeout](https://www.sqlite.org/pragma.html#pragma_busy_timeout): ```:memory:?_pragma=busy_timeout(5000)```
+
+Multiple pragmas can be specified, e.g.: ```path/to/some.db?_pragma=busy_timeout(5000)&_pragma=journal_mode(WAL)```
