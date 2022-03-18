@@ -50,4 +50,5 @@ Any SQLIte pragma can be preset for a Database connection using ```_pragma``` qu
 - [journal mode](https://www.sqlite.org/pragma.html#pragma_journal_mode): ```path/to/some.db?_pragma=journal_mode(WAL)```
 - [busy timeout](https://www.sqlite.org/pragma.html#pragma_busy_timeout): ```:memory:?_pragma=busy_timeout(5000)```
 
-Multiple pragmas can be specified, e.g.: ```path/to/some.db?_pragma=busy_timeout(5000)&_pragma=journal_mode(WAL)```
+Multiple PRAGMAs can be specified, e.g.:<br>
+```path/to/some.db?_pragma=busy_timeout(5000)&_pragma=journal_mode(WAL)```
