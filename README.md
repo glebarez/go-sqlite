@@ -7,10 +7,10 @@ The driver has [Go-based implementation of SQLite](https://gitlab.com/cznic/sqli
 
 Version support:
 
-| Version | SQLite | Go 1.16 support    | Go 1.17+ support   |
-| ------- | ------ | ------------------ | ------------------ |
+| Version | SQLite |  Go 1.16 support   |  Go 1.17+ support  |
+| ------- | ------ | :----------------: | :----------------: |
 | v1.14.8 | 3.38.0 | :white_check_mark: | :white_check_mark: |
-| v1.15.0 | 3.38.1 | :x:                | :white_check_mark: |
+| v1.15.0 | 3.38.1 |        :x:         | :white_check_mark: |
 
 
 
