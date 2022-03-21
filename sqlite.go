@@ -429,20 +429,28 @@ func (r *rows) ColumnTypeScanType(index int) reflect.Type {
 		return reflect.TypeOf("")
 	}
 
+	declType := strings.ToLower(r.c.columnDeclType(r.pstmt, index))
+
 	switch t {
 	case sqlite3.SQLITE_INTEGER:
-		switch strings.ToLower(r.c.columnDeclType(r.pstmt, index)) {
-		case "boolean":
+		if declType == "boolean" {
+			// SQLite does not have a separate Boolean storage class. Instead, Boolean values are stored as integers 0 (false) and 1 (true).
 			return reflect.TypeOf(false)
-		case "date", "datetime", "time", "timestamp":
-			return reflect.TypeOf(time.Time{})
-		default:
+		} else {
 			return reflect.TypeOf(int64(0))
 		}
 	case sqlite3.SQLITE_FLOAT:
 		return reflect.TypeOf(float64(0))
 	case sqlite3.SQLITE_TEXT:
-		return reflect.TypeOf("")
+		// SQLite does not have a storage class set aside for storing dates and/or times.
+		// Instead, the built-in Date And Time Functions of SQLite are capable of storing
+		// dates and times as TEXT, REAL, or INTEGER values
+		switch declType {
+		case "date", "datetime", "time", "timestamp":
+			return reflect.TypeOf(time.Time{})
+		default:
+			return reflect.TypeOf("")
+		}
 	case sqlite3.SQLITE_BLOB:
 		return reflect.SliceOf(reflect.TypeOf([]byte{}))
 	case sqlite3.SQLITE_NULL:
