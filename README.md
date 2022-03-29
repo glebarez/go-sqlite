@@ -12,7 +12,7 @@ Version support:
 | v1.14.8 | 3.38.0 | :white_check_mark: | :white_check_mark: |
 | v1.15.0 | 3.38.1 |        :x:         | :white_check_mark: |
 | v1.15.1 | 3.38.1 | :white_check_mark: | :white_check_mark: |
-
+| v1.15.2 | 3.38.2 | :white_check_mark: | :white_check_mark: |
 
 
 # Usage
