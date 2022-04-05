@@ -47,6 +47,7 @@ var (
 	_ error                                 = (*Error)(nil)
 )
 
+// LogSqlStatements - if true when Open() is called, all SQL statements will be logged to standard output
 var LogSqlStatements bool
 
 const (
@@ -165,17 +166,12 @@ func (r *result) RowsAffected() (int64, error) {
 type rows struct {
 	allocs  []uintptr // allocations made for this prepared statement (to be freed)
 	c       *conn     // connection
+	columns []string  // column names
 	pstmt   uintptr   // correspodning prepared statement
-	columns []string
 }
 
 func newRows(c *conn, pstmt uintptr, allocs []uintptr) (r *rows, err error) {
-	// create rows
-	r = &rows{
-		c:      c,
-		pstmt:  pstmt,
-		allocs: allocs,
-	}
+	r = &rows{c: c, pstmt: pstmt, allocs: allocs}
 
 	// deferred close if anything goes wrong
 	defer func() {
@@ -186,13 +182,13 @@ func newRows(c *conn, pstmt uintptr, allocs []uintptr) (r *rows, err error) {
 	}()
 
 	// get columns count
-	nCols, err := c.columnCount(pstmt)
+	n, err := c.columnCount(pstmt)
 	if err != nil {
 		return nil, err
 	}
 
 	// get column names
-	r.columns = make([]string, nCols)
+	r.columns = make([]string, n)
 	for i := range r.columns {
 		if r.columns[i], err = r.c.columnName(pstmt, i); err != nil {
 			return nil, err
@@ -233,7 +229,7 @@ func (r *rows) Next(dest []driver.Value) error {
 	}
 
 	// analyze error code
-	switch rc & 0xff {
+	switch rc {
 	case sqlite3.SQLITE_ROW:
 		if g, e := len(dest), len(r.columns); g != e {
 			return fmt.Errorf("sqlite: Next: have %v destination values, expected %v", g, e)
@@ -587,10 +583,8 @@ func (s *stmt) Query(args []driver.Value) (driver.Rows, error) { //TODO StmtQuer
 }
 
 func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Rows, err error) {
-	var (
-		pstmt uintptr // C-pointer to prepared statement
-		done  int32   // done indicator (atomic usage)
-	)
+	var pstmt uintptr // C-pointer to prepared statement
+	var done int32    // done indicator (atomic usage)
 
 	// context honoring
 	if ctx != nil && ctx.Done() != nil {
@@ -1521,10 +1515,6 @@ func newDriver() *Driver { return d }
 // available at
 // https://www.sqlite.org/lang_transaction.html#deferred_immediate_and_exclusive_transactions
 func (d *Driver) Open(name string) (driver.Conn, error) {
-	if LogSqlStatements {
-		log.Println("new connection")
-	}
-
 	c, err := newConn(name)
 	if err != nil {
 		return nil, err
@@ -1536,6 +1526,11 @@ func (d *Driver) Open(name string) (driver.Conn, error) {
 			return nil, err
 		}
 	}
+
+	if LogSqlStatements {
+		log.Println("new connection")
+	}
+
 	return c, nil
 }
 
