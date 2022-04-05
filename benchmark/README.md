@@ -12,7 +12,7 @@ Additional command line arguments:
 
 | flag | type | default | description                                                                                     |
 | ---- | ---- | ------- | ----------------------------------------------------------------------------------------------- |
-| -mem | bool | false   | if set - benchmarks will use in-memory SQLite instance,  otherwise: on-disk instance            |
+| -mem | bool | false   | if true: benchmarks will use in-memory SQLite instance,  otherwise: on-disk instance            |
 | -rep | uint | 1       | run each benchmark multiple times and average the results. this may provide more stable results |
 
 

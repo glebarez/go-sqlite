@@ -3,8 +3,9 @@ module github.com/glebarez/go-sqlite
 go 1.16
 
 require (
-	golang.org/x/sys v0.0.0-20211007075335-d3039528d8ac
+	github.com/mattn/go-isatty v0.0.14 // indirect
+	golang.org/x/sys v0.0.0-20220405052023-b1e9470b6e64
 	modernc.org/libc v1.14.12
 	modernc.org/mathutil v1.4.1
-	modernc.org/sqlite v1.15.4
+	modernc.org/sqlite v1.16.0
 )
