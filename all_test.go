@@ -165,7 +165,35 @@ func TestIssue98(t *testing.T) {
 		t.Fatal(err)
 	}
 	if _, err := db.Exec("insert into t values (?)", nil); err == nil {
-		t.Fatal(errors.New("expected statement to fail"))
+		t.Fatal("expected statement to fail")
+	}
+}
+
+// https://gitlab.com/cznic/sqlite/issues/97
+func TestIssue97(t *testing.T) {
+	name := filepath.Join(t.TempDir(), "tmp.db")
+
+	db, err := sql.Open(driverName, fmt.Sprintf("file:%s", name))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	if _, err := db.Exec("create table t(b int)"); err != nil {
+		t.Fatal(err)
+	}
+
+	rodb, err := sql.Open(driverName, fmt.Sprintf("file:%s?mode=ro", name))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer rodb.Close()
+
+	_, err = rodb.Exec("drop table t")
+	if err == nil {
+		t.Fatal("expected drop table statement to fail on a read only database")
+	} else if err.Error() != "attempt to write a readonly database (8)" {
+		t.Fatal("expected drop table statement to fail because its a readonly database")
 	}
 }
 
