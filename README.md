@@ -5,16 +5,6 @@
 This is a pure-Go SQLite driver for Golang's native [database/sql](https://pkg.go.dev/database/sql) package.
 The driver has [Go-based implementation of SQLite](https://gitlab.com/cznic/sqlite) embedded in itself (so, you don't need to install SQLite separately)
 
-Version support:
-
-| Version | SQLite |  Go 1.16 support   |  Go 1.17+ support  |
-| ------- | ------ | :----------------: | :----------------: |
-| v1.14.8 | 3.38.0 | :white_check_mark: | :white_check_mark: |
-| v1.15.0 | 3.38.1 |        :x:         | :white_check_mark: |
-| v1.15.1 | 3.38.1 | :white_check_mark: | :white_check_mark: |
-| v1.15.2 | 3.38.2 | :white_check_mark: | :white_check_mark: |
-
-
 # Usage
 
 ## Example
