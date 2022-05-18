@@ -149,6 +149,40 @@ func tempDB(t testing.TB) (string, *sql.DB) {
 	return dir, db
 }
 
+// https://gitlab.com/cznic/sqlite/issues/100
+func TestIssue100(t *testing.T) {
+	db, err := sql.Open("sqlite", ":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if _, err := db.Exec(`CREATE TABLE t1(v TEXT)`); err != nil {
+		t.Fatal(err)
+	}
+	var val []byte
+	if _, err := db.Exec(`INSERT INTO t1(v) VALUES(?)`, val); err != nil {
+		t.Fatal(err)
+	}
+	var res sql.NullByte
+	if err = db.QueryRow(`SELECT v FROM t1 LIMIT 1`).Scan(&res); err != nil {
+		t.Fatal(err)
+	}
+	if res.Valid {
+		t.Fatalf("got non-NULL result: %+v", res)
+	}
+
+	if _, err := db.Exec(`CREATE TABLE t2(
+		v TEXT check(v is NULL OR(json_valid(v) AND json_type(v)='array'))
+	)`); err != nil {
+		t.Fatal(err)
+	}
+	for _, val := range [...][]byte{nil, []byte(`["a"]`)} {
+		if _, err := db.Exec(`INSERT INTO t2(v) VALUES(?)`, val); err != nil {
+			t.Fatalf("inserting value %v (%[1]q): %v", val, err)
+		}
+	}
+}
+
 // https://gitlab.com/cznic/sqlite/issues/98
 func TestIssue98(t *testing.T) {
 	dir, db := tempDB(t)
