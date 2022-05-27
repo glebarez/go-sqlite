@@ -163,7 +163,7 @@ func TestIssue100(t *testing.T) {
 	if _, err := db.Exec(`INSERT INTO t1(v) VALUES(?)`, val); err != nil {
 		t.Fatal(err)
 	}
-	var res sql.NullByte
+	var res sql.NullString
 	if err = db.QueryRow(`SELECT v FROM t1 LIMIT 1`).Scan(&res); err != nil {
 		t.Fatal(err)
 	}
