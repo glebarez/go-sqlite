@@ -27,7 +27,7 @@ jobs:
       run: echo "sqlite_version=$(go test . -run '^TestSQLiteVersion$' -v | grep sqlite_version | tr -s ' ' | cut -d' ' -f3,4)" >> $GITHUB_ENV
       
     - name: Make version badge 
-      uses: schneegans/dynamic-badges-action@v1.4.0
+      uses: schneegans/dynamic-badges-action@v1.6.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: 0fd7561eb29baf31d5362ffee1ae1702
