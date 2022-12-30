@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab
-	modernc.org/libc v1.21.5
+	modernc.org/libc v1.22.2
 	modernc.org/mathutil v1.5.0
-	modernc.org/sqlite v1.20.0
+	modernc.org/sqlite v1.20.1
 )
