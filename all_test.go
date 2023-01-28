@@ -9,10 +9,11 @@ import (
 	"context"
 	"database/sql"
 	"database/sql/driver"
+	"embed"
 	"errors"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"math/rand"
 	"net/url"
 	"os"
@@ -23,16 +24,20 @@ import (
 	"regexp"
 	"runtime"
 	"runtime/debug"
+	"runtime/pprof"
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 	"unsafe"
 
+	"github.com/google/pprof/profile"
 	"modernc.org/libc"
 	"modernc.org/mathutil"
 	sqlite3 "modernc.org/sqlite/lib"
+	"modernc.org/sqlite/vfs"
 )
 
 func caller(s string, va ...interface{}) {
@@ -124,7 +129,7 @@ func TestMain(m *testing.M) {
 
 func testMain(m *testing.M) int {
 	var err error
-	tempDir, err = ioutil.TempDir("", "sqlite-test-")
+	tempDir, err = os.MkdirTemp("", "sqlite-test-")
 	if err != nil {
 		panic(err) //TODOOK
 	}
@@ -135,7 +140,7 @@ func testMain(m *testing.M) int {
 }
 
 func tempDB(t testing.TB) (string, *sql.DB) {
-	dir, err := ioutil.TempDir("", "sqlite-test-")
+	dir, err := os.MkdirTemp("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -147,6 +152,75 @@ func tempDB(t testing.TB) (string, *sql.DB) {
 	}
 
 	return dir, db
+}
+
+// https://gitlab.com/cznic/sqlite/issues/118
+func TestIssue118(t *testing.T) {
+	// Many iterations generate enough objects to ensure pprof
+	// profile captures the samples that we are seeking below
+	for i := 0; i < 10000; i++ {
+		func() {
+			db, err := sql.Open("sqlite", ":memory:")
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer db.Close()
+			if _, err := db.Exec(`CREATE TABLE t1(v TEXT)`); err != nil {
+				t.Fatal(err)
+			}
+			var val []byte
+			if _, err := db.Exec(`INSERT INTO t1(v) VALUES(?)`, val); err != nil {
+				t.Fatal(err)
+			}
+			var count int
+			err = db.QueryRow("SELECT MAX(_ROWID_) FROM t1").Scan(&count)
+			if err != nil || count <= 0 {
+				t.Fatalf("Query failure: %d, %s", count, err)
+			}
+		}()
+	}
+
+	// Dump & read heap sample
+	var buf bytes.Buffer
+	if err := pprof.Lookup("heap").WriteTo(&buf, 0); err != nil {
+		t.Fatalf("Error dumping heap profile: %s", err)
+	}
+	heapProfile, err := profile.Parse(&buf)
+	if err != nil {
+		t.Fatalf("Error parsing heap profile: %s", err)
+	}
+
+	// Profile.SampleType indexes map into Sample.Values below. We are
+	// looking for "inuse_*" values, and skip the "alloc_*" ones
+	inUseIndexes := make([]int, 0, 2)
+	for i, t := range heapProfile.SampleType {
+		if strings.HasPrefix(t.Type, "inuse_") {
+			inUseIndexes = append(inUseIndexes, i)
+		}
+	}
+
+	// Look for samples from "libc.NewTLS" and insure that they have nothing in-use
+	for _, sample := range heapProfile.Sample {
+		isInUse := false
+		for _, idx := range inUseIndexes {
+			isInUse = isInUse || sample.Value[idx] > 0
+		}
+		if !isInUse {
+			continue
+		}
+
+		isNewTLS := false
+		sampleStack := []string{}
+		for _, location := range sample.Location {
+			for _, line := range location.Line {
+				sampleStack = append(sampleStack, fmt.Sprintf("%s (%s:%d)", line.Function.Name, line.Function.Filename, line.Line))
+				isNewTLS = isNewTLS || strings.Contains(line.Function.Name, "libc.NewTLS")
+			}
+		}
+		if isNewTLS {
+			t.Errorf("Memory leak via libc.NewTLS:\n%s\n", strings.Join(sampleStack, "\n"))
+		}
+	}
 }
 
 // https://gitlab.com/cznic/sqlite/issues/100
@@ -776,7 +850,7 @@ func TestConcurrentGoroutines(t *testing.T) {
 		nrows       = 5000
 	)
 
-	dir, err := ioutil.TempDir("", "sqlite-test-")
+	dir, err := os.MkdirTemp("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -883,12 +957,7 @@ func TestConcurrentProcesses(t *testing.T) {
 		t.Skip("skipping test in short mode")
 	}
 
-	//TODO The current riscv64 board seems too slow for the hardcoded timeouts.
-	if runtime.GOARCH == "riscv64" {
-		t.Skip("skipping test")
-	}
-
-	dir, err := ioutil.TempDir("", "sqlite-test-")
+	dir, err := os.MkdirTemp("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -907,7 +976,7 @@ func TestConcurrentProcesses(t *testing.T) {
 			continue
 		}
 
-		b, err := ioutil.ReadFile(v)
+		b, err := os.ReadFile(v)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -920,7 +989,7 @@ func TestConcurrentProcesses(t *testing.T) {
 			b = bytes.ReplaceAll(b, []byte("\r\n"), []byte("\n"))
 		}
 
-		if err := ioutil.WriteFile(filepath.Join(dir, filepath.Base(v)), b, 0666); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, filepath.Base(v)), b, 0666); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -958,7 +1027,7 @@ outer:
 		}
 
 		fmt.Printf("exec: %s db %s\n", filepath.FromSlash(bin), script)
-		out, err := exec.Command(filepath.FromSlash(bin), "db", "--timeout", "60000", script).CombinedOutput()
+		out, err := exec.Command(filepath.FromSlash(bin), "db", "--timeout", "6000000", script).CombinedOutput()
 		if err != nil {
 			t.Fatalf("%s\n%v", out, err)
 		}
@@ -1024,7 +1093,7 @@ INSERT INTO "products" ("id", "user_id", "name", "description", "created_at", "c
 `
 	)
 
-	dir, err := ioutil.TempDir("", "sqlite-test-")
+	dir, err := os.MkdirTemp("", "sqlite-test-")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1122,7 +1191,7 @@ func mustExec(t *testing.T, db *sql.DB, sql string, args ...interface{}) sql.Res
 func TestIssue20(t *testing.T) {
 	const TablePrefix = "gosqltest_"
 
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1131,7 +1200,13 @@ func TestIssue20(t *testing.T) {
 		os.RemoveAll(tempDir)
 	}()
 
-	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db")+"?_pragma=busy_timeout(30000)")
+	// go1.20rc1, linux/ppc64le VM
+	// 10000 FAIL
+	// 20000 FAIL
+	// 40000 PASS
+	// 30000 PASS
+	// 25000 PASS
+	db, err := sql.Open("sqlite", filepath.Join(tempDir, "foo.db")+"?_pragma=busy_timeout%3d50000")
 	if err != nil {
 		t.Fatalf("foo.db open fail: %v", err)
 	}
@@ -1182,7 +1257,7 @@ func TestIssue20(t *testing.T) {
 }
 
 func TestNoRows(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1275,7 +1350,7 @@ func TestColumnsNoRows(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/28
 func TestIssue28(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1304,7 +1379,7 @@ func TestIssue28(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/30
 func TestColumnTypes(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1374,7 +1449,7 @@ Col 3: DatabaseTypeName "DATE", DecimalSize 0 0 false, Length 922337203685477580
 
 // https://gitlab.com/cznic/sqlite/-/issues/32
 func TestColumnTypesNoRows(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1802,7 +1877,7 @@ func TestIssue51(t *testing.T) {
 		t.Skip("skipping test in short mode")
 	}
 
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1941,7 +2016,7 @@ const charset = "abcdefghijklmnopqrstuvwxyz" +
 
 // https://gitlab.com/cznic/sqlite/-/issues/53
 func TestIssue53(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1998,7 +2073,7 @@ CREATE TABLE IF NOT EXISTS loginst (
 
 // https://gitlab.com/cznic/sqlite/-/issues/37
 func TestPersistPragma(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2099,7 +2174,7 @@ func checkPragmas(db *sql.DB, pragmas []pragmaCfg) error {
 }
 
 func TestInMemory(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2153,13 +2228,13 @@ func testInMemory(db *sql.DB) error {
 		return err
 	}
 
-	files, err := ioutil.ReadDir("./")
+	dirEntries, err := os.ReadDir("./")
 	if err != nil {
 		return err
 	}
 
-	for _, file := range files {
-		if strings.Contains(file.Name(), "memory") {
+	for _, dirEntry := range dirEntries {
+		if strings.Contains(dirEntry.Name(), "memory") {
 			return fmt.Errorf("file was created for in memory database")
 		}
 	}
@@ -2224,7 +2299,7 @@ func TestIssue70(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/66
 func TestIssue66(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2288,7 +2363,7 @@ func TestIssue66(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/65
 func TestIssue65(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2304,7 +2379,12 @@ func TestIssue65(t *testing.T) {
 
 	testIssue65(t, db, true)
 
-	if db, err = sql.Open("sqlite", filepath.Join(tempDir, "testissue65b.sqlite")+"?_pragma=busy_timeout%3d10000"); err != nil {
+	// go1.20rc1, linux/ppc64le VM
+	// 10000 FAIL
+	// 20000 PASS, FAIL
+	// 40000 FAIL
+	// 80000 PASS, PASS
+	if db, err = sql.Open("sqlite", filepath.Join(tempDir, "testissue65b.sqlite")+"?_pragma=busy_timeout%3d80000"); err != nil {
 		t.Fatalf("Failed to open database: %v", err)
 	}
 
@@ -2468,7 +2548,7 @@ func TestConstraintUniqueError(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/92
 func TestBeginMode(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2534,7 +2614,7 @@ func TestBeginMode(t *testing.T) {
 
 // https://gitlab.com/cznic/sqlite/-/issues/94
 func TestCancelRace(t *testing.T) {
-	tempDir, err := ioutil.TempDir("", "")
+	tempDir, err := os.MkdirTemp("", "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2613,4 +2693,511 @@ func TestCancelRace(t *testing.T) {
 			}
 		})
 	}
+}
+
+//go:embed embed.db
+var fs embed.FS
+
+//go:embed embed2.db
+var fs2 embed.FS
+
+func TestVFS(t *testing.T) {
+	fn, f, err := vfs.New(fs)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
+
+	f2n, f2, err := vfs.New(fs2)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() {
+		if err := f2.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
+
+	db, err := sql.Open("sqlite", "file:embed.db?vfs="+fn)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer db.Close()
+
+	db2, err := sql.Open("sqlite", "file:embed2.db?vfs="+f2n)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer db2.Close()
+
+	rows, err := db.Query("select * from t order by i;")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var a []int
+	for rows.Next() {
+		var i, j, k int
+		if err := rows.Scan(&i, &j, &k); err != nil {
+			t.Fatal(err)
+		}
+
+		a = append(a, i, j, k)
+	}
+	if err := rows.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log(a)
+	if g, e := fmt.Sprint(a), "[1 2 3 40 50 60]"; g != e {
+		t.Fatalf("got %q, expected %q", g, e)
+	}
+
+	if rows, err = db2.Query("select * from u order by s;"); err != nil {
+		t.Fatal(err)
+	}
+
+	var b []string
+	for rows.Next() {
+		var x, y string
+		if err := rows.Scan(&x, &y); err != nil {
+			t.Fatal(err)
+		}
+
+		b = append(b, x, y)
+	}
+	if err := rows.Err(); err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log(b)
+	if g, e := fmt.Sprint(b), "[123 xyz abc def]"; g != e {
+		t.Fatalf("got %q, expected %q", g, e)
+	}
+}
+
+// y = 2^n, except for n < 0 y = 0.
+func exp(n int) int {
+	if n < 0 {
+		return 0
+	}
+
+	return 1 << n
+}
+
+func BenchmarkConcurrent(b *testing.B) {
+	benchmarkConcurrent(b, "sqlite", []string{"sql", "drv"})
+}
+
+func benchmarkConcurrent(b *testing.B, drv string, modes []string) {
+	for _, mode := range modes {
+		for _, measurement := range []string{"reads", "writes"} {
+			for _, writers := range []int{0, 1, 10, 100, 100} {
+				for _, readers := range []int{0, 1, 10, 100, 100} {
+					if measurement == "reads" && readers == 0 || measurement == "writes" && writers == 0 {
+						continue
+					}
+
+					tag := fmt.Sprintf("%s %s readers %d writers %d %s", mode, measurement, readers, writers, drv)
+					b.Run(tag, func(b *testing.B) { c := &concurrentBenchmark{}; c.run(b, readers, writers, drv, measurement, mode) })
+				}
+			}
+		}
+	}
+}
+
+// The code for concurrentBenchmark is derived from/heavily inspired by
+// original code available at
+//
+//	https://github.com/kalafut/go-sqlite-bench
+//
+// # MIT License
+//
+// # Copyright (c) 2022 Jim Kalafut
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+type concurrentBenchmark struct {
+	b     *testing.B
+	drv   string
+	fn    string
+	start chan struct{}
+	stop  chan struct{}
+	wg    sync.WaitGroup
+
+	reads   int32
+	records int32
+	writes  int32
+}
+
+func (c *concurrentBenchmark) run(b *testing.B, readers, writers int, drv, measurement, mode string) {
+	c.b = b
+	c.drv = drv
+	b.ReportAllocs()
+	dir := b.TempDir()
+	fn := filepath.Join(dir, "test.db")
+	sqlite3.MutexCounters.Disable()
+	sqlite3.MutexEnterCallers.Disable()
+	c.makeDB(fn)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		c.start = make(chan struct{})
+		c.stop = make(chan struct{})
+		sqlite3.MutexCounters.Disable()
+		sqlite3.MutexEnterCallers.Disable()
+		c.makeReaders(readers, mode)
+		c.makeWriters(writers, mode)
+		sqlite3.MutexCounters.Clear()
+		sqlite3.MutexCounters.Enable()
+		sqlite3.MutexEnterCallers.Clear()
+		//sqlite3.MutexEnterCallers.Enable()
+		time.AfterFunc(time.Second, func() { close(c.stop) })
+		b.StartTimer()
+		close(c.start)
+		c.wg.Wait()
+	}
+	switch measurement {
+	case "reads":
+		b.ReportMetric(float64(c.reads), "reads/s")
+	case "writes":
+		b.ReportMetric(float64(c.writes), "writes/s")
+	}
+	// b.Log(sqlite3.MutexCounters)
+	// b.Log(sqlite3.MutexEnterCallers)
+}
+
+func (c *concurrentBenchmark) randString(n int) string {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = byte(65 + rand.Intn(26))
+	}
+	return string(b)
+}
+
+func (c *concurrentBenchmark) mustExecSQL(db *sql.DB, sql string) {
+	var err error
+	for i := 0; i < 100; i++ {
+		if _, err = db.Exec(sql); err != nil {
+			if c.retry(err) {
+				continue
+			}
+
+			c.b.Fatalf("%s: %v", sql, err)
+		}
+
+		return
+	}
+	c.b.Fatalf("%s: %v", sql, err)
+}
+
+func (c *concurrentBenchmark) mustExecDrv(db driver.Conn, sql string) {
+	var err error
+	for i := 0; i < 100; i++ {
+		if _, err = db.(driver.Execer).Exec(sql, nil); err != nil {
+			if c.retry(err) {
+				continue
+			}
+
+			c.b.Fatalf("%s: %v", sql, err)
+		}
+
+		return
+	}
+	c.b.Fatalf("%s: %v", sql, err)
+}
+
+func (c *concurrentBenchmark) makeDB(fn string) {
+	const quota = 1e6
+	c.fn = fn
+	db := c.makeSQLConn()
+
+	defer db.Close()
+
+	c.mustExecSQL(db, "CREATE TABLE foo (id INTEGER NOT NULL PRIMARY KEY, name TEXT)")
+	tx, err := db.Begin()
+	if err != nil {
+		c.b.Fatal(err)
+	}
+
+	stmt, err := tx.Prepare("INSERT INTO FOO(name) VALUES($1)")
+	if err != nil {
+		c.b.Fatal(err)
+	}
+
+	for i := int32(0); i < quota; i++ {
+		if _, err = stmt.Exec(c.randString(30)); err != nil {
+			c.b.Fatal(err)
+		}
+	}
+
+	if err := tx.Commit(); err != nil {
+		c.b.Fatal(err)
+	}
+
+	c.records = quota
+
+	// Warm the cache.
+	rows, err := db.Query("SELECT * FROM foo")
+	if err != nil {
+		c.b.Fatal(err)
+	}
+
+	for rows.Next() {
+		var id int
+		var name string
+		err = rows.Scan(&id, &name)
+		if err != nil {
+			c.b.Fatal(err)
+		}
+	}
+}
+
+func (c *concurrentBenchmark) makeSQLConn() *sql.DB {
+	db, err := sql.Open(c.drv, c.fn)
+	if err != nil {
+		c.b.Fatal(err)
+	}
+
+	db.SetMaxOpenConns(0)
+	c.mustExecSQL(db, "PRAGMA busy_timeout=10000")
+	c.mustExecSQL(db, "PRAGMA synchronous=NORMAL")
+	c.mustExecSQL(db, "PRAGMA journal_mode=WAL")
+	return db
+}
+
+func (c *concurrentBenchmark) makeDrvConn() driver.Conn {
+	db, err := sql.Open(c.drv, c.fn)
+	if err != nil {
+		c.b.Fatal(err)
+	}
+
+	drv := db.Driver()
+	if err := db.Close(); err != nil {
+		c.b.Fatal(err)
+	}
+
+	conn, err := drv.Open(c.fn)
+	if err != nil {
+		c.b.Fatal(err)
+	}
+
+	c.mustExecDrv(conn, "PRAGMA busy_timeout=10000")
+	c.mustExecDrv(conn, "PRAGMA synchronous=NORMAL")
+	c.mustExecDrv(conn, "PRAGMA journal_mode=WAL")
+	return conn
+}
+
+func (c *concurrentBenchmark) retry(err error) bool {
+	s := strings.ToLower(err.Error())
+	return strings.Contains(s, "lock") || strings.Contains(s, "busy")
+}
+
+func (c *concurrentBenchmark) makeReaders(n int, mode string) {
+	var wait sync.WaitGroup
+	wait.Add(n)
+	c.wg.Add(n)
+	for i := 0; i < n; i++ {
+		switch mode {
+		case "sql":
+			go func() {
+				db := c.makeSQLConn()
+
+				defer func() {
+					db.Close()
+					c.wg.Done()
+				}()
+
+				wait.Done()
+				<-c.start
+
+				for i := 1; ; i++ {
+					select {
+					case <-c.stop:
+						return
+					default:
+					}
+
+					recs := atomic.LoadInt32(&c.records)
+					id := recs * int32(i) % recs
+					rows, err := db.Query("SELECT * FROM foo WHERE id=$1", id)
+					if err != nil {
+						if c.retry(err) {
+							continue
+						}
+
+						c.b.Fatal(err)
+					}
+
+					for rows.Next() {
+						var id int
+						var name string
+						err = rows.Scan(&id, &name)
+						if err != nil {
+							c.b.Fatal(err)
+						}
+					}
+					if err := rows.Close(); err != nil {
+						c.b.Fatal(err)
+					}
+
+					atomic.AddInt32(&c.reads, 1)
+				}
+
+			}()
+		case "drv":
+			go func() {
+				conn := c.makeDrvConn()
+
+				defer func() {
+					conn.Close()
+					c.wg.Done()
+				}()
+
+				q := conn.(driver.Queryer)
+				wait.Done()
+				<-c.start
+
+				for i := 1; ; i++ {
+					select {
+					case <-c.stop:
+						return
+					default:
+					}
+
+					recs := atomic.LoadInt32(&c.records)
+					id := recs * int32(i) % recs
+					rows, err := q.Query("SELECT * FROM foo WHERE id=$1", []driver.Value{int64(id)})
+					if err != nil {
+						if c.retry(err) {
+							continue
+						}
+
+						c.b.Fatal(err)
+					}
+
+					var dest [2]driver.Value
+					for {
+						if err := rows.Next(dest[:]); err != nil {
+							if err != io.EOF {
+								c.b.Fatal(err)
+							}
+							break
+						}
+					}
+
+					if err := rows.Close(); err != nil {
+						c.b.Fatal(err)
+					}
+
+					atomic.AddInt32(&c.reads, 1)
+				}
+
+			}()
+		default:
+			panic(todo(""))
+		}
+	}
+	wait.Wait()
+}
+
+func (c *concurrentBenchmark) makeWriters(n int, mode string) {
+	var wait sync.WaitGroup
+	wait.Add(n)
+	c.wg.Add(n)
+	for i := 0; i < n; i++ {
+		switch mode {
+		case "sql":
+			go func() {
+				db := c.makeSQLConn()
+
+				defer func() {
+					db.Close()
+					c.wg.Done()
+				}()
+
+				wait.Done()
+				<-c.start
+
+				for {
+					select {
+					case <-c.stop:
+						return
+					default:
+					}
+
+					if _, err := db.Exec("INSERT INTO FOO(name) VALUES($1)", c.randString(30)); err != nil {
+						if c.retry(err) {
+							continue
+						}
+
+						c.b.Fatal(err)
+					}
+
+					atomic.AddInt32(&c.records, 1)
+					atomic.AddInt32(&c.writes, 1)
+				}
+
+			}()
+		case "drv":
+			go func() {
+				conn := c.makeDrvConn()
+
+				defer func() {
+					conn.Close()
+					c.wg.Done()
+				}()
+
+				e := conn.(driver.Execer)
+				wait.Done()
+				<-c.start
+
+				for {
+					select {
+					case <-c.stop:
+						return
+					default:
+					}
+
+					if _, err := e.Exec("INSERT INTO FOO(name) VALUES($1)", []driver.Value{c.randString(30)}); err != nil {
+						if c.retry(err) {
+							continue
+						}
+
+						c.b.Fatal(err)
+					}
+
+					atomic.AddInt32(&c.records, 1)
+					atomic.AddInt32(&c.writes, 1)
+				}
+
+			}()
+		default:
+			panic(todo(""))
+		}
+	}
+	wait.Wait()
 }

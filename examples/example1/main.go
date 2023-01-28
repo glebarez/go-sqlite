@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -18,7 +17,7 @@ func main() {
 }
 
 func main1() error {
-	dir, err := ioutil.TempDir("", "test-")
+	dir, err := os.MkdirTemp("", "test-")
 	if err != nil {
 		return err
 	}

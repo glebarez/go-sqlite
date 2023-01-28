@@ -188,7 +188,7 @@ func pronounceNum(n uint32) string {
 			num  uint32
 			name string
 		}{
-			{num: 1000000000, name: `billion`},
+			{num: 1000000000, name: `1e9`},
 			{num: 1000000, name: `million`},
 			{num: 1000, name: `thousand`},
 			{num: 100, name: `hundred`},
