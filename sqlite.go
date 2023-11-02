@@ -456,12 +456,19 @@ func (r *rows) ColumnTypeScanType(index int) reflect.Type {
 	}
 }
 
+type unionStmt interface {
+	driver.Stmt
+	driver.StmtExecContext
+	driver.StmtQueryContext
+}
+
 type stmt struct {
+	ctx  context.Context
 	c    *conn
 	psql uintptr
 }
 
-func newStmt(c *conn, sql string) (*stmt, error) {
+func newStmt(ctx context.Context, c *conn, sql string) (*stmt, error) {
 	p, err := libc.CString(sql)
 	if err != nil {
 		return nil, err
@@ -500,8 +507,10 @@ func toNamedValues(vals []driver.Value) (r []driver.NamedValue) {
 func (s *stmt) exec(ctx context.Context, args []driver.NamedValue) (r driver.Result, err error) {
 	var pstmt uintptr
 	var done int32
-	if ctx != nil && ctx.Done() != nil {
-		defer interruptOnDone(ctx, s.c, &done)()
+
+	execCtx := mergeContexts(s.ctx, ctx)
+	if execCtx != nil {
+		defer interruptOnDone(execCtx, s.c, &done)()
 	}
 
 	for psql := s.psql; *(*byte)(unsafe.Pointer(psql)) != 0 && atomic.LoadInt32(&done) == 0; {
@@ -586,8 +595,9 @@ func (s *stmt) query(ctx context.Context, args []driver.NamedValue) (r driver.Ro
 	var done int32    // done indicator (atomic usage)
 
 	// context honoring
-	if ctx != nil && ctx.Done() != nil {
-		defer interruptOnDone(ctx, s.c, &done)()
+	execCtx := mergeContexts(s.ctx, ctx)
+	if execCtx != nil {
+		defer interruptOnDone(execCtx, s.c, &done)()
 	}
 
 	// generally, query may contain multiple SQL statements
@@ -695,7 +705,7 @@ type tx struct {
 	c *conn
 }
 
-func newTx(c *conn, opts driver.TxOptions) (*tx, error) {
+func newTx(ctx context.Context, c *conn, opts driver.TxOptions) (*tx, error) {
 	r := &tx{c: c}
 
 	sql := "begin"
@@ -703,7 +713,7 @@ func newTx(c *conn, opts driver.TxOptions) (*tx, error) {
 		sql = "begin " + c.beginMode
 	}
 
-	if err := r.exec(context.Background(), sql); err != nil {
+	if err := r.exec(ctx, sql); err != nil {
 		return nil, err
 	}
 
@@ -1391,7 +1401,7 @@ func (c *conn) Begin() (driver.Tx, error) {
 }
 
 func (c *conn) begin(ctx context.Context, opts driver.TxOptions) (t driver.Tx, err error) {
-	return newTx(c, opts)
+	return newTx(ctx, c, opts)
 }
 
 // Close invalidates and potentially stops any current prepared statements and
@@ -1487,9 +1497,8 @@ func (c *conn) Prepare(query string) (driver.Stmt, error) {
 	return c.prepare(context.Background(), query)
 }
 
-func (c *conn) prepare(ctx context.Context, query string) (s driver.Stmt, err error) {
-	//TODO use ctx
-	return newStmt(c, query)
+func (c *conn) prepare(ctx context.Context, query string) (s unionStmt, err error) {
+	return newStmt(ctx, c, query)
 }
 
 // Queryer is an optional interface that may be implemented by a Conn.
@@ -1740,4 +1749,30 @@ func registerScalarFunction(
 	d.udfs[zFuncName] = udf
 
 	return nil
+}
+
+func mergeContexts(ctx1, ctx2 context.Context) context.Context {
+	if ctx1 == nil {
+		if ctx2 == nil {
+			return nil
+		} else {
+			return ctx2
+		}
+	}
+
+	if ctx2 == nil {
+		return ctx1
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	func() {
+		select {
+		case <-ctx1.Done():
+			cancel()
+		case <-ctx2.Done():
+			cancel()
+		}
+	}()
+
+	return ctx
 }
