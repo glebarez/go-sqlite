@@ -1061,6 +1061,15 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 		allocs = nil
 	}()
 
+	ordinalIndex := make(map[int]driver.NamedValue, len(args))
+	namedIndex := make(map[string]driver.NamedValue, len(args))
+	for _, v := range args {
+		ordinalIndex[v.Ordinal] = v
+		if v.Name != "" {
+			namedIndex[v.Name] = v
+		}
+	}
+
 	for i := 1; i <= n; i++ {
 		name, err := c.bindParameterName(pstmt, i)
 		if err != nil {
@@ -1069,41 +1078,34 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 
 		var found bool
 		var v driver.NamedValue
-		for _, v = range args {
-			if name != "" {
-				// For ?NNN and $NNN params, match if NNN == v.Ordinal.
-				//
-				// Supporting this for $NNN is a special case that makes eg
-				// `select $1, $2, $3 ...` work without needing to use
-				// sql.Named.
-				if (name[0] == '?' || name[0] == '$') && name[1:] == strconv.Itoa(v.Ordinal) {
-					found = true
-					break
-				}
 
-				// sqlite supports '$', '@' and ':' prefixes for string
-				// identifiers and '?' for numeric, so we cannot
-				// combine different prefixes with the same name
-				// because `database/sql` requires variable names
-				// to start with a letter
-				if name[1:] == v.Name[:] {
-					found = true
-					break
-				}
-			} else {
-				if v.Ordinal == i {
-					found = true
-					break
+		if name == "" {
+			v, found = ordinalIndex[i]
+			if !found {
+				return allocs, fmt.Errorf("missing argument with index %d", i)
+			}
+		} else {
+			// For ?NNN and $NNN params, match if NNN == v.Ordinal.
+			//
+			// Supporting this for $NNN is a special case that makes eg
+			// `select $1, $2, $3 ...` work without needing to use
+			// sql.Named.
+			if name[0] == '?' || name[0] == '$' && len(name) > 1 {
+				ordinal, err := strconv.ParseInt(name[1:], 10, 32)
+				if err == nil {
+					v, found = ordinalIndex[int(ordinal)]
+					if !found {
+						return allocs, fmt.Errorf("missing named numeric argument %q", name[1:])
+					}
 				}
 			}
-		}
 
-		if !found {
-			if name != "" {
-				return allocs, fmt.Errorf("missing named argument %q", name[1:])
+			if !found {
+				v, found = namedIndex[name[1:]]
+				if !found {
+					return allocs, fmt.Errorf("missing named argument %q", name)
+				}
 			}
-
-			return allocs, fmt.Errorf("missing argument with index %d", i)
 		}
 
 		var p uintptr
