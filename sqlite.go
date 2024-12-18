@@ -1061,13 +1061,36 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 		allocs = nil
 	}()
 
-	ordinalIndex := make(map[int]driver.NamedValue, len(args))
-	namedIndex := make(map[string]driver.NamedValue, len(args))
-	for _, v := range args {
-		ordinalIndex[v.Ordinal] = v
-		if v.Name != "" {
-			namedIndex[v.Name] = v
+	var ordinalIndex map[int]int
+	byOrdinal := func(n int) (driver.NamedValue, bool) {
+		if ordinalIndex == nil {
+			ordinalIndex = make(map[int]int, len(args))
+			for i, v := range args {
+				ordinalIndex[v.Ordinal] = i
+			}
 		}
+		i, ok := ordinalIndex[n]
+		if !ok {
+			return driver.NamedValue{}, false
+		}
+		return args[i], true
+	}
+
+	var namedIndex map[string]int
+	byName := func(name string) (driver.NamedValue, bool) {
+		if namedIndex == nil {
+			namedIndex = make(map[string]int, len(args))
+			for i, v := range args {
+				if v.Name != "" {
+					namedIndex[v.Name] = i
+				}
+			}
+		}
+		i, ok := namedIndex[name]
+		if !ok {
+			return driver.NamedValue{}, false
+		}
+		return args[i], true
 	}
 
 	for i := 1; i <= n; i++ {
@@ -1080,7 +1103,7 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 		var v driver.NamedValue
 
 		if name == "" {
-			v, found = ordinalIndex[i]
+			v, found = byOrdinal(i)
 			if !found {
 				return allocs, fmt.Errorf("missing argument with index %d", i)
 			}
@@ -1093,7 +1116,7 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 			if name[0] == '?' || name[0] == '$' && len(name) > 1 {
 				ordinal, err := strconv.ParseInt(name[1:], 10, 32)
 				if err == nil {
-					v, found = ordinalIndex[int(ordinal)]
+					v, found = byOrdinal(int(ordinal))
 					if !found {
 						return allocs, fmt.Errorf("missing named numeric argument %q", name[1:])
 					}
@@ -1101,7 +1124,7 @@ func (c *conn) bind(pstmt uintptr, n int, args []driver.NamedValue) (allocs []ui
 			}
 
 			if !found {
-				v, found = namedIndex[name[1:]]
+				v, found = byName(name[1:])
 				if !found {
 					return allocs, fmt.Errorf("missing named argument %q", name)
 				}
