@@ -2859,21 +2859,14 @@ func (c *concurrentBenchmark) run(b *testing.B, readers, writers int, drv, measu
 	b.ReportAllocs()
 	dir := b.TempDir()
 	fn := filepath.Join(dir, "test.db")
-	sqlite3.MutexCounters.Disable()
-	sqlite3.MutexEnterCallers.Disable()
 	c.makeDB(fn)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
 		c.start = make(chan struct{})
 		c.stop = make(chan struct{})
-		sqlite3.MutexCounters.Disable()
-		sqlite3.MutexEnterCallers.Disable()
 		c.makeReaders(readers, mode)
 		c.makeWriters(writers, mode)
-		sqlite3.MutexCounters.Clear()
-		sqlite3.MutexCounters.Enable()
-		sqlite3.MutexEnterCallers.Clear()
 		//sqlite3.MutexEnterCallers.Enable()
 		time.AfterFunc(time.Second, func() { close(c.stop) })
 		b.StartTimer()
@@ -2886,8 +2879,6 @@ func (c *concurrentBenchmark) run(b *testing.B, readers, writers int, drv, measu
 	case "writes":
 		b.ReportMetric(float64(c.writes), "writes/s")
 	}
-	// b.Log(sqlite3.MutexCounters)
-	// b.Log(sqlite3.MutexEnterCallers)
 }
 
 func (c *concurrentBenchmark) randString(n int) string {
