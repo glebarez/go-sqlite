@@ -752,6 +752,9 @@ func interruptOnDone(
 		var d int32
 		done = &d
 	}
+	// donemu prevents a TOCTOU logical race between checking the done flag and
+	// calling interrupt in the select statement below.
+	var donemu sync.Mutex
 
 	donech := make(chan struct{})
 
@@ -761,9 +764,11 @@ func interruptOnDone(
 			// don't call interrupt if we were already done: it indicates that this
 			// call to exec is no longer running and we would be interrupting
 			// nothing, or even possibly an unrelated later call to exec.
-			if atomic.AddInt32(done, 1) == 1 {
+			donemu.Lock()
+			if atomic.CompareAndSwapInt32(done, 0, 1) {
 				c.interrupt(c.db)
 			}
+			donemu.Unlock()
 		case <-donech:
 		}
 	}()
@@ -772,7 +777,9 @@ func interruptOnDone(
 	return func() {
 		// set the done flag so that a context cancellation right after the caller
 		// returns doesn't trigger a call to interrupt for some other statement.
-		atomic.AddInt32(done, 1)
+		donemu.Lock()
+		atomic.StoreInt32(done, 1)
+		donemu.Unlock()
 		close(donech)
 	}
 }
